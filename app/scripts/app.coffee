@@ -8,8 +8,7 @@
  #
  # Main module of the application.
 ###
-angular
-  .module('swarmApp', [
+angular.module('swarmApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -25,6 +24,9 @@ angular
       .when '/about',
         templateUrl: 'views/about.html'
         controller: 'AboutCtrl'
+      .when '/debug',
+        templateUrl: 'views/debug.html'
+        controller: 'DebugCtrl'
       .otherwise
         redirectTo: '/'
 
