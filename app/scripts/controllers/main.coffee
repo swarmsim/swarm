@@ -13,3 +13,8 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, session) ->
   $scope.click =
     food: ->
       $scope.session.food += 1
+    drone: ->
+      cost = 10
+      if $scope.session.food >= cost
+        $scope.session.food -= cost
+        $scope.session.drone += 1

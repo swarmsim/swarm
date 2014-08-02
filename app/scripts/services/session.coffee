@@ -20,6 +20,7 @@ angular.module('swarmApp').factory 'session', -> new class Session
   reset: ->
     @id = 0 # TODO: multiple characters
     @food = 0
+    @drone = 0
 
   _replacer: (key, val) ->
     return val

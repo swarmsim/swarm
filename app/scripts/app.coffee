@@ -27,6 +27,9 @@ angular.module('swarmApp', [
       .when '/debug',
         templateUrl: 'views/debug.html'
         controller: 'DebugCtrl'
+      .when '/demo',
+        templateUrl: 'views/demo.html'
+        controller: 'DemoCtrl'
       .otherwise
         redirectTo: '/'
 
