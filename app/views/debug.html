@@ -4,7 +4,9 @@
   <button ng-click="session.save()">Save</button>
 </div>
 
-<div>
-  <h4>session</h4>
-  <code>{{session}}</code>
-</div>
+<ul>
+  <li ng-repeat="dump in dumps">
+    <h4>{{dump.title}}</h4>
+    <code>{{dump.data}}</code>
+  </li>
+</ul>
