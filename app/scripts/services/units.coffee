@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Unit', -> class Unit
+angular.module('swarmApp').factory 'Unit', (dt) -> class Unit
   constructor: (data) ->
     _.extend this, data
 
@@ -37,7 +37,7 @@ angular.module('swarmApp').factory 'Unit', -> class Unit
 
   tick: (session) ->
     for name, prod of @totalProduction session
-      session.units[name] += prod
+      session.units[name] += prod * dt
 
 ###*
  # @ngdoc service

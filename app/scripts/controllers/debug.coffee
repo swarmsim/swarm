@@ -7,7 +7,7 @@
  # # DebugCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, spreadsheet, units) ->
+angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, schedule, spreadsheet, units) ->
   promise =
     spreadsheet: {}
     units: {}
@@ -21,3 +21,10 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, spreadsheet
     {title:'units', data:promise.units}
     {title:'spreadsheet', data:promise.spreadsheet}
     ]
+  $scope.session = session
+  $scope.schedule = schedule
+  $scope.confirmReset = ->
+    if confirm 'You will lose everything and restart the game. You sure?'
+      schedule.pause()
+      session.reset()
+      schedule.unpause()

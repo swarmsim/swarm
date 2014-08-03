@@ -1,12 +1,12 @@
 <ul>
   <li ng-repeat="unit in units.list">
-    <b>{{unit.label}}</b>: {{session.units[unit.name] | number:0}}
+    <b>{{unit.label}}</b>: {{session.units[unit.name] | bignum}}
     <button ng-click="click(unit.name)" ng-disabled="!unit.isCostMet(session)">
       <span ng-if="!unit.cost.length">Gather</span>
       <span ng-if="unit.cost.length">
         <span style="{{unit.isCostMet(session) ? '' : 'color:grey'}}">Buy:</span>
         <span ng-repeat="(name, cost) in unit.totalCost(session)">
-          <span style="{{cost > session.units[name] ? 'color:grey' : ''}}">{{cost|number:0}} {{units.byName[name].label}}</span><span ng-if="!$last">, </span>
+          <span style="{{cost > session.units[name] ? 'color:grey' : ''}}">{{cost|bignum}} {{units.byName[name].label}}</span><span ng-if="!$last">, </span>
         </span>
       </span>
     </button>

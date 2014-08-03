@@ -7,18 +7,20 @@
  # # schedule
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, _units_) -> new class Schedule
+angular.module('swarmApp').value 'dt', 1/10
+
+angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, _units_, dt) -> new class Schedule
   constructor: ->
     _units_.then (@units) =>
-      console.log 'starting ticks', @units
-      for unit in @units.list
-        session.units[unit.name] ?= 0
-      console.log 'session', session
       @unpause()
   unpause: ->
-    @ticker = $interval (=>@tick()), 1000
+    for unit in @units.list
+      session.units[unit.name] ?= 0
+    @ticker = $interval (=>@tick()), 1000 * dt
+    @autosave = $interval (=>session.save()), 16666
   pause: ->
     $interval.cancel @ticker
+    $interval.cancel @autosave
   tick: ->
     console.log 'tick'
     for unit in @units.list
