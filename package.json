@@ -30,7 +30,7 @@
     "jshint-stylish": "^0.2.0",
     "karma": "^0.12.19",
     "karma-coffee-preprocessor": "^0.2.1",
-    "karma-jasmine": "^0.1.5",
+    "karma-jasmine": "^0.2.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^0.4.0",
     "time-grunt": "^0.3.1"
