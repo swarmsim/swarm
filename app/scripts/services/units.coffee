@@ -53,8 +53,10 @@ angular.module('swarmApp').factory 'Units', (spreadsheetUtil, Unit) -> class Uni
   @parseSpreadsheet: (data) ->
     rows = spreadsheetUtil.parseRows {name:['cost','prod']}, data.data.units.elements
     ret = new Units (new Unit(row) for row in rows)
-    # replace names with refs
     for unit in ret.list
+      #unit.tick = if unit.tick then moment.duration unit.tick else null
+      #unit.cooldown = if unit.cooldown then moment.duration unit.cooldown else null
+      # replace names with refs
       for cost in unit.cost
         cost.unit = ret.byName[cost.unit]
         console.assert cost.unit, "invalid cost unit ref: #{unit.name}", unit
