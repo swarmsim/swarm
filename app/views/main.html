@@ -1,14 +1,19 @@
 <ul>
   <li ng-repeat="unit in units.list">
-    <b>{{unit.label}}</b>: {{session.units[unit.name] | bignum}}
-    <button ng-click="click(unit.name)" ng-disabled="!unit.isCostMet(session)">
-      <span ng-if="!unit.cost.length">Gather</span>
-      <span ng-if="unit.cost.length">
-        <span style="{{unit.isCostMet(session) ? '' : 'color:grey'}}">Buy:</span>
+    <button style="border-radius:5px;" ng-click="click(unit.name)" ng-disabled="!unit.isCostMet(session)">
+      <b>{{unit.label}}</b>: {{session.units[unit.name] | bignum}}
+      <div ng-if="!unit.cost.length">Gather</div>
+      <div ng-if="unit.prod.length">
+        Produces <span ng-repeat="prod in unit.prod">
+          {{prod.val|bignum}} {{prod.unit.label}}<span ng-if="!$last">, </span>
+        </span> per second
+      </div>
+      <div ng-if="unit.cost.length">
+        <span style="{{unit.isCostMet(session) ? '' : 'color:grey'}}">Buy for</span>
         <span ng-repeat="(name, cost) in unit.totalCost(session)">
           <span style="{{cost > session.units[name] ? 'color:grey' : ''}}">{{cost|bignum}} {{units.byName[name].label}}</span><span ng-if="!$last">, </span>
         </span>
-      </span>
+      </div>
     </button>
   </li>
 </ul>

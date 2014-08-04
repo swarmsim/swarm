@@ -39,6 +39,31 @@ angular.module('swarmApp').factory 'Unit', (dt) -> class Unit
     for name, prod of @totalProduction session
       session.units[name] += prod * dt
 
+angular.module('swarmApp').factory 'Units', (spreadsheetUtil, Unit) -> class Units
+  constructor: (units=[]) ->
+    @list = []
+    @byName = {}
+    for unit in units
+      @register unit
+
+  register: (unit) ->
+    @list.push unit
+    @byName[unit.name] = unit
+
+  @parseSpreadsheet: (data) ->
+    rows = spreadsheetUtil.parseRows {name:['cost','prod']}, data.data.units.elements
+    ret = new Units (new Unit(row) for row in rows)
+    # replace names with refs
+    for unit in ret.list
+      for cost in unit.cost
+        cost.unit = ret.byName[cost.unit]
+        console.assert cost.unit, "invalid cost unit ref: #{unit.name}", unit
+      for prod in unit.prod
+        prod.unit = ret.byName[prod.unit]
+        console.assert prod.unit, "invalid prod unit ref: #{unit.name}", unit
+    #console.log 'built units', ret
+    return ret
+
 ###*
  # @ngdoc service
  # @name swarmApp.units
@@ -47,44 +72,5 @@ angular.module('swarmApp').factory 'Unit', (dt) -> class Unit
  # Service in the swarmApp.
 ###
 
-angular.module('swarmApp').factory 'units', (Unit, spreadsheet) ->
-  class Units
-    constructor: ->
-      @list = []
-      @byName = {}
-    register: (unit) ->
-      @list.push unit
-      @byName[unit.name] = unit
-
-  return spreadsheet.then (data, tabletop) ->
-    ret = new Units()
-    rows = data.data.units.elements
-    groups = _.groupBy rows, 'name'
-    names = _.uniq _.map rows, 'name'
-    console.log 'building units', data, names, groups
-    # iterate names intead of groups to preserve order
-    for name in names
-      group = groups[name]
-      mainrow = _.omit group[0], 'cost', 'costunit', 'costfactor', 'prod', 'produnit'
-      mainrow.cost = []
-      mainrow.prod = []
-      for row in group
-        console.log 'rowin', row
-        if row.cost
-          mainrow.cost.push
-            val: row.cost
-            unit: row.costunit
-            factor: row.costfactor
-        if row.prod
-          mainrow.prod.push
-            val: row.prod
-            unit: row.produnit
-      ret.register new Unit mainrow
-    # replace names with refs
-    for unit in ret.list
-      for cost in unit.cost
-        cost.unit = ret.byName[cost.unit]
-      for prod in unit.prod
-        prod.unit = ret.byName[prod.unit]
-    console.log 'built units', ret
-    return ret
+angular.module('swarmApp').factory 'units', (Units, spreadsheet) ->
+  return spreadsheet.then Units.parseSpreadsheet
