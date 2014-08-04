@@ -28,6 +28,3 @@ angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, _u
     #console.log 'tick'
     for unit in @units.list
       unit.tick session
-
-angular.module('swarmApp').run (schedule) ->
-  # runs on page load, start ticking
