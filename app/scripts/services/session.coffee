@@ -38,6 +38,7 @@ angular.module('swarmApp').factory 'session', -> new class Session
     JSON.parse encoded, @_reviver
   
   save: ->
+    console.log 'session.save'
     localStorage.setItem this.id, @_saves()
 
   load: (id=0) ->

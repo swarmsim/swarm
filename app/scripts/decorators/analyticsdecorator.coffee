@@ -8,7 +8,8 @@
  # Decorator of the swarmApp
 ###
 angular.module("swarmApp").config ($provide) ->
-  $provide.decorator "$exceptionHandler", ($delegate, $analytics, session) ->
+  #$provide.decorator "$exceptionHandler", ($delegate, $analytics, session) ->
+  $provide.decorator "$exceptionHandler", ($delegate, $analytics) ->
     simpleEvent = (exception, cause) ->
       action = 'unhandled-exception'
       label = "#{exception}"
@@ -38,7 +39,27 @@ angular.module("swarmApp").config ($provide) ->
 
     return (exception, cause) ->
       $delegate exception, cause
-      #simpleEvent exception, cause
-      detailedEvent exception, cause
+      simpleEvent exception, cause
+      #detailedEvent exception, cause
       ga 'send', 'exception',
         exDescription: "#{exception}"
+
+  # TODO move
+  $provide.decorator 'session', ($delegate, $rootScope) ->
+    $delegate.save = _.wrap $delegate.save, (fn, args...) ->
+      console.log 'session.emit save delegate', this, $delegate
+      fn.call $delegate, args...
+      $rootScope.$emit 'save', $delegate
+    $delegate.load = _.wrap $delegate.load, (fn, args...) ->
+      console.log 'session.emit load delegate', this, $delegate
+      fn.call $delegate, args...
+      $rootScope.$emit 'load', $delegate
+    return $delegate
+
+angular.module("swarmApp").run ($rootScope, session) ->
+  $rootScope.$on 'load', (event, savestate) ->
+    console.log 'game loaded', savestate
+  $rootScope.$on 'save', (event, savestate) ->
+    console.log 'game saved', savestate
+  # TODO analytics service; updatemetrics. lots of this file reeally belong in a service, but I'm tired
+    ga 'set', 'metric1', session?.units?.food
