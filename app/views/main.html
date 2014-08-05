@@ -1,6 +1,7 @@
 <ul>
   <li ng-repeat="unit in units.list">
-    <button style="border-radius:5px;" ng-click="click(unit.name)" ng-disabled="!unit.isCostMet(session)">
+    <button style="border-radius:5px;" ng-click="click(unit.name)" ng-disabled="!unit.isCostMet(session)"
+        analytics-on analytics-category="units" analytics-event="click-buy" analytics-label="{{unit.name}}" analytics-value="{{session.units[unit.name]}}">
       <b>{{unit.label}}</b>: {{session.units[unit.name] | bignum}}
       <div ng-if="!unit.cost.length">Gather</div>
       <div ng-if="unit.prod.length">

@@ -7,7 +7,7 @@
  # # MainCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'MainCtrl', ($scope, session, schedule, _units_) ->
+angular.module('swarmApp').controller 'MainCtrl', ($scope, session, _units_) ->
   $scope.session = session
   _units_.then (units) =>
     $scope.units = units

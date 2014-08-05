@@ -21,6 +21,8 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, schedule, s
     {title:'units', data:promise.units}
     {title:'spreadsheet', data:promise.spreadsheet}
     ]
+  $scope.throwUp = ->
+    throw new Error "throwing up (test exception)"
   $scope.session = session
   $scope.schedule = schedule
   $scope.confirmReset = ->

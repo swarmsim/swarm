@@ -8,15 +8,17 @@
  #
  # Main module of the application.
 ###
-angular.module('swarmApp', [
+angular.module 'swarmApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
-  ])
-  .config ($routeProvider) ->
+    # http://luisfarzati.github.io/angulartics/
+    'angulartics', 'angulartics.google.analytics'
+  ]
+angular.module('swarmApp').config ($routeProvider) ->
     $routeProvider
       .when '/',
         templateUrl: 'views/main.html'
@@ -33,3 +35,5 @@ angular.module('swarmApp', [
       .otherwise
         redirectTo: '/'
 
+# start ticking on load. loading schedule begins ticks.
+angular.module('swarmApp').run (schedule) ->

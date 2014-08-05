@@ -26,15 +26,19 @@ angular.module('swarmApp').factory 'session', -> new class Session
   _reviver: (key, val) ->
     return val
 
-  _saves: (data) ->
-    #btoa JSON.stringify this
+  # non-encoded json session-state data. Intended for error logging.
+  jsonSaves: (data=this) ->
     JSON.stringify data, @_replacer
+
+  _saves: (data=this) ->
+    #btoa JSON.stringify this
+    @jsonSaves data
   _loads: (encoded) ->
     #atob JSON.parse encoded, @_reviver
     JSON.parse encoded, @_reviver
   
   save: ->
-    localStorage.setItem this.id, @_saves this
+    localStorage.setItem this.id, @_saves()
 
   load: (id=0) ->
     _.extend this, @_loads localStorage.getItem id
