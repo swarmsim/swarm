@@ -62,4 +62,4 @@ angular.module("swarmApp").run ($rootScope, session) ->
   $rootScope.$on 'save', (event, savestate) ->
     console.log 'game saved', savestate
   # TODO analytics service; updatemetrics. lots of this file reeally belong in a service, but I'm tired
-    ga 'set', 'metric1', session?.units?.food
+    ga 'set', 'metric1', session?.unittypes?.food

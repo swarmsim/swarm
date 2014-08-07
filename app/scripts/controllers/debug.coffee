@@ -7,18 +7,18 @@
  # # DebugCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, schedule, spreadsheet, units) ->
+angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, schedule, spreadsheet, unittypes) ->
   promise =
     spreadsheet: {}
-    units: {}
+    unittypes: {}
   spreadsheet.then (result) ->
     _.extend promise.spreadsheet, result
-  console.log units
-  units.then (result) ->
-    promise.units.units = result
+  console.log unittypes
+  unittypes.then (result) ->
+    promise.unittypes.unittypes = result
   $scope.dumps = [
     {title:'session', data:session}
-    {title:'units', data:promise.units}
+    {title:'unittypes', data:promise.unittypes}
     {title:'spreadsheet', data:promise.spreadsheet}
     ]
   $scope.throwUp = ->

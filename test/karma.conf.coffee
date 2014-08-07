@@ -24,6 +24,7 @@ module.exports = (config) ->
       'bower_components/lodash/dist/lodash.compat.js'
       'bower_components/moment/moment.js'
       'bower_components/tabletop/src/tabletop.js'
+      'bower_components/angulartics/src/angulartics-ga.js'
       'app/scripts/**/*.coffee'
       'test/mock/**/*.coffee'
       'test/spec/**/*.coffee'

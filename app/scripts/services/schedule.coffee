@@ -9,14 +9,15 @@
 ###
 angular.module('swarmApp').value 'dt', 1/10
 
-angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, _units_, dt) -> new class Schedule
+angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, _unittypes_, dt) -> new class Schedule
   constructor: ->
     @isPaused = true
-    _units_.then (@units) =>
+    _unittypes_.then (@unittypes) =>
+      console.log 'loaded units', @unittypes
       @unpause()
   unpause: ->
-    for unit in @units.list
-      session.units[unit.name] ?= 0
+    for unittype in @unittypes.list
+      session.unittypes[unittype.name] ?= 0
     @ticker = $interval (=>@tick()), 1000 * dt
     @autosave = $interval (=>session.save()), 16666
     @isPaused = false
@@ -26,5 +27,5 @@ angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, _u
     @isPaused = true
   tick: ->
     #console.log 'tick'
-    for unit in @units.list
-      unit.tick session
+    for unittype in @unittypes.list
+      unittype.tick session

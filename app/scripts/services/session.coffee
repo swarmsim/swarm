@@ -19,7 +19,7 @@ angular.module('swarmApp').factory 'session', -> new class Session
 
   reset: ->
     @id = 0 # TODO: multiple characters
-    @units = {}
+    @unittypes = {}
 
   _replacer: (key, val) ->
     return val
