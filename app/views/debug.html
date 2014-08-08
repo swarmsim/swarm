@@ -6,6 +6,11 @@
   <button ng-click="throwUp()" title="Test exception handler">Throw up</button>
 </div>
 
+<div>
+  alter last tick: <input type="datetime-local" ng-model="session.date.lastTicked">
+  alter last tick: <input type="text" ng-model="session.date.lastTicked">
+</div>
+
 <ul>
   <li ng-repeat="dump in dumps">
     <h4>{{dump.title}}</h4>

@@ -26,6 +26,7 @@ angular.module('swarmApp').factory 'session', -> new class Session
       restarted: now
       saved: now
       loaded: now
+      lastTicked: now
 
   _replacer: (key, val) ->
     #if _.isDate val
