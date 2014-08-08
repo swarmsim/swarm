@@ -1,20 +1,27 @@
-<ul>
-  <li ng-repeat="unittype in unittypes.list">
-    <button style="border-radius:5px;" ng-click="click(unittype.name)" ng-disabled="!unittype.isCostMet(session)"
-        analytics-on analytics-category="unittypes" analytics-event="click-buy" analytics-label="{{unittype.name}}" analytics-value="{{session.unittypes[unittype.name]}}">
-      <b>{{unittype.label}}</b>: {{session.unittypes[unittype.name] | bignum}}
-      <div ng-if="!unittype.cost.length">Gather</div>
-      <div ng-if="unittype.prod.length">
-        Produces <span ng-repeat="prod in unittype.prod">
-          {{prod.val|bignum}} {{prod.unittype.label}}<span ng-if="!$last">, </span>
-        </span> per second
+<div class="row">
+  <div class="col-md-3" ng-repeat="group in [0,1,2,3]">
+    <div>
+      <div ng-repeat="unittype in unittypes.list" ng-if="unittype.column == group && !unittype.disabled">
+        <button class="unit-buy" ng-click="click(unittype.name)" ng-disabled="!unittype.isCostMet(session) || unittype.unbuyable"
+            analytics-on analytics-category="unittypes" analytics-event="click-buy" analytics-label="{{unittype.name}}" analytics-value="{{session.unittypes[unittype.name]}}"
+            title="{{unittype.description}}">
+          <b>{{unittype.label}}</b>: {{session.unittypes[unittype.name] | bignum}}
+          <div ng-if="unittype.prod.length">
+            Produces <span ng-repeat="prod in unittype.prod">
+              {{prod.val|bignum}} {{prod.unittype.label}}<span ng-if="!$last">, </span>
+            </span> per second
+          </div>
+          <div ng-if="!unittype.unbuyable">
+            <div ng-if="!unittype.cost.length">Gather</div>
+            <div ng-if="unittype.cost.length">
+              <span style="{{unittype.isCostMet(session) ? '' : 'color:grey'}}">Buy for</span>
+              <span ng-repeat="(name, cost) in unittype.totalCost(session)">
+                <span style="{{cost > session.unittypes[name] ? 'color:grey' : ''}}">{{cost|bignum}} {{unittypes.byName[name].label}}</span><span ng-if="!$last">, </span>
+              </span>
+            </div>
+          </div>
+        </button>
       </div>
-      <div ng-if="unittype.cost.length">
-        <span style="{{unittype.isCostMet(session) ? '' : 'color:grey'}}">Buy for</span>
-        <span ng-repeat="(name, cost) in unittype.totalCost(session)">
-          <span style="{{cost > session.unittypes[name] ? 'color:grey' : ''}}">{{cost|bignum}} {{unittypes.byName[name].label}}</span><span ng-if="!$last">, </span>
-        </span>
-      </div>
-    </button>
-  </li>
-</ul>
+    </div>
+  </div>
+</div>

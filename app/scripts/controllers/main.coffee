@@ -15,7 +15,5 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, session, _unittypes_)
       unittype = unittypes.byName[name]
       console.log 'clicked', name, unittype
       console.assert unittype
-      try
-        unittype.buy session
-      catch e
-        console.error e
+      unittype.buy session
+      session.save()

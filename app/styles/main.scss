@@ -3,6 +3,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+button.unit-buy {
+  width:100%;
+  border-radius:0.5em;
+}
+
+// builtins
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
