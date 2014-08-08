@@ -7,7 +7,9 @@
  # # session
  # Factory in the swarmApp.
 ###
+console.log 'sessionfile'
 angular.module('swarmApp').factory 'session', -> new class Session
+  console.log 'sessionload'
   constructor: ->
     @reset() # TODO remove me
     try
