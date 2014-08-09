@@ -32,6 +32,12 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/demo',
         templateUrl: 'views/demo.html'
         controller: 'DemoCtrl'
+      .when '/unitlist',
+        templateUrl: 'views/unitlist.html'
+        controller: 'UnitlistCtrl'
+      .when '/unitlist/:unit',
+        templateUrl: 'views/unitlist.html'
+        controller: 'UnitlistCtrl'
       .otherwise
         redirectTo: '/'
 

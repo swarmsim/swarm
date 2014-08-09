@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-4">
+    <div>
+      Action:
+      <div>
+        <label><input type="radio" ng-model="action" value="select">Select</label>
+        <label><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
+        <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
+      </div>
+    </div>
+    <!-- TODO collapse in mobile with navbar. http://www.jonathanbriehl.com/2014/01/17/vertical-menu-for-bootstrap-3/ -->
+    <ul ng-repeat="group in [0,1,2,3]" class="nav nav-pills nav-stacked" style="border:1px solid black;border-radius:0.5em;">
+      <li ng-class="{active:selected===unittype}" ng-repeat="unittype in unittypes.list" ng-if="unittype.column == group && !unittype.disabled">
+        <a ng-click="click(unittype)" data-toggle="dropdown" title="{{costtext(unittype)}}">
+          {{unittype.label}}
+          <div style="float:right" class="badge">{{session.unittypes[unittype.name] | bignum}}</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <div ng-if="selected">
+      <b>{{selected.label}}</b>: {{session.unittypes[selected.name] | bignum}}
+      <div ng-if="selected.prod.length">
+        Produces <span ng-repeat="prod in selected.prod">
+          {{prod.val|bignum}} {{prod.unittype.label}}<span ng-if="!$last">, </span>
+        </span> per second
+      </div>
+      <p>{{selected.description}}</p>
+      <div ng-if="!selected.unbuyable">
+        <button ng-click="buy(selected)" class="unit-buy" ng-if="!selected.cost.length">Gather</button>
+        <div ng-if="selected.cost.length">
+          <div>
+            Buy one for
+            <button ng-click="buy(selected, 1)" class="unit-buy" ng-disabled="!selected.isCostMet(session)">
+              <span ng-repeat="(name, cost) in selected.totalCost(session)">
+                <span style="{{cost > session.unittypes[name] ? 'color:grey' : ''}}">{{cost|bignum}} {{unittypes.byName[name].label}}</span><span ng-if="!$last">, </span>
+              </span>
+            </button>
+          </div>
+          <div>
+            Buy <input type="number" ng-model="mainBuynum" min="1"> for 
+            <button ng-click="buy(selected, mainBuynum)" class="unit-buy" ng-disabled="!selected.isCostMet(session)">
+              <span ng-repeat="(name, cost) in selected.totalCost(session)">
+                <span style="{{cost*buynum > session.unittypes[name] ? 'color:grey' : ''}}">{{cost*buynum|bignum}} {{unittypes.byName[name].label}}</span><span ng-if="!$last">, </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

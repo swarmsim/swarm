@@ -35,9 +35,14 @@ angular.module('swarmApp').factory 'UnitType', (dt) -> class Unit
         return false
     return true
 
+  isBuyable: (session) ->
+    return @isCostMet(session) and not @unbuyable and not @disabled
+
   buy: (session) ->
     if not @isCostMet session
       throw new Error "We require more resources"
+    if not @isBuyable session
+      throw new Error "Cannot buy that unit"
     for name, cost of @totalCost session
       session.unittypes[name] -= cost
     session.unittypes[@name] += 1
