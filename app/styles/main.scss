@@ -3,14 +3,31 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
  
+h1, h2, h3, h4, h5, h6, .titlecase {
+  text-transform: capitalize;
+}
 input[type="number"] {
   width:4em;
 }
 button.unit-buy {
   border-radius:0.5em;
 }
+.costNotMet, li.costNotMet a {
+  color:grey;
+}
+li.costNotMet {
+  background:#ddd;
+  border-radius:0.5em;
+}
+.unitgroup {
+  border:1px solid black;
+  border-radius:0.5em;
+}
 
+
+////////////////////////////
 // builtins
+////////////////////////////
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;

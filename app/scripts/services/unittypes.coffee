@@ -70,11 +70,13 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
       #unittype.cooldown = if unittype.cooldown then moment.duration unittype.cooldown else null
       # replace names with refs
       for cost in unittype.cost
-        cost.unittype = ret.byName[cost.unittype]
-        console.assert cost.unittype, "invalid cost unittype ref: #{unittype.name}", unittype
+        name = cost.unittype
+        cost.unittype = ret.byName[name]
+        console.assert cost.unittype, "invalid cost unittype ref: #{unittype.name} #{name}", name, cost, unittype
       for prod in unittype.prod
-        prod.unittype = ret.byName[prod.unittype]
-        console.assert prod.unittype, "invalid prod unittype ref: #{unittype.name}", unittype
+        name = prod.unittype
+        prod.unittype = ret.byName[name]
+        console.assert prod.unittype, "invalid prod unittype ref: #{unittype.name} #{name}", name, cost, unittype
     #console.log 'built unittypes', ret
     return ret
 
