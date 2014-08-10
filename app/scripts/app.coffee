@@ -20,18 +20,21 @@ angular.module 'swarmApp', [
   ]
 angular.module('swarmApp').config ($routeProvider) ->
     $routeProvider
-      .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
-      .when '/about',
-        templateUrl: 'views/about.html'
-        controller: 'AboutCtrl'
+      #.when '/main',
+      #  templateUrl: 'views/main.html'
+      #  controller: 'MainCtrl'
+      #.when '/about',
+      #  templateUrl: 'views/about.html'
+      #  controller: 'AboutCtrl'
       .when '/debug',
         templateUrl: 'views/debug.html'
         controller: 'DebugCtrl'
-      .when '/demo',
-        templateUrl: 'views/demo.html'
-        controller: 'DemoCtrl'
+      #.when '/demo',
+      #  templateUrl: 'views/demo.html'
+      #  controller: 'DemoCtrl'
+      .when '/',
+        templateUrl: 'views/unitlist.html'
+        controller: 'UnitlistCtrl'
       .when '/unitlist',
         templateUrl: 'views/unitlist.html'
         controller: 'UnitlistCtrl'
