@@ -16,4 +16,4 @@ describe 'Controller: HeaderCtrl', ->
     }
 
   it 'should attach env to the scope', ->
-    expect(scope.env).toEqual 'test'
+    expect(!!scope.env).toBe true
