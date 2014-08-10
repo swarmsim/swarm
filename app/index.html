@@ -21,7 +21,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
+      <div class="header" ng-controller="HeaderCtrl">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a accesskey="h" ng-href="#"><u>H</u>ome</a></li>
           <li><a accesskey="u" ng-href="#/unitlist"><u>U</u>nitlist</a></li>
@@ -29,7 +29,7 @@
           <li><a ng-href="#">Contact</a></li>
           <li><a accesskey="g" ng-href="#/debug">Debu<u>g</u></a></li>
         </ul>
-        <h3 class="text-muted">Swarm Simulator</h3>
+        <h3 class="text-muted">Swarm Simulator <span ng-cloak ng-if="env && env!='prod'" class="envalert">({{env}})</span></h3>
       </div>
 
       <div ng-view=""></div>
@@ -101,6 +101,8 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/env.js"></script>
+        <script src="scripts/spreadsheetpreload.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/session.js"></script>
@@ -112,6 +114,7 @@
         <script src="scripts/decorators/analyticsdecorator.js"></script>
         <script src="scripts/services/unittypes.js"></script>
         <script src="scripts/controllers/unitlist.js"></script>
+        <script src="scripts/controllers/header.js"></script>
         <!-- endbuild -->
 </body>
 </html>

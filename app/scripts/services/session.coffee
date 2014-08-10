@@ -7,14 +7,15 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', -> new class Session
+angular.module('swarmApp').factory 'session', (env) -> new class Session
   constructor: ->
     @reset() # TODO remove me
     try
       @load()
       console.log 'Game data loaded successfully.', this
     catch
-      console.warn 'Failed to load saved data! Resetting.'
+      if env != 'test' # too noisy in test
+        console.warn 'Failed to load saved data! Resetting.'
       @reset()
 
   reset: ->

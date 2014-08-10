@@ -9,12 +9,14 @@ angular.module('swarmApp').value 'spreadsheetUrl', 'https://docs.google.com/spre
  # # spreadsheet
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'spreadsheet', ($q, spreadsheetUrl) ->
+angular.module('swarmApp').factory 'spreadsheet', ($q, spreadsheetUrl, spreadsheetPreload) ->
   promise = $q.defer()
-  Tabletop.init
-    key: spreadsheetUrl
-    parseNumbers: true
-    debug: true
-    callback: (data, tabletop) ->
-      promise.resolve data:data, tabletop:tabletop
+  #console.log 'spreadsheetPreload', spreadsheetPreload
+  promise.resolve data:spreadsheetPreload
+  #Tabletop.init
+  #  key: spreadsheetUrl
+  #  parseNumbers: true
+  #  debug: true
+  #  callback: (data, tabletop) ->
+  #    promise.resolve data:data, tabletop:tabletop
   return promise.promise

@@ -27,6 +27,8 @@ module.exports = (config) ->
       'bower_components/angulartics/src/angulartics.js'
       'bower_components/angulartics/src/angulartics-ga.js'
       'app/scripts/**/*.coffee'
+      '.tmp/scripts/env.js'
+      '.tmp/scripts/spreadsheetpreload.js'
       'test/mock/**/*.coffee'
       'test/spec/**/*.coffee'
     ],

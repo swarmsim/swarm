@@ -24,6 +24,31 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    // http://hounddog.github.io/blog/using-environment-configuration-with-grunt/
+    ngconstant: {
+      options: {
+        dest: '.tmp/scripts/env.js',
+        wrap: '"use strict";\n\n{%= __ngModule %}',
+        name: 'swarmEnv',
+        space: '  '
+      },
+      test: {
+        constants: {
+          env: 'test',
+        }
+      },
+      dev: {
+        constants: {
+          env: 'dev',
+        }
+      },
+      prod: {
+        constants: {
+          env: 'prod',
+        }
+      },
+    },
+
     // Project settings
     yeoman: appConfig,
 
@@ -411,6 +436,26 @@ module.exports = function (grunt) {
     }
   });
 
+  // One of few swarmapp-specific tasks
+  grunt.registerTask('preloadSpreadsheet', 'Preload spreadsheet data and save to .tmp', function (target) {
+    var filename = '.tmp/scripts/spreadsheetpreload.js';
+    var spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml';
+    var Tabletop = require('tabletop');
+    
+    var done = this.async();
+    Tabletop.init({
+      key: spreadsheetUrl,
+      parseNumbers: true,
+      debug: true,
+      callback: function (data, tabletop) {
+        var text = JSON.stringify(data);
+        text = "// This is an automatically generated file! See fetchspreadsheet.js\n'use strict';\n\nangular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', "+text+");"; 
+        grunt.file.write(filename, text);
+        console.log("Wrote "+filename);
+        done();
+      }
+    });
+  });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -419,6 +464,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'preloadSpreadsheet',
+      'ngconstant:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -434,6 +481,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'preloadSpreadsheet',
+    'ngconstant:test',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
@@ -442,6 +491,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'preloadSpreadsheet',
+    'ngconstant:prod',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
