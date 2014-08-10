@@ -437,7 +437,7 @@ module.exports = function (grunt) {
   });
 
   // One of few swarmapp-specific tasks
-  grunt.registerTask('preloadSpreadsheet', 'Preload spreadsheet data and save to .tmp', function (target) {
+  grunt.registerTask('preloadSpreadsheet', 'Preload spreadsheet data and save to .tmp', function () {
     var filename = '.tmp/scripts/spreadsheetpreload.js';
     var spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml';
     var Tabletop = require('tabletop');
@@ -447,11 +447,11 @@ module.exports = function (grunt) {
       key: spreadsheetUrl,
       parseNumbers: true,
       debug: true,
-      callback: function (data, tabletop) {
+      callback: function (data) {
         var text = JSON.stringify(data);
-        text = "// This is an automatically generated file! See fetchspreadsheet.js\n'use strict';\n\nangular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', "+text+");"; 
+        text = '// This is an automatically generated file! See fetchspreadsheet.js\n\'use strict\';\n\nangular.module(\'swarmSpreadsheetPreload\', []).value(\'spreadsheetPreload\', '+text+');'; 
         grunt.file.write(filename, text);
-        console.log("Wrote "+filename);
+        console.log('Wrote '+filename);
         done();
       }
     });
