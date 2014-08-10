@@ -7,7 +7,7 @@
  # # UnitlistCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, session, $filter, _unittypes_) ->
+angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, session, $filter, unittypes) ->
   $scope.session = session
   $scope.selected = null
 
@@ -64,6 +64,6 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     $scope[$scope.action](unittype)
 
   # TODO make select use routing
-  _unittypes_.then (unittypes) =>
-    $scope.selected = unittypes.byName[$routeParams.unit]
-    $scope.unittypes = unittypes
+  unittypes.then (unittypes_) =>
+    $scope.selected = unittypes_.byName[$routeParams.unit]
+    $scope.unittypes = unittypes_
