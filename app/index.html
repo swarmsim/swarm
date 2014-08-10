@@ -22,14 +22,15 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header" ng-controller="HeaderCtrl">
-        <!--ul class="nav nav-pills pull-right">
-          <li class="active"><a accesskey="h" ng-href="#"><u>H</u>ome</a></li>
+        <ul class="nav nav-pills pull-right">
+          <!--li class="active"><a accesskey="h" ng-href="#"><u>H</u>ome</a></li>
           <li><a accesskey="u" ng-href="#/unitlist"><u>U</u>nitlist</a></li>
           <li><a ng-href="#/about">About</a></li>
           <li><a ng-href="#">Contact</a></li>
-          <li><a accesskey="g" ng-href="#/debug">Debu<u>g</u></a></li>
-        </ul-->
-        <h3 class="text-muted">Swarm Simulator <span ng-cloak ng-if="env && env!='prod'" class="envalert">({{env}})</span></h3>
+          <li><a accesskey="g" ng-href="#/debug">Debu<u>g</u></a></li-->
+          <li><a target="_blank" href="https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?usp=send_form">Feedback</a></li>
+        </ul>
+        <h3 class="text-muted">Swarm Simulator <span ng-cloak ng-if="!!env && env!='prod'" class="envalert">({{env}})</span></h3>
       </div>
 
       <div ng-view=""><img src="images/ajax-loader.gif"></div>
