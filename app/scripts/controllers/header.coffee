@@ -9,3 +9,6 @@
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, env) ->
   $scope.env = env
+  
+  $scope.isNonprod = ->
+    $scope.env and $scope.env != 'prod'
