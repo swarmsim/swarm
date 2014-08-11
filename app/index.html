@@ -21,16 +21,33 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header" ng-controller="HeaderCtrl">
-        <ul class="nav nav-pills pull-right">
-          <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/">Main</a></li>
-          <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/debug">Debug</a></li>
-          <li><a target="_blank" href="https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?usp=send_form">Feedback</a></li>
-        </ul>
-        <h3 class="text-muted">Swarm Simulator <span ng-cloak ng-if="isNonprod()" class="envalert">({{env}})</span></h3>
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Swarm Simulator<span ng-cloak ng-if="isNonprod()" class="envalert"> ({{env}})</span></a>
+          </div>
+      
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/">Main</a></li>
+              <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/debug">Debug</a></li>
+              <li><a target="_blank" href="https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?usp=send_form">Feedback</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div ng-view=""><img src="images/ajax-loader.gif"></div>
+      <div class="header">
+      </div>
+
+      <div ng-view=""><center><img src="images/ajax-loader.gif"></center></div>
 
       <div class="footer">
       </div>

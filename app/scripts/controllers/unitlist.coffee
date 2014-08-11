@@ -45,10 +45,16 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
   $scope.buynum = 1
   $scope.mainBuynum = 1
 
+  $scope.welcomeBackText = ->
+    return '' #TODO offline play
+    awayMillis = session?.date?.loaded?.getTime?() - session?.date?.saved?.getTime?()
+    if (not _.isNaN awayMillis) and awayMillis > 5 * 60 * 1000
+      return "Welcome back. Your swarm continued to work hard while you were away."
+
   $scope.emptyText = ->
-    if (session.unittypes.swarmer + session.unittypes.devourer > 0)
+    if (session.unittypes.swarmer + session.unittypes.devourer) > 0
       return "Your swarm's military and territory both expand rapidly."
-    if (session.unittypes.swarmer + session.unittypes.devourer > 0)
+    if (session.unittypes.swarmer + session.unittypes.devourer) > 0
       return "Your nest gives you more food and workers than your swarm has ever known. Swarmers and Locusts will further expand your military, and your territory."
     if (session.unittypes.nest > 0)
       return "Your nest gives you more food and workers than your swarm has ever known. Build an army with Swarmers or Locusts and expand your territory further."

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-sm-4">
     <div>
       Action:
       <label><input type="radio" ng-model="action" value="select">Select</label>
@@ -16,8 +16,11 @@
       </li>
     </ul>
   </div>
-  <div class="col-md-8">
-    <div ng-if="!selected"><p>{{emptyText()}}</p></div>
+  <div class="col-sm-8">
+    <div ng-if="!selected">
+      <p if="welcomeBackText()">{{welcomeBackText()}}</p>
+      <p>{{emptyText()}}</p>
+    </div>
     <div ng-if="selected">
       <h2>{{selected.label}}</h2>
       <p title="{{selected.lol}}">{{selected.description}}</p>

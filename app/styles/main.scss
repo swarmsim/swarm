@@ -2,8 +2,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // bower:scss
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
+
+// http://getbootstrap.com/components/#navbar-fixed-top : "body padding required"
+body { padding-top: 70px; }
  
-.envalert {
+.envalert,
+// override stupid navbar color
+.navbar-default .navbar-nav > li > a.envalert {
   text-transform: uppercase;
   color: red;
   font-weight: bold;
@@ -42,7 +47,7 @@ li.costNotMet {
 
 /* Space out content a bit */
 body {
-  padding-top: 20px;
+  /*padding-top: 20px;*/
   padding-bottom: 20px;
 }
 
@@ -119,4 +124,9 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+/* https://docs.angularjs.org/api/ng/directive/ngCloak */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
