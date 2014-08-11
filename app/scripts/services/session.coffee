@@ -9,7 +9,7 @@
 ###
 angular.module('swarmApp').factory 'session', (env) -> new class Session
   constructor: ->
-    @reset() # TODO remove me
+    @reset()
     try
       @load()
       console.log 'Game data loaded successfully.', this

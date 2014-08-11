@@ -17,7 +17,7 @@ angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, un
       @unpause()
   unpause: ->
     for unittype in @unittypes.list
-      session.unittypes[unittype.name] ?= 0
+      session.unittypes[unittype.name] ?= unittype.init or 0
     @ticker = $interval (=>@safeTickAll()), 1000 * dt
     @autosave = $interval (=>session.save()), 16666
     @isPaused = false
