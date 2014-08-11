@@ -6,7 +6,6 @@
       <label><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
       <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
     </div>
-    <!-- TODO collapse in mobile with navbar. http://www.jonathanbriehl.com/2014/01/17/vertical-menu-for-bootstrap-3/ -->
     <ul ng-repeat="group in [0,1,2,3]" class="nav nav-pills nav-stacked unitgroup">
       <li ng-class="{active:selected===unittype,costNotMet:!unittype.isCostMet(session)}" ng-repeat="unittype in unittypes.list" ng-if="unittype.column == group && !unittype.disabled">
         <a ng-click="click(unittype)" data-toggle="dropdown" title="{{costtext(unittype)}}">

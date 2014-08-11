@@ -44,10 +44,11 @@ angular.module('swarmApp').factory 'session', (env) -> new class Session
   jsonSaves: (data=this) ->
     JSON.stringify data, @_replacer
 
-  _saves: (data=this) ->
+  _saves: (data=this, setdates=true) ->
     #btoa JSON.stringify this
-    data.date.saved = new Date()
-    delete data.date.loaded
+    if setdates
+      data.date.saved = new Date()
+      delete data.date.loaded
     @jsonSaves data
   _loads: (encoded) ->
     #atob JSON.parse encoded, @_reviver
@@ -57,6 +58,9 @@ angular.module('swarmApp').factory 'session', (env) -> new class Session
       ret.date[key] = new Date val
     ret.date.loaded = new Date()
     return ret
+
+  exportSave: ->
+    return btoa @_saves this, false
   
   save: ->
     console.log 'session.save'

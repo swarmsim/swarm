@@ -38,7 +38,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/">Main</a></li>
               <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/debug">Debug</a></li>
-              <li><a target="_blank" href="https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?usp=send_form">Feedback</a></li>
+              <li><a target="_blank" ng-href="{{feedbackUrl()}}">Feedback</a></li>
             </ul>
           </div>
         </div>
