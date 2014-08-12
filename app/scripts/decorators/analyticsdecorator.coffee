@@ -9,7 +9,7 @@
 ###
 angular.module("swarmApp").config ($provide) ->
   #$provide.decorator "$exceptionHandler", ($delegate, $analytics, session) ->
-  $provide.decorator "$exceptionHandler", ($delegate, $analytics) ->
+  #$provide.decorator "$exceptionHandler", ($delegate, $analytics) ->
     # TODO any reference to $analytics breaks the prod build. Minification woes.
     #console.log 'howdy from decorator', $analytics
     #simpleEvent = (exception, cause) ->
