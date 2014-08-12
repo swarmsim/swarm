@@ -9,7 +9,8 @@
 ###
 angular.module('swarmApp').factory 'session', (env) ->
   # TODO separate file, outside of source control?
-  # client-side encryption is inherently insecure anyway, probably not worth it.
+  # Client-side encryption is inherently insecure anyway, probably not worth it.
+  # All we can do is prevent the most casual of savestate hacking.
   KEY = "jSmP4RnN994f58yR3UZRKhmK"
   PREFIX = "Cheater :(\n\n"
 
