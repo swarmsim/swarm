@@ -12,9 +12,9 @@ angular.module('swarmApp').value 'dt', 1/10
 angular.module('swarmApp').service 'schedule', ($timeout, $interval, session, unittypes, dt) -> new class Schedule
   constructor: ->
     @isPaused = true
-    unittypes.then (@unittypes) =>
-      console.log 'loaded units', @unittypes
-      @unpause()
+    @unittypes = unittypes
+    #console.log 'loaded units', @unittypes
+    @unpause()
   unpause: ->
     for unittype in @unittypes.list
       session.unittypes[unittype.name] ?= unittype.init or 0

@@ -69,7 +69,5 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
   $scope.click = (unittype) ->
     $scope[$scope.action](unittype)
 
-  # TODO make select use routing
-  unittypes.then (unittypes_) =>
-    $scope.selected = unittypes_.byName[$routeParams.unit]
-    $scope.unittypes = unittypes_
+  $scope.selected = unittypes.byName[$routeParams.unit]
+  $scope.unittypes = unittypes

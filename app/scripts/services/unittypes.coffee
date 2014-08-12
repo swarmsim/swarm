@@ -87,6 +87,5 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
  # # units
  # Service in the swarmApp.
 ###
-
 angular.module('swarmApp').factory 'unittypes', (UnitTypes, spreadsheet) ->
-  return spreadsheet.then UnitTypes.parseSpreadsheet
+  return UnitTypes.parseSpreadsheet spreadsheet

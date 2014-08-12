@@ -8,18 +8,11 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, schedule, spreadsheet, env, unittypes) ->
-  promise =
-    spreadsheet: {}
-    unittypes: {}
-  spreadsheet.then (result) ->
-    _.extend promise.spreadsheet, result
-  unittypes.then (result) ->
-    promise.unittypes.unittypes = result
   $scope.dumps = [
     {title:'env', data:env}
     {title:'session', data:session}
-    {title:'unittypes', data:promise.unittypes}
-    {title:'spreadsheet', data:promise.spreadsheet}
+    {title:'unittypes', data:unittypes}
+    {title:'spreadsheet', data:spreadsheet}
     ]
   $scope.throwUp = ->
     throw new Error "throwing up (test exception)"
