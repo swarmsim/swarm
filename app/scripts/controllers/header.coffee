@@ -14,7 +14,8 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, env, session) ->
     session.exportSave()
 
   $scope.feedbackUrl = ->
-    "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent $scope.saveState()}"
+    #"https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent $scope.saveState()}"
+    "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform"
   
   $scope.isNonprod = ->
     $scope.env and $scope.env != 'prod'
