@@ -26,6 +26,7 @@ module.exports = (config) ->
       'bower_components/tabletop/src/tabletop.js'
       'bower_components/angulartics/src/angulartics.js'
       'bower_components/angulartics/src/angulartics-ga.js'
+      'bower_components/sjcl/sjcl.js'
       'app/scripts/**/*.coffee'
       '.tmp/scripts/env.js'
       '.tmp/scripts/spreadsheetpreload.js'

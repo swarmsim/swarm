@@ -14,7 +14,8 @@ describe 'Service: session', ->
     expect(!!session).toBe true
 
   it 'saves/loads', ->
-    origsaved = session.date.saved
+    # tests are too quick, and I don't wanna bother with DI'ing date right now
+    origsaved = session.date.saved = new Date session.date.saved.getTime() - 1
     state = session._saves()
     expect(origsaved).not.toEqual session.date.saved
 
@@ -24,4 +25,4 @@ describe 'Service: session', ->
     expect(orig.date.loaded).not.toEqual loaded.date.loaded
     delete orig.date.loaded
     delete loaded.date.loaded
-    expect(loaded).toEqual orig
+    expect(orig).toEqual loaded

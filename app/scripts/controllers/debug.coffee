@@ -13,7 +13,6 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, schedule, s
     unittypes: {}
   spreadsheet.then (result) ->
     _.extend promise.spreadsheet, result
-  console.log unittypes
   unittypes.then (result) ->
     promise.unittypes.unittypes = result
   $scope.dumps = [
