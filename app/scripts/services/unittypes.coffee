@@ -28,6 +28,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
 
   @_buildProducerPath = (unittype, producer, path) ->
     path = [producer].concat path
+    console.assert (not unittype.producerPath[producer.name]), 'one producer, two paths', producer
     unittype.producerPath[producer.name] = path
     for nextgen in producer.producedBy
       @_buildProducerPath unittype, nextgen, path
