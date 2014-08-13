@@ -45,6 +45,3 @@ angular.module('swarmApp').config ($routeProvider) ->
         controller: 'UnitlistCtrl'
       .otherwise
         redirectTo: '/'
-
-# start ticking on load. loading schedule begins ticks.
-angular.module('swarmApp').run (schedule) ->

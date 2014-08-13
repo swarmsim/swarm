@@ -7,13 +7,11 @@
  # # MainCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'MainCtrl', ($scope, session, unittypes) ->
-  $scope.session = session
-  $scope.unittypes = unittypes
+angular.module('swarmApp').controller 'MainCtrl', ($scope, game) ->
+  $scope.game = game
 
   $scope.click = (name) ->
-    unittype = $scope.unittypes.byName[name]
-    console.log 'clicked', name, unittype
-    console.assert unittype
-    unittype.buy session
-    session.save()
+    unit = $scope.game.unit name
+    console.log 'clicked', name, unit
+    console.assert unit
+    unit.buy()

@@ -7,10 +7,10 @@
       <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
     </div>
     <ul ng-repeat="group in [0,1,2,3]" class="nav nav-pills nav-stacked unitgroup">
-      <li ng-class="{active:selected===unittype,costNotMet:!unittype.isCostMet(session)}" ng-repeat="unittype in unittypes.list" ng-if="unittype.column == group && !unittype.disabled">
-        <a ng-click="click(unittype)" data-toggle="dropdown" title="{{costtext(unittype)}}">
-          <span class="titlecase">{{unittype.label}}</span>
-          <div style="float:right" class="badge">{{session.unittypes[unittype.name] | bignum}}</div>
+      <li ng-repeat="unit in game.unitlist()" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}" ng-if="unit.unittype.column == group && !unit.unittype.disabled">
+        <a ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
+          <span class="titlecase">{{unit.unittype.label}}</span>
+          <div style="float:right" class="badge">{{unit.count() | bignum}}</div>
         </a>
       </li>
     </ul>
@@ -21,48 +21,48 @@
       <p>{{emptyText()}}</p>
     </div>
     <div ng-if="selected">
-      <h2>{{selected.label}}</h2>
-      <p title="{{selected.lol}}">{{selected.description}}</p>
+      <h2>{{selected.unittype.label}}</h2>
+      <p title="{{selected.unittype.lol}}">{{selected.unittype.description}}</p>
       <hr>
-      <p><ng-pluralize count="unitCount(selected.name)"
-        when="{'0':'You own no {{selected.plural}}.',
-               'one':'You own 1 {{selected.label}}.',
-               'other':'You own {{unitCount(selected.name)|number:0}} {{selected.plural}}.'}"></ng-pluralize>
+      <p><ng-pluralize count="selected.count()"
+        when="{'0':'You own no {{selected.unittype.plural}}.',
+               'one':'You own 1 {{selected.unittype.label}}.',
+               'other':'You own {{selected.count()|number:0}} {{selected.unittype.plural}}.'}"></ng-pluralize>
       <div ng-if="selected.prod.length">
         <p>
           Each produces
           <span ng-repeat="prod in selected.prod">
             <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>{{prod.val|number:0}}
-            <ng-pluralize count="prod.val" when="{'one':prod.unittype.label, 'other':prod.unittype.plural}"></ng-pluralize>
+            <ng-pluralize count="prod.val" when="{'one':prod.unit.unittype.label, 'other':prod.unit.unittype.plural}"></ng-pluralize>
           </span>
           per second.
         </p>
-        <p ng-if="session.unittypes[selected.name] > 1">
+        <p ng-if="selected.count() > 0">
           In total, they produce
-          <span ng-repeat="(name, val) in selected.totalProduction(session)">
+          <span ng-repeat="(name, val) in selected.totalProduction()">
             <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>{{val|number:0}}
-            <ng-pluralize count="val" when="{'one':unittypes.byName[name].label, 'other':unittypes.byName[name].plural}"></ng-pluralize>
+            <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize>
           </span>
           per second.
         </p>
       </div>
       <hr>
       <div ng-if="!selected.unbuyable">
-        <button ng-click="buy(selected)" class="unit-buy" ng-if="!selected.cost.length">Gather</button>
+        <button ng-click="selected.buy()" class="unit-buy" ng-if="!selected.cost.length">Gather</button>
         <div ng-if="selected.cost.length">
           <div>
             Buy one for
-            <button ng-click="buy(selected, 1)" class="unit-buy" ng-disabled="!selected.isCostMet(session)">
-              <span ng-repeat="(name, cost) in selected.totalCost(session)">
-                <span ng-class="{costNotMet:cost > session.unittypes[name]}">{{cost|bignum}} {{unittypes.byName[name].plural}}</span><span ng-if="!$last">, </span>
+            <button ng-click="selected.buy(1)" class="unit-buy" ng-disabled="!selected.isCostMet()">
+              <span ng-repeat="cost in selected.cost">
+                <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
               </span>
             </button>
           </div>
           <div>
             Buy <input type="number" ng-model="mainBuynum" min="1"> for 
-            <button ng-click="buy(selected, mainBuynum)" class="unit-buy" ng-disabled="!selected.isCostMet(session)">
-              <span ng-repeat="(name, cost) in selected.totalCost(session)">
-                <span ng-class="{costNotMet:cost*mainBuynum > session.unittypes[name]}">{{cost*mainBuynum|bignum}} {{unittypes.byName[name].plural}}</span><span ng-if="!$last">, </span>
+            <button ng-click="selected.buy(mainBuynum)" class="unit-buy" ng-disabled="!selected.isCostMet()">
+              <span ng-repeat="cost in selected.cost">
+                <span ng-class="{costNotMet:cost.val*mainBuynum > cost.unit.count()}">{{cost.val*mainBuynum|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
               </span>
             </button>
           </div>

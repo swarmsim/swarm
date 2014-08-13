@@ -15,5 +15,5 @@ describe 'Controller: MainCtrl', ->
       $scope: scope
     }
 
-  it 'should attach a session to the scope', ->
-    expect(scope.session).not.toBeUndefined()
+  it 'should attach a game to the scope', ->
+    expect(scope.game).not.toBeUndefined()

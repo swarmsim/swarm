@@ -34,6 +34,8 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       @game.session.unittypes[@name] = val
     _addCount: (val) ->
       @game.session.unittypes[@name] = @rawCount() + val
+    _subtractCount: (val) ->
+      @_addCount -val
 
     _gainsPath: (path, secs) ->
       producer = path[0]
@@ -60,7 +62,7 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         if cost.val > 0
           max = Math.min max, Math.floor cost.unit.count() / cost.val
           #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
-      console.assert max >= 0
+      console.assert max >= 0, "invalid max", max
       return max
 
     isCostMet: ->
@@ -77,19 +79,37 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         throw new Error "We require more resources"
       if not @isBuyable()
         throw new Error "Cannot buy that unit"
-      num = Math.min num, maxBuyable
+      num = Math.min num, @maxCostMet()
       @game.reify()
       for cost in @cost
-        cost.unit._addCount cost.val * num
+        cost.unit._subtractCount cost.val * num
       @_addCount num
-      @session.save()
+      @game.session.save()
+
+    totalProduction: ->
+      ret = {}
+      count = @count()
+      for prod in @prod
+        ret[prod.unit.unittype.name] = Math.ceil count * prod.val
+      return ret
 
   return class Game
     constructor: (@session) ->
+      @session.reset()
+      try
+        @session.load()
+        console.log 'Game data loaded successfully.', this
+      catch
+        if env != 'test' # too noisy in test
+          console.warn 'Failed to load saved data! Resetting.'
+        @reset()
+
       @_units = _.mapValues unittypes.byName, (unittype, name) =>
         new Unit this, unittype
       for name, unit of @_units
         unit._initProducerPath()
+      @_unitlist = _.map unittypes.list, (unittype) =>
+        @_units[unittype.name]
 
     diffMillis: (now=new Date()) ->
       now.getTime() - @session.date.reified
@@ -105,13 +125,15 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
 
     units: ->
       _.clone @_units
+    unitlist: ->
+      _.clone @_unitlist
 
     # TODO deprecated, remove in favor of unit(name).count(secs)
     count: (unitname, secs) ->
       return @unit(unitname).count secs
 
     counts: (secs) ->
-      _.mapValues units, (unit, name) =>
+      _.mapValues @units(), (unit, name) =>
         unit.count secs
 
     # Store the 'real' counts, and the time last counted, in the session.
@@ -130,6 +152,11 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
     save: ->
       @reify()
       @session.save()
+
+    reset: ->
+      @session.reset()
+      for unit in @unitlist()
+        unit._setCount unit.unittype.init
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   return new Game session

@@ -16,15 +16,6 @@ angular.module('swarmApp').factory 'session', (env) ->
 
   return new class Session
     constructor: ->
-      @reset()
-      try
-        @load()
-        console.log 'Game data loaded successfully.', this
-      catch
-        if env != 'test' # too noisy in test
-          console.warn 'Failed to load saved data! Resetting.'
-        @reset()
-
     reset: ->
       @id = 0 # TODO: multiple characters
       @unittypes = {}
@@ -34,7 +25,7 @@ angular.module('swarmApp').factory 'session', (env) ->
         restarted: now
         saved: now
         loaded: now
-        lastTicked: now
+        reified: now
 
     _replacer: (key, val) ->
       #if _.isDate val

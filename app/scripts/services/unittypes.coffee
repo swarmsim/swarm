@@ -7,50 +7,9 @@
  # # unittypes
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'UnitType', (dt) -> class Unit
+angular.module('swarmApp').factory 'UnitType', -> class Unit
   constructor: (data) ->
     _.extend this, data
-
-  count: (session) ->
-    return session.unittypes[@name]
-
-  totalCost: (session) ->
-    ret = {}
-    count = @count session
-    for cost in @cost
-      costFactor = Math.pow cost.factor, count
-      ret[cost.unittype.name] = Math.ceil costFactor * cost.val
-    return ret
-
-  totalProduction: (session) ->
-    ret = {}
-    count = @count session
-    for prod in @prod
-      ret[prod.unittype.name] = Math.ceil count * prod.val
-    return ret
-
-  isCostMet: (session) ->
-    for name, cost of @totalCost session
-      if cost > session.unittypes[name]
-        return false
-    return true
-
-  isBuyable: (session) ->
-    return @isCostMet(session) and not @unbuyable and not @disabled
-
-  buy: (session) ->
-    if not @isCostMet session
-      throw new Error "We require more resources"
-    if not @isBuyable session
-      throw new Error "Cannot buy that unit"
-    for name, cost of @totalCost session
-      session.unittypes[name] -= cost
-    session.unittypes[@name] += 1
-
-  # TODO delete
-  tick: (session) ->
-    for name, prod of @totalProduction session
-      session.unittypes[name] += prod * dt
 
   producerNames: ->
     _.mapValues @producerPath, (path) ->
