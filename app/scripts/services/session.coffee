@@ -16,6 +16,8 @@ angular.module('swarmApp').factory 'session', (env) ->
 
   return new class Session
     constructor: ->
+      @reset()
+
     reset: ->
       @id = 0 # TODO: multiple characters
       @unittypes = {}
@@ -66,7 +68,6 @@ angular.module('swarmApp').factory 'session', (env) ->
       return btoa @_saves this, false
     
     save: ->
-      console.log 'session.save'
       localStorage.setItem this.id, @_saves()
 
     load: (id=0) ->

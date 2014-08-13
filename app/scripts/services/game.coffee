@@ -95,27 +95,22 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
 
   return class Game
     constructor: (@session) ->
-      @session.reset()
-      try
-        @session.load()
-        console.log 'Game data loaded successfully.', this
-      catch
-        if env != 'test' # too noisy in test
-          console.warn 'Failed to load saved data! Resetting.'
-        @reset()
-
       @_units = _.mapValues unittypes.byName, (unittype, name) =>
         new Unit this, unittype
       for name, unit of @_units
         unit._initProducerPath()
       @_unitlist = _.map unittypes.list, (unittype) =>
         @_units[unittype.name]
+      @tick()
 
-    diffMillis: (now=new Date()) ->
-      now.getTime() - @session.date.reified
+    diffMillis: ->
+      @now.getTime() - @session.date.reified.getTime()
 
-    diffSeconds: (now) ->
-      @diffMillis(now) / 1000
+    diffSeconds: ->
+      @diffMillis() / 1000
+
+    tick: (now=new Date()) ->
+      @now = now
 
     unit: (unitname) ->
       if not _.isString unitname
@@ -142,12 +137,12 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
     # You must reify before making any changes to unit counts or effectiveness!
     # (So, units that increase the effectiveness of other units AND are produced
     # by other units - ex. derivative clicker mathematicians - can't be supported.)
-    reify: (now=new Date()) ->
-      secs = @diffSeconds now
+    reify: ->
+      secs = @diffSeconds()
       counts = @counts secs
       _.extend @session.unittypes, counts
-      @session.date.reified = now
-      console.assert 0 == @diffSeconds now
+      @session.date.reified = @now
+      console.assert 0 == @diffSeconds()
 
     save: ->
       @reify()
@@ -158,5 +153,13 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       for unit in @unitlist()
         unit._setCount unit.unittype.init
 
-angular.module('swarmApp').factory 'game', (Game, session) ->
-  return new Game session
+angular.module('swarmApp').factory 'game', (Game, session, env) ->
+  game = new Game session
+  try
+    session.load()
+    console.log 'Game data loaded successfully.', this
+  catch
+    if env != 'test' # too noisy in test
+      console.warn 'Failed to load saved data! Resetting.'
+    game.reset()
+  return game

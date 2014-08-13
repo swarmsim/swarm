@@ -19,57 +19,64 @@ describe 'Service: game', ->
 
   it 'diffs seconds', ->
     game = new Game date: reified: new Date 1000
-    expect(game.diffMillis new Date 1000).toBe 0
-    expect(game.diffSeconds new Date 1000).toBe 0
-    expect(game.diffMillis new Date 2000).toBe 1000
-    expect(game.diffSeconds new Date 2000).toBe 1
-    expect(game.diffMillis new Date 3500).toBe 2500
-    expect(game.diffSeconds new Date 3500).toBe 2.5
+    game.tick new Date 1000
+    expect(game.diffMillis()).toBe 0
+    expect(game.diffSeconds()).toBe 0
+    game.tick new Date 2000
+    expect(game.diffMillis()).toBe 1000
+    expect(game.diffSeconds()).toBe 1
+    game.tick new Date 3500
+    expect(game.diffMillis()).toBe 2500
+    expect(game.diffSeconds()).toBe 2.5
 
-  mkgame = (unittypes) ->
-    new Game {unittypes: unittypes}
+  game = {}
+  mkgame = (unittypes, reified=new Date 0) ->
+    new Game {unittypes: unittypes, date:{reified:reified}}
 
+  ct = (name, dt) ->
+    game.tick new Date dt*1000
+    return game.unit(name).count()
   it 'calculates a single resource\'s value over time (meat:1)', ->
     game = mkgame {meat:1}
-    expect(game.count 'meat', 0).toBe 1
-    expect(game.count 'meat', 1).toBe 1
-    expect(game.count 'meat', 9.5).toBe 1
+    expect(ct 'meat', 0).toBe 1
+    expect(ct 'meat', 1).toBe 1
+    expect(ct 'meat', 9.5).toBe 1
   it 'calculates a single resource\'s value over time (drone:1)', ->
     game = mkgame {drone:1}
-    expect(game.count 'meat', 0).toBe 0
-    expect(game.count 'meat', 1).toBe 1
-    expect(game.count 'meat', 9.5).toBe 9.5
+    expect(ct 'meat', 0).toBe 0
+    expect(ct 'meat', 1).toBe 1
+    expect(ct 'meat', 9.5).toBe 9.5
   it 'calculates a single resource\'s value over time (meat:3,drone:2)', ->
     game = mkgame {meat:3, drone:2}
-    expect(game.count 'meat', 0).toBe 3
-    expect(game.count 'meat', 1).toBe 5
-    expect(game.count 'meat', 9.5).toBe 22
+    expect(ct 'meat', 0).toBe 3
+    expect(ct 'meat', 1).toBe 5
+    expect(ct 'meat', 9.5).toBe 22
   it 'calculates a single resource\'s value over time (queen:1)', ->
     game = mkgame {queen:1} # gen 2; a/2*t^2
-    expect(game.count 'meat', 0).toBe 0
-    expect(game.count 'meat', 1).toBe 0.5
-    expect(game.count 'meat', 4).toBe 8
-    expect(game.count 'meat', 10).toBe 50
-    expect(game.count 'drone', 0).toBe 0
-    expect(game.count 'drone', 1).toBe 1
-    expect(game.count 'drone', 9.5).toBe 9.5
+    expect(ct 'meat', 0).toBe 0
+    expect(ct 'meat', 1).toBe 0.5
+    expect(ct 'meat', 4).toBe 8
+    expect(ct 'meat', 10).toBe 50
+    expect(ct 'drone', 0).toBe 0
+    expect(ct 'drone', 1).toBe 1
+    expect(ct 'drone', 9.5).toBe 9.5
   it 'calculates a single resource\'s value over time (nest:1)', ->
     game = mkgame {nest:1} # gen 3; j/6*t^3
-    expect(game.count 'meat', 0).toBe 0
-    expect(game.count 'meat', 1).toBe 1/6
-    expect(game.count 'meat', 4).toBe 64/6
-    expect(game.count 'meat', 10).toBe 1000/6
+    expect(ct 'meat', 0).toBe 0
+    expect(ct 'meat', 1).toBe 1/6
+    expect(ct 'meat', 4).toBe 64/6
+    expect(ct 'meat', 10).toBe 1000/6
   it 'calculates a single resource\'s value over time (nest:2,queen:3,drone:4,meat:5)', ->
     game = mkgame {nest:2,queen:3,drone:4,meat:5}
-    expect(game.count 'meat', 0).toBe 5
-    #expect(game.count 'meat', 1).toBe 1/6*2 + 1/2*3 + 1*4 + 5 #TODO: floating point error
-    expect(game.count 'meat', 4).toBe 64/6*2 + 8*3 + 4*4 + 5
-    expect(game.count 'meat', 10).toBe 1000/6*2 + 50*3 + 10*4 + 5
+    expect(ct 'meat', 0).toBe 5
+    #expect(ct 'meat', 1).toBe 1/6*2 + 1/2*3 + 1*4 + 5 #TODO: floating point error
+    expect(ct 'meat', 4).toBe 64/6*2 + 8*3 + 4*4 + 5
+    expect(ct 'meat', 10).toBe 1000/6*2 + 50*3 + 10*4 + 5
 
   it 'calculates costs', ->
-    game = new Game {unittypes:{larva:100,meat:25},date:{reified:new Date(0)}}
+    game = mkgame {larva:100,meat:25}
     expect(game.unit('drone').maxCostMet()).toBe 2
     expect(game.unit('drone').isCostMet()).toBe true
-    game = new Game {unittypes:{larva:100,meat:9.99},date:{reified:new Date(0)}}
+    game = mkgame {larva:100,meat:9.99}
     expect(game.unit('drone').maxCostMet()).toBe 0
     expect(game.unit('drone').isCostMet()).toBe false

@@ -8,7 +8,7 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes) ->
-  console.log game, unittypes
+  #console.log game, unittypes
   $scope.dumps = [
     {title:'env', data:env}
     {title:'game', data:!!game}

@@ -14,7 +14,7 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
   $scope.mainBuynum = 1
   $scope.selected = if $routeParams.unit? then $scope.game.unit $routeParams.unit else null
 
-  $interval (=>$scope.$apply()), 200
+  $interval (=>$scope.game.tick()), 200
 
   $scope.select = (unit) ->
     $scope.selected = unit
@@ -35,7 +35,7 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
       console.log e
 
   $scope.costText = (unit) ->
-    ret = ("#{$filter('bignum')(cost)} #{cost.unit.unittype.plural}" for name, cost of unit.cost)
+    ret = ("#{$filter('bignum')(cost.val)} #{cost.unit.unittype.plural}" for name, cost of unit.cost)
     ret = ret.join ", "
     if ret
       ret = "Cost: #{ret}"
