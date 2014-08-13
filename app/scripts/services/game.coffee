@@ -27,6 +27,8 @@ angular.module('swarmApp').factory 'Game', (dt, unittypes) -> class Game
     # This post explains it: http://www.reddit.com/r/incremental_games/comments/2co88i/ive_been_playing_adventure_capitalist_for_the/cji9fmm
     # Calculating pascal's triangle is just ticks-combo-gen:
     # https://en.wikipedia.org/wiki/Pascal's_triangle#Combinations
+    #
+    # Bug: decimal rates. Gen 2 can create 1 full unit before gen 1 finishes 1 full unit. Eh... close enough.
     if gen > ticks
       return 0
     return math.combinations ticks, gen
