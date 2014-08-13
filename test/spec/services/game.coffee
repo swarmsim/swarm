@@ -18,7 +18,7 @@ describe 'Service: game', ->
     expect(!!Game).toBe true
 
   it 'diffs seconds', ->
-    game = new Game date: saved: new Date 1000
+    game = new Game date: reified: new Date 1000
     expect(game.diffMillis new Date 1000).toBe 0
     expect(game.diffSeconds new Date 1000).toBe 0
     expect(game.diffMillis new Date 2000).toBe 1000

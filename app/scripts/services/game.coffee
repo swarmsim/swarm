@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'Game', (dt, unittypes) -> class Game
     #  session.unittypes[unittype.name] ?= unittype.init or 0
 
   diffMillis: (now=new Date()) ->
-    now.getTime() - @session.date.saved
+    now.getTime() - @session.date.reified
 
   diffSeconds: (now) ->
     @diffMillis(now) / 1000
@@ -47,6 +47,28 @@ angular.module('swarmApp').factory 'Game', (dt, unittypes) -> class Game
   counts: (secs) ->
     _.mapValues unittypes.byName, (unittype, name) =>
       @count name, secs
+
+  # Store the 'real' counts, and the time last counted, in the session.
+  # Usually, counts are calculated as a function of last-reified-count and time,
+  # see count().
+  # You must reify before making any changes to unit counts or effectiveness!
+  # (So, units that increase the effectiveness of other units AND are produced
+  # by other units - ex. derivative clicker mathematicians - can't be supported.)
+  reify: (now=new Date()) ->
+    secs = @diffSeconds now
+    counts = @counts secs
+    @session.unittypes.extend counts
+    @session.date.reified = now
+    console.assert 0 == @diffSeconds now
+
+  save: ->
+    @reify()
+    @session.save()
+
+  buy: (unitname) ->
+    @reify()
+    unittypes.byName[unitname].buy @session
+    @session.save()
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   return new Game session
