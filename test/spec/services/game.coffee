@@ -65,3 +65,11 @@ describe 'Service: game', ->
     #expect(game.count 'meat', 1).toBe 1/6*2 + 1/2*3 + 1*4 + 5 #TODO: floating point error
     expect(game.count 'meat', 4).toBe 64/6*2 + 8*3 + 4*4 + 5
     expect(game.count 'meat', 10).toBe 1000/6*2 + 50*3 + 10*4 + 5
+
+  it 'calculates costs', ->
+    game = new Game {unittypes:{larva:100,meat:25},date:{reified:new Date(0)}}
+    expect(game.unit('drone').maxCostMet()).toBe 2
+    expect(game.unit('drone').isCostMet()).toBe true
+    game = new Game {unittypes:{larva:100,meat:9.99},date:{reified:new Date(0)}}
+    expect(game.unit('drone').maxCostMet()).toBe 0
+    expect(game.unit('drone').isCostMet()).toBe false
