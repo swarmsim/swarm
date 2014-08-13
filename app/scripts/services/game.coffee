@@ -15,59 +15,38 @@ angular.module('swarmApp').factory 'Game', (dt, unittypes) -> class Game
   diffMillis: (now=new Date()) ->
     now.getTime() - @session.date.saved
 
-  diffTicks: (now) ->
-    millis = @diffMillis now
-    return millis / 1000 / dt
-
-  gainsOne: (ticks, gen) ->
-    # Calculate rate of offline gains for a single resource.
-    # "Generation": calculate gains for that resource's children's children.
-    # Gains should match pascal's triangle.
-    # https://en.wikipedia.org/wiki/Pascal's_triangle
-    # This post explains it: http://www.reddit.com/r/incremental_games/comments/2co88i/ive_been_playing_adventure_capitalist_for_the/cji9fmm
-    # Calculating pascal's triangle is just ticks-combo-gen:
-    # https://en.wikipedia.org/wiki/Pascal's_triangle#Combinations
-    #
-    # Bug: decimal rates. Gen 2 can create 1 full unit before gen 1 finishes 1 full unit. Eh... close enough.
-    if gen > ticks
-      return 0
-    return math.combinations ticks, gen
+  diffSeconds: (now) ->
+    @diffMillis(now) / 1000
 
   rawCount: (name) ->
     @session.unittypes[name] ? 0
 
-  children: (unittype) ->
-    ret = {}
-    count = @rawCount unittype.name
-    for child in unittype.prod
-      #rate = child.val # TODO insert bonuses here
-      ret[child.unittype.name] =
-        name: child.unittype.name
-        gen: 1
-        rate: 1 # TODO
-      for name, descendent of @children child.unittype
-        console.assert not ret[name]?, 'double children not supported yet'
-        ret[name] = descendent
-        descendent.gen += 1
-        #descendent.rate *= rate
-    return ret
+  _gainsPath: (path, secs) ->
+    producer = path[0]
+    count = @rawCount producer.name
+    gen = path.length
+    c = math.factorial gen
+    # Bonus for ancestor to produced-child == product of all bonuses along the path
+    # (intuitively, if velocity and velocity-changes are doubled, acceleration is doubled too)
+    # Quantity of buildings along the path do not matter, they're calculated separately.
+    bonus = 1
+    for ancestor in path
+      bonus *= 1 # TODO: calculate bonuses
+    return count * bonus / c * math.pow secs, gen
 
-  gainsTableOne: (unittype, ticks) ->
-    ret = {}
-    count = @rawCount unittype.name
-    for name, child of @children unittype
-      ret[name] = count * child.rate * @gainsOne ticks, child.gen
-    return ret
+  count: (unitname, secs=@diffSeconds()) ->
+    unittype = unittypes.byName[unitname]
+    #console.log 'countin', unitname, unittype.producerPath
+    console.assert unittype
+    gains = @rawCount unittype.name
+    for pname, path of unittype.producerPath
+      #console.log 'gains', unittype.name, path[0].name, @_gainsPath path, secs
+      gains += @_gainsPath path, secs
+    return gains
 
-  gainsTable: (ticks) ->
-    ret = {}
-    for unittype in unittypes.list
-      ret[unittype.name] = @rawCount unittype.name
-    for unittype in unittypes.list
-      gains = @gainsTableOne unittype, ticks
-      for name, val of gains
-        ret[name] += val
-    return ret
+  counts: (secs) ->
+    _.mapValues unittypes.byName, (unittype, name) =>
+      @count name, secs
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   return new Game session
