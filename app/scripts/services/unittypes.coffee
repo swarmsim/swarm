@@ -47,9 +47,14 @@ angular.module('swarmApp').factory 'UnitType', (dt) -> class Unit
       session.unittypes[name] -= cost
     session.unittypes[@name] += 1
 
+  # TODO delete
   tick: (session) ->
     for name, prod of @totalProduction session
       session.unittypes[name] += prod * dt
+
+  producerNames: ->
+    _.mapValues @producerPath, (path) ->
+      _.pluck path, 'name'
 
 angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> class UnitTypes
   constructor: (unittypes=[]) ->
@@ -62,9 +67,17 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
     @list.push unittype
     @byName[unittype.name] = unittype
 
+  @_buildProducerPath = (unittype, producer, path) ->
+    path = [producer].concat path
+    unittype.producerPath[producer.name] = path
+    for nextgen in producer.producedBy
+      @_buildProducerPath unittype, nextgen, path
+
   @parseSpreadsheet: (data) ->
     rows = spreadsheetUtil.parseRows {name:['cost','prod']}, data.data.unittypes.elements
     ret = new UnitTypes (new UnitType(row) for row in rows)
+    for unittype in ret.list
+      unittype.producedBy = []
     for unittype in ret.list
       #unittype.tick = if unittype.tick then moment.duration unittype.tick else null
       #unittype.cooldown = if unittype.cooldown then moment.duration unittype.cooldown else null
@@ -77,6 +90,11 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
         name = prod.unittype
         prod.unittype = ret.byName[name]
         console.assert prod.unittype, "invalid prod unittype ref: #{unittype.name} #{name}", name, cost, unittype
+        prod.unittype.producedBy.push unittype
+    for unittype in ret.list
+      unittype.producerPath = {}
+      for producer in unittype.producedBy
+        @_buildProducerPath unittype, producer, []
     #console.log 'built unittypes', ret
     return ret
 
