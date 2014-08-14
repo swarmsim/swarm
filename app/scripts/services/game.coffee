@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       @name = @unittype.name
     _initProducerPath: ->
       # copy all the inter-unittype references, replacing the type references with units
-      @_producerPath = _.mapValues @unittype.producerPath, (path, pname) =>
+      @_producerPathList = _.map @unittype.producerPathList, (path) =>
         _.map path, (unittype) =>
           ret = @game.unit unittype
           console.assert ret
@@ -29,7 +29,7 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         return ret
 
     _producerPathData: ->
-      _.mapValues @_producerPath, (path, name) =>
+      _.map @_producerPathList, (path) =>
         tailpath = path.concat [this]
         _.map path, (parent, index) =>
           child = tailpath[index+1]

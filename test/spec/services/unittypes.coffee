@@ -23,19 +23,19 @@ describe 'Service: unittypes', ->
 
   it 'should build a production-graph', ->
     expect(sorted _.keys unittypes.byName.meat.producerPath).toEqual sorted ['drone', 'queen', 'nest', 'hive']
-    expect(unittypes.byName.meat.producerNames().hive).toEqual ['hive', 'nest', 'queen', 'drone']
+    expect(unittypes.byName.meat.producerNames().hive).toEqual [['hive', 'nest', 'queen', 'drone']]
     expect(unittypes.byName.meat.producerNames()).toEqual
-      hive: ['hive', 'nest', 'queen', 'drone']
-      nest: ['nest', 'queen', 'drone']
-      queen: ['queen', 'drone']
-      drone: ['drone']
+      hive: [['hive', 'nest', 'queen', 'drone']]
+      nest: [['nest', 'queen', 'drone']]
+      queen: [['queen', 'drone']]
+      drone: [['drone']]
     expect(unittypes.byName.drone.producerNames()).toEqual
-      hive: ['hive', 'nest', 'queen']
-      nest: ['nest', 'queen']
-      queen: ['queen']
+      hive: [['hive', 'nest', 'queen']]
+      nest: [['nest', 'queen']]
+      queen: [['queen']]
     expect(unittypes.byName.queen.producerNames()).toEqual
-      hive: ['hive', 'nest']
-      nest: ['nest']
+      hive: [['hive', 'nest']]
+      nest: [['nest']]
     expect(unittypes.byName.nest.producerNames()).toEqual
-      hive: ['hive']
+      hive: [['hive']]
     expect(unittypes.byName.hive.producerNames()).toEqual {}

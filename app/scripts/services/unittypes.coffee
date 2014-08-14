@@ -10,10 +10,13 @@
 angular.module('swarmApp').factory 'UnitType', -> class Unit
   constructor: (data) ->
     _.extend this, data
+    @producerPath = {}
+    @producerPathList = []
 
   producerNames: ->
-    _.mapValues @producerPath, (path) ->
-      _.pluck path, 'name'
+    _.mapValues @producerPath, (paths) ->
+      _.map paths, (path) ->
+        _.pluck path, 'name'
 
 angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> class UnitTypes
   constructor: (unittypes=[]) ->
@@ -28,8 +31,10 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
 
   @_buildProducerPath = (unittype, producer, path) ->
     path = [producer].concat path
-    console.assert (not unittype.producerPath[producer.name]), 'one producer, two paths', producer
-    unittype.producerPath[producer.name] = path
+    #console.assert (not unittype.producerPath[producer.name]), 'one producer, two paths', producer
+    unittype.producerPathList.push path
+    unittype.producerPath[producer.name] ?= []
+    unittype.producerPath[producer.name].push path
     for nextgen in producer.producedBy
       @_buildProducerPath unittype, nextgen, path
 
@@ -52,7 +57,6 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
         console.assert prod.unittype, "invalid prod unittype ref: #{unittype.name} #{name}", name, cost, unittype
         prod.unittype.producedBy.push unittype
     for unittype in ret.list
-      unittype.producerPath = {}
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
     #console.log 'built unittypes', ret
