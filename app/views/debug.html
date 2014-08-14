@@ -1,27 +1,30 @@
-<p>This is the debug view.</p>
-
-<div>
-  <button ng-click="session.save()">Save</button>
-  <button ng-click="confirmReset()">Reset</button>
-  <button ng-click="throwUp()" title="Test exception handler">Throw up</button>
+<div ng-cloak ng-if="env=='prod'">
+  <p title="No cheats for you. Nice exploring, though!">You found the debug page! Too bad it only works in the development build.</p>
 </div>
-
-<div>
-  alter reified: <input type="datetime-local" ng-model="session.date.reified">
-  alter reified: <input type="text" ng-model="session.date.reified">
-</div>
-
-<div>
-  alter units: 
+<div ng-cloak ng-if="env!='prod'">
+  <p title="If you edited the html to see this: shame on you, you filthy cheater.">You found the debug page! Looks like this is a dev build, too. Have fun.</p>
+  <div>
+    <button ng-click="session.save()">Save</button>
+    <button ng-click="throwUp()" title="Test exception handler">Throw up</button>
+  </div>
+  
+  <div>
+    alter reified: <input type="datetime-local" ng-model="session.date.reified">
+    alter reified: <input type="text" ng-model="session.date.reified">
+  </div>
+  
+  <div>
+    <a target="_blank" href="http://www.homestarrunner.com/vcr_cheat.html">alter units</a>:
+    <ul>
+    <li ng-repeat="(name,val) in session.unittypes">
+      <label>{{name}}: <input type="number" ng-model="session.unittypes[name]"></label>
+    </li>
+  </div>
+  
   <ul>
-  <li ng-repeat="(name,val) in session.unittypes">
-    <label>{{name}}: <input type="number" ng-model="session.unittypes[name]"></label>
-  </li>
+    <li ng-repeat="dump in dumps">
+      <h4>{{dump.title}}</h4>
+      <code>{{dump.data}}</code>
+    </li>
+  </ul>
 </div>
-
-<ul>
-  <li ng-repeat="dump in dumps">
-    <h4>{{dump.title}}</h4>
-    <code>{{dump.data}}</code>
-  </li>
-</ul>
