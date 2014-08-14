@@ -7,14 +7,17 @@
  # # UnitlistCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game) ->
+angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options) ->
   $scope.game = game
   $scope.action = 'select'
   $scope.buynum = 1
   $scope.mainBuynum = 1
   $scope.selected = if $routeParams.unit? then $scope.game.unit $routeParams.unit else null
 
-  $interval (=>$scope.game.tick()), 200
+  # fps may change in options menu, but we destroy the interval upon loading the options menu, so no worries
+  animatePromise = $interval (=>$scope.game.tick()), options.fpsSleepMillis()
+  $scope.$on '$destroy', =>
+    $interval.cancel animatePromise
 
   $scope.select = (unit) ->
     $scope.selected = unit

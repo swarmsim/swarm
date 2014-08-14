@@ -36,8 +36,9 @@
       
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
-              <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/">Main</a></li>
               <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/debug">Debug</a></li>
+              <li><a ng-href="#/">Main</a></li>
+              <li><a ng-href="#/options">Options</a></li>
               <li><a target="_blank" ng-href="{{feedbackUrl()}}">Feedback</a></li>
             </ul>
           </div>
@@ -132,6 +133,8 @@
         <script src="scripts/controllers/unitlist.js"></script>
         <script src="scripts/controllers/header.js"></script>
         <script src="scripts/services/game.js"></script>
+        <script src="scripts/services/options.js"></script>
+        <script src="scripts/controllers/options.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -28,6 +28,7 @@ angular.module('swarmApp').factory 'session', (env) ->
         saved: now
         loaded: now
         reified: now
+      @options = {}
 
     _replacer: (key, val) ->
       #if _.isDate val

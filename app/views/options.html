@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Options</h1>
+  <div class="form-group">
+    <label for="fps">Maximum frames per second</label>
+    <input type="range" class="form-control" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps)">
+    <!--button ng-click="options.reset('fps');form.fps=options.fps()">Reset</button-->
+    <p>{{options.fps()|number}} fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
+    <p>This does not affect how fast your units produce resources.</p>
+  </div>
+  <div class="form-group">
+    <button class="resetalert" ng-click="confirmReset()">Wipe all saved data and start over</button>
+  </div>
+</div>

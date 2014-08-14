@@ -5,7 +5,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 
 // http://getbootstrap.com/components/#navbar-fixed-top : "body padding required"
 body { padding-top: 70px; }
- 
+
+.resetalert {
+  color: red;
+  font-weight: bold;
+}
 .envalert,
 // override stupid navbar color
 .navbar-default .navbar-nav > li > a.envalert {

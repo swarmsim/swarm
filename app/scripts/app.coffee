@@ -43,5 +43,8 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/unitlist/:unit',
         templateUrl: 'views/unitlist.html'
         controller: 'UnitlistCtrl'
+      .when '/options',
+        templateUrl: 'views/options.html'
+        controller: 'OptionsCtrl'
       .otherwise
         redirectTo: '/'

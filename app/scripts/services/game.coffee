@@ -165,6 +165,7 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       @session.reset()
       for unit in @unitlist()
         unit._setCount unit.unittype.init
+      @save()
 
 angular.module('swarmApp').factory 'game', (Game, session, env) ->
   game = new Game session
