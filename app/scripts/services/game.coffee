@@ -28,6 +28,19 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         ret.unit = @game.unit prod.unittype
         return ret
 
+    _producerPathData: ->
+      _.mapValues @_producerPath, (path, name) =>
+        tailpath = path.concat [this]
+        _.map path, (parent, index) =>
+          child = tailpath[index+1]
+          # TODO index prod by name?
+          prodlink = (prod for prod in parent.prod when prod.unit.name == child.name)
+          console.assert prodlink.length == 1
+          prodlink = prodlink[0]
+          parent:parent
+          child:child
+          prod:prod
+
     rawCount: ->
       @game.session.unittypes[@name] ? 0
     _setCount: (val) ->
@@ -37,23 +50,23 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
     _subtractCount: (val) ->
       @_addCount -val
 
-    _gainsPath: (path, secs) ->
-      producer = path[0]
-      gen = path.length
+    _gainsPath: (pathdata, secs) ->
+      producerdata = pathdata[0]
+      gen = pathdata.length
       c = math.factorial gen
-      count = producer.rawCount()
+      count = producerdata.parent.rawCount()
       # Bonus for ancestor to produced-child == product of all bonuses along the path
       # (intuitively, if velocity and velocity-changes are doubled, acceleration is doubled too)
       # Quantity of buildings along the path do not matter, they're calculated separately.
       bonus = 1
-      for ancestor in path
-        bonus *= 1 # TODO: calculate bonuses
+      for ancestordata in pathdata
+        bonus *= ancestordata.prod.val
       return count * bonus / c * math.pow secs, gen
 
     count: (secs=@game.diffSeconds()) ->
       gains = @rawCount()
-      for pname, path of @_producerPath
-        gains += @_gainsPath path, secs
+      for pname, pathdata of @_producerPathData()
+        gains += @_gainsPath pathdata, secs
       return gains
 
     maxCostMet: ->
