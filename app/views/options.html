@@ -1,11 +1,19 @@
 <div class="container">
   <h1>Options</h1>
   <div class="form-group">
-    <label for="fps">Maximum frames per second</label>
+    <label class="control-label" for="fps">Maximum frames per second</label>
     <input type="range" class="form-control" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps)">
     <!--button ng-click="options.reset('fps');form.fps=options.fps()">Reset</button-->
     <p>{{options.fps()|number}} fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
     <p>This does not affect how fast your units produce resources.</p>
+  </div>
+  <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
+    <label class="control-label" for="export">Import/export saved data</label>
+    <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
+    <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
+    <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
+    <p>To export, click the text above and copy (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.</p>
+    <p>It's normal for imported saves to have more units than you exported with. Your swarm continues its work even after saved data is exported/before it's imported.</p>
   </div>
   <div class="form-group">
     <button class="resetalert" ng-click="confirmReset()">Wipe all saved data and start over</button>

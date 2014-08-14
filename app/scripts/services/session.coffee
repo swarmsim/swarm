@@ -46,6 +46,7 @@ angular.module('swarmApp').factory 'session', (env) ->
       JSON.stringify data, @_replacer
 
     _saves: (data=this, setdates=true) ->
+      console.assert (not @_exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
       if setdates
         data.date.saved = new Date()
         delete data.date.loaded
@@ -66,10 +67,25 @@ angular.module('swarmApp').factory 'session', (env) ->
       return ret
 
     exportSave: ->
-      return btoa @_saves this, false
+      if not @_exportCache?
+        # this happens on page load, when we haven't saved
+        @_exportCache = @_saves undefined, false
+      @_exportCache
+
+    importSave: (encoded) ->
+      data = @_loads encoded
+      _.extend this, data
+      @_exportCache = encoded
     
     save: ->
-      localStorage.setItem this.id, @_saves()
+      # exportCache is necessary because sjcl encryption isn't deterministic,
+      # but exportSave() must be ...not necessarily deterministic, but
+      # consistent enough to not confuse angular's $apply().
+      # Careful to delete it while saving, so saves don't contain other saves recursively!
+      # TODO: refactor so it's in another object and we don't have to do this exclusion silliness
+      delete @_exportCache
+      @_exportCache = @_saves()
+      localStorage.setItem this.id, this._exportCache
 
     load: (id=0) ->
-      _.extend this, @_loads localStorage.getItem id
+      @importSave localStorage.getItem id
