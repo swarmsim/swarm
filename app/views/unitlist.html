@@ -1,21 +1,5 @@
 <div class="row">
-  <div class="col-sm-4">
-    <div>
-      Action:
-      <label><input type="radio" ng-model="action" value="select">Select</label>
-      <label><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
-      <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
-    </div>
-    <ul ng-repeat="group in [0,1,2,3]" class="nav nav-pills nav-stacked unitgroup">
-      <li ng-repeat="unit in game.unitlist()" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}" ng-if="unit.unittype.column == group && !unit.unittype.disabled">
-        <a ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
-          <span class="titlecase">{{unit.unittype.label}}</span>
-          <div style="float:right" class="badge">{{unit.count() | bignum}}</div>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-sm-8">
+  <div class="col-sm-8 col-sm-push-4">
     <div ng-if="!selected">
       <p if="welcomeBackText()">{{welcomeBackText()}}</p>
       <p>{{emptyText()}}</p>
@@ -71,5 +55,21 @@
       <div title="TODO: implement upgrades">No upgrades available.</div>
       <p><a ng-click="select(null)">Back</a></p>
     </div>
+  </div>
+  <div class="col-sm-4 col-sm-pull-8" ng-class="{'hidden-xs':!!selected}">
+    <div>
+      Action:
+      <label><input type="radio" ng-model="action" value="select">Select</label>
+      <label><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
+      <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
+    </div>
+    <ul ng-repeat="group in [0,1,2,3]" class="nav nav-pills nav-stacked unitgroup">
+      <li ng-repeat="unit in game.unitlist()" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}" ng-if="unit.unittype.column == group && !unit.unittype.disabled">
+        <a ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
+          <span class="titlecase">{{unit.unittype.label}}</span>
+          <div style="float:right" class="badge">{{unit.count() | bignum}}</div>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
