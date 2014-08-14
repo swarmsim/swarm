@@ -20,6 +20,7 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
     throw new Error "throwing up (test exception)"
   $scope.session = session
   $scope.game = game
+  $scope.env = env
   $scope.confirmReset = ->
     if confirm 'You will lose everything and restart the game. You sure?'
       game.reset()
