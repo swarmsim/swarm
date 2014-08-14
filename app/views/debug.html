@@ -11,6 +11,14 @@
   alter reified: <input type="text" ng-model="session.date.reified">
 </div>
 
+<div>
+  alter units: 
+  <ul>
+  <li ng-repeat="(name,val) in session.unittypes">
+    <label>{{name}}: <input type="number" ng-model="session.unittypes[name]"></label>
+  </li>
+</div>
+
 <ul>
   <li ng-repeat="dump in dumps">
     <h4>{{dump.title}}</h4>
