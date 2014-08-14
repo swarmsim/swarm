@@ -23,6 +23,13 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+    // https://www.npmjs.org/package/grunt-gh-pages
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: ['**']
+    },
 
     // http://hounddog.github.io/blog/using-environment-configuration-with-grunt/
     ngconstant: {
@@ -512,5 +519,10 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'build',
+    'gh-pages'
   ]);
 };
