@@ -1,6 +1,10 @@
 {
   "name": "swarm",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/erosson/swarm.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "coffee-script": "^1.7.1",
