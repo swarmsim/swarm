@@ -57,7 +57,6 @@ angular.module('swarmApp').factory 'session', (env) ->
       #ret = sjcl.encrypt KEY, ret
       ret = PREFIX + ret
       #ret = btoa ret
-      console.log 'done saving, post-btoa', ret.length, ret, PREFIX, PREFIX.length
       return ret
     _loads: (encoded) ->
       #encoded = atob encoded
