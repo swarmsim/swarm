@@ -19,6 +19,13 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
   $scope.$on '$destroy', =>
     $interval.cancel animatePromise
 
+  unitsByGroup = {}
+  for unit in $scope.game.unitlist()
+    unitsByGroup[unit.unittype.column] ?= []
+    unitsByGroup[unit.unittype.column].push unit
+  $scope.visibleUnitGroup = (groupnum) ->
+    (unit for unit in unitsByGroup[groupnum] when unit.isVisible())
+
   $scope.select = (unit) ->
     $scope.selected = unit
     #document.location.hash = "/unitlist/#{unittype.name}"

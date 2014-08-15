@@ -69,14 +69,39 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         gains += @_gainsPath pathdata, secs
       return gains
 
-    maxCostMet: ->
+    _costMetPercent: ->
       max = Number.MAX_VALUE
       for cost in @cost
         if cost.val > 0
-          max = Math.min max, Math.floor cost.unit.count() / cost.val
+          max = Math.min max, cost.unit.count() / cost.val
           #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
       console.assert max >= 0, "invalid max", max
       return max
+
+    isVisible: ->
+      # this is all needlessly complicated, but I don't wanna specify visibility requirements for every unit and having them all visible at the beginning is lame
+      if @unittype.disabled
+        return false
+      if @_visible or @count() > 0
+        return true
+      if @cost.length > 0
+        # units with cost are visible at some percentage of the cost, OR when one of their immediate children exist (ex. 1 drone makes queens visible, but not nests)
+        if @_costMetPercent() > 0.3
+          return true
+        for prod in @prod
+          if prod.unit.count() >= 5 #arbitrary
+            return true
+        return false
+      else
+        # costless units (ex. territory) - any producers visible?
+        for path in @_producerPathList
+          producer = path[0]
+          if producer.isVisible()
+            return true
+        return false
+
+    maxCostMet: ->
+      Math.floor @_costMetPercent()
 
     isCostMet: ->
       @maxCostMet() > 0
