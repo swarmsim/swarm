@@ -82,12 +82,12 @@ describe 'Service: game', ->
     expect(game.unit('drone').isCostMet()).toBe false
 
   it 'hides advanced units', ->
-    game = mkgame {larva:100,meat:4}
+    game = mkgame {larva:100,meat:1}
     expect(game.unit('drone').isVisible()).toBe false
     expect(game.unit('queen').isVisible()).toBe false
-    game.unit('meat')._addCount 5
+    game.unit('meat')._addCount 8
     expect(game.unit('drone').isVisible()).toBe true
     expect(game.unit('queen').isVisible()).toBe false
-    game.unit('meat')._subtractCount 5
+    game.unit('meat')._subtractCount 8
     expect(game.unit('drone').isVisible()).toBe true # we saw it once before
     expect(game.unit('queen').isVisible()).toBe false
