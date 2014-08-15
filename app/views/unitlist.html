@@ -16,16 +16,18 @@
         <p>
           Each produces
           <span ng-repeat="prod in selected.prod">
-            <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>{{prod.val|number:0}}
-            <ng-pluralize count="prod.val" when="{'one':prod.unit.unittype.label, 'other':prod.unit.unittype.plural}"></ng-pluralize>
+            <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+            <span ng-if="prod.val < 0.2 && prod.val > 0">1/{{1/prod.val|number:0}} of a {{prod.unit.unittype.label}}</span>
+            <span ng-if="prod.val <= 0 || prod.val >= 0.2">{{decimals(prod.val)|number}} <ng-pluralize count="prod.val" when="{'one':prod.unit.unittype.label, 'other':prod.unit.unittype.plural}"></ng-pluralize></span>
           </span>
           per second.
         </p>
         <p ng-if="selected.count() > 0">
           In total, they produce
           <span ng-repeat="(name, val) in selected.totalProduction()">
-            <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>{{val|number:0}}
-            <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize>
+            <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+            <span ng-if="val < 0.2 && val > 0">1/{{1/val|number:0}} of a {{game.unit(name).unittype.label}}</span>
+            <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
           </span>
           per second.
         </p>

@@ -133,7 +133,7 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       ret = {}
       count = @count()
       for prod in @prod
-        ret[prod.unit.unittype.name] = Math.ceil count * prod.val
+        ret[prod.unit.unittype.name] = Math.floor(count) * prod.val
       return ret
 
   return class Game

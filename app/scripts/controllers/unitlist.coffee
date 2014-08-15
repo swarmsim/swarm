@@ -19,6 +19,14 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
   $scope.$on '$destroy', =>
     $interval.cancel animatePromise
 
+  # TODO this should really be a filter
+  $scope.decimals = (num) ->
+    # Up to two decimal places for small numbers, no decimals for large numbers
+    if num > 100
+      return Math.floor num
+    # http://stackoverflow.com/questions/7312468/javascript-round-to-a-number-of-decimal-places-but-strip-extra-zeros 
+    num.toPrecision(3).replace /\.?0+$/, ''
+
   unitsByGroup = {}
   for unit in $scope.game.unitlist()
     unitsByGroup[unit.unittype.column] ?= []
