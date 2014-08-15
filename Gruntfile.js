@@ -190,6 +190,11 @@ module.exports = function (grunt) {
       },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
+        overrides: {
+          'lz-string': {
+            main: 'libs/release/lz-string-1.3.3-min.js'
+          }
+        },
         ignorePath:  /\.\.\//
       },
       sass: {
