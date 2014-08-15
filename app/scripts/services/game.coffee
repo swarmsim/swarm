@@ -82,7 +82,12 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       # this is all needlessly complicated, but I don't wanna specify visibility requirements for every unit and having them all visible at the beginning is lame
       if @unittype.disabled
         return false
-      if @_visible or @count() > 0
+      if @_visible
+        return true
+      return @_visible = @_isVisible()
+
+    _isVisible: ->
+      if @count() > 0
         return true
       if @cost.length > 0
         # units with cost are visible at some percentage of the cost, OR when one of their immediate children exist (ex. 1 drone makes queens visible, but not nests)
