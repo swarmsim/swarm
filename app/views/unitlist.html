@@ -34,20 +34,29 @@
       <div ng-if="!selected.unbuyable">
         <!--button ng-click="selected.buy()" class="unit-buy" ng-if="!selected.cost.length">Gather</button-->
         <div ng-if="selected.cost.length">
-          <div>
-            Buy one for
-            <button ng-click="selected.buy(1)" class="unit-buy" ng-disabled="!selected.isCostMet()">
+          <!--div class="form-group">
+            <label for="buyone">Buy one</label>
+            <button id="buyone" ng-click="selected.buy(1)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
               <span ng-repeat="cost in selected.cost">
                 <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
               </span>
             </button>
-          </div>
-          <div>
-            Buy <input type="number" ng-model="mainBuynum" min="1"> for 
-            <button ng-click="selected.buy(mainBuynum)" class="unit-buy" ng-disabled="!selected.isCostMet()">
+          </div-->
+          <div class="form-group">
+            <label for="buynum">Buy <input type="number" ng-model="mainBuynum" min="1"></label>
+            <button id="buynum" ng-click="selected.buy(mainBuynum)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
               <span ng-repeat="cost in selected.cost">
                 <span ng-class="{costNotMet:cost.val*mainBuynum > cost.unit.count()}">{{cost.val*mainBuynum|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
               </span>
+            </button>
+          </div>
+          <div class="form-group">
+            <label for="buymax">Buy {{selected.maxCostMet()|number:0}} (max)</label>
+            <button id="buymax" ng-click="selected.buyMax()" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
+              <span ng-repeat="cost in selected.cost" ng-if="selected.isCostMet()">
+                <span>{{selected.maxCostMet()*cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+              </span>
+              <span ng-if="!selected.isCostMet()" title="Save your pennies.">free</button>
             </button>
           </div>
         </div>
@@ -58,9 +67,9 @@
   </div>
   <div class="col-sm-4 col-sm-pull-8" ng-class="{'hidden-xs':!!selected}">
     <div>
-      Action:
-      <label><input type="radio" ng-model="action" value="select">Select</label>
-      <label><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
+      <label class="radio-inline"><input type="radio" ng-model="action" value="select">Select</label>
+      <label class="radio-inline"><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
+      <label class="radio-inline"><input type="radio" ng-model="action" value="buyMax">Buy max</label>
       <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
     </div>
     <ul ng-repeat="group in [0,1,2,3]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup">
