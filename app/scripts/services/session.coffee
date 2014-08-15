@@ -11,8 +11,9 @@ angular.module('swarmApp').factory 'session', (env) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
-  KEY = "jSmP4RnN994f58yR3UZRKhmK"
-  PREFIX = "Cheater :(\n\n"
+  #KEY = "jSmP4RnN994f58yR3UZRKhmK"
+  # LZW is obfuscated enough. No more encryption.
+  PREFIX = btoa "Cheater :(\n\n"
 
   return new class Session
     constructor: ->
@@ -51,14 +52,19 @@ angular.module('swarmApp').factory 'session', (env) ->
         data.date.saved = new Date()
         delete data.date.loaded
       ret = @jsonSaves data
-      ret = sjcl.encrypt KEY, ret
+      ret = LZString.compressToBase64 ret
+      #ret = LZString.compressToUTF16 ret
+      #ret = sjcl.encrypt KEY, ret
       ret = PREFIX + ret
-      ret = btoa ret
+      #ret = btoa ret
+      console.log 'done saving, post-btoa', ret.length, ret, PREFIX, PREFIX.length
       return ret
     _loads: (encoded) ->
-      encoded = atob encoded
+      #encoded = atob encoded
       encoded = encoded.substring PREFIX.length
-      encoded = sjcl.decrypt KEY, encoded
+      #encoded = sjcl.decrypt KEY, encoded
+      #encoded = LZString.decompressFromUTF16 encoded
+      encoded = LZString.decompressFromBase64 encoded
       ret = JSON.parse encoded, @_reviver
       # special case dates. JSON.stringify replacers and toJSON do not get along.
       for key, val of ret.date
