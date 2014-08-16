@@ -64,3 +64,9 @@ angular.module('swarmApp').factory 'spreadsheetUtil', -> new class SpreadsheetUt
   parseRows: (groupSpec, rows, filterFn=@defaultFilter) ->
     @groupRows groupSpec, (@normalizeRows rows, filterFn), filterFn
 
+  resolveList: (objects, field, targets) ->
+    console.log 'resolvelist', objects, field
+    for obj in objects
+      name = obj[field]
+      obj[field] = targets[name]
+      console.assert obj[field], "couldn't resolve ref: #{obj}.#{field}=#{name}"
