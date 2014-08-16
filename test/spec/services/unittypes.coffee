@@ -21,7 +21,10 @@ describe 'Service: unittypes', ->
   it 'should do something', ->
     expect(!!unittypes).toBe true
 
-  it 'should build a production-graph', ->
+  # TODO: since writing this test, the list of drone-ancestors has exploded to
+  # at least 10 tiers. This test would now be too unwieldy; need to rewrite it
+  # to use a non-production unit spreadsheet.
+  xit 'should build a production-graph', ->
     expect(sorted _.keys unittypes.byName.meat.producerPath).toEqual sorted ['drone', 'queen', 'nest', 'hive']
     expect(unittypes.byName.meat.producerNames().hive).toEqual [['hive', 'nest', 'queen', 'drone']]
     expect(unittypes.byName.meat.producerNames()).toEqual
@@ -39,3 +42,8 @@ describe 'Service: unittypes', ->
     expect(unittypes.byName.nest.producerNames()).toEqual
       hive: [['hive']]
     expect(unittypes.byName.hive.producerNames()).toEqual {}
+
+  it 'should build a production-graph (minimal)', ->
+    for ancestor in ['hive', 'nest', 'queen', 'drone']
+      expect(unittypes.byName.meat.producerPath[ancestor]).not.toBeUndefined()
+    expect(unittypes.byName.meat.producerPath.territory).toBeUndefined()

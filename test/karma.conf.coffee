@@ -30,8 +30,8 @@ module.exports = (config) ->
       'bower_components/mathjs/dist/math.min.js'
       'bower_components/lz-string/libs/release/lz-string-1.3.3-min.js'
       'app/scripts/**/*.coffee'
+      'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
-      '.tmp/scripts/spreadsheetpreload.js'
       'test/mock/**/*.coffee'
       'test/spec/**/*.coffee'
     ],

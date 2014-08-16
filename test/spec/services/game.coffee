@@ -53,25 +53,31 @@ describe 'Service: game', ->
     expect(ct 'meat', 9.5).toBe 22
   it 'calculates a single resource\'s value over time (queen:1)', ->
     game = mkgame {queen:1} # gen 2; a/2*t^2
+    # TODO looking up production-values sucks. Can we make a test-specific
+    # unittype spreadsheet? We're testing the engine here, not specific values.
+    c = unittypes.byName.queen.prod[0].val
     expect(ct 'meat', 0).toBe 0
-    expect(ct 'meat', 1).toBe 0.5
-    expect(ct 'meat', 4).toBe 8
-    expect(ct 'meat', 10).toBe 50
+    expect(ct 'meat', 1).toBe 0.5 * c
+    expect(ct 'meat', 4).toBe 8 * c
+    expect(ct 'meat', 10).toBe 50 * c
     expect(ct 'drone', 0).toBe 0
-    expect(ct 'drone', 1).toBe 1
-    expect(ct 'drone', 9.5).toBe 9.5
+    expect(ct 'drone', 1).toBe 1 * c
+    expect(ct 'drone', 9.5).toBe 9.5 * c
   it 'calculates a single resource\'s value over time (nest:1)', ->
     game = mkgame {nest:1} # gen 3; j/6*t^3
+    c = unittypes.byName.queen.prod[0].val * unittypes.byName.nest.prod[0].val
     expect(ct 'meat', 0).toBe 0
-    expect(ct 'meat', 1).toBe 1/6
-    expect(ct 'meat', 4).toBe 64/6
-    expect(ct 'meat', 10).toBe 1000/6
+    expect(ct 'meat', 1).toBe 1/6 * c
+    expect(ct 'meat', 4).toBe 64/6 * c
+    expect(ct 'meat', 10).toBe 1000/6 * c
   it 'calculates a single resource\'s value over time (nest:2,queen:3,drone:4,meat:5)', ->
     game = mkgame {nest:2,queen:3,drone:4,meat:5}
+    qc = unittypes.byName.queen.prod[0].val
+    nc = qc * unittypes.byName.nest.prod[0].val
     expect(ct 'meat', 0).toBe 5
-    #expect(ct 'meat', 1).toBe 1/6*2 + 1/2*3 + 1*4 + 5 #TODO: floating point error
-    expect(ct 'meat', 4).toBe 64/6*2 + 8*3 + 4*4 + 5
-    expect(ct 'meat', 10).toBe 1000/6*2 + 50*3 + 10*4 + 5
+    expect(ct 'meat', 1).toBe 1/6*2*nc + 1/2*3*qc + 1*4 + 5
+    expect(ct 'meat', 4).toBe 64/6*2*nc + 8*3*qc + 4*4 + 5
+    expect(ct 'meat', 10).toBe 1000/6*2*nc + 50*3*qc + 10*4 + 5
 
   it 'calculates costs', ->
     game = mkgame {larva:100,meat:25}

@@ -19,7 +19,6 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
           console.assert ret
           return ret
       @cost = _.map @unittype.cost, (cost, name) =>
-        console.assert cost.factor == 1, "cost factors not supported anymore"
         ret = _.clone cost
         ret.unit = @game.unit cost.unittype
         return ret
