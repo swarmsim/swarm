@@ -4,7 +4,8 @@
 Starting with only a few larvae and a small pile of meat, build a merciless swarm of trillions of giant bugs.
 
 Built with love using
-[AngularJS](https://angularjs.org/),
+[Coffeescript](http://coffeescript.org),
+[AngularJS](https://angularjs.org),
 [Yeoman](http://yeoman.io)'s [generator-angular](https://github.com/yeoman/generator-angular),
 and [other libraries](https://github.com/erosson/swarm/blob/master/bower.json)
 packaged by [Bower](http://bower.io/).
