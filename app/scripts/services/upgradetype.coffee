@@ -16,13 +16,15 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
     @list.push upgrade
     @byName[upgrade.name] = upgrade
 
-  @parseSpreadsheet: (unittypes, data) ->
-    rows = spreadsheetUtil.parseRows {name:['requires','cost','option']}, data.data.upgrades.elements
+  @parseSpreadsheet: (unittypes, effecttypes, data) ->
+    rows = spreadsheetUtil.parseRows {name:['requires','cost','effect']}, data.data.upgrades.elements
     ret = new UpgradeTypes unittypes, (new UpgradeType(row) for row in rows when row.name)
     for upgrade in ret.list
       spreadsheetUtil.resolveList [upgrade], 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.cost, 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.requires, 'unittype', unittypes.byName
+      spreadsheetUtil.resolveList upgrade.effect, 'unittype', unittypes.byName
+      spreadsheetUtil.resolveList upgrade.effect, 'type', effecttypes.byName
     return ret
 
 ###*
@@ -32,5 +34,5 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
  # # upgrade
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'upgradetypes', (UpgradeTypes, unittypes, spreadsheet) ->
-  return UpgradeTypes.parseSpreadsheet unittypes, spreadsheet
+angular.module('swarmApp').factory 'upgradetypes', (UpgradeTypes, unittypes, effecttypes, spreadsheet) ->
+  return UpgradeTypes.parseSpreadsheet unittypes, effecttypes, spreadsheet

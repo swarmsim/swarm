@@ -7,7 +7,7 @@
  # # spreadsheetutil
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'spreadsheetUtil', -> new class SpreadsheetUtil
+angular.module('swarmApp').factory 'spreadsheetUtil', (util) -> new class SpreadsheetUtil
   defaultFilter: (val) ->
     # zero, or any truthy value
     !!val or _.isNumber val
@@ -69,4 +69,4 @@ angular.module('swarmApp').factory 'spreadsheetUtil', -> new class SpreadsheetUt
     for obj in objects
       name = obj[field]
       obj[field] = targets[name]
-      console.assert obj[field], "couldn't resolve ref: #{obj}.#{field}=#{name}"
+      util.assert obj[field], "couldn't resolve ref: #{obj}.#{field}=#{name}", obj, field, name, targets[name], objects
