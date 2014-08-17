@@ -37,5 +37,5 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
  # # upgrade
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'upgrades', (UpgradeTypes, unittypes, spreadsheet) ->
+angular.module('swarmApp').factory 'upgradetypes', (UpgradeTypes, unittypes, spreadsheet) ->
   return UpgradeTypes.parseSpreadsheet unittypes, spreadsheet
