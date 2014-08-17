@@ -64,10 +64,17 @@
         </div>
       </div>
       <div ng-if="(visibleUpgrades = (selected.upgrades.list | filter:isVisible)).length > 0">
+        <hr>
         <h4>Upgrades</h4>
-        <ul>
+        <ul class="list-unstyled">
           <li ng-repeat="upgrade in visibleUpgrades">
-            {{upgrade.name}}
+            <h5>{{upgrade.type.label}} ({{upgrade.count()}})</h5>
+            <p title="{{upgrade.type.lol}}">{{upgrade.type.description}}</p>
+            <button ng-click="upgrade.buy()" class="form-control unit-buy" ng-disabled="!upgrade.isCostMet()">
+              <span ng-repeat="(name, cost) in upgrade.totalCost()">
+                <span>{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+              </span>
+            </button>
           </li>
         </ul>
       </div>

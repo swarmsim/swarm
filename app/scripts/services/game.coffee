@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       @name = @type.name
       @unit = util.assert @game.unit @type.unittype
     _init: ->
-      @cost = _.map @type.cost, (cost, name) =>
+      @_cost = _.map @type.cost, (cost, name) =>
         util.assert cost.unittype, 'upgrade cost without a unittype', @name, name, cost
         ret = _.clone cost
         ret.unit = util.assert @game.unit cost.unittype
@@ -23,8 +23,17 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
         ret = _.clone require
         ret.unit = util.assert @game.unit require.unittype
         return ret
+    # TODO refactor counting to share with unit
     count: ->
       @game.session.upgrades[@name] ? 0
+    _setCount: (val) ->
+      @game.session.upgrades[@name] = val
+      #delete @_cacheNow
+    _addCount: (val) ->
+      @_setCount @count() + val
+    _subtractCount: (val) ->
+      @_addCount -val
+
     isVisible: ->
       if @type.disabled
         return false
@@ -38,12 +47,42 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
         if require.val >= require.unit.count()
           return false
       return true
+    # TODO refactor cost/buyable to share code with unit?
     totalCost: ->
-      ret = {}
       count = @count()
-      for cost in @cost
-        ret[cost.unit.name] = cost.val * Math.pow cost.factor, count
+      if @_cacheCount == count
+        return @_cacheCost
+      ret = {}
+      for cost in @_cost
+        total = ret[cost.unit.name] = _.clone cost
+        total.val = cost.val * Math.pow cost.factor, count
+      @_cacheCount = count
+      @_cacheCost = ret
       return ret
+    isCostMet: ->
+      max = Number.MAX_VALUE
+      for name, cost of @totalCost()
+        if cost.val > 0
+          max = Math.min max, cost.unit.count() / cost.val
+          #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
+      max = Math.floor max
+      util.assert max >= 0, "invalid max", max
+      return max > 0
+
+    # TODO maxCostMet, buyMax that account for costFactor
+    isBuyable: ->
+      return @isCostMet() and @isVisible()
+
+    buy: ->
+      if not @isCostMet()
+        throw new Error "We require more resources"
+      if not @isBuyable()
+        throw new Error "Cannot buy that upgrade"
+      @game.withSave =>
+        for name, cost of @totalCost()
+          util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.isCostMet is broken!", @name, name, cost
+          cost.unit._subtractCount cost.val
+        @_addCount 1
 
   class Unit
     # TODO unit.unittype is needlessly long, rename to unit.type
@@ -54,7 +93,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       @_producerPathList = _.map @unittype.producerPathList, (path) =>
         _.map path, (unittype) =>
           ret = @game.unit unittype
-          console.assert ret
+          util.assert ret
           return ret
       @cost = _.map @unittype.cost, (cost, name) =>
         ret = _.clone cost
@@ -77,7 +116,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
           child = tailpath[index+1]
           # TODO index prod by name?
           prodlink = (prod for prod in parent.prod when prod.unit.name == child.name)
-          console.assert prodlink.length == 1
+          util.assert prodlink.length == 1
           prodlink = prodlink[0]
           parent:parent
           child:child
@@ -106,7 +145,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
         bonus *= ancestordata.prod.val
       return count * bonus / c * math.pow secs, gen
 
-    #count: (secs=@game.diffSeconds()) ->
     count: ->
       #if @_cacheNow == @game.now
       #  return @_cacheCount
@@ -124,7 +162,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
         if cost.val > 0
           max = Math.min max, cost.unit.count() / cost.val
           #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
-      console.assert max >= 0, "invalid max", max
+      util.assert max >= 0, "invalid max", max
       return max
 
     isVisible: ->
@@ -161,7 +199,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       @maxCostMet() > 0
 
     isBuyable: ->
-      return @isCostMet() and not @unittype.unbuyable and not @unittype.disabled
+      return @isCostMet() and @isVisible() and not @unittype.unbuyable
 
     buyMax: ->
       @buy @maxCostMet()
@@ -172,11 +210,10 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       if not @isBuyable()
         throw new Error "Cannot buy that unit"
       num = Math.min num, @maxCostMet()
-      @game.reify()
-      for cost in @cost
-        cost.unit._subtractCount cost.val * num
-      @_addCount num
-      @game.session.save()
+      @game.withSave =>
+        for cost in @cost
+          cost.unit._subtractCount cost.val * num
+        @_addCount num
 
     totalProduction: ->
       ret = {}
@@ -255,10 +292,16 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       counts = @counts secs
       _.extend @session.unittypes, counts
       @session.date.reified = @now
-      console.assert 0 == @diffSeconds()
+      util.assert 0 == @diffSeconds()
 
     save: ->
+      @withSave ->
+
+    # A common pattern: change something (reifying first), then save the changes.
+    # Use game.withSave(myFunctionThatChangesSomething) to do that.
+    withSave: (fn) ->
       @reify()
+      fn()
       @session.save()
 
     reset: ->

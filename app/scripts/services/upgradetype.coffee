@@ -4,11 +4,6 @@ angular.module('swarmApp').factory 'UpgradeType', -> class UpgradeType
   constructor: (data) ->
     _.extend this, data
 
-  totalCost: (level) ->
-    return _.map @cost, (cost) ->
-      unittype: cost.unittype
-
-
 angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType, util) -> class UpgradeTypes
   constructor: (@unittypes, upgrades=[]) ->
     @list = []
