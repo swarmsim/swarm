@@ -7,8 +7,48 @@
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes) ->
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
+  class Upgrade
+    constructor: (@game, @type) ->
+      @name = @type.name
+      @unit = util.assert @game.unit @type.unittype
+    _init: ->
+      @cost = _.map @type.cost, (cost, name) =>
+        util.assert cost.unittype, 'upgrade cost without a unittype', @name, name, cost
+        ret = _.clone cost
+        ret.unit = util.assert @game.unit cost.unittype
+        return ret
+      @requires = _.map @type.requires, (require, name) =>
+        util.assert require.unittype, 'upgrade require without a unittype', @name, name, require
+        ret = _.clone require
+        ret.unit = util.assert @game.unit require.unittype
+        return ret
+    count: ->
+      @game.session.upgrades[@name] ? 0
+    isVisible: ->
+      if @type.disabled
+        return false
+      if @_visible
+        return true
+      return @_visible = @_isVisible()
+    _isVisible: ->
+      if @count() > 0
+        return true
+      for require in @requires
+        console.log 'visible?', @name, require.unit.name, require.val >= require.unit.count()
+        if require.val >= require.unit.count()
+          return false
+      console.log 'visible!', @name
+      return true
+    totalCost: ->
+      ret = {}
+      count = @count()
+      for cost in @cost
+        ret[cost.unit.name] = cost.val * Math.pow cost.factor, count
+      return ret
+
   class Unit
+    # TODO unit.unittype is needlessly long, rename to unit.type
     constructor: (@game, @unittype) ->
       @name = @unittype.name
     _initProducerPath: ->
@@ -26,6 +66,11 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         ret = _.clone prod
         ret.unit = @game.unit prod.unittype
         return ret
+      @upgrades =
+        list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype)
+        byName: {}
+      for upgrade in @upgrades.list
+        @upgrades.byName[upgrade.name] = upgrade
 
     _producerPathData: ->
       _.map @_producerPathList, (path) =>
@@ -44,8 +89,9 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       @game.session.unittypes[@name] ? 0
     _setCount: (val) ->
       @game.session.unittypes[@name] = val
+      #delete @_cacheNow
     _addCount: (val) ->
-      @game.session.unittypes[@name] = @rawCount() + val
+      @_setCount @rawCount() + val
     _subtractCount: (val) ->
       @_addCount -val
 
@@ -62,10 +108,16 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
         bonus *= ancestordata.prod.val
       return count * bonus / c * math.pow secs, gen
 
-    count: (secs=@game.diffSeconds()) ->
+    #count: (secs=@game.diffSeconds()) ->
+    count: ->
+      #if @_cacheNow == @game.now
+      #  return @_cacheCount
+      secs = @game.diffSeconds()
       gains = @rawCount()
       for pname, pathdata of @_producerPathData()
         gains += @_gainsPath pathdata, secs
+      #@_cacheNow = @game.now
+      #@_cacheCount = gains
       return gains
 
     _costMetPercent: ->
@@ -137,12 +189,23 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
 
   return class Game
     constructor: (@session) ->
-      @_units = _.mapValues unittypes.byName, (unittype, name) =>
-        new Unit this, unittype
-      for name, unit of @_units
+      @_units =
+        list: _.map unittypes.list, (unittype) =>
+          new Unit this, unittype
+        byName: {}
+      for unit in @_units.list
+        @_units.byName[unit.name] = unit
+      @_upgrades =
+        list: _.map upgradetypes.list, (upgradetype) =>
+          new Upgrade this, upgradetype
+        byName: {}
+      for upgrade in @_upgrades.list
+        @_upgrades.byName[upgrade.name] = upgrade
+
+      for name, unit of @_units.list
         unit._initProducerPath()
-      @_unitlist = _.map unittypes.list, (unittype) =>
-        @_units[unittype.name]
+      for name, upgrade of @_upgrades.list
+        upgrade._init()
       @tick()
 
     diffMillis: ->
@@ -155,15 +218,16 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
       @now = now
 
     unit: (unitname) ->
+      if _.isUndefined unitname
+        return undefined
       if not _.isString unitname
         # it's a unittype?
         unitname = unitname.name
-      @_units[unitname]
-
+      @_units.byName[unitname]
     units: ->
-      _.clone @_units
+      _.clone @_units.byName
     unitlist: ->
-      _.clone @_unitlist
+      _.clone @_units.list
 
     # TODO deprecated, remove in favor of unit(name).count(secs)
     count: (unitname, secs) ->
@@ -172,6 +236,15 @@ angular.module('swarmApp').factory 'Game', (unittypes) ->
     counts: (secs) ->
       _.mapValues @units(), (unit, name) =>
         unit.count secs
+
+    upgrade: (name) ->
+      if not _.isString name
+        name = name.name
+      @_upgrades.byName[name]
+    upgrades: ->
+      _.clone @_upgrades.byName
+    upgradelist: ->
+      _.clone @_upgrades.list
 
     # Store the 'real' counts, and the time last counted, in the session.
     # Usually, counts are calculated as a function of last-reified-count and time,

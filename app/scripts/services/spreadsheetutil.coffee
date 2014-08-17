@@ -62,10 +62,10 @@ angular.module('swarmApp').factory 'spreadsheetUtil', -> new class SpreadsheetUt
     return ret
 
   parseRows: (groupSpec, rows, filterFn=@defaultFilter) ->
-    @groupRows groupSpec, (@normalizeRows rows, filterFn), filterFn
+    normalized = @normalizeRows rows, filterFn
+    @groupRows groupSpec, normalized, filterFn
 
   resolveList: (objects, field, targets) ->
-    console.log 'resolvelist', objects, field
     for obj in objects
       name = obj[field]
       obj[field] = targets[name]

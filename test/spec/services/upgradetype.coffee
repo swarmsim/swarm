@@ -13,4 +13,4 @@ describe 'Service: upgradetype', ->
   it 'should parse the spreadsheet', ->
     expect(!!upgradetypes).toBe true
     expect(!!upgradetypes.list).toBe true
-    expect(upgradetypes.list.length).toBeGreaterThan 0
+    expect(upgradetypes.list.length).toBeGreaterThan 4

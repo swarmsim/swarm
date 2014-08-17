@@ -63,7 +63,15 @@
           </div>
         </div>
       </div>
-      <div title="TODO: implement upgrades">No upgrades available.</div>
+      <div ng-if="(visibleUpgrades = (selected.upgrades.list | filter:isVisible)).length > 0">
+        <h4>Upgrades</h4>
+        <ul>
+          <li ng-repeat="upgrade in visibleUpgrades">
+            {{upgrade.name}}
+          </li>
+        </ul>
+      </div>
+      <p ng-if="!visibleUpgrades">No upgrades available.</p>
       <p><a ng-click="select(null)">Back</a></p>
     </div>
   </div>

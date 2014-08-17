@@ -30,6 +30,7 @@ angular.module('swarmApp').factory 'session', (env) ->
         loaded: now
         reified: now
       @options = {}
+      @upgrades = {}
 
     _replacer: (key, val) ->
       #if _.isDate val

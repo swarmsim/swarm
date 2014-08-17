@@ -9,7 +9,7 @@ angular.module('swarmApp').factory 'UpgradeType', -> class UpgradeType
       unittype: cost.unittype
 
 
-angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType) -> class UpgradeTypes
+angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType, util) -> class UpgradeTypes
   constructor: (@unittypes, upgrades=[]) ->
     @list = []
     @byName = {}
@@ -17,8 +17,7 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
       @register upgrade
 
   register: (upgrade) ->
-    console.log 'register upgrade', upgrade.name, upgrade
-    console.assert upgrade.name
+    util.assert upgrade.name, 'upgrade without a name', upgrade
     @list.push upgrade
     @byName[upgrade.name] = upgrade
 
@@ -26,6 +25,7 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
     rows = spreadsheetUtil.parseRows {name:['requires','cost','option']}, data.data.upgrades.elements
     ret = new UpgradeTypes unittypes, (new UpgradeType(row) for row in rows when row.name)
     for upgrade in ret.list
+      spreadsheetUtil.resolveList [upgrade], 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.cost, 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.requires, 'unittype', unittypes.byName
     return ret
