@@ -8,21 +8,35 @@
  # Factory in the swarmApp.
 ###
 angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
+  class Effect
+    constructor: (@game, @upgrade, data) ->
+      _.extend this, data
+      if data.unittype?
+        @unit = util.assert @game.unit data.unittype
+
+    onBuy: ->
+      @type.onBuy? this, @game, @upgrade
+
+    onLoad: ->
+      @type.onLoad? this, @game, @upgrade
+
   class Upgrade
     constructor: (@game, @type) ->
       @name = @type.name
       @unit = util.assert @game.unit @type.unittype
     _init: ->
-      @_cost = _.map @type.cost, (cost, name) =>
+      @_cost = _.map @type.cost, (cost) =>
         util.assert cost.unittype, 'upgrade cost without a unittype', @name, name, cost
         ret = _.clone cost
         ret.unit = util.assert @game.unit cost.unittype
         return ret
-      @requires = _.map @type.requires, (require, name) =>
+      @requires = _.map @type.requires, (require) =>
         util.assert require.unittype, 'upgrade require without a unittype', @name, name, require
         ret = _.clone require
         ret.unit = util.assert @game.unit require.unittype
         return ret
+      @effect = _.map @type.effect, (effect) =>
+        return new Effect @game, this, effect
     # TODO refactor counting to share with unit
     count: ->
       @game.session.upgrades[@name] ? 0
@@ -83,6 +97,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
           util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.isCostMet is broken!", @name, name, cost
           cost.unit._subtractCount cost.val
         @_addCount 1
+        for effect in @effect
+          effect.onBuy()
 
   class Unit
     # TODO unit.unittype is needlessly long, rename to unit.type
