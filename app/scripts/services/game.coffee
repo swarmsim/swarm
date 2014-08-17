@@ -35,10 +35,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       if @count() > 0
         return true
       for require in @requires
-        console.log 'visible?', @name, require.unit.name, require.val >= require.unit.count()
         if require.val >= require.unit.count()
           return false
-      console.log 'visible!', @name
       return true
     totalCost: ->
       ret = {}
