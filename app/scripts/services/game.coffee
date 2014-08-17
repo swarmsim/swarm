@@ -44,7 +44,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util) ->
       if @count() > 0
         return true
       for require in @requires
-        if require.val >= require.unit.count()
+        if require.val > require.unit.count()
           return false
       return true
     # TODO refactor cost/buyable to share code with unit?
