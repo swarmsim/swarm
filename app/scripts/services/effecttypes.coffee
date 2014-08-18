@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'EffectType', (util) -> class EffectType
+angular.module('swarmApp').factory 'EffectType', -> class EffectType
   constructor: (data) ->
     _.extend this, data
 
@@ -11,7 +11,7 @@ angular.module('swarmApp').factory 'EffectType', (util) -> class EffectType
  # # effect
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'EffectTypes', (util) -> class EffectTypes
+angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
   constructor: (effecttypes=[]) ->
     @list = []
     @byName = {}
@@ -23,12 +23,20 @@ angular.module('swarmApp').factory 'EffectTypes', (util) -> class EffectTypes
     @byName[effecttype.name] = effecttype
     return this
 
-angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes) ->
+angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util) ->
   effecttypes = new EffectTypes()
   # Can't write functions in our spreadsheet :(
   hasUnit = (effect) ->
     util.assert effect.unit?
     util.assert effect.val?
+  hasUnitStat = (effect) ->
+    util.assert effect.unit?
+    util.assert effect.stat?
+    util.assert effect.val?
+  # TODO: move this to upgrade parsing. this only asserts at runtime if a conflict happens, we want it to assert at loadtime
+  validateSchema = (stat, schema, operation) ->
+    schema[stat] ?= operation
+    util.assert schema[stat] == operation, "conflicting stat operations. expected #{operation}, got #{schema[stat]}", stat, schema, operation
   effecttypes.register new EffectType
     name: 'addUnit'
     validate: hasUnit
@@ -40,13 +48,17 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes) ->
     onBuy: (effect, game) ->
       effect.unit._setCount effect.unit.count() * effect.val
   effecttypes.register new EffectType
-    name: 'multTwin'
-    validate: hasUnit
-    onLoad: (effect, game) ->
-      throw new Error 'multTwin not yet implemented'
+    name: 'multStat'
+    validate: hasUnitStat
+    calcStats: (effect, stats, schema, level) ->
+      validateSchema effect.stat, schema, 'mult'
+      stats[effect.stat] ?= 1
+      stats[effect.stat] *= Math.pow effect.val, level
   effecttypes.register new EffectType
-    name: 'multProd'
-    validate: hasUnit
-    onLoad: (effect, game) ->
-      throw new Error 'multTwin not yet implemented'
+    name: 'addStat'
+    validate: hasUnitStat
+    calcStats: (effect, stats, schema, level) ->
+      validateSchema effect.stat, schema, 'add'
+      stats[effect.stat] ?= 0
+      stats[effect.stat] += effect.val * level
   return effecttypes
