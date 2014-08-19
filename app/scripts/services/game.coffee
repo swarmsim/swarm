@@ -155,7 +155,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     # Quantity of buildings along the path do not matter, they're calculated separately.
     bonus = 1
     for ancestordata in pathdata
-      bonus *= ancestordata.prod.val
+      bonus *= ancestordata.prod.val * ancestordata.parent.stat 'prod', 1
     return count * bonus / c * math.pow secs, gen
 
   count: -> @_count @game.now
@@ -224,18 +224,24 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @game.withSave =>
       for cost in @cost
         cost.unit._subtractCount cost.val * num
-      @_addCount num * @stat 'twin'
+      @_addCount num * @stat 'twin', 1
 
   totalProduction: ->
     ret = {}
     count = @count()
-    for prod in @prod
-      ret[prod.unit.unittype.name] = Math.floor(count) * prod.val * @stat 'prod'
+    for key, val of @eachProduction()
+      ret[key] = val * count
     return ret
 
-  stat: (key) ->
+  eachProduction: ->
+    ret = {}
+    for prod in @prod
+      ret[prod.unit.unittype.name] = prod.val * @stat 'prod', 1
+    return ret
+
+  stat: (key, default_=undefined) ->
     util.assert key?
-    ret = @stats()[key]
+    ret = @stats()[key] ? default_
     util.assert ret?, 'no such stat', @name, key
     return ret
   stats: -> @_stats()
