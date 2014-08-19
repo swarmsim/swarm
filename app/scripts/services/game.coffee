@@ -9,13 +9,14 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   onBuy: ->
     @type.onBuy? this, @game, @upgrade
 
-  onLoad: ->
-    @type.onLoad? this, @game, @upgrade
+  calcStats: (stats, schema, level) ->
+    @type.calcStats? this, stats, schema, level
 
 angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
+    @_totalCost = _.memoize @_totalCost
   _init: ->
     @_cost = _.map @type.cost, (cost) =>
       util.assert cost.unittype, 'upgrade cost without a unittype', @name, name, cost
@@ -34,7 +35,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     @game.session.upgrades[@name] ? 0
   _setCount: (val) ->
     @game.session.upgrades[@name] = val
-    #delete @_cacheNow
+    util.clearMemoCache @_totalCost, @unit._stats
   _addCount: (val) ->
     @_setCount @count() + val
   _subtractCount: (val) ->
@@ -54,16 +55,12 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
         return false
     return true
   # TODO refactor cost/buyable to share code with unit?
-  totalCost: ->
-    count = @count()
-    if @_cacheCount == count
-      return @_cacheCost
+  totalCost: -> @_totalCost @count()
+  _totalCost: (count) ->
     ret = {}
     for cost in @_cost
       total = ret[cost.unit.name] = _.clone cost
       total.val = cost.val * Math.pow cost.factor, count
-    @_cacheCount = count
-    @_cacheCost = ret
     return ret
   isCostMet: ->
     max = Number.MAX_VALUE
@@ -92,10 +89,18 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
       for effect in @effect
         effect.onBuy()
 
+  stats: (stats, schema) ->
+    count = @count()
+    for effect in @effect
+      effect.calcStats stats, schema, count
+    return stats
+
 angular.module('swarmApp').factory 'Unit', (util) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
+    @_stats = _.memoize @_stats
+    @_count = _.memoize @_count
   _initProducerPath: ->
     # copy all the inter-unittype references, replacing the type references with units
     @_producerPathList = _.map @unittype.producerPathList, (path) =>
@@ -134,7 +139,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @game.session.unittypes[@name] ? 0
   _setCount: (val) ->
     @game.session.unittypes[@name] = val
-    #delete @_cacheNow
+    util.clearMemoCache @_count
   _addCount: (val) ->
     @_setCount @rawCount() + val
   _subtractCount: (val) ->
@@ -153,15 +158,13 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       bonus *= ancestordata.prod.val
     return count * bonus / c * math.pow secs, gen
 
-  count: ->
-    #if @_cacheNow == @game.now
-    #  return @_cacheCount
+  count: -> @_count @game.now
+  _count: ->
+    util.clearMemoCache @_count # store only the most recent count
     secs = @game.diffSeconds()
     gains = @rawCount()
     for pname, pathdata of @_producerPathData()
       gains += @_gainsPath pathdata, secs
-    #@_cacheNow = @game.now
-    #@_cacheCount = gains
     return gains
 
   _costMetPercent: ->
@@ -230,6 +233,14 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       ret[prod.unit.unittype.name] = Math.floor(count) * prod.val
     return ret
 
+  stats: -> @_stats()
+  # No params: upgrades must clear the cache every time something changes
+  _stats: ->
+    stats = {}
+    schema = {}
+    for upgrade in @upgrades.list
+      upgrade.stats stats, schema
+    return stats
 
 ###*
  # @ngdoc service

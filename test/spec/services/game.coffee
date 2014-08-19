@@ -31,7 +31,7 @@ describe 'Service: game', ->
 
   game = {}
   mkgame = (unittypes, reified=new Date 0) ->
-    new Game {unittypes: unittypes, date:{reified:reified}}
+    new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
 
   ct = (name, dt) ->
     game.tick new Date dt*1000
@@ -97,3 +97,49 @@ describe 'Service: game', ->
     game.unit('meat')._subtractCount 8
     expect(game.unit('drone').isVisible()).toBe true # we saw it once before
     expect(game.unit('queen').isVisible()).toBe false
+
+  it 'buys upgrades', ->
+    game = mkgame {territory:99999999999999}
+    expect(upgrade = game.upgrade 'expansion').toBe game.unit('larva').upgrades.byName['expansion']
+    expect(upgrade.count()).toBe 0
+    upgrade.buy()
+    expect(upgrade.count()).toBe 1
+
+  it 'blocks expensive upgrades', ->
+    game = mkgame {territory:1}
+    upgrade = game.upgrade 'expansion'
+    expect(upgrade.count()).toBe 0
+    expect(-> upgrade.buy()).toThrow()
+    expect(upgrade.count()).toBe 0
+
+  it 'calcs upgrade stats, no unit', ->
+    game = mkgame {drone:99999999999999}
+    upgrade = game.upgrade 'droneprod'
+    upgrade2 = game.upgrade 'queenprod'
+    stats = {}
+    schema = {}
+    upgrade.stats(stats, schema)
+    expect(stats.prod).toBe 1
+    stats2 = {}
+    upgrade2.stats(stats2, schema)
+    expect(stats2.prod).toBe 1
+
+    upgrade.buy()
+    stats = {}
+    upgrade.stats(stats, schema)
+    expect(stats.prod).toBeGreaterThan 1
+    stats2 = {}
+    upgrade2.stats(stats2, schema)
+    expect(stats2.prod).toBe 1
+
+  it 'calcs unit stats', ->
+    game = mkgame {drone:99999999999999}
+    unit = game.unit 'drone'
+    unit2 = game.unit 'queen'
+    upgrade = game.upgrade 'droneprod'
+    expect(unit.stats().prod).toBe 1
+    expect(unit2.stats().prod).toBe 1
+    expect(unit.stats()).toBe unit.stats()
+    upgrade.buy()
+    expect(unit.stats().prod).toBeGreaterThan 1
+    expect(unit2.stats().prod).toBe 1

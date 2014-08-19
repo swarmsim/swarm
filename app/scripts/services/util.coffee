@@ -25,3 +25,9 @@ angular.module('swarmApp').service 'util', class Util
       for key, prop of obj
         @walk prop, fn, "#{path}.#{key}", rets
     return rets
+  # For use with lodash _.memoize
+  clearMemoCache: (memoizedFns...) ->
+    for fn in memoizedFns
+      for key, val of fn.cache
+        delete fn.cache[key]
+
