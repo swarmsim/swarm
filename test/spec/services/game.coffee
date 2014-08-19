@@ -36,6 +36,12 @@ describe 'Service: game', ->
   ct = (name, dt) ->
     game.tick new Date dt*1000
     return game.unit(name).count()
+  withNoTick = (game, fn) ->
+    now = game.now
+    try
+      return fn()
+    finally
+      game.now = now
   it 'calculates a single resource\'s value over time (meat:1)', ->
     game = mkgame {meat:1}
     expect(ct 'meat', 0).toBe 1
@@ -143,3 +149,42 @@ describe 'Service: game', ->
     upgrade.buy()
     expect(unit.stats().prod).toBeGreaterThan 1
     expect(unit2.stats().prod).toBe 1
+
+  it 'pukes for nonexistent stats', ->
+    game = mkgame {}
+    unit = game.unit 'drone'
+    expect(-> unit.stat 'jflksdfjdslkfhdljkhfdksjh').toThrow()
+
+  it 'buys twin units', ->
+    game = mkgame {larva:9999999,meat:9999999,drone:99999999999999, queen:1}
+    unit = game.unit 'drone'
+    upgrade = game.upgrade 'dronetwin'
+    expect(unit.stat 'twin').toBe 1
+    count = unit.count()
+    withNoTick game, -> unit.buy 1
+    expect(unit.count()).toBe count + 1
+
+    withNoTick game, -> upgrade.buy()
+    expect(unit.stat 'twin').toBe 2
+    count = unit.count()
+    withNoTick game, -> unit.buy 1
+    expect(unit.count()).toBe count + 2
+    withNoTick game, -> unit.buy 5
+    expect(unit.count()).toBe count + 12
+
+  it 'multiplies production', ->
+    drone0 = 1000000
+    game = mkgame {larva:9999999,meat:9999999,drone:drone0}
+    unit = game.unit 'drone'
+    upgrade = game.upgrade 'droneprod'
+    expect(unit.stat 'prod').toBe 1
+    game.tick new Date 1000
+    prod0 = withNoTick game, -> unit.totalProduction()
+    game.tick new Date 0
+
+    #upgrade.buy()
+    upgrade._addCount 1
+    expect(unit.stat 'prod').toBeGreaterThan 1
+    game.tick new Date 1000
+    prod1 = withNoTick game, -> unit.totalProduction()
+    expect(prod0.meat * unit.stat 'prod').toBe prod1.meat

@@ -224,15 +224,20 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @game.withSave =>
       for cost in @cost
         cost.unit._subtractCount cost.val * num
-      @_addCount num
+      @_addCount num * @stat 'twin'
 
   totalProduction: ->
     ret = {}
     count = @count()
     for prod in @prod
-      ret[prod.unit.unittype.name] = Math.floor(count) * prod.val
+      ret[prod.unit.unittype.name] = Math.floor(count) * prod.val * @stat 'prod'
     return ret
 
+  stat: (key) ->
+    util.assert key?
+    ret = @stats()[key]
+    util.assert ret?, 'no such stat', @name, key
+    return ret
   stats: -> @_stats()
   # No params: upgrades must clear the cache every time something changes
   _stats: ->
