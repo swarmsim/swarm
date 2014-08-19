@@ -20,7 +20,8 @@
             <span ng-if="val < 0.2 && val > 0">1/{{1/val|number:0}} of a {{game.unit(name).unittype.label}}</span>
             <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
           </span>
-          per second. (x{{selected.stat('prod')|number:1}} bonus)
+          per second.
+          <span ng-if="selected.hasStat('prod', 1)">(x{{selected.stat('prod')|number:1}} bonus)</span>
         </p>
         <p ng-if="selected.count() > 0">
           In total, they produce
@@ -46,7 +47,7 @@
           </div-->
           <div class="form-group">
             <label for="buynum">Buy <input type="number" ng-model="mainBuynum" min="1"></label>
-            x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*mainBuynum|number:0}}
+            <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*mainBuynum|number:0}}</span>
             <button id="buynum" ng-click="selected.buy(mainBuynum)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
               <span ng-repeat="cost in selected.cost">
                 <span ng-class="{costNotMet:cost.val*mainBuynum > cost.unit.count()}">{{cost.val*mainBuynum|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
@@ -55,7 +56,7 @@
           </div>
           <div class="form-group">
             <label for="buymax">Buy {{selected.maxCostMet()|number:0}} (max)</label>
-            x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*selected.maxCostMet()|number:0}}
+            <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*selected.maxCostMet()|number:0}}</span>
             <button id="buymax" ng-click="selected.buyMax()" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
               <span ng-repeat="cost in selected.cost" ng-if="selected.isCostMet()">
                 <span>{{selected.maxCostMet()*cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>

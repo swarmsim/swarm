@@ -239,6 +239,9 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       ret[prod.unit.unittype.name] = prod.val * @stat 'prod', 1
     return ret
 
+  # TODO rework this - shouldn't have to pass a default
+  hasStat: (key, default_=undefined) ->
+    @stats()[key]? and @stats()[key] != default_
   stat: (key, default_=undefined) ->
     util.assert key?
     ret = @stats()[key] ? default_
