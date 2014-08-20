@@ -7,7 +7,7 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', (env) ->
+angular.module('swarmApp').factory 'session', (env, $rootScope) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
@@ -92,6 +92,7 @@ angular.module('swarmApp').factory 'session', (env) ->
       delete @_exportCache
       @_exportCache = @_saves()
       localStorage.setItem this.id, this._exportCache
+      $rootScope.$emit 'save', this
 
     load: (id=0) ->
       @importSave localStorage.getItem id
