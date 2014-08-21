@@ -2,10 +2,10 @@
   <h1>Options</h1>
   <div class="form-group">
     <label class="control-label" for="fps">Maximum frames per second</label>
-    <p>Reduce this setting if the game is slowing down your computer. This will not affect how fast your units produce resources.</p>
     <input type="range" class="form-control" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps)">
     <!--button ng-click="options.reset('fps');form.fps=options.fps()">Reset</button-->
     <p>{{options.fps()|number}} fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
+    <p>Reduce this setting if the game is slowing down your computer. This doesn't affect gameplay, your units won't produce resources any faster/slower.</p>
   </div>
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export">Import/export saved data</label>
@@ -17,5 +17,6 @@
   </div>
   <div class="form-group">
     <button class="resetalert" ng-click="confirmReset()">Wipe all saved data and start over</button>
+    <p title="{{dateStarted().toString()}}">You started playing {{dateStartedAgo()}}.</p>
   </div>
 </div>

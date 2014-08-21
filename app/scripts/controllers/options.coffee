@@ -13,6 +13,11 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.session = session
   $scope.imported = {}
 
+  $scope.dateStarted = ->
+    $scope.game.session.date.started
+  $scope.dateStartedAgo = ->
+    moment($scope.dateStarted()).fromNow()
+
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
     $event.target.select()
