@@ -14,7 +14,7 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
   $scope.session = session
 
   $scope.feedbackUrl = ->
-    param = "#{window?.navigator?.userAgent}|#{$scope.session.exportSave()}"
+    param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.session.exportSave()}"
     "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
     #"https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform"
   
