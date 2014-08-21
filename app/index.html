@@ -32,6 +32,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Swarm Simulator<span ng-cloak ng-if="isNonprod()" class="envalert"> ({{env}})</span></a>
+            <a class="navbar-brand" href="#/changelog"><span class="small text-muted">{{version}}</span></a>
           </div>
       
           <div class="collapse navbar-collapse" id="navbar">
@@ -45,13 +46,11 @@
         </div>
       </div>
 
-      <div class="header">
-      </div>
+      <!--div class="header"></div-->
 
       <div ng-view=""><center><img src="images/ajax-loader.gif"></center></div>
 
-      <div class="footer">
-      </div>
+      <div class="footer"></div>
     </div>
 
 
@@ -140,6 +139,7 @@
         <script src="scripts/services/util.js"></script>
         <script src="scripts/services/effecttypes.js"></script>
         <script src="scripts/services/analytics.js"></script>
+        <script src="scripts/controllers/changelog.js"></script>
         <!-- endbuild -->
 </body>
 </html>

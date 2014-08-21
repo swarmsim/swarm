@@ -37,6 +37,9 @@ module.exports = function (grunt) {
         dest: '.tmp/scripts/env.js',
         wrap: '"use strict";\n\n{%= __ngModule %}',
         name: 'swarmEnv',
+        constants: {
+          version: grunt.file.readJSON('package.json').version
+        },
         space: '  '
       },
       test: {

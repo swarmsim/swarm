@@ -46,5 +46,8 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/options',
         templateUrl: 'views/options.html'
         controller: 'OptionsCtrl'
+      .when '/changelog',
+        templateUrl: 'views/changelog.html'
+        controller: 'ChangelogCtrl'
       .otherwise
         redirectTo: '/'
