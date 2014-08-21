@@ -158,7 +158,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       bonus *= ancestordata.prod.val * ancestordata.parent.stat 'prod', 1
     return count * bonus / c * math.pow secs, gen
 
-  count: -> @_count @game.now
+  count: -> @_count @game.now.getTime()
   _count: ->
     util.clearMemoCache @_count # store only the most recent count
     secs = @game.diffSeconds()
