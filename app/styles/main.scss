@@ -6,6 +6,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // http://getbootstrap.com/components/#navbar-fixed-top : "body padding required"
 body { padding-top: 70px; }
 
+// changelog release dates. <h4>0.0.1<span>2009/09/09</span></h4>
+.changelog h4 span {
+  @extend .small;
+  @extend .text-muted;
+  @extend .pull-right;
+}
 .resetalert {
   color: red;
   font-weight: bold;
