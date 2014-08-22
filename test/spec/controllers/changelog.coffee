@@ -15,5 +15,5 @@ describe 'Controller: ChangelogCtrl', ->
       $scope: scope
     }
 
-  it 'should attach a list of awesomeThings to the scope', ->
-    expect(scope.awesomeThings.length).toBe 3
+  it 'should exist, but not really do much. All the work is in the view', ->
+    expect(!!scope).toBe true
