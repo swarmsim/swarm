@@ -192,7 +192,9 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       if @_costMetPercent() > 0.3
         return true
       for prod in @prod
-        if prod.unit.count() >= 5 #arbitrary
+        # 5 units: arbitrary.
+        # tier-check: making parents visible is good for derivatives, but not (derivative-less) military units
+        if prod.unit.unittype.tier and prod.unit.count() >= 5 #arbitrary
           return true
       return false
     else
