@@ -9,7 +9,7 @@ describe 'Service: game', ->
   #game = {}
   Game = {}
   unittypes = {}
-  beforeEach inject (_game_, _Game_, _unittypes_) ->
+  beforeEach inject (_Game_, _unittypes_) ->
     #game = _game_
     Game = _Game_
     unittypes = _unittypes_
@@ -104,9 +104,11 @@ describe 'Service: game', ->
     expect(game.unit('drone').isVisible()).toBe true # we saw it once before
     expect(game.unit('queen').isVisible()).toBe false
 
+  # TODO why is this of all things disconnecting the test
+  # ...because units have a cycle, and jasmine loops forever trying to print test failures with a cycle. D'oh.
   it 'buys upgrades', ->
-    game = mkgame {territory:99999999999999}
-    expect(upgrade = game.upgrade 'expansion').toBe game.unit('larva').upgrades.byName['expansion']
+    game = mkgame {territory:999999999}
+    expect(upgrade = game.upgrade 'expansion').toBe game.unit('invisiblehatchery').upgrades.byName['expansion']
     expect(upgrade.count()).toBe 0
     upgrade.buy()
     expect(upgrade.count()).toBe 1
