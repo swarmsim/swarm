@@ -119,6 +119,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @upgrades =
       list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype)
       byName: {}
+    @showparent = @game.unit @unittype.showparent
     for upgrade in @upgrades.list
       @upgrades.byName[upgrade.name] = upgrade
 
@@ -163,7 +164,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     util.clearMemoCache @_count # store only the most recent count
     secs = @game.diffSeconds()
     gains = @rawCount()
-    for pname, pathdata of @_producerPathData()
+    for pathdata in @_producerPathData()
       gains += @_gainsPath pathdata, secs
     return gains
 
@@ -267,6 +268,8 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
 ###
 angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgrade, Unit) -> class Game
   constructor: (@session) ->
+    @_init()
+  _init: ->
     @_units =
       list: _.map unittypes.list, (unittype) =>
         new Unit this, unittype
@@ -349,6 +352,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
 
   reset: ->
     @session.reset()
+    @_init()
     for unit in @unitlist()
       unit._setCount unit.unittype.init
     @save()

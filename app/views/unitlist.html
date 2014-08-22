@@ -33,6 +33,15 @@
           per second.
         </p>
       </div>
+      <div ng-if="selected.showparent && selected.showparent.prod.length">
+        You earn
+        <span ng-repeat="(name, val) in selected.showparent.totalProduction()">
+          <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+          <span ng-if="val < 0.2 && val > 0">1/{{1/val|number:0}} of a {{game.unit(name).unittype.label}}</span>
+          <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+        </span>
+        per second.
+      </div>
       <hr>
       <div ng-if="!selected.unbuyable">
         <!--button ng-click="selected.buy()" class="unit-buy" ng-if="!selected.cost.length">Gather</button-->
@@ -66,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div ng-if="(visibleUpgrades = (selected.upgrades.list | filter:isVisible)).length > 0">
+      <div ng-if="(visibleUpgrades = (selected.showparent ? selected.showparent.upgrades.list : selected.upgrades.list | filter:isVisible)).length > 0">
         <hr>
         <h4>Upgrades</h4>
         <ul class="list-unstyled">
