@@ -452,7 +452,7 @@ module.exports = function (grunt) {
   });
 
   // One of few swarmapp-specific tasks
-  grunt.registerTask('preloadSpreadsheet', 'Preload spreadsheet data and save to .tmp', function () {
+  grunt.registerTask('preloadSpreadsheet', 'Update spreadsheet data', function () {
     var filename = 'app/scripts/spreadsheetpreload.js';
     var spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml';
     var Tabletop = require('tabletop');
@@ -471,6 +471,9 @@ module.exports = function (grunt) {
       }
     });
   });
+  grunt.registerTask('ss', 'Preload spreadsheet data and save to .tmp', function () {
+    grunt.task.run(['preloadSpreadsheet']);
+  });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -479,7 +482,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'preloadSpreadsheet',
       'ngconstant:dev',
       'wiredep',
       'concurrent:server',
@@ -496,7 +498,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'preloadSpreadsheet',
     'ngconstant:test',
     'concurrent:test',
     'autoprefixer',
@@ -506,7 +507,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'preloadSpreadsheet',
     'ngconstant:prod',
     'wiredep',
     'useminPrepare',
