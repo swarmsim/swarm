@@ -42,37 +42,34 @@
         </span>
         per second.
       </div>
-      <hr>
-      <div ng-if="!selected.unbuyable">
-        <!--button ng-click="selected.buy()" class="unit-buy" ng-if="!selected.cost.length">Gather</button-->
-        <div ng-if="selected.cost.length">
-          <!--div class="form-group">
-            <label for="buyone">Buy one</label>
-            <button id="buyone" ng-click="selected.buy(1)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
-              <span ng-repeat="cost in selected.cost">
-                <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
-              </span>
-            </button>
-          </div-->
-          <div class="form-group">
-            <label for="buynum">Buy <input type="number" ng-model="mainBuynum" min="1"></label>
-            <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*mainBuynum|number:0}}</span>
-            <button id="buynum" ng-click="selected.buy(mainBuynum)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
-              <span ng-repeat="cost in selected.cost">
-                <span ng-class="{costNotMet:cost.val*mainBuynum > cost.unit.count()}">{{cost.val*mainBuynum|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
-              </span>
-            </button>
-          </div>
-          <div class="form-group">
-            <label for="buymax">Buy {{selected.maxCostMet()|number:0}} (max)</label>
-            <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*selected.maxCostMet()|number:0}}</span>
-            <button id="buymax" ng-click="selected.buyMax()" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
-              <span ng-repeat="cost in selected.cost" ng-if="selected.isCostMet()">
-                <span>{{selected.maxCostMet()*cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
-              </span>
-              <span ng-if="!selected.isCostMet()" title="Save your pennies.">free</button>
-            </button>
-          </div>
+      <div ng-if="!selected.unbuyable && selected.cost.length">
+        <hr>
+        <!--div class="form-group">
+          <label for="buyone">Buy one</label>
+          <button id="buyone" ng-click="selected.buy(1)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
+            <span ng-repeat="cost in selected.cost">
+              <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+            </span>
+          </button>
+        </div-->
+        <div class="form-group">
+          <label for="buynum">Buy <input type="number" ng-model="mainBuynum" min="1"></label>
+          <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*mainBuynum|number:0}}</span>
+          <button id="buynum" ng-click="selected.buy(mainBuynum)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
+            <span ng-repeat="cost in selected.cost">
+              <span ng-class="{costNotMet:cost.val*mainBuynum > cost.unit.count()}">{{cost.val*mainBuynum|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+            </span>
+          </button>
+        </div>
+        <div class="form-group">
+          <label for="buymax">Buy {{selected.maxCostMet()|number:0}} (max)</label>
+          <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*selected.maxCostMet()|number:0}}</span>
+          <button id="buymax" ng-click="selected.buyMax()" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
+            <span ng-repeat="cost in selected.cost" ng-if="selected.isCostMet()">
+              <span>{{selected.maxCostMet()*cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+            </span>
+            <span ng-if="!selected.isCostMet()" title="Save your pennies.">free</button>
+          </button>
         </div>
       </div>
       <div ng-if="(visibleUpgrades = (selected.showparent ? selected.showparent.upgrades.list : selected.upgrades.list | filter:isVisible)).length > 0">
