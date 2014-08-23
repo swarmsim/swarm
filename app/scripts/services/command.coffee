@@ -22,6 +22,8 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       unit:unit
       # names are included for easier jsonification
       unitname:unit.name
+      now:unit.game.now
+      elapsed:unit.game.elapsedStartMillis()
       attempt:num
       num:bought.num
       twinnum:bought.twinnum
@@ -31,6 +33,8 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
     @_emit 'buyMaxUnit',
       unit:unit
       unitname:unit.name
+      now:unit.game.now
+      elapsed:unit.game.elapsedStartMillis()
       num:bought.num
       twinnum:bought.twinnum
 
@@ -39,4 +43,6 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
     @_emit 'buyUpgrade',
       upgrade:upgrade
       upgradename:upgrade.name
+      now:upgrade.game.now
+      elapsed:upgrade.game.elapsedStartMillis()
       num:num

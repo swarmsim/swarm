@@ -31,6 +31,8 @@ angular.module('swarmApp').factory 'session', (env, $rootScope) ->
         reified: now
       @options = {}
       @upgrades = {}
+      @statistics = {}
+      $rootScope.$emit 'reset', {session:this}
 
     _replacer: (key, val) ->
       #if _.isDate val

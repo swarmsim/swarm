@@ -7,8 +7,8 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics) ->
-  # analytics not actually used, just want it to init
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics, statistics) ->
+  # analytics/statistics not actually used, just want it to init
   $scope.env = env
   $scope.version = version
   $scope.session = session

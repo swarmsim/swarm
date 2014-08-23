@@ -6,6 +6,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // http://getbootstrap.com/components/#navbar-fixed-top : "body padding required"
 body { padding-top: 70px; }
 
+.statistics td.name {
+  text-transform: capitalize;
+  //text-align: right;
+}
 // changelog release dates. <h4>0.0.1<span>2009/09/09</span></h4>
 .changelog h4 span {
   @extend .small;
@@ -23,7 +27,7 @@ body { padding-top: 70px; }
   color: red;
   font-weight: bold;
 }
-h1, h2, h3, h4, h5, h6, .titlecase {
+h1, h2, h3, h4, h5, h6, .titlecase, .statistics dt, .statistics th {
   text-transform: capitalize;
 }
 input[type="number"] {

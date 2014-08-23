@@ -303,6 +303,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
   tick: (now=new Date()) ->
     @now = now
 
+  elapsedStartMillis: ->
+    @now.getTime() - @session.date.started.getTime()
+
   unit: (unitname) ->
     if _.isUndefined unitname
       return undefined

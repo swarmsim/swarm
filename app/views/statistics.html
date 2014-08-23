@@ -1,0 +1,46 @@
+<div class="container statistics">
+  <h1>Statistics</h1>
+  <div ng-repeat="unit in game.unitlist()">{{unit.label}}</div>
+  <dl class="dl-horizontal">
+    <dt>total clicks</dt>
+    <dd>{{stats.clicks | number}}</dd>
+  </dl>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>unit</th>
+        <th>first bought</th>
+        <th>clicks</th>
+        <th>bought manually</th>
+        <th>twins</th>
+      </tr>
+      <tbody>
+        <tr ng-repeat="unit in game.unitlist() | filter:unitStats" ng-init="ustats = unitStats(unit)">
+          <td class="name">{{unit.unittype.label}}</td>
+          <td>{{ustats.elapsedFirstStr}}</td>
+          <td>{{ustats.clicks | number}}</td>
+          <td>{{ustats.num | number}}</td>
+          <td>{{ustats.twinnum | number}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>upgrade</th>
+        <th>first bought</th>
+        <th>clicks</th>
+        <th>total bought</th>
+      </tr>
+      <tbody>
+        <tr ng-repeat="upgrade in game.upgradelist() | filter:hasUpgradeStats" ng-init="ustats = upgradeStats(upgrade)">
+          <td class="name">{{upgrade.type.label}}</td>
+          <td>{{ustats.elapsedFirstStr}}</td>
+          <td>{{ustats.clicks | number}}</td>
+          <td>{{ustats.num | number}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
