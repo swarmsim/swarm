@@ -156,7 +156,8 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     # Quantity of buildings along the path do not matter, they're calculated separately.
     bonus = 1
     for ancestordata in pathdata
-      bonus *= ancestordata.prod.val * ancestordata.parent.stat 'prod', 1
+      val = ancestordata.prod.val + ancestordata.parent.stat 'base', 0
+      bonus *= val * ancestordata.parent.stat 'prod', 1
     return count * bonus / c * math.pow secs, gen
 
   count: -> @_count @game.now.getTime()
@@ -239,7 +240,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
   eachProduction: ->
     ret = {}
     for prod in @prod
-      ret[prod.unit.unittype.name] = prod.val * @stat 'prod', 1
+      ret[prod.unit.unittype.name] = (prod.val + @stat 'base', 0) * @stat 'prod', 1
     return ret
 
   # TODO rework this - shouldn't have to pass a default
@@ -342,6 +343,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
 
   save: ->
     @withSave ->
+
+  importSave: (encoded) ->
+    @session.importSave encoded
+    # Force-clear various caches.
+    @_init()
+    # No errors - successful import. Save now, so refreshing the page uses the import.
+    @session.save()
 
   # A common pattern: change something (reifying first), then save the changes.
   # Use game.withSave(myFunctionThatChangesSomething) to do that.

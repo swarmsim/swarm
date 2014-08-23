@@ -21,6 +21,7 @@
             <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
           </span>
           per second.
+          <span ng-if="selected.hasStat('base', 0)">(+{{selected.stat('base')|number:1}} bonus)</span>
           <span ng-if="selected.hasStat('prod', 1)">(x{{selected.stat('prod')|number:1}} bonus)</span>
         </p>
         <p ng-if="selected.count() > 0">
@@ -41,6 +42,8 @@
           <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
         </span>
         per second.
+        <span ng-if="selected.showparent.hasStat('base', 0)">(+{{selected.showparent.stat('base')|number:0}} bonus)</span>
+        <span ng-if="selected.showparent.hasStat('prod', 1)">(x{{selected.showparent.stat('prod')|number:1}} bonus)</span>
       </div>
       <div ng-if="!selected.unbuyable && selected.cost.length">
         <hr>
