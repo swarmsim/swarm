@@ -1,5 +1,45 @@
 'use strict'
 
+angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope) -> class ReplayLog
+  constructor: (@id, @log=[]) ->
+    @_init()
+  _init: ->
+    @tryLoad()
+  push: (cmd) ->
+    @log.push cmd
+    @_cachedSave = @save()
+    console.log 'saving replay', @_cachedSave.length
+    $rootScope.$emit 'replay:save', this
+  reset: ->
+    @log.length = 0
+    @save()
+
+  compressToUTF16: ->
+    LZString.compressToUTF16 JSON.stringify @log
+  compressToBase64: ->
+    LZString.compressToBase64 JSON.stringify @log
+
+  # why not save this with the session? Because I'm worried it'll get really
+  # big, too big for localstorage, and it's not nearly important enough to hose
+  # the rest of the save state. Also, since it's bigger, we compress it more
+  # carefully.
+  save: ->
+    encoded = JSON.stringify @log
+    encoded = LZString.compressToUTF16 encoded
+    localStorage.setItem "replay:#{@id}", encoded
+    return encoded
+
+  load: ->
+    encoded = localStorage.getItem "replay:#{@id}"
+    encoded = LZString.decompressFromUTF16 encoded
+    @log = JSON.parse encoded
+
+  tryLoad: ->
+    try
+      @load()
+    catch e
+      console.warn "couldn't load replay log, ignoring.", e
+
 ###*
  # @ngdoc service
  # @name swarmApp.statistics
@@ -7,10 +47,10 @@
  # # statistics
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'StatisticsListener', (util) -> class StatisticsListener
+angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog) -> class StatisticsListener
   constructor: (@session) ->
     # Transient. TODO: persist this separately from session, it can get big
-    @replay = []
+    @replay = new ReplayLog session.id
     @_init()
 
   _init: ->
@@ -18,13 +58,8 @@ angular.module('swarmApp').factory 'StatisticsListener', (util) -> class Statist
     stats.byUnit ?= {}
     stats.byUpgrade ?= {}
     stats.clicks ?= 0
+    @replay.tryLoad()
   
-  jsonReplay: ->
-    JSON.stringify @replay
-
-  compressedReplay: ->
-    LZString.compressToBase64 @jsonReplay()
-
   push: (cmd) ->
     stats = @session.statistics
     stats.clicks += 1
@@ -44,7 +79,9 @@ angular.module('swarmApp').factory 'StatisticsListener', (util) -> class Statist
     @replay.push cmd
 
   listen: (scope) ->
-    scope.$on 'reset', => @_init()
+    scope.$on 'reset', =>
+      @_init()
+      @replay.reset()
     scope.$on 'command', (event, cmd) =>
       console.log 'statistics', event, cmd
       @push cmd
