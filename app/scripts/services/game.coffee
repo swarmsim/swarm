@@ -81,13 +81,15 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
       throw new Error "We require more resources"
     if not @isBuyable()
       throw new Error "Cannot buy that upgrade"
+    num = 1   #TODO: support multibuying upgrades
     @game.withSave =>
       for name, cost of @totalCost()
         util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.isCostMet is broken!", @name, name, cost
         cost.unit._subtractCount cost.val
-      @_addCount 1
+      @_addCount num
       for effect in @effect
         effect.onBuy()
+      return num
 
   stats: (stats, schema) ->
     count = @count()
@@ -228,7 +230,9 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @game.withSave =>
       for cost in @cost
         cost.unit._subtractCount cost.val * num
-      @_addCount num * @stat 'twin', 1
+      twinnum = num * @stat 'twin', 1
+      @_addCount twinnum
+      return {num:num, twinnum:twinnum}
 
   totalProduction: ->
     ret = {}
@@ -355,8 +359,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
   # Use game.withSave(myFunctionThatChangesSomething) to do that.
   withSave: (fn) ->
     @reify()
-    fn()
+    ret = fn()
     @session.save()
+    return ret
 
   reset: ->
     @session.reset()

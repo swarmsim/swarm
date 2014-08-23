@@ -7,8 +7,9 @@
  # # UnitlistCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options) ->
+angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands) ->
   $scope.game = game
+  $scope.commands = commands
   $scope.action = 'select'
   $scope.buynum = 1
   $scope.mainBuynum = 1
@@ -40,25 +41,6 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     $scope.selected = unit
     #document.location.hash = "/unitlist/#{unittype.name}"
     #$location.path "/unitlist/#{unittype.name}"
-
-  $scope.buy = (unit, quantity=$scope.buynum) ->
-    console.assert unit
-    console.assert quantity > 0
-    # no multi-gathering. In fact, no gathering at all anymore.
-    if unit.cost.length == 0
-      quantity = Math.min quantity, 0
-    try
-      unit.buy quantity
-    catch e
-      # Out-of-money throws an exception. No problem
-      # TODO: show an error to the player.
-      console.log e
-
-  $scope.buyMax = (unit) ->
-    console.assert unit
-    if unit.cost.length != 0
-      # shouldn't throw any out-of-money exceptions; it'll just buy the max of 0.
-      unit.buyMax()
 
   $scope.costText = (unit) ->
     ret = ("#{$filter('bignum')(cost.val)} #{cost.unit.unittype.plural}" for name, cost of unit.cost)
