@@ -3,6 +3,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+// animations from ng-if docs: https://docs.angularjs.org/api/ng/directive/ngIf
+// "leave" should never actually happen... meh
+.animif.ng-enter, .animif.ng-leave {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+}
+
+.animif.ng-enter,
+.animif.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.animif.ng-leave,
+.animif.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
 // http://getbootstrap.com/components/#navbar-fixed-top : "body padding required"
 body { padding-top: 70px; }
 

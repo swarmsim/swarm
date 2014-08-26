@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-8 col-sm-push-4">
     <div ng-if="!selected">
-      <p if="welcomeBackText()">{{welcomeBackText()}}</p>
+      <p ng-if="welcomeBackText()">{{welcomeBackText()}}</p>
       <p>{{emptyText()}}</p>
     </div>
     <div ng-if="selected">
@@ -99,10 +99,9 @@
       <label class="radio-inline"><input type="radio" ng-model="action" value="select">Select</label>
       <label class="radio-inline"><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
       <label class="radio-inline"><input type="radio" ng-model="action" value="buyMax">Buy max</label>
-      <!--label><input type="radio" ng-model="action" value="buymax">Buy max</label-->
     </div>
-    <ul ng-repeat="group in [0,1,2,3]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup">
-      <li ng-repeat="unit in visibleUnitGroup(group)" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
+    <ul ng-repeat="group in [0,1,2,3,4,5,6]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup animif">
+      <li ng-repeat="unit in visibleUnitGroup(group)" class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
         <a ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
           <span class="titlecase">{{unit.unittype.label}}</span>
           <div style="float:right" class="badge">{{unit.count() | bignum}}</div>
