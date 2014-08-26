@@ -466,6 +466,9 @@ module.exports = function (grunt) {
       debug: true,
       callback: function (data) {
         data = _.pick(data, ['unittypes', 'upgrades', 'achievements', 'tutorial']);
+        data = _.mapValues(data, function(sheet) {
+          return _.omit(sheet, ['raw']);
+        });
 
         //var text = JSON.stringify(data, null, 2);
         // built-in stringify puts sheets in a random order. Use a consistent
