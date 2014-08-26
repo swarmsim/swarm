@@ -374,6 +374,6495 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       "version": "1.0"
     }
   },
+  "unittypes": {
+    "column_names": [
+      "name",
+      "label",
+      "plural",
+      "verb",
+      "verbone",
+      "column",
+      "init",
+      "description",
+      "lol",
+      "disabled",
+      "unbuyable",
+      "tier",
+      "cost.unittype",
+      "cost.val",
+      "prod.unittype",
+      "prod.val",
+      "showparent"
+    ],
+    "elements": [
+      {
+        "column": 0,
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "Main source of larvae. Everyone starts with one, and no one can buy more. No one knows they have it, because it's invisible.",
+        "disabled": "TRUE",
+        "init": 1,
+        "label": "invisible hatchery",
+        "lol": "Stop digging around in the source code, you dirty cheater.",
+        "name": "invisiblehatchery",
+        "plural": "invisible hatcherytachi",
+        "prod.unittype": "larva",
+        "prod.val": 1,
+        "rowNumber": 1,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "TRUE",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 0,
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "Meat is delicious. All of your swarm's creatures eat meat.",
+        "disabled": "",
+        "init": 35,
+        "label": "meat",
+        "lol": "Some kingdoms use meat to craft paste or cars. Meat, meat, it can't be beat~",
+        "name": "meat",
+        "plural": "meat",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 2,
+        "showparent": "",
+        "tier": 0,
+        "unbuyable": "TRUE",
+        "verb": "gather",
+        "verbone": "gathers"
+      },
+      {
+        "column": 0,
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "The children of your swarm. These young creatures morph into other adult units.",
+        "disabled": "",
+        "init": 10,
+        "label": "larva",
+        "lol": "Why not \"larvas\", English?",
+        "name": "larva",
+        "plural": "larvae",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 3,
+        "showparent": "invisiblehatchery",
+        "tier": "",
+        "unbuyable": "TRUE",
+        "verb": "birth",
+        "verbone": "births"
+      },
+      {
+        "column": 0,
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "Your swarm's military captures territory, fueling your expansion.",
+        "disabled": "",
+        "init": "",
+        "label": "territory",
+        "lol": "Your terrifying warriors tear through their foes to capture territory.",
+        "name": "territory",
+        "plural": "territory",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 4,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "TRUE",
+        "verb": "capture",
+        "verbone": "captures"
+      },
+      {
+        "column": 0,
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "Allows mutation, increasing the power of each member of your swarm.",
+        "disabled": "",
+        "init": "",
+        "label": "mutagen",
+        "lol": "Also creates heroic turtles.",
+        "name": "mutagen",
+        "plural": "mutagens",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 5,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "TRUE",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 10,
+        "description": "Drones are the lowest class of worker in your swarm. They continuously gather meat to feed your swarm.",
+        "disabled": "",
+        "init": "",
+        "label": "drone",
+        "lol": "Not to be confused with probes or mules.",
+        "name": "drone",
+        "plural": "drones",
+        "prod.unittype": "meat",
+        "prod.val": 1,
+        "rowNumber": 6,
+        "showparent": "",
+        "tier": 1,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "drone",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 7,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 810,
+        "description": "Queens rule over your swarm's workers.",
+        "disabled": "",
+        "init": "",
+        "label": "queen",
+        "lol": "Why do bugs always have queens, but never kings? #mensrights",
+        "name": "queen",
+        "plural": "queens",
+        "prod.unittype": "drone",
+        "prod.val": 2,
+        "rowNumber": 8,
+        "showparent": "",
+        "tier": 2,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "drone",
+        "cost.val": 100,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "queen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 9,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "queen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 10,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 72900,
+        "description": "Nests provide space and support for your swarm's queens.",
+        "disabled": "",
+        "init": "",
+        "label": "nest",
+        "lol": "They also have fancy temperature controls.",
+        "name": "nest",
+        "plural": "nests",
+        "prod.unittype": "queen",
+        "prod.val": 3,
+        "rowNumber": 11,
+        "showparent": "",
+        "tier": 3,
+        "unbuyable": "",
+        "verb": "build",
+        "verbone": "builds"
+      },
+      {
+        "column": "",
+        "cost.unittype": "queen",
+        "cost.val": 1000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "nest",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 12,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 10,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "nest",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 13,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "nest",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 14,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 6561000,
+        "description": "Greater queens rule over the lesser queens of very large swarms.",
+        "disabled": "",
+        "init": "",
+        "label": "greater queen",
+        "lol": "Can't think of a name? Pick another creature and slap \"greater\" in front of it!",
+        "name": "greaterqueen",
+        "plural": "greater queens",
+        "prod.unittype": "nest",
+        "prod.val": 4,
+        "rowNumber": 15,
+        "showparent": "",
+        "tier": 4,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "nest",
+        "cost.val": 10000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "greaterqueen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 16,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 50,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "greaterqueen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 17,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "greaterqueen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 18,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 590490000,
+        "description": "Hives are huge structures crafted from meat and the bodies of thousands of queens. They allow your swarm to grow even faster.",
+        "disabled": "",
+        "init": "",
+        "label": "hive",
+        "lol": "Serve the hive. Feel the groove. I control the way you move.",
+        "name": "hive",
+        "plural": "hives",
+        "prod.unittype": "greaterqueen",
+        "prod.val": 5,
+        "rowNumber": 19,
+        "showparent": "",
+        "tier": 5,
+        "unbuyable": "",
+        "verb": "build",
+        "verbone": "builds"
+      },
+      {
+        "column": "",
+        "cost.unittype": "greaterqueen",
+        "cost.val": 100000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "hive",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 20,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "hive",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 21,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "hive",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 22,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 53144100000,
+        "description": "Hive queens oversee the production of hives in the largest swarms.",
+        "disabled": "",
+        "init": "",
+        "label": "hive queen",
+        "lol": "Managers managing managers managing managers.",
+        "name": "hivequeen",
+        "plural": "hive queens",
+        "prod.unittype": "hive",
+        "prod.val": 6,
+        "rowNumber": 23,
+        "showparent": "",
+        "tier": 6,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "hive",
+        "cost.val": 1000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "hivequeen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 24,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 1250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "hivequeen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 25,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "hivequeen",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 26,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 4782969000000,
+        "description": "The mightiest mortal ruler of any swarm.",
+        "disabled": "",
+        "init": "",
+        "label": "hive empress",
+        "lol": "On her thorax and on her forewing she has this name written: queen of queens and lady of ladies.",
+        "name": "empress",
+        "plural": "hive empresses",
+        "prod.unittype": "hivequeen",
+        "prod.val": 7,
+        "rowNumber": 27,
+        "showparent": "",
+        "tier": 7,
+        "unbuyable": "",
+        "verb": "grow",
+        "verbone": "grows"
+      },
+      {
+        "column": "",
+        "cost.unittype": "hivequeen",
+        "cost.val": 10000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "empress",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 28,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 6250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "empress",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 29,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "empress",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 30,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 430467210000000,
+        "description": "Your swarm begins to look to the heavens for guidance. Prophets foreshadow divine support for your brood.",
+        "disabled": "",
+        "init": "",
+        "label": "hive prophet",
+        "lol": "",
+        "name": "prophet",
+        "plural": "hive prophets",
+        "prod.unittype": "empress",
+        "prod.val": 8,
+        "rowNumber": 31,
+        "showparent": "",
+        "tier": 8,
+        "unbuyable": "",
+        "verb": "grow",
+        "verbone": "grows"
+      },
+      {
+        "column": "",
+        "cost.unittype": "empress",
+        "cost.val": 100000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "prophet",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 32,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 31250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "prophet",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 33,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "prophet",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 34,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 38742000000000000,
+        "description": "The prophecies are true! Pleased by your sacrifices, the goddesses have manifest themselves in mortal form to rule over your swarm.",
+        "disabled": "",
+        "init": "",
+        "label": "goddess of the hive",
+        "lol": "",
+        "name": "goddess",
+        "plural": "goddesses of the hive",
+        "prod.unittype": "prophet",
+        "prod.val": 9,
+        "rowNumber": 35,
+        "showparent": "",
+        "tier": 9,
+        "unbuyable": "",
+        "verb": "summon",
+        "verbone": "summons"
+      },
+      {
+        "column": "",
+        "cost.unittype": "prophet",
+        "cost.val": 1000000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "goddess",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 36,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 156250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "goddess",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 37,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "goddess",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 38,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 3486780000000000000,
+        "description": "Entire groups of divine beings have heard your pleas, and lend their support to your swarm.",
+        "disabled": "",
+        "init": "",
+        "label": "brood pantheon",
+        "lol": "riot pls",
+        "name": "pantheon",
+        "plural": "brood pantheons",
+        "prod.unittype": "goddess",
+        "prod.val": 10,
+        "rowNumber": 39,
+        "showparent": "",
+        "tier": 10,
+        "unbuyable": "",
+        "verb": "summon",
+        "verbone": "summons"
+      },
+      {
+        "column": "",
+        "cost.unittype": "goddess",
+        "cost.val": 10000000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "pantheon",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 40,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 781250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "pantheon",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 41,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "pantheon",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 42,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 1,
+        "cost.unittype": "meat",
+        "cost.val": 313811000000000000000,
+        "description": "You win. Honestly, I didn't think anyone would ever see these units. You're either very dedicated or you broke the game, and I'm impressed either way.",
+        "disabled": "",
+        "init": "",
+        "label": "pantheon of pantheons",
+        "lol": "A pantheon of pantheons doesn't even make sense, but do you care? Power-up! Power-up!",
+        "name": "pantheon2",
+        "plural": "pantheons of pantheons",
+        "prod.unittype": "pantheon",
+        "prod.val": 11,
+        "rowNumber": 43,
+        "showparent": "",
+        "tier": 11,
+        "unbuyable": "",
+        "verb": "summon",
+        "verbone": "summons"
+      },
+      {
+        "column": "",
+        "cost.unittype": "pantheon",
+        "cost.val": 100000000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "pantheon2",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 44,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "territory",
+        "cost.val": 3906250,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "pantheon2",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 45,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "pantheon2",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 46,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 250,
+        "description": "Your swarm's smallest and weakest military units. They use their teeth and claws to attack foes, and can be vicious in large numbers",
+        "disabled": "",
+        "init": "",
+        "label": "swarmling",
+        "lol": "",
+        "name": "swarmling",
+        "plural": "swarmlings",
+        "prod.unittype": "territory",
+        "prod.val": 0.01,
+        "rowNumber": 47,
+        "showparent": "",
+        "tier": 1,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "swarmling",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 48,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 36000,
+        "description": "Your swarm's weakest flying warriors. They roam in packs, attacking any threats with venomous stingers.",
+        "disabled": "",
+        "init": "",
+        "label": "stinger",
+        "lol": "Reasonably smart critters - they consistently earn a 3.0 GPA.",
+        "name": "stinger",
+        "plural": "stingers",
+        "prod.unittype": "territory",
+        "prod.val": 0.3,
+        "rowNumber": 49,
+        "showparent": "",
+        "tier": 2,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "stinger",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 50,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 5184000,
+        "description": "These hated creatures feast on the blood of their victims, and spread disease to larger prey they cannot kill outright.",
+        "disabled": "",
+        "init": "",
+        "label": "culicimorph",
+        "lol": "These guys really suck.",
+        "name": "mosquito",
+        "plural": "culicimorphs",
+        "prod.unittype": "territory",
+        "prod.val": 9,
+        "rowNumber": 51,
+        "showparent": "",
+        "tier": 3,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "mosquito",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 52,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 746496000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "locust",
+        "lol": "Preceded by fiery hail, followed by darkness.",
+        "name": "locust",
+        "plural": "locusts",
+        "prod.unittype": "territory",
+        "prod.val": 270,
+        "rowNumber": 53,
+        "showparent": "",
+        "tier": 4,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "locust",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 54,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 107495424000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "roach",
+        "lol": "ROOSTERS.",
+        "name": "roach",
+        "plural": "roaches",
+        "prod.unittype": "territory",
+        "prod.val": 8100,
+        "rowNumber": 55,
+        "showparent": "",
+        "tier": 5,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "roach",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 56,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 15479341056000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "arachnomorph",
+        "lol": "",
+        "name": "spider",
+        "plural": "arachnomorphs",
+        "prod.unittype": "territory",
+        "prod.val": 243000,
+        "rowNumber": 57,
+        "showparent": "",
+        "tier": 6,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "spider",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 58,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 2229030000000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "chilopodomorph",
+        "lol": "Hi Mom!",
+        "name": "centipede",
+        "plural": "chilopodomorphs",
+        "prod.unittype": "territory",
+        "prod.val": 7290000,
+        "rowNumber": 59,
+        "showparent": "",
+        "tier": 7,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "centipede",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 60,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 320980000000000000,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "wasp",
+        "lol": "",
+        "name": "wasp",
+        "plural": "wasps",
+        "prod.unittype": "territory",
+        "prod.val": 218700000,
+        "rowNumber": 61,
+        "showparent": "",
+        "tier": 8,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "wasp",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 62,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      },
+      {
+        "column": 2,
+        "cost.unittype": "meat",
+        "cost.val": 46221100000000000000,
+        "description": "A larger and faster form of the locust, few things can escape a hungry pack of devourers.",
+        "disabled": "",
+        "init": "",
+        "label": "devourer",
+        "lol": "Extra fun in hardcore leagues and fractured maps.",
+        "name": "devourer",
+        "plural": "devourers",
+        "prod.unittype": "territory",
+        "prod.val": 6561000000,
+        "rowNumber": 63,
+        "showparent": "",
+        "tier": 9,
+        "unbuyable": "",
+        "verb": "hatch",
+        "verbone": "hatches"
+      },
+      {
+        "column": "",
+        "cost.unittype": "larva",
+        "cost.val": 1,
+        "description": "",
+        "disabled": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "devourer",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "rowNumber": 64,
+        "showparent": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbone": ""
+      }
+    ],
+    "name": "unittypes",
+    "raw": {
+      "encoding": "UTF-8",
+      "feed": {
+        "author": [
+          {
+            "email": {
+              "$t": "erosson@erosson.org"
+            },
+            "name": {
+              "$t": "erosson"
+            }
+          }
+        ],
+        "category": [
+          {
+            "scheme": "http://schemas.google.com/spreadsheets/2006",
+            "term": "http://schemas.google.com/spreadsheets/2006#list"
+          }
+        ],
+        "entry": [
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: invisible hatchery, plural: invisible hatcherytachi, column: 0, init: 1, description: Main source of larvae. Everyone starts with one, and no one can buy more. No one knows they have it, because it's invisible., lol: Stop digging around in the source code, you dirty cheater., disabled: TRUE, unbuyable: TRUE, prod.unittype: larva, prod.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "0"
+            },
+            "gsx$cost.unittype": {
+              "$t": ""
+            },
+            "gsx$cost.val": {
+              "$t": ""
+            },
+            "gsx$description": {
+              "$t": "Main source of larvae. Everyone starts with one, and no one can buy more. No one knows they have it, because it's invisible."
+            },
+            "gsx$disabled": {
+              "$t": "TRUE"
+            },
+            "gsx$init": {
+              "$t": "1"
+            },
+            "gsx$label": {
+              "$t": "invisible hatchery"
+            },
+            "gsx$lol": {
+              "$t": "Stop digging around in the source code, you dirty cheater."
+            },
+            "gsx$name": {
+              "$t": "invisiblehatchery"
+            },
+            "gsx$plural": {
+              "$t": "invisible hatcherytachi"
+            },
+            "gsx$prod.unittype": {
+              "$t": "larva"
+            },
+            "gsx$prod.val": {
+              "$t": "1"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": "TRUE"
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cokwr"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cokwr",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "invisiblehatchery",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: meat, plural: meat, verb: gather, verbone: gathers, column: 0, init: 35, description: Meat is delicious. All of your swarm's creatures eat meat., lol: Some kingdoms use meat to craft paste or cars. Meat, meat, it can't be beat~, unbuyable: TRUE, tier: 0",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "0"
+            },
+            "gsx$cost.unittype": {
+              "$t": ""
+            },
+            "gsx$cost.val": {
+              "$t": ""
+            },
+            "gsx$description": {
+              "$t": "Meat is delicious. All of your swarm's creatures eat meat."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": "35"
+            },
+            "gsx$label": {
+              "$t": "meat"
+            },
+            "gsx$lol": {
+              "$t": "Some kingdoms use meat to craft paste or cars. Meat, meat, it can't be beat~"
+            },
+            "gsx$name": {
+              "$t": "meat"
+            },
+            "gsx$plural": {
+              "$t": "meat"
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "0"
+            },
+            "gsx$unbuyable": {
+              "$t": "TRUE"
+            },
+            "gsx$verb": {
+              "$t": "gather"
+            },
+            "gsx$verbone": {
+              "$t": "gathers"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cpzh4"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cpzh4",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "meat",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: larva, plural: larvae, verb: birth, verbone: births, column: 0, init: 10, description: The children of your swarm. These young creatures morph into other adult units., lol: Why not \"larvas\", English?, unbuyable: TRUE, showparent: invisiblehatchery",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "0"
+            },
+            "gsx$cost.unittype": {
+              "$t": ""
+            },
+            "gsx$cost.val": {
+              "$t": ""
+            },
+            "gsx$description": {
+              "$t": "The children of your swarm. These young creatures morph into other adult units."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": "10"
+            },
+            "gsx$label": {
+              "$t": "larva"
+            },
+            "gsx$lol": {
+              "$t": "Why not \"larvas\", English?"
+            },
+            "gsx$name": {
+              "$t": "larva"
+            },
+            "gsx$plural": {
+              "$t": "larvae"
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": "invisiblehatchery"
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": "TRUE"
+            },
+            "gsx$verb": {
+              "$t": "birth"
+            },
+            "gsx$verbone": {
+              "$t": "births"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cre1l"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cre1l",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "larva",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: territory, plural: territory, verb: capture, verbone: captures, column: 0, description: Your swarm's military captures territory, fueling your expansion., lol: Your terrifying warriors tear through their foes to capture territory., unbuyable: TRUE",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "0"
+            },
+            "gsx$cost.unittype": {
+              "$t": ""
+            },
+            "gsx$cost.val": {
+              "$t": ""
+            },
+            "gsx$description": {
+              "$t": "Your swarm's military captures territory, fueling your expansion."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "territory"
+            },
+            "gsx$lol": {
+              "$t": "Your terrifying warriors tear through their foes to capture territory."
+            },
+            "gsx$name": {
+              "$t": "territory"
+            },
+            "gsx$plural": {
+              "$t": "territory"
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": "TRUE"
+            },
+            "gsx$verb": {
+              "$t": "capture"
+            },
+            "gsx$verbone": {
+              "$t": "captures"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/chk2m"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/chk2m",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "territory",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: mutagen, plural: mutagens, column: 0, description: Allows mutation, increasing the power of each member of your swarm., lol: Also creates heroic turtles., unbuyable: TRUE",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "0"
+            },
+            "gsx$cost.unittype": {
+              "$t": ""
+            },
+            "gsx$cost.val": {
+              "$t": ""
+            },
+            "gsx$description": {
+              "$t": "Allows mutation, increasing the power of each member of your swarm."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "mutagen"
+            },
+            "gsx$lol": {
+              "$t": "Also creates heroic turtles."
+            },
+            "gsx$name": {
+              "$t": "mutagen"
+            },
+            "gsx$plural": {
+              "$t": "mutagens"
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": "TRUE"
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ciyn3"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ciyn3",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "mutagen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: drone, plural: drones, verb: hatch, verbone: hatches, column: 1, description: Drones are the lowest class of worker in your swarm. They continuously gather meat to feed your swarm., lol: Not to be confused with probes or mules., tier: 1, cost.unittype: meat, cost.val: 10, prod.unittype: meat, prod.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "10"
+            },
+            "gsx$description": {
+              "$t": "Drones are the lowest class of worker in your swarm. They continuously gather meat to feed your swarm."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "drone"
+            },
+            "gsx$lol": {
+              "$t": "Not to be confused with probes or mules."
+            },
+            "gsx$name": {
+              "$t": "drone"
+            },
+            "gsx$plural": {
+              "$t": "drones"
+            },
+            "gsx$prod.unittype": {
+              "$t": "meat"
+            },
+            "gsx$prod.val": {
+              "$t": "1"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "1"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ckd7g"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ckd7g",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "drone",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "drone"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/clrrx"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/clrrx",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "drone",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: queen, plural: queens, verb: hatch, verbone: hatches, column: 1, description: Queens rule over your swarm's workers., lol: Why do bugs always have queens, but never kings? #mensrights, tier: 2, cost.unittype: meat, cost.val: 810, prod.unittype: drone, prod.val: 2",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "810"
+            },
+            "gsx$description": {
+              "$t": "Queens rule over your swarm's workers."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "queen"
+            },
+            "gsx$lol": {
+              "$t": "Why do bugs always have queens, but never kings? #mensrights"
+            },
+            "gsx$name": {
+              "$t": "queen"
+            },
+            "gsx$plural": {
+              "$t": "queens"
+            },
+            "gsx$prod.unittype": {
+              "$t": "drone"
+            },
+            "gsx$prod.val": {
+              "$t": "2"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "2"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cyevm"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cyevm",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "queen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: drone, cost.val: 100",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "drone"
+            },
+            "gsx$cost.val": {
+              "$t": "100"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "queen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cztg3"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cztg3",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "queen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "queen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d180g"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d180g",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "queen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: nest, plural: nests, verb: build, verbone: builds, column: 1, description: Nests provide space and support for your swarm's queens., lol: They also have fancy temperature controls., tier: 3, cost.unittype: meat, cost.val: 72900, prod.unittype: queen, prod.val: 3",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "72900"
+            },
+            "gsx$description": {
+              "$t": "Nests provide space and support for your swarm's queens."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "nest"
+            },
+            "gsx$lol": {
+              "$t": "They also have fancy temperature controls."
+            },
+            "gsx$name": {
+              "$t": "nest"
+            },
+            "gsx$plural": {
+              "$t": "nests"
+            },
+            "gsx$prod.unittype": {
+              "$t": "queen"
+            },
+            "gsx$prod.val": {
+              "$t": "3"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "3"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "build"
+            },
+            "gsx$verbone": {
+              "$t": "builds"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d2mkx"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d2mkx",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "nest",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: queen, cost.val: 1000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "queen"
+            },
+            "gsx$cost.val": {
+              "$t": "1000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "nest"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cssly"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cssly",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "nest",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 10",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "10"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "nest"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cu76f"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cu76f",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "nest",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "nest"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cvlqs"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cvlqs",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "nest",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: greater queen, plural: greater queens, verb: hatch, verbone: hatches, column: 1, description: Greater queens rule over the lesser queens of very large swarms., lol: Can't think of a name? Pick another creature and slap \"greater\" in front of it!, tier: 4, cost.unittype: meat, cost.val: 6561000, prod.unittype: nest, prod.val: 4",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "6561000"
+            },
+            "gsx$description": {
+              "$t": "Greater queens rule over the lesser queens of very large swarms."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "greater queen"
+            },
+            "gsx$lol": {
+              "$t": "Can't think of a name? Pick another creature and slap \"greater\" in front of it!"
+            },
+            "gsx$name": {
+              "$t": "greaterqueen"
+            },
+            "gsx$plural": {
+              "$t": "greater queens"
+            },
+            "gsx$prod.unittype": {
+              "$t": "nest"
+            },
+            "gsx$prod.val": {
+              "$t": "4"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "4"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cx0b9"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/cx0b9",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "greaterqueen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: nest, cost.val: 10000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "nest"
+            },
+            "gsx$cost.val": {
+              "$t": "10000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "greaterqueen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d9ney"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d9ney",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "greaterqueen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 50",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "50"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "greaterqueen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/db1zf"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/db1zf",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "greaterqueen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "greaterqueen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dcgjs"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dcgjs",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "greaterqueen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: hive, plural: hives, verb: build, verbone: builds, column: 1, description: Hives are huge structures crafted from meat and the bodies of thousands of queens. They allow your swarm to grow even faster., lol: Serve the hive. Feel the groove. I control the way you move., tier: 5, cost.unittype: meat, cost.val: 590490000, prod.unittype: greaterqueen, prod.val: 5",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "590490000"
+            },
+            "gsx$description": {
+              "$t": "Hives are huge structures crafted from meat and the bodies of thousands of queens. They allow your swarm to grow even faster."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "hive"
+            },
+            "gsx$lol": {
+              "$t": "Serve the hive. Feel the groove. I control the way you move."
+            },
+            "gsx$name": {
+              "$t": "hive"
+            },
+            "gsx$plural": {
+              "$t": "hives"
+            },
+            "gsx$prod.unittype": {
+              "$t": "greaterqueen"
+            },
+            "gsx$prod.val": {
+              "$t": "5"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "5"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "build"
+            },
+            "gsx$verbone": {
+              "$t": "builds"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ddv49"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ddv49",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hive",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: greaterqueen, cost.val: 100000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "greaterqueen"
+            },
+            "gsx$cost.val": {
+              "$t": "100000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "hive"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d415a"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d415a",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hive",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "hive"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d5fpr"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d5fpr",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hive",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "hive"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d6ua4"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d6ua4",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hive",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: hive queen, plural: hive queens, verb: hatch, verbone: hatches, column: 1, description: Hive queens oversee the production of hives in the largest swarms., lol: Managers managing managers managing managers., tier: 6, cost.unittype: meat, cost.val: 53144100000, prod.unittype: hive, prod.val: 6",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "53144100000"
+            },
+            "gsx$description": {
+              "$t": "Hive queens oversee the production of hives in the largest swarms."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "hive queen"
+            },
+            "gsx$lol": {
+              "$t": "Managers managing managers managing managers."
+            },
+            "gsx$name": {
+              "$t": "hivequeen"
+            },
+            "gsx$plural": {
+              "$t": "hive queens"
+            },
+            "gsx$prod.unittype": {
+              "$t": "hive"
+            },
+            "gsx$prod.val": {
+              "$t": "6"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "6"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d88ul"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/d88ul",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hivequeen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: hive, cost.val: 1000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "hive"
+            },
+            "gsx$cost.val": {
+              "$t": "1000000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "hivequeen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dkvya"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dkvya",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hivequeen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 1250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "1250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "hivequeen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dmair"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dmair",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hivequeen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "hivequeen"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dnp34"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dnp34",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "hivequeen",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: hive empress, plural: hive empresses, verb: grow, verbone: grows, column: 1, description: The mightiest mortal ruler of any swarm., lol: On her thorax and on her forewing she has this name written: queen of queens and lady of ladies., tier: 7, cost.unittype: meat, cost.val: 4782969000000, prod.unittype: hivequeen, prod.val: 7",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "4782969000000"
+            },
+            "gsx$description": {
+              "$t": "The mightiest mortal ruler of any swarm."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "hive empress"
+            },
+            "gsx$lol": {
+              "$t": "On her thorax and on her forewing she has this name written: queen of queens and lady of ladies."
+            },
+            "gsx$name": {
+              "$t": "empress"
+            },
+            "gsx$plural": {
+              "$t": "hive empresses"
+            },
+            "gsx$prod.unittype": {
+              "$t": "hivequeen"
+            },
+            "gsx$prod.val": {
+              "$t": "7"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "7"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "grow"
+            },
+            "gsx$verbone": {
+              "$t": "grows"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dp3nl"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dp3nl",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "empress",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: hivequeen, cost.val: 10000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "hivequeen"
+            },
+            "gsx$cost.val": {
+              "$t": "10000000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "empress"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/df9om"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/df9om",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "empress",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 6250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "6250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "empress"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dgo93"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dgo93",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "empress",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "empress"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/di2tg"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/di2tg",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "empress",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: hive prophet, plural: hive prophets, verb: grow, verbone: grows, column: 1, description: Your swarm begins to look to the heavens for guidance. Prophets foreshadow divine support for your brood., tier: 8, cost.unittype: meat, cost.val: 430467210000000, prod.unittype: empress, prod.val: 8",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "430467210000000"
+            },
+            "gsx$description": {
+              "$t": "Your swarm begins to look to the heavens for guidance. Prophets foreshadow divine support for your brood."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "hive prophet"
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "prophet"
+            },
+            "gsx$plural": {
+              "$t": "hive prophets"
+            },
+            "gsx$prod.unittype": {
+              "$t": "empress"
+            },
+            "gsx$prod.val": {
+              "$t": "8"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "8"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "grow"
+            },
+            "gsx$verbone": {
+              "$t": "grows"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/djhdx"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/djhdx",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "prophet",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: empress, cost.val: 100000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "empress"
+            },
+            "gsx$cost.val": {
+              "$t": "100000000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "prophet"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dw4je"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dw4je",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "prophet",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 31250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "31250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "prophet"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dxj3v"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dxj3v",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "prophet",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "prophet"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dyxo8"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dyxo8",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "prophet",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: goddess of the hive, plural: goddesses of the hive, verb: summon, verbone: summons, column: 1, description: The prophecies are true! Pleased by your sacrifices, the goddesses have manifest themselves in mortal form to rule over your swarm., tier: 9, cost.unittype: meat, cost.val: 3.8742E+16, prod.unittype: prophet, prod.val: 9",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "3.8742E+16"
+            },
+            "gsx$description": {
+              "$t": "The prophecies are true! Pleased by your sacrifices, the goddesses have manifest themselves in mortal form to rule over your swarm."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "goddess of the hive"
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "goddess"
+            },
+            "gsx$plural": {
+              "$t": "goddesses of the hive"
+            },
+            "gsx$prod.unittype": {
+              "$t": "prophet"
+            },
+            "gsx$prod.val": {
+              "$t": "9"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "9"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "summon"
+            },
+            "gsx$verbone": {
+              "$t": "summons"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e0c8p"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e0c8p",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "goddess",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: prophet, cost.val: 1000000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "prophet"
+            },
+            "gsx$cost.val": {
+              "$t": "1000000000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "goddess"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dqi9q"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dqi9q",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "goddess",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 156250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "156250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "goddess"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/drwu7"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/drwu7",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "goddess",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "goddess"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dtbek"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dtbek",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "goddess",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: brood pantheon, plural: brood pantheons, verb: summon, verbone: summons, column: 1, description: Entire groups of divine beings have heard your pleas, and lend their support to your swarm., lol: riot pls, tier: 10, cost.unittype: meat, cost.val: 3.48678E+18, prod.unittype: goddess, prod.val: 10",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "3.48678E+18"
+            },
+            "gsx$description": {
+              "$t": "Entire groups of divine beings have heard your pleas, and lend their support to your swarm."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "brood pantheon"
+            },
+            "gsx$lol": {
+              "$t": "riot pls"
+            },
+            "gsx$name": {
+              "$t": "pantheon"
+            },
+            "gsx$plural": {
+              "$t": "brood pantheons"
+            },
+            "gsx$prod.unittype": {
+              "$t": "goddess"
+            },
+            "gsx$prod.val": {
+              "$t": "10"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "10"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "summon"
+            },
+            "gsx$verbone": {
+              "$t": "summons"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dupz1"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/dupz1",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: goddess, cost.val: 10000000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "goddess"
+            },
+            "gsx$cost.val": {
+              "$t": "10000000000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "pantheon"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e7d2q"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e7d2q",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 781250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "781250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "pantheon"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e8rn7"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e8rn7",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "pantheon"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ea67k"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ea67k",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: pantheon of pantheons, plural: pantheons of pantheons, verb: summon, verbone: summons, column: 1, description: You win. Honestly, I didn't think anyone would ever see these units. You're either very dedicated or you broke the game, and I'm impressed either way., lol: A pantheon of pantheons doesn't even make sense, but do you care? Power-up! Power-up!, tier: 11, cost.unittype: meat, cost.val: 3.13811E+20, prod.unittype: pantheon, prod.val: 11",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "1"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "3.13811E+20"
+            },
+            "gsx$description": {
+              "$t": "You win. Honestly, I didn't think anyone would ever see these units. You're either very dedicated or you broke the game, and I'm impressed either way."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "pantheon of pantheons"
+            },
+            "gsx$lol": {
+              "$t": "A pantheon of pantheons doesn't even make sense, but do you care? Power-up! Power-up!"
+            },
+            "gsx$name": {
+              "$t": "pantheon2"
+            },
+            "gsx$plural": {
+              "$t": "pantheons of pantheons"
+            },
+            "gsx$prod.unittype": {
+              "$t": "pantheon"
+            },
+            "gsx$prod.val": {
+              "$t": "11"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "11"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "summon"
+            },
+            "gsx$verbone": {
+              "$t": "summons"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ebks1"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ebks1",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon2",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: pantheon, cost.val: 100000000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "pantheon"
+            },
+            "gsx$cost.val": {
+              "$t": "100000000000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "pantheon2"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e1qt2"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e1qt2",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon2",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: territory, cost.val: 3906250",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "territory"
+            },
+            "gsx$cost.val": {
+              "$t": "3906250"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "pantheon2"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e35dj"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e35dj",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon2",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "pantheon2"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e4jxw"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e4jxw",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "pantheon2",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: swarmling, plural: swarmlings, verb: hatch, verbone: hatches, column: 2, description: Your swarm's smallest and weakest military units. They use their teeth and claws to attack foes, and can be vicious in large numbers, tier: 1, cost.unittype: meat, cost.val: 250, prod.unittype: territory, prod.val: 0.01",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "250"
+            },
+            "gsx$description": {
+              "$t": "Your swarm's smallest and weakest military units. They use their teeth and claws to attack foes, and can be vicious in large numbers"
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "swarmling"
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "swarmling"
+            },
+            "gsx$plural": {
+              "$t": "swarmlings"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "0.01"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "1"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e5yid"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/e5yid",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "swarmling",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "swarmling"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eilm2"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eilm2",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "swarmling",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: stinger, plural: stingers, verb: hatch, verbone: hatches, column: 2, description: Your swarm's weakest flying warriors. They roam in packs, attacking any threats with venomous stingers., lol: Reasonably smart critters - they consistently earn a 3.0 GPA., tier: 2, cost.unittype: meat, cost.val: 36000, prod.unittype: territory, prod.val: 0.3",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "36000"
+            },
+            "gsx$description": {
+              "$t": "Your swarm's weakest flying warriors. They roam in packs, attacking any threats with venomous stingers."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "stinger"
+            },
+            "gsx$lol": {
+              "$t": "Reasonably smart critters - they consistently earn a 3.0 GPA."
+            },
+            "gsx$name": {
+              "$t": "stinger"
+            },
+            "gsx$plural": {
+              "$t": "stingers"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "0.3"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "2"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ek06j"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ek06j",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "stinger",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "stinger"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eleqw"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eleqw",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "stinger",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: culicimorph, plural: culicimorphs, verb: hatch, verbone: hatches, column: 2, description: These hated creatures feast on the blood of their victims, and spread disease to larger prey they cannot kill outright., lol: These guys really suck., tier: 3, cost.unittype: meat, cost.val: 5184000, prod.unittype: territory, prod.val: 9",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "5184000"
+            },
+            "gsx$description": {
+              "$t": "These hated creatures feast on the blood of their victims, and spread disease to larger prey they cannot kill outright."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "culicimorph"
+            },
+            "gsx$lol": {
+              "$t": "These guys really suck."
+            },
+            "gsx$name": {
+              "$t": "mosquito"
+            },
+            "gsx$plural": {
+              "$t": "culicimorphs"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "9"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "3"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/emtbd"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/emtbd",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "mosquito",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "mosquito"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eczce"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eczce",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "mosquito",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: locust, plural: locusts, verb: hatch, verbone: hatches, column: 2, lol: Preceded by fiery hail, followed by darkness., tier: 4, cost.unittype: meat, cost.val: 746496000, prod.unittype: territory, prod.val: 270",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "746496000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "locust"
+            },
+            "gsx$lol": {
+              "$t": "Preceded by fiery hail, followed by darkness."
+            },
+            "gsx$name": {
+              "$t": "locust"
+            },
+            "gsx$plural": {
+              "$t": "locusts"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "270"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "4"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eedwv"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eedwv",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "locust",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "locust"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/efsh8"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/efsh8",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "locust",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: roach, plural: roaches, verb: hatch, verbone: hatches, column: 2, lol: ROOSTERS., tier: 5, cost.unittype: meat, cost.val: 107495424000, prod.unittype: territory, prod.val: 8100",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "107495424000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "roach"
+            },
+            "gsx$lol": {
+              "$t": "ROOSTERS."
+            },
+            "gsx$name": {
+              "$t": "roach"
+            },
+            "gsx$plural": {
+              "$t": "roaches"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "8100"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "5"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eh71p"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eh71p",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "roach",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "roach"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/etu5e"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/etu5e",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "roach",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: arachnomorph, plural: arachnomorphs, verb: hatch, verbone: hatches, column: 2, tier: 6, cost.unittype: meat, cost.val: 15479341056000, prod.unittype: territory, prod.val: 243000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "15479341056000"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "arachnomorph"
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "spider"
+            },
+            "gsx$plural": {
+              "$t": "arachnomorphs"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "243000"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "6"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ev8pv"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ev8pv",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "spider",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "spider"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ewna8"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ewna8",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "spider",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: chilopodomorph, plural: chilopodomorphs, verb: hatch, verbone: hatches, column: 2, lol: Hi Mom!, tier: 7, cost.unittype: meat, cost.val: 2.22903E+15, prod.unittype: territory, prod.val: 7290000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "2.22903E+15"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "chilopodomorph"
+            },
+            "gsx$lol": {
+              "$t": "Hi Mom!"
+            },
+            "gsx$name": {
+              "$t": "centipede"
+            },
+            "gsx$plural": {
+              "$t": "chilopodomorphs"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "7290000"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "7"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ey1up"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/ey1up",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "centipede",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "centipede"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eo7vq"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/eo7vq",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "centipede",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: wasp, plural: wasps, verb: hatch, verbone: hatches, column: 2, tier: 8, cost.unittype: meat, cost.val: 3.2098E+17, prod.unittype: territory, prod.val: 218700000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "3.2098E+17"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "wasp"
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "wasp"
+            },
+            "gsx$plural": {
+              "$t": "wasps"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "218700000"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "8"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/epmg7"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/epmg7",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "wasp",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "wasp"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/er10k"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/er10k",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "wasp",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "label: devourer, plural: devourers, verb: hatch, verbone: hatches, column: 2, description: A larger and faster form of the locust, few things can escape a hungry pack of devourers., lol: Extra fun in hardcore leagues and fractured maps., tier: 9, cost.unittype: meat, cost.val: 4.62211E+19, prod.unittype: territory, prod.val: 6561000000",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": "2"
+            },
+            "gsx$cost.unittype": {
+              "$t": "meat"
+            },
+            "gsx$cost.val": {
+              "$t": "4.62211E+19"
+            },
+            "gsx$description": {
+              "$t": "A larger and faster form of the locust, few things can escape a hungry pack of devourers."
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": "devourer"
+            },
+            "gsx$lol": {
+              "$t": "Extra fun in hardcore leagues and fractured maps."
+            },
+            "gsx$name": {
+              "$t": "devourer"
+            },
+            "gsx$plural": {
+              "$t": "devourers"
+            },
+            "gsx$prod.unittype": {
+              "$t": "territory"
+            },
+            "gsx$prod.val": {
+              "$t": "6561000000"
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": "9"
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": "hatch"
+            },
+            "gsx$verbone": {
+              "$t": "hatches"
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/esfl1"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/esfl1",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "devourer",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          },
+          {
+            "category": [
+              {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+              }
+            ],
+            "content": {
+              "$t": "cost.unittype: larva, cost.val: 1",
+              "type": "text"
+            },
+            "gsx$column": {
+              "$t": ""
+            },
+            "gsx$cost.unittype": {
+              "$t": "larva"
+            },
+            "gsx$cost.val": {
+              "$t": "1"
+            },
+            "gsx$description": {
+              "$t": ""
+            },
+            "gsx$disabled": {
+              "$t": ""
+            },
+            "gsx$init": {
+              "$t": ""
+            },
+            "gsx$label": {
+              "$t": ""
+            },
+            "gsx$lol": {
+              "$t": ""
+            },
+            "gsx$name": {
+              "$t": "devourer"
+            },
+            "gsx$plural": {
+              "$t": ""
+            },
+            "gsx$prod.unittype": {
+              "$t": ""
+            },
+            "gsx$prod.val": {
+              "$t": ""
+            },
+            "gsx$showparent": {
+              "$t": ""
+            },
+            "gsx$tier": {
+              "$t": ""
+            },
+            "gsx$unbuyable": {
+              "$t": ""
+            },
+            "gsx$verb": {
+              "$t": ""
+            },
+            "gsx$verbone": {
+              "$t": ""
+            },
+            "id": {
+              "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/a59y2"
+            },
+            "link": [
+              {
+                "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values/a59y2",
+                "rel": "self",
+                "type": "application/atom+xml"
+              }
+            ],
+            "title": {
+              "$t": "devourer",
+              "type": "text"
+            },
+            "updated": {
+              "$t": "2014-08-26T06:53:21.855Z"
+            }
+          }
+        ],
+        "id": {
+          "$t": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values"
+        },
+        "link": [
+          {
+            "href": "https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml",
+            "rel": "alternate",
+            "type": "application/atom+xml"
+          },
+          {
+            "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values",
+            "rel": "http://schemas.google.com/g/2005#feed",
+            "type": "application/atom+xml"
+          },
+          {
+            "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values",
+            "rel": "http://schemas.google.com/g/2005#post",
+            "type": "application/atom+xml"
+          },
+          {
+            "href": "https://spreadsheets.google.com/feeds/list/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/od6/public/values?alt=json",
+            "rel": "self",
+            "type": "application/atom+xml"
+          }
+        ],
+        "openSearch$startIndex": {
+          "$t": "1"
+        },
+        "openSearch$totalResults": {
+          "$t": "64"
+        },
+        "title": {
+          "$t": "unittypes",
+          "type": "text"
+        },
+        "updated": {
+          "$t": "2014-08-26T06:53:21.855Z"
+        },
+        "xmlns": "http://www.w3.org/2005/Atom",
+        "xmlns$gsx": "http://schemas.google.com/spreadsheets/2006/extended",
+        "xmlns$openSearch": "http://a9.com/-/spec/opensearchrss/1.0/"
+      },
+      "version": "1.0"
+    }
+  },
   "upgrades": {
     "column_names": [
       "name",

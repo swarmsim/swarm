@@ -465,7 +465,7 @@ module.exports = function (grunt) {
       parseNumbers: true,
       debug: true,
       callback: function (data) {
-        data = _.pick(data, ['units', 'upgrades', 'achievements', 'tutorial']);
+        data = _.pick(data, ['unittypes', 'upgrades', 'achievements', 'tutorial']);
 
         //var text = JSON.stringify(data, null, 2);
         // built-in stringify puts sheets in a random order. Use a consistent
@@ -506,7 +506,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'preloadSpreadsheet',
+    //'preloadSpreadsheet',
     'ngconstant:test',
     'concurrent:test',
     'autoprefixer',

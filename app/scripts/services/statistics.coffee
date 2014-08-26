@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope) -> class ReplayLog
+angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope, env) -> class ReplayLog
   constructor: (@id, @log=[]) ->
     @_init()
   _init: ->
@@ -38,7 +38,8 @@ angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope) -> class Repl
     try
       @load()
     catch e
-      console.warn "couldn't load replay log, ignoring.", e
+      if env != 'test'
+        console.warn "couldn't load replay log, ignoring.", e
 
 ###*
  # @ngdoc service
