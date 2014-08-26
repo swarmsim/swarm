@@ -56,20 +56,29 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
       return "Welcome back. Your swarm continued to work hard while you were away."
 
   $scope.emptyText = ->
-    counts = game.counts()
-    if (counts.swarmer + counts.devourer) > 0
-      return "Your swarm's military and territory both expand rapidly."
-    if (counts.swarmer + counts.devourer) > 0
-      return "Your nest gives you more food and workers than your swarm has ever known. Swarmers and Locusts will further expand your military, and your territory."
-    if (counts.nest > 0)
-      return "Your nest gives you more food and workers than your swarm has ever known. Build an army with Swarmers or Locusts and expand your territory further."
-    if (counts.stinger + counts.locust) > 0
-      return "Your warriors have secured some territory. A nest will further increase the growth rate of your swarm."
-    if counts.queen > 0
-      return "You are the queen of a growing swarm, and your growth demands more territory. Raise some stingers or locusts to explore and conquer new lands."
-    if counts.drone > 0
-      return "You lead a small swarm of worker drones. Your fellow drones long for a queen."
-    return "You are a single bug, a worker drone with no hive to call home. Begin by gathering food, so you can multiply yourself into more drones."
+  $scope.tutText = ->
+    units = game.countUnits()
+    upgrades = game.countUpgrades()
+    if upgrades.expansion >= 5
+      return null
+    if upgrades.expansion > 0
+      return "Expansion is the key to growing your swarm rapidly. Build a large military to expand your territory and produce more larvae. Build more queens and, eventually, nests to produce more meat for your military."
+    if upgrades.hatchery > 0
+      if units.queen >= 5
+        if units.territory > 50
+          return "Your warriors have captured a lot of territory, and soon you can secure your first expansion. Expansions increase larvae production. Select 'Larva' to expand."
+        if units.territory > 0
+          return "Your warriors have slowly begun securing territory. Continue expanding your military."
+        return "Queens have rapidly grown your swarm, and your growth demands more territory. Begin capturing territory by building military units - swarmlings or stingers."
+      if units.queen > 0
+        return "Hatch more queens to grow your swarm. Hatching drones with the \"Twin Drones\" upgrade will allow you to rapidly raise more queens."
+    if units.drone >= 10
+      if upgrades.hatchery > 0
+        return "You lead a small brood of worker drones. They long for a queen. You must sacrifice many drones to hatch a queen, but once born, your queen will slowly hatch drones without consuming meat or larvae."
+      return "You lead a small brood of worker drones. Once you have plenty of meat, upgrade your hatchery to produce more larvae by selecting 'Larva' and spending some meat."
+    if units.drone > 0
+      return "You lead a small brood of worker drones. Drones gather meat. Use this meat to build more drones and expand your brood."
+    return "Your brood starts its life with a small pile of meat and a single larvae-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some drones."
 
   $scope.click = (unittype) ->
     $scope[$scope.action](unittype)

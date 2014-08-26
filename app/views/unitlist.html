@@ -1,5 +1,9 @@
 <div class="row">
   <div class="col-sm-8 col-sm-push-4">
+    <div ng-if="tutText()" class="animif">
+      <p>{{tutText()}}</p>
+      <hr>
+    </div>
     <div ng-if="!selected">
       <p ng-if="welcomeBackText()">{{welcomeBackText()}}</p>
       <p>{{emptyText()}}</p>

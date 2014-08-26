@@ -322,9 +322,14 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
   count: (unitname, secs) ->
     return @unit(unitname).count secs
 
-  counts: (secs) ->
+  counts: -> @countUnits()
+  countUnits: ->
     _.mapValues @units(), (unit, name) =>
-      unit.count secs
+      unit.count()
+
+  countUpgrades: ->
+    _.mapValues @upgrades(), (upgrade, name) =>
+      upgrade.count()
 
   upgrade: (name) ->
     if not _.isString name
