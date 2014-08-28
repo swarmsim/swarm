@@ -25,10 +25,23 @@ module.exports = function (grunt) {
   grunt.initConfig({
     // https://www.npmjs.org/package/grunt-gh-pages
     'gh-pages': {
+      // no-args/default is staging deployment. 'grunt gh-pages:prod' for production.
       options: {
         base: 'dist'
       },
-      src: ['**']
+      src: ['**'],
+      staging: {
+        // default options
+        options: {},
+        src: ['**']
+      },
+      prod: {
+        options: {
+          branch: 'master',
+          repo: 'https://github.com/swarmsim/swarmsim.github.io.git'
+        },
+        src: ['**']
+      }
     },
 
     // http://hounddog.github.io/blog/using-environment-configuration-with-grunt/
@@ -542,8 +555,12 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('deploy', [
+  grunt.registerTask('deploy-staging', [
     'build',
-    'gh-pages'
+    'gh-pages:staging'
+  ]);
+  grunt.registerTask('deploy-prod', [
+    'deploy-staging',
+    'gh-pages:prod'
   ]);
 };
