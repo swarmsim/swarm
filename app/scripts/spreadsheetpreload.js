@@ -1248,7 +1248,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       {
         "column": "",
         "cost.unittype": "larva",
-        "cost.val": "",
+        "cost.val": 1,
         "description": "",
         "disabled": "",
         "init": "",
