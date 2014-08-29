@@ -54,3 +54,9 @@ angular.module('swarmApp').config ($routeProvider) ->
         controller: 'StatisticsCtrl'
       .otherwise
         redirectTo: '/'
+
+# http and https use different localstorage, which might confuse folks.
+# angular $location doesn't make protocol mutable, so use window.location.
+angular.module('swarmApp').config (env) ->
+  if env == 'prod' and window.location.protocol == 'http:'
+    window.location.protocol = 'https:'
