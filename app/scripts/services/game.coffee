@@ -32,7 +32,11 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
       return new Effect @game, this, effect
   # TODO refactor counting to share with unit
   count: ->
-    @game.session.upgrades[@name] ? 0
+    ret = @game.session.upgrades[@name] ? 0
+    if _.isNaN ret
+      # oops. TODO alert analytics
+      ret = 0
+    return ret
   _setCount: (val) ->
     @game.session.upgrades[@name] = val
     util.clearMemoCache @_totalCost, @unit._stats

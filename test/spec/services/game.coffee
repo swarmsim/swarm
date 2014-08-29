@@ -190,3 +190,7 @@ describe 'Service: game', ->
     game.tick new Date 1000
     prod1 = withNoTick game, -> unit.totalProduction()
     expect(prod0.meat * unit.stat 'prod').toBe prod1.meat
+
+  it 'recovers NaN saves', ->
+    game = mkgame {larva:NaN,meat:9999999,drone:99999}
+    expect(game.unit('larva').count()).toBe 0
