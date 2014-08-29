@@ -143,7 +143,11 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
         prod:prod
 
   rawCount: ->
-    @game.session.unittypes[@name] ? 0
+    ret = @game.session.unittypes[@name] ? 0
+    if _.isNaN ret
+      # oops. TODO alert analytics
+      ret = 0
+    return ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = val
     util.clearMemoCache @_count
