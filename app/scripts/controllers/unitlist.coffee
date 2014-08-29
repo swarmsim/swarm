@@ -80,5 +80,7 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
       return "You lead a small brood of worker drones. Drones gather meat. Use this meat to build more drones and expand your brood."
     return "Your brood starts its life with a small pile of meat and a single larvae-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some drones."
 
+  $scope.buy = (unit) -> $scope.commands.buyUnit unit, $scope.buynum
+  $scope.buyMax = (unit) -> $scope.commands.buyMaxUnit unit
   $scope.click = (unittype) ->
     $scope[$scope.action](unittype)
