@@ -36,6 +36,8 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     (unit for unit in unitsByGroup[groupnum] ? [] when unit.isVisible())
   $scope.isVisible = (upgrade) ->
     upgrade.isVisible()
+  $scope.isWarningVisible = (warn) ->
+    warn.unit.count() <= warn.val
 
   $scope.select = (unit) ->
     $scope.selected = unit

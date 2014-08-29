@@ -107,20 +107,24 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @name = @unittype.name
     @_stats = _.memoize @_stats
     @_count = _.memoize @_count
-  _initProducerPath: ->
+  _init: ->
     # copy all the inter-unittype references, replacing the type references with units
     @_producerPathList = _.map @unittype.producerPathList, (path) =>
       _.map path, (unittype) =>
         ret = @game.unit unittype
         util.assert ret
         return ret
-    @cost = _.map @unittype.cost, (cost, name) =>
+    @cost = _.map @unittype.cost, (cost) =>
       ret = _.clone cost
       ret.unit = @game.unit cost.unittype
       return ret
-    @prod = _.map @unittype.prod, (prod, name) =>
+    @prod = _.map @unittype.prod, (prod) =>
       ret = _.clone prod
       ret.unit = @game.unit prod.unittype
+      return ret
+    @warnfirst = _.map @unittype.warnfirst, (warnfirst) =>
+      ret = _.clone warnfirst
+      ret.unit = @game.unit warnfirst.unittype
       return ret
     @upgrades =
       list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype)
@@ -297,7 +301,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
       @_upgrades.byName[upgrade.name] = upgrade
 
     for name, unit of @_units.list
-      unit._initProducerPath()
+      unit._init()
     for name, upgrade of @_upgrades.list
       upgrade._init()
     @tick()

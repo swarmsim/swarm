@@ -62,7 +62,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       "cost.val",
       "prod.unittype",
       "prod.val",
-      "showparent"
+      "showparent",
+      "warnfirst.unittype",
+      "warnfirst.val",
+      "warnfirst.text"
     ],
     "elements": [
       {
@@ -83,7 +86,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "TRUE",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 0,
@@ -103,7 +109,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 0,
         "unbuyable": "TRUE",
         "verb": "gather",
-        "verbone": "gathers"
+        "verbone": "gathers",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 0,
@@ -123,7 +132,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "TRUE",
         "verb": "birth",
-        "verbone": "births"
+        "verbone": "births",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 0,
@@ -143,7 +155,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "TRUE",
         "verb": "capture",
-        "verbone": "captures"
+        "verbone": "captures",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 0,
@@ -163,7 +178,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "TRUE",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -183,7 +201,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 1,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -203,7 +224,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -223,7 +247,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 2,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -243,7 +270,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -263,7 +293,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -283,7 +316,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 3,
         "unbuyable": "",
         "verb": "build",
-        "verbone": "builds"
+        "verbone": "builds",
+        "warnfirst.text": "Your first nest will take a long time to regenerate the queens sacrificed to build it. Consider hatching more queens first.",
+        "warnfirst.unittype": "queen",
+        "warnfirst.val": 2000
       },
       {
         "column": "",
@@ -303,7 +339,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -323,7 +362,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -343,7 +385,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -363,7 +408,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 4,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "Your first few greater queens will take a long time to regenerate the nests sacrificed to build them. Consider building more nests first.",
+        "warnfirst.unittype": "nest",
+        "warnfirst.val": 40000
       },
       {
         "column": "",
@@ -383,7 +431,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -403,7 +454,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -423,7 +477,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -443,7 +500,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 5,
         "unbuyable": "",
         "verb": "build",
-        "verbone": "builds"
+        "verbone": "builds",
+        "warnfirst.text": "Your first few hives will take a long time to regenerate the greater queens sacrificed to build them. Consider hatching more greater queens first.",
+        "warnfirst.unittype": "greaterqueen",
+        "warnfirst.val": 800000
       },
       {
         "column": "",
@@ -463,7 +523,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -483,7 +546,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -503,7 +569,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -523,7 +592,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 6,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "Your first few hive queens will take a long time to regenerate the hives sacrificed to build them. Consider building more hives first.",
+        "warnfirst.unittype": "hive",
+        "warnfirst.val": 4000000
       },
       {
         "column": "",
@@ -543,7 +615,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -563,7 +638,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -583,7 +661,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -603,7 +684,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 7,
         "unbuyable": "",
         "verb": "grow",
-        "verbone": "grows"
+        "verbone": "grows",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -623,7 +707,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -643,7 +730,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -663,7 +753,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -683,7 +776,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 8,
         "unbuyable": "",
         "verb": "grow",
-        "verbone": "grows"
+        "verbone": "grows",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -703,7 +799,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -723,7 +822,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -743,7 +845,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -763,7 +868,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 9,
         "unbuyable": "",
         "verb": "summon",
-        "verbone": "summons"
+        "verbone": "summons",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -783,7 +891,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -803,7 +914,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -823,7 +937,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -843,7 +960,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 10,
         "unbuyable": "",
         "verb": "summon",
-        "verbone": "summons"
+        "verbone": "summons",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -863,7 +983,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -883,7 +1006,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -903,7 +1029,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 1,
@@ -923,7 +1052,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 11,
         "unbuyable": "",
         "verb": "summon",
-        "verbone": "summons"
+        "verbone": "summons",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -943,7 +1075,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -963,7 +1098,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -983,7 +1121,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1003,7 +1144,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 1,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1023,7 +1167,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1043,7 +1190,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 2,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1063,7 +1213,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1083,7 +1236,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 3,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1103,7 +1259,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1123,7 +1282,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 4,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1143,7 +1305,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1163,7 +1328,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 5,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1183,7 +1351,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1203,7 +1374,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 6,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1223,7 +1397,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1243,7 +1420,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 7,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1263,7 +1443,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1283,7 +1466,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 8,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1303,7 +1489,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1323,7 +1512,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 9,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1343,7 +1535,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1363,7 +1558,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 10,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1383,7 +1581,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": 2,
@@ -1403,7 +1604,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": 11,
         "unbuyable": "",
         "verb": "hatch",
-        "verbone": "hatches"
+        "verbone": "hatches",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       },
       {
         "column": "",
@@ -1423,7 +1627,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "tier": "",
         "unbuyable": "",
         "verb": "",
-        "verbone": ""
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
       }
     ],
     "name": "unittypes"

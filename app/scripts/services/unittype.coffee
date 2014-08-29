@@ -39,7 +39,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
       @_buildProducerPath unittype, nextgen, path
 
   @parseSpreadsheet: (data) ->
-    rows = spreadsheetUtil.parseRows {name:['cost','prod']}, data.data.unittypes.elements
+    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst']}, data.data.unittypes.elements
     ret = new UnitTypes (new UnitType(row) for row in rows)
     for unittype in ret.list
       unittype.producedBy = []
@@ -51,6 +51,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
         spreadsheetUtil.resolveList [unittype], 'showparent', ret.byName
       spreadsheetUtil.resolveList unittype.cost, 'unittype', ret.byName
       spreadsheetUtil.resolveList unittype.prod, 'unittype', ret.byName
+      spreadsheetUtil.resolveList unittype.warnfirst, 'unittype', ret.byName
       for prod in unittype.prod
         prod.unittype.producedBy.push unittype
     for unittype in ret.list

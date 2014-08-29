@@ -59,6 +59,14 @@
             </span>
           </button>
         </div-->
+        <div ng-if="selected.count() == 0 && selected.isCostMet()" ng-repeat="warn in (selected.warnfirst | filter:isWarningVisible)">
+          <!-- nested div to get the animation right: disappear instantly when switching units, fade when closing manually -->
+          <!-- TODO: too bad the "fade when closing manually" part doesn't want to work -->
+          <div class="alert alert-warning alert-dismissable animif" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <p>{{warn.text}}</p>
+          </div>
+        </div>
         <div class="form-group">
           <label for="buynum">Buy <input type="number" ng-model="mainBuynum" min="1"></label>
           <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*mainBuynum|number:0}}</span>
