@@ -107,6 +107,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     @name = @unittype.name
     @_stats = _.memoize @_stats
     @_count = _.memoize @_count
+    @_velocity = _.memoize @_velocity
   _init: ->
     # copy all the inter-unittype references, replacing the type references with units
     @_producerPathList = _.map @unittype.producerPathList, (path) =>
@@ -156,7 +157,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     return ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = val
-    util.clearMemoCache @_count
+    util.clearMemoCache @_count, @_velocity
   _addCount: (val) ->
     @_setCount @rawCount() + val
   _subtractCount: (val) ->
@@ -266,7 +267,9 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     return ret
 
   # speed at which other units are producing this unit.
-  velocity: ->
+  velocity: -> @_velocity @game.now.getTime()
+  _velocity: ->
+    util.clearMemoCache @_velocity # store only the most recent velocity
     sum = 0
     for parent in @_parents()
       prod = parent.totalProduction()
