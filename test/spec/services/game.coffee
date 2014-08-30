@@ -52,6 +52,10 @@ describe 'Service: game', ->
     expect(ct 'meat', 0).toBe 0
     expect(ct 'meat', 1).toBe 1
     expect(ct 'meat', 9.5).toBe 9.5
+  it 'calculates a single resource\'s velocity (drone:1)', ->
+    game = mkgame {drone:1}
+    expect(game.unit('meat').velocity()).toBe 1
+    expect(game.unit('drone').velocity()).toBe 0
   it 'calculates a single resource\'s value over time (meat:3,drone:2)', ->
     game = mkgame {meat:3, drone:2}
     expect(ct 'meat', 0).toBe 3

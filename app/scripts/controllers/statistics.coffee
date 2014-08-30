@@ -7,11 +7,19 @@
  # # StatisticsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statistics, game) ->
+angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statistics, game, $interval, options) ->
   $scope.listener = statistics
   $scope.session = session
   $scope.stats = session.statistics
   $scope.game = game
+
+  # TODO: this chunk is copypasted from unitlist.coffee. move it to header, so
+  # it's only pasted in one place, and account for options-changes.
+  #
+  # fps may change in options menu, but we destroy the interval upon loading the options menu, so no worries
+  animatePromise = $interval (=>$scope.game.tick()), options.fpsSleepMillis()
+  $scope.$on '$destroy', =>
+    $interval.cancel animatePromise
 
   # http://stackoverflow.com/questions/13262621
   utcdoy = (ms) ->
@@ -24,6 +32,7 @@ angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statis
       ustats.elapsedFirstStr = utcdoy ustats.elapsedFirst
     return ustats
   $scope.hasUnitStats = (unit) -> !!$scope.unitStats unit
+  $scope.showStats = (unit) -> $scope.hasUnitStats(unit) or (!unit.isBuyable() and unit.isVisible())
 
   $scope.upgradeStats = (upgrade) ->
     ustats = $scope.stats.byUpgrade[upgrade.name]

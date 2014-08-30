@@ -118,9 +118,11 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       ret = _.clone cost
       ret.unit = @game.unit cost.unittype
       return ret
+    @prodByName = {}
     @prod = _.map @unittype.prod, (prod) =>
       ret = _.clone prod
       ret.unit = @game.unit prod.unittype
+      @prodByName[ret.unit.name] = ret
       return ret
     @warnfirst = _.map @unittype.warnfirst, (warnfirst) =>
       ret = _.clone warnfirst
@@ -173,6 +175,10 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
       val = ancestordata.prod.val + ancestordata.parent.stat 'base', 0
       bonus *= val * ancestordata.parent.stat 'prod', 1
     return count * bonus / c * math.pow secs, gen
+
+  # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
+  _parents: ->
+    (pathdata[0].parent for pathdata in @_producerPathData() when pathdata[0].parent.prodByName[@name])
 
   count: -> @_count @game.now.getTime()
   _count: ->
@@ -258,6 +264,15 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     for prod in @prod
       ret[prod.unit.unittype.name] = (prod.val + @stat 'base', 0) * @stat 'prod', 1
     return ret
+
+  # speed at which other units are producing this unit.
+  velocity: ->
+    sum = 0
+    for parent in @_parents()
+      prod = parent.totalProduction()
+      util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
+      sum += prod[@name]
+    return sum
 
   # TODO rework this - shouldn't have to pass a default
   hasStat: (key, default_=undefined) ->

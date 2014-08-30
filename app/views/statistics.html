@@ -1,7 +1,7 @@
 <div class="container statistics">
   <h1>Statistics</h1>
   <div ng-repeat="unit in game.unitlist()">{{unit.label}}</div>
-  <div class="table-responsive" ng-init="unitlist = (game.unitlist() | filter:unitStats)">
+  <div class="table-responsive" ng-init="unitlist = (game.unitlist() | filter:showStats)">
     <table class="table" ng-if="unitlist.length > 0">
       <tr>
         <th>unit</th>
@@ -9,6 +9,7 @@
         <th>clicks</th>
         <th>bought manually</th>
         <th>twins</th>
+        <th>per sec</th>
       </tr>
       <tbody>
         <tr ng-repeat="unit in unitlist" ng-init="ustats = unitStats(unit)">
@@ -17,6 +18,7 @@
           <td>{{ustats.clicks | number}}</td>
           <td>{{ustats.num | number}}</td>
           <td>{{ustats.twinnum | number}}</td>
+          <td>{{unit.velocity() | bignum}}</td>
         </tr>
       </tbody>
     </table>

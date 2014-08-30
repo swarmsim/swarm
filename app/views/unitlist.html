@@ -49,6 +49,13 @@
         <span ng-if="selected.showparent.hasStat('base', 0)">(+{{selected.showparent.stat('base')|number:0}} bonus)</span>
         <span ng-if="selected.showparent.hasStat('prod', 1)">(x{{selected.showparent.stat('prod')|number:1}} bonus)</span>
       </div>
+      <div ng-if="!selected.showparent && selected.velocity() > 0">
+        You earn
+        <span ng-if="selected.velocity() < 0.2 && selected.velocity() > 0">1/{{1/selected.velocity()|number:0}} of a {{selected.unittype.label}}</span>
+        <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
+        <span ng-if="selected.velocity() <= 0 || selected.velocity() >= 0.2">{{decimals(selected.velocity())|number}} {{selected.unittype.plural}}</span>
+        per second.
+      </div>
       <div ng-if="!selected.unbuyable && selected.cost.length">
         <hr>
         <!--div class="form-group">
