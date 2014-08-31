@@ -49,7 +49,7 @@ angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope, env) -> class
  # Factory in the swarmApp.
 ###
 angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog) -> class StatisticsListener
-  constructor: (@session) ->
+  constructor: (@session, @scope) ->
     # Transient. TODO: persist this separately from session, it can get big
     @replay = new ReplayLog session.id
     @_init()
@@ -92,6 +92,6 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog) -> cl
       @push cmd
 
 angular.module('swarmApp').factory 'statistics', (session, StatisticsListener, $rootScope) ->
-  stats = new StatisticsListener session
+  stats = new StatisticsListener session, $rootScope
   stats.listen $rootScope
   return stats
