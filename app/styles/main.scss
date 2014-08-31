@@ -3,6 +3,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+// if the navbar is too big, make it overlap the title on the left. sloppy-looking, but functional.
+// https://github.com/erosson/swarm/issues/30
+#navbar {
+  position:relative;
+}
+#navbar ul.navbar-right {
+  position:absolute;top:0;right:0;
+}
 // animations from ng-if docs: https://docs.angularjs.org/api/ng/directive/ngIf
 .animif.ng-enter, .animif.ng-leave {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
