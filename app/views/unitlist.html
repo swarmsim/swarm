@@ -77,7 +77,7 @@
         <div class="form-group">
           <label for="buynum">Buy <input type="number" ng-model="mainBuynum" min="1"></label>
           <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*mainBuynum|number:0}}</span>
-          <button id="buynum" ng-click="commands.buyUnit(selected, mainBuynum)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
+          <button id="buynum" ng-click="commands.buyUnit({unit:selected, num:mainBuynum, ui:'selected'})" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
             <span ng-repeat="cost in selected.cost">
               <span ng-class="{costNotMet:cost.val*mainBuynum > cost.unit.count()}">{{cost.val*mainBuynum|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
             </span>
@@ -86,7 +86,7 @@
         <div class="form-group">
           <label for="buymax">Buy {{selected.maxCostMet()|number:0}} (max)</label>
           <span ng-if="selected.hasStat('twin', 1)">x{{selected.stat('twin')|number:0}} = {{selected.stat('twin')*selected.maxCostMet()|number:0}}</span>
-          <button id="buymax" ng-click="commands.buyMaxUnit(selected)" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
+          <button id="buymax" ng-click="commands.buyMaxUnit({unit:selected, ui:'selected'})" class="form-control unit-buy" ng-disabled="!selected.isCostMet()">
             <span ng-repeat="cost in selected.cost" ng-if="selected.isCostMet()">
               <span>{{selected.maxCostMet()*cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
             </span>

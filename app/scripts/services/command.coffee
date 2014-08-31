@@ -16,7 +16,9 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
     #$rootScope.$emit "command:#{name}", params #this isn't actually used
     $rootScope.$emit "command", params
 
-  buyUnit: (unit, num) ->
+  buyUnit: (opts) ->
+    unit = opts.unit
+    num = opts.num
     bought = unit.buy num
     @_emit 'buyUnit',
       unit:unit
@@ -27,8 +29,10 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       attempt:num
       num:bought.num
       twinnum:bought.twinnum
+      ui:opts.ui
 
-  buyMaxUnit: (unit) ->
+  buyMaxUnit: (opts) ->
+    unit = opts.unit
     bought = unit.buyMax()
     @_emit 'buyMaxUnit',
       unit:unit
@@ -37,8 +41,10 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       elapsed:unit.game.elapsedStartMillis()
       num:bought.num
       twinnum:bought.twinnum
+      ui:opts.ui
 
-  buyUpgrade: (upgrade) ->
+  buyUpgrade: (opts) ->
+    upgrade = opts.upgrade
     num = upgrade.buy() #will always be 1. TODO: support multibuying upgrades
     @_emit 'buyUpgrade',
       upgrade:upgrade
@@ -46,3 +52,4 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       now:upgrade.game.now
       elapsed:upgrade.game.elapsedStartMillis()
       num:num
+      ui:opts.ui

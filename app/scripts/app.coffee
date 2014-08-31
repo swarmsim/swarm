@@ -55,9 +55,11 @@ angular.module('swarmApp').config ($routeProvider) ->
       .otherwise
         redirectTo: '/'
 
-angular.module('swarmApp').config (gaTrackingID) ->
-  if gaTrackingID
-    ga 'create', gaTrackingID, 'auto'
+angular.module('swarmApp').config (gaTrackingID, version) ->
+  if gaTrackingID and window.ga?
+    #console.log 'analytics', gaTrackingID
+    window.ga 'create', gaTrackingID, 'auto'
+    window.ga 'set', 'appVersion', version
 # http and https use different localstorage, which might confuse folks.
 # angular $location doesn't make protocol mutable, so use window.location.
 angular.module('swarmApp').config (env) ->
