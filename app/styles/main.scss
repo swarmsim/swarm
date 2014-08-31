@@ -3,14 +3,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
-// if the navbar is too big, make it overlap the title on the left. sloppy-looking, but functional.
-// https://github.com/erosson/swarm/issues/30
-#navbar {
-  position:relative;
-}
-#navbar ul.navbar-right {
-  position:absolute;top:0;right:0;
-}
 // unit names + counts must be exactly one line.
 // https://github.com/erosson/swarm/issues/41
 .unitgroup .badge {
@@ -60,7 +52,7 @@ body { padding-top: 70px; }
 }
 .envalert,
 // override stupid navbar color
-.navbar-default .navbar-nav > li > a.envalert {
+.envalert.navbar-brand {
   text-transform: uppercase;
   color: red;
   font-weight: bold;

@@ -31,13 +31,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Swarm Simulator<span ng-cloak ng-if="isNonprod()" class="envalert"> ({{env}})</span></a>
+            <a class="navbar-brand" href="#">Swarm Simulator</a>
+            <a ng-cloak ng-if="isNonprod()" class="envalert navbar-brand" ng-href="#/debug"> ({{env}})</a>
             <a ng-cloak class="navbar-brand" href="#/changelog"><span class="small text-muted">{{version}}</span></a>
           </div>
       
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
-              <li ng-cloak ng-if="isNonprod()"><a class="envalert" ng-href="#/debug">Debug</a></li>
               <li><a ng-href="#/">Main</a></li>
               <li><a ng-href="#/options">Options</a></li>
               <li><a ng-href="#/statistics">Statistics</a></li>
