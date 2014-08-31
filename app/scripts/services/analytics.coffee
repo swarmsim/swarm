@@ -30,7 +30,7 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
       value:cmd.twinnum ? cmd.num
 
   $rootScope.$on 'buyFirst', (event, cmd) ->
-    $analytics.eventTrack cmd.name,
+    $analytics.eventTrack "buyFirst:#{cmd.name}",
       category:'buyFirst'
       label:cmd.unitname ? cmd.upgradename
       value:cmd.elapsed
