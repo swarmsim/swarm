@@ -11,6 +11,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 #navbar ul.navbar-right {
   position:absolute;top:0;right:0;
 }
+// unit names + counts must be exactly one line.
+// https://github.com/erosson/swarm/issues/41
+.unitgroup .badge {
+  // float:right
+  position:absolute;top:0;right:0;
+  margin:10px 15px
+}
+.unitgroup .unitlabel {
+  white-space:nowrap;
+}
 // animations from ng-if docs: https://docs.angularjs.org/api/ng/directive/ngIf
 .animif.ng-enter, .animif.ng-leave {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;

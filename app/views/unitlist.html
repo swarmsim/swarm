@@ -121,9 +121,9 @@
     </div>
     <ul ng-repeat="group in [0,1,2,3,4,5,6]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup animif">
       <li ng-repeat="unit in visibleUnitGroup(group)" class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
-        <a ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
-          <span class="titlecase">{{unit.unittype.label}}</span>
-          <div style="float:right" class="badge">{{unit.count() | bignum}}</div>
+        <a href="javascript:" ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
+          <span class="unitlabel titlecase">{{unit.unittype.label}}</span>
+          <div class="badge">{{unit.count() | bignum}}</div>
         </a>
       </li>
     </ul>
