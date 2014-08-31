@@ -1,5 +1,25 @@
 'use strict'
 
+angular.module('swarmApp').value 'analyticsDimensionList',
+  ['version']
+
+angular.module('swarmApp').factory 'analyticsDimensions', (analyticsDimensionList) ->
+  ret = {}
+  i = 0
+  for name in analyticsDimensionList
+    ret[name] = "dimension#{++i}"
+  return ret
+    
+angular.module('swarmApp').value 'analyticsMetricList',
+  ['saveFileChars', 'clickLogChars']
+
+angular.module('swarmApp').factory 'analyticsMetrics', (analyticsMetricList) ->
+  ret = {}
+  i = 0
+  for name in analyticsMetricList
+    ret[name] = "metric#{++i}"
+  return ret
+    
 ###*
  # @ngdoc service
  # @name swarmApp.analytics
@@ -7,12 +27,14 @@
  # # analytics
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, game, version) ->
+angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, game, version, analyticsDimensions, analyticsMetrics, statistics, session) ->
+  dims = analyticsDimensions
+  metrics = analyticsMetrics
   # no analytics during testing
   if env == 'test'
     return
-  #console.log 'analytics loaded'
-  #window.ga 'set', 'appVersion', version
+  #console.log 'ga.set', dims.version, version
+  window.ga 'set', dims.version, version
 
   $rootScope.$on 'select', (event, args) ->
     name = args?.unit?.name ? '#back-button'
@@ -21,6 +43,10 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
   $rootScope.$on 'save', (event, args) ->
     #console.log 'save event'
     #$analytics.eventTrack 'save', {}
+    #console.log 'ga.set', metrics.saveFileChars, session.exportSave().length
+    window.ga 'set', metrics.saveFileChars, session.exportSave().length
+    #console.log 'ga.set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
+    window.ga 'set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
 
   $rootScope.$on 'command', (event, cmd) ->
     #console.log 'command event', event.name, cmd.name, cmd
