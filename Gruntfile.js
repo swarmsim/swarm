@@ -70,7 +70,8 @@ module.exports = function (grunt) {
       prod: {
         constants: {
           env: 'prod',
-          gaTrackingID: 'UA-53523462-2'
+          //gaTrackingID: 'UA-53523462-2'
+          gaTrackingID: 'UA-53523462-1'
         }
       },
     },
