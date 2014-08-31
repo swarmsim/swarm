@@ -27,10 +27,12 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     try
       $scope.game.importSave encoded
       $scope.imported.success = true
-      console.log 'import success'
+      $scope.$emit 'import', {success:true}
+      #console.log 'import success'
     catch
       $scope.imported.error = true
-      console.log 'import error'
+      $scope.$emit 'import', {success:false}
+      #console.log 'import error'
 
   $scope.confirmReset = ->
     if confirm 'You will lose everything and restart the game. No reset-bonuses here. You sure?'

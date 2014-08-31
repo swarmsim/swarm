@@ -38,3 +38,8 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
   $rootScope.$on 'reset', (event) ->
     $analytics.eventTrack 'reset',
       category:'reset'
+
+  $rootScope.$on 'import', (event, args) ->
+    $analytics.eventTrack 'import',
+      category:'import'
+      value:if args.success then 1 else 0
