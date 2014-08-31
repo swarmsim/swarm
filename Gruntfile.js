@@ -58,16 +58,19 @@ module.exports = function (grunt) {
       test: {
         constants: {
           env: 'test',
+          gaTrackingID: null
         }
       },
       dev: {
         constants: {
           env: 'dev',
+          gaTrackingID: 'UA-53523462-3'
         }
       },
       prod: {
         constants: {
           env: 'prod',
+          gaTrackingID: 'UA-53523462-2'
         }
       },
     },
