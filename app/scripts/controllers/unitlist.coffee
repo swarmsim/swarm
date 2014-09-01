@@ -10,7 +10,6 @@
 angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands) ->
   $scope.game = game
   $scope.commands = commands
-  $scope.action = 'select'
   $scope.buynum = 1
   $scope.mainBuynum = 1
   $scope.selected = if $routeParams.unit? then $scope.game.unit $routeParams.unit else null
@@ -87,8 +86,3 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     if units.drone > 0
       return "You lead a small brood of worker drones. Drones gather meat. Use this meat to build more drones and expand your brood."
     return "Your brood starts its life with a small pile of meat and a single larvae-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some drones."
-
-  $scope.buy = (unit) -> $scope.commands.buyUnit {unit:unit, num:$scope.buynum, ui:'column'}
-  $scope.buyMax = (unit) -> $scope.commands.buyMaxUnit {unit:unit, ui:'column'}
-  $scope.click = (unittype) ->
-    $scope[$scope.action](unittype)

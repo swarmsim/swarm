@@ -139,14 +139,9 @@
     </div>
   </div>
   <div class="col-sm-4 col-sm-pull-8" ng-class="{'hidden-xs':!!selected}">
-    <div>
-      <label class="radio-inline"><input type="radio" ng-model="action" value="select">Select</label>
-      <label class="radio-inline"><input type="radio" ng-model="action" value="buy">Buy <input type="number" ng-model="buynum" ng-change="action='buy'" min="1"></label>
-      <label class="radio-inline"><input type="radio" ng-model="action" value="buyMax">Buy max</label>
-    </div>
     <ul ng-repeat="group in [0,1,2,3,4,5,6]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup animif">
       <li ng-repeat="unit in visibleUnitGroup(group)" class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
-        <a ng-click="click(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
+        <a ng-click="select(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
           <span class="unitlabel titlecase">{{unit.unittype.label}}</span>
           <div class="badge">{{unit.count() | bignum}}</div>
         </a>
