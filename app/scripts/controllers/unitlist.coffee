@@ -47,7 +47,7 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     #$location.path "/unitlist/#{unittype.name}"
 
   $scope.costText = (unit) ->
-    ret = ("#{$filter('bignum')(cost.val)} #{cost.unit.unittype.plural}" for name, cost of unit.cost)
+    ret = ("#{$filter('bignum')(cost.val)} #{if cost.val == 1 then cost.unit.unittype.label else cost.unit.unittype.plural}" for name, cost of unit.cost)
     ret = ret.join ", "
     if ret
       ret = "Cost: #{ret}"

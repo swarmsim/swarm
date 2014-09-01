@@ -83,7 +83,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     util.assert max >= 0, "invalid max", max
     return max > 0
 
-  maxCostMet: ->
+  maxCostMet: (percent=1) ->
     # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
     #
     # been way too long since my math classes... given from wikipedia:
@@ -96,7 +96,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     # do, kids.
     max = Number.MAX_VALUE
     for name, cost of @totalCost()
-      m = Math.log(1 - cost.unit.count() * (1 - cost.factor) / cost.val) / Math.log cost.factor
+      m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
       max = Math.min max, m
     return Math.floor max
 
@@ -120,8 +120,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
         effect.onBuy()
       return num
 
-  buyMax: ->
-    @buy @maxCostMet()
+  buyMax: (percent) ->
+    @buy @maxCostMet percent
 
   stats: (stats, schema) ->
     count = @count()
@@ -256,8 +256,8 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
           return true
       return false
 
-  maxCostMet: ->
-    Math.floor @_costMetPercent()
+  maxCostMet: (percent=1) ->
+    Math.floor @_costMetPercent() * percent
 
   isCostMet: ->
     @maxCostMet() > 0
@@ -265,8 +265,8 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
   isBuyable: ->
     return @isCostMet() and @isVisible() and not @unittype.unbuyable
 
-  buyMax: ->
-    @buy @maxCostMet()
+  buyMax: (percent) ->
+    @buy @maxCostMet percent
 
   buy: (num=1) ->
     if not @isCostMet()

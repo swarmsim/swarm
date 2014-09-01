@@ -3,6 +3,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+.nogutter {
+  padding: 0;
+}
+.row.nogutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 // unit names + counts must be exactly one line.
 // https://github.com/erosson/swarm/issues/41
 .unitgroup .badge {

@@ -33,7 +33,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
 
   buyMaxUnit: (opts) ->
     unit = opts.unit
-    bought = unit.buyMax()
+    bought = unit.buyMax opts.percent
     @_emit 'buyMaxUnit',
       unit:unit
       unitname:unit.name
@@ -41,6 +41,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       elapsed:unit.game.elapsedStartMillis()
       num:bought.num
       twinnum:bought.twinnum
+      percent:opts.percent
       ui:opts.ui
 
   buyUpgrade: (opts) ->
