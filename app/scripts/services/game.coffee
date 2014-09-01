@@ -6,8 +6,9 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     if data.unittype?
       @unit = util.assert @game.unit data.unittype
 
-  onBuy: ->
-    @type.onBuy? this, @game, @upgrade
+  onBuy: (numBought) ->
+    for i in [0..numBought]
+      @type.onBuy? this, @game, @upgrade
 
   calcStats: (stats, schema, level) ->
     @type.calcStats? this, stats, schema, level
@@ -66,6 +67,12 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
       total = ret[cost.unit.name] = _.clone cost
       total.val = cost.val * Math.pow cost.factor, count
     return ret
+  sumCost: (num) ->
+    _.mapValues @totalCost(), (cost0) ->
+      cost = _.clone cost0
+      # see maxCostMet for O(1) summation formula derivation.
+      cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
+      return cost
   isCostMet: ->
     max = Number.MAX_VALUE
     for name, cost of @totalCost()
@@ -76,24 +83,45 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     util.assert max >= 0, "invalid max", max
     return max > 0
 
+  maxCostMet: ->
+    # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
+    #
+    # been way too long since my math classes... given from wikipedia:
+    # > cost.unit.count = cost.val (1 - cost.factor ^ maxAffordable) / (1 - cost.factor)
+    # solve the equation for maxAffordable to get the formula below.
+    #
+    # This is O(1), but that's totally premature optimization - should really
+    # have just brute forced this, we don't have that many upgrades so O(1)
+    # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
+    # do, kids.
+    max = Number.MAX_VALUE
+    for name, cost of @totalCost()
+      m = Math.log(1 - cost.unit.count() * (1 - cost.factor) / cost.val) / Math.log cost.factor
+      max = Math.min max, m
+    return Math.floor max
+
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->
     return @isCostMet() and @isVisible()
 
-  buy: ->
+  buy: (num=1) ->
     if not @isCostMet()
       throw new Error "We require more resources"
     if not @isBuyable()
       throw new Error "Cannot buy that upgrade"
-    num = 1   #TODO: support multibuying upgrades
+    num = Math.min num, @maxCostMet()
     @game.withSave =>
-      for name, cost of @totalCost()
-        util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.isCostMet is broken!", @name, name, cost
+      for name, cost of @sumCost num
+        util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
+        util.assert cost.val > 0, "zero cost from sumCost, yet cost was met?", @name, name, cost
         cost.unit._subtractCount cost.val
       @_addCount num
       for effect in @effect
         effect.onBuy()
       return num
+
+  buyMax: ->
+    @buy @maxCostMet()
 
   stats: (stats, schema) ->
     count = @count()

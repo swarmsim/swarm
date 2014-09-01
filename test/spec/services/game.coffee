@@ -198,3 +198,32 @@ describe 'Service: game', ->
   it 'recovers NaN saves', ->
     game = mkgame {larva:NaN,meat:9999999,drone:99999}
     expect(game.unit('larva').count()).toBe 0
+
+  it 'sums costs', ->
+    game = mkgame {territory:99}
+    upgrade = game.upgrade 'expansion'
+    expect(_.mapValues upgrade.sumCost(1), (cost) -> cost.val).toEqual territory:100
+    expect(_.mapValues upgrade.sumCost(2), (cost) -> cost.val).toEqual territory:235
+
+  it 'buys/calcs max upgrades', ->
+    game = mkgame {territory:99}
+    upgrade = game.upgrade 'expansion'
+    expect(upgrade.maxCostMet()).toBe 0
+    game.unit('territory')._setCount 100
+    expect(upgrade.maxCostMet()).toBe 1
+    game.unit('territory')._setCount 250
+    expect(upgrade.maxCostMet()).toBe 2
+    game.unit('territory')._setCount 1000
+    expect(upgrade.maxCostMet()).toBe 5
+    upgrade.buyMax()
+    expect(upgrade.maxCostMet()).toBe 0
+    expect(upgrade.count()).toBe 5
+
+  it 'buy more than max', ->
+    game = mkgame {territory:100}
+    upgrade = game.upgrade 'expansion'
+    expect(upgrade.maxCostMet()).toBe 1
+    expect(upgrade.count()).toBe 0
+    upgrade.buy 10
+    expect(upgrade.maxCostMet()).toBe 0
+    expect(upgrade.count()).toBe 1
