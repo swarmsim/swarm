@@ -81,18 +81,18 @@
             <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val | bignum}} {{cost.val == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
           </span>
           <div class="row nogutter">
-            <div class="col-sm-4 nogutter">
+            <div class="nogutter" ng-class="{'col-sm-4':selected.maxCostMet() > 1}">
               <button ng-click="commands.buyUnit({unit:selected, num:1, ui:'selected'})" class="form-control unit-buy"  ng-disabled="!selected.isCostMet()">
                 Buy one
               </button>
             </div>
-            <div class="col-sm-4 nogutter" title="25% of maximum">
-              <button ng-click="commands.buyMaxUnit({unit:selected, percent:0.25, ui:'selected'})" class="form-control unit-buy" ng-show="selected.maxCostMet(0.25) > 1">
+            <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="selected.maxCostMet(0.25) > 1">
+              <button ng-click="commands.buyMaxUnit({unit:selected, percent:0.25, ui:'selected'})" class="form-control unit-buy">
                 Buy {{selected.maxCostMet(0.25)|bignum}}
               </button>
             </div>
-            <div class="col-sm-4 nogutter" title="Maximum you can pay for">
-              <button ng-click="commands.buyMaxUnit({unit:selected, percent: 1, ui:'selected'})" class="form-control unit-buy" ng-show="selected.maxCostMet() > 1">
+            <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':selected.maxCostMet(0.25) > 1, 'col-sm-8':!(selected.maxCostMet(0.25) > 1)}" ng-show="selected.maxCostMet() > 1">
+              <button ng-click="commands.buyMaxUnit({unit:selected, percent: 1, ui:'selected'})" class="form-control unit-buy">
                 Buy {{selected.maxCostMet()|bignum}}
               </button>
             </div>
@@ -106,11 +106,31 @@
           <li ng-repeat="upgrade in visibleUpgrades">
             <h5>{{upgrade.type.label}} ({{upgrade.count()}})</h5>
             <p title="{{upgrade.type.lol}}">{{upgrade.type.description}}</p>
-            <button ng-click="commands.buyUpgrade({upgrade:upgrade, ui:'selected'})" class="form-control unit-buy" ng-disabled="!upgrade.isCostMet()">
+            <p>
+              Next upgrade costs
               <span ng-repeat="(name, cost) in upgrade.totalCost()">
-                <span>{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+                <span ng-if="!$first && $last"> and </span>
+                <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val | bignum}} {{cost.val == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
               </span>
-            </button>
+            </p>
+
+            <div class="row nogutter">
+              <div class="nogutter" ng-class="{'col-sm-4':upgrade.maxCostMet() > 1}">
+                <button ng-click="commands.buyUpgrade({upgrade:upgrade, num:1, ui:'selected'})" class="form-control unit-buy"  ng-disabled="!upgrade.isCostMet()">
+                  Buy one
+                </button>
+              </div>
+              <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="isUpgrade25Visible(upgrade)">
+                <button ng-click="commands.buyMaxUpgrade({upgrade:upgrade, percent:0.25, ui:'selected'})" class="form-control unit-buy">
+                  Buy {{upgrade.maxCostMet(0.25)|bignum}}
+                </button>
+              </div>
+              <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':isUpgrade25Visible(upgrade), 'col-sm-8':!isUpgrade25Visible(upgrade)}" ng-show="upgrade.maxCostMet() > 1">
+                <button ng-click="commands.buyMaxUpgrade({upgrade:upgrade, percent: 1, ui:'selected'})" class="form-control unit-buy">
+                  Buy {{upgrade.maxCostMet()|bignum}}
+                </button>
+              </div>
+            </div>
           </li>
         </ul>
       </div>

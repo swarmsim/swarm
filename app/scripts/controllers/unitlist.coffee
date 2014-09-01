@@ -20,6 +20,10 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
   $scope.$on '$destroy', =>
     $interval.cancel animatePromise
 
+  $scope.isUpgrade25Visible = (upgrade) ->
+    # 25% of your income buys something, and it's different from what 100% buys
+    upgrade.maxCostMet(0.25) > 1 and upgrade.maxCostMet() > upgrade.maxCostMet(0.25)
+
   # TODO this should really be a filter
   $scope.decimals = (num) ->
     # Up to two decimal places for small numbers, no decimals for large numbers

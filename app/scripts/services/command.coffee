@@ -46,11 +46,23 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
 
   buyUpgrade: (opts) ->
     upgrade = opts.upgrade
-    num = upgrade.buy() #will always be 1. TODO: support multibuying upgrades
+    num = upgrade.buy opts.num
     @_emit 'buyUpgrade',
       upgrade:upgrade
       upgradename:upgrade.name
       now:upgrade.game.now
       elapsed:upgrade.game.elapsedStartMillis()
       num:num
+      ui:opts.ui
+
+  buyMaxUpgrade: (opts) ->
+    upgrade = opts.upgrade
+    num = upgrade.buyMax opts.percent
+    @_emit 'buyMaxUpgrade',
+      upgrade:upgrade
+      upgradename:upgrade.name
+      now:upgrade.game.now
+      elapsed:upgrade.game.elapsedStartMillis()
+      num:num
+      percent:opts.percent
       ui:opts.ui
