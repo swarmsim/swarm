@@ -6,9 +6,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     if data.unittype?
       @unit = util.assert @game.unit data.unittype
 
-  onBuy: (numBought) ->
-    for i in [0..numBought]
-      @type.onBuy? this, @game, @upgrade
+  onBuy: ->
+    @type.onBuy? this, @game, @upgrade
 
   calcStats: (stats, schema, level) ->
     @type.calcStats? this, stats, schema, level
@@ -116,8 +115,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
         util.assert cost.val > 0, "zero cost from sumCost, yet cost was met?", @name, name, cost
         cost.unit._subtractCount cost.val
       @_addCount num
-      for effect in @effect
-        effect.onBuy()
+      for i in [0...num]
+        for effect in @effect
+          effect.onBuy()
       return num
 
   buyMax: (percent) ->

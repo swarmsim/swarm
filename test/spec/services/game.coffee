@@ -223,6 +223,14 @@ describe 'Service: game', ->
     expect(upgrade.maxCostMet()).toBe 0
     expect(upgrade.count()).toBe 5
 
+  it 'injects larvae', ->
+    game = mkgame {meat:9999999999999999999, larvae:0}
+    upgrade = game.upgrade 'injectlarvae'
+    unit = game.unit 'larva'
+    upgrade.buy 3
+    expect(upgrade.count()).toBe 3
+    expect(unit.count()).toBe 7000
+
   it 'buy more than max', ->
     game = mkgame {territory:100}
     upgrade = game.upgrade 'expansion'
