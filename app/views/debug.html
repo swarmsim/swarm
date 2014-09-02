@@ -12,12 +12,18 @@
     alter reified: <input type="datetime-local" ng-model="session.date.reified">
     alter reified: <input type="text" ng-model="session.date.reified">
   </div>
+
+  <textarea rows="20" cols="80" ng-model="form.session" ng-model-options="{'default':500, 'blur':0}"></textarea>
+  <div><input type="text" ng-model="form.sessionExport" readonly></div>
   
   <div>
     <a target="_blank" href="http://www.homestarrunner.com/vcr_cheat.html">alter units</a>:
     <ul>
-    <li ng-repeat="(name,val) in session.unittypes">
-      <label>{{name}}: <input type="number" ng-model="session.unittypes[name]"></label>
+    <li ng-repeat="unit in game.unitlist()">
+      <label>{{unit.name}}: <input type="number" ng-model="session.unittypes[unit.name]"></label>
+    </li>
+    <li ng-repeat="upgrade in game.upgradelist()">
+      <label>{{upgrade.name}}: <input type="number" ng-model="session.upgradetypes[upgrade.name]"></label>
     </li>
   </div>
   

@@ -50,7 +50,7 @@ angular.module('swarmApp').factory 'session', (env, $rootScope) ->
       JSON.stringify data, @_replacer
 
     _saves: (data=this, setdates=true) ->
-      console.assert (not @_exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
+      console.assert (not data._exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
       if setdates
         data.date.saved = new Date()
         delete data.date.loaded
