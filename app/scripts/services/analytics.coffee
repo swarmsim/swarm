@@ -30,8 +30,8 @@ angular.module('swarmApp').factory 'analyticsMetrics', (analyticsMetricList) ->
 angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, game, version, analyticsDimensions, analyticsMetrics, statistics, session) ->
   dims = analyticsDimensions
   metrics = analyticsMetrics
-  # no analytics during testing
-  if env == 'test'
+  # no analytics during testing. also, window.ga might be blank if someone blocks google analytics.
+  if env == 'test' or not window.ga?
     return
   #console.log 'ga.set', dims.version, version
   window.ga 'set', dims.version, version

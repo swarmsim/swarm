@@ -8,7 +8,6 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes, flashqueue, $timeout) ->
-  console.log 'debugs', game, unittypes
   $scope.dumps = [
     {title:'env', data:env}
     {title:'game', data:!!game}
@@ -26,12 +25,12 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
   $scope.session = session
   $scope.$watch 'form.session', (text, text0) ->
     if text != text0
-      console.log 'formsession update', text, $scope.session._saves text, false
+      #console.log 'formsession update', text, $scope.session._saves text, false
       $scope.session.importSave $scope.session._saves JSON.parse(text), false
     else
       console.log 'formsession equal'
   $scope.$watch 'session', do ->
-    console.log 'session update'
+    #console.log 'session update'
     $scope.form.sessionExport = $scope.session.exportSave()
     $scope.form.session = JSON.stringify $scope.session._loads($scope.form.sessionExport), undefined, 2
   $scope.game = game

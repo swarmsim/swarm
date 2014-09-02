@@ -31,8 +31,9 @@ angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope, env) -> class
 
   load: ->
     encoded = localStorage.getItem "replay:#{@id}"
-    encoded = LZString.decompressFromUTF16 encoded
-    @log = JSON.parse encoded
+    if encoded
+      encoded = LZString.decompressFromUTF16 encoded
+      @log = JSON.parse encoded
 
   tryLoad: ->
     try
