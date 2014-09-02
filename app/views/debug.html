@@ -7,6 +7,51 @@
     <button ng-click="session.save()">Save</button>
     <button ng-click="throwUp()" title="Test exception handler">Throw up</button>
   </div>
+  <div>
+    <input type="text" ng-model="form.notify.label" ng-init="form.notify.label='hihi'">
+    <input type="number" size="3" ng-model="form.notify.points" ng-init="form.notify.points=10">
+    <input type="text" ng-model="form.notify.description" ng-init="form.notify.description='haha'">
+    <button ng-click="notify.push(form.notify)">Notify</button>
+    <button ng-click="notify.shift()">Next</button>
+    queue: {{notify | json}}
+  </div>
+  <style>
+    .achieve {
+      position:fixed;
+      text-align:center;
+      bottom:0;
+      left:0;
+      width:100%;
+    }
+    .achieve h3 {
+      font-weight:bold;
+    }
+    .achieveicon, .achievepoints {
+      font-size:400%;
+      font-weight:bold;
+    }
+    .achieveicon {
+      position:absolute;left:15px;top:15px;
+    }
+    .achievepoints {
+      position:absolute;right:15px;top:15px;
+    }
+    .achievedesc {
+      text-align:center;
+    }
+    .achievetext {
+      position:relative;
+    }
+  </style>
+  <div class="achieve animif" ng-if="notify.isVisible()">
+    <div class="container alert alert-success achievetext">
+      <p>Achievement:</p>
+      <h3>{{notify.get().label}}</h3>
+      <p class="achievedesc">{{notify.get().description}}</p>
+      <span class="achieveicon glyphicon glyphicon-ok"></span>
+      <span class="achievepoints">+{{notify.get().points|number}}</span>
+    </div>
+  </div>
   
   <div>
     alter reified: <input type="datetime-local" ng-model="session.date.reified">
@@ -33,4 +78,5 @@
       <code>{{dump.data}}</code>
     </li>
   </ul>
+
 </div>

@@ -7,7 +7,7 @@
  # # DebugCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes) ->
+angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes, $timeout, util) ->
   console.log 'debugs', game, unittypes
   $scope.dumps = [
     {title:'env', data:env}
@@ -16,6 +16,34 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
     {title:'unittypes', data:!!unittypes}
     {title:'spreadsheet', data:spreadsheet}
     ]
+
+  $scope.notify = new class Notify
+    constructor: (@showTime=5000, @fadeTime=1000) ->
+      @queue = []
+      @_state = 'invisible'
+      @_timeout = null
+    push: (message) ->
+      @queue.push message
+      if @queue.length == 1 #just pushed the only item
+        @animate()
+    animate: ->
+      if @_state == 'invisible'
+        @_state = 'visible'
+        @_timeout = $timeout (=>
+          @_state = 'fading'
+          @_timeout = $timeout (=>
+            @_state = 'invisible'
+            @queue.shift()
+            if @queue.length
+              @animate()
+          ), @fadeTime
+        ), @showTime
+    isVisible: ->
+      @_state == 'visible'
+    get: ->
+      @queue[0]
+  $timeout (->$scope.notify.push {label:'hihi', points:10, description:'ahaha'}), 1000
+
   $scope.throwUp = ->
     throw new Error "throwing up (test exception)"
   $scope.form = {}
