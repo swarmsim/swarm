@@ -3,6 +3,35 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+// achievement notification ui
+.achieve {
+  position:fixed;
+  text-align:center;
+  bottom:0;
+  left:0;
+  width:100%;
+}
+.achieve h3 {
+  font-weight:bold;
+}
+.achieveicon, .achievepoints {
+  font-size:400%;
+  font-weight:bold;
+}
+.achieveicon {
+  position:absolute;left:15px;top:15px;
+}
+.achievepoints {
+  position:absolute;right:15px;top:15px;
+}
+.achievedesc {
+  text-align:center;
+}
+.achievetext {
+  position:relative;
+}
+
+// system-clock hack detection message
 .nogutter {
   padding: 0;
 }

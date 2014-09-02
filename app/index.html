@@ -60,6 +60,18 @@
       </div>
     </div>
 
+    <div ng-cloak ng-controller="FlashQueueCtrl">
+      <div class="achieve animif" ng-if="achieveQueue.isVisible()">
+        <div class="container alert alert-success achievetext">
+          <p>Achievement:</p>
+          <h3>{{achieveQueue.get().label}}</h3>
+          <p class="achievedesc">{{achieveQueue.get().description}}</p>
+          <span class="achieveicon glyphicon glyphicon-ok"></span>
+          <span class="achievepoints">+{{achieveQueue.get().points|number}}</span>
+        </div>
+      </div>
+    </div>
+
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -148,6 +160,8 @@
         <script src="scripts/services/statistics.js"></script>
         <script src="scripts/controllers/statistics.js"></script>
         <script src="scripts/services/timecheck.js"></script>
+        <script src="scripts/services/flashqueue.js"></script>
+        <script src="scripts/controllers/flashqueue.js"></script>
         <!-- endbuild -->
 </body>
 </html>
