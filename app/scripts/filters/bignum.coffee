@@ -64,7 +64,7 @@ angular.module('swarmApp').filter 'longnum', (bignumFormatter) ->
                    ' tredecillion'
                    ' quattuordecillion'
                    ' quinquadecillion'
-                   ' sedecillion'
+                   ' sedecillion' # google says this is actually legit, not a typo for 'sexdecillion'
                    ' septendecillion'
                    ' octodecillion'
                    ' novendecillion'
