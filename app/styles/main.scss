@@ -216,3 +216,11 @@ body {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+/*.loading {
+  color: transparent; // only show "loading" text before css loads
+  height: image-height('ajax-loader.gif');
+  width: image-width('ajax-loader.gif');
+  // inline-image is scss magic, creates a url('data-url'). relative to images/ dir
+  background: inline-image('ajax-loader.gif') no-repeat center center;
+}*/
