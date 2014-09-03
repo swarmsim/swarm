@@ -37,10 +37,10 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/',
         templateUrl: 'views/unitlist.html'
         controller: 'UnitlistCtrl'
-      .when '/unitlist',
+      .when '/unit',
         templateUrl: 'views/unitlist.html'
         controller: 'UnitlistCtrl'
-      .when '/unitlist/:unit',
+      .when '/unit/:unit',
         templateUrl: 'views/unitlist.html'
         controller: 'UnitlistCtrl'
       .when '/options',
