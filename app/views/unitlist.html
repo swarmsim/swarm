@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-if="true">
   <div class="col-sm-8 col-sm-push-4">
     <div ng-if="tutText()" class="animif">
       <p>{{tutText()}}</p>
@@ -15,25 +15,23 @@
       <p><ng-pluralize count="selected.count()"
         when="{'0':'You own no {{selected.unittype.plural}}.',
                'one':'You own 1 {{selected.unittype.label}}.',
-               'other':'You own {{selected.count()|number:0}} {{selected.unittype.plural}}.'}"></ng-pluralize>
+               'other':'You own {{selected.count()|longnum}} {{selected.unittype.plural}}.'}"></ng-pluralize>
       <div ng-if="selected.prod.length">
         <p>
           Each produces
           <span ng-repeat="(name, val) in selected.eachProduction()">
             <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-            <span ng-if="val < 0.2 && val > 0">1/{{1/val|number:0}} of a {{game.unit(name).unittype.label}}</span>
-            <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+            <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
           </span>
           per second.
-          <span ng-if="selected.hasStat('base', 0)">(+{{selected.stat('base')|number:1}} bonus)</span>
-          <span ng-if="selected.hasStat('prod', 1)">(x{{selected.stat('prod')|number:1}} bonus)</span>
+          <span ng-if="selected.hasStat('base', 0)">(+{{selected.stat('base')|bignum}} bonus)</span>
+          <span ng-if="selected.hasStat('prod', 1)">(x{{selected.stat('prod')|bignum:10}} bonus)</span>
         </p>
         <p ng-if="selected.count() > 0">
           In total, they produce
           <span ng-repeat="(name, val) in selected.totalProduction()">
             <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-            <span ng-if="val < 0.2 && val > 0">1/{{1/val|number:0}} of a {{game.unit(name).unittype.label}}</span>
-            <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+            <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
           </span>
           per second.
         </p>
@@ -42,18 +40,16 @@
         You earn
         <span ng-repeat="(name, val) in selected.showparent.totalProduction()">
           <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-          <span ng-if="val < 0.2 && val > 0">1/{{1/val|number:0}} of a {{game.unit(name).unittype.label}}</span>
-          <span ng-if="val <= 0 || val >= 0.2">{{decimals(val)|number}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+          <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
         </span>
         per second.
-        <span ng-if="selected.showparent.hasStat('base', 0)">(+{{selected.showparent.stat('base')|number:0}} bonus)</span>
-        <span ng-if="selected.showparent.hasStat('prod', 1)">(x{{selected.showparent.stat('prod')|number:1}} bonus)</span>
+        <span ng-if="selected.showparent.hasStat('base', 0)">(+{{selected.showparent.stat('base')|bignum}} bonus)</span>
+        <span ng-if="selected.showparent.hasStat('prod', 1)">(x{{selected.showparent.stat('prod')|bignum:10}} bonus)</span>
       </div>
       <div ng-if="!selected.showparent && selected.velocity() > 0">
         You earn
-        <span ng-if="selected.velocity() < 0.2 && selected.velocity() > 0">1/{{1/selected.velocity()|number:0}} of a {{selected.unittype.label}}</span>
         <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
-        <span ng-if="selected.velocity() <= 0 || selected.velocity() >= 0.2">{{decimals(selected.velocity())|number}} {{selected.unittype.plural}}</span>
+        <span>{{selected.velocity()|longnum:2}} {{selected.unittype.plural}}</span>
         per second.
       </div>
       <div ng-if="!selected.unbuyable && selected.cost.length">
@@ -75,19 +71,21 @@
           </div>
         </div>
         <div class="form-group">
-          You're buying
-          <input type="number" ng-model="form.mainBuynum" min="1">
-          {{mainBuynum() == 1 ? selected.unittype.label : selected.unittype.plural}}
-          <span ng-if="selected.stat('twin') > 1">(x{{selected.stat('twin')|bignum}} twins)</span>
-          for
-          <span ng-repeat="cost in selected.cost">
-            <span ng-if="!$first && $last"> and </span>
-            <span ng-class="{costNotMet:cost.val*mainBuynum() > cost.unit.count()}">{{cost.val*mainBuynum() | bignum}} {{cost.val*mainBuynum() == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
-          </span>
-          <span ng-if="options.showAdvancedUnitData()">
+          <p>
+            You're buying
+            <input type="number" ng-model="form.mainBuynum" min="1">
+            {{mainBuynum() == 1 ? selected.unittype.label : selected.unittype.plural}}
+            <span ng-if="selected.stat('twin') > 1">(x{{selected.stat('twin')|bignum}} twins)</span>
+            for
+            <span ng-repeat="cost in selected.cost">
+              <span ng-if="!$first && $last"> and </span>
+              <span ng-class="{costNotMet:cost.val*mainBuynum() > cost.unit.count()}">{{cost.val*mainBuynum() | bignum}} {{cost.val*mainBuynum() == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
+            </span>
+          </p>
+          <p ng-if="options.showAdvancedUnitData()">
             <span ng-if="selected.maxCostMet() > 0">
               Buying your maximum of
-              {{selected.maxCostMet()*selected.stat('twin')|bignum}} {{selected.maxCostMet()*selected.stat('twin') == 1 ? selected.unittype.label : selected.unittype.plural}}
+              {{selected.maxCostMet()*selected.stat('twin')|longnum}} {{selected.maxCostMet()*selected.stat('twin') == 1 ? selected.unittype.label : selected.unittype.plural}}
             </span>
             <span ng-if="selected.maxCostMet() <= 0">
               Buying your next {{selected.unittype.label}}
@@ -97,7 +95,7 @@
               <span ng-if="!$first && $last"> and </span>
               <span>{{unitCostAsPercent(selected, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
             </span>
-          </span>
+          </p>
           <div class="row nogutter">
             <div class="nogutter" ng-class="{'col-sm-4':selected.maxCostMet() > 1}">
               <button ng-click="commands.buyUnit({unit:selected, num:mainBuynum(), ui:'selected'})" class="form-control unit-buy"  ng-disabled="!selected.isCostMet()">
