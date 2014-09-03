@@ -206,8 +206,8 @@ describe 'Service: game', ->
   it 'sums costs', ->
     game = mkgame {territory:99}
     upgrade = game.upgrade 'expansion'
-    expect(_.mapValues upgrade.sumCost(1), (cost) -> cost.val).toEqual territory:100
-    expect(_.mapValues upgrade.sumCost(2), (cost) -> cost.val).toEqual territory:235
+    expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',100]]
+    expect(_.map upgrade.sumCost(2), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',235]]
 
   it 'buys/calcs max upgrades', ->
     game = mkgame {territory:99}

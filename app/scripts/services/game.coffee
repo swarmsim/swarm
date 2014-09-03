@@ -18,10 +18,12 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     @unit = util.assert @game.unit @type.unittype
     @_totalCost = _.memoize @_totalCost
   _init: ->
-    @_cost = _.map @type.cost, (cost) =>
+    @costByName = {}
+    @cost = _.map @type.cost, (cost) =>
       util.assert cost.unittype, 'upgrade cost without a unittype', @name, name, cost
       ret = _.clone cost
       ret.unit = util.assert @game.unit cost.unittype
+      @costByName[ret.unit.name] = ret
       return ret
     @requires = _.map @type.requires, (require) =>
       util.assert require.unittype, 'upgrade require without a unittype', @name, name, require
@@ -60,21 +62,20 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     return true
   # TODO refactor cost/buyable to share code with unit?
   totalCost: -> @_totalCost @count()
-  _totalCost: (count) ->
-    ret = {}
-    for cost in @_cost
-      total = ret[cost.unit.name] = _.clone cost
-      total.val = cost.val * Math.pow cost.factor, count
-    return ret
+  _totalCost: (count=@count()) ->
+    _.map @cost, (cost) ->
+      total = _.clone cost
+      total.val *= Math.pow total.factor, count
+      return total
   sumCost: (num) ->
-    _.mapValues @totalCost(), (cost0) ->
+    _.map @totalCost(), (cost0) ->
       cost = _.clone cost0
       # see maxCostMet for O(1) summation formula derivation.
       cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
       return cost
   isCostMet: ->
     max = Number.MAX_VALUE
-    for name, cost of @totalCost()
+    for cost in @totalCost()
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
         #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
@@ -94,7 +95,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
     # do, kids.
     max = Number.MAX_VALUE
-    for name, cost of @totalCost()
+    for cost in @totalCost()
       m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
       max = Math.min max, m
     return Math.floor max
@@ -110,7 +111,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
       throw new Error "Cannot buy that upgrade"
     num = Math.min num, @maxCostMet()
     @game.withSave =>
-      for name, cost of @sumCost num
+      for cost in @sumCost num
         util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
         util.assert cost.val > 0, "zero cost from sumCost, yet cost was met?", @name, name, cost
         cost.unit._subtractCount cost.val
