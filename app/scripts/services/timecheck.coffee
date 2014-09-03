@@ -65,7 +65,7 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
 #angular.module('swarmApp').value 'timecheckUrl', 'http://json-time.appspot.com/time.json?callback=JSON_CALLBACK'
 #angular.module('swarmApp').value 'timecheckUrl', '/'
 # let's hack an autoupdater on to this
-angular.module('swarmApp').value 'timecheckUrl', '/version.json'
+angular.module('swarmApp').value 'timecheckUrl', './version.json'
 # Threshold at which a player is assumed to be timewarp-cheating
 angular.module('swarmApp').value 'timecheckThresholdHours', 24 * 4
 

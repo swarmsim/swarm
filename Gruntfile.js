@@ -501,7 +501,9 @@ module.exports = function (grunt) {
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
-    grunt.file.write('.tmp/version.json', JSON.stringify(data, undefined, 2));
+    var text = JSON.stringify(data, undefined, 2)
+    grunt.file.write('.tmp/version.json', text);
+    grunt.file.write('dist/version.json', text);
   });
   grunt.registerTask('ss', 'Preload spreadsheet data and save to .tmp', function () {
     grunt.task.run(['preloadSpreadsheet']);
