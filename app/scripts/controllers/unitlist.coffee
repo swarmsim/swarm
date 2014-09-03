@@ -90,7 +90,7 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     if upgrades.hatchery > 0
       if units.queen >= 5
         if units.territory > 50
-          return "Your warriors have captured a lot of territory, and soon you can secure your first expansion. Expansions increase larvae production. Select 'Larva' to expand."
+          return "Your warriors have captured a lot of territory, and soon you can secure your first expansion. Expansions increase larva production. Select 'Larva' to expand."
         if units.territory > 0
           return "Your warriors have slowly begun securing territory. Continue expanding your military."
         return "Queens have rapidly grown your swarm, and your growth demands more territory. Begin capturing territory by building military units - swarmlings or stingers."
@@ -102,4 +102,4 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
       return "You lead a small brood of worker drones. Once you have plenty of meat, upgrade your hatchery to produce more larvae by selecting 'Larva' and spending some meat."
     if units.drone > 0
       return "You lead a small brood of worker drones. Drones gather meat. Use this meat to build more drones and expand your brood."
-    return "Your brood starts its life with a small pile of meat and a single larvae-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some drones."
+    return "Your brood starts its life with a small pile of meat and a single larva-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some drones."
