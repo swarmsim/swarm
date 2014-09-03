@@ -498,6 +498,11 @@ module.exports = function (grunt) {
       }
     });
   });
+  grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
+    var version = grunt.file.readJSON('package.json').version;
+    var data = {version:version, updated:new Date()};
+    grunt.file.write('.tmp/version.json', JSON.stringify(data, undefined, 2));
+  });
   grunt.registerTask('ss', 'Preload spreadsheet data and save to .tmp', function () {
     grunt.task.run(['preloadSpreadsheet']);
   });
@@ -510,7 +515,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'preloadSpreadsheet',
-      'ngconstant:dev',
+      'ngconstant:dev','writeVersionJson',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -527,7 +532,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     //'preloadSpreadsheet',
-    'ngconstant:test',
+    'ngconstant:test','writeVersionJson',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
@@ -537,7 +542,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'preloadSpreadsheet',
-    'ngconstant:prod',
+    'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

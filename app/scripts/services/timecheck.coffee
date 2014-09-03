@@ -22,8 +22,8 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
 
   fetchNetTime: ->
     # returns a promise
-    #$http.jsonp timecheckUrl
-    $http.head timecheckUrl
+    #$http.head timecheckUrl
+    $http.get timecheckUrl
 
   # 'invalid' vs 'valid' is deliberate: false means it might be valid or
   # there might have been an error while checking, while true means we're
@@ -32,7 +32,9 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
     @fetchNetTime().then(
       (res) =>
         #@_isNetTimeInvalid res.date
-        @_isNetTimeInvalid res.headers().date
+        ret = @_isNetTimeInvalid res.headers().date
+        $rootScope.$emit 'timecheck', res
+        return ret
       (res) =>
         #console.warn 'fetchnettime promise failed', res
         $rootScope.$emit 'timecheckError', {error:'fetchNetTime promise failed', res:res}
@@ -61,9 +63,42 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
       return invalid
   
 #angular.module('swarmApp').value 'timecheckUrl', 'http://json-time.appspot.com/time.json?callback=JSON_CALLBACK'
-angular.module('swarmApp').value 'timecheckUrl', '/'
+#angular.module('swarmApp').value 'timecheckUrl', '/'
+# let's hack an autoupdater on to this
+angular.module('swarmApp').value 'timecheckUrl', '/version.json'
 # Threshold at which a player is assumed to be timewarp-cheating
 angular.module('swarmApp').value 'timecheckThresholdHours', 24 * 4
 
 angular.module('swarmApp').factory 'timecheck', (TimeChecker, timecheckThresholdHours) ->
   new TimeChecker timecheckThresholdHours
+
+angular.module('swarmApp').factory 'VersionChecker', (util) -> class VersionChecker
+  constructor: (@version) ->
+    # max version in any one chunk
+    @_MAX = 100000
+  check: (remote) ->
+    if @compare(@version, remote) < 0 #local < remote
+      console.log 'newer version found on server! reloading.', {local:@version, remote:remote}
+      window.location.reload()
+  compare: (a, b) ->
+    return @normalize(a) - @normalize(b)
+  normalize: (version) ->
+    sum = 0
+    chunks = version.split '.'
+    chunks.reverse()
+    for chunk, index in chunks
+      chunk = parseInt chunk
+      util.assert (not _.isNaN chunk), 'version compare failed, a chunk isNaN', chunk, version
+      util.assert (chunk < @_MAX), 'version compare failed, a chunk is too big', chunk, version
+      sum += chunk * Math.pow @_MAX, index
+    return sum
+
+angular.module('swarmApp').factory 'versioncheck', ($rootScope, VersionChecker, version) ->
+  ret = new VersionChecker version
+  $rootScope.$on 'timecheck', (event, res) ->
+    remote = res?.data?.version
+    #console.log 'version check', {local:version, remote:remote}
+    if remote
+      ret.check remote
+  return ret
+      

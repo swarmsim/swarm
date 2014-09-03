@@ -48,3 +48,17 @@ describe 'Service: timecheck', ->
     expect(timecheck._isNetTimeInvalid 'fgsfds').toBeNull()
     expect(timecheck._isNetTimeInvalid 'The, 32 Jab 201A 25:61:62 AAA').toBeNull()
     # TODO validate that errors are emitted and logged to analytics
+
+describe 'Service: versioncheck', ->
+
+  beforeEach module 'swarmApp'
+
+  # instantiate service
+  versioncheck = {}
+  beforeEach inject (_versioncheck_) ->
+    versioncheck = _versioncheck_
+  it 'compares versions', ->
+    expect(versioncheck.compare '0.0.0', '0.0.1').toBeLessThan 0
+    expect(versioncheck.compare '0.0.1', '0.0.0').toBeGreaterThan 0
+    expect(versioncheck.compare '0.0.1', '0.0.1').toBe 0
+    expect(versioncheck.compare '0.99.99', '1.0.0').toBeLessThan 0
