@@ -25,6 +25,9 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
       spreadsheetUtil.resolveList upgrade.requires, 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.effect, 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.effect, 'type', effecttypes.byName
+      for cost in upgrade.cost
+        util.assert cost.val > 0, "upgradetype cost.val must be positive", cost
+        util.assert cost.factor > 0, "upgradetype cost.factor must be positive", cost
     return ret
 
 ###*

@@ -18,7 +18,7 @@ angular.module('swarmApp').factory 'UnitType', -> class Unit
       _.map paths, (path) ->
         _.pluck path, 'name'
 
-angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> class UnitTypes
+angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util) -> class UnitTypes
   constructor: (unittypes=[]) ->
     @list = []
     @byName = {}
@@ -54,6 +54,9 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType) -> c
       spreadsheetUtil.resolveList unittype.warnfirst, 'unittype', ret.byName
       for prod in unittype.prod
         prod.unittype.producedBy.push unittype
+        util.assert prod.val > 0, "unittype prod.val must be positive", prod
+      for cost in unittype.cost
+        util.assert cost.val > 0, "unittype cost.val must be positive", cost
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
