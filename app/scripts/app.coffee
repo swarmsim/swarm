@@ -63,6 +63,7 @@ angular.module('swarmApp').config (gaTrackingID, version) ->
     #window.ga 'set', 'appVersion', version
 # http and https use different localstorage, which might confuse folks.
 # angular $location doesn't make protocol mutable, so use window.location.
-angular.module('swarmApp').config (env) ->
-  if env == 'prod' and window.location.protocol == 'http:'
+# allow an out for testing, though.
+angular.module('swarmApp').run (env, $location) ->
+  if env == 'prod' and $location.protocol() == 'http:' and not $location.search('forceinsecure')?
     window.location.protocol = 'https:'
