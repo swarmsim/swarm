@@ -7,7 +7,7 @@
  # # DebugCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes, flashqueue, $timeout, $log) ->
+angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes, flashqueue, $timeout, $log, util) ->
   $scope.dumps = [
     {title:'env', data:env}
     {title:'game', data:!!game}
@@ -21,6 +21,10 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
 
   $scope.throwUp = ->
     throw new Error "throwing up (test exception)"
+  $scope.assertFail = ->
+    util.assert false, "throwing up (test assertion failure)"
+  $scope.error = ->
+    util.error "throwing up (test util.error)"
   $scope.form = {}
   $scope.session = session
   $scope.$watch 'form.session', (text, text0) ->

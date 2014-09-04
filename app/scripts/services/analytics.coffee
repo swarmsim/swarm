@@ -27,7 +27,7 @@ angular.module('swarmApp').factory 'analyticsMetrics', (analyticsMetricList) ->
  # # analytics
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, game, version, analyticsDimensions, analyticsMetrics, statistics, session) ->
+angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, game, version, analyticsDimensions, analyticsMetrics, statistics, session, $log) ->
   dims = analyticsDimensions
   metrics = analyticsMetrics
   # no analytics during testing. also, window.ga might be blank if someone blocks google analytics.
@@ -76,3 +76,37 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
   $rootScope.$on 'timecheckError', (event, args) ->
     $analytics.eventTrack 'timecheckError',
       category:'timecheck'
+
+  errorCount = 0
+  ERROR_THROTTLE_THRESHOLD = 12
+  logThrottledError = (action, label) ->
+    errorCount += 1
+    if errorCount <= ERROR_THROTTLE_THRESHOLD
+      label = if _.isString label then label else JSON.stringify label
+      $log.log 'logging error to google analytics', {category:'error', action:action, label: label}
+      $analytics.eventTrack action,
+        category: 'error'
+        label: label
+      if errorCount == ERROR_THROTTLE_THRESHOLD
+        $log.warn 'error threshold reached, no more errors will be reported to analytics'
+        $analytics.eventTrack 'maxErrorCount',
+          category: 'error'
+          label: 'too many errors logged to analytics this session, future errors will not be logged'
+
+  $rootScope.$on 'unhandledException', (event, args) ->
+    try
+      if args.exception?.name? and args.exception?.message?
+        label = "#{args.exception.name}: #{args.exception.message}"
+      else
+        label = if _.isString args.exception then args.exception else JSON.stringify args.exception
+        label = "Unknown exception: #{label}"
+      logThrottledError 'unhandledException', label
+    catch e
+      # no infinite loops plz
+      logThrottledError 'unhandledExceptionLoop', "#{e?.name}: #{e?.message}"
+
+  $rootScope.$on 'error', (event, args) ->
+    logThrottledError 'emittedError', args
+
+  $rootScope.$on 'assertionFailure', (event, args) ->
+    logThrottledError 'assertionFailure', args

@@ -5,7 +5,11 @@
   <p title="If you edited the html to see this: shame on you, you filthy cheater.">You found the debug page! Looks like this is a dev build, too. Have fun.</p>
   <div>
     <button ng-click="session.save()">Save</button>
-    <button ng-click="throwUp()" title="Test exception handler">Throw up</button>
+  </div>
+  <div>
+    <button ng-click="throwUp()" title="Test exception handler">Test exception</button>
+    <button ng-click="assertFail()" title="Test assertion error">Test assert</button>
+    <button ng-click="error()" title="Test error report">Test error report</button>
   </div>
   <div>
     <input type="text" ng-model="form.notify.label" ng-init="form.notify.label='hihi'">
