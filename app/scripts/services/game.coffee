@@ -78,7 +78,6 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     for cost in @totalCost()
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
-        $log.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
     max = Math.floor max
     util.assert max >= 0, "invalid max", max
     return max > 0
@@ -224,7 +223,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
     for cost in @cost
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
-        $log.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
     util.assert max >= 0, "invalid max", max
     return max
 
