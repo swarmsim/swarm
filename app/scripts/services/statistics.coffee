@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope, env) -> class ReplayLog
+angular.module('swarmApp').factory 'ReplayLog', ($log, util, $rootScope, env) -> class ReplayLog
   constructor: (@id, @log=[]) ->
     @_init()
   _init: ->
@@ -26,21 +26,25 @@ angular.module('swarmApp').factory 'ReplayLog', (util, $rootScope, env) -> class
   save: ->
     encoded = JSON.stringify @log
     encoded = LZString.compressToUTF16 encoded
-    localStorage.setItem "replay:#{@id}", encoded
+    key = "replay:#{@id}"
+    # Disabled click log storage. https://github.com/erosson/swarm/issues/58
+    #localStorage.setItem key, encoded
     return encoded
 
   load: ->
-    encoded = localStorage.getItem "replay:#{@id}"
-    if encoded
-      encoded = LZString.decompressFromUTF16 encoded
-      @log = JSON.parse encoded
+    # Disabled click log storage. https://github.com/erosson/swarm/issues/58
+    localStorage.removeItem "replay:#{@id}"
+    #encoded = localStorage.getItem "replay:#{@id}"
+    #if encoded
+    #  encoded = LZString.decompressFromUTF16 encoded
+    #  @log = JSON.parse encoded
 
   tryLoad: ->
     try
       @load()
     catch e
       if env != 'test'
-        console.warn "couldn't load replay log, ignoring.", e
+        $log.warn "couldn't load replay log, ignoring.", e
 
 ###*
  # @ngdoc service
