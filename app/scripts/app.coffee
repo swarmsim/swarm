@@ -72,5 +72,5 @@ angular.module('swarmApp').run (env, $location, $log) ->
   $log.log 'protocol check', allowinsecure, $location.protocol()
   # $location.protocol() == 'http', but window.location.protocol == 'http:'
   if $location.protocol() == 'http' and not allowinsecure
-    #window.location.protocol = 'https:'
+    window.location.protocol = 'https:'
     $log.log "window.location.protocol = 'https:'"
