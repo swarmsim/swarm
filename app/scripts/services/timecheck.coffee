@@ -72,7 +72,7 @@ angular.module('swarmApp').value 'timecheckThresholdHours', 24 * 4
 angular.module('swarmApp').factory 'timecheck', (TimeChecker, timecheckThresholdHours) ->
   new TimeChecker timecheckThresholdHours
 
-angular.module('swarmApp').factory 'VersionChecker', (util) -> class VersionChecker
+angular.module('swarmApp').factory 'VersionChecker', (util, $log) -> class VersionChecker
   constructor: (@version) ->
     # max version in any one chunk
     @_MAX = 100000
@@ -93,7 +93,7 @@ angular.module('swarmApp').factory 'VersionChecker', (util) -> class VersionChec
       sum += chunk * Math.pow @_MAX, index
     return sum
 
-angular.module('swarmApp').factory 'versioncheck', ($rootScope, VersionChecker, version) ->
+angular.module('swarmApp').factory 'versioncheck', ($rootScope, VersionChecker, version, $log) ->
   ret = new VersionChecker version
   $rootScope.$on 'timecheck', (event, res) ->
     remote = res?.data?.version
