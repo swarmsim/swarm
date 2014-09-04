@@ -7,7 +7,7 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics, statistics, timecheck, versioncheck, $http, $interval) ->
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics, statistics, timecheck, versioncheck, $http, $interval, $log) ->
   # analytics/statistics not actually used, just want it to init
   $scope.env = env
   $scope.version = version
@@ -16,10 +16,10 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
   do enforce = ->
     timecheck.enforceNetTime().then(
       (invalid) ->
-        #console.log 'net time check successful', invalid
+        $log.log 'net time check successful', invalid
         $scope.netTimeInvalid = invalid
         if invalid
-          console.error 'cheater', invalid
+          $log.log 'cheater', invalid
           # Replacing ng-view (via .viewwrap) disables navigation to other pages.
           # This is hideous technique and you, reader, should not copy it.
           $('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'
@@ -27,7 +27,7 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
           $('.footer').css({display:'none'})
           $interval.cancel enforceInterval
       ->
-        console.warn 'failed to check net time'
+        $log.warn 'failed to check net time'
       )
   enforceInterval = $interval enforce, 1000 * 60 * 30
 

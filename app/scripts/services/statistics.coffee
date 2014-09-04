@@ -8,7 +8,7 @@ angular.module('swarmApp').factory 'ReplayLog', ($log, util, $rootScope, env) ->
   push: (cmd) ->
     @log.push cmd
     @_cachedSave = @save()
-    console.log 'saving replay', @_cachedSave.length
+    $log.log 'saving replay', @_cachedSave.length
     $rootScope.$emit 'replay:save', this
   reset: ->
     @log.length = 0
@@ -53,7 +53,7 @@ angular.module('swarmApp').factory 'ReplayLog', ($log, util, $rootScope, env) ->
  # # statistics
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog) -> class StatisticsListener
+angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog, $log) -> class StatisticsListener
   constructor: (@session, @scope) ->
     # Transient. TODO: persist this separately from session, it can get big
     @replay = new ReplayLog session.id
@@ -95,7 +95,7 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog) -> cl
       @_init()
       @replay.reset()
     scope.$on 'command', (event, cmd) =>
-      #console.log 'statistics', event, cmd
+      $log.log 'statistics', event, cmd
       @push cmd
 
 angular.module('swarmApp').factory 'statistics', (session, StatisticsListener, $rootScope) ->

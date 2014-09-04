@@ -16,7 +16,7 @@ angular.module('swarmApp').value 'timecheckerServerFormat', 'ddd, DD MMM YYYY HH
  # don't have to be 100% secure. It's better to reset only when we're sure
  # than to nuke someone innocent.
 ###
-angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, session, game, timecheckerServerFormat) -> class TimeChecker
+angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, session, game, timecheckerServerFormat, $log) -> class TimeChecker
   constructor: (thresholdHours) ->
     @threshold = moment.duration thresholdHours, 'hours'
 
@@ -36,7 +36,7 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
         $rootScope.$emit 'timecheck', res
         return ret
       (res) =>
-        #console.warn 'fetchnettime promise failed', res
+        $log.log 'fetchnettime promise failed', res
         $rootScope.$emit 'timecheckError', {error:'fetchNetTime promise failed', res:res}
         $q.reject res
       )
@@ -78,7 +78,7 @@ angular.module('swarmApp').factory 'VersionChecker', (util) -> class VersionChec
     @_MAX = 100000
   check: (remote) ->
     if @compare(@version, remote) < 0 #local < remote
-      console.log 'newer version found on server! reloading.', {local:@version, remote:remote}
+      $log.log 'newer version found on server! reloading.', {local:@version, remote:remote}
       window.location.reload()
   compare: (a, b) ->
     return @normalize(a) - @normalize(b)
@@ -97,7 +97,7 @@ angular.module('swarmApp').factory 'versioncheck', ($rootScope, VersionChecker, 
   ret = new VersionChecker version
   $rootScope.$on 'timecheck', (event, res) ->
     remote = res?.data?.version
-    #console.log 'version check', {local:version, remote:remote}
+    $log.log 'version check', {local:version, remote:remote}
     if remote
       ret.check remote
   return ret

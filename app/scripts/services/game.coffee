@@ -12,7 +12,7 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   calcStats: (stats, schema, level) ->
     @type.calcStats? this, stats, schema, level
 
-angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
+angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgrade
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
@@ -78,7 +78,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
     for cost in @totalCost()
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
-        #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
+        $log.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
     max = Math.floor max
     util.assert max >= 0, "invalid max", max
     return max > 0
@@ -130,7 +130,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect) -> class Upgrade
       effect.calcStats stats, schema, count
     return stats
 
-angular.module('swarmApp').factory 'Unit', (util) -> class Unit
+angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
@@ -224,7 +224,7 @@ angular.module('swarmApp').factory 'Unit', (util) -> class Unit
     for cost in @cost
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
-        #console.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
+        $log.log 'maxcostmet', @name, cost.unit.name, cost.unit.count(), cost.val, cost.unit.count()/cost.val, max
     util.assert max >= 0, "invalid max", max
     return max
 
@@ -440,13 +440,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
       unit._setCount unit.unittype.init
     @save()
 
-angular.module('swarmApp').factory 'game', (Game, session, env) ->
+angular.module('swarmApp').factory 'game', (Game, session, env, $log) ->
   game = new Game session
   try
     session.load()
-    console.log 'Game data loaded successfully.', this
+    $log.log 'Game data loaded successfully.', this
   catch
     if env != 'test' # too noisy in test
-      console.warn 'Failed to load saved data! Resetting.'
+      $log.warn 'Failed to load saved data! Resetting.'
     game.reset()
   return game

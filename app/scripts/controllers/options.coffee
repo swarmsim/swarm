@@ -7,7 +7,7 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, $log) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -28,11 +28,11 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.game.importSave encoded
       $scope.imported.success = true
       $scope.$emit 'import', {success:true}
-      #console.log 'import success'
-    catch
+      $log.log 'import success'
+    catch e
       $scope.imported.error = true
       $scope.$emit 'import', {success:false}
-      #console.log 'import error'
+      $log.warn 'import error', e
 
   $scope.confirmReset = ->
     if confirm 'You will lose everything and restart the game. No reset-bonuses here. You sure?'

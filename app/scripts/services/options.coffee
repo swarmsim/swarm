@@ -7,12 +7,12 @@
  # # options
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Options', -> class Options
+angular.module('swarmApp').factory 'Options', ($log) -> class Options
   constructor: (@session) ->
 
   maybeSet: (field, val) ->
     if val?
-      console.log 'set fps', field, val
+      $log.log 'set fps', field, val
       @set field, val
   set: (field, val) ->
     @session.options[field] = val

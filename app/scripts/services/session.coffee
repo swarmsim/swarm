@@ -7,7 +7,7 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', (env, $rootScope) ->
+angular.module('swarmApp').factory 'session', (env, $rootScope, $log, util) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
@@ -36,12 +36,12 @@ angular.module('swarmApp').factory 'session', (env, $rootScope) ->
 
     _replacer: (key, val) ->
       #if _.isDate val
-      #  console.log 'replace date', val
+      #  $log.log 'replace date', val
       #  return {__class__:'Date',val:val.toJSON()}
       return val
     _reviver: (key, val) ->
       #if val.__class__=='Date'
-      #  console.log 'revive date', val
+      #  $log.log 'revive date', val
       #  return new Date val.val
       return val
 
@@ -50,7 +50,7 @@ angular.module('swarmApp').factory 'session', (env, $rootScope) ->
       JSON.stringify data, @_replacer
 
     _saves: (data=this, setdates=true) ->
-      console.assert (not data._exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
+      util.assert (not data._exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
       if setdates
         data.date.saved = new Date()
         delete data.date.loaded

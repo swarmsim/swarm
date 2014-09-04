@@ -7,11 +7,11 @@
  # # util
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').service 'util', class Util
+angular.module('swarmApp').factory 'util', ($log) -> new class Util
   sum: (ns) -> _.reduce ns, ((a,b) -> a+b), 0
   assert: (val, message...) ->
     if not val
-      console.error "Assertion error", message...
+      $log.error "Assertion error", message...
       throw new Error message
     return val
   walk: (obj, fn, path="", rets=[]) ->
