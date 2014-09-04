@@ -36,7 +36,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   count: ->
     ret = @game.session.upgrades[@name] ? 0
     if _.isNaN ret
-      # oops. TODO alert analytics
+      util.error "count is NaN! resetting to zero. #{@name}"
       ret = 0
     return ret
   _setCount: (val) ->
