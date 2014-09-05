@@ -16,10 +16,10 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
   do enforce = ->
     timecheck.enforceNetTime().then(
       (invalid) ->
-        $log.log 'net time check successful', invalid
+        $log.debug 'net time check successful', invalid
         $scope.netTimeInvalid = invalid
         if invalid
-          $log.log 'cheater', invalid
+          $log.debug 'cheater', invalid
           # Replacing ng-view (via .viewwrap) disables navigation to other pages.
           # This is hideous technique and you, reader, should not copy it.
           $('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'

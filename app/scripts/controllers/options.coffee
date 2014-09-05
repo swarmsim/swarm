@@ -28,7 +28,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.game.importSave encoded
       $scope.imported.success = true
       $scope.$emit 'import', {success:true}
-      $log.log 'import success'
+      $log.debug 'import success'
     catch e
       $scope.imported.error = true
       $scope.$emit 'import', {success:false}

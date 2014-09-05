@@ -29,12 +29,12 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
   $scope.session = session
   $scope.$watch 'form.session', (text, text0) ->
     if text != text0
-      $log.log 'formsession update', text, $scope.session._saves text, false
+      $log.debug 'formsession update', text, $scope.session._saves text, false
       $scope.session.importSave $scope.session._saves JSON.parse(text), false
     else
-      $log.log 'formsession equal'
+      $log.debug 'formsession equal'
   $scope.$watch 'session', do ->
-    $log.log 'session update'
+    $log.debug 'session update'
     $scope.form.sessionExport = $scope.session.exportSave()
     $scope.form.session = JSON.stringify $scope.session._loads($scope.form.sessionExport), undefined, 2
   $scope.game = game

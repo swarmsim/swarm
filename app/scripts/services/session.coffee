@@ -36,12 +36,12 @@ angular.module('swarmApp').factory 'session', (env, $rootScope, $log, util) ->
 
     _replacer: (key, val) ->
       #if _.isDate val
-      #  $log.log 'replace date', val
+      #  $log.debug 'replace date', val
       #  return {__class__:'Date',val:val.toJSON()}
       return val
     _reviver: (key, val) ->
       #if val.__class__=='Date'
-      #  $log.log 'revive date', val
+      #  $log.debug 'revive date', val
       #  return new Date val.val
       return val
 

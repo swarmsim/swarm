@@ -36,7 +36,7 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
         $rootScope.$emit 'timecheck', res
         return ret
       (res) =>
-        $log.log 'fetchnettime promise failed', res
+        $log.debug 'fetchnettime promise failed', res
         $rootScope.$emit 'timecheckError', {error:'fetchNetTime promise failed', res:res}
         $q.reject res
       )
@@ -78,7 +78,7 @@ angular.module('swarmApp').factory 'VersionChecker', (util, $log) -> class Versi
     @_MAX = 100000
   check: (remote) ->
     if @compare(@version, remote) < 0 #local < remote
-      $log.log 'newer version found on server! reloading.', {local:@version, remote:remote}
+      $log.debug 'newer version found on server! reloading.', {local:@version, remote:remote}
       window.location.reload()
   compare: (a, b) ->
     return @normalize(a) - @normalize(b)
@@ -97,7 +97,7 @@ angular.module('swarmApp').factory 'versioncheck', ($rootScope, VersionChecker, 
   ret = new VersionChecker version
   $rootScope.$on 'timecheck', (event, res) ->
     remote = res?.data?.version
-    $log.log 'version check', {local:version, remote:remote}
+    $log.debug 'version check', {local:version, remote:remote}
     if remote
       ret.check remote
   return ret

@@ -442,7 +442,7 @@ angular.module('swarmApp').factory 'game', (Game, session, env, $log) ->
   game = new Game session
   try
     session.load()
-    $log.log 'Game data loaded successfully.', this
+    $log.debug 'Game data loaded successfully.', this
   catch
     if env != 'test' # too noisy in test
       $log.warn 'Failed to load saved data! Resetting.'

@@ -12,7 +12,7 @@ angular.module('swarmApp').factory 'Options', ($log) -> class Options
 
   maybeSet: (field, val) ->
     if val?
-      $log.log 'set fps', field, val
+      $log.debug 'set fps', field, val
       @set field, val
   set: (field, val) ->
     @session.options[field] = val

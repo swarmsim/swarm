@@ -8,7 +8,7 @@ angular.module('swarmApp').factory 'ReplayLog', ($log, util, $rootScope, env) ->
   push: (cmd) ->
     @log.push cmd
     @_cachedSave = @save()
-    $log.log 'saving replay', @_cachedSave.length
+    $log.debug 'saving replay', @_cachedSave.length
     $rootScope.$emit 'replay:save', this
   reset: ->
     @log.length = 0
@@ -95,7 +95,7 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog, $log)
       @_init()
       @replay.reset()
     scope.$on 'command', (event, cmd) =>
-      $log.log 'statistics', event, cmd
+      $log.debug 'statistics', event, cmd
       @push cmd
 
 angular.module('swarmApp').factory 'statistics', (session, StatisticsListener, $rootScope) ->

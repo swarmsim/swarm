@@ -55,6 +55,9 @@ angular.module('swarmApp').config ($routeProvider) ->
       .otherwise
         redirectTo: '/'
 
+angular.module('swarmApp').config (env, $logProvider) ->
+  $logProvider.debugEnabled env != 'prod'
+
 angular.module('swarmApp').config (gaTrackingID, version) ->
   if gaTrackingID and window.ga?
     #console.log 'analytics', gaTrackingID
@@ -69,10 +72,10 @@ angular.module('swarmApp').run (env, $location, $log) ->
   falsemap = {0:false,'':false,'false':false}
   allowinsecure = $location.search().allowinsecure ? env != 'prod'
   allowinsecure = falsemap[allowinsecure] ? true
-  $log.log 'protocol check', allowinsecure, $location.protocol()
+  $log.debug 'protocol check', allowinsecure, $location.protocol()
   # $location.protocol() == 'http', but window.location.protocol == 'http:' and you can't assign $location.protocol()
   # NOPE, in firefox there's no ':', https://bugzilla.mozilla.org/show_bug.cgi?id=726779 https://github.com/erosson/swarm/issues/68
   # chrome and IE don't mind the missing ':' though. I'm amazed - IE is supposed to be the obnoxious browser
   if $location.protocol() == 'http' and not allowinsecure
     window.location.protocol = 'https'
-    $log.log "window.location.protocol = 'https:'"
+    $log.debug "window.location.protocol = 'https:'"
