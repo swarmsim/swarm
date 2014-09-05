@@ -153,7 +153,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "column": 0,
         "cost.unittype": "larva",
         "cost.val": 1,
-        "description": "Each cocoon is a larva encased within a protective shell. They can freely enter and leave their cocoon, but cannot be transformed into other units while cocooned.",
+        "description": "Each cocoon is a larva encased within a protective shell. Larvae can freely enter and leave their cocoons, but cannot be transformed into other units while cocooned.",
         "disabled": "",
         "init": "",
         "label": "cocoon",
