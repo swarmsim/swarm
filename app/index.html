@@ -33,7 +33,6 @@
             </button>
             <a class="navbar-brand" href="#">Swarm Simulator</a>
             <a ng-cloak ng-if="isNonprod()" class="envalert navbar-brand" ng-href="#/debug"> ({{env}})</a>
-            <a class="navbar-brand" href="#/changelog"><span ng-cloak class="small text-muted">{{version}}</span></a>
           </div>
       
           <div class="collapse navbar-collapse" id="navbar">
@@ -43,6 +42,7 @@
               <li><a ng-href="#/statistics">Statistics</a></li>
               <li><a target="_blank" href="http://www.reddit.com/r/swarmsim/" analytics-on analytics-category="outbound" analytics-event="click" analytics-label="community">Community</a></li>
               <li><a target="_blank" ng-href="{{feedbackUrl()}}" analytics-on analytics-category="outbound" analytics-event="click" analytics-label="community">Feedback</a></li>
+              <li><a ng-href="#/changelog"><span ng-cloak>v{{version}}</span></a></li>
             </ul>
           </div>
         </div>
