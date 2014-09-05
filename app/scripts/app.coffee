@@ -70,7 +70,9 @@ angular.module('swarmApp').run (env, $location, $log) ->
   allowinsecure = $location.search().allowinsecure ? env != 'prod'
   allowinsecure = falsemap[allowinsecure] ? true
   $log.log 'protocol check', allowinsecure, $location.protocol()
-  # $location.protocol() == 'http', but window.location.protocol == 'http:'
+  # $location.protocol() == 'http', but window.location.protocol == 'http:' and you can't assign $location.protocol()
+  # NOPE, in firefox there's no ':', https://bugzilla.mozilla.org/show_bug.cgi?id=726779 https://github.com/erosson/swarm/issues/68
+  # chrome and IE don't mind the missing ':' though
   if $location.protocol() == 'http' and not allowinsecure
-    window.location.protocol = 'https:'
+    window.location.protocol = 'https'
     $log.log "window.location.protocol = 'https:'"
