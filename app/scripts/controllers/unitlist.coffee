@@ -7,14 +7,14 @@
  # # UnitlistCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands) ->
+angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands, util, $log) ->
   $scope.game = game
   $scope.commands = commands
   $scope.options = options
   $scope.form =
     mainBuynum: 1
   $scope.mainBuynum = ->
-    ret = Math.max 1, parseInt $scope.form.mainBuynum
+    ret = Math.max 1, Math.floor $scope.form.mainBuynum
     if _.isNaN ret
       ret = 1
     return ret
