@@ -239,3 +239,36 @@ describe 'Service: game', ->
     upgrade.buy 10
     expect(upgrade.maxCostMet()).toBe 0
     expect(upgrade.count()).toBe 1
+
+  it 'parses unit requirements', ->
+    game = mkgame {meat:1000000000000000000000000000000000000000}
+    unit = game.unit 'cocoon'
+    larva = game.unit 'larva'
+    upgrade = game.upgrade 'cocooning'
+    expect(unit.requires.length).toBeGreaterThan 0
+    expect(unit.requires[0].unit).toBeUndefined()
+    expect(unit.requires[0].upgrade.name).toBe upgrade.name
+    expect(unit.requires[0].resource.name).toBe upgrade.name
+    expect(upgrade.count()).toBe 0
+    expect(unit.isVisible()).toBe false
+    expect(upgrade.isVisible()).toBe true
+    expect(larva.isBuyButtonVisible()).toBe false
+    expect(upgrade.maxCostMet()).toBe 1 #because...
+    expect(upgrade.type.maxlevel).toBe 1
+    upgrade.buy()
+    expect(upgrade.count()).toBe 1
+    expect(unit.isVisible()).toBe true
+    expect(larva.isBuyButtonVisible()).toBe true
+    expect(upgrade.isVisible()).toBe false #because...
+    expect(upgrade.count()).toBe upgrade.type.maxlevel
+
+  it 'clones cocoons', ->
+    game = mkgame {meat:1000000000000000000000000000000000000000, cocoon: 100, larva: 10}
+    cocoon = game.unit 'cocoon'
+    larva = game.unit 'larva'
+    inject = game.upgrade 'injectlarvae'
+    expect(cocoon.count()).toBe 100
+    expect(larva.count()).toBe 10
+    inject.buy()
+    expect(cocoon.count()).toBe 100 # no change
+    expect(larva.count()).toBe 1120 # 1000 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae

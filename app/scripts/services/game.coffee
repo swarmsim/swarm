@@ -5,6 +5,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     _.extend this, data
     if data.unittype?
       @unit = util.assert @game.unit data.unittype
+    if data.unittype2?
+      @unit2 = util.assert @game.unit data.unittype2
 
   onBuy: ->
     @type.onBuy? this, @game, @upgrade
@@ -48,6 +50,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     @_addCount -val
 
   isVisible: ->
+    if @type.maxlevel? and @count() >= @type.maxlevel
+      return false
     if @type.disabled
       return false
     if @_visible
@@ -70,8 +74,12 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   sumCost: (num) ->
     _.map @totalCost(), (cost0) ->
       cost = _.clone cost0
-      # see maxCostMet for O(1) summation formula derivation.
-      cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
+      # special case: 1 / (1 - 1) == boom
+      if cost.factor == 1
+        cost.val *= num
+      else
+        # see maxCostMet for O(1) summation formula derivation.
+        cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
       return cost
   isCostMet: ->
     max = Number.MAX_VALUE
@@ -93,9 +101,13 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # have just brute forced this, we don't have that many upgrades so O(1)
     # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
     # do, kids.
-    max = Number.MAX_VALUE
+    max = @type.maxlevel or Number.MAX_VALUE
     for cost in @totalCost()
-      m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
+      util.assert cost.val > 0, 'upgrade cost <= 0', @name, this
+      if cost.factor == 1 #special case: math.log(1) == 0; x / math.log(1) == boom
+        m = cost.unit.count() / cost.val
+      else
+        m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
       max = Math.min max, m
     return Math.floor max
 
@@ -109,6 +121,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     if not @isBuyable()
       throw new Error "Cannot buy that upgrade"
     num = Math.min num, @maxCostMet()
+    $log.debug 'buy', @name, num
     @game.withSave =>
       for cost in @sumCost num
         util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
@@ -161,6 +174,15 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
       list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype)
       byName: {}
     @showparent = @game.unit @unittype.showparent
+    @requires = _.map @unittype.requires, (require) =>
+      util.assert require.unittype or require.upgradetype, 'unit require without a unittype or upgradetype', @name, name, require
+      util.assert not (require.unittype and require.upgradetype), 'unit require with both unittype and upgradetype', @name, name, require
+      ret = _.clone require
+      if require.unittype?
+        ret.resource = ret.unit = util.assert @game.unit require.unittype
+      if require.upgradetype?
+        ret.resource = ret.upgrade = util.assert @game.upgrade require.upgradetype
+      return ret
     for upgrade in @upgrades.list
       @upgrades.byName[upgrade.name] = upgrade
 
@@ -237,6 +259,12 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
   _isVisible: ->
     if @count() > 0
       return true
+    if @requires.length > 0
+      for require in @requires
+        if require.val > require.resource.count()
+          return false
+      return true
+    # TODO move this into the spreadsheet
     if @cost.length > 0
       # units with cost are visible at some percentage of the cost, OR when one of their immediate children exist (ex. 1 drone makes queens visible, but not nests)
       if @_costMetPercent() > 0.3
@@ -254,6 +282,12 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
         if producer.isVisible()
           return true
       return false
+
+  isBuyButtonVisible: ->
+    for cost in @cost
+      if not cost.unit.isVisible()
+        return false
+    return true
 
   maxCostMet: (percent=1) ->
     Math.floor @_costMetPercent() * percent

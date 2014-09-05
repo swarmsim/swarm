@@ -18,7 +18,7 @@ angular.module('swarmApp').factory 'UnitType', -> class Unit
       _.map paths, (path) ->
         _.pluck path, 'name'
 
-angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util) -> class UnitTypes
+angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util, $log) -> class UnitTypes
   constructor: (unittypes=[]) ->
     @list = []
     @byName = {}
@@ -31,7 +31,6 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
 
   @_buildProducerPath = (unittype, producer, path) ->
     path = [producer].concat path
-    #console.assert (not unittype.producerPath[producer.name]), 'one producer, two paths', producer
     unittype.producerPathList.push path
     unittype.producerPath[producer.name] ?= []
     unittype.producerPath[producer.name].push path
@@ -39,7 +38,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
       @_buildProducerPath unittype, nextgen, path
 
   @parseSpreadsheet: (data) ->
-    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst']}, data.data.unittypes.elements
+    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst','requires']}, data.data.unittypes.elements
     ret = new UnitTypes (new UnitType(row) for row in rows)
     for unittype in ret.list
       unittype.producedBy = []
@@ -52,6 +51,9 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
       spreadsheetUtil.resolveList unittype.cost, 'unittype', ret.byName
       spreadsheetUtil.resolveList unittype.prod, 'unittype', ret.byName
       spreadsheetUtil.resolveList unittype.warnfirst, 'unittype', ret.byName
+      spreadsheetUtil.resolveList unittype.requires, 'unittype', ret.byName, {required:false}
+      # oops - we haven't parsed upgradetypes yet! done in upgradetype.coffee.
+      #spreadsheetUtil.resolveList unittype.require, 'upgradetype', ret.byName
       for prod in unittype.prod
         prod.unittype.producedBy.push unittype
         util.assert prod.val > 0, "unittype prod.val must be positive", prod
@@ -60,7 +62,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
-    #console.log 'built unittypes', ret
+    $log.debug 'built unittypes', ret
     return ret
 
 ###*

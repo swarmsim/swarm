@@ -46,7 +46,10 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'compoundUnit'
     validate: hasUnit
     onBuy: (effect, game) ->
-      effect.unit._setCount effect.unit.count() * effect.val
+      base = effect.unit.count()
+      if effect.unit2?
+        base += effect.unit2.count()
+      effect.unit._addCount base * (effect.val - 1)
   effecttypes.register new EffectType
     name: 'multStat'
     validate: hasUnitStat

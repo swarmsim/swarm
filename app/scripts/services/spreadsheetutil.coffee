@@ -65,8 +65,9 @@ angular.module('swarmApp').factory 'spreadsheetUtil', (util) -> new class Spread
     normalized = @normalizeRows rows, filterFn
     @groupRows groupSpec, normalized, filterFn
 
-  resolveList: (objects, field, targets) ->
+  resolveList: (objects, field, targets, opts={}) ->
+    opts.required ?= true
     for obj in objects
       name = obj[field]
       obj[field] = targets[name]
-      util.assert obj[field], "couldn't resolve ref: #{obj}.#{field}=#{name}", obj, field, name, targets[name], objects
+      util.assert (obj[field] or not opts.required), "couldn't resolve ref: #{obj}.#{field}=#{name}", obj, field, name, targets[name], objects

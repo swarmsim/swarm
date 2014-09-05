@@ -38,7 +38,7 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
     num.toPrecision(3).replace /\.?0+$/, ''
 
   $scope.unitBuyTotal = (num) ->
-    Math.min(num, $scope.selected.maxCostMet()) * $scope.selected.stat 'twin'
+    Math.min(num, $scope.selected.maxCostMet()) * $scope.selected.stat 'twin', 1
 
   $scope.unitCostAsPercent = (unit, cost) ->
     MAX = 9999.99

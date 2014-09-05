@@ -52,7 +52,7 @@
         <span>{{selected.velocity()|longnum:2}} {{selected.unittype.plural}}</span>
         per second.
       </div>
-      <div ng-if="!selected.unbuyable && selected.cost.length">
+      <div ng-if="!selected.unbuyable && selected.cost.length && selected.isBuyButtonVisible()">
         <hr>
         <!--div class="form-group">
           <label for="buyone">Buy one</label>
@@ -75,7 +75,7 @@
             You're buying
             <input type="number" ng-model="form.mainBuynum" min="1">
             {{mainBuynum() == 1 ? selected.unittype.label : selected.unittype.plural}}
-            <span ng-if="selected.stat('twin') > 1">(x{{selected.stat('twin')|bignum}} twins)</span>
+            <span ng-if="selected.stat('twin', 1) > 1">(x{{selected.stat('twin',1)|bignum}} twins)</span>
             for
             <span ng-repeat="cost in selected.cost">
               <span ng-if="!$first && $last"> and </span>
@@ -85,7 +85,7 @@
           <p ng-if="options.showAdvancedUnitData()">
             <span ng-if="selected.maxCostMet() > 0">
               Buying your maximum of
-              {{selected.maxCostMet()*selected.stat('twin')|longnum}} {{selected.maxCostMet()*selected.stat('twin') == 1 ? selected.unittype.label : selected.unittype.plural}}
+              {{selected.maxCostMet()*selected.stat('twin', 1)|longnum}} {{selected.maxCostMet()*selected.stat('twin', 1) == 1 ? selected.unittype.label : selected.unittype.plural}}
             </span>
             <span ng-if="selected.maxCostMet() <= 0">
               Buying your next {{selected.unittype.label}}
@@ -104,12 +104,12 @@
             </div>
             <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="selected.maxCostMet(0.25) > 1">
               <button ng-click="commands.buyMaxUnit({unit:selected, percent:0.25, ui:'selected'})" class="form-control unit-buy">
-                Buy {{selected.maxCostMet(0.25)*selected.stat('twin')|bignum}}
+                Buy {{selected.maxCostMet(0.25)*selected.stat('twin', 1)|bignum}}
               </button>
             </div>
             <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':selected.maxCostMet(0.25) > 1, 'col-sm-8':!(selected.maxCostMet(0.25) > 1)}" ng-show="selected.maxCostMet() > 1">
               <button ng-click="commands.buyMaxUnit({unit:selected, percent: 1, ui:'selected'})" class="form-control unit-buy">
-                Buy {{selected.maxCostMet()*selected.stat('twin')|bignum}}
+                Buy {{selected.maxCostMet()*selected.stat('twin', 1)|bignum}}
               </button>
             </div>
           </div>
@@ -156,7 +156,8 @@
   </div>
   <div class="col-sm-4 col-sm-pull-8" ng-class="{'hidden-xs':!!selected}">
     <ul ng-repeat="group in [0,1,2,3,4,5,6]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup animif">
-      <li ng-repeat="unit in visibleUnitGroup(group)" class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
+      <!-- TODO group > 0 is a filthy filthy hack to prevent larva from showing up as unbuyable when you have no cocoons -->
+      <li ng-repeat="unit in visibleUnitGroup(group)" class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet() && group > 0}">
         <a ng-click="select(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
           <span class="unitlabel titlecase">{{unit.unittype.label}}</span>
           <div class="badge">{{unit.count() | bignum}}</div>
