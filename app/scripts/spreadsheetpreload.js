@@ -17,7 +17,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
     "elements": [
       {
         "description": "Build a drone",
-        "label": "Worker Bee",
+        "label": "worker bee",
         "longdesc": "A swarm is not built by only one hand.",
         "name": "drone1",
         "points": 10,
@@ -27,7 +27,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       },
       {
         "description": "Build 201 drones",
-        "label": "Supply Limit Exceeded",
+        "label": "supply limit exceeded",
         "longdesc": "",
         "name": "drone2",
         "points": 10,
@@ -37,8 +37,8 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       },
       {
         "description": "Build a queen",
-        "label": "",
-        "longdesc": "",
+        "label": "queen me",
+        "longdesc": "oh ffs I'll do more achievements later",
         "name": "queen1",
         "points": 10,
         "requires.unittype": "queen",

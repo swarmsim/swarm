@@ -4,6 +4,7 @@ angular.module('swarmApp').factory 'Achievement', (util, $log) -> class Achievem
   constructor: (@game, @type) ->
     @name = @type.name
   _init: ->
+    @game.session.achievements ?= {}
     @requires = _.map @type.requires, (require) =>
       require = _.clone require
       require.unit = util.assert @game.unit require.unittype
@@ -20,6 +21,13 @@ angular.module('swarmApp').factory 'Achievement', (util, $log) -> class Achievem
   earnedAtMillisElapsed: ->
     @game.session.achievements[@name]
 
+  earnedAtMoment: ->
+    if not @isEarned()?
+      return undefined
+    ret = moment @game.session.date.started
+    ret.add @game.session.achievements[@name], 'ms'
+    return ret
+
   pointsEarned: ->
     if @isEarned() then @type.points else 0
 
@@ -31,6 +39,9 @@ angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $
   register: (achievement) ->
     @list.push achievement
     @byName[achievement.name] = achievement
+
+  pointsPossible: ->
+    return util.sum _.map @list, (a) -> a.points
 
   @parseSpreadsheet: (data, unittypes) ->
     rows = spreadsheetUtil.parseRows {name:['requires']}, data.data.achievements.elements

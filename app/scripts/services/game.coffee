@@ -382,6 +382,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       list: _.map achievements.list, (achievementtype) =>
         new Achievement this, achievementtype
     @_achievements.byName = _.indexBy @_achievements.list, 'name'
+    @achievementPointsPossible = achievements.pointsPossible()
+    console.log 'possiblepoints: ', @achievementPointsPossible
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
@@ -445,10 +447,12 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   achievementlist: ->
     _.clone @_achievements.list
   achievementsSorted: ->
-    _.sort @achievementlist(), (a) ->
+    _.sortBy @achievementlist(), (a) ->
       a.earnedAtMillisElapsed()
   achievementPoints: ->
-    util.sum @achievementlist(), (a) -> a.pointsEarned()
+    util.sum _.map @achievementlist(), (a) -> a.pointsEarned()
+  achievementPercent: ->
+    @achievementPoints() / @achievementPointsPossible
 
   # Store the 'real' counts, and the time last counted, in the session.
   # Usually, counts are calculated as a function of last-reified-count and time,
