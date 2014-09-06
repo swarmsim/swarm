@@ -571,7 +571,7 @@ module.exports = function (grunt) {
     'gh-pages:staging'
   ]);
   grunt.registerTask('deploy-prod', [
-    'deploy-staging',
+    'build',
     'gh-pages:prod'
   ]);
 };
