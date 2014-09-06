@@ -10,6 +10,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       "label",
       "description",
       "longdesc",
+      "requires.event",
       "requires.unittype",
       "requires.val",
       "points"
@@ -21,8 +22,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "longdesc": "A swarm is not built by only one hand.",
         "name": "drone1",
         "points": 10,
+        "requires.event": "",
         "requires.unittype": "drone",
-        "requires.val": 1,
+        "requires.val": "",
         "rowNumber": 1
       },
       {
@@ -31,6 +33,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "longdesc": "",
         "name": "drone2",
         "points": 10,
+        "requires.event": "",
         "requires.unittype": "drone",
         "requires.val": 201,
         "rowNumber": 2
@@ -41,9 +44,21 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "longdesc": "oh ffs I'll do more achievements later",
         "name": "queen1",
         "points": 10,
+        "requires.event": "",
         "requires.unittype": "queen",
         "requires.val": 1,
         "rowNumber": 3
+      },
+      {
+        "description": "Import a game",
+        "label": "portable swarm",
+        "longdesc": "",
+        "name": "import",
+        "points": "",
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.val": "",
+        "rowNumber": 4
       }
     ],
     "name": "achievements"
