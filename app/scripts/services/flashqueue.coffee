@@ -32,7 +32,7 @@ angular.module('swarmApp').factory 'FlashQueue', ($timeout, util, env) -> class 
         ), @fadeTime
       ), @showTime
   isVisible: ->
-    @_state == 'visible'
+    env.achievementsEnabled and @_state == 'visible'
   get: ->
     @queue[0]
 
