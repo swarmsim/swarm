@@ -7,7 +7,9 @@
  # # AchievementsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game) ->
+angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, env, $location) ->
+  if not env.achievementsEnabled
+    $location.url '/'
   $scope.game = game
   $scope.form =
     show:
