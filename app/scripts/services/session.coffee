@@ -32,6 +32,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util) ->
       @options = {}
       @upgrades = {}
       @statistics = {}
+      @achievements = {}
       $rootScope.$emit 'reset', {session:this}
 
     _replacer: (key, val) ->

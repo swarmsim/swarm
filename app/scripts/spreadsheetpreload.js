@@ -10,8 +10,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       "label",
       "description",
       "longdesc",
-      "require.unittype",
-      "require.val"
+      "requires.unittype",
+      "requires.val",
+      "points"
     ],
     "elements": [
       {
@@ -19,8 +20,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "label": "Worker Bee",
         "longdesc": "A swarm is not built by only one hand.",
         "name": "drone1",
-        "require.unittype": "drone",
-        "require.val": 1,
+        "points": 10,
+        "requires.unittype": "drone",
+        "requires.val": 1,
         "rowNumber": 1
       },
       {
@@ -28,8 +30,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "label": "Supply Limit Exceeded",
         "longdesc": "",
         "name": "drone2",
-        "require.unittype": "drone",
-        "require.val": 201,
+        "points": 10,
+        "requires.unittype": "drone",
+        "requires.val": 201,
         "rowNumber": 2
       },
       {
@@ -37,8 +40,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "label": "",
         "longdesc": "",
         "name": "queen1",
-        "require.unittype": "queen",
-        "require.val": 1,
+        "points": 10,
+        "requires.unittype": "queen",
+        "requires.val": 1,
         "rowNumber": 3
       }
     ],

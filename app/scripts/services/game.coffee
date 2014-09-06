@@ -1,5 +1,7 @@
 'use strict'
 
+# achievements in achievements.coffee. TODO move the others out of this file too
+
 angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   constructor: (@game, @upgrade, data) ->
     _.extend this, data
@@ -362,27 +364,27 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgrade, Unit) -> class Game
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, Upgrade, Unit, Achievement) -> class Game
   constructor: (@session) ->
     @_init()
   _init: ->
     @_units =
       list: _.map unittypes.list, (unittype) =>
         new Unit this, unittype
-      byName: {}
-    for unit in @_units.list
-      @_units.byName[unit.name] = unit
+    @_units.byName = _.indexBy @_units.list, 'name'
+
     @_upgrades =
       list: _.map upgradetypes.list, (upgradetype) =>
         new Upgrade this, upgradetype
-      byName: {}
-    for upgrade in @_upgrades.list
-      @_upgrades.byName[upgrade.name] = upgrade
+    @_upgrades.byName = _.indexBy @_upgrades.list, 'name'
 
-    for name, unit of @_units.list
-      unit._init()
-    for name, upgrade of @_upgrades.list
-      upgrade._init()
+    @_achievements =
+      list: _.map achievements.list, (achievementtype) =>
+        new Achievement this, achievementtype
+    @_achievements.byName = _.indexBy @_achievements.list, 'name'
+
+    for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
+      item._init()
     @tick()
 
   diffMillis: ->
@@ -433,6 +435,20 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
     _.clone @_upgrades.byName
   upgradelist: ->
     _.clone @_upgrades.list
+
+  achievement: (name) ->
+    if not _.isString name
+      name = name.name
+    @_achievements.byName[name]
+  achievements: ->
+    _.clone @_achievements.byName
+  achievementlist: ->
+    _.clone @_achievements.list
+  achievementsSorted: ->
+    _.sort @achievementlist(), (a) ->
+      a.earnedAtMillisElapsed()
+  achievementPoints: ->
+    util.sum @achievementlist(), (a) -> a.pointsEarned()
 
   # Store the 'real' counts, and the time last counted, in the session.
   # Usually, counts are calculated as a function of last-reified-count and time,
