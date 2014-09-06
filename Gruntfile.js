@@ -531,6 +531,18 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
+    if (target === 'prod') {
+      grunt.task.run([
+        'clean:server',
+        'preloadSpreadsheet',
+        'ngconstant:prod','writeVersionJson',
+        'wiredep',
+        'concurrent:server',
+        'autoprefixer',
+        'connect:livereload',
+        'watch'
+      ]);
+    }
 
     grunt.task.run([
       'clean:server',
