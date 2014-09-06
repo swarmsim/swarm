@@ -93,7 +93,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
             # unit count achievement
             if not require.event and require.unit and require.val
               count = require.unit.count()
-              console.log 'unitcount after command', require.unit.name, count, count? && count >= require.val
+              $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
               if count? && count >= require.val
                 $log.debug 'earned', achieve.name, achieve
                 # requirements are 'or'ed
