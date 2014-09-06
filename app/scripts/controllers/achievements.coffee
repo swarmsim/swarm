@@ -7,7 +7,7 @@
  # # AchievementsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, env, $location) ->
+angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, env, $location, $log) ->
   if not env.achievementsEnabled
     $location.url '/'
   $scope.game = game
@@ -20,4 +20,8 @@ angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, env, $l
     if achievement.isEarned()
       return $scope.form.show.earned
     else
-      return $scope.form.show.unearned
+      return $scope.form.show.unearned && achievement.type.unearnedvisibility != 'hidden'
+  
+  $scope.achieveclick = (achievement) ->
+    $log.debug 'achieveclick', achievement
+    $scope.$emit 'achieveclick', achievement

@@ -13,7 +13,8 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       "requires.event",
       "requires.unittype",
       "requires.val",
-      "points"
+      "points",
+      "unearnedvisibility"
     ],
     "elements": [
       {
@@ -25,7 +26,8 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.event": "",
         "requires.unittype": "drone",
         "requires.val": 1,
-        "rowNumber": 1
+        "rowNumber": 1,
+        "unearnedvisibility": ""
       },
       {
         "description": "Build 201 drones",
@@ -36,7 +38,8 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.event": "",
         "requires.unittype": "drone",
         "requires.val": 201,
-        "rowNumber": 2
+        "rowNumber": 2,
+        "unearnedvisibility": ""
       },
       {
         "description": "Build a queen",
@@ -47,7 +50,8 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.event": "",
         "requires.unittype": "queen",
         "requires.val": 1,
-        "rowNumber": 3
+        "rowNumber": 3,
+        "unearnedvisibility": ""
       },
       {
         "description": "Import your game",
@@ -58,7 +62,20 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.event": "import",
         "requires.unittype": "",
         "requires.val": "{\"success\":true}",
-        "rowNumber": 4
+        "rowNumber": 4,
+        "unearnedvisibility": ""
+      },
+      {
+        "description": "Click this achievement's slot.",
+        "label": "click me",
+        "longdesc": "Wasn't that easy?",
+        "name": "clickme",
+        "points": 10,
+        "requires.event": "achieveclick",
+        "requires.unittype": "",
+        "requires.val": "{\"name\":\"clickme\"}",
+        "rowNumber": 5,
+        "unearnedvisibility": "masked"
       }
     ],
     "name": "achievements"
