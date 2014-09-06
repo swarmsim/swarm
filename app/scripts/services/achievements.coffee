@@ -7,7 +7,8 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, env) 
     @game.session.achievements ?= {}
     @requires = _.map @type.requires, (require) =>
       require = _.clone require
-      require.unit = util.assert @game.unit require.unittype
+      if require.unittype
+        require.unit = util.assert @game.unit require.unittype
       return require
 
   isEarned: ->
@@ -53,7 +54,7 @@ angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $
     for row in rows
       ret.register row
     for row in ret.list
-      spreadsheetUtil.resolveList row.requires, 'unittype', unittypes.byName
+      spreadsheetUtil.resolveList row.requires, 'unittype', unittypes.byName, {required:false}
       util.assert row.points > 0, 'achievement must have points', row.name, row
       util.assert _.isNumber(row.points), 'achievement points must be number', row.name, row
     return ret
@@ -63,6 +64,26 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
     @_listen @scope
 
   _listen: (@scope) ->
+    for achieve in @game.achievementlist()
+      for require in achieve.requires
+        # trigger event once achievement
+        if require.event and not require.unit
+          if require.val?
+            val = JSON.parse require.val
+            $log.debug 'parse event-achievement json', require.event, require.val, val
+          cancelListen = @scope.$on require.event, (event, param) =>
+            $log.debug 'achieve listen', require.event, param, val
+            if val?
+              # very simple equality validation
+              validparam = _.pick param, _.keys val
+              valid = _.isEqual validparam, val
+              $log.debug 'validate', require.event, val, validparam, valid
+              if not valid
+                return
+            achieve.earn()
+            # TODO rebuild this on reset
+            #cancelListen()
+
     @scope.$on 'command', (event, cmd) =>
       $log.debug 'checking achievements for command', cmd
       if cmd.unitname?
@@ -71,8 +92,9 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
           for require in achieve.requires
             # unit count achievement
             if not require.event and require.unit and require.val
-              count = require.unit?.count?() + cmd.twinnum
-              if count? && count > require.val
+              count = require.unit.count()
+              console.log 'unitcount after command', require.unit.name, count, count? && count >= require.val
+              if count? && count >= require.val
                 $log.debug 'earned', achieve.name, achieve
                 # requirements are 'or'ed
                 achieve.earn()

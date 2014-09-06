@@ -24,7 +24,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "points": 10,
         "requires.event": "",
         "requires.unittype": "drone",
-        "requires.val": "",
+        "requires.val": 1,
         "rowNumber": 1
       },
       {
@@ -55,9 +55,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "longdesc": "",
         "name": "import",
         "points": 10,
-        "requires.event": "",
+        "requires.event": "import",
         "requires.unittype": "",
-        "requires.val": "",
+        "requires.val": "{\"success\":true}",
         "rowNumber": 4
       }
     ],
