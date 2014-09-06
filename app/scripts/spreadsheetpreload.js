@@ -50,11 +50,11 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "rowNumber": 3
       },
       {
-        "description": "Import a game",
+        "description": "Import your game",
         "label": "portable swarm",
         "longdesc": "",
         "name": "import",
-        "points": "",
+        "points": 10,
         "requires.event": "",
         "requires.unittype": "",
         "requires.val": "",
