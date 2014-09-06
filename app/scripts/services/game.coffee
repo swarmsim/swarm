@@ -364,7 +364,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, Upgrade, Unit, Achievement) -> class Game
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement) -> class Game
   constructor: (@session) ->
     @_init()
   _init: ->
@@ -383,7 +383,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
         new Achievement this, achievementtype
     @_achievements.byName = _.indexBy @_achievements.list, 'name'
     @achievementPointsPossible = achievements.pointsPossible()
-    console.log 'possiblepoints: ', @achievementPointsPossible
+    $log.debug 'possiblepoints: ', @achievementPointsPossible
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
