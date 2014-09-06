@@ -17,7 +17,7 @@ angular.module('swarmApp').factory 'FlashQueue', ($timeout, util, env) -> class 
   push: (message) ->
     @queue.push message
     # no prod flashqueues, just in case - achievements aren't activiated yet
-    if env != 'prod' and @queue.length == 1 #just pushed the only item
+    if env.achievementsEnabled and @queue.length == 1 #just pushed the only item
       @animate()
   animate: ->
     if @_state == 'invisible'

@@ -7,7 +7,7 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', (env, $rootScope, $log, util) ->
+angular.module('swarmApp').factory 'session', ($rootScope, $log, util) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.

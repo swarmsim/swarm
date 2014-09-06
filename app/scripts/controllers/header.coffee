@@ -7,8 +7,10 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics, statistics, timecheck, versioncheck, $http, $interval, $log) ->
-  # analytics/statistics not actually used, just want it to init
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log,
+# analytics/statistics not actually used, just want them to init
+versioncheck, analytics, statistics
+) ->
   $scope.env = env
   $scope.version = version
   $scope.session = session
@@ -35,6 +37,3 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
     param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.session.exportSave()}"
     "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
     #"https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform"
-  
-  $scope.isNonprod = ->
-    $scope.env and $scope.env != 'prod'

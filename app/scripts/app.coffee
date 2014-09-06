@@ -56,21 +56,22 @@ angular.module('swarmApp').config ($routeProvider) ->
         redirectTo: '/'
 
 angular.module('swarmApp').config (env, $logProvider) ->
-  $logProvider.debugEnabled env != 'prod'
+  $logProvider.debugEnabled env.isDebugLogged
 
-angular.module('swarmApp').config (gaTrackingID, version) ->
-  if gaTrackingID and window.ga?
+angular.module('swarmApp').config (env, version) ->
+  if env.gaTrackingID and window.ga?
     #console.log 'analytics', gaTrackingID
-    window.ga 'create', gaTrackingID, 'auto'
+    window.ga 'create', env.gaTrackingID, 'auto'
     # appVersion breaks analytics, presumably because it's mobile-only.
     #window.ga 'set', 'appVersion', version
+
 # http and https use different localstorage, which might confuse folks.
 # angular $location doesn't make protocol mutable, so use window.location.
 # allow an out for testing, though.
 angular.module('swarmApp').run (env, $location, $log) ->
   # ?allowinsecure=0 is false, for example
   falsemap = {0:false,'':false,'false':false}
-  allowinsecure = $location.search().allowinsecure ? env != 'prod'
+  allowinsecure = $location.search().allowinsecure ? env.httpsAllowInsecure
   allowinsecure = falsemap[allowinsecure] ? true
   $log.debug 'protocol check', allowinsecure, $location.protocol()
   # $location.protocol() == 'http', but window.location.protocol == 'http:' and you can't assign $location.protocol()

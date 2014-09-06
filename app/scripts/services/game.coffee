@@ -472,13 +472,12 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
       unit._setCount unit.unittype.init
     @save()
 
-angular.module('swarmApp').factory 'game', (Game, session, env, $log) ->
+angular.module('swarmApp').factory 'game', (Game, session, $log) ->
   game = new Game session
   try
     session.load()
     $log.debug 'Game data loaded successfully.', this
   catch
-    if env != 'test' # too noisy in test
-      $log.warn 'Failed to load saved data! Resetting.'
+    $log.debug 'Failed to load saved data! Resetting.'
     game.reset()
   return game

@@ -33,7 +33,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Swarm Simulator</a>
-            <a ng-cloak ng-if="isNonprod()" class="envalert navbar-brand" ng-href="#/debug"> ({{env}})</a>
+            <a ng-cloak ng-if="env.isDebugEnabled" class="envalert navbar-brand" ng-href="#/debug"> ({{env.name}})</a>
           </div>
       
           <div class="collapse navbar-collapse" id="navbar">

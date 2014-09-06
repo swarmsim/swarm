@@ -57,21 +57,39 @@ module.exports = function (grunt) {
       },
       test: {
         constants: {
-          env: 'test',
-          gaTrackingID: null
+          env: {
+            name: 'test',
+            isDebugEnabled: true,
+            isDebugLogged: false,
+            httpsAllowInsecure: true,
+            achievementsEnabled: true,
+            gaTrackingID: null
+          }
         }
       },
       dev: {
         constants: {
-          env: 'dev',
-          gaTrackingID: 'UA-53523462-3'
+          env: {
+            name: 'dev',
+            isDebugEnabled: true,
+            isDebugLogged: true,
+            httpsAllowInsecure: true,
+            achievementsEnabled: true,
+            gaTrackingID: 'UA-53523462-3'
+          }
         }
       },
       prod: {
         constants: {
-          env: 'prod',
-          //gaTrackingID: 'UA-53523462-2'
-          gaTrackingID: 'UA-53523462-1'
+          env: {
+            name: 'prod',
+            isDebugEnabled: false,
+            isDebugLogged: false,
+            httpsAllowInsecure: false,
+            achievementsEnabled: false,
+            //gaTrackingID: 'UA-53523462-2'
+            gaTrackingID: 'UA-53523462-1'
+          }
         }
       },
     },
