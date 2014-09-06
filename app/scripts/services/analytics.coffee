@@ -48,6 +48,12 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
     #console.log 'ga.set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
     window.ga 'set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
 
+  $rootScope.$on 'achieve', (event, achievement) ->
+    $analytics.eventTrack 'achievementEarned',
+      category:'achievement'
+      label:achievement.name
+      value:achievement.earnedAtMillisElapsed()
+
   $rootScope.$on 'command', (event, cmd) ->
     #console.log 'command event', event.name, cmd.name, cmd
     $analytics.eventTrack cmd.name,

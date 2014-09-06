@@ -8,6 +8,7 @@ describe 'Service: achievements', ->
   # instantiate service
   achievements = {}
   Achievement = {}
+  game = {session:{achievements:{}}, withSave: (fn) -> fn()}
   beforeEach inject (_achievements_, _Achievement_) ->
     achievements = _achievements_
     Achievement = _Achievement_
@@ -17,7 +18,6 @@ describe 'Service: achievements', ->
     expect(achievements.list.length).toBeGreaterThan 0
   
   it 'earns', ->
-    game = {session:{achievements:{}}}
     achieve = new Achievement game, achievements.byName.drone1
     expect(achieve.isEarned()).toBe false
     expect(achieve.earnedAtMillisElapsed()).toBeUndefined()

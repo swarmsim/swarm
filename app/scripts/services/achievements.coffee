@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Achievement', (util, $log) -> class Achievement
+angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, env) -> class Achievement
   constructor: (@game, @type) ->
     @name = @type.name
   _init: ->
@@ -14,9 +14,13 @@ angular.module('swarmApp').factory 'Achievement', (util, $log) -> class Achievem
     @game.session.achievements[@name]?
 
   earn: (elapsed=@game.elapsedStartMillis()) ->
-    if @isEarned()
-      return
-    @game.session.achievements[@name] = elapsed
+    if env.achievementsEnabled
+      if not @isEarned()
+        @game.withSave =>
+          @game.session.achievements[@name] = elapsed
+        $rootScope.$emit 'achieve', this
+      # emit even if already earned, while testing
+      #$rootScope.$emit 'achieve', this
 
   earnedAtMillisElapsed: ->
     @game.session.achievements[@name]
@@ -53,6 +57,28 @@ angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $
       util.assert row.points > 0, 'achievement must have points', row.name, row
       util.assert _.isNumber(row.points), 'achievement points must be number', row.name, row
     return ret
+
+angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class AchievementsListener
+  constructor: (@game, @scope) ->
+    @_listen @scope
+
+  _listen: (@scope) ->
+    @scope.$on 'command', (event, cmd) =>
+      $log.debug 'checking achievements for command', cmd
+      if cmd.unitname?
+        # TODO index these better, check on only the current unit
+        for achieve in @game.achievementlist()
+          for require in achieve.requires
+            # unit count achievement
+            if not require.event and require.unit and require.val
+              count = require.unit?.count?() + cmd.twinnum
+              if count? && count > require.val
+                $log.debug 'earned', achieve.name, achieve
+                # requirements are 'or'ed
+                achieve.earn()
+
+angular.module('swarmApp').factory 'achievementslistener', (AchievementsListener, game, $rootScope) ->
+  new AchievementsListener game, $rootScope
 
 ###*
  # @ngdoc service
