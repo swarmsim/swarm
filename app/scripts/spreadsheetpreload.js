@@ -981,12 +981,12 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "unearnedvisibility": "masked"
       },
       {
-        "description": "Find the Patch Notes page.",
+        "description": "Find the Patch Notes.",
         "label": "patchy knowledge",
-        "longdesc": "",
+        "longdesc": "Don't take any books, please.",
         "name": "changelog",
         "points": 10,
-        "requires.event": "patchnotes",
+        "requires.event": "changelog",
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
