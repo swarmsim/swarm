@@ -95,15 +95,19 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
           for require in achieve.requires
             # unit count achievement
             if not require.event and require.unit and require.val
-              count = require.unit.count()
-              $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
-              if count? && count >= require.val
-                $log.debug 'earned', achieve.name, achieve
-                # requirements are 'or'ed
-                achieve.earn()
+              # want to ignore generators, so use statistics-count
+              # statistics are added before achievement-check, fortunately
+              if require.unit.name == cmd.unitname
+                count = require.unit.statistics().twinnum ? 0
+                $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
+                if count? && count >= require.val
+                  $log.debug 'earned', achieve.name, achieve
+                  # requirements are 'or'ed
+                  achieve.earn()
             if not require.event and require.upgrade and require.val
-              count = require.unit.count()
-              $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
+              # no upgrade-generators, so count() is safe
+              count = require.upgrade.count()
+              $log.debug 'achievement check: upgradecount after command', require.upgrade.name, count, count? && count >= require.val
               if count? && count >= require.val
                 $log.debug 'earned', achieve.name, achieve
                 # requirements are 'or'ed

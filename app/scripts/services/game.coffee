@@ -357,6 +357,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
       upgrade.stats stats, schema
     return stats
 
+  statistics: ->
+    @game.session.statistics.byUnit[@name] ? {}
+
 ###*
  # @ngdoc service
  # @name swarmApp.game
