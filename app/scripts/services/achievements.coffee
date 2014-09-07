@@ -9,6 +9,9 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, env) 
       require = _.clone require
       if require.unittype
         require.unit = util.assert @game.unit require.unittype
+      if require.upgradetype
+        require.upgrade = util.assert @game.upgrade require.upgradetype
+      util.assert not (require.unit and require.upgrade), "achievement requirement can't have both unit and upgrade", @name
       return require
 
   isEarned: ->
@@ -92,6 +95,13 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
           for require in achieve.requires
             # unit count achievement
             if not require.event and require.unit and require.val
+              count = require.unit.count()
+              $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
+              if count? && count >= require.val
+                $log.debug 'earned', achieve.name, achieve
+                # requirements are 'or'ed
+                achieve.earn()
+            if not require.event and require.upgrade and require.val
               count = require.unit.count()
               $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
               if count? && count >= require.val
