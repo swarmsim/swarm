@@ -8,3 +8,4 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'ChangelogCtrl', ($scope) ->
+  $scope.$emit 'changelog'

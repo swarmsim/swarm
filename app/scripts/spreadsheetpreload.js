@@ -981,6 +981,19 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "unearnedvisibility": "masked"
       },
       {
+        "description": "Find the Patch Notes page.",
+        "label": "patchy knowledge",
+        "longdesc": "",
+        "name": "changelog",
+        "points": 10,
+        "requires.event": "patchnotes",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "rowNumber": 75,
+        "unearnedvisibility": "masked"
+      },
+      {
         "description": "Import your saved game",
         "label": "portable swarm",
         "longdesc": "",
@@ -990,7 +1003,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "{\"success\":true}",
-        "rowNumber": 75,
+        "rowNumber": 76,
         "unearnedvisibility": "masked"
       },
       {
@@ -1003,7 +1016,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "{\"name\":\"clickme\"}",
-        "rowNumber": 76,
+        "rowNumber": 77,
         "unearnedvisibility": "masked"
       },
       {
@@ -1016,7 +1029,7 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 77,
+        "rowNumber": 78,
         "unearnedvisibility": "masked"
       }
     ],
