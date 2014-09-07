@@ -33,6 +33,10 @@ versioncheck, analytics, statistics, achievementslistener
       )
   enforceInterval = $interval enforce, 1000 * 60 * 30
 
+  $scope.konami = new Konami ->
+    $scope.$emit 'konami'
+    $log.debug 'konami'
+
   $scope.feedbackUrl = ->
     param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.session.exportSave()}"
     "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"

@@ -30,6 +30,7 @@ module.exports = (config) ->
       'bower_components/mathjs/dist/math.min.js'
       'bower_components/lz-string/libs/release/lz-string-1.3.3-min.js'
       'bower_components/numeral/numeral.js'
+      'bower_components/konami-js/konami.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'

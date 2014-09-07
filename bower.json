@@ -20,7 +20,8 @@
     "sjcl": "~1.0.0",
     "mathjs": "~0.26.0",
     "lz-string": "*",
-    "numeral": "~1.5.3"
+    "numeral": "~1.5.3",
+    "konami-js": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.23",
