@@ -64,20 +64,20 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
     @_listen @scope
 
   _listen: (@scope) ->
-    for achieve in @game.achievementlist()
+    for achieve in @game.achievementlist() then do (achieve) =>
       for require in achieve.requires
-        # trigger event once achievement
-        if require.event and not require.unit
-          if require.val?
-            val = JSON.parse require.val
-            $log.debug 'parse event-achievement json', require.event, require.val, val
+        if require.event and not require.unit then do (require) =>
+          # trigger event once achievement
+          if require.val
+            require.val = JSON.parse require.val
+            $log.debug 'parse event-achievement json', require.event, require.val
           cancelListen = @scope.$on require.event, (event, param) =>
-            $log.debug 'achieve listen', require.event, param, val
-            if val?
+            $log.debug 'achieve listen', require.event, param, require.val
+            if require.val
               # very simple equality validation
-              validparam = _.pick param, _.keys val
-              valid = _.isEqual validparam, val
-              $log.debug 'validate', require.event, val, validparam, valid
+              validparam = _.pick param, _.keys require.val
+              valid = _.isEqual validparam, require.val
+              $log.debug 'validate', require.event, require.val, validparam, valid
               if not valid
                 return
             achieve.earn()
