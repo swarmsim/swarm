@@ -17,15 +17,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
   margin-top:0px;
   margin-bottom:0px;
   font-weight:bold;
+  padding-left:1em;
+  padding-right:1em;
 }
 .achieveicon, .achievepoints {
+  @extend .hidden-xs;
   font-size:400%;
   font-weight:bold;
 }
-.achieveicon {
+.achieveicon-xs, .achievepoints-xs {
+  @extend .visible-xs;
+  font-size:100%;
+  font-weight:bold;
+}
+.achieveicon, .achieveicon-xs {
   position:absolute;left:15px;top:15px;
 }
-.achievepoints {
+.achievepoints, .achievepoints-xs {
   position:absolute;right:15px;top:15px;
 }
 .achievedesc {

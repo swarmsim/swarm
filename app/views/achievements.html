@@ -16,24 +16,32 @@
 <ul class="list-unstyled">
   <li ng-repeat="achievement in game.achievementsSorted() | filter:isVisible:achievement" class="achieve">
     <div ng-if="achievement.isEarned()" class="alert achievetext alert-success" ng-click="achieveclick(achievement)">
-      <h3>{{achievement.type.label}}</h3>
-      <p class="achievedesc">{{achievement.type.description}}</p>
-      <p><em>{{achievement.type.longdesc}}</em></p>
       <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
       <span class="achievepoints">+{{achievement.type.points|number}}</span>
+      <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
+      <span class="achievepoints-xs">+{{achievement.type.points|number}}</span>
+      <h3>{{achievement.type.label}}</h3>
+      <p class="achievedesc">{{achievement.type.description}}</p>
+      <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
       <span class="achievedate small" title="{{achievement.earnedAtMoment().format('dddd, MMMM Do YYYY, h:mm:ss a')}}">Earned {{achievement.earnedAtMoment().fromNow()}}</span>
     </div>
     <div ng-if="!achievement.isEarned() && !achievement.type.unearnedvisibility" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
-      <h3>{{achievement.type.label}}</h3>
-      <p class="achievedesc">{{achievement.type.description}}</p>
-      <p><em>{{achievement.type.longdesc}}</em></p>
       <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
       <span class="achievepoints">{{achievement.type.points|number}}</span>
+      <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
+      <span class="achievepoints-xs">+{{achievement.type.points|number}}</span>
+      <h3>{{achievement.type.label}}</h3>
+      <p class="achievedesc">{{achievement.type.description}}</p>
+      <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
     </div>
     <div ng-if="!achievement.isEarned() && achievement.type.unearnedvisibility == 'masked'" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
-      <h3>???</h3>
       <span class="achieveicon glyphicon glyphicon-question-sign" title="it is a mystery"></span>
       <span class="achievepoints">{{achievement.type.points|number}}</span>
+      <span class="achieveicon-xs glyphicon glyphicon-question-sign" title="it is a mystery"></span>
+      <span class="achievepoints-xs">+{{achievement.type.points|number}}</span>
+      <h3>???</h3>
+      <p class="achievedesc">???</p>
+      <p><em>&nbsp;</em></p>
     </div>
   </li>
 </ul>

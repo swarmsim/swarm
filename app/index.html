@@ -64,14 +64,16 @@
     <div ng-cloak ng-controller="FlashQueueCtrl">
       <div class="achieve achievealert animif" ng-if="achieveQueue.isVisible()">
         <div class="container alert alert-success achievetext">
+            <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
+            <span class="achievepoints">+{{achieveQueue.get().pointsEarned()|number}}</span>
+            <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
+            <span class="achievepoints-xs">+{{achieveQueue.get().pointsEarned()|number}}</span>
             <p>Achievement:</p>
             <a ng-href="#/achievements">
               <h3>{{achieveQueue.get().type.label}}</h3>
             </a>
             <p class="achievedesc">{{achieveQueue.get().type.description}}</p>
             <p><em>{{achieveQueue.get().type.longdesc}}</em></p>
-            <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
-            <span class="achievepoints">+{{achieveQueue.get().pointsEarned()|number}}</span>
         </div>
       </div>
     </div>
