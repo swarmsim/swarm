@@ -231,6 +231,9 @@ module.exports = function (grunt) {
         overrides: {
           'lz-string': {
             main: 'libs/release/lz-string-1.3.3-min.js'
+          },
+          'konami-js': {
+            main: 'konami.js'
           }
         },
         ignorePath:  /\.\.\//
