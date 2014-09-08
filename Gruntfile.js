@@ -86,7 +86,7 @@ module.exports = function (grunt) {
             isDebugEnabled: false,
             isDebugLogged: false,
             httpsAllowInsecure: false,
-            achievementsEnabled: false,
+            achievementsEnabled: true,
             //gaTrackingID: 'UA-53523462-2'
             gaTrackingID: 'UA-53523462-1'
           }
