@@ -9,16 +9,14 @@
  #
  # Achievement UI notification and animation.
 ###
-angular.module('swarmApp').factory 'FlashQueue', ($log, $timeout, util, env) -> class FlashQueue
+angular.module('swarmApp').factory 'FlashQueue', ($log, $timeout, util) -> class FlashQueue
   constructor: (@showTime=5000, @fadeTime=1000) ->
     @queue = []
     @_state = 'invisible'
     @_timeout = null
   push: (message) ->
-    # no prod flashqueues, just in case - achievements aren't activiated yet
-    if env.achievementsEnabled
-      @queue.push message
-      @animate() #animate will ignore this if there's other items ahead of us
+    @queue.push message
+    @animate() #animate will ignore this if there's other items ahead of us
   animate: ->
     if @_state == 'invisible' and @queue.length > 0
       $log.debug 'flashqueue beginning animation', @get()
@@ -33,7 +31,7 @@ angular.module('swarmApp').factory 'FlashQueue', ($log, $timeout, util, env) -> 
         ), @fadeTime
       ), @showTime
   isVisible: ->
-    env.achievementsEnabled and @_state == 'visible'
+    @_state == 'visible'
   get: ->
     @queue[0]
   clear: ->
