@@ -2,20 +2,6 @@
 
 # achievements in achievements.coffee. TODO move the others out of this file too
 
-angular.module('swarmApp').factory 'Effect', (util) -> class Effect
-  constructor: (@game, @upgrade, data) ->
-    _.extend this, data
-    if data.unittype?
-      @unit = util.assert @game.unit data.unittype
-    if data.unittype2?
-      @unit2 = util.assert @game.unit data.unittype2
-
-  onBuy: ->
-    @type.onBuy? this, @game, @upgrade
-
-  calcStats: (stats, schema, level) ->
-    @type.calcStats? this, stats, schema, level
-
 angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgrade
   constructor: (@game, @type) ->
     @name = @type.name

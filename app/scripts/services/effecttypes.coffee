@@ -1,5 +1,20 @@
 'use strict'
 
+angular.module('swarmApp').factory 'Effect', (util) -> class Effect
+  constructor: (@game, @upgrade, data) ->
+    _.extend this, data
+    if data.unittype?
+      @unit = util.assert @game.unit data.unittype
+    if data.unittype2?
+      @unit2 = util.assert @game.unit data.unittype2
+
+  onBuy: ->
+    @type.onBuy? this, @game, @upgrade
+
+  calcStats: (stats, schema, level) ->
+    @type.calcStats? this, stats, schema, level
+
+
 angular.module('swarmApp').factory 'EffectType', -> class EffectType
   constructor: (data) ->
     _.extend this, data
@@ -26,47 +41,35 @@ angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
 angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util) ->
   effecttypes = new EffectTypes()
   # Can't write functions in our spreadsheet :(
-  hasUnit = (effect) ->
-    util.assert effect.unit?
-    util.assert effect.val?
-  hasUnitStat = (effect) ->
-    util.assert effect.unit?
-    util.assert effect.stat?
-    util.assert effect.val?
   # TODO: move this to upgrade parsing. this only asserts at runtime if a conflict happens, we want it to assert at loadtime
   validateSchema = (stat, schema, operation) ->
     schema[stat] ?= operation
     util.assert schema[stat] == operation, "conflicting stat operations. expected #{operation}, got #{schema[stat]}", stat, schema, operation
-  effecttypes.register new EffectType
+  effecttypes.register
     name: 'addUnit'
-    validate: hasUnit
     onBuy: (effect, game) ->
       effect.unit._addCount effect.val
-  effecttypes.register new EffectType
+  effecttypes.register
     name: 'compoundUnit'
-    validate: hasUnit
     onBuy: (effect, game) ->
       base = effect.unit.count()
       if effect.unit2?
         base += effect.unit2.count()
       effect.unit._addCount base * (effect.val - 1)
-  effecttypes.register new EffectType
+  effecttypes.register
     name: 'multStat'
-    validate: hasUnitStat
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
       stats[effect.stat] ?= 1
       stats[effect.stat] *= Math.pow effect.val, level
-  effecttypes.register new EffectType
+  effecttypes.register
     name: 'addStat'
-    validate: hasUnitStat
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'add'
       stats[effect.stat] ?= 0
       stats[effect.stat] += effect.val * level
-  effecttypes.register new EffectType
+  effecttypes.register
     name: 'multStatPerAchievementPoint'
-    validate: hasUnitStat
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
       points = effect.game.achievementPoints()
