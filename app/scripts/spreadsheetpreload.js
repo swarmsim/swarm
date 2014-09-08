@@ -15,7 +15,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
       "requires.upgradetype",
       "requires.val",
       "points",
-      "unearnedvisibility"
+      "visible.unittype",
+      "visible.upgradetype",
+      "visible.val"
     ],
     "elements": [
       {
@@ -29,241 +31,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "expansion",
         "requires.val": 5,
         "rowNumber": 1,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch your first drone",
-        "label": "a good start",
-        "longdesc": "",
-        "name": "drone1",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "drone",
-        "requires.upgradetype": "",
-        "requires.val": 1,
-        "rowNumber": 2,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 201 drones",
-        "label": "supply limit exceeded",
-        "longdesc": "Drones hatched by queens don't count.",
-        "name": "drone2",
-        "points": 20,
-        "requires.event": "",
-        "requires.unittype": "drone",
-        "requires.upgradetype": "",
-        "requires.val": 201,
-        "rowNumber": 3,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 10,000 drones",
-        "label": "exponential growth",
-        "longdesc": "Drones hatched by queens don't count.",
-        "name": "drone3",
-        "points": 30,
-        "requires.event": "",
-        "requires.unittype": "drone",
-        "requires.upgradetype": "",
-        "requires.val": 10000,
-        "rowNumber": 4,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch your first queen",
-        "label": "queen me",
-        "longdesc": "",
-        "name": "queen1",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "queen",
-        "requires.upgradetype": "",
-        "requires.val": 1,
-        "rowNumber": 5,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 1,000 queens",
-        "label": "the chessboard is too small",
-        "longdesc": "Queens hatched by nests don't count.",
-        "name": "queen2",
-        "points": 20,
-        "requires.event": "",
-        "requires.unittype": "queen",
-        "requires.upgradetype": "",
-        "requires.val": 1000,
-        "rowNumber": 6,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 1 million queens",
-        "label": "not enough larvae",
-        "longdesc": "Queens hatched by nests don't count.",
-        "name": "queen3",
-        "points": 30,
-        "requires.event": "",
-        "requires.unittype": "queen",
-        "requires.upgradetype": "",
-        "requires.val": 1000000,
-        "rowNumber": 7,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Create your first nest",
-        "label": "I wanna be the very nest",
-        "longdesc": "",
-        "name": "nest1",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "nest",
-        "requires.upgradetype": "",
-        "requires.val": 1,
-        "rowNumber": 8,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Create 10,000 nests",
-        "label": "to hatch them is my real test",
-        "longdesc": "",
-        "name": "nest2",
-        "points": 20,
-        "requires.event": "",
-        "requires.unittype": "nest",
-        "requires.upgradetype": "",
-        "requires.val": 10000,
-        "rowNumber": 9,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Create 100 million nests",
-        "label": "final nesting place",
-        "longdesc": "",
-        "name": "nest3",
-        "points": 30,
-        "requires.event": "",
-        "requires.unittype": "nest",
-        "requires.upgradetype": "",
-        "requires.val": 100000000,
-        "rowNumber": 10,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch your first greater queen",
-        "label": "some are born great",
-        "longdesc": "",
-        "name": "greaterqueen1",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "greaterqueen",
-        "requires.upgradetype": "",
-        "requires.val": 1,
-        "rowNumber": 11,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 100 thousand greater queens",
-        "label": "catherine",
-        "longdesc": "",
-        "name": "greaterqueen2",
-        "points": 20,
-        "requires.event": "",
-        "requires.unittype": "greaterqueen",
-        "requires.upgradetype": "",
-        "requires.val": 100000,
-        "rowNumber": 12,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 10 billion greater queens",
-        "label": "greater and greater",
-        "longdesc": "",
-        "name": "greaterqueen3",
-        "points": 30,
-        "requires.event": "",
-        "requires.unittype": "greaterqueen",
-        "requires.upgradetype": "",
-        "requires.val": 10000000000,
-        "rowNumber": 13,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 6 swarmlings",
-        "label": "rush",
-        "longdesc": "",
-        "name": "swarmling1",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "swarmling",
-        "requires.upgradetype": "",
-        "requires.val": 6,
-        "rowNumber": 14,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 1 million swarmlings",
-        "label": "metabolic boost",
-        "longdesc": "",
-        "name": "swarmling2",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "swarmling",
-        "requires.upgradetype": "",
-        "requires.val": 1000000,
-        "rowNumber": 15,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 1 quadrillion swarmlings",
-        "label": "adrenal glands",
-        "longdesc": "",
-        "name": "swarmling3",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "swarmling",
-        "requires.upgradetype": "",
-        "requires.val": 1000000000000000,
-        "rowNumber": 16,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 100 stingers",
-        "label": "aldrin",
-        "longdesc": "",
-        "name": "stinger1",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "stinger",
-        "requires.upgradetype": "",
-        "requires.val": 100,
-        "rowNumber": 17,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 1 million stingers",
-        "label": "lightyear",
-        "longdesc": "",
-        "name": "stinger2",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "stinger",
-        "requires.upgradetype": "",
-        "requires.val": 1000000,
-        "rowNumber": 18,
-        "unearnedvisibility": ""
-      },
-      {
-        "description": "Hatch 1 quadrillion stingers",
-        "label": "kill",
-        "longdesc": "",
-        "name": "stinger3",
-        "points": 10,
-        "requires.event": "",
-        "requires.unittype": "stinger",
-        "requires.upgradetype": "",
-        "requires.val": 1000000000000000,
-        "rowNumber": 19,
-        "unearnedvisibility": ""
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
       },
       {
         "description": "Create your first expansion",
@@ -275,8 +45,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "expansion",
         "requires.val": 1,
-        "rowNumber": 20,
-        "unearnedvisibility": "masked"
+        "rowNumber": 2,
+        "visible.unittype": "territory",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Create 20 expansions",
@@ -288,8 +60,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "expansion",
         "requires.val": 20,
-        "rowNumber": 21,
-        "unearnedvisibility": "masked"
+        "rowNumber": 3,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 1
       },
       {
         "description": "Create 50 expansions",
@@ -301,8 +75,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "expansion",
         "requires.val": 50,
-        "rowNumber": 22,
-        "unearnedvisibility": "masked"
+        "rowNumber": 4,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 5
       },
       {
         "description": "Create 100 expansions",
@@ -314,8 +90,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "expansion",
         "requires.val": 100,
-        "rowNumber": 23,
-        "unearnedvisibility": "masked"
+        "rowNumber": 5,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 20
       },
       {
         "description": "Create 200 expansions",
@@ -327,8 +105,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "expansion",
         "requires.val": 200,
-        "rowNumber": 24,
-        "unearnedvisibility": "masked"
+        "rowNumber": 6,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 50
       },
       {
         "description": "Create 500 expansions",
@@ -340,8 +120,190 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "",
         "requires.upgradetype": "expansion",
         "requires.val": 500,
-        "rowNumber": 25,
-        "unearnedvisibility": "masked"
+        "rowNumber": 7,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 100
+      },
+      {
+        "description": "Hatch your first drone",
+        "label": "a good start",
+        "longdesc": "",
+        "name": "drone1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "drone",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "rowNumber": 8,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 201 drones",
+        "label": "supply limit exceeded",
+        "longdesc": "Drones hatched by queens don't count.",
+        "name": "drone2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "drone",
+        "requires.upgradetype": "",
+        "requires.val": 201,
+        "rowNumber": 9,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 10,000 drones",
+        "label": "exponential growth",
+        "longdesc": "Drones hatched by queens don't count.",
+        "name": "drone3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "drone",
+        "requires.upgradetype": "",
+        "requires.val": 10000,
+        "rowNumber": 10,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch your first queen",
+        "label": "queen me",
+        "longdesc": "",
+        "name": "queen1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "queen",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "rowNumber": 11,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 1,000 queens",
+        "label": "the chessboard is too small",
+        "longdesc": "Queens hatched by nests don't count.",
+        "name": "queen2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "queen",
+        "requires.upgradetype": "",
+        "requires.val": 1000,
+        "rowNumber": 12,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 1 million queens",
+        "label": "not enough larvae",
+        "longdesc": "Queens hatched by nests don't count.",
+        "name": "queen3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "queen",
+        "requires.upgradetype": "",
+        "requires.val": 1000000,
+        "rowNumber": 13,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Create your first nest",
+        "label": "I wanna be the very nest",
+        "longdesc": "",
+        "name": "nest1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "nest",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "rowNumber": 14,
+        "visible.unittype": "queen",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Create 10,000 nests",
+        "label": "to hatch them is my real test",
+        "longdesc": "",
+        "name": "nest2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "nest",
+        "requires.upgradetype": "",
+        "requires.val": 10000,
+        "rowNumber": 15,
+        "visible.unittype": "nest",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Create 100 million nests",
+        "label": "final nesting place",
+        "longdesc": "",
+        "name": "nest3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "nest",
+        "requires.upgradetype": "",
+        "requires.val": 100000000,
+        "rowNumber": 16,
+        "visible.unittype": "nest",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Hatch your first greater queen",
+        "label": "some are born great",
+        "longdesc": "",
+        "name": "greaterqueen1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "greaterqueen",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "rowNumber": 17,
+        "visible.unittype": "nest",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Hatch 100 thousand greater queens",
+        "label": "catherine",
+        "longdesc": "",
+        "name": "greaterqueen2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "greaterqueen",
+        "requires.upgradetype": "",
+        "requires.val": 100000,
+        "rowNumber": 18,
+        "visible.unittype": "greaterqueen",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Hatch 10 billion greater queens",
+        "label": "greater and greater",
+        "longdesc": "",
+        "name": "greaterqueen3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "greaterqueen",
+        "requires.upgradetype": "",
+        "requires.val": 10000000000,
+        "rowNumber": 19,
+        "visible.unittype": "greaterqueen",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Build your first hive",
@@ -353,8 +315,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "hive",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 26,
-        "unearnedvisibility": "masked"
+        "rowNumber": 20,
+        "visible.unittype": "greaterqueen",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Build 1 million hives",
@@ -366,8 +330,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "hive",
         "requires.upgradetype": "",
         "requires.val": 1000000,
-        "rowNumber": 27,
-        "unearnedvisibility": "masked"
+        "rowNumber": 21,
+        "visible.unittype": "hive",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Build 1 trillion hives",
@@ -379,8 +345,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "hive",
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
-        "rowNumber": 28,
-        "unearnedvisibility": "masked"
+        "rowNumber": 22,
+        "visible.unittype": "hive",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch your first hive queen",
@@ -392,8 +360,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "hivequeen",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 29,
-        "unearnedvisibility": "masked"
+        "rowNumber": 23,
+        "visible.unittype": "hive",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Hatch 10 million hive queens",
@@ -405,8 +375,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "hivequeen",
         "requires.upgradetype": "",
         "requires.val": 10000000,
-        "rowNumber": 30,
-        "unearnedvisibility": "masked"
+        "rowNumber": 24,
+        "visible.unittype": "hivequeen",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 100 trillion hive queens",
@@ -418,8 +390,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "hivequeen",
         "requires.upgradetype": "",
         "requires.val": 100000000000000,
-        "rowNumber": 31,
-        "unearnedvisibility": "masked"
+        "rowNumber": 25,
+        "visible.unittype": "hivequeen",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Grow your first hive empress",
@@ -431,8 +405,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "empress",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 32,
-        "unearnedvisibility": "masked"
+        "rowNumber": 26,
+        "visible.unittype": "hivequeen",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Grow 100 million hive empresses",
@@ -444,8 +420,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "empress",
         "requires.upgradetype": "",
         "requires.val": 100000000,
-        "rowNumber": 33,
-        "unearnedvisibility": "masked"
+        "rowNumber": 27,
+        "visible.unittype": "empress",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Grow 10 quadrillion hive empresses",
@@ -457,8 +435,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "empress",
         "requires.upgradetype": "",
         "requires.val": 10000000000000000,
-        "rowNumber": 34,
-        "unearnedvisibility": "masked"
+        "rowNumber": 28,
+        "visible.unittype": "empress",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Grow your first hive prophet",
@@ -470,8 +450,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "prophet",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 35,
-        "unearnedvisibility": "masked"
+        "rowNumber": 29,
+        "visible.unittype": "empress",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Grow 1 billion hive prophets",
@@ -483,8 +465,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "prophet",
         "requires.upgradetype": "",
         "requires.val": 1000000000,
-        "rowNumber": 36,
-        "unearnedvisibility": "masked"
+        "rowNumber": 30,
+        "visible.unittype": "prophet",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Grow 1 quintillion hive prophets",
@@ -496,8 +480,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "prophet",
         "requires.upgradetype": "",
         "requires.val": 1000000000000000000,
-        "rowNumber": 37,
-        "unearnedvisibility": "masked"
+        "rowNumber": 31,
+        "visible.unittype": "prophet",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Summon your first hive goddess",
@@ -509,8 +495,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "goddess",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 38,
-        "unearnedvisibility": "masked"
+        "rowNumber": 32,
+        "visible.unittype": "prophet",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Summon 10 billion hive goddesses",
@@ -522,8 +510,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "goddess",
         "requires.upgradetype": "",
         "requires.val": 10000000000,
-        "rowNumber": 39,
-        "unearnedvisibility": "masked"
+        "rowNumber": 33,
+        "visible.unittype": "goddess",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Summon 100 quintillion hive goddesses",
@@ -535,8 +525,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "goddess",
         "requires.upgradetype": "",
         "requires.val": 100000000000000000000,
-        "rowNumber": 40,
-        "unearnedvisibility": "masked"
+        "rowNumber": 34,
+        "visible.unittype": "goddess",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Summon your first brood pantheon",
@@ -548,8 +540,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "pantheon",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 41,
-        "unearnedvisibility": "masked"
+        "rowNumber": 35,
+        "visible.unittype": "goddess",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Summon 100 billion brood pantheons",
@@ -561,8 +555,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "pantheon",
         "requires.upgradetype": "",
         "requires.val": 100000000000,
-        "rowNumber": 42,
-        "unearnedvisibility": "masked"
+        "rowNumber": 36,
+        "visible.unittype": "pantheon",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Summon 10 sextillion brood pantheons",
@@ -574,8 +570,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "pantheon",
         "requires.upgradetype": "",
         "requires.val": 1e+22,
-        "rowNumber": 43,
-        "unearnedvisibility": "masked"
+        "rowNumber": 37,
+        "visible.unittype": "pantheon",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Summon your first pantheon of pantheons",
@@ -587,8 +585,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "pantheon2",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 44,
-        "unearnedvisibility": "masked"
+        "rowNumber": 38,
+        "visible.unittype": "pantheon",
+        "visible.upgradetype": "",
+        "visible.val": 5
       },
       {
         "description": "Summon 1 trillion pantheon of pantheons.",
@@ -600,8 +600,10 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "pantheon2",
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
-        "rowNumber": 45,
-        "unearnedvisibility": "masked"
+        "rowNumber": 39,
+        "visible.unittype": "pantheon2",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Summon way too bloody many pantheon of pantheons",
@@ -613,8 +615,100 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.unittype": "pantheon2",
         "requires.upgradetype": "",
         "requires.val": 1e+24,
+        "rowNumber": 40,
+        "visible.unittype": "pantheon2",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Hatch 6 swarmlings",
+        "label": "rush",
+        "longdesc": "",
+        "name": "swarmling1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "swarmling",
+        "requires.upgradetype": "",
+        "requires.val": 6,
+        "rowNumber": 41,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 1 million swarmlings",
+        "label": "metabolic boost",
+        "longdesc": "",
+        "name": "swarmling2",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "swarmling",
+        "requires.upgradetype": "",
+        "requires.val": 1000000,
+        "rowNumber": 42,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 1 quadrillion swarmlings",
+        "label": "adrenal glands",
+        "longdesc": "",
+        "name": "swarmling3",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "swarmling",
+        "requires.upgradetype": "",
+        "requires.val": 1000000000000000,
+        "rowNumber": 43,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 100 stingers",
+        "label": "aldrin",
+        "longdesc": "",
+        "name": "stinger1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "stinger",
+        "requires.upgradetype": "",
+        "requires.val": 100,
+        "rowNumber": 44,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 1 million stingers",
+        "label": "lightyear",
+        "longdesc": "",
+        "name": "stinger2",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "stinger",
+        "requires.upgradetype": "",
+        "requires.val": 1000000,
+        "rowNumber": 45,
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
+      },
+      {
+        "description": "Hatch 1 quadrillion stingers",
+        "label": "kill",
+        "longdesc": "",
+        "name": "stinger3",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "stinger",
+        "requires.upgradetype": "",
+        "requires.val": 1000000000000000,
         "rowNumber": 46,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
       },
       {
         "description": "Hatch 100 arachnomorphs",
@@ -627,7 +721,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 47,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "spider",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million arachnomorphs",
@@ -640,7 +736,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 48,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "spider",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion arachnomorphs",
@@ -653,7 +751,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000000,
         "rowNumber": 49,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "spider",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 culicimorphs",
@@ -666,7 +766,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 50,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "mosquito",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million culicimorphs",
@@ -679,7 +781,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 51,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "mosquito",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion culicimorphs",
@@ -692,7 +796,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 52,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "mosquito",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 locusts",
@@ -705,7 +811,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 53,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "locust",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million locusts",
@@ -718,7 +826,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 54,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "locust",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion locusts",
@@ -731,7 +841,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 55,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "locust",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 roaches",
@@ -744,7 +856,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 56,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "roach",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million roaches",
@@ -757,7 +871,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 57,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "roach",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion roaches",
@@ -770,7 +886,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 58,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "roach",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 giant arachnomorphs",
@@ -783,7 +901,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 59,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "giantspider",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million giant arachnomorphs",
@@ -796,7 +916,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 60,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "giantspider",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion giant arachnomorphs",
@@ -809,7 +931,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 61,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "giantspider",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 chilopodomorphs",
@@ -822,7 +946,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 62,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "centipede",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million chilopodomorphs",
@@ -835,7 +961,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 63,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "centipede",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion chilopodomorphs",
@@ -848,7 +976,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 64,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "centipede",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 wasps",
@@ -861,7 +991,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 65,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "wasp",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million wasps",
@@ -874,7 +1006,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 66,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "wasp",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion wasps",
@@ -887,7 +1021,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 67,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "wasp",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 devourers",
@@ -900,7 +1036,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 68,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "devourer",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million devourers",
@@ -913,7 +1051,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 69,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "devourer",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion devourers",
@@ -926,7 +1066,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 70,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "devourer",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 100 goons",
@@ -939,7 +1081,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 100,
         "rowNumber": 71,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "goon",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 million goons",
@@ -952,7 +1096,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000,
         "rowNumber": 72,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "goon",
+        "visible.upgradetype": "",
+        "visible.val": 1
       },
       {
         "description": "Hatch 1 quadrillion goons",
@@ -965,7 +1111,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": 1000000000000,
         "rowNumber": 73,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "goon",
+        "visible.upgradetype": "",
+        "visible.val": 100
       },
       {
         "description": "Hatch 1 octillion goons",
@@ -976,9 +1124,11 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.event": "",
         "requires.unittype": "goon",
         "requires.upgradetype": "",
-        "requires.val": 1e+24,
+        "requires.val": 1e+27,
         "rowNumber": 74,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "goon",
+        "visible.upgradetype": "",
+        "visible.val": 1000000000000
       },
       {
         "description": "Find the Patch Notes.",
@@ -991,7 +1141,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": "",
         "rowNumber": 75,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "meat",
+        "visible.upgradetype": "",
+        "visible.val": 0
       },
       {
         "description": "Import your saved game",
@@ -1004,7 +1156,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": "{\"success\":true}",
         "rowNumber": 76,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
       },
       {
         "description": "Click this achievement's slot",
@@ -1017,10 +1171,12 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": "{\"name\":\"clickme\"}",
         "rowNumber": 77,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
       },
       {
-        "description": "Enter the Konami code",
+        "description": "Enter the Konami Code",
         "label": "l33t h4x",
         "longdesc": "",
         "name": "konami",
@@ -1030,7 +1186,9 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "requires.upgradetype": "",
         "requires.val": "",
         "rowNumber": 78,
-        "unearnedvisibility": "masked"
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
       }
     ],
     "name": "achievements"

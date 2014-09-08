@@ -27,7 +27,7 @@
       <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
       <span class="achievedate small" title="{{achievement.earnedAtMoment().format('dddd, MMMM Do YYYY, h:mm:ss a')}}">Earned {{achievement.earnedAtMoment().fromNow()}}</span>
     </div>
-    <div ng-if="!achievement.isEarned() && !achievement.type.unearnedvisibility" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
+    <div ng-if="!achievement.isEarned() && !achievement.isMasked()" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
       <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
       <span class="achievepoints">{{achievement.type.points|number}}</span>
       <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
@@ -36,7 +36,7 @@
       <p class="achievedesc">{{achievement.type.description}}</p>
       <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
     </div>
-    <div ng-if="!achievement.isEarned() && achievement.type.unearnedvisibility == 'masked'" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
+    <div ng-if="!achievement.isEarned() && achievement.isMasked()" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
       <span class="achieveicon glyphicon glyphicon-question-sign" title="it is a mystery"></span>
       <span class="achievepoints">{{achievement.type.points|number}}</span>
       <span class="achieveicon-xs glyphicon glyphicon-question-sign" title="it is a mystery"></span>

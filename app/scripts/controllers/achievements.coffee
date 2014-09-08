@@ -18,7 +18,7 @@ angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $locati
     if achievement.isEarned()
       return $scope.form.show.earned
     else
-      return $scope.form.show.unearned && achievement.type.unearnedvisibility != 'hidden'
+      return $scope.form.show.unearned
   
   $scope.achieveclick = (achievement) ->
     $log.debug 'achieveclick', achievement
