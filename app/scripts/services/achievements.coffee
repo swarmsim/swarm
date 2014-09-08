@@ -104,6 +104,9 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
                   $log.debug 'earned', achieve.name, achieve
                   # requirements are 'or'ed
                   achieve.earn()
+      if cmd.upgradename?
+        for achieve in @game.achievementlist()
+          for require in achieve.requires
             if not require.event and require.upgrade and require.val
               # no upgrade-generators, so count() is safe
               count = require.upgrade.count()
