@@ -4,10 +4,6 @@
       <p>{{tutText()}}</p>
       <hr>
     </div>
-    <div ng-if="!selected">
-      <p ng-if="welcomeBackText()">{{welcomeBackText()}}</p>
-      <p>{{emptyText()}}</p>
-    </div>
     <div ng-if="selected">
       <h2>{{selected.unittype.label}}</h2>
       <p title="{{selected.unittype.lol}}">{{selected.unittype.description}}</p>

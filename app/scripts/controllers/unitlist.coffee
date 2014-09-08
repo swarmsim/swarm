@@ -73,13 +73,6 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
       ret = "Cost: #{ret}"
     return ret
 
-  $scope.welcomeBackText = ->
-    return '' #TODO offline play
-    awayMillis = game?.session?.date?.loaded?.getTime?() - game?.session?.date?.saved?.getTime?()
-    if (not _.isNaN awayMillis) and awayMillis > 5 * 60 * 1000
-      return "Welcome back. Your swarm continued to work hard while you were away."
-
-  $scope.emptyText = ->
   $scope.tutText = ->
     units = game.countUnits()
     upgrades = game.countUpgrades()
