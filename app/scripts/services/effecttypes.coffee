@@ -64,4 +64,12 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       validateSchema effect.stat, schema, 'add'
       stats[effect.stat] ?= 0
       stats[effect.stat] += effect.val * level
+  effecttypes.register new EffectType
+    name: 'multStatPerAchievementPoint'
+    validate: hasUnitStat
+    calcStats: (effect, stats, schema, level) ->
+      validateSchema effect.stat, schema, 'mult'
+      points = effect.game.achievementPoints()
+      stats[effect.stat] ?= 1
+      stats[effect.stat] *= Math.pow 1 + effect.val * points, level
   return effecttypes

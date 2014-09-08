@@ -138,7 +138,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   buyMax: (percent) ->
     @buy @maxCostMet percent
 
-  stats: (stats, schema) ->
+  stats: (stats={}, schema={}) ->
     count = @count()
     for effect in @effect
       effect.calcStats stats, schema, count
