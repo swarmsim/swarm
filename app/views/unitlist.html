@@ -155,10 +155,18 @@
     </div>
   </div>
   <div class="col-sm-4 col-sm-pull-8" ng-class="{'hidden-xs':!!selected}">
+    <ul class="nav nav-pills nav-stacked unitgroup animif">
+      <li>
+        <a href="#/achievements">
+          <span class="unitlabel titlecase">Achievement Points</span>
+          <div class="badge">{{game.achievementPoints() | bignum}}</div>
+        </a>
+      </li>
+    </ul>
     <ul ng-repeat="group in [0,1,2,3,4,5,6]" ng-if="visibleUnitGroup(group).length > 0" class="nav nav-pills nav-stacked unitgroup animif">
       <!-- TODO group > 0 is a filthy filthy hack to prevent larva from showing up as unbuyable when you have no cocoons -->
       <li ng-repeat="unit in visibleUnitGroup(group)" class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet() && group > 0}">
-        <a ng-click="select(unit)" data-toggle="dropdown" title="{{costText(unit)}}">
+        <a ng-click="select(unit)" title="{{costText(unit)}}">
           <span class="unitlabel titlecase">{{unit.unittype.label}}</span>
           <div class="badge">{{unit.count() | bignum}}</div>
         </a>
