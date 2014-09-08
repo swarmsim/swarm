@@ -13,6 +13,10 @@ describe 'Service: game', ->
     #game = _game_
     Game = _Game_
     unittypes = _unittypes_
+  mkgame = (unittypes, reified=new Date 0) ->
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game.now = new Date 0
+    return game
 
   it 'should do something', ->
     expect(!!Game).toBe true
@@ -31,10 +35,6 @@ describe 'Service: game', ->
     expect(game.diffSeconds()).toBe 2.5
 
   game = {}
-  mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
-    game.now = new Date 0
-    return game
 
   ct = (name, dt) ->
     game.tick new Date dt*1000
@@ -272,3 +272,67 @@ describe 'Service: game', ->
     inject.buy()
     expect(cocoon.count()).toBe 100 # no change
     expect(larva.count()).toBe 1120 # 1000 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
+
+describe 'Service: game', ->
+
+  # load the service's module
+  beforeEach module 'swarmApp'
+
+  # instantiate service
+  Game = {}
+  unittypes = {}
+  statistics = {}
+  scope = {}
+  beforeEach inject (_Game_, _unittypes_, _statistics_, $rootScope) ->
+    #game = _game_
+    Game = _Game_
+    unittypes = _unittypes_
+    statistics = _statistics_
+    scope = $rootScope.$new()
+  mkgame = (unittypes, reified=new Date 0) ->
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game.now = new Date 0
+    return game
+
+  it 'just emits', (done) ->
+    scope.$on 'hihi', ->
+      done()
+    scope.$emit 'hihi'
+
+  # TODO commands and scope.emit is required
+  xit 'grants unit-based achievements', ->
+    game = mkgame {meat:999999999999999999999999, larva:9999999999999999999}
+    drone = game.unit 'drone'
+    expect(drone.count()).toBe 0
+    expect(game.achievement('drone1').isEarned()).toBe false
+    expect(game.achievement('drone2').isEarned()).toBe false
+    expect(game.achievement('queen1').isEarned()).toBe false
+    expect(game.achievementPoints()).toBe 0
+    drone.buy 1
+    expect(drone.count()).toBe 1
+    expect(game.achievement('drone1').isEarned()).toBe true
+    expect(game.achievement('drone2').isEarned()).toBe false
+    expect(game.achievement('queen1').isEarned()).toBe false
+    expect(game.achievementPoints()).toBe 10
+    
+  xit 'doesn\'t count queen-produced drones toward achievevements', ->
+    game = mkgame {meat: 99999999999, queen:999999, larva:999999999}
+    drone = game.unit 'drone'
+    expect(game.achievement('drone2').isEarned()).toBe false
+    expect(drone.statistics().twinnum).toBe 0
+    expect(ct 'drone', 10).toBeGreaterThan 500
+    # buying one doesn't count the others either
+    drone.buy 1
+    expect(game.achievement('drone2').isEarned()).toBe false
+    expect(drone.statistics().twinnum).toBe 1
+
+  xit 'grants upgrade-based achievements', ->
+    game = mkgame {territory:99999999999999999999999999}
+    upgrade = game.upgrade 'expansion'
+    expect(game.achievement('expansion1').isEarned()).toBe false
+    expect(game.achievement('expansion2').isEarned()).toBe false
+    expect(game.achievementPoints()).toBe 0
+    upgrade.buy()
+    expect(game.achievement('expansion1').isEarned()).toBe true
+    expect(game.achievement('expansion2').isEarned()).toBe false
+    expect(game.achievementPoints()).toBe 10
