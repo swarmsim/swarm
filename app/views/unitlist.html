@@ -77,10 +77,7 @@
             {{mainBuynum() == 1 ? selected.unittype.label : selected.unittype.plural}}
             <span ng-if="selected.stat('twin', 1) > 1">(x{{selected.stat('twin',1)|bignum}} twins)</span>
             for
-            <span ng-repeat="cost in selected.cost">
-              <span ng-if="!$first && $last"> and </span>
-              <span ng-class="{costNotMet:cost.val*mainBuynum() > cost.unit.count()}">{{cost.val*mainBuynum() | bignum}} {{cost.val*mainBuynum() == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
-            </span>
+            <cost costlist="selected.cost" num="mainBuynum()"></cost>
           </p>
           <p ng-if="options.showAdvancedUnitData()">
             <span ng-if="selected.maxCostMet() > 0">
@@ -124,10 +121,7 @@
             <p title="{{upgrade.type.lol}}">{{upgrade.type.description}}</p>
             <p>
               Next upgrade costs
-              <span ng-repeat="cost in upgrade.totalCost()">
-                <span ng-if="!$first && $last"> and </span>
-                <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val | bignum}} {{cost.val == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
-              </span>
+              <cost costlist="upgrade.totalCost()"></cost>
             </p>
 
             <div class="row nogutter">
