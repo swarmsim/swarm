@@ -109,3 +109,9 @@ describe 'Service: upgrade', ->
     expect(cocoon.count()).toBe 100 # no change
     expect(larva.count()).toBe 1120 # 1000 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
 
+  it 'sums costs', ->
+    game = mkgame {territory:99}
+    upgrade = game.upgrade 'expansion'
+    expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',100]]
+    expect(_.map upgrade.sumCost(2), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',235]]
+
