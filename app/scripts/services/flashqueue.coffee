@@ -36,6 +36,12 @@ angular.module('swarmApp').factory 'FlashQueue', ($log, $timeout, util, env) -> 
     env.achievementsEnabled and @_state == 'visible'
   get: ->
     @queue[0]
+  clear: ->
+    $log.debug 'flashqueue clearing animation'
+    @queue.length = 0
+    if @_timeout
+      $timeout.cancel @_timeout
+    @_state = 'invisible'
 
 angular.module('swarmApp').factory 'flashqueue', ($log, FlashQueue, $rootScope) ->
   queue = new FlashQueue()
