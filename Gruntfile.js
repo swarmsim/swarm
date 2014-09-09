@@ -136,9 +136,9 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        //livereload: 35728 
-        livereload: 55728  // ngrok won't bind remote ports below 50000
+        hostname: '0.0.0.0',
+        livereload: 35728 
+        //livereload: 55728  // ngrok won't bind remote ports below 50000
       },
       livereload: {
         options: {
