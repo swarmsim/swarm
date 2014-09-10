@@ -63,6 +63,7 @@ module.exports = function (grunt) {
             isDebugLogged: false,
             httpsAllowInsecure: true,
             achievementsEnabled: true,
+            main2Enabled: true,
             gaTrackingID: null
           }
         }
@@ -75,6 +76,7 @@ module.exports = function (grunt) {
             isDebugLogged: true,
             httpsAllowInsecure: true,
             achievementsEnabled: true,
+            main2Enabled: false,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -87,6 +89,7 @@ module.exports = function (grunt) {
             isDebugLogged: false,
             httpsAllowInsecure: false,
             achievementsEnabled: true,
+            main2Enabled: false,
             //gaTrackingID: 'UA-53523462-2'
             gaTrackingID: 'UA-53523462-1'
           }

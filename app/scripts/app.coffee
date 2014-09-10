@@ -55,6 +55,15 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/achievements',
         templateUrl: 'views/achievements.html'
         controller: 'AchievementsCtrl'
+      .when '/main2',
+        templateUrl: 'views/main2.html'
+        controller: 'Main2Ctrl'
+      .when '/main2/:tab/unit/:unit',
+        templateUrl: 'views/main2.html'
+        controller: 'Main2Ctrl'
+      .when '/main2/:tab',
+        templateUrl: 'views/main2.html'
+        controller: 'Main2Ctrl'
       .otherwise
         redirectTo: '/'
 

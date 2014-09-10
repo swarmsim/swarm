@@ -1,0 +1,76 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li ng-repeat="tab in tabs.list" ng-class="{active:cur.tab===tab}">
+    <a ng-href="#/main2/{{tab.name}}" role="tab">
+      {{tab.unit.count()|bignum:0}} {{tab.unit.unittype.label}}
+      <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
+    </a>
+  </li>
+  <li role="tab" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:">
+      More...
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/options">
+        <span class="glyphicon glyphicon-cog"></span> Options
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/statistics">
+        <span class="glyphicon glyphicon-stats"></span> Statistics
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://reddit.com/r/swarmsim" target="_blank">
+        <span class="glyphicon glyphicon-user"></span> Community
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="{{feedbackUrl()}}" target="_blank">
+        <span class="glyphicon glyphicon-send"></span> Send Feedback
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/statistics">
+        <span class="glyphicon glyphicon-book"></span> v{{version}} Patch Notes
+      </a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active">
+    <!--ul ng-repeat="group in curtab.groups" class="nav nav-pills nav-stacked animif">
+      <li ng-repeat="unit in game.unitlist() | filter:isVisible(group) track by unit.name"
+          class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
+        <a ng-click="select(unit)" title="{{costText(unit)}}">
+          <span class="unitlabel titlecase">{{unit.unittype.label}}</span>
+          <div class="badge pull-right">{{unit.count() | bignum}}</div>
+        </a>
+      </li>
+    </ul-->
+
+    <table class="table" ng-if="!cur.unit">
+      <tr>
+        <th>Unit</th>
+        <th>Count</th>
+      </tr>
+      <tr ng-repeat="unit in units.byGroup[cur.tab.groups[0]] | filter:isVisible(cur.tab.groups[0]) track by unit.name">
+        <td class="titlecase"><a href="#/main2/{{cur.tab.name}}/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a></td>
+        <td>{{unit.count()|bignum:0}}</td>
+      </tr>
+    </table>
+
+    <div ng-if="cur.unit">
+      <ul class="nav nav-pills nav-justified">
+        <li><a href="javascript:">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <!--span class="glyphicon glyphicon-backward"></span-->
+          {{game.unit('drone').count() | bignum:0}} {{game.unit('drone').unittype.plural}}
+        </a></li>
+        <li><a href="#/main2/{{cur.tab.name}}">
+          <span class="glyphicon glyphicon-eject"></span>
+          Back
+        </a></li>
+        <li><a href="javascript:">
+          {{game.unit('nest').count() | bignum:0}} {{game.unit('nest').unittype.plural}}
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <!--span class="glyphicon glyphicon-forward"></span-->
+        </a></li>
+      </ul>
+      <h1>{{cur.unit.unittype.label}}</h1>
+    </div>
+  </div>
+</div>
