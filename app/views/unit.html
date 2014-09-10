@@ -150,23 +150,7 @@
               <cost costlist="upgrade.totalCost()"></cost>
             </p>
 
-            <div class="row nogutter">
-              <div class="nogutter" ng-class="{'col-sm-4':upgrade.maxCostMet() > 1}">
-                <button ng-click="commands.buyUpgrade({upgrade:upgrade, num:1, ui:'cur'})" class="form-control unit-buy"  ng-disabled="!upgrade.isCostMet()">
-                  Buy one
-                </button>
-              </div>
-              <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="isUpgrade25Visible(upgrade)">
-                <button ng-click="commands.buyMaxUpgrade({upgrade:upgrade, percent:0.25, ui:'cur'})" class="form-control unit-buy">
-                  Buy {{upgrade.maxCostMet(0.25)|bignum}}
-                </button>
-              </div>
-              <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':isUpgrade25Visible(upgrade), 'col-sm-8':!isUpgrade25Visible(upgrade)}" ng-show="upgrade.maxCostMet() > 1">
-                <button ng-click="commands.buyMaxUpgrade({upgrade:upgrade, percent: 1, ui:'cur'})" class="form-control unit-buy">
-                  Buy {{upgrade.maxCostMet()|bignum}}
-                </button>
-              </div>
-            </div>
+            <buyupgrade upgrade="upgrade" />
           </li>
         </ul>
       </div>
