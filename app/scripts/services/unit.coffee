@@ -41,6 +41,12 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
       if require.upgradetype?
         ret.resource = ret.upgrade = util.assert @game.upgrade require.upgradetype
       return ret
+
+    @tab = @game.tabs.byName[@unittype.tab]
+    if @tab
+      @next = @tab.next this
+      @prev = @tab.prev this
+
     for upgrade in @upgrades.list
       @upgrades.byName[upgrade.name] = upgrade
 

@@ -7,7 +7,7 @@
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement) -> class Game
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab) -> class Game
   constructor: (@session) ->
     @_init()
   _init: ->
@@ -15,6 +15,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       list: _.map unittypes.list, (unittype) =>
         new Unit this, unittype
     @_units.byName = _.indexBy @_units.list, 'name'
+    @_units.byLabel = _.indexBy @_units.list, (u) -> u.unittype.label
 
     @_upgrades =
       list: _.map upgradetypes.list, (upgradetype) =>
@@ -27,6 +28,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @_achievements.byName = _.indexBy @_achievements.list, 'name'
     @achievementPointsPossible = achievements.pointsPossible()
     $log.debug 'possiblepoints: ', @achievementPointsPossible
+
+    @tabs = Tab.buildTabs @_units.list
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
@@ -54,6 +57,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       # it's a unittype?
       unitname = unitname.name
     @_units.byName[unitname]
+  unitByLabel: (unitlabel) ->
+    @_units.byLabel[unitlabel]
   units: ->
     _.clone @_units.byName
   unitlist: ->

@@ -1,3 +1,4 @@
+<!-- TODO directiveify tab list-->
 <ul class="nav nav-tabs" role="tablist">
   <li ng-repeat="tab in tabs.list" ng-class="{active: cur.tab === tab}">
     <a ng-href="#/main2/{{tab.name}}" role="tab">
@@ -42,35 +43,15 @@
       </li>
     </ul-->
 
-    <table class="table" ng-if="!cur.unit">
+    <table class="table">
       <tr>
         <th>Unit</th>
         <th>Count</th>
       </tr>
       <tr ng-repeat="unit in cur.tab.units | filter:filterVisible track by unit.name">
-        <td class="titlecase"><a href="#/main2/{{cur.tab.name}}/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a></td>
+        <td class="titlecase"><a href="#/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a></td>
         <td>{{unit.count()|bignum:0}}</td>
       </tr>
     </table>
-
-    <div ng-if="cur.unit">
-      <ul class="nav nav-pills nav-justified">
-        <li><a ng-href="#/main2/{{cur.tab.name}}/unit/{{cur.prev().unittype.label}}" ng-if="cur.prev()">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <!--span class="glyphicon glyphicon-backward"></span-->
-          {{cur.prev().count() | bignum:0}} {{cur.prev().unittype.plural}}
-        </a></li>
-        <li><a href="#/main2/{{cur.tab.name}}">
-          <span class="glyphicon glyphicon-eject"></span>
-          Back
-        </a></li>
-        <li><a ng-href="#/main2/{{cur.tab.name}}/unit/{{cur.next().unittype.label}}" ng-if="cur.next()">
-          {{cur.next().count() | bignum:0}} {{cur.next().unittype.plural}}
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <!--span class="glyphicon glyphicon-forward"></span-->
-        </a></li>
-      </ul>
-      <h1>{{cur.unit.unittype.label}}</h1>
-    </div>
   </div>
 </div>

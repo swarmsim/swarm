@@ -7,7 +7,8 @@
  # # util
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'util', ($log, $rootScope, env, $location) -> new class Util
+angular.module('swarmApp').factory 'util', ($log, $rootScope, $interval) -> new class Util
+  constructor: ->
   sum: (ns) -> _.reduce ns, ((a,b) -> a+b), 0
   assert: (val, message...) ->
     if not val
@@ -34,6 +35,10 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, env, $location) ->
       for key, val of fn.cache
         delete fn.cache[key]
 
-  gateLocation: (flagname, url='/') ->
-    if env[flagname]
-      $location.url url
+  animateController: ($scope, opts={}) ->
+    game = opts.game ? $scope.game
+    options = opts.options ? $scope.options
+    animatePromise = $interval (=>game.tick()), options.fpsSleepMillis()
+    $scope.$on '$destroy', =>
+      $interval.cancel animatePromise
+

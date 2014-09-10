@@ -1,0 +1,192 @@
+<!-- TODO directiveify tab list-->
+<ul class="nav nav-tabs" role="tablist">
+  <li ng-repeat="tab in tabs.list" ng-class="{active: cur.tab.name === tab.name}">
+    <a ng-href="#/main2/{{tab.name}}" role="tab">
+      {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.label}}
+      <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
+    </a>
+  </li>
+  <li role="tab" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:">
+      More...
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/options">
+        <span class="glyphicon glyphicon-cog"></span> Options
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/statistics">
+        <span class="glyphicon glyphicon-stats"></span> Statistics
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://reddit.com/r/swarmsim" target="_blank">
+        <span class="glyphicon glyphicon-user"></span> Community
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="{{feedbackUrl()}}" target="_blank">
+        <span class="glyphicon glyphicon-send"></span> Send Feedback
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/changelog">
+        <span class="glyphicon glyphicon-book"></span> Patch Notes
+      </a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="tab-content" ng-swipe-left="swipe(cur.prev)" ng-swipe-right="swipe(cur.next)">
+  <div class="tab-pane active">
+    <ul class="nav nav-pills nav-justified">
+      <li><a ng-href="#/unit/{{cur.prev.unittype.label}}" ng-if="cur.prev && cur.prev.isVisible()">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <!--span class="glyphicon glyphicon-backward"></span-->
+        {{cur.prev.count() | bignum:0}} {{cur.prev.unittype.plural}}
+      </a></li>
+      <li><a ng-href="#/main2/{{cur.tab.name}}">
+        <span class="glyphicon glyphicon-eject"></span>
+        Back
+      </a></li>
+      <li><a ng-href="#/unit/{{cur.next.unittype.label}}" ng-if="cur.next && cur.next.isVisible()">
+        {{cur.next.count() | bignum:0}} {{cur.next.unittype.plural}}
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <!--span class="glyphicon glyphicon-forward"></span-->
+      </a></li>
+    </ul>
+    <h1>{{cur.unittype.label}}</h1>
+    <p title="{{cur.unittype.lol}}">{{cur.unittype.description}}</p>
+
+    <p>
+      <ng-pluralize count="cur.count()"
+        when="{'0':'You own no {{cur.unittype.plural}}.',
+               'one':'You own 1 {{cur.unittype.label}}.',
+               'other':'You own {{cur.count()|longnum}} {{cur.unittype.plural}}.'}">
+      </ng-pluralize>
+      <div ng-if="cur.prod.length">
+        <p>
+          Each produces
+          <span ng-repeat="(name, val) in cur.eachProduction()">
+            <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+            <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+          </span>
+          per second.
+          <span ng-if="cur.hasStat('base', 0)">(+{{cur.stat('base')|bignum}} bonus)</span>
+          <span ng-if="cur.hasStat('prod', 1)">(x{{cur.stat('prod')|bignum:10}} bonus)</span>
+        </p>
+        <p ng-if="cur.count() > 0">
+          In total, they produce
+          <span ng-repeat="(name, val) in cur.totalProduction()">
+            <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+            <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+          </span>
+          per second.
+        </p>
+      </div>
+      <div ng-if="cur.showparent && cur.showparent.prod.length">
+        You earn
+        <span ng-repeat="(name, val) in cur.showparent.totalProduction()">
+          <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+          <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+        </span>
+        per second.
+        <span ng-if="cur.showparent.hasStat('base', 0)">(+{{cur.showparent.stat('base')|bignum}} bonus)</span>
+        <span ng-if="cur.showparent.hasStat('prod', 1)">(x{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
+      </div>
+      <div ng-if="!cur.showparent && cur.velocity() > 0">
+        You earn
+        <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
+        <span>{{cur.velocity()|longnum:2}} {{cur.unittype.plural}}</span>
+        per second.
+      </div>
+      <div ng-if="!cur.unbuyable && cur.cost.length && cur.isBuyButtonVisible()">
+        <hr>
+        <!--div class="form-group">
+          <label for="buyone">Buy one</label>
+          <button id="buyone" ng-click="cur.buy(1)" class="form-control unit-buy" ng-disabled="!cur.isCostMet()">
+            <span ng-repeat="cost in cur.cost">
+              <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
+            </span>
+          </button>
+        </div-->
+        <div ng-if="cur.count() == 0 && cur.isCostMet()" ng-repeat="warn in (cur.warnfirst | filter:isWarningVisible)">
+          <!-- nested div to get the animation right: disappear instantly when switching units, fade when closing manually -->
+          <!-- TODO: too bad the "fade when closing manually" part doesn't want to work -->
+          <div class="alert alert-warning alert-dismissable animif" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <p>{{warn.text}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <p>
+            You're buying
+            <input type="number" ng-model="form.mainBuynum" min="1">
+            {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
+            <span ng-if="cur.stat('twin', 1) > 1">(x{{cur.stat('twin',1)|bignum}} twins)</span>
+            for
+            <cost costlist="cur.cost" num="mainBuynum()"></cost>
+          </p>
+          <p ng-if="options.showAdvancedUnitData()">
+            <span ng-if="cur.maxCostMet() > 0">
+              Buying your maximum of
+              {{cur.maxCostMet()*cur.stat('twin', 1)|longnum}} {{cur.maxCostMet()*cur.stat('twin', 1) == 1 ? cur.unittype.label : cur.unittype.plural}}
+            </span>
+            <span ng-if="cur.maxCostMet() <= 0">
+              Buying your next {{cur.unittype.label}}
+            </span>
+            will cost
+            <span ng-repeat="cost in cur.cost">
+              <span ng-if="!$first && $last"> and </span>
+              <span>{{unitCostAsPercent(cur, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.cost.length > 2">, </span>
+            </span>
+          </p>
+          <div class="row nogutter">
+            <div class="nogutter" ng-class="{'col-sm-4':cur.maxCostMet() > 1}">
+              <button ng-click="commands.buyUnit({unit:cur, num:mainBuynum(), ui:'cur'})" class="form-control unit-buy"  ng-disabled="!cur.isCostMet()">
+                Buy {{unitBuyTotal(mainBuynum())|bignum}}
+              </button>
+            </div>
+            <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="cur.maxCostMet(0.25) > 1">
+              <button ng-click="commands.buyMaxUnit({unit:cur, percent:0.25, ui:'cur'})" class="form-control unit-buy">
+                Buy {{cur.maxCostMet(0.25)*cur.stat('twin', 1)|bignum}}
+              </button>
+            </div>
+            <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':cur.maxCostMet(0.25) > 1, 'col-sm-8':!(cur.maxCostMet(0.25) > 1)}" ng-show="cur.maxCostMet() > 1">
+              <button ng-click="commands.buyMaxUnit({unit:cur, percent: 1, ui:'cur'})" class="form-control unit-buy">
+                Buy {{cur.maxCostMet()*cur.stat('twin', 1)|bignum}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="(visibleUpgrades = (cur.showparent ? cur.showparent.upgrades.list : cur.upgrades.list | filter:isVisible)).length > 0">
+        <hr>
+        <h4>Upgrades</h4>
+        <ul class="list-unstyled">
+          <li ng-repeat="upgrade in visibleUpgrades">
+            <h5>{{upgrade.type.label}} ({{upgrade.count()}})</h5>
+            <p title="{{upgrade.type.lol}}">{{upgrade.type.description}}</p>
+            <p>
+              Next upgrade costs
+              <cost costlist="upgrade.totalCost()"></cost>
+            </p>
+
+            <div class="row nogutter">
+              <div class="nogutter" ng-class="{'col-sm-4':upgrade.maxCostMet() > 1}">
+                <button ng-click="commands.buyUpgrade({upgrade:upgrade, num:1, ui:'cur'})" class="form-control unit-buy"  ng-disabled="!upgrade.isCostMet()">
+                  Buy one
+                </button>
+              </div>
+              <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="isUpgrade25Visible(upgrade)">
+                <button ng-click="commands.buyMaxUpgrade({upgrade:upgrade, percent:0.25, ui:'cur'})" class="form-control unit-buy">
+                  Buy {{upgrade.maxCostMet(0.25)|bignum}}
+                </button>
+              </div>
+              <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':isUpgrade25Visible(upgrade), 'col-sm-8':!isUpgrade25Visible(upgrade)}" ng-show="upgrade.maxCostMet() > 1">
+                <button ng-click="commands.buyMaxUpgrade({upgrade:upgrade, percent: 1, ui:'cur'})" class="form-control unit-buy">
+                  Buy {{upgrade.maxCostMet()|bignum}}
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <p ng-if="!visibleUpgrades">No upgrades available.</p>
+    </div>
+  </div>
+</div>

@@ -37,12 +37,6 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/',
         templateUrl: 'views/unitlist.html'
         controller: 'UnitlistCtrl'
-      .when '/unit',
-        templateUrl: 'views/unitlist.html'
-        controller: 'UnitlistCtrl'
-      .when '/unit/:unit',
-        templateUrl: 'views/unitlist.html'
-        controller: 'UnitlistCtrl'
       .when '/options',
         templateUrl: 'views/options.html'
         controller: 'OptionsCtrl'
@@ -58,12 +52,12 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/main2',
         templateUrl: 'views/main2.html'
         controller: 'Main2Ctrl'
-      .when '/main2/:tab/unit/:unit',
-        templateUrl: 'views/main2.html'
-        controller: 'Main2Ctrl'
       .when '/main2/:tab',
         templateUrl: 'views/main2.html'
         controller: 'Main2Ctrl'
+      .when '/unit/:unit',
+        templateUrl: 'views/unit.html'
+        controller: 'UnitCtrl'
       .otherwise
         redirectTo: '/'
 
