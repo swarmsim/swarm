@@ -38,7 +38,7 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
 
   $rootScope.$on 'select', (event, args) ->
     name = args?.unit?.name ? '#back-button'
-    $analytics.pageTrack "/unit/#{name}"
+    $analytics.pageTrack "/oldui/unit/#{name}"
 
   $rootScope.$on 'save', (event, args) ->
     #console.log 'save event'
