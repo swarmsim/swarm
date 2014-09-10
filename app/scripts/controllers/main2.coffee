@@ -8,8 +8,6 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, util, game, options, $interval, $routeParams, $route, version) ->
-  $log.debug 'params', $routeParams
-
   $scope.game = game
   $scope.tabs = $scope.game.tabs
   

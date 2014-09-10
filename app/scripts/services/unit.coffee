@@ -129,6 +129,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
     return true
 
   isBuyButtonVisible: ->
+    if @unittype.unbuyable or @cost.length == 0
+      return false
     for cost in @cost
       if not cost.unit.isVisible()
         return false

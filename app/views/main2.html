@@ -43,15 +43,20 @@
       </li>
     </ul-->
 
-    <table class="table">
-      <tr>
-        <th>Unit</th>
-        <th>Count</th>
-      </tr>
-      <tr ng-repeat="unit in cur.tab.units | filter:filterVisible track by unit.name">
-        <td class="titlecase"><a href="#/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a></td>
-        <td>{{unit.count()|bignum:0}}</td>
-      </tr>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-condensed">
+        <!--tr>
+          <th>Unit</th>
+          <th>Count</th>
+          <th>Buy</th>
+        </tr-->
+        <tr ng-repeat="unit in cur.tab.units | filter:filterVisible track by unit.name">
+          <td class="text-right"><a href="#/unit/{{unit.unittype.label}}">{{unit.count()|bignum:0}}</a></td>
+          <td class="titlecase text-nowrap"><a href="#/unit/{{unit.unittype.label}}">{{unit.unittype.plural}}</a></td>
+          <!--td class="text-nowrap">+{{unit.velocity()|bignum}}/sec</td-->
+          <td><buyunit unit="unit" num="1" xsdropdown="true" /></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

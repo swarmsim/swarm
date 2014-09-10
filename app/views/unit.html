@@ -39,7 +39,7 @@
         <!--span class="glyphicon glyphicon-backward"></span-->
         {{cur.prev.count() | bignum:0}} {{cur.prev.unittype.plural}}
       </a></li>
-      <li><a ng-href="#/main2/{{cur.tab.name}}">
+      <li class="hidden-xs"><a ng-href="#/main2/{{cur.tab.name}}">
         <span class="glyphicon glyphicon-eject"></span>
         Back
       </a></li>
@@ -135,23 +135,7 @@
               <span>{{unitCostAsPercent(cur, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.cost.length > 2">, </span>
             </span>
           </p>
-          <div class="row nogutter">
-            <div class="nogutter" ng-class="{'col-sm-4':cur.maxCostMet() > 1}">
-              <button ng-click="commands.buyUnit({unit:cur, num:mainBuynum(), ui:'cur'})" class="form-control unit-buy"  ng-disabled="!cur.isCostMet()">
-                Buy {{unitBuyTotal(mainBuynum())|bignum}}
-              </button>
-            </div>
-            <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="cur.maxCostMet(0.25) > 1">
-              <button ng-click="commands.buyMaxUnit({unit:cur, percent:0.25, ui:'cur'})" class="form-control unit-buy">
-                Buy {{cur.maxCostMet(0.25)*cur.stat('twin', 1)|bignum}}
-              </button>
-            </div>
-            <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':cur.maxCostMet(0.25) > 1, 'col-sm-8':!(cur.maxCostMet(0.25) > 1)}" ng-show="cur.maxCostMet() > 1">
-              <button ng-click="commands.buyMaxUnit({unit:cur, percent: 1, ui:'cur'})" class="form-control unit-buy">
-                Buy {{cur.maxCostMet()*cur.stat('twin', 1)|bignum}}
-              </button>
-            </div>
-          </div>
+          <buyunit unit="cur" num="form.mainBuynum" />
         </div>
       </div>
       <div ng-if="(visibleUpgrades = (cur.showparent ? cur.showparent.upgrades.list : cur.upgrades.list | filter:isVisible)).length > 0">
