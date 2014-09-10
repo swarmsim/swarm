@@ -9,7 +9,6 @@
 ###
 angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, util, $routeParams, $location, game, options, commands) ->
   $scope.game = game
-  $scope.tabs = $scope.game.tabs
   $scope.commands = commands
   $scope.cur = $scope.game.unitByLabel $routeParams.unit
   if (not $scope.cur?) or (not $scope.cur.isVisible())

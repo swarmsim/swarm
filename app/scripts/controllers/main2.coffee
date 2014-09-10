@@ -9,10 +9,9 @@
 ###
 angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, util, game, options, $interval, $routeParams, $route, version) ->
   $scope.game = game
-  $scope.tabs = $scope.game.tabs
   
   $scope.cur =
-    tab: $scope.tabs.byName[$routeParams.tab] ? $scope.tabs.list[0]
+    tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
   if not $scope.cur.tab?
     $route.updateParams tab:undefined
 
