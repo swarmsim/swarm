@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs" role="tablist">
-  <li ng-repeat="tab in tabs.list" ng-class="{active:cur.tab===tab}">
+  <li ng-repeat="tab in tabs.list" ng-class="{active: cur.tab === tab}">
     <a ng-href="#/main2/{{tab.name}}" role="tab">
-      {{tab.unit.count()|bignum:0}} {{tab.unit.unittype.label}}
+      {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.label}}
       <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
     </a>
   </li>
@@ -23,8 +23,8 @@
       <li role="presentation"><a role="menuitem" tabindex="-1" href="{{feedbackUrl()}}" target="_blank">
         <span class="glyphicon glyphicon-send"></span> Send Feedback
       </a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/statistics">
-        <span class="glyphicon glyphicon-book"></span> v{{version}} Patch Notes
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/changelog">
+        <span class="glyphicon glyphicon-book"></span> Patch Notes
       </a></li>
     </ul>
   </li>
@@ -47,7 +47,7 @@
         <th>Unit</th>
         <th>Count</th>
       </tr>
-      <tr ng-repeat="unit in units.byGroup[cur.tab.groups[0]] | filter:isVisible(cur.tab.groups[0]) track by unit.name">
+      <tr ng-repeat="unit in cur.tab.units | filter:filterVisible track by unit.name">
         <td class="titlecase"><a href="#/main2/{{cur.tab.name}}/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a></td>
         <td>{{unit.count()|bignum:0}}</td>
       </tr>
@@ -55,17 +55,17 @@
 
     <div ng-if="cur.unit">
       <ul class="nav nav-pills nav-justified">
-        <li><a href="javascript:">
+        <li><a ng-href="#/main2/{{cur.tab.name}}/unit/{{cur.prev().unittype.label}}" ng-if="cur.prev()">
           <span class="glyphicon glyphicon-chevron-left"></span>
           <!--span class="glyphicon glyphicon-backward"></span-->
-          {{game.unit('drone').count() | bignum:0}} {{game.unit('drone').unittype.plural}}
+          {{cur.prev().count() | bignum:0}} {{cur.prev().unittype.plural}}
         </a></li>
         <li><a href="#/main2/{{cur.tab.name}}">
           <span class="glyphicon glyphicon-eject"></span>
           Back
         </a></li>
-        <li><a href="javascript:">
-          {{game.unit('nest').count() | bignum:0}} {{game.unit('nest').unittype.plural}}
+        <li><a ng-href="#/main2/{{cur.tab.name}}/unit/{{cur.next().unittype.label}}" ng-if="cur.next()">
+          {{cur.next().count() | bignum:0}} {{cur.next().unittype.plural}}
           <span class="glyphicon glyphicon-chevron-right"></span>
           <!--span class="glyphicon glyphicon-forward"></span-->
         </a></li>
