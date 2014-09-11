@@ -7,7 +7,7 @@
  # # util
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'util', ($log, $rootScope, $interval) -> new class Util
+angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new class Util
   constructor: ->
   sum: (ns) -> _.reduce ns, ((a,b) -> a+b), 0
   assert: (val, message...) ->
@@ -38,7 +38,12 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $interval) -> new 
   animateController: ($scope, opts={}) ->
     game = opts.game ? $scope.game
     options = opts.options ? $scope.options
-    animatePromise = $interval (=>game.tick()), options.fpsSleepMillis()
+    animatePromise= null
+    do animateFn = =>
+      # timeouts instead of intervals is less precise, but it automatically adjusts to options menu fps changes
+      # intervals could work if we watched for options changes, but why bother?
+      animatePromise = $timeout animateFn, options.fpsSleepMillis()
+      game.tick()
     $scope.$on '$destroy', =>
-      $interval.cancel animatePromise
+      $timeout.cancel animatePromise
 

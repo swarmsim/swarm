@@ -7,7 +7,7 @@
  # # Main2Ctrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, util, game, options, $interval, $routeParams, $route, version) ->
+angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, game, $routeParams, $route, version) ->
   $scope.game = game
   
   $scope.cur =
@@ -20,5 +20,3 @@ angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, util, game, op
   $scope.feedbackUrl = ->
     param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.game.session.exportSave()}"
     "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
-
-  util.animateController $scope, game:game, options:options

@@ -7,7 +7,7 @@
  # # UnitCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, util, $routeParams, $location, game, options, commands) ->
+angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, $routeParams, $location, game, commands) ->
   $scope.game = game
   $scope.commands = commands
   $scope.cur = $scope.game.unitByLabel $routeParams.unit
@@ -18,5 +18,3 @@ angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, util, $routePar
   $scope.swipe = (unit) ->
     if unit and unit.isVisible()
       $location.url "/unit/#{unit.unittype.label}"
-
-  util.animateController $scope, game:game, options:options

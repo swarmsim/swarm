@@ -6,7 +6,7 @@
  # @description
  # # tabs
 ###
-angular.module('swarmApp').directive 'tabs', (game) ->
+angular.module('swarmApp').directive 'tabs', (game, util, options) ->
   templateUrl: 'views/tabs.html'
   scope:
     cur: '='
@@ -15,3 +15,4 @@ angular.module('swarmApp').directive 'tabs', (game) ->
     scope.tabs = game.tabs
     scope.filterVisible = (tab) -> tab.isVisible()
 
+    util.animateController scope, game:game, options:options
