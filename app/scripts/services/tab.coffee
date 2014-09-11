@@ -3,12 +3,14 @@
 angular.module('swarmApp').factory 'Tab', -> class Tab
   constructor: (@leadunit) ->
     @units = []
+    @reversedUnits = []
     @indexByUnitName = {}
     @name = @leadunit.name
 
   push: (unit) ->
     @indexByUnitName[unit.name] = @units.length
     @units.push unit
+    @reversedUnits.unshift unit
 
   next: (unit) ->
     index = @indexByUnitName[unit?.name ? unit]
