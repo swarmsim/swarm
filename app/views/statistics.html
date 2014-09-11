@@ -11,16 +11,14 @@
         <th>clicks</th>
         <th>bought manually</th>
         <th>twins</th>
-        <th>per sec</th>
       </tr>
       <tbody>
         <tr ng-repeat="unit in unitlist" ng-init="ustats = unitStats(unit)">
           <td class="name">{{unit.unittype.label}}</td>
           <td>{{ustats.elapsedFirstStr}}</td>
-          <td>{{ustats.clicks | number}}</td>
-          <td>{{ustats.num | number}}</td>
-          <td>{{ustats.twinnum | number}}</td>
-          <td>{{unit.velocity() | bignum}}</td>
+          <td>{{ustats.clicks | bignum}}</td>
+          <td>{{ustats.num | bignum}}</td>
+          <td>{{ustats.twinnum | bignum}}</td>
         </tr>
       </tbody>
     </table>

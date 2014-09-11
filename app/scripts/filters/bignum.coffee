@@ -11,6 +11,8 @@
 angular.module('swarmApp').factory 'bignumFormatter', ->
   (suffixes) ->
     (num, floorlimit=0) ->
+      if !num
+        return num
       if num < floorlimit
         return num.toPrecision(3).replace /\.?0+$/, ''
       num = Math.floor num
