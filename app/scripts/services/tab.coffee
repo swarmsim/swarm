@@ -4,7 +4,6 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
   constructor: (@leadunit) ->
     @units = []
     @indexByUnitName = {}
-    @push @leadunit
     @name = @leadunit.name
 
   push: (unit) ->

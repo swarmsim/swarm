@@ -3,6 +3,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+//.unit-list td, .unit-list li, .unit-list li div {
+//  vertical-align: middle;
+//  white-space: nowrap;
+//}
 // next-nowrap is in the docs, but doesn't work.
 .text-nowrap {
   white-space: nowrap;

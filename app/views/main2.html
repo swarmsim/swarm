@@ -2,30 +2,30 @@
 
 <div class="tab-content">
   <div class="tab-pane active">
-    <!--ul ng-repeat="group in curtab.groups" class="nav nav-pills nav-stacked animif">
-      <li ng-repeat="unit in game.unitlist() | filter:isVisible(group) track by unit.name"
-          class="animif" ng-class="{active:selected===unit,costNotMet:!unit.isCostMet()}">
-        <a ng-click="select(unit)" title="{{costText(unit)}}">
-          <span class="unitlabel titlecase">{{unit.unittype.label}}</span>
-          <div class="badge pull-right">{{unit.count() | bignum}}</div>
-        </a>
-      </li>
-    </ul-->
-
-    <div class="table-responsive">
-      <table class="table table-condensed">
-        <!--tr>
-          <th>Unit</th>
-          <th>Count</th>
-          <th>Buy</th>
-        </tr-->
+    <!--div class="table-responsive">
+      <table class="table table-condensed unit-table">
         <tr ng-repeat="unit in cur.tab.units | filter:filterVisible track by unit.name">
           <td class="text-right"><a href="#/unit/{{unit.unittype.label}}">{{unit.count()|bignum:0}}</a></td>
           <td class="titlecase text-nowrap"><a href="#/unit/{{unit.unittype.label}}">{{unit.unittype.plural}}</a></td>
-          <!--td class="text-nowrap">+{{unit.velocity()|bignum}}/sec</td-->
           <td><buyunit unit="unit" num="1" xsdropdown="true" /></td>
         </tr>
       </table>
-    </div>
+    </div-->
+          <!--td class="text-nowrap">+{{unit.velocity()|bignum}}/sec</td-->
+    <ul class="list-unstyled unit-list text-nowrap">
+      <li ng-repeat="unit in cur.tab.units | filter:filterVisible track by unit.name" class="row">
+        <div class="col-md-4"><a href="#/unit/{{unit.unittype.label}}" class="btn btn-link">
+          {{unit.count()|bignum:0}} {{unit.count() == 1 ? unit.unittype.label : unit.unittype.plural}}
+        </a></div>
+        <div class="col-md-8"><buyunit unit="unit" num="1" xsdropdown="true" /></div>
+      </li>
+    </ul>
+
+    <!--h1><a href="#/unit/{{cur.tab.leadunit.unittype.label}}">
+    </a></h1-->
+    <h1>
+      {{cur.tab.leadunit.unittype.label}}
+    </h1>
+    <unit cur="cur.tab.leadunit"></unit>
   </div>
 </div>
