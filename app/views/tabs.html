@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs" role="tablist">
   <li ng-repeat="tab in tabs.list" ng-class="{active: cur.name === tab.name}">
-    <a ng-href="#/main2/{{tab.name}}" role="tab">
+    <a ng-href="#/tab/{{tab.name}}" role="tab">
       {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.label}}
       <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
     </a>

@@ -22,21 +22,12 @@ angular.module 'swarmApp', [
   ]
 angular.module('swarmApp').config ($routeProvider) ->
     $routeProvider
-      #.when '/main',
-      #  templateUrl: 'views/main.html'
-      #  controller: 'MainCtrl'
-      #.when '/about',
-      #  templateUrl: 'views/about.html'
-      #  controller: 'AboutCtrl'
       .when '/debug',
         templateUrl: 'views/debug.html'
         controller: 'DebugCtrl'
-      #.when '/demo',
-      #  templateUrl: 'views/demo.html'
-      #  controller: 'DemoCtrl'
-      .when '/',
-        templateUrl: 'views/unitlist.html'
-        controller: 'UnitlistCtrl'
+      #.when '/',
+      #  templateUrl: 'views/unitlist.html'
+      #  controller: 'UnitlistCtrl'
       .when '/options',
         templateUrl: 'views/options.html'
         controller: 'OptionsCtrl'
@@ -49,10 +40,10 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/achievements',
         templateUrl: 'views/achievements.html'
         controller: 'AchievementsCtrl'
-      .when '/main2',
+      .when '/',
         templateUrl: 'views/main2.html'
         controller: 'Main2Ctrl'
-      .when '/main2/:tab',
+      .when '/tab/:tab',
         templateUrl: 'views/main2.html'
         controller: 'Main2Ctrl'
       .when '/unit/:unit',

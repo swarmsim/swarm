@@ -12,7 +12,7 @@ angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, util, $routePar
   $scope.commands = commands
   $scope.cur = $scope.game.unitByLabel $routeParams.unit
   if (not $scope.cur?) or (not $scope.cur.isVisible())
-    $location.url '/main2'
+    $location.url '/'
   $log.debug $scope.cur
 
   $scope.form =
