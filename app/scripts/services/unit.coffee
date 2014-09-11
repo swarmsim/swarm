@@ -107,7 +107,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
     return max
 
   isVisible: ->
-    # this is all needlessly complicated, but I don't wanna specify visibility requirements for every unit and having them all visible at the beginning is lame
     if @unittype.disabled
       return false
     if @_visible
@@ -117,29 +116,11 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
   _isVisible: ->
     if @count() > 0
       return true
-    if @requires.length > 0
-      for require in @requires
-        if require.val > require.resource.count()
-          return false
-      return true
-    # TODO move this into the spreadsheet
-    if @cost.length > 0
-      # units with cost are visible at some percentage of the cost, OR when one of their immediate children exist (ex. 1 drone makes queens visible, but not nests)
-      if @_costMetPercent() > 0.3
-        return true
-      for prod in @prod
-        # 5 units: arbitrary.
-        # tier-check: making parents visible is good for derivatives, but not (derivative-less) military units
-        if prod.unit.unittype.tier and prod.unit.count() >= 5 #arbitrary
-          return true
-      return false
-    else
-      # costless units (ex. territory) - any producers visible?
-      for path in @_producerPathList
-        producer = path[0]
-        if producer.isVisible()
-          return true
-      return false
+    util.assert @requires.length > 0, "unit without visibility requirements", @name
+    for require in @requires
+      if require.val > require.resource.count()
+        return false
+    return true
 
   isBuyButtonVisible: ->
     for cost in @cost

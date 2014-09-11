@@ -133,14 +133,17 @@ describe 'Service: unit', ->
 
   it 'hides advanced units', ->
     game = mkgame {larva:100,meat:1}
-    expect(game.unit('drone').isVisible()).toBe false
-    expect(game.unit('queen').isVisible()).toBe false
-    game.unit('meat')._addCount 8
     expect(game.unit('drone').isVisible()).toBe true
     expect(game.unit('queen').isVisible()).toBe false
-    game.unit('meat')._subtractCount 8
-    expect(game.unit('drone').isVisible()).toBe true # we saw it once before
+    game.unit('drone')._addCount 9
+    expect(game.unit('drone').isVisible()).toBe true
     expect(game.unit('queen').isVisible()).toBe false
+    game.unit('drone')._addCount 1
+    expect(game.unit('drone').isVisible()).toBe true
+    expect(game.unit('queen').isVisible()).toBe true
+    game.unit('drone')._subtractCount 1
+    expect(game.unit('drone').isVisible()).toBe true
+    expect(game.unit('queen').isVisible()).toBe true # we saw it once before
 
   it 'calcs unit stats', ->
     game = mkgame {drone:99999999999999}

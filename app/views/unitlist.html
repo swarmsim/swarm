@@ -145,7 +145,7 @@
     </div>
   </div>
   <div class="col-sm-4 col-sm-pull-8" ng-class="{'hidden-xs':!!selected}">
-    <ul class="nav nav-pills nav-stacked unitgroup animif">
+    <ul class="nav nav-pills nav-stacked unitgroup animif" ng-if="game.achievementPoints() > 0">
       <li>
         <a href="#/achievements">
           <span class="unitlabel titlecase">Achievement Points</span>
