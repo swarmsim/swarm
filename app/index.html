@@ -22,30 +22,25 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl">
+      <div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+            <!--button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-            </button>
+            </button-->
             <a class="navbar-brand" href="#">Swarm Simulator</a>
             <a ng-cloak ng-if="env.isDebugEnabled" class="envalert navbar-brand" ng-href="#/debug"> ({{env.name}})</a>
+            <a class="navbar-brand" ng-href="#/changelog"><span class="text-muted small" ng-cloak>v{{version}}</span></a>
           </div>
       
-          <div class="collapse navbar-collapse" id="navbar">
+          <!--div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
-              <li><a ng-href="#/">Main</a></li>
-              <li><a ng-href="#/options">Options</a></li>
-              <li><a ng-href="#/statistics">Statistics</a></li>
-              <li><a target="_blank" href="http://www.reddit.com/r/swarmsim/" analytics-on analytics-category="outbound" analytics-event="click" analytics-label="community">Community</a></li>
-              <li><a target="_blank" ng-href="{{feedbackUrl()}}" analytics-on analytics-category="outbound" analytics-event="click" analytics-label="community">Feedback</a></li>
-              <li><a ng-href="#/changelog"><span ng-cloak>v{{version}}</span></a></li>
             </ul>
-          </div>
+          </div-->
         </div>
       </div>
 
