@@ -27,5 +27,7 @@ angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, util, $routePar
   $scope.swipe = (unit) ->
     if unit and unit.isVisible()
       $location.url "/unit/#{unit.unittype.label}"
+  $scope.filterVisible = (upgrade) ->
+    upgrade.isVisible()
 
   util.animateController $scope, game:game, options:options

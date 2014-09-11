@@ -18,6 +18,9 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
     index = @indexByUnitName[unit?.name ? unit]
     return @units[index - 1]
 
+  isVisible: ->
+    @leadunit.isVisible()
+
   @buildTabs: (unitlist) ->
     ret =
       list: []

@@ -13,3 +13,5 @@ angular.module('swarmApp').directive 'tabs', (game) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     scope.tabs = game.tabs
+    scope.filterVisible = (tab) -> tab.isVisible()
+
