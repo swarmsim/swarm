@@ -1,16 +1,16 @@
 'use strict'
 
 angular.module('swarmApp').factory 'Tab', -> class Tab
-  constructor: (@leadunit, @index) ->
+  constructor: (@leadunit, @index, @name = @leadunit.name) ->
     @units = []
-    @reversedUnits = []
+    @sortedUnits = []
     @indexByUnitName = {}
-    @name = @leadunit.name
 
   push: (unit) ->
     @indexByUnitName[unit.name] = @units.length
     @units.push unit
-    @reversedUnits.unshift unit
+    # usually this is reverse order, highest tier first
+    @sortedUnits.unshift unit
 
   # TODO rename nextunit, prevunit
   next: (unit) ->
@@ -28,6 +28,9 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
       list: []
       byName: {}
       byUnit: {}
+    # a magic tab with all the units. Deliberately not listed/displayed.
+    all = ret.byName.all = new Tab null, 1, 'all'
+
     for unit in unitlist
       if unit.unittype.tab and not unit.unittype.disabled
         tab = ret.byName[unit.unittype.tab]
@@ -38,5 +41,8 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
           tab = ret.byName[unit.unittype.tab] = new Tab unit, ret.list.length
           ret.list.push tab
         ret.byUnit[unit.name] = tab
+        all.push unit
+    # the magic 'all' tab is the exception, don't reverse its units
+    all.sortedUnits.reverse()
     return ret
 
