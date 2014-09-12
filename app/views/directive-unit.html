@@ -82,7 +82,7 @@
           <span>{{unitCostAsPercent(cur, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.cost.length > 2">, </span>
         </span>
       </p>
-      <buyunit unit="cur" num="form.mainBuynum" />
+      <buyunit unit="cur" num="form.mainBuynum"></buyunit>
     </div>
   </div>
   <div ng-if="(visibleUpgrades = (cur.showparent ? cur.showparent.upgrades.list : cur.upgrades.list | filter:filterVisible)).length > 0">
@@ -97,7 +97,7 @@
           <cost costlist="upgrade.totalCost()"></cost>
         </p>
 
-        <buyupgrade upgrade="upgrade" />
+        <buyupgrade upgrade="upgrade"></buyupgrade>
       </li>
     </ul>
   </div>
