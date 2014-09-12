@@ -19,7 +19,6 @@ describe 'Service: timecheck', ->
     res = timecheck.fetchNetTime()
     expect(!!res).toBe true
     res.then (time) ->
-      console.log 'timefetch', time
       expect(!!time.datetime).toBe true
       datetime = moment time.datetime
       expect(!!datetime).toBe true

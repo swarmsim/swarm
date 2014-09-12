@@ -11,7 +11,6 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
   $scope.game = game
   $scope.options = options
   
-  console.log $scope.game.tabs.byName
   $scope.cur =
     tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
   if $routeParams.tab != $scope.cur.tab.name
