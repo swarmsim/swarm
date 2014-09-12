@@ -7,7 +7,7 @@
  # # Main2Ctrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, game, $routeParams, $route, version, options) ->
+angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $route, version, options) ->
   $scope.game = game
   $scope.options = options
   

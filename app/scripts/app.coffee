@@ -41,11 +41,11 @@ angular.module('swarmApp').config ($routeProvider) ->
         templateUrl: 'views/achievements.html'
         controller: 'AchievementsCtrl'
       .when '/',
-        templateUrl: 'views/main2.html'
-        controller: 'Main2Ctrl'
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
       .when '/tab/:tab',
-        templateUrl: 'views/main2.html'
-        controller: 'Main2Ctrl'
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
       .when '/unit/:unit',
         templateUrl: 'views/unit.html'
         controller: 'UnitCtrl'
