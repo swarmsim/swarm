@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('swarmApp').factory 'Tab', -> class Tab
-  constructor: (@leadunit) ->
+  constructor: (@leadunit, @index) ->
     @units = []
     @reversedUnits = []
     @indexByUnitName = {}
@@ -12,6 +12,7 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
     @units.push unit
     @reversedUnits.unshift unit
 
+  # TODO rename nextunit, prevunit
   next: (unit) ->
     index = @indexByUnitName[unit?.name ? unit]
     return @units[index + 1]
@@ -34,7 +35,7 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
           tab.push unit
         else
           # tab leader comes first in the spreadsheet
-          tab = ret.byName[unit.unittype.tab] = new Tab unit
+          tab = ret.byName[unit.unittype.tab] = new Tab unit, ret.list.length
           ret.list.push tab
         ret.byUnit[unit.name] = tab
     return ret
