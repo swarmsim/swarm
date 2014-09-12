@@ -3,10 +3,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
-//.unit-list td, .unit-list li, .unit-list li div {
-//  vertical-align: middle;
-//  white-space: nowrap;
-//}
+// a list-group + grid-row. padding/margins on these fight each other; fix it by hand.
+.unit-list {
+  margin-top: 10px;
+}
+.unit-list li.list-group-item.row {
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 // next-nowrap is in the docs, but doesn't work.
 .text-nowrap {
   white-space: nowrap;

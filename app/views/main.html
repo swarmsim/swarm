@@ -2,9 +2,9 @@
 
 <div class="tab-content">
   <div class="tab-pane active">
-    <ul class="list-unstyled unit-list text-nowrap">
+    <ul class="unit-list text-nowrap list-group">
       <!-- filthy hack to show achievements on larvae page -->
-      <li class="row" ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
+      <li class="row list-group-item" ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
         <div class="col-sm-6 col-xs-8"><a href="#/achievements" class="btn btn-link">
           {{game.achievementPoints()|bignum:0}} achievement points
         </a></div>
@@ -12,7 +12,7 @@
           +{{(game.upgrade('achievementbonus').stats().prod - 1) * 100|number:0}}% larvae
         </a></div>
       </li>
-      <li ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" class="row">
+      <li ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" class="row list-group-item">
         <div class="col-sm-4 col-xs-6"><a href="#/unit/{{unit.unittype.label}}" class="btn btn-link">
           {{unit.count()|bignum:0}} {{unit.count() == 1 ? unit.unittype.label : unit.unittype.plural}}
         </a></div>
@@ -30,9 +30,9 @@
 
     <!--h1><a href="#/unit/{{cur.tab.leadunit.unittype.label}}">
     </a></h1-->
-    <h1>
+    <h3>
       {{cur.tab.leadunit.unittype.label}}
-    </h1>
+    </h3>
     <unit cur="cur.tab.leadunit"></unit>
   </div>
 </div>
