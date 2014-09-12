@@ -7,8 +7,9 @@
  # # Main2Ctrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, game, $routeParams, $route, version) ->
+angular.module('swarmApp').controller 'Main2Ctrl', ($scope, $log, game, $routeParams, $route, version, options) ->
   $scope.game = game
+  $scope.options = options
   
   $scope.cur =
     tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]

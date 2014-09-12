@@ -29,10 +29,10 @@
         <div class="col-sm-2 hidden-xs"><a ng-if="unit.velocity() != 0" href="#/unit/{{unit.unittype.label}}" class="btn btn-link">
           +{{unit.velocity()|bignum}}/sec
         </a></div>
-        <div class="hidden-xs col-sm-4">
+        <div class="hidden-xs col-sm-4" ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
         </div>
-        <div class="visible-xs col-xs-6 text-right">
+        <div class="visible-xs col-xs-6 text-right" ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
         </div>
       </li>
