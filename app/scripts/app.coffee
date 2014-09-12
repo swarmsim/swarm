@@ -54,8 +54,8 @@ angular.module('swarmApp').config ($routeProvider) ->
       .otherwise
         redirectTo: '/'
 
-angular.module('swarmApp').config (env, $logProvider, $location) ->
-  $logProvider.debugEnabled $location.search().logdebug ? env.isDebugLogged
+angular.module('swarmApp').config (env, $logProvider) ->
+  $logProvider.debugEnabled env.isDebugLogged
 
 angular.module('swarmApp').config (env, version) ->
   if env.gaTrackingID and window.ga?
