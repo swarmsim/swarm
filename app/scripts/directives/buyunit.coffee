@@ -10,7 +10,6 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
   scope:
     num: '=?'
-    xsdropdown: '=?'
     unit: '='
   restrict: 'E'
   link: (scope, element, attrs) ->
@@ -41,7 +40,6 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
   scope:
     num: '=?'
-    xsdropdown: '=?'
     upgrade: '='
   restrict: 'E'
   link: (scope, element, attrs) ->
@@ -67,3 +65,34 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
       commands.buyMaxUpgrade args
     scope.statTwin = -> 1
     scope.isBuyButtonVisible = -> true
+
+angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) ->
+  templateUrl: 'views/buyunit-dropdown.html'
+  scope:
+    num: '=?'
+    unit: '='
+  restrict: 'E'
+  transclude: true
+  link: (scope, element, attrs) ->
+    scope.commands = commands
+    scope.is25Visible = (resource=scope.unit) ->
+      return resource.maxCostMet() > resource.maxCostMet(0.25) > 1
+    scope.fullnum = ->
+      num = scope.num ? 1
+      num = Math.max 1, Math.min scope.unit.maxCostMet(), Math.floor num
+      if _.isNaN num
+        num = 1
+      return num
+
+    scope.unit = game.unit scope.unit
+    $log.debug 'buyunit', scope.unit
+    scope.buyUnit = (args) ->
+      commands.buyUnit args
+    scope.buyMaxUnit = (args) ->
+      commands.buyMaxUnit args
+    scope.buyUpgrade = (args) ->
+      commands.buyUpgrade args
+    scope.buyMaxUpgrade = (args) ->
+      commands.buyMaxUpgrade args
+    scope.statTwin = -> scope.unit.stat 'twin', 1
+    scope.isBuyButtonVisible = -> scope.unit.isBuyButtonVisible()

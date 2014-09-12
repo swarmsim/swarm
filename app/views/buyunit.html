@@ -1,5 +1,5 @@
 <div ng-if="isBuyButtonVisible()">
-  <div class="btn-group btn-group-justified" ng-class="{'hidden-xs':!!xsdropdown}">
+  <div class="btn-group btn-group-justified">
     <a ng-if="!resource.isCostMet()" role="button" class="btn btn-default disabled">
       Can't buy
     </a>
@@ -12,46 +12,5 @@
     <a ng-if="resource.maxCostMet() > 1" role="button" class="btn btn-default" ng-click="buyMaxResource({resource:resource, percent:1})">
       Buy {{resource.maxCostMet() * statTwin()|bignum}}
     </a>
-  </div>
-
-  <div class="visible-xs btn-group" ng-if="xsdropdown">
-    <a ng-if="!resource.isCostMet()" role="button" class="btn btn-default disabled">
-      Can't buy
-    </a>
-    <a ng-if="resource.maxCostMet() == 1" role="button" class="btn btn-default" ng-click="buyResource({resource:resource, num:fullnum()})">
-      Buy {{fullnum() * statTwin()|bignum}}
-    </a>
-    <a ng-if="resource.maxCostMet() > 1" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Buy up to {{resource.maxCostMet() * statTwin()|bignum}} <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu">
-      <li><a ng-if="resource.isCostMet()" role="button" class="btn btn-default" ng-click="buyResource({resource:resource, num:fullnum()})">
-        Buy {{fullnum() * statTwin()|bignum}}
-      </a></li>
-      <li><a ng-if="is25Visible()" role="button" class="btn btn-default" ng-click="buyMaxResource({resource:resource, percent:0.25})">
-        Buy {{resource.maxCostMet(0.25) * statTwin()|bignum}}
-      </a></li>
-      <li><a ng-if="resource.maxCostMet() > 1" role="button" class="btn btn-default" ng-click="buyMaxResource({resource:resource, percent:1})">
-        Buy {{resource.maxCostMet() * statTwin()|bignum}}
-      </a></li>
-    </ul>
-  </div>
-</div>
-
-<div class="row nogutter" ng-if="resource.isBuyButtonVisible() && false">
-  <div class="nogutter" ng-class="{'col-sm-4':resource.maxCostMet() > 1}">
-    <button ng-click="commands.buyUnit({resource:resource, num:fullnum()})" class="form-control resource-buy" ng-disabled="!resource.isCostMet()">
-      Buy {{fullnum() * statTwin()|bignum}}
-    </button>
-  </div>
-  <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="resource.maxCostMet(0.25) > 1">
-    <button ng-click="commands.buyMaxUnit({resource:resource, percent:0.25})" class="form-control resource-buy">
-      Buy {{resource.maxCostMet(0.25) * statTwin()|bignum}}
-    </button>
-  </div>
-  <div class="nogutter" title="Maximum you can pay for" ng-class="{'col-sm-4':resource.maxCostMet(0.25) > 1, 'col-sm-8':!(resource.maxCostMet(0.25) > 1)}" ng-show="resource.maxCostMet() > 1">
-    <button ng-click="commands.buyMaxUnit({resource:resource, percent: 1})" class="form-control resource-buy">
-      Buy {{resource.maxCostMet() * statTwin()|bignum}}
-    </button>
   </div>
 </div>
