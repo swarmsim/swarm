@@ -35,6 +35,6 @@ angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, $routeParams, $
       goto $scope.cur?.next
   binds.add
     combo: 'esc'
-    description: "Return to '#{$scope.cur.tab.name}' tab"
+    description: "Return to parent tab"
     callback: ->
-      $location.url "/tab/#{$scope.cur.tab.name}"
+      $location.url "/tab/#{$scope.cur?.tab?.name}"
