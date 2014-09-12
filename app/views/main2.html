@@ -15,10 +15,10 @@
     <ul class="list-unstyled unit-list text-nowrap">
       <!-- filthy hack to show achievements on larvae page -->
       <li class="row" ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
-        <div class="col-sm-4 col-xs-8"><a href="#/achievements" class="btn btn-link">
+        <div class="col-sm-6 col-xs-8"><a href="#/achievements" class="btn btn-link">
           {{game.achievementPoints()|bignum:0}} achievement points
         </a></div>
-        <div class="col-sm-2 col-xs-4"><a href="#/achievements" class="btn btn-link">
+        <div class="col-sm-6 col-xs-4"><a href="#/achievements" class="btn btn-link">
           +{{(game.upgrade('achievementbonus').stats().prod - 1) * 100|number:0}}% larvae
         </a></div>
       </li>
