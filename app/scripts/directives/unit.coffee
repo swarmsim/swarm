@@ -6,7 +6,7 @@
  # @description
  # # unit
 ###
-angular.module('swarmApp').directive 'unit', (game, commands, $location) ->
+angular.module('swarmApp').directive 'unit', (game, commands, options, $location) ->
   templateUrl: 'views/directive-unit.html'
   restrict: 'E'
   scope:
@@ -14,6 +14,7 @@ angular.module('swarmApp').directive 'unit', (game, commands, $location) ->
   link: (scope, element, attrs) ->
     scope.game = game
     scope.commands = commands
+    scope.options = options
 
     scope.form =
       mainBuynum: 1
@@ -27,3 +28,10 @@ angular.module('swarmApp').directive 'unit', (game, commands, $location) ->
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()
 
+    scope.unitCostAsPercent = (unit, cost) ->
+      MAX = 9999.99
+      count = cost.unit.count()
+      if count <= 0
+        return MAX
+      num = Math.max 1, unit.maxCostMet()
+      Math.min MAX, cost.val * num / count
