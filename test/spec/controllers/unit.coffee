@@ -15,5 +15,5 @@ describe 'Controller: UnitCtrl', ->
       $scope: scope
     }
 
-  it 'should attach a list of awesomeThings to the scope', ->
-    expect(scope.awesomeThings.length).toBe 3
+  it 'should attach a game to the scope', ->
+    expect(!!scope.game).toBe true

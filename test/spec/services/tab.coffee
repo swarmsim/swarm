@@ -6,9 +6,9 @@ describe 'Service: tab', ->
   beforeEach module 'swarmApp'
 
   # instantiate service
-  tab = {}
-  beforeEach inject (_tab_) ->
-    tab = _tab_
+  Tab = {}
+  beforeEach inject (_Tab_) ->
+    Tab = _Tab_
 
   it 'should do something', ->
-    expect(!!tab).toBe true
+    expect(!!Tab).toBe true
