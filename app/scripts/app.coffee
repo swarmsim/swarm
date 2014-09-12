@@ -19,6 +19,8 @@ angular.module 'swarmApp', [
     'swarmEnv', 'swarmSpreadsheetPreload'
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
+    # https://github.com/chieffancypants/angular-hotkeys/
+    'cfp.hotkeys'
   ]
 angular.module('swarmApp').config ($routeProvider) ->
     $routeProvider

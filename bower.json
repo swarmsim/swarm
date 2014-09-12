@@ -21,7 +21,8 @@
     "mathjs": "~0.26.0",
     "lz-string": "*",
     "numeral": "~1.5.3",
-    "konami-js": "*"
+    "konami-js": "*",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.23",
