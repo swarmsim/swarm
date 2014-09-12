@@ -17,7 +17,7 @@
     <li ng-if="unit.maxCostMet() > 1" role="presentation"><a role="menuitem" ng-click="buyMaxUnit({unit:unit, percent:1})" href="javascript:">
       Buy {{unit.maxCostMet() * statTwin()|bignum}}
     </a></li>
-    <li ng-repeat-start="upgrade in unit.upgrades.list" role="presentation" class="divider"></li>
+    <li ng-repeat-start="upgrade in unit.upgrades.list | filter:filterVisible" role="presentation" class="divider"></li>
     <li role="presentation" class="dropdown-header titlecase">{{upgrade.type.label}}</li>
     <li ng-if="!upgrade.isCostMet()" role="presentation" class="disabled"><a role="menuitem">
       Can't buy

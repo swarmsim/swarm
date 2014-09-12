@@ -83,6 +83,8 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
       if _.isNaN num
         num = 1
       return num
+    scope.filterVisible = (upgrade) ->
+      upgrade.isVisible()
 
     scope.unit = game.unit scope.unit
     $log.debug 'buyunit', scope.unit
