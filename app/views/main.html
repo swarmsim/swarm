@@ -20,7 +20,7 @@
           </span>
         </div>
       </li>
-      <li ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" class="row list-group-item">
+      <li ng-repeat="unit in cur.tab.sortedAllUnits | filter:filterVisible track by unit.name" class="row list-group-item">
         <div class="col-sm-3 col-xs-4">
           <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="btn btn-link titlecase">
             {{unit.unittype.label}}
