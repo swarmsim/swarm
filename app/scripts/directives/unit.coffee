@@ -32,7 +32,6 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $lo
       upgrade.isVisible()
 
     scope.viewNewUpgrades = ->
-      $log.debug 'viewing new upgrades', scope.cur.name
       scope.cur.viewNewUpgrades()
       return undefined # important - the result is displayed
 
