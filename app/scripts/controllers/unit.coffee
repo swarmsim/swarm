@@ -19,7 +19,6 @@ angular.module('swarmApp').controller 'UnitCtrl', ($scope, $log, $routeParams, $
   goto = (unit) ->
     if unit and unit.isVisible()
       $location.url "/unit/#{unit.unittype.label}"
-  $scope.swipe = goto
 
   # https://github.com/chieffancypants/angular-hotkeys/
   binds = hotkeys.bindTo $scope
