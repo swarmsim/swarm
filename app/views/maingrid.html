@@ -1,7 +1,9 @@
+<div class="container">
 <tabs></tabs>
+</div>
 
-<div ng-repeat="tab in game.tabs.list | filter:filterVisible" style="text-align:center;">
-  <span ng-repeat="unit in tab.allunits | filter:filterVisible track by unit.name" class="well" style="margin-bottom:0;display:inline-block;width:175px;">
+<div ng-repeat="tab in game.tabs.list | filter:filterVisible" class="text-left">
+  <span ng-repeat="unit in tab.allunits | filter:filterVisible track by unit.name" class="well text-center" style="margin-bottom:0;display:inline-block;width:165px;">
     <h4>
       <a href="#/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a>
       <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>

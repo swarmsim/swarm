@@ -22,7 +22,8 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
+    <div class="container-fluid">
+      <div class="container">
       <div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,13 +45,14 @@
           </div-->
         </div>
       </div>
+      </div>
 
       <!--div class="header"></div-->
 
-      <tutorial></tutorial>
+      <div class="container"><tutorial></tutorial></div>
       <div class="viewwrap"><div ng-view=""><center><img src="images/ajax-loader.gif"></center></div></div>
 
-      <div class="footer">
+      <div class="footer container">
         <div class="alert alert-dismissible animif alert-warning" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <p>Hate the new interface? Say why you hate it
