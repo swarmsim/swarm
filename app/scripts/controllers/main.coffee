@@ -13,8 +13,12 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
   
   $scope.cur =
     tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
+  $scope.cur.unit = $scope.game.unitByLabel($routeParams.unit) ? $scope.cur.tab.leadunit
   if $routeParams.tab != $scope.cur.tab.name and $routeParams.tab?
     $location.url '/'
+  if $routeParams.unit? and ($scope.cur.unit.unittype.label != $routeParams.unit or $scope.cur.unit.tab?.name != $scope.cur.tab?.name or not $scope.cur.unit.isVisible())
+    $location.url "/tab/#{$scope.cur.tab.name}"
+  $log.debug 'tab', $scope.cur
 
   $scope.filterVisible = (unit) -> unit.isVisible()
 

@@ -22,7 +22,7 @@
       </li>
       <li ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" class="row list-group-item">
         <div class="col-sm-3 col-xs-4">
-          <a href="#/unit/{{unit.unittype.label}}" class="btn btn-link titlecase">
+          <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="btn btn-link titlecase">
             {{unit.unittype.label}}
           </a>
           <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
@@ -45,9 +45,9 @@
     <!--h1><a href="#/unit/{{cur.tab.leadunit.unittype.label}}">
     </a></h1-->
     <h3>
-      {{cur.tab.leadunit.unittype.label}}
+      {{cur.unit.unittype.label}}
     </h3>
-    <unit cur="cur.tab.leadunit"></unit>
+    <unit cur="cur.unit"></unit>
   </div>
 </div>
 </div>
