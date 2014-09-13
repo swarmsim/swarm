@@ -1,4 +1,4 @@
-<div class="dropdown btn-group">
+<div class="dropdown btn-group" ng-if="isBuyButtonVisible()">
   <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     <span ng-if="unit.maxCostMet()">Buy up to {{unit.maxCostMet() * statTwin()|bignum}}</span>
     <span ng-if="!unit.maxCostMet()" class="disabled">Can't buy</span>
