@@ -6,7 +6,7 @@
  # @description
  # # unit
 ###
-angular.module('swarmApp').directive 'unit', (game, commands, options, $location) ->
+angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $location) ->
   templateUrl: 'views/directive-unit.html'
   restrict: 'E'
   scope:
@@ -15,6 +15,9 @@ angular.module('swarmApp').directive 'unit', (game, commands, options, $location
     scope.game = game
     scope.commands = commands
     scope.options = options
+
+    # not good enough - this runs only once, we want to be viewNewUpgrades()'ing constantly while the unit is in view
+    #scope.cur.viewNewUpgrades()
 
     scope.form =
       mainBuynum: 1
@@ -27,6 +30,11 @@ angular.module('swarmApp').directive 'unit', (game, commands, options, $location
       Math.min(num, scope.cur.maxCostMet()) * $scope.cur.stat 'twin', 1
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()
+
+    scope.viewNewUpgrades = ->
+      $log.debug 'viewing new upgrades', scope.cur.name
+      scope.cur.viewNewUpgrades()
+      return undefined # important - the result is displayed
 
     scope.unitCostAsPercent = (unit, cost) ->
       MAX = 9999.99

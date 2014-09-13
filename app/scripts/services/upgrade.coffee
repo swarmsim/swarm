@@ -5,6 +5,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
     @_totalCost = _.memoize @_totalCost
+    @_lastUpgradeSeen = 0
   _init: ->
     @costByName = {}
     @cost = _.map @type.cost, (cost) =>
@@ -97,6 +98,12 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       max = Math.min max, m
     return Math.floor max
 
+  viewNewUpgrades: ->
+    @_lastUpgradeSeen = @maxCostMet()
+  isNewlyUpgradable: ->
+    #@_lastUpgradeSeen < @maxCostMet()
+    @_lastUpgradeSeen == 0 and @maxCostMet() > 0
+
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->
     return @isCostMet() and @isVisible()
@@ -117,6 +124,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       for i in [0...num]
         for effect in @effect
           effect.onBuy()
+      @viewNewUpgrades()
       return num
 
   buyMax: (percent) ->

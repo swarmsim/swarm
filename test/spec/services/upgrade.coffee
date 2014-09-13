@@ -115,3 +115,35 @@ describe 'Service: upgrade', ->
     expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',100]]
     expect(_.map upgrade.sumCost(2), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',235]]
 
+  it 'notices newly available upgrades', ->
+    game = mkgame {territory:99}
+    upgrade = game.upgrade 'expansion'
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    upgrade.viewNewUpgrades()
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    # we now have money for an upgrade
+    game.unit('territory')._addCount 1
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe true
+    # upon seeing the upgrade with viewNewUpgrades(), remove the indicator
+    upgrade.viewNewUpgrades()
+    expect(upgrade._lastUpgradeSeen).toEqual 1
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    # stays removed when upgrade bought
+    upgrade.buy()
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    # we now have money for another upgrade, which disappears when viewNewUpgradesed
+    game.unit('territory')._addCount 200
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe true
+    upgrade.viewNewUpgrades()
+    expect(upgrade._lastUpgradeSeen).toEqual 1
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    # money for a third upgrade does not make the indicator reappear, since we didn't buy upgrade #2
+    game.unit('territory')._addCount 200
+    upgrade.viewNewUpgrades()
+    expect(upgrade._lastUpgradeSeen).toEqual 2
+    expect(upgrade.isNewlyUpgradable()).toBe false

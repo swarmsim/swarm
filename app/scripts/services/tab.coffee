@@ -3,12 +3,14 @@
 angular.module('swarmApp').factory 'Tab', -> class Tab
   constructor: (@leadunit, @index, @name = @leadunit.name) ->
     @units = []
+    @allunits = [@leadunit]
     @sortedUnits = []
     @indexByUnitName = {}
 
   push: (unit) ->
     @indexByUnitName[unit.name] = @units.length
     @units.push unit
+    @allunits.push unit
     # usually this is reverse order, highest tier first
     @sortedUnits.unshift unit
 
@@ -22,6 +24,10 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
 
   isVisible: ->
     @leadunit.isVisible()
+
+  isNewlyUpgradable: ->
+    _.some @allunits, (unit) ->
+      unit.isVisible() and unit.isNewlyUpgradable()
 
   @buildTabs: (unitlist) ->
     ret =

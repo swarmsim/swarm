@@ -1,5 +1,7 @@
 <p title="{{cur.unittype.lol}}">{{cur.unittype.description}}</p>
 <p>
+  <!-- hack to viewNewUpgrades() on every frame, while this unit is in view -->
+  {{viewNewUpgrades()}}
   <ng-pluralize count="cur.count()"
     when="{'0':'You own no {{cur.unittype.plural}}.',
            'one':'You own 1 {{cur.unittype.label}}.',
