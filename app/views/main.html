@@ -5,23 +5,33 @@
     <ul class="unit-list text-nowrap list-group">
       <!-- filthy hack to show achievements on larvae page -->
       <li class="row list-group-item" ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
-        <div class="col-sm-6 col-xs-8"><a href="#/achievements" class="btn btn-link">
-          {{game.achievementPoints()|bignum:0}} achievement points
+        <div class="col-sm-3 col-xs-2"><a href="#/achievements" class="btn btn-link titlecase">
+          achievement points
         </a></div>
-        <div class="col-sm-6 col-xs-4"><a href="#/achievements" class="btn btn-link">
+        <div class="col-sm-3 col-xs-4">
+          <span class="btn"> <!-- btn for padding/alignment, but not visible styling -->
+          {{game.achievementPoints()|bignum:0}}
+          </span>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+          <span class="btn"> <!-- btn for padding/alignment, but not visible styling -->
           +{{(game.upgrade('achievementbonus').stats().prod - 1) * 100|number:0}}% larvae
-        </a></div>
+          </span>
+        </div>
       </li>
       <li ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" class="row list-group-item">
-        <div class="col-sm-4 col-xs-6">
-          <a href="#/unit/{{unit.unittype.label}}" class="btn btn-link">
-            {{unit.count()|bignum:0}} {{unit.count() == 1 ? unit.unittype.label : unit.unittype.plural}}
+        <div class="col-sm-3 col-xs-4">
+          <a href="#/unit/{{unit.unittype.label}}" class="btn btn-link titlecase">
+            {{unit.unittype.label}}
           </a>
           <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
         </div>
-        <div class="col-sm-2 hidden-xs"><a ng-if="unit.velocity() != 0" href="#/unit/{{unit.unittype.label}}" class="btn btn-link">
-          +{{unit.velocity()|bignum}}/sec
-        </a></div>
+        <div class="col-sm-3 col-xs-2">
+          <span class="btn"> <!-- btn for padding/alignment, but not visible styling -->
+            {{unit.count()|bignum:0}}
+            <span ng-if="unit.velocity() != 0" class="hidden-xs">+{{unit.velocity()|bignum}}/sec</span>
+          </span>
+        </div>
         <div class="hidden-xs col-sm-4" ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
         </div>
