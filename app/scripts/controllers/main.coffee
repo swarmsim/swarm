@@ -13,7 +13,7 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
   
   $scope.cur =
     tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
-  if $routeParams.tab != $scope.cur.tab.name
+  if $routeParams.tab != $scope.cur.tab.name and $routeParams.tab?
     $location.url '/'
 
   $scope.filterVisible = (unit) -> unit.isVisible()

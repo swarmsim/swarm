@@ -1,0 +1,18 @@
+<tabs></tabs>
+
+<div ng-repeat="tab in game.tabs.list | filter:filterVisible" style="text-align:center;">
+  <span ng-repeat="unit in tab.allunits | filter:filterVisible track by unit.name" class="well" style="margin-bottom:0;display:inline-block;width:175px;">
+    <h4>
+      <a href="#/unit/{{unit.unittype.label}}">{{unit.unittype.label}}</a>
+      <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
+    </h4>
+    <p>
+      {{unit.count()|bignum:0}}
+    </p>
+    <p>
+      <span ng-if="unit.velocity() > 0">+{{unit.velocity()|bignum}}/sec</span>
+    </p>
+    <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
+  </span>
+  <hr>
+</div>
