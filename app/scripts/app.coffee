@@ -20,7 +20,8 @@ angular.module 'swarmApp', [
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
     # https://github.com/chieffancypants/angular-hotkeys/
-    'cfp.hotkeys'
+    # TODO: hotkeys disabled for now.
+    #'cfp.hotkeys'
   ]
 angular.module('swarmApp').config ($routeProvider) ->
     $routeProvider
