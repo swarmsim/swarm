@@ -1,8 +1,8 @@
 <tabs cur="cur.tab"></tabs>
 
 <div class="tab-content">
-  <div class="tab-pane active">
-    <ul class="unit-list text-nowrap list-group">
+  <div class="tab-pane active row">
+    <ul class="unit-list text-nowrap list-group col-md-4">
       <!-- filthy hack to show achievements on larvae page -->
       <li class="row list-group-item" ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
         <div class="col-sm-3 col-xs-2"><a href="#/achievements" class="btn btn-link titlecase">
@@ -13,7 +13,7 @@
           {{game.achievementPoints()|bignum:0}}
           </span>
         </div>
-        <div class="col-sm-6 col-xs-6">
+        <div ng-if="!cur.unit" class="col-sm-6 col-xs-6">
           <span class="btn"> <!-- btn for padding/alignment, but not visible styling -->
           +{{(game.upgrade('achievementbonus').stats().prod - 1) * 100|number:0}}% larvae
           </span>
@@ -29,23 +29,25 @@
         <div class="col-sm-3 col-xs-2">
           <span class="btn"> <!-- btn for padding/alignment, but not visible styling -->
             {{unit.count()|bignum:0}}
-            <span ng-if="unit.velocity() != 0" class="hidden-xs">+{{unit.velocity()|bignum}}/sec</span>
+            <span ng-if="!cur.unit && unit.velocity() != 0" class="hidden-xs">+{{unit.velocity()|bignum}}/sec</span>
           </span>
         </div>
-        <div class="hidden-xs col-sm-4" ng-if="options.showAdvancedUnitData()">
+        <div ng-if="!cur.unit" class="hidden-xs col-sm-4" ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
         </div>
-        <div class="visible-xs col-xs-6 text-right" ng-if="options.showAdvancedUnitData()">
+        <div ng-if="!cur.unit" class="visible-xs col-xs-6 text-right" ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
         </div>
       </li>
     </ul>
 
-    <!--h1><a href="#/unit/{{cur.tab.leadunit.unittype.label}}">
-    </a></h1-->
-    <h3>
-      {{cur.unit.unittype.label}}
-    </h3>
-    <unit cur="cur.unit"></unit>
+    <div class="col-md-8">
+      <!--h1><a href="#/unit/{{cur.tab.leadunit.unittype.label}}">
+      </a></h1-->
+      <h3>
+        {{cur.unit.unittype.label}}
+      </h3>
+      <unit cur="cur.unit"></unit>
+    </div>
   </div>
 </div>
