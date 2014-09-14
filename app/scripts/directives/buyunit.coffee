@@ -88,8 +88,6 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
 
     scope.click = ->
       scope.unit.viewNewUpgrades()
-    scope.upgradelist = ->
-      scope.unit.showparent?.upgrades?.list ? scope.unit.upgrades.list
 
     scope.unit = game.unit scope.unit
     $log.debug 'buyunit', scope.unit
