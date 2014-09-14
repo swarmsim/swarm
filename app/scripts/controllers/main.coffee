@@ -13,17 +13,19 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
   
   $scope.cur =
     tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
-  $scope.cur.unit = $scope.game.unitByLabel($routeParams.unit) ? $scope.cur.tab.leadunit
+  $scope.cur.unit = $scope.game.unitByLabel $routeParams.unit
   if $routeParams.tab != $scope.cur.tab.name and $routeParams.tab?
     $location.url '/'
   # if they asked for a unit but that unit has issues, redirect to no-unit
   if $routeParams.unit? and (
+      not $scope.cur.unit? or
       # they gave a bogus unit as a url parameter
       $scope.cur.unit.unittype.label != $routeParams.unit or
       # they gave a unit that's not in this tab. comparing to unit.tab breaks /tab/all
       not $scope.cur.tab.indexByUnitName[$scope.cur.unit.name]? or
       # the unit they asked for isn't visible yet
       not $scope.cur.unit.isVisible())
+    $log.debug 'invalid unit', $routeParams.unit, $scope.cur.unit, (not $scope.cur.unit?), $scope.cur.unit.unittype.label != $routeParams.unit, not $scope.cur.tab.indexByUnitName[$scope.cur.unit.name]?, not $scope.cur.unit.isVisible()
     $location.url "/tab/#{$scope.cur.tab.name}"
   $log.debug 'tab', $scope.cur
 

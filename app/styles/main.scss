@@ -3,6 +3,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+td.upgrade-indicator {
+  width:2em;
+}
+td.upgrade-indicator + td {
+  padding-left:0;
+  margin-left:0;
+}
+td.upgrade-indicator, td.upgrade-indicator .glyphicon {
+  padding-right:0;
+  margin-right:0;
+}
+.unit-table td {
+  white-space:nowrap;
+}
+.unit-table tr:first-child td {
+  border:0;
+}
 // a list-group + grid-row. padding/margins on these fight each other; fix it by hand.
 .unit-list {
   margin-top: 10px;
