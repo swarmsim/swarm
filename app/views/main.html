@@ -3,16 +3,24 @@
 <div class="tab-content">
   <div class="tab-pane active row">
     <div ng-if="cur.unit">
-      <div class="col-md-8 pull-right">
-        <!--h1><a href="#/unit/{{cur.tab.leadunit.unittype.label}}">
-        </a></h1-->
+      <div class="col-lg-9 col-md-8 col-sm-7 pull-right">
+        <ul class="nav nav-pills nav-justified text-nowrap visible-xs">
+          <li><a ng-href="#/unit/{{cur.unit.prev.unittype.label}}" ng-if="cur.unit.prev && cur.unit.prev.isVisible()">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            {{cur.unit.prev.count() | bignum:0}} {{cur.unit.prev.unittype.plural}}
+          </a></li>
+          <li><a ng-href="#/unit/{{cur.unit.next.unittype.label}}" ng-if="cur.unit.next && cur.unit.next.isVisible()">
+            {{cur.unit.next.count() | bignum:0}} {{cur.unit.next.unittype.plural}}
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a></li>
+        </ul>
         <h3>
           {{cur.unit.unittype.label}}
         </h3>
         <unit cur="cur.unit"></unit>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-lg-3 col-md-4 col-sm-5">
         <table class="table unit-table table-hover" style="width:auto">
           <!-- filthy hack to show achievements on larvae page -->
           <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
@@ -42,7 +50,7 @@
       </div>
     </div>
 
-    <div class="col-md-12 table-responsive" ng-if="!cur.unit">
+    <div class="col-sm-12 table-responsive" ng-if="!cur.unit">
       <table class="table unit-table table-hover" style="width:auto">
         <!-- filthy hack to show achievements on larvae page -->
         <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
