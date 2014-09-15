@@ -26,3 +26,16 @@ describe 'Service: session', ->
     delete orig.date.loaded
     delete loaded.date.loaded
     expect(orig).toEqual loaded
+
+  it 'saves/loads versionless', ->
+    encoded = session._saves()
+    [version, encoded] = session._splitVersionHeader encoded
+    expect(encoded.indexOf '|').toBeLessThan 0
+    data = session._loads encoded
+    expect(!!data).toBe true
+
+  it 'saves/loads versionful', ->
+    encoded = session._saves()
+    expect(encoded.indexOf '|').not.toBeLessThan 0
+    data = session._loads encoded
+    expect(!!data).toBe true

@@ -7,13 +7,16 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', ($rootScope, $log, util) ->
+angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
   #KEY = "jSmP4RnN994f58yR3UZRKhmK"
   # LZW is obfuscated enough. No more encryption.
   PREFIX = btoa "Cheater :(\n\n"
+  # The encoded string starts with an encoded version number. Older savestates
+  # might not, so if this is missing, no biggie.
+  VERSION_DELIM = '|'
 
   return new class Session
     constructor: ->
@@ -60,10 +63,20 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util) ->
       #ret = LZString.compressToUTF16 ret
       #ret = sjcl.encrypt KEY, ret
       ret = PREFIX + ret
+      # version is saved separately from json in case save format changes
+      ret = "#{btoa version}#{VERSION_DELIM}#{ret}"
       #ret = btoa ret
       return ret
+    _hasVersionHeader: (encoded) ->
+      encoded.indexOf(VERSION_DELIM) >= 0
+    _splitVersionHeader: (encoded) ->
+      if @_hasVersionHeader encoded
+        [version, encoded] = encoded.split VERSION_DELIM
+      # version may be undefined
+      return [version, encoded]
     _loads: (encoded) ->
       #encoded = atob encoded
+      [version, encoded] = @_splitVersionHeader encoded
       encoded = encoded.substring PREFIX.length
       #encoded = sjcl.decrypt KEY, encoded
       #encoded = LZString.decompressFromUTF16 encoded
