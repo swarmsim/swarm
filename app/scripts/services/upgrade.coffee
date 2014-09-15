@@ -69,13 +69,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
         cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
       return cost
   isCostMet: ->
-    max = Number.MAX_VALUE
-    for cost in @totalCost()
-      if cost.val > 0
-        max = Math.min max, cost.unit.count() / cost.val
-    max = Math.floor max
-    util.assert max >= 0, "invalid max", max
-    return max > 0
+    return @maxCostMet() > 0
 
   maxCostMet: (percent=1) ->
     # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
@@ -96,13 +90,15 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       else
         m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
       max = Math.min max, m
+      #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
     return Math.floor max
 
   viewNewUpgrades: ->
-    @_lastUpgradeSeen = @maxCostMet()
+    if @isVisible()
+      @_lastUpgradeSeen = @maxCostMet()
   isNewlyUpgradable: ->
     #@_lastUpgradeSeen < @maxCostMet()
-    @_lastUpgradeSeen == 0 and @maxCostMet() > 0
+    @isBuyable() and @_lastUpgradeSeen == 0 and @maxCostMet() > 0
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->

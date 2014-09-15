@@ -147,3 +147,29 @@ describe 'Service: upgrade', ->
     upgrade.viewNewUpgrades()
     expect(upgrade._lastUpgradeSeen).toEqual 2
     expect(upgrade.isNewlyUpgradable()).toBe false
+
+  it 'doesnt notice invisible upgrades, even if we can afford them. https://github.com/erosson/swarm/issues/94', ->
+    game = mkgame {nest:25000}
+    upgrade = game.upgrade 'nesttwin'
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    expect(upgrade.isVisible()).toBe false
+    expect(upgrade.isCostMet()).toBe true
+    # even though we can afford it, cannot view invisible upgrades
+    upgrade.viewNewUpgrades()
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    expect(upgrade.isVisible()).toEqual false
+    expect(upgrade.isCostMet()).toEqual true
+    # we now have visibility, and the indicator!
+    game.unit('greaterqueen')._addCount 1
+    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade.isNewlyUpgradable()).toBe true
+    expect(upgrade.isVisible()).toEqual true
+    expect(upgrade.isCostMet()).toEqual true
+    # goes away normally when viewed
+    upgrade.viewNewUpgrades()
+    expect(upgrade._lastUpgradeSeen).toBeGreaterThan 0
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    expect(upgrade.isVisible()).toEqual true
+    expect(upgrade.isCostMet()).toEqual true
