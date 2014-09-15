@@ -11,18 +11,18 @@
         <td>+{{(game.upgrade('achievementbonus').stats().prod - 1) * 100|number:0}}% larvae</td>
       </tr>
       <tr ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name">
-        <td class="upgrade-indicator">
+        <td class="upgrade-indicator" ng-click="click(unit)">
           <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
         </td>
-        <td>
+        <td ng-click="click(unit)">
           <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="titlecase">
             {{unit.unittype.label}}
           </a>
         </td>
-        <td>
+        <td ng-click="click(unit)">
           {{unit.count()|bignum:0}}
         </td>
-        <td>
+        <td ng-click="click(unit)">
           <span ng-if="unit.velocity() != 0">
           +{{unit.velocity()|bignum}}/sec
           </span>

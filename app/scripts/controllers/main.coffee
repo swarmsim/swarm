@@ -29,6 +29,9 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
     $location.url "/tab/#{$scope.cur.tab.name}"
   $log.debug 'tab', $scope.cur
 
+  $scope.click = (unit) ->
+    $location.url "/tab/#{$scope.cur.tab.name}/unit/#{unit.unittype.label}"
+
   $scope.filterVisible = (unit) -> unit.isVisible()
 
   $scope.feedbackUrl = ->
