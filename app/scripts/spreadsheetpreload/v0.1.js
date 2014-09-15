@@ -4,7 +4,16 @@
 // key: v0.1
 'use strict';
 
-angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload-v0.1', {
+try {
+  angular.module('swarmSpreadsheetPreload');
+  //console.log('secondv0.1');
+}
+catch (e) {
+  // module not yet initialized by some other module, we're the first
+  angular.module('swarmSpreadsheetPreload', []);
+  //console.log('firstv0.1');
+}
+angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
   "achievements": {
     "column_names": [
       "name",
