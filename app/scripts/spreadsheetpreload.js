@@ -3634,8 +3634,8 @@ angular.module('swarmSpreadsheetPreload', []).value('spreadsheetPreload', {
         "lol": "",
         "maxlevel": "",
         "name": "pantheon2twin",
-        "requires.unittype": "",
-        "requires.val": "",
+        "requires.unittype": "pantheon2",
+        "requires.val": 100,
         "rowNumber": 28,
         "unittype": "pantheon2"
       },
