@@ -209,6 +209,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      spreadsheetpreload: 'app/scripts/spreadsheetpreload',
       server: '.tmp'
     },
 
@@ -586,7 +587,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'preloadSpreadsheet',
+    // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
+    'clean:spreadsheetpreload',
+    'preloadSpreadsheet:v0.1', // this must match ngconstant.prod.spreadsheetKey
     'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
@@ -600,7 +603,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'preloadSpreadsheet'
   ]);
 
   grunt.registerTask('default', [
