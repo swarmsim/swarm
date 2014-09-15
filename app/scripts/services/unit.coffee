@@ -18,20 +18,19 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
       ret = _.clone cost
       ret.unit = @game.unit cost.unittype
       return ret
-    @prodByName = {}
     @prod = _.map @unittype.prod, (prod) =>
       ret = _.clone prod
       ret.unit = @game.unit prod.unittype
-      @prodByName[ret.unit.name] = ret
       return ret
+    @prodByName = _.indexBy @prod, (prod) -> prod.unit.name
     @warnfirst = _.map @unittype.warnfirst, (warnfirst) =>
       ret = _.clone warnfirst
       ret.unit = @game.unit warnfirst.unittype
       return ret
-    @upgrades =
-      list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype)
-      byName: {}
     @showparent = @game.unit @unittype.showparent
+    @upgrades =
+      list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype or @showparent?.unittype == upgrade.type.unittype)
+    @upgrades.byName = _.indexBy @upgrades.list, 'name'
     @requires = _.map @unittype.requires, (require) =>
       util.assert require.unittype or require.upgradetype, 'unit require without a unittype or upgradetype', @name, name, require
       util.assert not (require.unittype and require.upgradetype), 'unit require with both unittype and upgradetype', @name, name, require
@@ -46,9 +45,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
     if @tab
       @next = @tab.next this
       @prev = @tab.prev this
-
-    for upgrade in @upgrades.list
-      @upgrades.byName[upgrade.name] = upgrade
 
   _producerPathData: ->
     _.map @_producerPathList, (path) =>
