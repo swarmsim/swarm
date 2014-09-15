@@ -20,29 +20,26 @@
     </div>
 
     <div class="col-lg-3 col-md-4 col-sm-5">
-      <table class="table unit-table table-hover" style="width:auto">
+      <table class="table unit-table table-hover table-condensed">
         <!-- filthy hack to show achievements on larvae page -->
         <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
-          <td></td>
-          <td class="titlecase"><a href="#/achievements">achievement points</a></td>
-          <td>{{game.achievementPoints()|bignum:0}}</td>
+          <td class="upgrade-indicator"></td>
+          <td class="titlecase">
+            <a href="#/achievements" class="btn btn-link unit-sidebar">
+              <div class="pull-left">achievement points</div>
+              <div class="unit-count">{{game.achievementPoints()|bignum:0}}</div>
+            </a>
+          </td>
         </tr>
         <tr ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" ng-class="{active:unit.name===cur.unit.name}">
           <td class="upgrade-indicator">
             <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
           </td>
-          <td>
-            <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="titlecase">
-              {{unit.unittype.label}}
+          <td class="titlecase">
+            <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="btn btn-link unit-sidebar">
+              <div class="pull-left">{{unit.unittype.label}}</div>
+              <div class="unit-count">{{unit.count()|bignum:0}}</div>
             </a>
-          </td>
-          <td>
-            {{unit.count()|bignum:0}}
-          </td>
-          <td ng-if="!cur.unit">
-            <span ng-if="unit.velocity() != 0">
-            +{{unit.velocity()|bignum}}/sec
-            </span>
           </td>
         </tr>
       </table>
