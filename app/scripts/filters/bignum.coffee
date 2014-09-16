@@ -8,7 +8,7 @@
  # # bignum
  # Filter in the swarmApp.
 ###
-angular.module('swarmApp').factory 'bignumFormatter', ->
+angular.module('swarmApp').factory 'bignumFormatter', (options) ->
   (suffixes) ->
     (num, floorlimit=0) ->
       if !num
@@ -26,7 +26,7 @@ angular.module('swarmApp').factory 'bignumFormatter', ->
       # return numeral(num).format '0.[00]a'
       # http://mathforum.org/library/drmath/view/59154.html
       index = Math.floor Math.log(num) / Math.log 1000
-      if index >= suffixes.length
+      if options.notation() == 'scientific-e' or index >= suffixes.length
         # too big for any suffix :(
         # TODO: exponent groups of 3? 1e30, 10e30, 100e30, 1e33, ...
         #return num.toExponential(2).replace(/\.?0+e/, 'e').replace 'e+', 'e'
@@ -43,7 +43,7 @@ angular.module('swarmApp').factory 'bignumFormatter', ->
 angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google
   # for anything but cookie clicker. Other games have used them though.
-  # We should probably ask before stealing Derivative Clicker's abbrevs.
+  # TODO We should probably ask before stealing Derivative Clicker's abbrevs.
   bignumFormatter ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']
 
 angular.module('swarmApp').filter 'longnum', (bignumFormatter) ->

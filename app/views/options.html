@@ -16,6 +16,12 @@
     </label>
     <p>Show more detailed numbers for each of your units.</p>
   </div>
+  <div class="form-group">
+    <div><label class="control-label">Number format</label></div>
+    <label><input type="radio" ng-model="form.notation" value="standard-decimal" ng-change="options.notation(form.notation)">Standard decimal</input></label>
+    <label><input type="radio" ng-model="form.notation" value="scientific-e" ng-change="options.notation(form.notation)" ng-init="form.notation=options.notation()">Scientific-E</input></label>
+    <p>Examples: {{123456789|longnum}}, {{123456789|bignum}}</p>
+  </div>
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export">Import/export saved data</label>
     <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
