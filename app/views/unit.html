@@ -2,7 +2,10 @@
 
 <div class="tab-content">
   <div class="tab-pane active row">
-    <div class="col-lg-9 col-md-8 col-sm-7 pull-right">
+    <!-- we want the sidebar on the left on large screens, but "sidebar" on the bottom on phones.
+         table plus pull-right makes most of the page unclickable for some reason, so 
+         individual pull/push offsets for each screen size are needed. -->
+    <div class="col-lg-9 col-md-8 col-sm-7 col-lg-push-3 col-md-push-4 col-sm-push-5">
       <ul class="nav nav-pills nav-justified text-nowrap visible-xs">
         <li><a ng-href="#/unit/{{cur.unit.prev.unittype.label}}" ng-if="cur.unit.prev && cur.unit.prev.isVisible()">
           <span class="glyphicon glyphicon-chevron-left"></span>
@@ -19,7 +22,7 @@
       <unit cur="cur.unit"></unit>
     </div>
 
-    <div class="col-lg-3 col-md-4 col-sm-5">
+    <div class="col-lg-3 col-md-4 col-sm-5 col-lg-pull-9 col-md-pull-8 col-sm-pull-7">
       <table class="table unit-table table-hover table-condensed">
         <!-- filthy hack to show achievements on larvae page -->
         <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count() > 0">
