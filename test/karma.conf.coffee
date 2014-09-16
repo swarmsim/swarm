@@ -32,6 +32,7 @@ module.exports = (config) ->
       'bower_components/numeral/numeral.js'
       'bower_components/konami-js/konami.js'
       'bower_components/angular-hotkeys/build/hotkeys.min.js'
+      'bower_components/jquery/dist/jquery.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'

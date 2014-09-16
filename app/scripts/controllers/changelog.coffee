@@ -27,5 +27,5 @@ angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env) ->
     diffDays: diffDays
   $scope.stats.headers = (parseheader(header) for header in $scope.stats._rawheaders)
   [$scope.stats.lastrelease, ..., $scope.stats.firstrelease] = $scope.stats.headers
-  $scope.stats.days = $scope.stats.firstrelease.diffDays
+  $scope.stats.days = $scope.stats.firstrelease?.diffDays
   $log.debug 'changelogdate', $scope.stats
