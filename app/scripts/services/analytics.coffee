@@ -31,7 +31,8 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
   dims = analyticsDimensions
   metrics = analyticsMetrics
   # no analytics during testing. also, window.ga might be blank if someone blocks google analytics.
-  if not env.gaTrackingId or not window.ga?
+  if not env.gaTrackingID or not window.ga?
+    $log.debug 'skipping analytics event logging', window.ga, env.gaTrackingID
     return
   #console.log 'ga.set', dims.version, version
   window.ga 'set', dims.version, version
