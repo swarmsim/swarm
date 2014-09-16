@@ -56,7 +56,9 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
 
   # TODO should probably centralize url building in its own factory, instead of a method
   # @lastselected set by /controllers/main.coffee
-  url: (unit=@lastselected) ->
+  url: (unit) ->
+    # function default value doesn't work because it replaces null. url(null) should be no-unit, while url() should be last-unit
+    unit ?= @lastselected
     unitsuffix = if unit then "/unit/#{unit.unittype.label}" else ""
     return "/tab/#{@name}#{unitsuffix}"
 
