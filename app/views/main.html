@@ -15,7 +15,7 @@
           <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
         </td>
         <td ng-click="click(unit)">
-          <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="titlecase">
+          <a ng-href="#{{cur.tab.url(unit)}}" class="titlecase">
             {{unit.unittype.label}}
           </a>
         </td>

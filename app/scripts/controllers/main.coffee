@@ -13,7 +13,7 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
   
   $scope.cur =
     tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
-  $scope.cur.unit = $scope.game.unitByLabel $routeParams.unit
+  $scope.cur.unit = $scope.cur.tab.lastselected = $scope.game.unitByLabel $routeParams.unit
   if $routeParams.tab != $scope.cur.tab.name and $routeParams.tab?
     $location.url '/'
   # if they asked for a unit but that unit has issues, redirect to no-unit
@@ -25,12 +25,12 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
       not $scope.cur.tab.indexByUnitName[$scope.cur.unit.name]? or
       # the unit they asked for isn't visible yet
       not $scope.cur.unit.isVisible())
-    $log.debug 'invalid unit', $routeParams.unit, $scope.cur.unit, (not $scope.cur.unit?), $scope.cur.unit.unittype.label != $routeParams.unit, not $scope.cur.tab.indexByUnitName[$scope.cur.unit.name]?, not $scope.cur.unit.isVisible()
-    $location.url "/tab/#{$scope.cur.tab.name}"
+    $log.debug 'invalid unit', $routeParams.unit, $scope.cur.unit, (not $scope.cur.unit?), $scope.cur.unit?.unittype?.label != $routeParams.unit, not $scope.cur.tab.indexByUnitName[$scope.cur.unit?.name]?, not $scope.cur.unit?.isVisible?()
+    $location.url $scope.cur.tab.url null
   $log.debug 'tab', $scope.cur
 
   $scope.click = (unit) ->
-    $location.url "/tab/#{$scope.cur.tab.name}/unit/#{unit.unittype.label}"
+    $location.url $scope.cur.tab.url unit
 
   $scope.filterVisible = (unit) -> unit.isVisible()
 

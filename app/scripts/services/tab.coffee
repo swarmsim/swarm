@@ -54,3 +54,9 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
     all.sortedUnits.reverse()
     return ret
 
+  # TODO should probably centralize url building in its own factory, instead of a method
+  # @lastselected set by /controllers/main.coffee
+  url: (unit=@lastselected) ->
+    unitsuffix = if unit then "/unit/#{unit.unittype.label}" else ""
+    return "/tab/#{@name}#{unitsuffix}"
+
