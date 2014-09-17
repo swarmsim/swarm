@@ -42,7 +42,10 @@
           <td class="titlecase">
             <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="btn btn-link unit-sidebar">
               <div class="pull-left">{{unit.unittype.label}}</div>
-              <div class="unit-count">{{unit.count()|bignum:0}}</div>
+              <div class="unit-count">
+                {{unit.count()|bignum:0}}
+                <span ng-if="unit.cap()">({{unit.capPercent()*100|number:0}}%)</span>
+              </div>
             </a>
           </td>
         </tr>

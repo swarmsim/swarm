@@ -2,11 +2,19 @@
 <p>
   <!-- hack to viewNewUpgrades() on every frame, while this unit is in view -->
   {{viewNewUpgrades()}}
-  <ng-pluralize count="cur.count()"
+  <ng-pluralize ng-if="!cur.cap()" count="cur.count()"
     when="{'0':'You own no {{cur.unittype.plural}}.',
            'one':'You own 1 {{cur.unittype.label}}.',
            'other':'You own {{cur.count()|longnum}} {{cur.unittype.plural}}.'}">
   </ng-pluralize>
+  <div ng-if="cur.cap()">
+    <div ng-if="cur.cap()" class="progress" style="margin-bottom:0">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.cap()}}" style="width:{{cur.capPercent()*100|number:0}}%">
+        {{cur.capPercent()*100|number:0}}%
+      </div>
+    </div>
+    <p>{{cur.count()|longnum:0}} / {{cur.cap()|longnum:0}} {{cur.unittype.label}}</p>
+  </div>
   <div ng-if="cur.prod.length">
     <p>
       Each produces

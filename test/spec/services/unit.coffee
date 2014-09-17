@@ -218,3 +218,11 @@ describe 'Service: unit', ->
     expect(upgrade.isVisible()).toBe false #because...
     expect(upgrade.count()).toBe upgrade.type.maxlevel
 
+  it 'caps energy', ->
+    game = mkgame {energy:1000000000000000000000000000000000000000}
+    unit = game.unit 'energy'
+    expect(unit.cap()).toBe 50000
+    expect(unit.count()).toBe 50000
+    unit._setCount 50
+    expect(unit.cap()).toBe 50000
+    expect(unit.count()).toBe 50

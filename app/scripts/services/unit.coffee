@@ -92,14 +92,25 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   _parents: ->
     (pathdata[0].parent for pathdata in @_producerPathData() when pathdata[0].parent.prodByName[@name])
 
+  cap: (val) ->
+    cap = @unittype.cap
+    if not val?
+      return cap
+    if cap?
+      val = Math.min cap, val
+    return val
+  capPercent: ->
+    if (cap = @cap())?
+      return @count() / cap
+
   count: -> @_count @game.now.getTime()
   _count: ->
     util.clearMemoCache @_count # store only the most recent count
     secs = @game.diffSeconds()
-    gains = @rawCount()
+    count = @rawCount()
     for pathdata in @_producerPathData()
-      gains += @_gainsPath pathdata, secs
-    return gains
+      count += @_gainsPath pathdata, secs
+    return @cap count
 
   _costMetPercent: ->
     max = Number.MAX_VALUE
