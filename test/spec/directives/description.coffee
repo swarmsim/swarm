@@ -33,5 +33,4 @@ describe 'Directive: description', ->
     # watch it update
     scope.game.unit('cocoon')._setCount 666001
     scope.$digest()
-    # TODO apply cap to description
-    expect(element.text()).toBe 'Clone 667 thousand new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 667 thousand larvae and cocoons available to clone.'
+    expect(element.text()).toBe 'Clone 100 thousand new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 667 thousand larvae and cocoons available to clone.'

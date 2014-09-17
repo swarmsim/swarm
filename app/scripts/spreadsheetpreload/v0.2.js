@@ -3216,7 +3216,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.factor": 1,
         "cost.unittype": "energy",
         "cost.val": 7200,
-        "description": "<p>Clone {{ game.unit('larva').count() + game.unit('cocoon').count() | longnum }} new larvae.</p><p>You produce {{ game.unit('larva').velocity() | longnum }} larvae per second, allowing you to clone up to {{ game.unit('larva').velocity() * upgrade.type.effect[0].val2 | longnum }} larvae. You have {{ game.unit('larva').count() + game.unit('cocoon').count() | longnum}} larvae and cocoons available to clone.</p>",
+        "description": "<p>Clone {{ upgrade.effect[0].output() | longnum }} new larvae.</p><p>You produce {{ game.unit('larva').velocity() | longnum }} larvae per second, allowing you to clone up to {{ upgrade.effect[0].cap() | longnum }} larvae. You have {{ upgrade.effect[0].bank() | longnum}} larvae and cocoons available to clone.</p>",
         "effect.stat": "",
         "effect.type": "compoundUnit",
         "effect.unittype": "larva",
@@ -3230,7 +3230,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "energy",
         "requires.val": 1,
         "rowNumber": 3,
-        "unittype": "invisiblehatchery"
+        "unittype": "energy"
       },
       {
         "cost.factor": 5000,

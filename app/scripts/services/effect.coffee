@@ -14,6 +14,10 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   calcStats: (stats, schema, level) ->
     @type.calcStats? this, stats, schema, level
 
+  bank: -> @type.bank? this, @game
+  cap: -> @type.cap? this, @game
+  output: -> @type.output? this, @game
+
 
 angular.module('swarmApp').factory 'EffectType', -> class EffectType
   constructor: (data) ->
@@ -51,11 +55,26 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       effect.unit._addCount effect.val
   effecttypes.register
     name: 'compoundUnit'
-    onBuy: (effect, game) ->
+    bank: (effect, game) ->
       base = effect.unit.count()
       if effect.unit2?
         base += effect.unit2.count()
-      effect.unit._addCount base * (effect.val - 1)
+      return base
+    cap: (effect, game) ->
+      if effect.val2 == '' or not effect.val2?
+        return undefined
+      velocity = effect.unit.velocity()
+      if effect.unit2?
+        velocity += effect.unit2.velocity()
+      return effect.val2 * velocity
+    output: (effect, game) ->
+      base = @bank effect, game
+      ret = base * (effect.val - 1)
+      if (cap = @cap effect, game)?
+        ret = Math.min ret, cap
+      return ret
+    onBuy: (effect, game) ->
+      effect.unit._addCount @output effect, game
   effecttypes.register
     name: 'multStat'
     calcStats: (effect, stats, schema, level) ->

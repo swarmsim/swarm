@@ -81,13 +81,17 @@ describe 'Service: upgrade', ->
     expect(upgrade.maxCostMet()).toBe 0
     expect(upgrade.count()).toBe 5
 
-  it 'injects larvae', ->
-    game = mkgame {energy:9999999999999999999, larva:1000}
+  it 'clones larvae', ->
+    game = mkgame {energy:9999999999999999999, larva:1000, invisiblehatchery:1}
     upgrade = game.upgrade 'clonelarvae'
     unit = game.unit 'larva'
+    expect(upgrade.effect[0].bank()).toBe 1000
+    expect(upgrade.effect[0].output()).toBe 1000
     upgrade.buy 3
     expect(upgrade.count()).toBe 3
     expect(unit.count()).toBe 8000
+    expect(upgrade.effect[0].bank()).toBe 8000
+    expect(upgrade.effect[0].output()).toBe 8000
 
   it 'buy more than max', ->
     game = mkgame {territory:100}
@@ -99,15 +103,36 @@ describe 'Service: upgrade', ->
     expect(upgrade.count()).toBe 1
 
   it 'clones cocoons', ->
-    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 100, larva: 10}
+    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 100, larva: 10, invisiblehatchery:1}
     cocoon = game.unit 'cocoon'
     larva = game.unit 'larva'
-    inject = game.upgrade 'clonelarvae'
+    upgrade = game.upgrade 'clonelarvae'
     expect(cocoon.count()).toBe 100
     expect(larva.count()).toBe 10
-    inject.buy()
+    expect(upgrade.effect[0].bank()).toBe 110
+    expect(upgrade.effect[0].cap()).toBe 100000
+    expect(upgrade.effect[0].output()).toBe 110
+    upgrade.buy()
     expect(cocoon.count()).toBe 100 # no change
     expect(larva.count()).toBe 120 # 0 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
+
+  it 'caps clones', ->
+    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 60000, larva: 70000, invisiblehatchery:1}
+    cocoon = game.unit 'cocoon'
+    larva = game.unit 'larva'
+    upgrade = game.upgrade 'clonelarvae'
+    expect(cocoon.count()).toBe 60000
+    expect(larva.count()).toBe 70000
+    expect(upgrade.effect[0].bank()).toBe 130000
+    expect(upgrade.effect[0].cap()).toBe 100000
+    expect(upgrade.effect[0].output()).toBe 100000
+    upgrade.buy()
+    expect(cocoon.count()).toBe 60000 # no change
+    expect(larva.count()).toBe 170000 # 70k base larvae + 100k cloned capped bank
+    # cap is unchanged after clone
+    expect(upgrade.effect[0].bank()).toBe 230000
+    expect(upgrade.effect[0].cap()).toBe 100000
+    expect(upgrade.effect[0].output()).toBe 100000
 
   it 'sums costs', ->
     game = mkgame {territory:99}
