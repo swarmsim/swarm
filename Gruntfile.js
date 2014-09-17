@@ -62,7 +62,7 @@ module.exports = function (grunt) {
             isDebugEnabled: true,
             isDebugLogged: false,
             httpsAllowInsecure: true,
-            spreadsheetKey: 'v0.1', // 0.2 breaks some inject tests
+            spreadsheetKey: 'v0.2',
             gaTrackingID: null
           }
         }

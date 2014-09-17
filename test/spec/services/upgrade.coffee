@@ -82,12 +82,12 @@ describe 'Service: upgrade', ->
     expect(upgrade.count()).toBe 5
 
   it 'injects larvae', ->
-    game = mkgame {meat:9999999999999999999, larvae:0}
-    upgrade = game.upgrade 'injectlarvae'
+    game = mkgame {energy:9999999999999999999, larva:1000}
+    upgrade = game.upgrade 'clonelarvae'
     unit = game.unit 'larva'
     upgrade.buy 3
     expect(upgrade.count()).toBe 3
-    expect(unit.count()).toBe 7000
+    expect(unit.count()).toBe 8000
 
   it 'buy more than max', ->
     game = mkgame {territory:100}
@@ -99,15 +99,15 @@ describe 'Service: upgrade', ->
     expect(upgrade.count()).toBe 1
 
   it 'clones cocoons', ->
-    game = mkgame {meat:1000000000000000000000000000000000000000, cocoon: 100, larva: 10}
+    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 100, larva: 10}
     cocoon = game.unit 'cocoon'
     larva = game.unit 'larva'
-    inject = game.upgrade 'injectlarvae'
+    inject = game.upgrade 'clonelarvae'
     expect(cocoon.count()).toBe 100
     expect(larva.count()).toBe 10
     inject.buy()
     expect(cocoon.count()).toBe 100 # no change
-    expect(larva.count()).toBe 1120 # 1000 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
+    expect(larva.count()).toBe 120 # 0 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
 
   it 'sums costs', ->
     game = mkgame {territory:99}

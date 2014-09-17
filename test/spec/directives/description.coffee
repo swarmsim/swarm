@@ -10,9 +10,18 @@ describe 'Directive: description', ->
     scope = $rootScope.$new()
     scope.game = game
 
+  it 'should render upgrade description with template text from spreadsheet (simple)', inject ($compile) ->
+    scope.upgrade = upgrade = scope.game.upgrade 'hatchery'
+    element = angular.element '<upgradedesc upgrade="upgrade"></upgradedesc>'
+    element = $compile(element) scope
+    undigested = element.text()
+    scope.$digest()
+    expect(element.text()).toBe 'Produce 1 more larva per second.'
+    expect(element.text()).not.toBe undigested # prove the '1' really compiled, not hardcoded in spreadsheet
+
   it 'should render upgrade description with template text from spreadsheet', inject ($compile) ->
-    scope.upgrade = upgrade = scope.game.upgrade 'injectlarvae'
-    scope.game.unit('invisiblehatchery')._setCount 0 # no velocity plz
+    scope.upgrade = upgrade = scope.game.upgrade 'clonelarvae'
+    scope.game.now = scope.game.session.date.reified
     element = angular.element '<upgradedesc upgrade="upgrade"></upgradedesc>'
     element = $compile(element) scope
     #console.log element.text() # the template; {{template text}} from spreadsheet description
@@ -20,8 +29,9 @@ describe 'Directive: description', ->
     scope.game.unit('larva')._setCount 665
     scope.game.unit('cocoon')._setCount 1
     scope.$digest() # fills in {{expressions}} in element
-    expect(element.text()).toBe 'Use meat to instantly create 1,000 larvae and clone your existing 666 larvae and cocoons.'
+    expect(element.text()).toBe 'Clone 666 new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 666 larvae and cocoons available to clone.'
     # watch it update
     scope.game.unit('cocoon')._setCount 666001
     scope.$digest()
-    expect(element.text()).toBe 'Use meat to instantly create 1,000 larvae and clone your existing 667 thousand larvae and cocoons.'
+    # TODO apply cap to description
+    expect(element.text()).toBe 'Clone 667 thousand new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 667 thousand larvae and cocoons available to clone.'
