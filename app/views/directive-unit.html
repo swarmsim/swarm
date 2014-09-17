@@ -44,6 +44,9 @@
     per second.
     <span ng-if="cur.showparent.hasStat('base', 0)">(+{{cur.showparent.stat('base')|bignum}} bonus)</span>
     <span ng-if="cur.showparent.hasStat('prod', 1)">(x{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
+    <span ng-if="cur.cap()">
+      You'll reach 100% and stop earning {{cur.unittype.label}} {{cur.capDurationMoment().humanize(true)}}.
+    </span>
   </div>
   <div ng-if="!cur.showparent && cur.velocity() > 0">
     You earn

@@ -102,6 +102,15 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   capPercent: ->
     if (cap = @cap())?
       return @count() / cap
+  capDurationSeconds: ->
+    if (cap = @cap())?
+      count = @count()
+      diff = cap - count
+      velocity = @velocity()
+      return if velocity == 0 then Infinity else diff / velocity
+  capDurationMoment: ->
+    if (secs = @capDurationSeconds())?
+      return moment.duration secs, 'seconds'
 
   count: -> @_count @game.now.getTime()
   _count: ->
