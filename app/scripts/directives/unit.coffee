@@ -6,7 +6,7 @@
  # @description
  # # unit
 ###
-angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $location) ->
+angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $location, $sce) ->
   templateUrl: 'views/directive-unit.html'
   restrict: 'E'
   scope:
@@ -42,3 +42,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $lo
         return MAX
       num = Math.max 1, unit.maxCostMet()
       Math.min MAX, cost.val * num / count
+
+    scope.description = (resource, desc=resource.descriptionFn) ->
+      # this makes descriptions a potential xss vector. careful to only use numbers.
+      desc scope

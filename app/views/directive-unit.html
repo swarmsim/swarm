@@ -1,4 +1,4 @@
-<p title="{{cur.unittype.lol}}">{{cur.unittype.description}}</p>
+<unitdesc title="{{cur.unittype.lol}}" unit="cur"></unitdesc>
 <p>
   <!-- hack to viewNewUpgrades() on every frame, while this unit is in view -->
   {{viewNewUpgrades()}}
@@ -93,7 +93,7 @@
     <ul class="list-unstyled">
       <li ng-repeat="upgrade in visibleUpgrades">
         <h5>{{upgrade.type.label}} ({{upgrade.count()}})</h5>
-        <p title="{{upgrade.type.lol}}">{{upgrade.type.description}}</p>
+        <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>
         <p>
           Next upgrade costs
           <cost costlist="upgrade.totalCost()"></cost>

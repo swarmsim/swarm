@@ -1,9 +1,10 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Unit', (util, $log) -> class Unit
+angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
+    @descriptionFn = $compile "<p>#{@unittype.description}</p>"
     @_stats = _.memoize @_stats
     @_count = _.memoize @_count
     @_velocity = _.memoize @_velocity

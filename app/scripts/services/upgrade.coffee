@@ -1,8 +1,9 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgrade
+angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log, $compile) -> class Upgrade
   constructor: (@game, @type) ->
     @name = @type.name
+    @descriptionFn = $compile "<p>#{@type.description}</p>"
     @unit = util.assert @game.unit @type.unittype
     @_totalCost = _.memoize @_totalCost
     @_lastUpgradeSeen = 0
