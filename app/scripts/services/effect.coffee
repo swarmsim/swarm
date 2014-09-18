@@ -52,7 +52,15 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
   effecttypes.register
     name: 'addUnit'
     onBuy: (effect, game) ->
-      effect.unit._addCount effect.val
+      effect.unit._addCount @output effect, game
+    output: (effect, game) ->
+      effect.val
+  effecttypes.register
+    name: 'addUnitByVelocity'
+    onBuy: (effect, game) ->
+      effect.unit._addCount @output effect, game
+    output: (effect, game) ->
+      effect.unit.velocity() * effect.val
   effecttypes.register
     name: 'compoundUnit'
     bank: (effect, game) ->

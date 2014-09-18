@@ -198,3 +198,39 @@ describe 'Service: upgrade', ->
     expect(upgrade.isNewlyUpgradable()).toBe false
     expect(upgrade.isVisible()).toEqual true
     expect(upgrade.isCostMet()).toEqual true
+
+  it 'rushes meat', ->
+    game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, stinger:1}
+    upgrade = game.upgrade 'meatrush'
+    unit = game.unit 'meat'
+    expect(upgrade.effect[0].output()).toBe 1 * 7200
+    expect(upgrade.effect[1].output()).toBe 100000000000
+    upgrade.buy 1
+    expect(upgrade.count()).toBe 1
+    expect(unit.count()).toBe 100000007200
+    expect(upgrade.effect[0].output()).toBe 1 * 7200
+    expect(upgrade.effect[1].output()).toBe 100000000000
+
+  it 'rushes territory', ->
+    game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, swarmling:1}
+    upgrade = game.upgrade 'territoryrush'
+    unit = game.unit 'territory'
+    expect(upgrade.effect[0].output()).toBe 0.07 * 7200
+    expect(upgrade.effect[1].output()).toBe 1000000000
+    upgrade.buy 1
+    expect(upgrade.count()).toBe 1
+    expect(unit.count()).toBe 1000000000 + 0.07 * 7200
+    expect(upgrade.effect[0].output()).toBe 0.07 * 7200
+    expect(upgrade.effect[1].output()).toBe 1000000000
+
+  it 'rushes larvae', ->
+    game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, swarmling:1}
+    upgrade = game.upgrade 'larvarush'
+    unit = game.unit 'larva'
+    expect(upgrade.effect[0].output()).toBe 3600
+    expect(upgrade.effect[1].output()).toBe 100000
+    upgrade.buy 1
+    expect(upgrade.count()).toBe 1
+    expect(unit.count()).toBe 103600
+    expect(upgrade.effect[0].output()).toBe 3600
+    expect(upgrade.effect[1].output()).toBe 100000
