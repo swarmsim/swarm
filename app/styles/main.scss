@@ -20,14 +20,17 @@ td.upgrade-indicator, td.upgrade-indicator .glyphicon {
 .unit-table tr:first-child td {
   border:0;
 }
-a.unit-sidebar {
+.unit-table tr {
+  cursor:pointer;
+}
+.unit-sidebar {
   width:100%;
+  display:inline-block;
   position:relative;
 }
 .unit-sidebar .unit-count {
   position:absolute;
-  // top/right positioning based on btn-link padding
-  top:6px;right:12px;
+  top:0px;right:6px;
 }
 // a list-group + grid-row. padding/margins on these fight each other; fix it by hand.
 .unit-list {
