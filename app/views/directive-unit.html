@@ -2,18 +2,18 @@
 <p>
   <!-- hack to viewNewUpgrades() on every frame, while this unit is in view -->
   {{viewNewUpgrades()}}
-  <ng-pluralize ng-if="!cur.cap()" count="cur.count()"
+  <ng-pluralize ng-if="!cur.capValue()" count="cur.count()"
     when="{'0':'You own no {{cur.unittype.plural}}.',
            'one':'You own 1 {{cur.unittype.label}}.',
            'other':'You own {{cur.count()|longnum}} {{cur.unittype.plural}}.'}">
   </ng-pluralize>
-  <div ng-if="cur.cap()">
-    <div ng-if="cur.cap()" class="progress" style="margin-bottom:0">
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.cap()}}" style="width:{{cur.capPercent()*100|number:0}}%">
+  <div ng-if="cur.capValue()">
+    <div class="progress" style="margin-bottom:0">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent()*100|number:0}}%">
         {{cur.capPercent()*100|number:0}}%
       </div>
     </div>
-    <p>{{cur.count()|longnum:0}} / {{cur.cap()|longnum:0}} {{cur.unittype.label}}</p>
+    <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
   </div>
   <div ng-if="cur.prod.length">
     <p>
@@ -24,7 +24,7 @@
       </span>
       per second.
       <span ng-if="cur.hasStat('base', 0)">(+{{cur.stat('base')|bignum}} bonus)</span>
-      <span ng-if="cur.hasStat('prod', 1)">(x{{cur.stat('prod')|bignum:10}} bonus)</span>
+      <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     </p>
     <p ng-if="cur.count() > 0">
       In total, they produce
@@ -44,7 +44,7 @@
     per second.
     <span ng-if="cur.showparent.hasStat('base', 0)">(+{{cur.showparent.stat('base')|bignum}} bonus)</span>
     <span ng-if="cur.showparent.hasStat('prod', 1)">(x{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
-    <span ng-if="cur.cap()">
+    <span ng-if="cur.capValue()">
       You'll reach 100% and stop earning {{cur.unittype.label}} {{cur.capDurationMoment().humanize(true)}}.
     </span>
   </div>
@@ -77,7 +77,7 @@
         You're buying
         <input type="number" ng-model="form.mainBuynum" min="1">
         {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
-        <span ng-if="cur.stat('twin', 1) > 1">(x{{cur.stat('twin',1)|bignum}} twins)</span>
+        <span ng-if="cur.stat('twin', 1) > 1">(&times;{{cur.stat('twin',1)|bignum}} twins)</span>
         for
         <cost costlist="cur.cost" num="mainBuynum()"></cost>
       </p>

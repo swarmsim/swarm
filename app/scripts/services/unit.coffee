@@ -41,6 +41,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
       if require.upgradetype?
         ret.resource = ret.upgrade = util.assert @game.upgrade require.upgradetype
       return ret
+    @cap = _.map @unittype.cap, (capspec) =>
+      ret = _.clone capspec
+      ret.unit = @game.unit ret.unittype
+      return ret
 
     @tab = @game.tabs.byName[@unittype.tab]
     if @tab
@@ -63,7 +67,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   rawCount: ->
     ret = @game.session.unittypes[@name] ? 0
     if _.isNaN ret
-      # oops. TODO alert analytics
+      util.error 'NaN count. oops.', @name, ret
       ret = 0
     return ret
   _setCount: (val) ->
@@ -92,18 +96,26 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   _parents: ->
     (pathdata[0].parent for pathdata in @_producerPathData() when pathdata[0].parent.prodByName[@name])
 
-  cap: (val) ->
-    cap = @unittype.cap
-    if not val?
+  capValue: (val) ->
+    if @cap.length
+      cap = 0
+      for capspec in @cap
+        capval = capspec.val
+        if capspec.unit?
+          capval *= capspec.unit.count()
+        cap += capval
+      util.assert cap >= 0, 'negative cap', @name, cap
+      if val?
+        return Math.min val, cap
       return cap
-    if cap?
-      val = Math.min cap, val
+    # no cap
     return val
+
   capPercent: ->
-    if (cap = @cap())?
+    if (cap = @capValue())?
       return @count() / cap
   capDurationSeconds: ->
-    if (cap = @cap())?
+    if (cap = @capValue())?
       count = @count()
       diff = cap - count
       velocity = @velocity()
@@ -119,7 +131,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     count = @rawCount()
     for pathdata in @_producerPathData()
       count += @_gainsPath pathdata, secs
-    return @cap count
+    return @capValue count
 
   _costMetPercent: ->
     max = Number.MAX_VALUE
@@ -270,7 +282,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
       @_buildProducerPath unittype, nextgen, path
 
   @parseSpreadsheet: (data) ->
-    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst','requires']}, data.data.unittypes.elements
+    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst','requires','cap']}, data.data.unittypes.elements
     ret = new UnitTypes (new UnitType(row) for row in rows)
     for unittype in ret.list
       unittype.producedBy = []
@@ -284,6 +296,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
       spreadsheetUtil.resolveList unittype.prod, 'unittype', ret.byName
       spreadsheetUtil.resolveList unittype.warnfirst, 'unittype', ret.byName
       spreadsheetUtil.resolveList unittype.requires, 'unittype', ret.byName, {required:false}
+      spreadsheetUtil.resolveList unittype.cap, 'unittype', ret.byName, {required:false}
       # oops - we haven't parsed upgradetypes yet! done in upgradetype.coffee.
       #spreadsheetUtil.resolveList unittype.require, 'upgradetype', ret.byName
       for prod in unittype.prod

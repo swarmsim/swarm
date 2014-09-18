@@ -82,7 +82,7 @@ describe 'Service: upgrade', ->
     expect(upgrade.count()).toBe 5
 
   it 'clones larvae', ->
-    game = mkgame {energy:9999999999999999999, larva:1000, invisiblehatchery:1}
+    game = mkgame {energy:9999999999999999999, larva:1000, invisiblehatchery:1, nexus:999}
     upgrade = game.upgrade 'clonelarvae'
     unit = game.unit 'larva'
     expect(upgrade.effect[0].bank()).toBe 1000
@@ -103,7 +103,7 @@ describe 'Service: upgrade', ->
     expect(upgrade.count()).toBe 1
 
   it 'clones cocoons', ->
-    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 100, larva: 10, invisiblehatchery:1}
+    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 100, larva: 10, invisiblehatchery:1, nexus:999}
     cocoon = game.unit 'cocoon'
     larva = game.unit 'larva'
     upgrade = game.upgrade 'clonelarvae'
@@ -117,7 +117,7 @@ describe 'Service: upgrade', ->
     expect(larva.count()).toBe 120 # 0 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
 
   it 'caps clones', ->
-    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 60000, larva: 70000, invisiblehatchery:1}
+    game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 60000, larva: 70000, invisiblehatchery:1, nexus:999}
     cocoon = game.unit 'cocoon'
     larva = game.unit 'larva'
     upgrade = game.upgrade 'clonelarvae'

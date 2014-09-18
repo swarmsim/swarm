@@ -219,14 +219,14 @@ describe 'Service: unit', ->
     expect(upgrade.count()).toBe upgrade.type.maxlevel
 
   it 'caps energy', ->
-    game = mkgame {energy:1000000000000000000000000000000000000000, energyfactory:1}
+    game = mkgame {energy:1000000000000000000000000000000000000000, nexus:5}
     unit = game.unit 'energy'
-    expect(unit.cap()).toBe 50000
+    expect(unit.capValue()).toBe 50000
     expect(unit.count()).toBe 50000
     expect(unit.capPercent()).toBe 1
     expect(unit.capDurationSeconds()).toBe 0
     unit._setCount 50
-    expect(unit.cap()).toBe 50000
+    expect(unit.capValue()).toBe 50000
     expect(unit.count()).toBe 50
     expect(unit.capPercent()).toBe 0.001
     expect(unit.capDurationSeconds()).toBe 99900
@@ -234,7 +234,7 @@ describe 'Service: unit', ->
   it 'doesnt cap meat', ->
     game = mkgame {meat:1000000000000000000000000000000000000000}
     unit = game.unit 'meat'
-    expect(unit.cap()).toBeUndefined()
+    expect(unit.capValue()).toBeUndefined()
     expect(unit.count()).toBe 1000000000000000000000000000000000000000
     expect(unit.capPercent()).toBeUndefined()
     expect(unit.capDurationSeconds()).toBeUndefined()
