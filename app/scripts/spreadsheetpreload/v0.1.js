@@ -3104,6 +3104,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
       "description",
       "lol",
       "maxlevel",
+      "class",
       "unittype",
       "requires.unittype",
       "requires.val",
@@ -3118,6 +3119,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
     ],
     "elements": [
       {
+        "class": "upgrade",
         "cost.factor": 100,
         "cost.unittype": "meat",
         "cost.val": 300,
@@ -3137,6 +3139,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "invisiblehatchery"
       },
       {
+        "class": "upgrade",
         "cost.factor": 1.35,
         "cost.unittype": "territory",
         "cost.val": 100,
@@ -3156,6 +3159,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "invisiblehatchery"
       },
       {
+        "class": "upgrade",
         "cost.factor": 111,
         "cost.unittype": "meat",
         "cost.val": 7000,
@@ -3175,6 +3179,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "invisiblehatchery"
       },
       {
+        "class": "",
         "cost.factor": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -3194,6 +3199,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 5000,
         "cost.unittype": "meat",
         "cost.val": 5000000,
@@ -3213,6 +3219,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "invisiblehatchery"
       },
       {
+        "class": "upgrade",
         "cost.factor": "",
         "cost.unittype": "meat",
         "cost.val": 1000000000,
@@ -3232,6 +3239,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "invisiblehatchery"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "drone",
         "cost.val": 66,
@@ -3251,6 +3259,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "drone"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "queen",
         "cost.val": 66,
@@ -3270,6 +3279,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "queen"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "nest",
         "cost.val": 66,
@@ -3289,6 +3299,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "nest"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "greaterqueen",
         "cost.val": 66,
@@ -3308,6 +3319,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "greaterqueen"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "hive",
         "cost.val": 66,
@@ -3327,6 +3339,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "hive"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "hivequeen",
         "cost.val": 66,
@@ -3346,6 +3359,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "hivequeen"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "empress",
         "cost.val": 66,
@@ -3365,6 +3379,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "empress"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "prophet",
         "cost.val": 66,
@@ -3384,6 +3399,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "prophet"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "goddess",
         "cost.val": 66,
@@ -3403,6 +3419,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "goddess"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "pantheon",
         "cost.val": 66,
@@ -3422,6 +3439,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "pantheon"
       },
       {
+        "class": "upgrade",
         "cost.factor": 666,
         "cost.unittype": "pantheon2",
         "cost.val": 66,
@@ -3441,6 +3459,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "pantheon2"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "drone",
         "cost.val": 50,
@@ -3460,6 +3479,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "drone"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "queen",
         "cost.val": 500,
@@ -3479,6 +3499,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "queen"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "nest",
         "cost.val": 500,
@@ -3498,6 +3519,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "nest"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "greaterqueen",
         "cost.val": 500,
@@ -3517,6 +3539,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "greaterqueen"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "hive",
         "cost.val": 500,
@@ -3536,6 +3559,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "hive"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "hivequeen",
         "cost.val": 500,
@@ -3555,6 +3579,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "hivequeen"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "empress",
         "cost.val": 500,
@@ -3574,6 +3599,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "empress"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "prophet",
         "cost.val": 500,
@@ -3593,6 +3619,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "prophet"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "goddess",
         "cost.val": 500,
@@ -3612,6 +3639,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "goddess"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "pantheon",
         "cost.val": 500,
@@ -3631,6 +3659,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "pantheon"
       },
       {
+        "class": "upgrade",
         "cost.factor": 500,
         "cost.unittype": "pantheon2",
         "cost.val": 500,
@@ -3650,6 +3679,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "pantheon2"
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 100,
@@ -3669,6 +3699,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "swarmling"
       },
       {
+        "class": "",
         "cost.factor": 42,
         "cost.unittype": "swarmling",
         "cost.val": 1,
@@ -3688,6 +3719,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 17000,
@@ -3707,6 +3739,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "stinger"
       },
       {
+        "class": "",
         "cost.factor": 43,
         "cost.unittype": "stinger",
         "cost.val": 1,
@@ -3726,6 +3759,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 1870000,
@@ -3745,6 +3779,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "spider"
       },
       {
+        "class": "",
         "cost.factor": 44,
         "cost.unittype": "spider",
         "cost.val": 1,
@@ -3764,6 +3799,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 205700000,
@@ -3783,6 +3819,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "mosquito"
       },
       {
+        "class": "",
         "cost.factor": 45,
         "cost.unittype": "mosquito",
         "cost.val": 1,
@@ -3802,6 +3839,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 22627000000,
@@ -3821,6 +3859,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "locust"
       },
       {
+        "class": "",
         "cost.factor": 46,
         "cost.unittype": "locust",
         "cost.val": 1,
@@ -3840,6 +3879,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 2488970000000,
@@ -3859,6 +3899,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "roach"
       },
       {
+        "class": "",
         "cost.factor": 47,
         "cost.unittype": "roach",
         "cost.val": 1,
@@ -3878,6 +3919,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 273786700000000,
@@ -3897,6 +3939,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "giantspider"
       },
       {
+        "class": "",
         "cost.factor": 48,
         "cost.unittype": "giantspider",
         "cost.val": 1,
@@ -3916,6 +3959,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 30116500000000000,
@@ -3935,6 +3979,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "centipede"
       },
       {
+        "class": "",
         "cost.factor": 49,
         "cost.unittype": "centipede",
         "cost.val": 1,
@@ -3954,6 +3999,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 3312820000000000000,
@@ -3973,6 +4019,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "wasp"
       },
       {
+        "class": "",
         "cost.factor": 50,
         "cost.unittype": "wasp",
         "cost.val": 1,
@@ -3992,6 +4039,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 364410000000000000000,
@@ -4011,6 +4059,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "devourer"
       },
       {
+        "class": "",
         "cost.factor": 51,
         "cost.unittype": "devourer",
         "cost.val": 1,
@@ -4030,6 +4079,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": ""
       },
       {
+        "class": "upgrade",
         "cost.factor": 7,
         "cost.unittype": "meat",
         "cost.val": 4.00851e+22,
@@ -4049,6 +4099,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.1', {
         "unittype": "goon"
       },
       {
+        "class": "",
         "cost.factor": 52,
         "cost.unittype": "goon",
         "cost.val": 1,

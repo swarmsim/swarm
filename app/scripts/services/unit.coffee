@@ -32,6 +32,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     @upgrades =
       list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype or @showparent?.unittype == upgrade.type.unittype)
     @upgrades.byName = _.indexBy @upgrades.list, 'name'
+    @upgrades.byClass = _.groupBy @upgrades.list, (u) -> u.type.class
+
     @requires = _.map @unittype.requires, (require) =>
       util.assert require.unittype or require.upgradetype, 'unit require without a unittype or upgradetype', @name, name, require
       util.assert not (require.unittype and require.upgradetype), 'unit require with both unittype and upgradetype', @name, name, require

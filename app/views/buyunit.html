@@ -1,16 +1,16 @@
 <div ng-if="isBuyButtonVisible()">
   <div class="btn-group btn-group-justified">
     <a ng-if="!resource.isCostMet()" role="button" class="btn btn-default disabled">
-      Can't buy
+      Can't {{verb}}
     </a>
-    <a ng-if="resource.isCostMet()" role="button" class="btn btn-default" ng-click="buyResource({resource:resource, num:fullnum()})">
-      Buy {{fullnum() * statTwin()|bignum}}
+    <a ng-if="resource.isCostMet()" role="button" class="btn btn-default titlecase" ng-click="buyResource({resource:resource, num:fullnum()})">
+      {{verb}} {{fullnum() * statTwin()|bignum}}
     </a>
-    <a ng-if="is25Visible()" role="button" class="btn btn-default" ng-click="buyMaxResource({resource:resource, percent:0.25})">
-      Buy {{resource.maxCostMet(0.25) * statTwin()|bignum}}
+    <a ng-if="is25Visible()" role="button" class="btn btn-default titlecase" ng-click="buyMaxResource({resource:resource, percent:0.25})">
+      {{verb}} {{resource.maxCostMet(0.25) * statTwin()|bignum}}
     </a>
-    <a ng-if="resource.maxCostMet() > 1" role="button" class="btn btn-default" ng-click="buyMaxResource({resource:resource, percent:1})">
-      Buy {{resource.maxCostMet() * statTwin()|bignum}}
+    <a ng-if="resource.maxCostMet() > 1" role="button" class="btn btn-default titlecase" ng-click="buyMaxResource({resource:resource, percent:1})">
+      {{verb}} {{resource.maxCostMet() * statTwin()|bignum}}
     </a>
   </div>
 </div>

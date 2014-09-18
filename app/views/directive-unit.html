@@ -82,7 +82,7 @@
         {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
         <span ng-if="cur.stat('twin', 1) > 1">(&times;{{cur.stat('twin',1)|bignum}} twins)</span>
         for
-        <cost costlist="cur.cost" num="mainBuynum()"></cost>
+        <cost costlist="cur.cost" num="mainBuynum()"></cost>.
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet() > 0">
@@ -101,21 +101,41 @@
       <buyunit unit="cur" num="form.mainBuynum"></buyunit>
     </div>
   </div>
-  <div ng-if="(visibleUpgrades = (cur.upgrades.list | filter:filterVisible)).length > 0">
+  <div ng-if="(visibleUpgrades = (cur.upgrades.byClass.upgrade | filter:filterVisible)).length > 0">
     <hr>
     <h4>Upgrades</h4>
     <ul class="list-unstyled">
       <li ng-repeat="upgrade in visibleUpgrades">
-        <h5>{{upgrade.type.label}} ({{upgrade.count()}})</h5>
+        <h5>{{upgrade.type.label}}
+          <span ng-if="upgrade.type.maxlevel != 1">({{upgrade.count()}})</span>
+        </h5>
         <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>
         <p>
-          Next upgrade costs
-          <cost costlist="upgrade.totalCost()"></cost>
+          <span ng-if="upgrade.type.maxlevel == 1">This</span>
+          <span ng-if="upgrade.type.maxlevel != 1">Next</span>
+          upgrade costs
+          <cost costlist="upgrade.totalCost()"></cost>.
         </p>
 
         <buyupgrade upgrade="upgrade"></buyupgrade>
       </li>
     </ul>
   </div>
-  <p ng-if="!visibleUpgrades">No upgrades available.</p>
+  <div ng-if="(visibleAbilities = (cur.upgrades.byClass.ability | filter:filterVisible)).length > 0">
+    <hr>
+    <h4>Abilities</h4>
+    <ul class="list-unstyled">
+      <li ng-repeat="abil in visibleAbilities">
+        <h5>{{abil.type.label}}</h5>
+        <upgradedesc title="{{abil.type.lol}}" upgrade="abil"></upgradedesc>
+        <p>
+          This ability costs 
+          <cost costlist="abil.totalCost()"></cost>
+          per use.
+        </p>
+
+        <buyupgrade upgrade="abil"></buyupgrade>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -16,7 +16,7 @@ angular.module('swarmApp').directive 'cost', ->
     <span ng-if="!$first && $last"> and </span>
     <span ng-class="{costNotMet:totalcost > cost.unit.count()}">
       {{totalcost | bignum}} {{spacer}}
-      {{totalcost == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && costlist.length > 2">, </span>
+      {{totalcost == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last"></span><span ng-if="!$last && costlist.length > 2">, </span>
   </span>
   """
   link: (scope, element, attrs) ->

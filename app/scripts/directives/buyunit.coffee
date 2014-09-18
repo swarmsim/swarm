@@ -35,6 +35,7 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
       commands.buyMaxUnit args
     scope.statTwin = -> scope.resource.stat 'twin', 1
     scope.isBuyButtonVisible = -> scope.resource.isBuyButtonVisible()
+    scope.verb = 'buy'
 
 angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
@@ -65,6 +66,7 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
       commands.buyMaxUpgrade args
     scope.statTwin = -> 1
     scope.isBuyButtonVisible = -> true
+    scope.verb = if scope.upgrade.type.class == 'ability' then 'cast' else 'buy'
 
 angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) ->
   templateUrl: 'views/buyunit-dropdown.html'
