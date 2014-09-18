@@ -39,3 +39,43 @@ describe 'Service: session', ->
     expect(encoded.indexOf '|').not.toBeLessThan 0
     data = session._loads encoded
     expect(!!data).toBe true
+
+  it 'validates the save version programmatically', ->
+    expect(-> session._validateSaveVersion '0.1.0', '0.1.0').not.toThrow()
+    expect(-> session._validateSaveVersion '0.1.0', '0.1.30').not.toThrow()
+    # we're allowing older version imports
+    expect(-> session._validateSaveVersion '0.1.30', '0.1.0').not.toThrow()
+    # but beta minor versions are a reset
+    expect(-> session._validateSaveVersion '0.1.30', '0.2.0').toThrow()
+    expect(-> session._validateSaveVersion '0.2.30', '0.3.0').toThrow()
+    # no importing 0.2.0 games into 0.1.0 either
+    expect(-> session._validateSaveVersion '0.2.0', '0.1.30').toThrow()
+    expect(-> session._validateSaveVersion '0.3.0', '0.2.30').toThrow()
+
+    expect(-> session._validateSaveVersion '0.2.30', '0.2.0').not.toThrow()
+    expect(-> session._validateSaveVersion '0.2.0', '0.2.0').not.toThrow()
+    expect(-> session._validateSaveVersion '1.0.0', '1.0.0').not.toThrow()
+    # 0.x to 1.0 is a reset too, no imports
+    expect(-> session._validateSaveVersion '0.9.0', '1.0.0').toThrow()
+    expect(-> session._validateSaveVersion '1.9.0', '1.0.0').not.toThrow()
+    expect(-> session._validateSaveVersion '1.0.0', '1.9.0').not.toThrow()
+    # major versions after 1.0 aren't resets
+    expect(-> session._validateSaveVersion '2.0.0', '1.0.0').not.toThrow()
+    expect(-> session._validateSaveVersion '1.0.0', '2.0.0').not.toThrow()
+    # default version - very old saves.
+    expect(-> session._validateSaveVersion undefined, '0.1.0').not.toThrow()
+    expect(-> session._validateSaveVersion undefined, '0.2.0').toThrow()
+    # current-version based. breaks when we upgrade to 0.2.0!
+    expect(-> session._validateSaveVersion '0.1.0').not.toThrow()
+    expect(-> session._validateSaveVersion undefined).not.toThrow()
+
+  it 'validates the save version on import', inject (version) ->
+    session.version.started = '0.0.1'
+    encoded = session._saves()
+    expect(-> session._loads encoded).toThrow()
+    session.version.started = '1.0.0'
+    encoded = session._saves()
+    expect(-> session._loads encoded).toThrow()
+    session.version.started = version
+    encoded = session._saves()
+    expect(-> session._loads encoded).not.toThrow()

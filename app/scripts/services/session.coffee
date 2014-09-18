@@ -36,6 +36,8 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
       @upgrades = {}
       @statistics = {}
       @achievements = {}
+      @version =
+        started: version
       $rootScope.$emit 'reset', {session:this}
 
     _replacer: (key, val) ->
@@ -71,12 +73,27 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
       encoded.indexOf(VERSION_DELIM) >= 0
     _splitVersionHeader: (encoded) ->
       if @_hasVersionHeader encoded
-        [version, encoded] = encoded.split VERSION_DELIM
+        [saveversion, encoded] = encoded.split VERSION_DELIM
       # version may be undefined
-      return [version, encoded]
+      return [saveversion, encoded]
+    _validateSaveVersion: (saveversion='0.1.0', gameversion=version) ->
+      [sM, sm, sp] = saveversion.split('.').map (n) -> parseInt n
+      [gM, gm, gp] = gameversion.split('.').map (n) -> parseInt n
+      # during beta, 0.n.0 resets all games from 0.n-1.x. Don't import older games.
+      if sM == gM == 0 and sm != gm
+        throw new Error 'Beta save from different minor version'
+      # 1.0's a reset too. 2.0 is not.
+      if (sM == 0) != (gM == 0)
+        throw new Error 'Beta save in non-beta version'
+      ## save state must not be newer than the game running it
+      ## actually, let's allow this. support for fast rollbacks is more important.
+      #if sM > gM or (sM == gM and (sm > gm or (sm == gm and sp > gp)))
+      #  throw new Error "save version newer than game version: #{saveversion} > #{gameversion}"
+
     _loads: (encoded) ->
       #encoded = atob encoded
-      [version, encoded] = @_splitVersionHeader encoded
+      [saveversion, encoded] = @_splitVersionHeader encoded
+      # don't compare this saveversion for validity! it's only for figuring out changing save formats.
       encoded = encoded.substring PREFIX.length
       #encoded = sjcl.decrypt KEY, encoded
       #encoded = LZString.decompressFromUTF16 encoded
@@ -86,6 +103,8 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
       for key, val of ret.date
         ret.date[key] = new Date val
       ret.date.loaded = new Date()
+      # check save version for validity
+      @_validateSaveVersion ret.version.started
       return ret
 
     exportSave: ->
