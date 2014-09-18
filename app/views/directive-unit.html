@@ -53,6 +53,9 @@
     <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
     <span>{{cur.velocity()|longnum:2}} {{cur.unittype.plural}}</span>
     per second.
+    <span ng-if="cur.capValue()">
+      You'll reach 100% and stop earning {{cur.unittype.label}} {{cur.capDurationMoment().humanize(true)}}.
+    </span>
   </div>
   <div ng-if="!cur.unbuyable && cur.cost.length && cur.isBuyButtonVisible()">
     <hr>
