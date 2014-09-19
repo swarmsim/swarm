@@ -82,7 +82,7 @@
         {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
         <span ng-if="cur.stat('twin', 1) > 1">(&times;{{cur.stat('twin',1)|bignum}} twins)</span>
         for
-        <cost costlist="cur.eachCost()" num="mainBuynum()"></cost>.
+        <cost costlist="cur.eachCost()" num="mainBuynum()"></cost>
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet() > 0">
@@ -114,7 +114,7 @@
           <span ng-if="upgrade.type.maxlevel == 1">This</span>
           <span ng-if="upgrade.type.maxlevel != 1">Next</span>
           upgrade costs
-          <cost costlist="upgrade.totalCost()"></cost>.
+          <cost costlist="upgrade.totalCost()"></cost>
         </p>
 
         <buyupgrade upgrade="upgrade"></buyupgrade>
@@ -130,7 +130,7 @@
         <upgradedesc title="{{abil.type.lol}}" upgrade="abil"></upgradedesc>
         <p>
           This ability costs 
-          <cost costlist="abil.totalCost()"></cost>
+          <cost costlist="abil.totalCost()" noperiod></cost>
           per use.
         </p>
 

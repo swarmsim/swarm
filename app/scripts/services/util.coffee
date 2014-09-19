@@ -38,7 +38,7 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
   animateController: ($scope, opts={}) ->
     game = opts.game ? $scope.game
     options = opts.options ? $scope.options
-    animatePromise= null
+    animatePromise = null
     do animateFn = =>
       # timeouts instead of intervals is less precise, but it automatically adjusts to options menu fps changes
       # intervals could work if we watched for options changes, but why bother?
