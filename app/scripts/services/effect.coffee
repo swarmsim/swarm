@@ -43,6 +43,9 @@ angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
     return this
 
 angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util) ->
+  # short hardcoded list, but we don't actually use very high numbers for these
+  ROMANNUM = ['', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'
+              'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX']
   effecttypes = new EffectTypes()
   # Can't write functions in our spreadsheet :(
   # TODO: move this to upgrade parsing. this only asserts at runtime if a conflict happens, we want it to assert at loadtime
@@ -102,4 +105,13 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       points = effect.game.achievementPoints()
       stats[effect.stat] ?= 1
       stats[effect.stat] *= Math.pow 1 + effect.val * points, level
+  effecttypes.register
+    name: 'suffix'
+    calcStats: (effect, stats, schema, level) ->
+      # using calcstats for this is so hacky....
+      if level == 0
+        suffix = ''
+      else
+        suffix = ROMANNUM[level] ? num + 1
+      effect.unit.suffix = suffix
   return effecttypes

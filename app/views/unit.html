@@ -9,16 +9,16 @@
       <ul class="nav nav-pills nav-justified text-nowrap visible-xs">
         <li><a ng-href="#/unit/{{cur.unit.prev.unittype.label}}" ng-if="cur.unit.prev && cur.unit.prev.isVisible()">
           <span class="glyphicon glyphicon-chevron-left"></span>
-          {{cur.unit.prev.count() | bignum:0}} {{cur.unit.prev.unittype.plural}}
+          {{cur.unit.prev.count() | bignum:0}} {{cur.unit.prev.unittype.plural}} {{cur.unit.suffix}}
         </a></li>
         <li><a ng-href="#/unit/{{cur.unit.next.unittype.label}}" ng-if="cur.unit.next && cur.unit.next.isVisible()">
-          {{cur.unit.next.count() | bignum:0}} {{cur.unit.next.unittype.plural}}
+          {{cur.unit.next.count() | bignum:0}} {{cur.unit.next.unittype.plural}} {{cur.unit.suffix}}
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a></li>
       </ul>
       <a ng-href="#{{cur.tab.url(false)}}" type="button" class="close pull-right btn"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
       <h3><a ng-href="#{{cur.tab.url(false)}}">
-        {{cur.unit.unittype.label}}
+        {{cur.unit.unittype.label}} {{cur.unit.suffix}}
       </a></h3>
       <unit cur="cur.unit"></unit>
     </div>
@@ -41,7 +41,7 @@
           </td>
           <td class="titlecase">
             <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="unit-sidebar">
-              <div class="pull-left">{{unit.unittype.label}}</div>
+              <div class="pull-left">{{unit.unittype.label}} {{unit.suffix}}</div>
               <div class="unit-count">
                 {{unit.count()|bignum:0}}
                 <span ng-if="unit.capValue()">({{unit.capPercent()*100|number:0}}%)</span>

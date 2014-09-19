@@ -82,7 +82,7 @@
         {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
         <span ng-if="cur.stat('twin', 1) > 1">(&times;{{cur.stat('twin',1)|bignum}} twins)</span>
         for
-        <cost costlist="cur.cost" num="mainBuynum()"></cost>.
+        <cost costlist="cur.eachCost()" num="mainBuynum()"></cost>.
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet() > 0">

@@ -12,7 +12,7 @@ angular.module('swarmApp').directive 'cost', ->
     costlist: '='
     num: '=?'
   template: """
-  <span ng-repeat="cost in costlist" ng-init="totalcost=cost.val * num">
+  <span ng-repeat="cost in costlist track by cost.unit.name" ng-init="totalcost=cost.val * num">
     <span ng-if="!$first && $last"> and </span>
     <span ng-class="{costNotMet:totalcost > cost.unit.count()}">
       {{totalcost | bignum}} {{spacer}}

@@ -4,10 +4,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
+    @suffix = ''
     @descriptionFn = $compile "<p>#{@unittype.description}</p>"
-    @_stats = _.memoize @_stats
-    @_count = _.memoize @_count
-    @_velocity = _.memoize @_velocity
+    for fn in ['_stats', '_count', '_velocity', '_eachCost']
+      @[fn] = _.memoize @[fn]
   _init: ->
     # copy all the inter-unittype references, replacing the type references with units
     @_producerPathList = _.map @unittype.producerPathList, (path) =>
@@ -74,7 +74,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     return ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = val
-    util.clearMemoCache @_count, @_velocity
+    util.clearMemoCache @_count, @_velocity, @_eachCost
   _addCount: (val) ->
     @_setCount @rawCount() + val
   _subtractCount: (val) ->
@@ -137,7 +137,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
 
   _costMetPercent: ->
     max = Number.MAX_VALUE
-    for cost in @cost
+    for cost in @eachCost()
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
     util.assert max >= 0, "invalid unit cost max", @name, max
@@ -160,9 +160,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     return true
 
   isBuyButtonVisible: ->
-    if @unittype.unbuyable or @cost.length == 0
+    eachCost = @eachCost()
+    if @unittype.unbuyable or eachCost.length == 0
       return false
-    for cost in @cost
+    for cost in eachCost
       if not cost.unit.isVisible()
         return false
     return true
@@ -186,7 +187,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
       throw new Error "Cannot buy that unit"
     num = Math.min num, @maxCostMet()
     @game.withSave =>
-      for cost in @cost
+      for cost in @eachCost()
         cost.unit._subtractCount cost.val * num
       twinnum = num * @stat 'twin', 1
       @_addCount twinnum
@@ -213,6 +214,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     for prod in @prod
       ret[prod.unit.unittype.name] = (prod.val + @stat 'base', 0) * @stat 'prod', 1
     return ret
+
+  eachCost: -> @_eachCost @game.now.getTime()
+  _eachCost: ->
+    util.clearMemoCache @_eachCost # store only the most recent
+    _.map @cost, (cost) =>
+      cost = _.clone cost
+      cost.val *= @stat('cost', 1) * @stat("cost.#{cost.unit.unittype.name}", 1)
+      return cost
 
   # speed at which other units are producing this unit.
   velocity: -> @_velocity @game.now.getTime()

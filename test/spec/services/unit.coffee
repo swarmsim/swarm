@@ -238,3 +238,32 @@ describe 'Service: unit', ->
     expect(unit.count()).toBe 1000000000000000000000000000000000000000
     expect(unit.capPercent()).toBeUndefined()
     expect(unit.capDurationSeconds()).toBeUndefined()
+
+  it 'increases cost of empowered military units', ->
+    game = mkgame {meat:1e40, larva: 1e40, queen:5}
+    ling = game.unit 'swarmling'
+    meat = game.unit 'meat'
+    meatcount = meat.count()
+    empower = game.upgrade 'swarmlingempower'
+    expect(ling.count()).toBe 0
+
+    lingmax = ling.maxCostMet()
+    cost1 = _.indexBy ling.eachCost(), (c) -> c.unit.name
+    ling.buy(10)
+    expect(ling.count()).toBe 10
+    expect(meat.count()).not.toBeLessThan meatcount - 750000000
+    expect(ling.suffix).toBe ''
+
+    empower.buy()
+    meat._setCount(meatcount)
+    ling.stats() # kick stats so the suffix works
+    expect(ling.suffix).toBe 'II' # empowering sets a suffix
+    expect(ling.count()).toBe 0  # empowering destroys all units
+    # empowering increases cost
+    cost2 = _.indexBy ling.eachCost(), (c) -> c.unit.name
+    expect(cost1.meat.val).toBeLessThan cost2.meat.val
+    expect(cost1.larva.val).toEqual cost2.larva.val
+    expect(ling.maxCostMet()).toBeLessThan lingmax
+    ling.buy(10)
+    expect(ling.count()).toBe 10
+    expect(meat.count()).toBeLessThan meatcount - 750000000 # really does cost more than unempowered
