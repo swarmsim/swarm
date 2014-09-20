@@ -9,6 +9,10 @@ describe 'Directive: description', ->
   beforeEach inject ($controller, $rootScope, game) ->
     scope = $rootScope.$new()
     scope.game = game
+    game.reset()
+
+  afterEach inject (game) ->
+    game.reset()
 
   it 'should render upgrade description with template text from spreadsheet (simple)', inject ($compile) ->
     scope.upgrade = upgrade = scope.game.upgrade 'hatchery'
@@ -28,6 +32,7 @@ describe 'Directive: description', ->
     # compiled element updates its {{expressions}} on digest
     scope.game.unit('larva')._setCount 665
     scope.game.unit('cocoon')._setCount 1
+    scope.game.unit('invisiblehatchery')._setCount 1
     scope.$digest() # fills in {{expressions}} in element
     expect(element.text()).toBe 'Clone 666 new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 666 larvae and cocoons available to clone.'
     # watch it update

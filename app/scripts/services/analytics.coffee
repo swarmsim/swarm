@@ -117,3 +117,6 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
 
   $rootScope.$on 'assertionFailure', (event, args) ->
     logThrottledError 'assertionFailure', args
+
+  $rootScope.$on 'loadGameFromStorageFailed', (event, message) ->
+    logThrottledError 'loadGameFromStorageFailed', message

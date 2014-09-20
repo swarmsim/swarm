@@ -133,19 +133,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @session.save()
     return ret
 
-  reset: ->
+  reset: (butDontSave=false) ->
     @session.reset()
     @_init()
     for unit in @unitlist()
       unit._setCount unit.unittype.init
-    @save()
+    if not butDontSave
+      @save()
 
-angular.module('swarmApp').factory 'game', (Game, session, $log) ->
-  game = new Game session
-  try
-    session.load()
-    $log.debug 'Game data loaded successfully.', this
-  catch
-    $log.debug 'Failed to load saved data! Resetting.'
-    game.reset()
-  return game
+angular.module('swarmApp').factory 'game', (Game, session) ->
+  new Game session

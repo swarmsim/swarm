@@ -129,5 +129,8 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
       localStorage.setItem this.id, this._exportCache
       $rootScope.$emit 'save', this
 
-    load: (id=0) ->
-      @importSave localStorage.getItem id
+    getStoredSaveData: (id=0) ->
+      localStorage.getItem id
+
+    load: (id) ->
+      @importSave @getStoredSaveData id
