@@ -104,7 +104,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
         ret.date[key] = new Date val
       ret.date.loaded = new Date()
       # check save version for validity
-      @_validateSaveVersion ret.version.started
+      @_validateSaveVersion ret.version?.started
       return ret
 
     exportSave: ->

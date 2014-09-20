@@ -79,3 +79,6 @@ describe 'Service: session', ->
     session.version.started = version
     encoded = session._saves()
     expect(-> session._loads encoded).not.toThrow()
+    delete session.version
+    encoded = session._saves()
+    expect(-> session._loads encoded).not.toThrow()
