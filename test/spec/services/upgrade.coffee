@@ -227,10 +227,10 @@ describe 'Service: upgrade', ->
     game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, swarmling:1}
     upgrade = game.upgrade 'larvarush'
     unit = game.unit 'larva'
-    expect(upgrade.effect[0].output()).toBe 3600
+    expect(upgrade.effect[0].output()).toBe 2400
     expect(upgrade.effect[1].output()).toBe 100000
     upgrade.buy 1
     expect(upgrade.count()).toBe 1
-    expect(unit.count()).toBe 103600
-    expect(upgrade.effect[0].output()).toBe 3600
+    expect(unit.count()).toBe 102400
+    expect(upgrade.effect[0].output()).toBe 2400
     expect(upgrade.effect[1].output()).toBe 100000
