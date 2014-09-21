@@ -93,9 +93,9 @@
           Buying your next {{cur.unittype.label}}
         </span>
         will cost
-        <span ng-repeat="cost in cur.cost">
+        <span ng-repeat="cost in cur.eachCost()">
           <span ng-if="!$first && $last"> and </span>
-          <span>{{unitCostAsPercent(cur, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.cost.length > 2">, </span>
+          <span>{{unitCostAsPercent(cur, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
         </span>
       </p>
       <buyunit unit="cur" num="form.mainBuynum"></buyunit>
