@@ -99,7 +99,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log, $compile) -> 
       @_lastUpgradeSeen = @maxCostMet()
   isNewlyUpgradable: ->
     #@_lastUpgradeSeen < @maxCostMet()
-    @isBuyable() and @_lastUpgradeSeen == 0 and @maxCostMet() > 0
+    @isBuyable() and @_lastUpgradeSeen == 0 and @maxCostMet() > 0 and @type.class == 'upgrade'
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->
