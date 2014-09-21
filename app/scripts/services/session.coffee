@@ -7,7 +7,7 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) ->
+angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, env) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
@@ -20,10 +20,12 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
 
   return new class Session
     constructor: ->
+      @id = env.saveId
+      $log.debug 'save id', @id
+      util.assert @id, 'no save id defined'
       @reset()
 
     reset: ->
-      @id = 0 # TODO: multiple characters
       @unittypes = {}
       now = new Date()
       @date =
@@ -129,7 +131,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version) 
       localStorage.setItem this.id, this._exportCache
       $rootScope.$emit 'save', this
 
-    getStoredSaveData: (id=0) ->
+    getStoredSaveData: (id=@id) ->
       localStorage.getItem id
 
     load: (id) ->
