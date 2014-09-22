@@ -162,22 +162,55 @@ describe 'Service: unit', ->
     unit = game.unit 'drone'
     expect(-> unit.stat 'jflksdfjdslkfhdljkhfdksjh').toThrow()
 
-  it 'buys twin units', ->
+  it 'buys additive twin units (meat)', ->
     game = mkgame {larva:9999999,meat:9999999,drone:99999999999999, queen:1}
     unit = game.unit 'drone'
     upgrade = game.upgrade 'dronetwin'
-    expect(unit.stat 'twin').toBe 1
+    expect(unit.twinMult()).toBe 1
     count = unit.count()
     withNoTick game, -> unit.buy 1
     expect(unit.count()).toBe count + 1
 
     withNoTick game, -> upgrade.buy()
-    expect(unit.stat 'twin').toBe 2
+    expect(unit.twinMult()).toBe 2
     count = unit.count()
     withNoTick game, -> unit.buy 1
     expect(unit.count()).toBe count + 2
     withNoTick game, -> unit.buy 5
     expect(unit.count()).toBe count + 12
+
+    withNoTick game, -> upgrade.buy()
+    expect(unit.twinMult()).toBe 3
+    count = unit.count()
+    withNoTick game, -> unit.buy 1
+    expect(unit.count()).toBe count + 3
+    withNoTick game, -> unit.buy 5
+    expect(unit.count()).toBe count + 18
+
+  it 'buys multiplicative twin units (military)', ->
+    game = mkgame {larva:9999999,meat:9999999,swarmling:0, queen:5}
+    unit = game.unit 'swarmling'
+    upgrade = game.upgrade 'swarmlingtwin'
+    expect(unit.twinMult()).toBe 1
+    count = unit.count()
+    withNoTick game, -> unit.buy 1
+    expect(unit.count()).toBe count + 1
+
+    withNoTick game, -> upgrade.buy()
+    expect(unit.twinMult()).toBe 2
+    count = unit.count()
+    withNoTick game, -> unit.buy 1
+    expect(unit.count()).toBe count + 2
+    withNoTick game, -> unit.buy 5
+    expect(unit.count()).toBe count + 12
+
+    withNoTick game, -> upgrade.buy()
+    expect(unit.twinMult()).toBe 4
+    count = unit.count()
+    withNoTick game, -> unit.buy 1
+    expect(unit.count()).toBe count + 4
+    withNoTick game, -> unit.buy 5
+    expect(unit.count()).toBe count + 24
 
   it 'multiplies production', ->
     drone0 = 1000000
