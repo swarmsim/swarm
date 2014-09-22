@@ -97,6 +97,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log, $compile) -> 
   costMetPercent: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = Number.MAX_VALUE
+    if @type.maxlevel? and @maxCostMet() + 1 > @type.maxlevel
+      return 0
     for cost in @sumCost @maxCostMet() + 1
       count = cost.unit.count() - costOfMet[cost.unit.name].val
       val = cost.val - costOfMet[cost.unit.name].val
