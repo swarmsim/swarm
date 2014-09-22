@@ -44,6 +44,7 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
       # intervals could work if we watched for options changes, but why bother?
       animatePromise = $timeout animateFn, options.fpsSleepMillis()
       game.tick()
+      $rootScope.$emit 'tick', game
     $scope.$on '$destroy', =>
       $timeout.cancel animatePromise
 

@@ -9,7 +9,7 @@
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log,
 # analytics/statistics not actually used, just want them to init
-versioncheck, analytics, statistics, achievementslistener
+versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
   $scope.env = env
   $scope.version = version
