@@ -173,7 +173,8 @@ describe 'Service: upgrade', ->
     expect(upgrade._lastUpgradeSeen).toEqual 2
     expect(upgrade.isNewlyUpgradable()).toBe false
 
-  it 'doesnt notice invisible upgrades, even if we can afford them. https://github.com/erosson/swarm/issues/94', ->
+  xit 'doesnt notice invisible upgrades, even if we can afford them. https://github.com/erosson/swarm/issues/94', ->
+    # disabled - this case isn't possible anymore
     game = mkgame {nest:25000}
     upgrade = game.upgrade 'nesttwin'
     expect(upgrade._lastUpgradeSeen).toEqual 0
