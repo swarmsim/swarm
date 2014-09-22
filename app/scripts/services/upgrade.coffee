@@ -95,7 +95,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log, $compile) -> 
     return Math.floor max
 
   viewNewUpgrades: ->
-    if @isVisible()
+    if @isVisible() and util.isWindowFocused true
       @_lastUpgradeSeen = @maxCostMet()
   isNewlyUpgradable: ->
     #@_lastUpgradeSeen < @maxCostMet()

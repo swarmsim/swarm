@@ -48,3 +48,7 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
     $scope.$on '$destroy', =>
       $timeout.cancel animatePromise
 
+  isWindowFocused: (default_=true) ->
+    # true if browser tab focused, false if tab unfocused. NOT 100% RELIABLE! If we can't tell, default == focused (true).
+    # err, default != hidden
+    return not (document.hidden?() ? not default_)
