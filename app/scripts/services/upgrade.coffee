@@ -94,6 +94,15 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log, $compile) -> 
       #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
     return Math.floor max
 
+  costMetPercent: ->
+    costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
+    max = Number.MAX_VALUE
+    for cost in @sumCost @maxCostMet() + 1
+      count = cost.unit.count() - costOfMet[cost.unit.name].val
+      val = cost.val - costOfMet[cost.unit.name].val
+      max = Math.min max, (count / val)
+    return Math.min 100, Math.max 0, max
+
   viewNewUpgrades: ->
     if @isVisible() and util.isWindowFocused true
       @_lastUpgradeSeen = @maxCostMet()
