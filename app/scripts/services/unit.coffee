@@ -180,6 +180,11 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   buyMax: (percent) ->
     @buy @maxCostMet percent
 
+  twinMult: ->
+    ret = 1
+    ret += @stat 'twinbase', 0
+    ret *= @stat 'twin', 1
+    return ret
   buy: (num=1) ->
     if not @isCostMet()
       throw new Error "We require more resources"
@@ -189,7 +194,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     @game.withSave =>
       for cost in @eachCost()
         cost.unit._subtractCount cost.val * num
-      twinnum = num * @stat 'twin', 1
+      twinnum = num * @twinMult()
       @_addCount twinnum
       return {num:num, twinnum:twinnum}
 

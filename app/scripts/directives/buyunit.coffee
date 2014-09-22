@@ -33,7 +33,7 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
       args.unit = args.resource
       delete args.resource
       commands.buyMaxUnit args
-    scope.statTwin = -> scope.resource.stat 'twin', 1
+    scope.statTwin = -> scope.resource.twinMult()
     scope.isBuyButtonVisible = -> scope.resource.isBuyButtonVisible()
     scope.verb = 'buy'
 
@@ -101,5 +101,5 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
       commands.buyUpgrade args
     scope.buyMaxUpgrade = (args) ->
       commands.buyMaxUpgrade args
-    scope.statTwin = -> scope.unit.stat 'twin', 1
+    scope.statTwin = -> scope.unit.twinMult()
     scope.isBuyButtonVisible = -> scope.unit.isBuyButtonVisible()

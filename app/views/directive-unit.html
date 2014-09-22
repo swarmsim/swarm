@@ -80,14 +80,14 @@
         You're buying
         <input type="number" ng-model="form.mainBuynum" min="1">
         {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
-        <span ng-if="cur.stat('twin', 1) > 1">(&times;{{cur.stat('twin',1)|bignum}} twins)</span>
+        <span ng-if="cur.twinMult() > 1">(&times;{{cur.twinMult()|bignum}} twins)</span>
         for
         <cost costlist="cur.eachCost()" num="mainBuynum()"></cost>
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet() > 0">
           Buying your maximum of
-          {{cur.maxCostMet()*cur.stat('twin', 1)|longnum}} {{cur.maxCostMet()*cur.stat('twin', 1) == 1 ? cur.unittype.label : cur.unittype.plural}}
+          {{cur.maxCostMet()*cur.twinMult()|longnum}} {{cur.maxCostMet()*cur.twinMult() == 1 ? cur.unittype.label : cur.unittype.plural}}
         </span>
         <span ng-if="cur.maxCostMet() <= 0">
           Buying your next {{cur.unittype.label}}

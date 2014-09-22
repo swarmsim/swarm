@@ -27,7 +27,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $lo
         ret = 1
       return ret
     scope.unitBuyTotal = (num) ->
-      Math.min(num, scope.cur.maxCostMet()) * $scope.cur.stat 'twin', 1
+      Math.min(num, scope.cur.maxCostMet()) * $scope.cur.twinMult()
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()
 
