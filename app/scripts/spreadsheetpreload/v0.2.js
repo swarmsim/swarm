@@ -3152,7 +3152,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 1.35,
+        "cost.factor": 1.45,
         "cost.unittype": "territory",
         "cost.val": 100,
         "description": "Larva production increased by {{(upgrade.type.effect[0].val - 1) * 100 | number:0}}%.",
