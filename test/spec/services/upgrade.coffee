@@ -76,10 +76,10 @@ describe 'Service: upgrade', ->
     game.unit('territory')._setCount 250
     expect(upgrade.maxCostMet()).toBe 2
     game.unit('territory')._setCount 1000
-    expect(upgrade.maxCostMet()).toBe 5
+    expect(upgrade.maxCostMet()).toBe 4
     upgrade.buyMax()
     expect(upgrade.maxCostMet()).toBe 0
-    expect(upgrade.count()).toBe 5
+    expect(upgrade.count()).toBe 4
 
   it 'clones larvae', ->
     game = mkgame {energy:9999999999999999999, larva:1000, invisiblehatchery:1, nexus:999}
@@ -138,7 +138,7 @@ describe 'Service: upgrade', ->
     game = mkgame {territory:99}
     upgrade = game.upgrade 'expansion'
     expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',100]]
-    expect(_.map upgrade.sumCost(2), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',235]]
+    expect(_.map upgrade.sumCost(3), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',455.25]]
 
   it 'notices newly available upgrades', ->
     game = mkgame {territory:99}
