@@ -32,7 +32,7 @@
   </div>
   <div class="form-group">
     <button class="resetalert" ng-click="confirmReset()">Wipe all saved data and start over</button>
-    <p title="{{dateStarted().toString()}}">You started playing {{dateStartedAgo()}}.</p>
+    <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
   </div>
   <div class="form-group">
     <label class="control-label">Analytics</label>

@@ -7,6 +7,16 @@
     <button ng-click="session.save()">Save</button>
   </div>
   <div>
+    Skip time:
+    <button ng-click="game.skipTime(1, 'minute')">1 minute</button>
+    <button ng-click="game.skipTime(5, 'minute')">5 minutes</button>
+    <button ng-click="game.skipTime(15, 'minute')">15 minutes</button>
+    <button ng-click="game.skipTime(1, 'hour')">1 hour</button>
+    <button ng-click="game.skipTime(4, 'hour')">4 hour</button>
+    <button ng-click="game.skipTime(8, 'hour')">8 hour</button>
+    <button ng-click="game.skipTime(24, 'hour')">24 hour</button>
+  </div>
+  <div>
     <button ng-click="throwUp()" title="Test exception handler">Test exception</button>
     <button ng-click="assertFail()" title="Test assertion error">Test assert</button>
     <button ng-click="error()" title="Test error report">Test error report</button>

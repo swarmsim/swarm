@@ -38,6 +38,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @upgrades = {}
       @statistics = {}
       @achievements = {}
+      @skippedMillis = 0
       @version =
         started: version
       $rootScope.$emit 'reset', {session:this}

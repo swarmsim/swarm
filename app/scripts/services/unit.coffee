@@ -126,7 +126,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
 
-  count: -> @_count @game.now.getTime()
+  count: -> @_count @game.timestampMillis()
   _count: ->
     util.clearMemoCache @_count # store only the most recent count
     secs = @game.diffSeconds()

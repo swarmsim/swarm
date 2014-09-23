@@ -31,15 +31,34 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     @tabs = Tab.buildTabs @_units.list
 
+    @skippedMillis = 0
+    @session.skippedMillis ?= 0
+
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
     @tick()
 
   diffMillis: ->
-    @now.getTime() - @session.date.reified.getTime()
-
+    @now.getTime() - @session.date.reified.getTime() + @skippedMillis
   diffSeconds: ->
     @diffMillis() / 1000
+
+  skipMillis: (millis) ->
+    @skippedMillis += millis
+    @session.skippedMillis += millis
+  skipDuration: (duration) ->
+    @skipMillis duration.asMilliseconds()
+  skipTime: (args...) ->
+    @skipDuration moment.duration args...
+
+  totalSkippedMillis: ->
+    @session.skippedMillis
+  totalSkippedDuration: ->
+    moment.duration @totalSkippedMillis()
+  dateStarted: ->
+    @session.date.started
+  momentStarted: ->
+    moment @dateStarted()
 
   tick: (now=new Date()) ->
     # TODO I hope this accounts for DST
@@ -49,6 +68,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
   elapsedStartMillis: ->
     @now.getTime() - @session.date.started.getTime()
+  timestampMillis: ->
+    @elapsedStartMillis() + @totalSkippedMillis()
 
   unit: (unitname) ->
     if _.isUndefined unitname
@@ -109,12 +130,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   # You must reify before making any changes to unit counts or effectiveness!
   # (So, units that increase the effectiveness of other units AND are produced
   # by other units - ex. derivative clicker mathematicians - can't be supported.)
-  reify: ->
+  reify: (skipSeconds=0) ->
     secs = @diffSeconds()
     counts = @counts secs
     _.extend @session.unittypes, counts
     @session.date.reified = @now
-    util.assert 0 == @diffSeconds()
+    @skippedMillis = 0
+    util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
 
   save: ->
     @withSave ->
