@@ -32,6 +32,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @tabs = Tab.buildTabs @_units.list
 
     @skippedMillis = 0
+    @gameSpeed = 1
     @session.skippedMillis ?= 0
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
@@ -39,7 +40,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @tick()
 
   diffMillis: ->
-    @now.getTime() - @session.date.reified.getTime() + @skippedMillis
+    @_realDiffMillis() * @gameSpeed + @skippedMillis
+  _realDiffMillis: ->
+    @now.getTime() - @session.date.reified.getTime()
   diffSeconds: ->
     @diffMillis() / 1000
 
@@ -50,6 +53,10 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @skipMillis duration.asMilliseconds()
   skipTime: (args...) ->
     @skipDuration moment.duration args...
+
+  setGameSpeed: (speed) ->
+    @reify()
+    @gameSpeed = speed
 
   totalSkippedMillis: ->
     @session.skippedMillis
@@ -134,8 +141,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     secs = @diffSeconds()
     counts = @counts secs
     _.extend @session.unittypes, counts
-    @session.date.reified = @now
     @skippedMillis = 0
+    @session.skippedMillis += @diffMillis() - @_realDiffMillis() 
+    @session.date.reified = @now
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
 
   save: ->
