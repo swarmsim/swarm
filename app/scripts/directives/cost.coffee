@@ -19,8 +19,7 @@ angular.module('swarmApp').directive 'cost', ($log) ->
     <span ng-class="{costNotMet:!isCostMet(cost)}">
       {{totalCostVal(cost) | bignum}} {{spacer}}
       {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last && !noperiod">.</span><span ng-if="!$last && costlist.length > 2">, </span>
-  </span>
-  <span ng-if="buybuttons" ng-repeat="cost in costlist | filter:isRemainingBuyable track by cost.unit.name">
+  </span><span ng-if="buybuttons" ng-repeat="cost in costlist | filter:isRemainingBuyable track by cost.unit.name">
     <buyunit unit="cost.unit" fixednum="countRemaining(cost)"></buyunit>
   </span>
   """
