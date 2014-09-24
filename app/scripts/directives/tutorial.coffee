@@ -36,7 +36,7 @@ angular.module('swarmApp').directive 'tutorial', (game) ->
         return 9
       if upgrades.hatchery > 0
         if units.queen >= 5
-          if units.territory > 50
+          if units.territory > 5
             return 8
           if units.territory > 0
             return 7
