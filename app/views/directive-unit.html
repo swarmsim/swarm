@@ -114,7 +114,8 @@
           <span ng-if="upgrade.type.maxlevel == 1">This</span>
           <span ng-if="upgrade.type.maxlevel != 1">Next</span>
           upgrade costs
-          <cost costlist="upgrade.totalCost()"></cost>
+          <!-- special-case: show buybuttons only for twin upgrades. a bit hacky, but for other upgrades it's a bad idea. TODO: move to spreadsheet. -->
+          <cost costlist="upgrade.totalCost()" buybuttons="upgrade.name.indexOf('twin') >= 0"></cost>
         </p>
 
         <div class="progress" style="margin-bottom:0">

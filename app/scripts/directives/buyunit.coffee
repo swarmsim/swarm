@@ -10,6 +10,7 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
   scope:
     num: '=?'
+    fixednum: '=?'
     unit: '='
   restrict: 'E'
   link: (scope, element, attrs) ->
@@ -17,6 +18,9 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
     scope.is25Visible = ->
       return scope.resource.maxCostMet() > scope.resource.maxCostMet(0.25) > 1
     scope.fullnum = ->
+      if scope.fixednum?
+        fixednum = Math.ceil scope.fixednum / scope.unit.twinMult()
+        return fixednum
       num = scope.num ? 1
       num = Math.max 1, Math.min scope.resource.maxCostMet(), Math.floor num
       if _.isNaN num
