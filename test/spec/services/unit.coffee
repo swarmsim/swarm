@@ -230,7 +230,7 @@ describe 'Service: unit', ->
     expect(prod0.meat * unit.stat 'prod').toBe prod1.meat
 
   it 'parses unit requirements', ->
-    game = mkgame {meat:1000000000000000000000000000000000000000}
+    game = mkgame {meat:1000000000000000000000000000000000000000, nexus:4}
     unit = game.unit 'cocoon'
     larva = game.unit 'larva'
     upgrade = game.upgrade 'cocooning'

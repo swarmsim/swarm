@@ -68,18 +68,18 @@ describe 'Service: upgrade', ->
     expect(stats2.prod).toBe 1
 
   it 'buys/calcs max upgrades', ->
-    game = mkgame {territory:99}
+    game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
     expect(upgrade.maxCostMet()).toBe 0
-    game.unit('territory')._setCount 100
+    game.unit('territory')._setCount 10
     expect(upgrade.maxCostMet()).toBe 1
-    game.unit('territory')._setCount 250
+    game.unit('territory')._setCount 50
     expect(upgrade.maxCostMet()).toBe 2
     game.unit('territory')._setCount 1000
-    expect(upgrade.maxCostMet()).toBe 4
+    expect(upgrade.maxCostMet()).toBe 5
     upgrade.buyMax()
     expect(upgrade.maxCostMet()).toBe 0
-    expect(upgrade.count()).toBe 4
+    expect(upgrade.count()).toBe 5
 
   it 'clones larvae', ->
     game = mkgame {energy:9999999999999999999, larva:1000, invisiblehatchery:1, nexus:999}
@@ -94,7 +94,7 @@ describe 'Service: upgrade', ->
     expect(upgrade.effect[0].output()).toBe 8000
 
   it 'buy more than max', ->
-    game = mkgame {territory:100}
+    game = mkgame {territory:10}
     upgrade = game.upgrade 'expansion'
     expect(upgrade.maxCostMet()).toBe 1
     expect(upgrade.count()).toBe 0
@@ -135,13 +135,13 @@ describe 'Service: upgrade', ->
     expect(upgrade.effect[0].output()).toBe 100000
 
   it 'sums costs', ->
-    game = mkgame {territory:99}
+    game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
-    expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',100]]
-    expect(_.map upgrade.sumCost(3), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',455.25]]
+    expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',10]]
+    expect(_.map upgrade.sumCost(3), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',94.525]]
 
   it 'notices newly available upgrades', ->
-    game = mkgame {territory:99}
+    game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
     expect(upgrade._lastUpgradeSeen).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
@@ -161,14 +161,14 @@ describe 'Service: upgrade', ->
     expect(upgrade._lastUpgradeSeen).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
     # we now have money for another upgrade, which disappears when viewNewUpgradesed
-    game.unit('territory')._addCount 200
+    game.unit('territory')._addCount 50
     expect(upgrade._lastUpgradeSeen).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe true
     upgrade.viewNewUpgrades()
     expect(upgrade._lastUpgradeSeen).toEqual 1
     expect(upgrade.isNewlyUpgradable()).toBe false
     # money for a third upgrade does not make the indicator reappear, since we didn't buy upgrade #2
-    game.unit('territory')._addCount 200
+    game.unit('territory')._addCount 150
     upgrade.viewNewUpgrades()
     expect(upgrade._lastUpgradeSeen).toEqual 2
     expect(upgrade.isNewlyUpgradable()).toBe false
