@@ -89,8 +89,8 @@ module.exports = function (grunt) {
             isDebugLogged: false,
             httpsAllowInsecure: false,
             //gaTrackingID: 'UA-53523462-2'
-            spreadsheetKey: 'v0.1',
-            saveId: '0',
+            spreadsheetKey: 'v0.2',
+            saveId: 'v0.2',
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -592,7 +592,7 @@ module.exports = function (grunt) {
     'clean:dist',
     // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
     'clean:spreadsheetpreload',
-    'preloadSpreadsheet:v0.1', // this must match ngconstant.prod.spreadsheetKey
+    'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
     'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
