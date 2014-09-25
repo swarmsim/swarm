@@ -11,7 +11,10 @@ angular.module('swarmApp').directive 'tutorial', (game) ->
     <div ng-if="tutStep() > 0" class="alert animif alert-info" role="alert">
       <!--button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
 
-      <p ng-if="tutStep() == 1">Your brood starts its life with a small pile of meat and a single larva-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some <a href="#/unit/drone">drones</a>.</p>
+      <div ng-if="tutStep() == 1">
+        <p>Welcome to Swarm Simulator. Starting with just a few larvae and a small pile of meat, grow a massive swarm of giant bugs.</p>
+        <p>Your brood starts its life with a small pile of meat and a single larva-producing hatchery. Larvae mutate into other units. Begin your growth by using your meat and larvae to hatch some <a href="#/unit/drone">drones</a>.</p>
+      </div>
       <p ng-if="tutStep() == 2">You lead a small brood of worker drones. Drones gather meat. Use this meat to build more drones and expand your brood.</p>
       <p ng-if="tutStep() == 3">You lead a small brood of worker drones. Once you have plenty of meat, upgrade your hatchery to produce more larvae by selecting '<a href="#/unit/larva">larvae</a>' and spending some meat.</p>
       <p ng-if="tutStep() == 4">You lead a small brood of worker drones. They long for a <a href="#/unit/queen">queen</a>. You must sacrifice many drones to hatch a queen, but once born, your queen will slowly hatch drones without consuming meat or larvae.</p>
