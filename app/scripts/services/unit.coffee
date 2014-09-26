@@ -259,6 +259,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   statistics: ->
     @game.session.statistics.byUnit[@name] ? {}
 
+  # TODO centralize url handling
+  url: ->
+    @tab.url this
+
 
 ###*
  # @ngdoc service
