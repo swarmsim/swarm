@@ -65,9 +65,11 @@ describe 'Service: session', ->
     # default version - very old saves.
     expect(-> session._validateSaveVersion undefined, '0.1.0').not.toThrow()
     expect(-> session._validateSaveVersion undefined, '0.2.0').toThrow()
-    # current-version based. breaks when we upgrade to 0.2.0!
-    expect(-> session._validateSaveVersion '0.1.0').not.toThrow()
-    expect(-> session._validateSaveVersion undefined).not.toThrow()
+    # current-version based. breaks when we upgrade to 0.3.0!
+    expect(-> session._validateSaveVersion '0.1.0').toThrow()
+    expect(-> session._validateSaveVersion '0.2.0').not.toThrow()
+    expect(-> session._validateSaveVersion '0.3.0').toThrow()
+    expect(-> session._validateSaveVersion undefined).toThrow()
 
   it 'validates the save version on import', inject (version) ->
     session.version.started = '0.0.1'
@@ -79,6 +81,7 @@ describe 'Service: session', ->
     session.version.started = version
     encoded = session._saves()
     expect(-> session._loads encoded).not.toThrow()
+    # missing version is assumed to be 0.1.0, but we're past 0.2.0 now
     delete session.version
     encoded = session._saves()
-    expect(-> session._loads encoded).not.toThrow()
+    expect(-> session._loads encoded).toThrow()
