@@ -7,13 +7,21 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log,
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
   $scope.env = env
   $scope.version = version
   $scope.session = session
+
+  themes = {'dark-ff':true,'dark-chrome':true}
+  if theme = $location.search().theme
+    if themes[theme]
+      $log.debug 'themeing', theme
+      $('html').addClass "theme-#{theme}"
+    else
+      $log.warn 'invalid theme, ignoring', theme
 
   do enforce = ->
     timecheck.enforceNetTime().then(

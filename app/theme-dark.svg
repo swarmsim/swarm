@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- based on http://stackoverflow.com/questions/19686153/css-filter-invert-not-working-on-mozilla-firefox -->
+  <filter id="theme-dark">
+    <feColorMatrix type="matrix" values="-1 0 0 0 1
+                                         0 -1 0 0 1
+                                         0 0 -1 0 1
+                                         0 0 0 1 0" />
+  </filter>
+</svg>
