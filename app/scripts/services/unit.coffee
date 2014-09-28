@@ -247,8 +247,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     ret = @stats()[key] ? default_
     util.assert ret?, 'no such stat', @name, key
     return ret
-  stats: -> @_stats()
-  # No params: upgrades must clear the cache every time something changes
+  stats: -> @_stats @game.now.getTime()
   _stats: ->
     stats = {}
     schema = {}
