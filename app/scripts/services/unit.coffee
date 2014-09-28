@@ -7,7 +7,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     @suffix = ''
     @descriptionFn = $compile "<p>#{@unittype.description}</p>"
     for fn in ['_stats', '_count', '_velocity', '_eachCost']
-      @[fn] = _.memoize @[fn]
+      @[fn] = util.memoize @[fn]
   _init: ->
     # copy all the inter-unittype references, replacing the type references with units
     @_producerPathList = _.map @unittype.producerPathList, (path) =>
@@ -74,7 +74,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     return ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = val
-    util.clearMemoCache @_count, @_velocity, @_eachCost
+    util.clearMemoCache @_count, @_velocity, @_eachCost, @_stats
   _addCount: (val) ->
     @_setCount @rawCount() + val
   _subtractCount: (val) ->
@@ -249,6 +249,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     return ret
   stats: -> @_stats @game.now.getTime()
   _stats: ->
+    util.clearMemoCache @_stats # store only the most recent
     stats = {}
     schema = {}
     for upgrade in @upgrades.list

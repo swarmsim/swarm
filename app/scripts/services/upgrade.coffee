@@ -5,7 +5,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log, $compile) -> 
     @name = @type.name
     @descriptionFn = $compile "<p>#{@type.description}</p>"
     @unit = util.assert @game.unit @type.unittype
-    @_totalCost = _.memoize @_totalCost
+    @_totalCost = util.memoize @_totalCost
     @_lastUpgradeSeen = 0
   _init: ->
     @costByName = {}
