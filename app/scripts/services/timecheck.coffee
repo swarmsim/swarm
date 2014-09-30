@@ -47,7 +47,14 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
     return moment netnowString, timecheckerServerFormat, true
 
   _isNetTimeInvalid: (netnowString, now=moment()) ->
-    netnow = @_parseDate netnowString
+    if not netnowString?
+      $rootScope.$emit 'timecheckError', {error:"netnowString is required (network failure?)"}
+      return null
+    try
+      netnow = @_parseDate netnowString
+    catch e
+      $rootScope.$emit 'timecheckError', {error:"_parseDate exception: #{e}"}
+      return null
     if not netnow.isValid()
       $rootScope.$emit 'timecheckError', {error:"couldn\'t parse date: #{netnowString}"}
       return null

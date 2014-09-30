@@ -46,6 +46,8 @@ describe 'Service: timecheck', ->
   it 'accepts bogus time formats, preferring false negatives to false positives', ->
     expect(timecheck._isNetTimeInvalid 'fgsfds').toBeNull()
     expect(timecheck._isNetTimeInvalid 'The, 32 Jab 201A 25:61:62 AAA').toBeNull()
+    expect(timecheck._isNetTimeInvalid null).toBeNull()
+    expect(timecheck._isNetTimeInvalid undefined).toBeNull()
     # TODO validate that errors are emitted and logged to analytics
 
 describe 'Service: versioncheck', ->
