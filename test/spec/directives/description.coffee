@@ -34,8 +34,8 @@ describe 'Directive: description', ->
     scope.game.unit('cocoon')._setCount 1
     scope.game.unit('invisiblehatchery')._setCount 1
     scope.$digest() # fills in {{expressions}} in element
-    expect(element.text()).toBe 'Clone 666 new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 666 larvae and cocoons available to clone.'
+    expect(element.text()).toBe 'Clone 666 new larvae.You produce 1 larvae per second, allowing you to clone up to 100,000 larvae. You have 666 larvae and cocoons available to clone.'
     # watch it update
     scope.game.unit('cocoon')._setCount 666001
     scope.$digest()
-    expect(element.text()).toBe 'Clone 100 thousand new larvae.You produce 1 larvae per second, allowing you to clone up to 100 thousand larvae. You have 667 thousand larvae and cocoons available to clone.'
+    expect(element.text()).toBe 'Clone 100,000 new larvae.You produce 1 larvae per second, allowing you to clone up to 100,000 larvae. You have 666,666 larvae and cocoons available to clone.'

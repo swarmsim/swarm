@@ -9,15 +9,17 @@
  # Filter in the swarmApp.
 ###
 angular.module('swarmApp').factory 'bignumFormatter', (options) ->
-  (suffixes) ->
+  (suffixes, opts={}) ->
+    opts.sigfigs ?= 3
+    # special case: 99k or less looks nicer with the 'k' omitted
+    opts.minsuffix ?= 1e5
     (num, floorlimit=0) ->
       if !num
         return num
       if num < floorlimit
-        return num.toPrecision(3).replace /\.?0+$/, ''
+        return num.toPrecision(opts.sigfigs).replace /\.?0+$/, ''
       num = Math.floor num
-      # 99k or less looks nicer with the 'k' omitted
-      if num < 100000
+      if num < opts.minsuffix
         # sadly, num.toLocaleString() does not work in unittests. node vs browser?
         # toLocaleString would be nice for foreign users, but my unittests are
         # more important, sorry. Maybe later.
@@ -30,7 +32,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
         # too big for any suffix :(
         # TODO: exponent groups of 3? 1e30, 10e30, 100e30, 1e33, ...
         #return num.toExponential(2).replace(/\.?0+e/, 'e').replace 'e+', 'e'
-        return num.toExponential(2).replace 'e+', 'e'
+        return num.toExponential(opts.sigfigs-1).replace 'e+', 'e'
       else
         suffix = suffixes[index]
       num /= Math.pow 1000, index
@@ -38,7 +40,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       # based on http://stackoverflow.com/a/16471544
       #return "#{num.toPrecision(3).replace(/\.([^0]*)0+$/, '.$1').replace(/\.$/, '')}#{suffix}"
       # turns out it's very distracting to have the number length change, so keep trailing zeros
-      return "#{num.toPrecision(3).replace(/\.$/, '')}#{suffix}"
+      return "#{num.toPrecision(opts.sigfigs).replace(/\.$/, '')}#{suffix}"
 
 angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google
@@ -133,4 +135,4 @@ angular.module('swarmApp').filter 'longnum', (bignumFormatter) ->
                    ' octogintillion'
                    ' unoctogintillion'
                    ' duooctogintillion'
-                   ]
+                   ], {sigfigs:6, minsuffix:1e6}
