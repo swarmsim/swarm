@@ -140,7 +140,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     for cost in @eachCost()
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
-    util.assert max >= 0, "invalid unit cost max", @name, max
+    util.assert max >= 0, "invalid unit cost max", @name
     return max
 
   isVisible: ->
