@@ -102,6 +102,28 @@ module.exports = function (grunt) {
       'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
     },
 
+    ngtemplates: {
+      dist: {
+        cwd: 'app',
+        src: 'views/**.html',
+        dest: '.tmp/scripts/app.templates.js',
+        options: {
+          module: 'swarmApp',
+          htmlmin: '<%= htmlmin.dist.options %>'
+        }
+      },
+      // no templates for dev, so they reload properly when changed
+      dev: {
+        cwd: 'app',
+        src: '/dev/null',
+        dest: '.tmp/scripts/app.templates.js',
+      },
+      options: {
+        module: 'swarmApp',
+        htmlmin: '<%= htmlmin.dist.options %>'
+      }
+    },
+
     // Project settings
     yeoman: appConfig,
 
@@ -553,7 +575,7 @@ module.exports = function (grunt) {
       grunt.task.run([
         'clean:server',
         'preloadSpreadsheet',
-        'ngconstant:prod','writeVersionJson',
+        'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'wiredep',
         'concurrent:server',
         'autoprefixer',
@@ -565,7 +587,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'preloadSpreadsheet',
-      'ngconstant:dev','writeVersionJson',
+      'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -582,7 +604,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     //'preloadSpreadsheet',
-    'ngconstant:test','writeVersionJson',
+    'ngconstant:test','writeVersionJson', 'ngtemplates:dev',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
@@ -594,7 +616,7 @@ module.exports = function (grunt) {
     // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
     'clean:spreadsheetpreload',
     'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
-    'ngconstant:prod','writeVersionJson',
+    'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

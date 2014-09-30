@@ -9,6 +9,7 @@
   "devDependencies": {
     "coffee-script": "^1.7.1",
     "grunt": "^0.4.1",
+    "grunt-angular-templates": "^0.5.7",
     "grunt-autoprefixer": "^0.7.3",
     "grunt-concurrent": "^0.5.0",
     "grunt-contrib-clean": "^0.5.0",
