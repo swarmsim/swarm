@@ -35,7 +35,7 @@
             </a>
           </td>
         </tr>
-        <tr ng-repeat="unit in cur.tab.sortedUnits | filter:filterVisible track by unit.name" ng-class="{active:unit.name===cur.unit.name}" ng-click="click(unit)">
+        <tr ng-repeat="unit in cur.tab.sortUnits() | filter:filterVisible track by unit.name" ng-class="{active:unit.name===cur.unit.name}" ng-click="click(unit)">
           <td class="upgrade-indicator">
             <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
           </td>

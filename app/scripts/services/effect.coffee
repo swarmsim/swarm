@@ -114,4 +114,6 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       else
         suffix = ROMANNUM[level] ? num + 1
       effect.unit.suffix = suffix
+      stats.empower ?= 0
+      stats.empower += level
   return effecttypes

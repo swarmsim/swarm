@@ -28,6 +28,13 @@ angular.module('swarmApp').factory 'Tab', -> class Tab
     _.some @units, (unit) ->
       unit.isVisible() and unit.isNewlyUpgradable()
 
+  sortUnits: ->
+    if @name == 'all'
+      return @sortedUnits
+    return _.sortBy @sortedUnits, (u) ->
+      # default ascending, hack for descending sort
+      -1 * u.stat 'empower', 0
+
   @buildTabs: (unitlist) ->
     ret =
       list: []
