@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
+angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
@@ -47,6 +47,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
       ret = _.clone capspec
       ret.unit = @game.unit ret.unittype
       return ret
+    @effect = _.map @unittype.effect, (effect) =>
+      return new Effect @game, this, effect
 
     @tab = @game.tabs.byName[@unittype.tab]
     if @tab
@@ -304,11 +306,12 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
     for nextgen in producer.producedBy
       @_buildProducerPath unittype, nextgen, path
 
-  @parseSpreadsheet: (data) ->
-    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst','requires','cap']}, data.data.unittypes.elements
+  @parseSpreadsheet: (effecttypes, data) ->
+    rows = spreadsheetUtil.parseRows {name:['cost','prod','warnfirst','requires','cap','effect']}, data.data.unittypes.elements
     ret = new UnitTypes (new UnitType(row) for row in rows)
     for unittype in ret.list
       unittype.producedBy = []
+      unittype.affectedBy = []
     for unittype in ret.list
       #unittype.tick = if unittype.tick then moment.duration unittype.tick else null
       #unittype.cooldown = if unittype.cooldown then moment.duration unittype.cooldown else null
@@ -320,6 +323,8 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
       spreadsheetUtil.resolveList unittype.warnfirst, 'unittype', ret.byName
       spreadsheetUtil.resolveList unittype.requires, 'unittype', ret.byName, {required:false}
       spreadsheetUtil.resolveList unittype.cap, 'unittype', ret.byName, {required:false}
+      spreadsheetUtil.resolveList unittype.effect, 'unittype', ret.byName
+      spreadsheetUtil.resolveList unittype.effect, 'type', effecttypes.byName
       # oops - we haven't parsed upgradetypes yet! done in upgradetype.coffee.
       #spreadsheetUtil.resolveList unittype.require, 'upgradetype', ret.byName
       for prod in unittype.prod
@@ -327,6 +332,8 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
         util.assert prod.val > 0, "unittype prod.val must be positive", prod
       for cost in unittype.cost
         util.assert cost.val > 0, "unittype cost.val must be positive", cost
+      for effect in unittype.effect
+        effect.unittype.affectedBy.push unittype
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
@@ -340,5 +347,5 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
  # # units
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'unittypes', (UnitTypes, spreadsheet) ->
-  return UnitTypes.parseSpreadsheet spreadsheet
+angular.module('swarmApp').factory 'unittypes', (UnitTypes, effecttypes, spreadsheet) ->
+  return UnitTypes.parseSpreadsheet effecttypes, spreadsheet
