@@ -11,10 +11,10 @@ angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env) ->
   $scope.$emit 'changelog'
   $scope.env = env
   zone = -8
-  $scope.stats =
+  $scope.changestats =
     _rawheaders: $ '.changelog h4'
     lastHeaders: (days) ->
-      _.filter $scope.stats.headers, (header) ->
+      _.filter $scope.changestats.headers, (header) ->
         header.diffDays < days
   parseheader = (header) ->
     text = $(header).text()
@@ -25,7 +25,7 @@ angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env) ->
     version: version
     date: date
     diffDays: diffDays
-  $scope.stats.headers = (parseheader(header) for header in $scope.stats._rawheaders)
-  [$scope.stats.lastrelease, ..., $scope.stats.firstrelease] = $scope.stats.headers
-  $scope.stats.days = $scope.stats.firstrelease?.diffDays
-  $log.debug 'changelogdate', $scope.stats
+  $scope.changestats.headers = (parseheader(header) for header in $scope.changestats._rawheaders)
+  [$scope.changestats.lastrelease, ..., $scope.changestats.firstrelease] = $scope.changestats.headers
+  $scope.changestats.days = $scope.changestats.firstrelease?.diffDays
+  $log.debug 'changelogdate', $scope.changestats

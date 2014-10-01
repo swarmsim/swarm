@@ -17,4 +17,4 @@ describe 'Controller: StatisticsCtrl', ->
 
   it 'should attach statistics to the scope', ->
     expect(!!scope).toBe true
-    expect(!!scope.stats).toBe true
+    expect(!!scope.statistics).toBe true

@@ -98,15 +98,18 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
   _parents: ->
     (pathdata[0].parent for pathdata in @_producerPathData() when pathdata[0].parent.prodByName[@name])
 
+  _getCap: ->
+    cap = 0
+    for capspec in @cap
+      capval = capspec.val
+      if capspec.unit?
+        capval *= capspec.unit.count()
+      cap += capval
+    util.assert cap >= 0, 'negative cap', @name, cap
+    return cap
   capValue: (val) ->
     if @cap.length
-      cap = 0
-      for capspec in @cap
-        capval = capspec.val
-        if capspec.unit?
-          capval *= capspec.unit.count()
-        cap += capval
-      util.assert cap >= 0, 'negative cap', @name, cap
+      cap = @_getCap()
       if val?
         return Math.min val, cap
       return cap
@@ -253,7 +256,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile) -> class Unit
     stats = {}
     schema = {}
     for upgrade in @upgrades.list
-      upgrade.stats stats, schema
+      upgrade.calcStats stats, schema
     return stats
 
   statistics: ->

@@ -2,9 +2,9 @@
 <h1>Patch Notes</h1>
 <p>See the <a analytics-on analytics-category="outbound" analytics-event="click" analytics-label="source code repository" target="_blank" href="https://github.com/erosson/swarm">source code repository</a> for a more thorough, but less readable, change history.</p><hr>
 <div ng-if="env.isDebugEnabled" class="well">
-  <p>The game has been running since {{stats.firstrelease.date.format('YYYY/MM/DD')}}, for {{stats.days|number}} days</p>
-  <p>All-time: {{stats.headers.length|number}} releases, {{stats.headers.length/stats.days|number:2}} releases per day</p>
-  <p>Last week: {{stats.lastHeaders(7).length|number}} releases, {{stats.lastHeaders(7).length/7|number:2}} releases per day</p>
+  <p>The game has been running since {{changestats.firstrelease.date.format('YYYY/MM/DD')}}, for {{changestats.days|number}} days</p>
+  <p>All-time: {{changestats.headers.length|number}} releases, {{changestats.headers.length/changestats.days|number:2}} releases per day</p>
+  <p>Last week: {{changestats.lastHeaders(7).length|number}} releases, {{changestats.lastHeaders(7).length/7|number:2}} releases per day</p>
 </div>
 <div class="changelog">
 <!-- template

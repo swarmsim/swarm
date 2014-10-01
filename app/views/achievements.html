@@ -16,7 +16,7 @@
   achievements
 </p>
 
-<p ng-if="game.upgrade('achievementbonus').count() > 0">Your achievements grant a <b>+{{(game.upgrade('achievementbonus').stats().prod - 1) * 100|number:0}}%</b> bonus to larva production.</p>
+<p ng-if="game.upgrade('achievementbonus').count() > 0">Your achievements grant a <b>+{{(game.upgrade('achievementbonus').calcStats().prod - 1) * 100|number:0}}%</b> bonus to larva production.</p>
 
 <ul class="list-unstyled">
   <li ng-repeat="achievement in game.achievementsSorted() | filter:isVisible:achievement" class="achieve">

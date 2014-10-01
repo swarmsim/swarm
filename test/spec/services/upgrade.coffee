@@ -53,18 +53,18 @@ describe 'Service: upgrade', ->
     upgrade2 = game.upgrade 'queenprod'
     stats = {}
     schema = {}
-    upgrade.stats(stats, schema)
+    upgrade.calcStats stats, schema
     expect(stats.prod).toBe 1
     stats2 = {}
-    upgrade2.stats(stats2, schema)
+    upgrade2.calcStats stats2, schema
     expect(stats2.prod).toBe 1
 
     upgrade.buy()
     stats = {}
-    upgrade.stats(stats, schema)
+    upgrade.calcStats stats, schema
     expect(stats.prod).toBeGreaterThan 1
     stats2 = {}
-    upgrade2.stats(stats2, schema)
+    upgrade2.calcStats stats2, schema
     expect(stats2.prod).toBe 1
 
   it 'buys/calcs max upgrades', ->

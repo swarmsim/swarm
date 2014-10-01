@@ -10,7 +10,7 @@
 angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statistics, game, options) ->
   $scope.listener = statistics
   $scope.session = session
-  $scope.stats = session.statistics
+  $scope.statistics = session.statistics
   $scope.game = game
 
   # http://stackoverflow.com/questions/13262621
@@ -19,16 +19,16 @@ angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statis
     "#{parseInt(t.format 'DDD')-1}d #{t.format 'H\\h mm:ss.SSS'}"
 
   $scope.unitStats = (unit) ->
-    ustats = _.clone $scope.stats.byUnit?[unit?.name]
-    if ustats?
-      ustats.elapsedFirstStr = utcdoy ustats.elapsedFirst
-    return ustats
+    ustatistics = _.clone $scope.statistics.byUnit?[unit?.name]
+    if ustatistics?
+      ustatistics.elapsedFirstStr = utcdoy ustatistics.elapsedFirst
+    return ustatistics
   $scope.hasUnitStats = (unit) -> !!$scope.unitStats unit
   $scope.showStats = (unit) -> $scope.hasUnitStats(unit) or (!unit.isBuyable() and unit.isVisible())
 
   $scope.upgradeStats = (upgrade) ->
-    ustats = $scope.stats.byUpgrade[upgrade.name]
-    if ustats?
-      ustats.elapsedFirstStr = utcdoy ustats.elapsedFirst
-    return ustats
+    ustatistics = $scope.statistics.byUpgrade[upgrade.name]
+    if ustatistics?
+      ustatistics.elapsedFirstStr = utcdoy ustatistics.elapsedFirst
+    return ustatistics
   $scope.hasUpgradeStats = (upgrade) -> !!$scope.upgradeStats upgrade
