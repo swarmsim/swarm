@@ -1,5 +1,8 @@
 'use strict'
 
+# Thu, 02 Oct 2014 07:34:29 GMT
+angular.module('swarmApp').value 'timecheckerServerFormat', 'ddd, DD MMM YYYY HH:mm:ss'
+
 ###*
  # @ngdoc service
  # @name swarmApp.timecheck
@@ -13,7 +16,7 @@
  # don't have to be 100% secure. It's better to reset only when we're sure
  # than to nuke someone innocent.
 ###
-angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, session, game) -> class TimeChecker
+angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, session, game, timecheckerServerFormat) -> class TimeChecker
   constructor: (thresholdHours) ->
     @threshold = moment.duration thresholdHours, 'hours'
 
@@ -36,8 +39,16 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
         $q.reject res
       )
 
+  _parseDate: (netnowString) ->
+    # moment says 3-letter timezones are deprecated and we don't need enough precision to care about timezone, so hack it off
+    netnowString = netnowString.replace /\ [A-Za-z]+$/, ''
+    return moment netnowString, timecheckerServerFormat
+
   _isNetTimeInvalid: (netnowString, now=moment()) ->
-    netnow = moment new Date netnowString
+    netnow = @_parseDate netnowString
+    if not netnow.isValid
+      $rootScope.emit 'timecheckError', {error:"couldn\'t parse date: #{netnowString}"}
+      throw new Error "couldn't parse date returned from network: #{netnowString}"
     diff = now.diff netnow, 'hours'
     return Math.abs(diff) > @threshold.as 'hours'
 

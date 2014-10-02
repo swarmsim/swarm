@@ -6,8 +6,10 @@ describe 'Service: timecheck', ->
 
   # instantiate service
   timecheck = {}
-  beforeEach inject (_timecheck_) ->
+  format = {}
+  beforeEach inject (_timecheck_, timecheckerServerFormat) ->
     timecheck = _timecheck_
+    format = timecheckerServerFormat
 
   it 'should do something', ->
     expect(!!timecheck).toBe true
@@ -23,14 +25,17 @@ describe 'Service: timecheck', ->
       expect(!!datetime).toBe true
       done()
 
+  it 'parses http-formatted dates', ->
+    expect(timecheck._parseDate('Thu, 02 Oct 2014 07:34:29 GMT', format, true).isValid()).toBe true
+
   it 'validates network time', ->
     expect(timecheck._isNetTimeInvalid 'Thu, 02 Oct 2014 07:34:29 GMT').toBe false # copied from github headers
-    expect(timecheck._isNetTimeInvalid new Date().toJSON()).toBe false
-    expect(timecheck._isNetTimeInvalid new Date(0).toJSON()).toBe true
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 14 * 24 * 3600 * 1000).toJSON()).toBe true
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 14 * 24 * 3600 * 1000).toJSON()).toBe true
+    expect(timecheck._isNetTimeInvalid moment().format format).toBe false
+    expect(timecheck._isNetTimeInvalid moment(0).format format).toBe true
+    expect(timecheck._isNetTimeInvalid moment().add('days', 14).format format).toBe true
+    expect(timecheck._isNetTimeInvalid moment().subtract('days', 14).format format).toBe true
     # within threshold
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 1 * 24 * 3600 * 1000).toJSON()).toBe false
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 1 * 24 * 3600 * 1000).toJSON()).toBe false
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 3 * 24 * 3600 * 1000).toJSON()).toBe false
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 3 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid moment().add('days', 1).format format).toBe false
+    expect(timecheck._isNetTimeInvalid moment().subtract('days', 1).format format).toBe false
+    expect(timecheck._isNetTimeInvalid moment().add('days', 3).format format).toBe false
+    expect(timecheck._isNetTimeInvalid moment().subtract('days', 3).format format).toBe false
