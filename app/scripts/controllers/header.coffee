@@ -7,13 +7,12 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics, statistics, timecheck, $http, $interval, $timeout) ->
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, analytics, statistics, timecheck, $http, $interval) ->
   # analytics/statistics not actually used, just want it to init
   $scope.env = env
   $scope.version = version
   $scope.session = session
 
-  # check the system clock against our own server headers
   do enforce = ->
     timecheck.enforceNetTime().then(
       (invalid) ->
@@ -31,9 +30,6 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
         console.warn 'failed to check net time'
       )
   enforceInterval = $interval enforce, 1000 * 60 * 30
-
-  # refresh the page every 2ish days, so people don't keep ancient copies of the game open
-  $timeout (->window.location.reload()), 1000 * 60 * 60 * 46
 
   $scope.feedbackUrl = ->
     param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.session.exportSave()}"
