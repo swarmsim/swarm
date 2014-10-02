@@ -33,7 +33,7 @@
             </button>
             <a class="navbar-brand" href="#">Swarm Simulator</a>
             <a ng-cloak ng-if="isNonprod()" class="envalert navbar-brand" ng-href="#/debug"> ({{env}})</a>
-            <a ng-cloak class="navbar-brand" href="#/changelog"><span class="small text-muted">{{version}}</span></a>
+            <a class="navbar-brand" href="#/changelog"><span ng-cloak class="small text-muted">{{version}}</span></a>
           </div>
       
           <div class="collapse navbar-collapse" id="navbar">
@@ -50,7 +50,7 @@
 
       <!--div class="header"></div-->
 
-      <div ng-view=""><center><img src="images/ajax-loader.gif"></center></div>
+      <div class="viewwrap"><div ng-view=""><center><img src="images/ajax-loader.gif"></center></div></div>
 
       <div class="footer">
         <div class="alert alert-dismissible animif" role="alert">
@@ -147,6 +147,7 @@
         <script src="scripts/services/command.js"></script>
         <script src="scripts/services/statistics.js"></script>
         <script src="scripts/controllers/statistics.js"></script>
+        <script src="scripts/services/timecheck.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -11,6 +11,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
   margin-right: 0;
 }
 
+.cheater {
+  color: red;
+  text-align: center;
+}
+
 // unit names + counts must be exactly one line.
 // https://github.com/erosson/swarm/issues/41
 .unitgroup .badge {

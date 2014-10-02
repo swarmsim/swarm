@@ -69,3 +69,10 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
     $analytics.eventTrack 'import',
       category:'import'
       value:if args.success then 1 else 0
+
+  $rootScope.$on 'timecheckFailed', (event, args) ->
+    $analytics.eventTrack 'timecheckFailed',
+      category:'timecheck'
+  $rootScope.$on 'timecheckError', (event, args) ->
+    $analytics.eventTrack 'timecheckError',
+      category:'timecheck'
