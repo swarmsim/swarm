@@ -18,7 +18,8 @@ describe 'Service: game', ->
     expect(!!Game).toBe true
 
   it 'diffs seconds', ->
-    game = new Game date: reified: new Date 1000
+    game = new Game (date: reified: new Date 1000)
+    game.now = new Date 0
     game.tick new Date 1000
     expect(game.diffMillis()).toBe 0
     expect(game.diffSeconds()).toBe 0
@@ -31,7 +32,9 @@ describe 'Service: game', ->
 
   game = {}
   mkgame = (unittypes, reified=new Date 0) ->
-    new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game.now = new Date 0
+    return game
 
   ct = (name, dt) ->
     game.tick new Date dt*1000
@@ -70,6 +73,7 @@ describe 'Service: game', ->
     expect(ct 'meat', 1).toBe 0.5 * c
     expect(ct 'meat', 4).toBe 8 * c
     expect(ct 'meat', 10).toBe 50 * c
+    game.now = new Date 0
     expect(ct 'drone', 0).toBe 0
     expect(ct 'drone', 1).toBe 1 * c
     expect(ct 'drone', 9.5).toBe 9.5 * c
@@ -186,7 +190,7 @@ describe 'Service: game', ->
     expect(unit.stat 'prod').toBe 1
     game.tick new Date 1000
     prod0 = withNoTick game, -> unit.totalProduction()
-    game.tick new Date 0
+    game.now = new Date 0
 
     #upgrade.buy()
     upgrade._addCount 1

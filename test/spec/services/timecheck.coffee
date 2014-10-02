@@ -24,13 +24,13 @@ describe 'Service: timecheck', ->
       done()
 
   it 'validates network time', ->
-    expect(timecheck._isNetTimeValid 'Thu, 02 Oct 2014 07:34:29 GMT').toBe false # copied from github headers
-    expect(timecheck._isNetTimeValid new Date().toJSON()).toBe true
-    expect(timecheck._isNetTimeValid new Date(0).toJSON()).toBe false
-    expect(timecheck._isNetTimeValid new Date(new Date().getTime() + 14 * 24 * 3600 * 1000).toJSON()).toBe false
-    expect(timecheck._isNetTimeValid new Date(new Date().getTime() - 14 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid 'Thu, 02 Oct 2014 07:34:29 GMT').toBe false # copied from github headers
+    expect(timecheck._isNetTimeInvalid new Date().toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid new Date(0).toJSON()).toBe true
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 14 * 24 * 3600 * 1000).toJSON()).toBe true
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 14 * 24 * 3600 * 1000).toJSON()).toBe true
     # within threshold
-    expect(timecheck._isNetTimeValid new Date(new Date().getTime() + 1 * 24 * 3600 * 1000).toJSON()).toBe true
-    expect(timecheck._isNetTimeValid new Date(new Date().getTime() - 1 * 24 * 3600 * 1000).toJSON()).toBe true
-    expect(timecheck._isNetTimeValid new Date(new Date().getTime() + 6 * 24 * 3600 * 1000).toJSON()).toBe true
-    expect(timecheck._isNetTimeValid new Date(new Date().getTime() - 6 * 24 * 3600 * 1000).toJSON()).toBe true
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 1 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 1 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 4 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 4 * 24 * 3600 * 1000).toJSON()).toBe false
