@@ -46,7 +46,7 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
 
   _isNetTimeInvalid: (netnowString, now=moment()) ->
     netnow = @_parseDate netnowString
-    if not netnow.isValid
+    if not netnow.isValid()
       $rootScope.emit 'timecheckError', {error:"couldn\'t parse date: #{netnowString}"}
       throw new Error "couldn't parse date returned from network: #{netnowString}"
     diff = now.diff netnow, 'hours'
