@@ -35,10 +35,6 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
 
   $scope.filterVisible = (unit) -> unit.isVisible()
 
-  $scope.feedbackUrl = ->
-    param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.game.session.exportSave()}"
-    "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
-
   findtab = (index, step) ->
     index += step + game.tabs.list.length
     index %= game.tabs.list.length

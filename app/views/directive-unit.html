@@ -10,7 +10,7 @@
   <div ng-if="cur.capValue()">
     <div class="progress" style="margin-bottom:0">
       <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent()*100|number:0}}%">
-        {{cur.capPercent()*100|number:0}}%
+        {{floor(cur.capPercent()*100)|number:0}}%
       </div>
     </div>
     <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
@@ -118,7 +118,7 @@
 
         <div class="progress" style="margin-bottom:0">
           <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent()*100|number:1}}%">
-            {{upgrade.costMetPercent()*100|number:0}}%
+            {{floor(upgrade.costMetPercent()*100)|number:0}}%
           </div>
         </div>
         <buyupgrade upgrade="upgrade"></buyupgrade>
@@ -140,7 +140,7 @@
 
         <div class="progress" style="margin-bottom:0">
           <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent()*100|number:1}}%">
-            {{abil.costMetPercent()*100|number:0}}%
+            {{floor(abil.costMetPercent()*100)|number:0}}%
           </div>
         </div>
         <buyupgrade upgrade="abil"></buyupgrade>

@@ -15,6 +15,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $lo
     scope.game = game
     scope.commands = commands
     scope.options = options
+    scope.floor = (val) -> Math.floor val
 
     # not good enough - this runs only once, we want to be viewNewUpgrades()'ing constantly while the unit is in view
     #scope.cur.viewNewUpgrades()
