@@ -21,8 +21,8 @@ angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, versi
         if invalid
           console.error 'cheater', invalid
           # Replacing ng-view (via .viewwrap) disables navigation to other pages.
-          # This is hideous technique and you, reader, shouldn't copy it.
-          $('.viewwrap').before '<div class="cheater">There is a problem with your system clock.</div>'
+          # This is hideous technique and you, reader, should not copy it.
+          $('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'
           $('.viewwrap').css({display:'none'})
           $('.footer').css({display:'none'})
           $interval.cancel enforceInterval
