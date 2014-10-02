@@ -75,15 +75,19 @@
           </div>
         </div>
         <div class="form-group">
-          Each {{selected.unittype.label}} costs
+          You're buying
+          <input type="number" ng-model="form.mainBuynum" min="1">
+          {{mainBuynum() == 1 ? selected.unittype.label : selected.unittype.plural}}
+          <span ng-if="selected.stat('twin') > 1">(x{{selected.stat('twin')|bignum}} twins)</span>
+          for
           <span ng-repeat="cost in selected.cost">
             <span ng-if="!$first && $last"> and </span>
-            <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val | bignum}} {{cost.val == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
-          </span> You're buying <input type="number" ng-model="mainBuynum" min="1"> of them. <span ng-if="selected.stat('twin') > 1">(x{{selected.stat('twin')|bignum}} twins)</span>
+            <span ng-class="{costNotMet:cost.val*mainBuynum() > cost.unit.count()}">{{cost.val*mainBuynum() | bignum}} {{cost.val*mainBuynum() == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
+          </span>
           <div class="row nogutter">
             <div class="nogutter" ng-class="{'col-sm-4':selected.maxCostMet() > 1}">
-              <button ng-click="commands.buyUnit({unit:selected, num:mainBuynum, ui:'selected'})" class="form-control unit-buy"  ng-disabled="!selected.isCostMet()">
-                Buy {{unitBuyTotal(mainBuynum)|bignum}}
+              <button ng-click="commands.buyUnit({unit:selected, num:mainBuynum(), ui:'selected'})" class="form-control unit-buy"  ng-disabled="!selected.isCostMet()">
+                Buy {{unitBuyTotal(mainBuynum())|bignum}}
               </button>
             </div>
             <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="selected.maxCostMet(0.25) > 1">

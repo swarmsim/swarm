@@ -10,7 +10,13 @@
 angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands) ->
   $scope.game = game
   $scope.commands = commands
-  $scope.mainBuynum = 1
+  $scope.form =
+    mainBuynum: 1
+  $scope.mainBuynum = ->
+    ret = Math.max 1, parseInt $scope.form.mainBuynum
+    if _.isNaN ret
+      ret = 1
+    return ret
   $scope.selected = if $routeParams.unit? then $scope.game.unit $routeParams.unit else null
 
   # fps may change in options menu, but we destroy the interval upon loading the options menu, so no worries
