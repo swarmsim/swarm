@@ -40,3 +40,8 @@ describe 'Service: timecheck', ->
     expect(timecheck._isNetTimeInvalid moment().subtract(1, 'days').format format).toBe false
     expect(timecheck._isNetTimeInvalid moment().add(3, 'days').format format).toBe false
     expect(timecheck._isNetTimeInvalid moment().subtract(3, 'days').format format).toBe false
+
+  it 'accepts bogus time formats, preferring false negatives to false positives', ->
+    expect(timecheck._isNetTimeInvalid 'fgsfds').toBeNull()
+    expect(timecheck._isNetTimeInvalid 'The, 32 Jab 201A 25:61:62 AAA').toBeNull()
+    # TODO validate that errors are emitted and logged to analytics

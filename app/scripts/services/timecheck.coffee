@@ -42,13 +42,13 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
   _parseDate: (netnowString) ->
     # moment says 3-letter timezones are deprecated and we don't need enough precision to care about timezone, so hack it off
     netnowString = netnowString.replace /\ [A-Za-z]+$/, ''
-    return moment netnowString, timecheckerServerFormat
+    return moment netnowString, timecheckerServerFormat, true
 
   _isNetTimeInvalid: (netnowString, now=moment()) ->
     netnow = @_parseDate netnowString
     if not netnow.isValid()
-      $rootScope.emit 'timecheckError', {error:"couldn\'t parse date: #{netnowString}"}
-      throw new Error "couldn't parse date returned from network: #{netnowString}"
+      $rootScope.$emit 'timecheckError', {error:"couldn\'t parse date: #{netnowString}"}
+      return null
     diff = now.diff netnow, 'hours'
     return Math.abs(diff) > @threshold.as 'hours'
 
