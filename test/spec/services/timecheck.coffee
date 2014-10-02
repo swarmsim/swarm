@@ -32,5 +32,5 @@ describe 'Service: timecheck', ->
     # within threshold
     expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 1 * 24 * 3600 * 1000).toJSON()).toBe false
     expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 1 * 24 * 3600 * 1000).toJSON()).toBe false
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 4 * 24 * 3600 * 1000).toJSON()).toBe false
-    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 4 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() + 3 * 24 * 3600 * 1000).toJSON()).toBe false
+    expect(timecheck._isNetTimeInvalid new Date(new Date().getTime() - 3 * 24 * 3600 * 1000).toJSON()).toBe false
