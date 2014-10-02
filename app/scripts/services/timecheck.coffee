@@ -50,7 +50,6 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
       $rootScope.$emit 'timecheckError', {error:"couldn\'t parse date: #{netnowString}"}
       return null
     diff = now.diff netnow, 'hours'
-    console.log diff, @threshold.as 'hours'
     return Math.abs(diff) > @threshold.as 'hours'
 
   enforceNetTime: ->
