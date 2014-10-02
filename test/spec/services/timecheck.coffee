@@ -29,8 +29,7 @@ describe 'Service: timecheck', ->
     expect(timecheck._parseDate('Thu, 02 Oct 2014 07:34:29 GMT', format, true).isValid()).toBe true
 
   it 'validates network time', ->
-    expect(timecheck._isNetTimeInvalid 'Thu, 02 Oct 2014 07:34:29 GMT').toBe false # copied from github headers
-    console.log 'test test test', moment().format format
+    expect(timecheck._isNetTimeInvalid 'Thu, 02 Oct 2013 07:34:29 GMT').toBe false # copied from github headers
     expect(timecheck._isNetTimeInvalid moment().format format).toBe false
     expect(timecheck._isNetTimeInvalid moment(0).format format).toBe true
     expect(timecheck._isNetTimeInvalid moment().add(14, 'days').format format).toBe true
