@@ -359,6 +359,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, util, Upgra
     @diffMillis() / 1000
 
   tick: (now=new Date()) ->
+    # TODO I hope this accounts for DST
+    util.assert now, "can't tick to undefined time", now
+    util.assert (not @now) or @now <= now, "tick tried to go back in time. System clock problem?"
     @now = now
 
   elapsedStartMillis: ->
