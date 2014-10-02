@@ -98,7 +98,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
       val = ancestordata.prod.val + ancestordata.parent.stat 'base', 0
       bonus *= val
       bonus *= ancestordata.parent.stat 'prod', 1
-      bonus *= ancestordata.parent.stat 'prodAsymp', 1
     return count * bonus / c * math.pow secs, gen
 
   # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
@@ -108,7 +107,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
   _getCap: ->
     if @hasStat 'capBase'
       ret = @stat 'capBase'
-      ret *= @stat 'capAsymp', 1
+      ret *= @stat 'capMult', 1
       return ret
     #cap = 0
     #for capspec in @cap

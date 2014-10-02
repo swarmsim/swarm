@@ -11,8 +11,9 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   onBuy: ->
     @type.onBuy? this, @game, @parent
 
-  calcStats: (stats, schema, level) ->
+  calcStats: (stats={}, schema={}, level=@parent.count()) ->
     @type.calcStats? this, stats, schema, level
+    return stats
 
   bank: -> @type.bank? this, @game
   cap: -> @type.cap? this, @game
@@ -97,10 +98,11 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     calcStats: (effect, stats, schema, level) ->
       # val: asymptote max; val2: 1/x weight
       # asymptote min: 1, max: effect.val
-      util.assert not stats[effect.stat]?
+      validateSchema effect.stat, schema, 'mult' # this isn't multstat, but it's commutative with it
       weight = level * effect.val2
       util.assert weight >= 0, 'negative asympStat weight'
-      stats[effect.stat] = 1 + (effect.val-1) * (1 - 1 / (1 + weight))
+      stats[effect.stat] ?= 1
+      stats[effect.stat] *= 1 + (effect.val-1) * (1 - 1 / (1 + weight))
   effecttypes.register
     name: 'addStat'
     calcStats: (effect, stats, schema, level) ->
