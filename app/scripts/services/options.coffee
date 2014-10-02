@@ -29,5 +29,9 @@ angular.module('swarmApp').factory 'Options', -> class Options
   fpsSleepMillis: ->
     return 1000 / @fps()
 
+  showAdvancedUnitData: (val) ->
+    @maybeSet 'showAdvancedUnitData', val
+    !!@get 'showAdvancedUnitData'
+
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session

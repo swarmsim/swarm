@@ -10,6 +10,7 @@
 angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands) ->
   $scope.game = game
   $scope.commands = commands
+  $scope.options = options
   $scope.form =
     mainBuynum: 1
   $scope.mainBuynum = ->
@@ -38,6 +39,14 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
 
   $scope.unitBuyTotal = (num) ->
     Math.min(num, $scope.selected.maxCostMet()) * $scope.selected.stat 'twin'
+
+  $scope.unitCostAsPercent = (unit, cost) ->
+    MAX = 9999.99
+    count = cost.unit.count()
+    if count <= 0
+      return MAX
+    num = Math.max 1, unit.maxCostMet()
+    Math.min MAX, cost.val * num / count
 
   unitsByGroup = {}
   for unit in $scope.game.unitlist()

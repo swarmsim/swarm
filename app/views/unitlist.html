@@ -84,6 +84,20 @@
             <span ng-if="!$first && $last"> and </span>
             <span ng-class="{costNotMet:cost.val*mainBuynum() > cost.unit.count()}">{{cost.val*mainBuynum() | bignum}} {{cost.val*mainBuynum() == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
           </span>
+          <span ng-if="options.showAdvancedUnitData()">
+            <span ng-if="selected.maxCostMet() > 0">
+              Buying your maximum of
+              {{selected.maxCostMet()*selected.stat('twin')|bignum}} {{selected.maxCostMet()*selected.stat('twin') == 1 ? selected.unittype.label : selected.unittype.plural}}
+            </span>
+            <span ng-if="selected.maxCostMet() <= 0">
+              Buying your next {{selected.unittype.label}}
+            </span>
+            will cost
+            <span ng-repeat="cost in selected.cost">
+              <span ng-if="!$first && $last"> and </span>
+              <span>{{unitCostAsPercent(selected, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && selected.cost.length > 2">, </span>
+            </span>
+          </span>
           <div class="row nogutter">
             <div class="nogutter" ng-class="{'col-sm-4':selected.maxCostMet() > 1}">
               <button ng-click="commands.buyUnit({unit:selected, num:mainBuynum(), ui:'selected'})" class="form-control unit-buy"  ng-disabled="!selected.isCostMet()">
