@@ -23,7 +23,6 @@
         <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
       </span>
       per second.
-      <span ng-if="cur.hasStat('base', 0)">(+{{cur.stat('base')|bignum}} bonus)</span>
       <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     </p>
     <p ng-if="cur.count() > 0">
@@ -42,8 +41,7 @@
       <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
     </span>
     per second.
-    <span ng-if="cur.showparent.hasStat('base', 0)">(+{{cur.showparent.stat('base')|bignum}} bonus)</span>
-    <span ng-if="cur.showparent.hasStat('prod', 1)">(x{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
+    <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     <span ng-if="cur.capValue()">
       You'll reach 100% and stop earning {{cur.unittype.label}} {{cur.capDurationMoment().humanize(true)}}.
     </span>

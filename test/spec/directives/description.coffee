@@ -20,7 +20,7 @@ describe 'Directive: description', ->
     element = $compile(element) scope
     undigested = element.text()
     scope.$digest()
-    expect(element.text()).toBe 'Produce 1 more larva per second.'
+    expect(element.text()).toBe 'Each hatchery produces 1 more larva per second. Currently, your hatcheries produce 1 larvae.'
     expect(element.text()).not.toBe undigested # prove the '1' really compiled, not hardcoded in spreadsheet
 
   it 'should render upgrade description with template text from spreadsheet', inject ($compile) ->

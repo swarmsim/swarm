@@ -1244,8 +1244,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       "requires.unittype",
       "requires.upgradetype",
       "requires.val",
-      "cap.unittype",
-      "cap.val",
       "effect.type",
       "effect.unittype",
       "effect.val",
@@ -1255,8 +1253,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
     ],
     "elements": [
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1290,8 +1286,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1325,8 +1319,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 0,
         "cost.unittype": "cocoon",
         "cost.val": 1,
@@ -1360,8 +1352,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 0,
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -1395,8 +1385,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1430,8 +1418,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "nexus",
-        "cap.val": 10000,
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1465,8 +1451,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1500,8 +1484,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1535,8 +1517,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 10,
@@ -1570,8 +1550,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -1605,8 +1583,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 810,
@@ -1640,8 +1616,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "drone",
         "cost.val": 100,
@@ -1675,8 +1649,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -1710,8 +1682,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 72900,
@@ -1745,8 +1715,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 2000
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "queen",
         "cost.val": 1000,
@@ -1780,8 +1748,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -1815,8 +1781,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 6561000,
@@ -1850,8 +1814,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 40000
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "nest",
         "cost.val": 10000,
@@ -1885,8 +1847,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -1920,8 +1880,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 590490000,
@@ -1955,8 +1913,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 800000
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "greaterqueen",
         "cost.val": 100000,
@@ -1990,8 +1946,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2025,8 +1979,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 53144100000,
@@ -2060,8 +2012,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 4000000
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "hive",
         "cost.val": 1000000,
@@ -2095,8 +2045,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2130,8 +2078,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 4782969000000,
@@ -2165,8 +2111,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "hivequeen",
         "cost.val": 10000000,
@@ -2200,8 +2144,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2235,8 +2177,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 430467210000000,
@@ -2270,8 +2210,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "empress",
         "cost.val": 100000000,
@@ -2305,8 +2243,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2340,8 +2276,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 38742000000000000,
@@ -2375,8 +2309,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "prophet",
         "cost.val": 1000000000,
@@ -2410,8 +2342,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2445,8 +2375,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 3486780000000000000,
@@ -2480,8 +2408,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "goddess",
         "cost.val": 10000000000,
@@ -2515,8 +2441,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2550,8 +2474,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 313811000000000000000,
@@ -2585,8 +2507,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "pantheon",
         "cost.val": 1000000000000,
@@ -2620,8 +2540,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2655,8 +2573,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 750,
@@ -2690,8 +2606,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2725,8 +2639,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 337500,
@@ -2760,8 +2672,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2795,8 +2705,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 151875000,
@@ -2830,8 +2738,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2865,8 +2771,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 68343750000,
@@ -2900,8 +2804,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2935,8 +2837,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 30754687500000,
@@ -2970,8 +2870,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3005,8 +2903,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 13839600000000000,
@@ -3040,8 +2936,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3075,8 +2969,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 6227820000000000000,
@@ -3110,8 +3002,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3145,8 +3035,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 2.80252e+21,
@@ -3180,8 +3068,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3215,8 +3101,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 1.26113e+24,
@@ -3250,8 +3134,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3285,8 +3167,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 5.6751e+26,
@@ -3320,8 +3200,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3355,8 +3233,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 2.5538e+29,
@@ -3390,8 +3266,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3425,8 +3299,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "energy",
         "cost.val": 10,
@@ -3460,8 +3332,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
-        "cap.unittype": "",
-        "cap.val": "",
         "column": "",
         "cost.unittype": "energy",
         "cost.val": 10,
@@ -3524,7 +3394,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.factor": 10,
         "cost.unittype": "meat",
         "cost.val": 300,
-        "description": "Produce {{upgrade.type.effect[0].val | number}} more larva per second.",
+        "description": "Each hatchery produces {{upgrade.type.effect[0].val | number}} more larva per second. Currently, your hatcheries produce {{upgrade.unit.prod[0].val + upgrade.effect[0].calcStats().base | number:0}} larvae.",
         "effect.stat": "base",
         "effect.type": "addStat",
         "effect.unittype": "invisiblehatchery",
@@ -3545,7 +3415,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.factor": 2.45,
         "cost.unittype": "territory",
         "cost.val": 10,
-        "description": "Larva production increased by {{(upgrade.type.effect[0].val - 1) * 100 | number:0}}%.",
+        "description": "Each expansion increases your hatcheries' larvae production by {{(upgrade.type.effect[0].val - 1) * 100 | number:0}}%. Currently, your expansions increase larvae production by {{(upgrade.effect[0].calcStats().prod - 1) * 100 | number:0}}%.",
         "effect.stat": "prod",
         "effect.type": "multStat",
         "effect.unittype": "invisiblehatchery",
