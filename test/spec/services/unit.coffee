@@ -57,10 +57,12 @@ describe 'Service: unit', ->
   game = {}
   Game = {}
   unittypes = {}
-  beforeEach inject (_Game_, _unittypes_) ->
+  util = {}
+  beforeEach inject (_Game_, _unittypes_, _util_) ->
     #game = _game_
     Game = _Game_
     unittypes = _unittypes_
+    util = _util_
   mkgame = (unittypes, reified=new Date 0) ->
     game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
     game.now = new Date 0
@@ -300,3 +302,14 @@ describe 'Service: unit', ->
     ling.buy(10)
     expect(ling.count()).toBe 10
     expect(meat.count()).toBeLessThan meatcount - 750000000 # really does cost more than unempowered
+
+  it 'calculates stats from unit-effects', ->
+    game = mkgame {energy:0, nexus: 1, nightbug:0}
+    [energy, nexus, nightbug] = _.map ['energy', 'nexus', 'nightbug'], (name) -> game.unit name
+    expect(energy._getCap()).toBe 10000
+    nexus._setCount 2
+    util.clearMemoCache energy._stats
+    expect(energy._getCap()).toBe 20000
+    nightbug._setCount 200
+    util.clearMemoCache energy._stats
+    expect(energy._getCap()).toBe 30000

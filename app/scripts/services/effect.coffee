@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('swarmApp').factory 'Effect', (util) -> class Effect
-  constructor: (@game, @upgrade, data) ->
+  constructor: (@game, @parent, data) ->
     _.extend this, data
     if data.unittype?
       @unit = util.assert @game.unit data.unittype
@@ -9,7 +9,7 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
       @unit2 = util.assert @game.unit data.unittype2
 
   onBuy: ->
-    @type.onBuy? this, @game, @upgrade
+    @type.onBuy? this, @game, @parent
 
   calcStats: (stats, schema, level) ->
     @type.calcStats? this, stats, schema, level
@@ -92,6 +92,15 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       validateSchema effect.stat, schema, 'mult'
       stats[effect.stat] ?= 1
       stats[effect.stat] *= Math.pow effect.val, level
+  effecttypes.register
+    name: 'asympStat'
+    calcStats: (effect, stats, schema, level) ->
+      # val: asymptote max; val2: 1/x weight
+      # asymptote min: 1, max: effect.val
+      util.assert not stats[effect.stat]?
+      weight = level * effect.val2
+      util.assert weight >= 0, 'negative asympStat weight'
+      stats[effect.stat] = 1 + (effect.val-1) * (1 - 1 / (1 + weight))
   effecttypes.register
     name: 'addStat'
     calcStats: (effect, stats, schema, level) ->

@@ -6,6 +6,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
     @name = @unittype.name
     @suffix = ''
     @descriptionFn = $compile "<p>#{@unittype.description}</p>"
+    @affectedBy = []
     for fn in ['_stats', '_count', '_velocity', '_eachCost']
       @[fn] = util.memoize @[fn]
   _init: ->
@@ -48,7 +49,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
       ret.unit = @game.unit ret.unittype
       return ret
     @effect = _.map @unittype.effect, (effect) =>
-      return new Effect @game, this, effect
+      ret = new Effect @game, this, effect
+      ret.unit.affectedBy.push ret
+      return ret
 
     @tab = @game.tabs.byName[@unittype.tab]
     if @tab
@@ -93,7 +96,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
     bonus = 1
     for ancestordata in pathdata
       val = ancestordata.prod.val + ancestordata.parent.stat 'base', 0
-      bonus *= val * ancestordata.parent.stat 'prod', 1
+      bonus *= val
+      bonus *= ancestordata.parent.stat 'prod', 1
+      bonus *= ancestordata.parent.stat 'prodAsymp', 1
     return count * bonus / c * math.pow secs, gen
 
   # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
@@ -101,22 +106,27 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
     (pathdata[0].parent for pathdata in @_producerPathData() when pathdata[0].parent.prodByName[@name])
 
   _getCap: ->
-    cap = 0
-    for capspec in @cap
-      capval = capspec.val
-      if capspec.unit?
-        capval *= capspec.unit.count()
-      cap += capval
-    util.assert cap >= 0, 'negative cap', @name, cap
-    return cap
+    if @hasStat 'capBase'
+      ret = @stat 'capBase'
+      ret *= @stat 'capAsymp', 1
+      return ret
+    #cap = 0
+    #for capspec in @cap
+    #  capval = capspec.val
+    #  if capspec.unit?
+    #    capval *= capspec.unit.count()
+    #  cap += capval
+    #util.assert cap >= 0, 'negative cap', @name, cap
+    #return cap
   capValue: (val) ->
-    if @cap.length
-      cap = @_getCap()
-      if val?
-        return Math.min val, cap
+    cap = @_getCap()
+    if not cap?
+      # uncapped
+      return val
+    if not val?
+      # no value supplied - return just the cap
       return cap
-    # no cap
-    return val
+    return Math.min val, cap
 
   capPercent: ->
     if (cap = @capValue())?
@@ -259,6 +269,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
     schema = {}
     for upgrade in @upgrades.list
       upgrade.calcStats stats, schema
+    for uniteffect in @affectedBy
+      uniteffect.calcStats stats, schema, uniteffect.parent.count()
     return stats
 
   statistics: ->
@@ -332,8 +344,6 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
         util.assert prod.val > 0, "unittype prod.val must be positive", prod
       for cost in unittype.cost
         util.assert cost.val > 0, "unittype cost.val must be positive", cost
-      for effect in unittype.effect
-        effect.unittype.affectedBy.push unittype
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
