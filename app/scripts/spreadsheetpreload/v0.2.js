@@ -3465,7 +3465,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "column": "",
         "cost.unittype": "energy",
         "cost.val": 10,
-        "description": "<p>Lepidoptera are mysterious creatures, with furry bodies and large wings, emerging from their dens only at night. The lepidoptera are attracted to light, and energy is attracted to the lepidoptera.</p><p>Your lepidoptera generate {{(unit.effect[0].calcStats().prod - 1) * 100 | number:2}}% more energy per second.</p>",
+        "description": "<p>Lepidoptera are mysterious creatures, with furry bodies and large wings, emerging from their dens only at night. The lepidoptera are attracted to the light of your nightbugs, and energy is attracted to the lepidoptera.</p><p>Your lepidoptera generate {{(unit.effect[0].calcStats().prod - 1) * 100 | number:2}}% more energy per second.</p>",
         "disabled": "",
         "effect.stat": "prod",
         "effect.type": "asympStat",
