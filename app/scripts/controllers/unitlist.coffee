@@ -10,7 +10,6 @@
 angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $location, $filter, $interval, game, options, commands) ->
   $scope.game = game
   $scope.commands = commands
-  $scope.buynum = 1
   $scope.mainBuynum = 1
   $scope.selected = if $routeParams.unit? then $scope.game.unit $routeParams.unit else null
 
@@ -30,6 +29,9 @@ angular.module('swarmApp').controller 'UnitlistCtrl', ($scope, $routeParams, $lo
       return Math.floor num
     # http://stackoverflow.com/questions/7312468/javascript-round-to-a-number-of-decimal-places-but-strip-extra-zeros 
     num.toPrecision(3).replace /\.?0+$/, ''
+
+  $scope.unitBuyTotal = (num) ->
+    Math.min(num, $scope.selected.maxCostMet()) * $scope.selected.stat 'twin'
 
   unitsByGroup = {}
   for unit in $scope.game.unitlist()

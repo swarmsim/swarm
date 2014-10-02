@@ -83,7 +83,7 @@
           <div class="row nogutter">
             <div class="nogutter" ng-class="{'col-sm-4':selected.maxCostMet() > 1}">
               <button ng-click="commands.buyUnit({unit:selected, num:mainBuynum, ui:'selected'})" class="form-control unit-buy"  ng-disabled="!selected.isCostMet()">
-                Buy {{mainBuynum*selected.stat('twin')|bignum}}
+                Buy {{unitBuyTotal(mainBuynum)|bignum}}
               </button>
             </div>
             <div class="col-sm-4 nogutter" title="25% of maximum you can pay for" ng-show="selected.maxCostMet(0.25) > 1">
