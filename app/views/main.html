@@ -24,7 +24,7 @@
         </td>
         <td ng-click="click(unit)">
           <span ng-if="unit.velocity() != 0">
-          +{{unit.velocity()|bignum}}/sec
+          +{{unit.velocity()|bignum:1}}/sec
           </span>
         </td>
         <td ng-if="options.showAdvancedUnitData()">
