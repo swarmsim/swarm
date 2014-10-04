@@ -80,3 +80,6 @@ angular.module('swarmApp').run (env, $location, $log) ->
   if $location.protocol() == 'http' and not allowinsecure
     window.location.protocol = 'https'
     $log.debug "window.location.protocol = 'https:'"
+
+angular.module('swarmApp').run ($rootScope) ->
+  $rootScope.floor = (val) -> Math.floor val

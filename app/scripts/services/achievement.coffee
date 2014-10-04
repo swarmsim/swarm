@@ -8,11 +8,12 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> cl
     @requires = _.map @type.requires, (require) =>
       require = _.clone require
       if require.unittype
-        require.resource =require.unit = util.assert @game.unit require.unittype
+        require.resource = require.unit = util.assert @game.unit require.unittype
       if require.upgradetype
         require.resource = require.upgrade = util.assert @game.upgrade require.upgradetype
       util.assert not (require.unit and require.upgrade), "achievement requirement can't have both unit and upgrade", @name
       return require
+    util.assert @requires.length <= 1, 'multiple achievement requirements not yet supported', @name
     @visible = _.map @type.visible, (visible) =>
       visible = _.clone visible
       if visible.unittype
@@ -56,6 +57,25 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> cl
       if visible.resource.count() < visible.val
         return false
     return @_visible = true
+
+  hasProgress: ->
+    for req in @requires
+      if req.resource?
+        return true
+    return false
+  progressMax: ->
+    if @hasProgress()?
+      return @requires[0].val
+  progressVal: ->
+    req = @requires[0]
+    if req.upgrade?
+      return req.upgrade.count()
+    if req.unit?
+      return req.unit.statistics().twinnum ? 0
+    return undefined
+  progressPercent: ->
+    if @hasProgress()?
+      return @progressVal() / @progressMax()
 
 angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $log) -> class AchievementTypes
   constructor: ->

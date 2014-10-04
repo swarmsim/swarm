@@ -38,6 +38,15 @@
       <h3>{{achievement.type.label}}</h3>
       <p class="achievedesc">{{achievement.type.description}}</p>
       <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
+      <div ng-if="achievement.hasProgress()" class="progress" style="margin-bottom:0">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{achievement.progressVal()}}" aria-valuemin="0" aria-valuemax="{{achievement.progressMax()}}" style="width:{{achievement.progressPercent()*100|number:0}}%">
+          {{floor(achievement.progressPercent()*100)|number:0}}%<span ng-if="achievement.progressPercent() > 0.3">:
+            {{achievement.progressVal() | bignum:0}} of {{achievement.progressMax() | bignum:0}}
+          </span>
+        </div>
+        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{achievement.progressMax() - achievement.progressVal()}}" aria-valuemin="0" aria-valuemax="{{achievement.progressMax()}}" style="width:{{(1-achievement.progressPercent())*100|number:0}}%">
+        </div>
+      </div>
     </div>
     <div ng-if="state(achievement) == 'masked'" class="alert achievetext alert-warning" ng-click="achieveclick(achievement)">
       <span class="achieveicon glyphicon glyphicon-question-sign" title="it is a mystery"></span>
