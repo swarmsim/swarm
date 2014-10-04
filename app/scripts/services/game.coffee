@@ -38,6 +38,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
+    delete @now
     @tick @session?.date?.reified
     @tick()
 
@@ -79,7 +80,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       # system clock problem! don't whine for small timing errors, but don't update the clock either.
       # TODO I hope this accounts for DST
       diffMillis = @now.getTime() - now.getTime()
-      util.assert diffMillis <= 120 * 1000, "tick tried to go back in time. System clock problem?", @now, now
+      util.assert diffMillis <= 120 * 1000, "tick tried to go back in time. System clock problem?", @now, now, diffMillis
 
   elapsedStartMillis: ->
     @now.getTime() - @session.date.started.getTime()
