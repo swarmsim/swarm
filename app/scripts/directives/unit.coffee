@@ -59,3 +59,6 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $lo
     scope.description = (resource, desc=resource.descriptionFn) ->
       # this makes descriptions a potential xss vector. careful to only use numbers.
       desc scope
+
+    # TODO why isn't this inherited automatically?
+    scope.floor ?= scope.$root.floor
