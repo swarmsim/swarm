@@ -3,6 +3,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+/* http://stackoverflow.com/questions/2584138/css3-continuous-rotate-animation-just-like-a-loading-sundial */
+@-webkit-keyframes animrotate {
+  from {-webkit-transform: rotate(0deg);}
+  to   {-webkit-transform: rotate(359deg);}
+}
+.animrotate {
+  -webkit-animation: animrotate 1s infinite linear;
+}
+
 // usage: ?theme=dark-[ff/chrome]. see scripts/controllers/header.coffee
 // specifying browser is totally lame, but I don't want to fight with this anymore
 html.theme-dark-ff, html.theme-dark-chrome {
