@@ -5827,6 +5827,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.val": 4,
         "rowNumber": 113,
         "unittype": "energy"
+      },
+      {
+        "class": "ability",
+        "cost.factor": 1,
+        "cost.unittype": "energy",
+        "cost.val": 1,
+        "description": "For two minutes, all production is increased by {{ upgrade.effect[0].output() * 100|number:0}}%.",
+        "effect.stat": "",
+        "effect.type": "applyBuff",
+        "effect.unittype": "",
+        "effect.unittype2": "",
+        "effect.val": 5,
+        "effect.val2": "",
+        "label": "frenzy",
+        "lol": "",
+        "maxlevel": "",
+        "name": "frenzy",
+        "requires.unittype": "nexus",
+        "requires.val": 6,
+        "rowNumber": 114,
+        "unittype": "energy"
       }
     ],
     "name": "upgrades"

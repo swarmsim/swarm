@@ -1,5 +1,16 @@
 'use strict'
 
+angular.module('swarmApp').factory 'Buff', (util, $log) -> class Buff
+  constructor: (@game, @type, @started, @duration) ->
+    @started = moment @started
+    @expires = @started.clone()
+    @expires.add @duration
+
+  expiresInMillis: ->
+    return @expires.valueOf() - @game.now.valueOf()
+  expiresPercent: ->
+    return @expiresInMillis() / @duration.valueOf()
+
 ###*
  # @ngdoc service
  # @name swarmApp.game
@@ -7,7 +18,7 @@
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab) -> class Game
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab, Buff) -> class Game
   constructor: (@session) ->
     @_init()
   _init: ->
@@ -37,6 +48,10 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
+
+    # TODO persistent buffs
+    @buffs = []
+
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
     @tick @session?.date?.reified
@@ -72,9 +87,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   momentStarted: ->
     moment @dateStarted()
 
-  tick: (now=new Date()) ->
+  tick: (now=new Date(), skipExpire=false) ->
     util.assert now, "can't tick to undefined time", now
     if (not @now) or @now <= now
+      if not skipExpire
+        @expireBuffs now
       @now = now
     else
       # system clock problem! don't whine for small timing errors, but don't update the clock either.
@@ -86,6 +103,19 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @now.getTime() - @session.date.started.getTime()
   timestampMillis: ->
     @elapsedStartMillis() + @totalSkippedMillis()
+
+  applyBuff: (type, duration) ->
+    @buffs.push buff = new Buff this, type, @now, duration
+    # earliest-expiring buffs at the front
+    @buffs.sort (a, b) ->
+      a.expires.valueOf() - b.expires.valueOf()
+  expireBuffs: (now) ->
+    while (buff = @buffs[0])? and buff.expires.isBefore now
+      util.assert (not @now) or (not buff.expires.isBefore @now), "failed to expire a buff before ticking"
+      # careful: this specifically requires isBefore in the above line, buff < now. buff <= now would be an infinite loop.
+      @tick buff.expires.toDate(), true
+      @reify()
+      @buffs.shift()
 
   unit: (unitname) ->
     if _.isUndefined unitname

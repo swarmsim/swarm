@@ -14,6 +14,8 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version) ->
   link: (scope, element, attrs) ->
     scope.tabs = game.tabs
     scope.options = options
+    scope.game = game
+
     scope.filterVisible = (tab) -> tab.isVisible()
 
     scope.feedbackUrl = ->

@@ -88,6 +88,15 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
   effecttypes.register
+    name: 'applyBuff'
+    onBuy: (effect) ->
+      # TODO type
+      duration = moment.duration effect.val, 'seconds'
+      effect.game.applyBuff 'testtype', duration
+    output: (effect) ->
+      1
+
+  effecttypes.register
     name: 'multStat'
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
