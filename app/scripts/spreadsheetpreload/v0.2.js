@@ -422,7 +422,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Grow 100 million hive empresses",
-        "label": "wu zeitan",
+        "label": "wu zetian",
         "longdesc": "",
         "name": "empress2",
         "points": 20,
