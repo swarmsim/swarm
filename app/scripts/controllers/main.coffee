@@ -11,9 +11,10 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
   $scope.game = game
   $scope.options = options
   
-  $scope.cur =
-    tab: $scope.game.tabs.byName[$routeParams.tab] ? $scope.game.tabs.list[0]
-  $scope.cur.unit = $scope.cur.tab.lastselected = $scope.game.unitByLabel $routeParams.unit
+  $scope.cur = {}
+  $scope.cur.unit = $scope.game.unitByLabel $routeParams.unit
+  $scope.cur.tab = $scope.game.tabs.byName[$routeParams.tab] ? $scope.cur.unit?.tab ? $scope.game.tabs.list[0]
+  $scope.cur.tab.lastselected = $scope.cur.unit
   # if it's a bogus tab name, or the tab's not visible (ex. energy before first nexus)
   if ($routeParams.tab != $scope.cur.tab.name and $routeParams.tab?) or not $scope.cur.tab.isVisible()
     $location.url '/'

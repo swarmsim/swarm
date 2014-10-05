@@ -49,6 +49,9 @@ angular.module('swarmApp').config ($routeProvider) ->
       .when '/tab/:tab/unit/:unit',
         templateUrl: 'views/unit.html'
         controller: 'MainCtrl'
+      .when '/unit/:unit',
+        templateUrl: 'views/unit.html'
+        controller: 'MainCtrl'
       .when '/tab/:tab',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
