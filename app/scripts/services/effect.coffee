@@ -11,8 +11,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     if @parent.unittype? then @parent else @parent.unit
   hasParentStat: (statname, _default) ->
     @parentUnit().hasStat statname, _default
-  parentStat: (statname) ->
-    @parentUnit().stat statname
+  parentStat: (statname, _default) ->
+    @parentUnit().stat statname, _default
 
   onBuy: ->
     @type.onBuy? this, @game, @parent
