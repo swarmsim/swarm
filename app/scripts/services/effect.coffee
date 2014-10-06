@@ -95,6 +95,12 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       effect.game.applyBuff 'testtype', duration
     output: (effect) ->
       1
+  effecttypes.register
+    name: 'skipTime'
+    onBuy: (effect) ->
+      effect.game.skipTime @output(effect), 'seconds'
+    output: (effect) ->
+      effect.val
 
   effecttypes.register
     name: 'multStat'

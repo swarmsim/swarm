@@ -5727,6 +5727,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "class": "ability",
         "cost.factor": 1,
         "cost.unittype": "energy",
+        "cost.val": 4200,
+        "description": "Travel {{ upgrade.effect[0].output() / 60 | number:1 }} minutes into the future, gaining {{ upgrade.effect[0].output() / 60 | number:1 }} minutes' worth of production.",
+        "effect.stat": "",
+        "effect.type": "skipTime",
+        "effect.unittype": "",
+        "effect.unittype2": "",
+        "effect.val": 900,
+        "effect.val2": "",
+        "label": "chronocast",
+        "lol": "",
+        "maxlevel": "",
+        "name": "chronocast",
+        "requires.unittype": "nexus",
+        "requires.val": 1,
+        "rowNumber": 109,
+        "unittype": "energy"
+      },
+      {
+        "class": "ability",
+        "cost.factor": 1,
+        "cost.unittype": "energy",
         "cost.val": 1600,
         "description": "Instantly create {{ upgrade.effect[0].output() + upgrade.effect[1].output() | longnum }} new meat.",
         "effect.stat": "",
@@ -5741,7 +5762,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "meatrush",
         "requires.unittype": "nexus",
         "requires.val": 2,
-        "rowNumber": 109,
+        "rowNumber": 110,
         "unittype": "energy"
       },
       {
@@ -5762,7 +5783,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "meatrush",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 110,
+        "rowNumber": 111,
         "unittype": ""
       },
       {
@@ -5783,7 +5804,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "territoryrush",
         "requires.unittype": "nexus",
         "requires.val": 3,
-        "rowNumber": 111,
+        "rowNumber": 112,
         "unittype": "energy"
       },
       {
@@ -5804,7 +5825,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "territoryrush",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 112,
+        "rowNumber": 113,
         "unittype": ""
       },
       {
@@ -5825,7 +5846,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "clonelarvae",
         "requires.unittype": "nexus",
         "requires.val": 4,
-        "rowNumber": 113,
+        "rowNumber": 114,
         "unittype": "energy"
       },
       {
@@ -5846,7 +5867,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "frenzy",
         "requires.unittype": "nexus",
         "requires.val": 6,
-        "rowNumber": 114,
+        "rowNumber": 115,
         "unittype": "energy"
       }
     ],

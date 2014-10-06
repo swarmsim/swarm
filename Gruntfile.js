@@ -62,6 +62,7 @@ module.exports = function (grunt) {
             isDebugEnabled: true,
             isDebugLogged: false,
             httpsAllowInsecure: true,
+            showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: '0',
             gaTrackingID: null
@@ -75,6 +76,7 @@ module.exports = function (grunt) {
             isDebugEnabled: true,
             isDebugLogged: true,
             httpsAllowInsecure: true,
+            showSkipped: true,
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             gaTrackingID: 'UA-53523462-3'
@@ -89,6 +91,7 @@ module.exports = function (grunt) {
             isDebugLogged: false,
             httpsAllowInsecure: false,
             //gaTrackingID: 'UA-53523462-2'
+            showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             gaTrackingID: 'UA-53523462-1'

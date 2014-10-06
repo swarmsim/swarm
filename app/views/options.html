@@ -35,7 +35,7 @@
       <span class="glyphicon glyphicon-warning-sign"></span>
       Wipe all saved data and start over
     </button>
-    <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
+    <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="env.showSkipped && game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
   </div>
   <div class="form-group">
     <label class="control-label"><span class="glyphicon glyphicon-cloud-upload"></span> Analytics</label>
