@@ -7,6 +7,12 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
       @unit = util.assert @game.unit data.unittype
     if data.unittype2?
       @unit2 = util.assert @game.unit data.unittype2
+  parentUnit: ->
+    if @parent.unittype? then @parent else @parent.unit
+  hasParentStat: (statname, _default) ->
+    @parentUnit().hasStat statname, _default
+  parentStat: (statname) ->
+    @parentUnit().stat statname
 
   onBuy: ->
     @type.onBuy? this, @game, @parent
@@ -58,13 +64,13 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
     output: (effect, game) ->
-      effect.val
+      effect.val * effect.parentStat 'power'
   effecttypes.register
     name: 'addUnitByVelocity'
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
     output: (effect, game) ->
-      effect.unit.velocity() * effect.val
+      effect.unit.velocity() * effect.val * effect.parentStat 'power'
   effecttypes.register
     name: 'compoundUnit'
     bank: (effect, game) ->
@@ -78,7 +84,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       velocity = effect.unit.velocity()
       if effect.unit2?
         velocity += effect.unit2.velocity()
-      return effect.val2 * velocity
+      return effect.val2 * velocity * effect.parentStat 'power'
     output: (effect, game) ->
       base = @bank effect, game
       ret = base * (effect.val - 1)
@@ -100,7 +106,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     onBuy: (effect) ->
       effect.game.skipTime @output(effect), 'seconds'
     output: (effect) ->
-      effect.val
+      effect.val * effect.parentStat 'power'
 
   effecttypes.register
     name: 'multStat'
