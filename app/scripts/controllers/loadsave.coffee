@@ -40,4 +40,11 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
       $scope.form.export = exportedsave
       # tell analytics
       $scope.$emit 'loadGameFromStorageFailed', e.message
-  return game
+
+  # hacky 0.2.11 fix. TODO remove
+  for i in [1..5]
+    $log.debug 'nexusfix', i, game.upgrade("nexus#{i}").count(), game.unit('nexus').count()
+    if game.upgrade("nexus#{i}").count() > 0 and game.unit('nexus').count() < i
+      $log.info 'fixed nexus count', i
+      game.unit('nexus')._setCount i
+
