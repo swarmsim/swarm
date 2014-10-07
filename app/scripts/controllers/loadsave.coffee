@@ -9,7 +9,7 @@
  #
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
-angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version) ->
+angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location) ->
   $scope.form = {}
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
@@ -40,6 +40,13 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
       $scope.form.export = exportedsave
       # tell analytics
       $scope.$emit 'loadGameFromStorageFailed', e.message
+
+  # try to load a save file from the url.
+  if (savedata = $location.search().savedata)?
+    $log.info 'loading game from url...'
+    # transient=true: don't overwrite the saved data until we buy something
+    game.importSave savedata, true
+    $log.info 'loading game from url successful!'
 
   # hacky 0.2.11 fix. TODO remove
   for i in [1..5]
