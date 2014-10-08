@@ -26,7 +26,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
         nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
         secs = moment.duration(estimate.val, 'seconds').humanize()
         if /\ years$/.test secs
-          secs = 'multiple years'
+          secs = 'a long time'
           nonlinear = ''
         return ", #{nonlinear}#{secs}"
       return ""
