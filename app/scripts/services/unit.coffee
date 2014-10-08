@@ -132,18 +132,35 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
       return @count() / cap
   capDurationSeconds: ->
     if (cap = @capValue())?
-      count = @count()
-      diff = cap - count
-      velocity = @velocity()
-      return if velocity == 0 then Infinity else diff / velocity
+      return @estimateSecs cap
   capDurationMoment: ->
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
 
+  estimateSecs: (num) ->
+    remaining = num - @count()
+    if remaining <= 0
+      return 0
+    velocity = @velocity()
+    if velocity <= 0
+      return Infinity
+    secs = remaining / velocity
+    # verify it's linear
+    estimate = @_countInSecsFromNow secs
+    if util.isFloatEqual num, estimate, 0.1
+      return secs
+    #throw new Error 'nonlinear estimation not yet implemented'
+    # fuck it
+    return secs
+
   count: -> @_count @game.now.getTime()
   _count: ->
     util.clearMemoCache @_count # store only the most recent count
-    secs = @game.diffSeconds()
+    return @_countInSecsFromNow 0
+
+  _countInSecsFromNow: (secs=0) ->
+    return @_countInSecsFromReified @game.diffSeconds() + secs
+  _countInSecsFromReified: (secs=0) ->
     count = @rawCount()
     for pathdata in @_producerPathData()
       count += @_gainsPath pathdata, secs

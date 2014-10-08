@@ -118,7 +118,7 @@
 
         <div class="progress" style="margin-bottom:0">
           <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent()*100|number:1}}%">
-            {{floor(upgrade.costMetPercent()*100)|number:0}}%
+            {{floor(upgrade.costMetPercent()*100)|number:0}}%{{formatSecs(upgrade.estimateSecs())}}
           </div>
         </div>
         <buyupgrade upgrade="upgrade"></buyupgrade>
@@ -140,7 +140,7 @@
 
         <div class="progress" style="margin-bottom:0">
           <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent()*100|number:1}}%">
-            {{floor(abil.costMetPercent()*100)|number:0}}%
+            {{floor(abil.costMetPercent()*100)|number:0}}%{{formatSecs(abil.estimateSecs())}}
           </div>
         </div>
         <buyupgrade upgrade="abil"></buyupgrade>

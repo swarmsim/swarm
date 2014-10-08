@@ -6,7 +6,7 @@
  # @description
  # # unit
 ###
-angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $location, $sce) ->
+angular.module('swarmApp').directive 'unit', ($log, game, commands, options, util, $location, $sce) ->
   templateUrl: 'views/directive-unit.html'
   restrict: 'E'
   scope:
@@ -18,6 +18,13 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, $lo
 
     # not good enough - this runs only once, we want to be viewNewUpgrades()'ing constantly while the unit is in view
     #scope.cur.viewNewUpgrades()
+
+    scope.formatSecs = (secs) ->
+      #console.log 'formatsecs', secs, util.utcdoy 1000 * secs
+      #util.utcdoy 1000 * secs
+      if isFinite secs
+        return ", #{moment.duration(secs, 'seconds').humanize()}"
+      return ""
 
     parseNum = (num) ->
       if num?
