@@ -10,8 +10,11 @@ angular.module('swarmApp').factory 'ReplayLog', ($log, util, $rootScope) -> clas
     @_cachedSave = @save()
     $log.debug 'saving replay', @_cachedSave.length
     $rootScope.$emit 'replay:save', this
+    # avoid memory leak while dry-running this
+    if @log.length > 100
+      @reset()
   reset: ->
-    @log.length = 0
+    while @log.length > 0 then @log.pop()
     @save()
 
   compressToUTF16: ->

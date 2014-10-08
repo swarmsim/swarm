@@ -7,7 +7,7 @@
  # # ChangelogCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env) ->
+angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env, version, session) ->
   $scope.$emit 'changelog'
   $scope.env = env
   zone = -8
@@ -29,3 +29,7 @@ angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env) ->
   [$scope.changestats.lastrelease, ..., $scope.changestats.firstrelease] = $scope.changestats.headers
   $scope.changestats.days = $scope.changestats.firstrelease?.diffDays
   $log.debug 'changelogdate', $scope.changestats
+
+  $scope.feedbackUrl = ->
+    param = "#{version}|#{window?.navigator?.userAgent}|#{session.exportSave()}"
+    "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
