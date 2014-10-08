@@ -5752,7 +5752,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.factor": 1,
         "cost.unittype": "energy",
         "cost.val": 1600,
-        "description": "Instantly birth {{ upgrade.effect[0].output() + upgrade.effect[1].output() | longnum }} new larvae.",
+        "description": "Instantly give birth to {{ upgrade.effect[0].output() + upgrade.effect[1].output() | longnum }} new larvae.",
         "effect.stat": "",
         "effect.type": "addUnitByVelocity",
         "effect.unittype": "larva",
