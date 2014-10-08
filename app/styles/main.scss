@@ -7,7 +7,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
   overflow-x: visible;
   white-space: nowrap;
   // outline. http://css-tricks.com/adding-stroke-to-web-text/
-  text-shadow: 1px 1px $brand-primary, -1px 1px $brand-primary, 1px -1px $brand-primary, -1px -1px $brand-primary;
+  //text-shadow: 1px 1px $brand-primary, -1px 1px $brand-primary, 1px -1px $brand-primary, -1px -1px $brand-primary;
+  text-shadow: 1px 1px black, -1px 1px black, 1px -1px black, -1px -1px black;
 }
 /* http://stackoverflow.com/questions/2584138/css3-continuous-rotate-animation-just-like-a-loading-sundial */
 @-webkit-keyframes animrotate {

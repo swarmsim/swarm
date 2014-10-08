@@ -10,7 +10,7 @@
   <div ng-if="cur.capValue()">
     <div class="progress" style="margin-bottom:0">
       <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent()*100|number:0}}%">
-        {{floor(cur.capPercent()*100)|number:0}}%
+        {{floor(cur.capPercent()*100)|number:0}}%, {{cur.capDurationMoment().humanize()}}
       </div>
     </div>
     <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
@@ -43,7 +43,7 @@
     per second.
     <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     <span ng-if="cur.capValue()">
-      You'll reach 100% and stop earning {{cur.unittype.label}} {{cur.capDurationMoment().humanize(true)}}.
+      At 100%, you'll stop earning {{cur.unittype.label}}.
     </span>
   </div>
   <div ng-if="!cur.showparent && cur.velocity() > 0">
@@ -52,7 +52,7 @@
     <span>{{cur.velocity()|longnum:2}} {{cur.unittype.plural}}</span>
     per second.
     <span ng-if="cur.capValue()">
-      You'll reach 100% and stop earning {{cur.unittype.label}} {{cur.capDurationMoment().humanize(true)}}.
+      At 100%, you'll stop earning {{cur.unittype.label}}.
     </span>
   </div>
   <div ng-if="!cur.unbuyable && cur.cost.length && cur.isBuyButtonVisible()">
@@ -118,7 +118,7 @@
 
         <div class="progress" style="margin-bottom:0">
           <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent()*100|number:1}}%">
-            {{floor(upgrade.costMetPercent()*100)|number:0}}%{{formatSecs(upgrade.estimateSecs())}}
+            {{floor(upgrade.costMetPercent()*100)|number:0}}%{{estimtateUpgradeSecs(upgrade)}}
           </div>
         </div>
         <buyupgrade upgrade="upgrade"></buyupgrade>
@@ -140,7 +140,7 @@
 
         <div class="progress" style="margin-bottom:0">
           <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent()*100|number:1}}%">
-            {{floor(abil.costMetPercent()*100)|number:0}}%{{formatSecs(abil.estimateSecs())}}
+            {{floor(abil.costMetPercent()*100)|number:0}}%{{estimtateUpgradeSecs(abil)}}
           </div>
         </div>
         <buyupgrade upgrade="abil"></buyupgrade>

@@ -150,7 +150,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
     if util.isFloatEqual num, estimate, 0.1
       return secs
     #throw new Error 'nonlinear estimation not yet implemented'
-    # fuck it
+    # fuck it. TODO nonlinear estimation
     return secs
 
   count: -> @_count @game.now.getTime()
@@ -269,6 +269,12 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
       util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
       sum += prod[@name]
     return sum
+
+  isVelocityConstant: ->
+    for parent in @_parents()
+      if parent.velocity() > 0
+        return false
+    return true
 
   # TODO rework this - shouldn't have to pass a default
   hasStat: (key, default_=undefined) ->
