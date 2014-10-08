@@ -13,10 +13,7 @@ angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statis
   $scope.statistics = session.statistics
   $scope.game = game
 
-  # http://stackoverflow.com/questions/13262621
-  utcdoy = (ms) ->
-    t = moment.utc(ms)
-    "#{parseInt(t.format 'DDD')-1}d #{t.format 'H\\h mm:ss.SSS'}"
+  utcdoy = (ms) -> util.utcdoy ms
 
   $scope.unitStats = (unit) ->
     ustatistics = _.clone $scope.statistics.byUnit?[unit?.name]

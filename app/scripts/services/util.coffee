@@ -62,3 +62,13 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
     @clearMemoCache @memoized
   totalMemoCacheSize: ->
     @sum _.map @memoized, (fn) -> (_.keys fn.cache).length ? 0
+
+  isFloatEqual: (a, b, tolerance=0) ->
+    return Math.abs(a - b) <= tolerance
+
+  # http://stackoverflow.com/questions/13262621
+  utcdoy: (ms) ->
+    t = moment.utc(ms)
+    days = parseInt(t.format 'DDD')-1
+    daystr = if days > 0 then "#{days}d " else ''
+    "#{daystr}#{t.format 'H\\h mm:ss.SSS'}"
