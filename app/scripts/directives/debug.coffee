@@ -52,6 +52,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util) ->
         <dl class="dl-horizontal col-md-4">
           <debugdd label="'totalMemoCacheSize'" value="util.totalMemoCacheSize()" max="10000"></debugdd>
           <debugdd label="'memoized.length'" value="util.memoized.length" max="1000"></debugdd>
+          <debugdd label="'performance.memory.usedJSHeapSize'" value="mem()" max="100000000"></debugdd>
         </dl>
       </div>
     </div>
@@ -61,3 +62,5 @@ angular.module('swarmApp').directive 'debug', (env, game, util) ->
       scope.env = env
       scope.game = game
       scope.util = util
+      scope.mem = ->
+        performance?.memory?.usedJSHeapSize
