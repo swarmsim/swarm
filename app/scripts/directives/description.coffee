@@ -9,7 +9,7 @@
  # http://www.benlesh.com/2013/08/angular-compile-how-it-works-how-to-use.html
  # Actual compilation, with $compile, is done in unit.coffee and upgrade.coffee.
 ###
-angular.module('swarmApp').directive 'unitdesc', (game, $location) ->
+angular.module('swarmApp').directive 'unitdesc', (game) ->
   template: ''
   scope:
     unit: '='
@@ -25,7 +25,7 @@ angular.module('swarmApp').directive 'unitdesc', (game, $location) ->
     scope.$on '$destroy', ->
       descscope.$destroy()
 
-angular.module('swarmApp').directive 'upgradedesc', (game, $location) ->
+angular.module('swarmApp').directive 'upgradedesc', (game) ->
   template: ''
   scope:
     upgrade: '='
