@@ -7,7 +7,7 @@
  # # StatisticsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statistics, game, options) ->
+angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statistics, game, options, util) ->
   $scope.listener = statistics
   $scope.session = session
   $scope.statistics = session.statistics
