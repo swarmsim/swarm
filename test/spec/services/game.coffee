@@ -100,3 +100,39 @@ describe 'Service: game achievements', ->
     expect(game.achievement('expansion1').isEarned()).toBe true
     expect(game.achievement('expansion2').isEarned()).toBe false
     expect(game.achievementPoints()).toBe 10
+
+describe 'Service: game achievements', ->
+
+  # load the service's module
+  beforeEach module 'swarmApp'
+
+  # instantiate service
+  game = {}
+  beforeEach inject (_game_) ->
+    game = _game_
+
+  clear = (resource) ->
+    for u in game.unitlist().concat game.upgradelist()
+      u._setCount 0
+    # energy cap hack
+    game.unit('nexus')._setCount 5 #energy cap hack
+    for cost in resource.cost
+      # add more than it really costs: hack for the 1e+1-format imprecision
+      cost.unit._setCount Math.floor cost.val * 1.001
+    
+  it "builds one of each unit", ->
+    for unit in game.unitlist()
+      unit._visible = true
+      if not unit.unittype.unbuyable
+        clear unit
+        expect(unit.count()).toBe 0
+        unit.buy()
+        expect(unit.count()).toBe 1
+
+  it "builds one of each upgrade", ->
+    for upgrade in game.upgradelist()
+      upgrade._visible = true
+      clear upgrade
+      expect(upgrade.count()).toBe 0
+      upgrade.buy()
+      expect(upgrade.count()).toBe 1
