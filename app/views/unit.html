@@ -7,11 +7,11 @@
          individual pull/push offsets for each screen size are needed. -->
     <div class="col-lg-9 col-md-8 col-sm-7 col-lg-push-3 col-md-push-4 col-sm-push-5">
       <ul class="nav nav-pills nav-justified text-nowrap visible-xs">
-        <li><a ng-href="#/unit/{{cur.unit.prev.unittype.label}}" ng-if="cur.unit.prev && cur.unit.prev.isVisible()">
+        <li><a ng-href="#/unit/{{cur.unit.prev.unittype.slug}}" ng-if="cur.unit.prev && cur.unit.prev.isVisible()">
           <span class="glyphicon glyphicon-chevron-left"></span>
           {{cur.unit.prev.count() | bignum:0}} {{cur.unit.prev.unittype.plural}} {{cur.unit.suffix}}
         </a></li>
-        <li><a ng-href="#/unit/{{cur.unit.next.unittype.label}}" ng-if="cur.unit.next && cur.unit.next.isVisible()">
+        <li><a ng-href="#/unit/{{cur.unit.next.unittype.slug}}" ng-if="cur.unit.next && cur.unit.next.isVisible()">
           {{cur.unit.next.count() | bignum:0}} {{cur.unit.next.unittype.plural}} {{cur.unit.suffix}}
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a></li>
@@ -40,7 +40,7 @@
             <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
           </td>
           <td class="titlecase">
-            <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.label}}" class="unit-sidebar">
+            <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.slug}}" class="unit-sidebar">
               <div class="pull-left">{{unit.unittype.label}} {{unit.suffix}}</div>
               <div class="unit-count">
                 {{unit.count()|bignum:0}}
