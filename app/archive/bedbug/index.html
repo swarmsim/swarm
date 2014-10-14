@@ -1,0 +1,29 @@
+<!doctype html> <html class="no-js"> <!--
+
+Hi there, the non-minified source code is a lot easier to read
+https://github.com/erosson/swarm
+
+--> <head> <meta charset="utf-8"> <title>Swarm Simulator</title> <link rel="shortcut icon" type="image/png" href="favicon.ico"> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.3d4e9150.css"> <link rel="stylesheet" href="styles/main.3325ca95.css">  <body ng-app="swarmApp"> <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <!-- Add your site or application content here --> <div class="container"> <div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl"> <div class="container"> <!-- Brand and toggle get grouped for better mobile display --> <div class="navbar-header"> <!--button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button--> <a class="navbar-brand" href="#">Swarm Simulator</a> <a ng-cloak ng-if="env.isDebugEnabled" class="envalert navbar-brand" ng-href="#/debug"> ({{env.name}})</a> <a class="navbar-brand" ng-href="#/changelog"><span class="text-muted small" ng-cloak>v{{version}}</span></a> </div> <!--div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+          </div--> </div> </div> <!--div class="header"></div--> <div ng-cloak ng-controller="LoadSaveCtrl"> <div class="alert alert-danger alert-dismissible animif" role="alert" ng-if="form.export"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> <p>Oh no! There was a problem loading your saved game. <b>This is a bug.</b></p> <p>Here's your saved game data. <b>Save this</b>: once the bug is fixed, you can import this to restore your game.</p> <input type="text" class="form-control" readonly style="cursor:auto" ng-model="form.export" ng-click="select($event)"> <p>The error message was: <code>{{form.error}}</code></p> <p>Please report this bug using the <a target="_blank" ng-href="{{feedbackUrl()}}">anonymous feedback form</a> or <a target="_blank" href="http://reddit.com/r/swarmsim">community subreddit</a>. </p> </div> </div> <tutorial></tutorial> <div class="viewwrap"><div ng-view=""><center><img src="images/ajax-loader.e638c3db.gif"></center></div></div> <div class="footer"> <!--div ng-cloak class="alert alert-dismissible animif" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <p>Welcome to Swarm Simulator version 0.2.0. Your progress has been reset.</p>
+          <p>Not ready to start over? <a href="archive/0.1.37">Continue playing 0.1.x here</a>.</p>
+        </div--> <div ng-cloak class="alert alert-dismissible animif" role="alert"> <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> <em class="text-muted">Warning: we're still testing this game, and will probably need to delete your progress later. You'll know at least 3 days before your progress is reset. Sorry!</em> </div> </div> </div> <debug></debug> <div ng-cloak ng-controller="FlashQueueCtrl"> <div class="achieve achievealert animif" ng-if="achieveQueue.isVisible()"> <div class="container alert alert-success achievetext"> <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span> <span class="achievepoints">+{{achieveQueue.get().pointsEarned()|number}}</span> <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span> <span class="achievepoints-xs">+{{achieveQueue.get().pointsEarned()|number}}</span> <p>Achievement:</p> <a class="alert-link" ng-href="#/achievements"> <h3>{{achieveQueue.get().type.label}}</h3> </a> <p class="achievedesc">{{achieveQueue.get().type.description}}</p> <p><em>{{achieveQueue.get().type.longdesc}}</em></p> <button type="button" class="close" data-dismiss="alert" ng-click="achieveQueue.clear()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div> </div> </div> <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      //ga('create', 'UA-53523462-3', 'auto');
+      //ga('send', 'pageview'); // angulartics does this</script> <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]--> <script src="scripts/vendor.d1634343.js"></script> <script src="scripts/scripts.68cf42e3.js"></script>   <!-- MEOW -->
