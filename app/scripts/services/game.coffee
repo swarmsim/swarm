@@ -26,7 +26,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       list: _.map unittypes.list, (unittype) =>
         new Unit this, unittype
     @_units.byName = _.indexBy @_units.list, 'name'
-    @_units.byLabel = _.indexBy @_units.list, (u) -> u.unittype.label
+    @_units.bySlug = _.indexBy @_units.list, (u) -> u.unittype.slug
 
     @_upgrades =
       list: _.map upgradetypes.list, (upgradetype) =>
@@ -124,8 +124,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       # it's a unittype?
       unitname = unitname.name
     @_units.byName[unitname]
-  unitByLabel: (unitlabel) ->
-    @_units.byLabel[unitlabel]
+  unitBySlug: (unitslug) ->
+    @_units.bySlug[unitslug]
   units: ->
     _.clone @_units.byName
   unitlist: ->

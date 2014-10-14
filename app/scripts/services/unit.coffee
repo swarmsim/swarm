@@ -361,6 +361,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
       spreadsheetUtil.resolveList unittype.effect, 'type', effecttypes.byName
       # oops - we haven't parsed upgradetypes yet! done in upgradetype.coffee.
       #spreadsheetUtil.resolveList unittype.require, 'upgradetype', ret.byName
+      unittype.slug = unittype.label
       for prod in unittype.prod
         prod.unittype.producedBy.push unittype
         util.assert prod.val > 0, "unittype prod.val must be positive", prod
@@ -369,6 +370,11 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
+    #for unittype in ret.list
+    #  unittype.label = 'bedbug'
+    #  unittype.plural = 'bedbugs'
+    #  unittype.description = 'bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs'
+    #  unittype.lol = "can't sleep, bugs will eat me. can't sleep, bugs will eat me. can't sleep, bugs will eat me."
     $log.debug 'built unittypes', ret
     return ret
 
