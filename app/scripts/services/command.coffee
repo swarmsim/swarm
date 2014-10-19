@@ -7,9 +7,14 @@
  # # command
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class Commands
+angular.module('swarmApp').factory 'commands', (util, $rootScope, session) -> new class Commands
   constructor: ->
 
+  _doCommand: (name, opts, fn) ->
+    undoExport = session.exportSave()
+    params = fn()
+    params.undoExport = undoExport
+    @_emit name, params
   _emit: (name, params) ->
     util.assert !params.name?, 'command has a name already?'
     params.name = name
@@ -17,10 +22,10 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
     $rootScope.$emit "command", params
 
   buyUnit: (opts) ->
-    unit = opts.unit
-    num = opts.num
-    bought = unit.buy num
-    @_emit 'buyUnit',
+    @_doCommand 'buyUnit', opts, =>
+      unit = opts.unit
+      num = opts.num
+      bought = unit.buy num
       unit:unit
       # names are included for easier jsonification
       unitname:unit.name
@@ -32,9 +37,9 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       ui:opts.ui
 
   buyMaxUnit: (opts) ->
-    unit = opts.unit
-    bought = unit.buyMax opts.percent
-    @_emit 'buyMaxUnit',
+    @_doCommand 'buyMaxUnit', opts, =>
+      unit = opts.unit
+      bought = unit.buyMax opts.percent
       unit:unit
       unitname:unit.name
       now:unit.game.now
@@ -45,9 +50,9 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       ui:opts.ui
 
   buyUpgrade: (opts) ->
-    upgrade = opts.upgrade
-    num = upgrade.buy opts.num
-    @_emit 'buyUpgrade',
+    @_doCommand 'buyUpgrade', opts, =>
+      upgrade = opts.upgrade
+      num = upgrade.buy opts.num
       upgrade:upgrade
       upgradename:upgrade.name
       now:upgrade.game.now
@@ -56,9 +61,9 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       ui:opts.ui
 
   buyMaxUpgrade: (opts) ->
-    upgrade = opts.upgrade
-    num = upgrade.buyMax opts.percent
-    @_emit 'buyMaxUpgrade',
+    @_doCommand 'buyMaxUpgrade', opts, =>
+      upgrade = opts.upgrade
+      num = upgrade.buyMax opts.percent
       upgrade:upgrade
       upgradename:upgrade.name
       now:upgrade.game.now

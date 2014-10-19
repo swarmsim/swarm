@@ -42,11 +42,21 @@ angular.module('swarmApp').factory 'FlashQueue', ($log, $timeout, util) -> class
     @_state = 'invisible'
 
 angular.module('swarmApp').factory 'flashqueue', ($log, FlashQueue, $rootScope) ->
-  queue = new FlashQueue()
+  queue = new FlashQueue 5000
 
   # TODO this really shouldn't be attached ot the main flashqueue...
   $rootScope.$on 'achieve', (event, achievement) ->
     $log.debug 'achievement flashqueue pushing achievement', achievement
     queue.push achievement
+
+  return queue
+
+angular.module('swarmApp').factory 'undoqueue', ($log, FlashQueue, $rootScope) ->
+  queue = new FlashQueue 10000
+
+  $rootScope.$on 'command', (event, command) ->
+    $log.debug 'undo flashqueue pushing command', command
+    queue.clear()
+    queue.push command
 
   return queue
