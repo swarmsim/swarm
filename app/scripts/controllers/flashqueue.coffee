@@ -7,7 +7,7 @@
  # # FlashqueueCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'FlashQueueCtrl', ($scope, flashqueue, undoqueue, game, $route) ->
+angular.module('swarmApp').controller 'FlashQueueCtrl', ($scope, flashqueue, undoqueue, game) ->
   $scope.achieveQueue = flashqueue
   $scope.undoQueue = undoqueue
 
@@ -38,7 +38,3 @@ angular.module('swarmApp').controller 'FlashQueueCtrl', ($scope, flashqueue, und
       game.importSave command.undoExport
       undoqueue.clear()
       flashqueue.clear()
-      # without reloading, unit page keeps old unit references, buying with
-      # pre-undo units! this could cheese achievements as well as cause general
-      # weirdness.
-      $route.reload()
