@@ -81,10 +81,17 @@ describe 'Filter: bignum', ->
     expect(bignum 11111111111111111111111111111111111).toBe '11.1Dc'
     expect(bignum 1e35).toBe '100Dc'
     expect(bignum 111111111111111111111111111111111111).toBe '111Dc'
+    expect(bignum 1e36).toBe '1.00UDc'
+    expect(bignum 1111111111111111111111111111111111111).toBe '1.11UDc'
+    expect(bignum 1e37).toBe '10.0UDc'
+    expect(bignum 11111111111111111111111111111111111111).toBe '11.1UDc'
+    expect(bignum 1e38).toBe '100UDc'
+    expect(bignum 111111111111111111111111111111111111111).toBe '111UDc'
     # it'd be nice to remove these trailing zeros.
     # tried it: no it's not, the number length changes and is distracting
-    expect(bignum 1e36).toBe '1.00e36'
-    expect(bignum 110e34).toBe '1.10e36'
-    expect(bignum 1111111111111111111111111111111111111).toBe '1.11e36'
-    expect(bignum 1e37).toBe '1.00e37'
-    expect(bignum 11111111111111111111111111111111111111).toBe '1.11e37'
+    # large numbers no longer change to scientific-e
+    #expect(bignum 1e36).toBe '1.00e36'
+    #expect(bignum 110e34).toBe '1.10e36'
+    #expect(bignum 1111111111111111111111111111111111111).toBe '1.11e36'
+    #expect(bignum 1e37).toBe '1.00e37'
+    #expect(bignum 11111111111111111111111111111111111111).toBe '1.11e37'
