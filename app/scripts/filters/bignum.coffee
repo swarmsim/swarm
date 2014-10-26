@@ -45,8 +45,18 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
 angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google
   # for anything but cookie clicker. Other games have used them though.
-  # TODO We should probably ask before stealing Derivative Clicker's abbrevs.
-  bignumFormatter ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']
+  bignumFormatter ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No',
+                   # decillion, vigintillion, trigintillion, quadragintillion, quinquagintillion,
+                   'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QiDc', 'SxDc', 'SpDc', 'ODc', 'NDc'
+                   'Vi', 'UVi', 'DVi', 'TVi', 'QaVi', 'QiVi', 'SxVi', 'SpVi', 'OVi', 'NVi'
+                   'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QiTg', 'SxTg', 'SpTg', 'OTg', 'NTg'
+                   'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QiQd', 'SxQd', 'SpQd', 'OQd', 'NQd'
+                   'Qq', 'UQq', 'DQq', 'TQq', 'QaQq', 'QiQq', 'SxQq', 'SpQq', 'OQq', 'NQq'
+                   # sexagintillion, septuagintillion, octogintillion, [Number.MAX_VALUE]
+                   'Sx', 'USx', 'DSx', 'TSx', 'QaSx', 'QiSx', 'SxSx', 'SpSx', 'OSx', 'NSx'
+                   'Sp', 'USp', 'DSp', 'TSp', 'QaSp', 'QiSp', 'SxSp', 'SpSp', 'OSp', 'NSp'
+                   'Oc', 'UOc', 'DOc', 'TOc', 'QaOc', 'QiOc', 'SxOc', 'SpOc', 'OOc', 'NOc'
+                  ]
 
 angular.module('swarmApp').filter 'longnum', (bignumFormatter) ->
   # http://home.kpn.nl/vanadovv/BignumbyN.html
