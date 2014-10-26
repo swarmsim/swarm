@@ -46,6 +46,7 @@ angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google
   # for anything but cookie clicker. Other games have used them though.
   bignumFormatter ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No',
+                   # I made up these larger abbrevs, but some of them match derivative clicker (from memory). Oh well.
                    # decillion, vigintillion, trigintillion, quadragintillion, quinquagintillion,
                    'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QiDc', 'SxDc', 'SpDc', 'ODc', 'NDc'
                    'Vi', 'UVi', 'DVi', 'TVi', 'QaVi', 'QiVi', 'SxVi', 'SpVi', 'OVi', 'NVi'
