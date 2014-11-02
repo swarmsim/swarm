@@ -36,10 +36,11 @@
   </div>
   <div ng-if="cur.showparent && cur.showparent.prod.length">
     You earn
-    <span ng-repeat="(name, val) in cur.showparent.totalProduction()">
+    <!--span ng-repeat="(name, val) in cur.showparent.totalProduction()">
       <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
       <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
-    </span>
+    </span-->
+    <span>{{cur.velocity()|longnum:2}} {{cur.unittype.plural}}</span>
     per second.
     <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     <span ng-if="cur.capValue()">

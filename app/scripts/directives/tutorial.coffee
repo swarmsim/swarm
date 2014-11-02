@@ -33,7 +33,7 @@ angular.module('swarmApp').directive 'tutorial', (game) ->
       game_ = scope.game ? game
       units = game_.countUnits()
       upgrades = game_.countUpgrades()
-      if upgrades.expansion >= 5
+      if units.mutageninit > 0 or upgrades.expansion >= 5
         return null
       if upgrades.expansion > 0
         return 9
