@@ -1488,7 +1488,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.unittype": "",
         "cost.val": "",
         "description": "<p>Allows mutation, increasing the power of each member of your swarm. Your meat and expansions will provide {{game.ascendTotal()|longnum}} mutagen upon your next ascension.</p><p><button title=\"\" ng-click=\"game.ascend()\" class=\"btn btn-default\">Ascend</button></p>",
-        "disabled": "",
+        "disabled": "TRUE",
         "effect.stat": "",
         "effect.type": "",
         "effect.unittype": "",
@@ -6001,6 +6001,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.val": 6,
         "rowNumber": 115,
         "unittype": "energy"
+      },
+      {
+        "class": "upgrade",
+        "cost.factor": 2,
+        "cost.unittype": "mutagen",
+        "cost.val": 100,
+        "description": "Larvae production doubled.",
+        "effect.stat": "prod",
+        "effect.type": "multStat",
+        "effect.unittype": "invisiblehatchery",
+        "effect.unittype2": "larva",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "elite hatcheries",
+        "lol": "",
+        "maxlevel": "",
+        "name": "mutanthatcheries",
+        "requires.unittype": "",
+        "requires.val": "",
+        "rowNumber": 116,
+        "unittype": "mutagen"
       }
     ],
     "name": "upgrades"
