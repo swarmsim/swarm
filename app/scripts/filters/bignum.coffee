@@ -9,11 +9,12 @@
  # Filter in the swarmApp.
 ###
 angular.module('swarmApp').factory 'bignumFormatter', (options) ->
-  (suffixes, opts={}) ->
+  (suffixes_, opts={}) ->
     opts.sigfigs ?= 3
     # special case: 99k or less looks nicer with the 'k' omitted
     opts.minsuffix ?= 1e5
     (num, floorlimit=0) ->
+      suffixes = suffixes_
       if !num
         return num
       if num < floorlimit
@@ -28,6 +29,9 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       # return numeral(num).format '0.[00]a'
       # http://mathforum.org/library/drmath/view/59154.html
       index = Math.floor Math.log(num) / Math.log 1000
+      # so hacky
+      if options.notation() == 'hybrid'
+        suffixes = suffixes.slice 0, 12
       if options.notation() == 'scientific-e' or index >= suffixes.length
         # too big for any suffix :(
         # TODO: exponent groups of 3? 1e30, 10e30, 100e30, 1e33, ...
