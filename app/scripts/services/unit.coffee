@@ -205,8 +205,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> cla
   isCostMet: ->
     @maxCostMet() > 0
 
-  isBuyable: ->
-    return @isCostMet() and @isVisible() and not @unittype.unbuyable
+  isBuyable: (ignoreCost=false) ->
+    return (@isCostMet() or ignoreCost) and @isVisible() and not @unittype.unbuyable
 
   buyMax: (percent) ->
     @buy @maxCostMet percent
