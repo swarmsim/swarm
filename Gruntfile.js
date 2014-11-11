@@ -108,7 +108,8 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         cwd: 'app',
-        src: 'views/**.html',
+        // ** not working for some reason
+        src: ['views/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
         dest: '.tmp/scripts/app.templates.js',
         options: {
           module: 'swarmApp',
