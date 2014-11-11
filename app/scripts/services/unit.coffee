@@ -1,11 +1,10 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Unit', (util, $log, $compile, Effect) -> class Unit
+angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
     @suffix = ''
-    @descriptionFn = $compile "<p>#{@unittype.description}</p>"
     @affectedBy = []
     for fn in ['_stats', '_count', '_velocity', '_eachCost']
       @[fn] = util.memoize @[fn]
