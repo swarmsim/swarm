@@ -313,3 +313,16 @@ describe 'Service: unit', ->
     nightbug._setCount 200
     util.clearMemoCache energy._stats
     expect(energy._getCap()).toBe 30000
+
+  it 'calculates resources spent for units', ->
+    game = mkgame {meat:0, drone:3}
+    meat = game.unit 'meat'
+    expect(meat.spent()).toBe 30
+
+  it 'calculates resources spent for upgrades', ->
+    game = mkgame {meat:0, drone:3}
+    game.upgrade('hatchery')._setCount 1
+    meat = game.unit 'meat'
+    expect(meat.spent()).toBe 330
+    game.upgrade('hatchery')._setCount 3
+    expect(meat.spent()).toBe 33330

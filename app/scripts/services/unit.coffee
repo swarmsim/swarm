@@ -19,6 +19,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       ret = _.clone cost
       ret.unit = @game.unit cost.unittype
       return ret
+    @costByName = _.indexBy @cost, (cost) -> cost.unit.name
     @prod = _.map @unittype.prod, (prod) =>
       ret = _.clone prod
       ret.unit = @game.unit prod.unittype
@@ -164,6 +165,20 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     for pathdata in @_producerPathData()
       count += @_gainsPath pathdata, secs
     return @capValue count
+
+  spent: ->
+    ret = 0
+    for u in @game.unitlist()
+      costeach = u.costByName[@name]?.val ? 0
+      ret += costeach * u.count()
+    for u in @game.upgradelist()
+      if u.costByName[@name]
+        # cost for $count upgrades starting from level 1
+        costs = u.sumCost u.count(), 0
+        cost = _.find costs, (c) => c.unit.name == @name
+        ret += cost?.val ? 0
+        console.log u.name, ret, cost?.val, u.count()
+    return ret
 
   _costMetPercent: ->
     max = Number.MAX_VALUE
