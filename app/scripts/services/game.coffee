@@ -213,7 +213,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       @save()
 
   ascendTotal: ->
-    meat = @unit('meat').count()
+    meat = @unit('meat').count() + @unit('meat').spent()
     exp = @upgrade('expansion').count()
     pow = Math.pow 1.1, exp
     scale = meat * 1e-33 * pow
