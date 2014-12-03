@@ -1,5 +1,8 @@
 'use strict'
 
+angular.module('swarmApp').filter 'encodeURIComponent', ->
+  (text) -> window.encodeURIComponent text
+
 ###*
  # @ngdoc directive
  # @name swarmApp.directive:cost
@@ -16,7 +19,7 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   template: """
   <span ng-repeat="cost in costlist track by cost.unit.name">
     <span ng-if="!$first && $last"> and </span>
-    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{countRemaining(cost)}}">
+    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{countRemaining(cost)|encodeURIComponent}}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
     --></a><span ng-if="!isRemainingBuyable(cost)" ng-class="{costNotMet:!isCostMet(cost)}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
