@@ -177,7 +177,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
         costs = u.sumCost u.count(), 0
         cost = _.find costs, (c) => c.unit.name == @name
         ret += cost?.val ? 0
-        console.log u.name, ret, cost?.val, u.count()
     return ret
 
   _costMetPercent: ->
