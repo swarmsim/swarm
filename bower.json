@@ -19,7 +19,7 @@
     "angulartics": "~0.15.20",
     "sjcl": "~1.0.0",
     "mathjs": "~0.26.0",
-    "lz-string": "*",
+    "lz-string": "~1.3.5",
     "numeral": "~1.5.3",
     "konami-js": "*",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.3",

@@ -266,7 +266,7 @@ module.exports = function (grunt) {
         src: ['<%= yeoman.app %>/index.html'],
         overrides: {
           'lz-string': {
-            main: 'libs/release/lz-string-1.3.3-min.js'
+            main: 'libs/release/lz-string-1.3.5-min.js'
           },
           'konami-js': {
             main: 'konami.js'
