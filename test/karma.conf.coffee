@@ -28,7 +28,7 @@ module.exports = (config) ->
       'bower_components/angulartics/src/angulartics-ga.js'
       'bower_components/sjcl/sjcl.js'
       'bower_components/mathjs/dist/math.min.js'
-      'bower_components/lz-string/libs/release/lz-string-1.3.5-min.js'
+      'bower_components/lz-string/libs/lz-string.min.js'
       'bower_components/numeral/numeral.js'
       'bower_components/konami-js/konami.js'
       'bower_components/angular-hotkeys/build/hotkeys.min.js'
