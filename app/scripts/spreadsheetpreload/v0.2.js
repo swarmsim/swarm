@@ -677,7 +677,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 100 stingers",
-        "label": "aldrin",
+        "label": "beekeeper",
         "longdesc": "",
         "name": "stinger1",
         "points": 10,
@@ -692,7 +692,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 1 million stingers",
-        "label": "lightyear",
+        "label": "to bee or not to bee",
         "longdesc": "",
         "name": "stinger2",
         "points": 10,
@@ -707,7 +707,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 1 quadrillion stingers",
-        "label": "kill",
+        "label": "waxing poetic",
         "longdesc": "",
         "name": "stinger3",
         "points": 10,
@@ -992,7 +992,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 100 wasps",
-        "label": "beekeeper",
+        "label": "aldrin",
         "longdesc": "",
         "name": "wasp1",
         "points": 10,
@@ -1007,7 +1007,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 1 million wasps",
-        "label": "to bee or not to bee",
+        "label": "lightyear",
         "longdesc": "",
         "name": "wasp2",
         "points": 10,
@@ -1022,7 +1022,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 1 quadrillion wasps",
-        "label": "waxing poetic",
+        "label": "kill",
         "longdesc": "",
         "name": "wasp3",
         "points": 10,
