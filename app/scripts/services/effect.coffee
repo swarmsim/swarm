@@ -49,7 +49,7 @@ angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
     @byName[effecttype.name] = effecttype
     return this
 
-angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util, seedrand) ->
+angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util, seedrand, $log) ->
   # short hardcoded list, but we don't actually use very high numbers for these
   ROMANNUM = ['', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'
               'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX']
@@ -91,9 +91,15 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         seed = "[#{parent.name}, #{level}]"
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
-        if level == minlevel or rng() < prob
-          modqty = minqty + (rng() * (maxqty - minqty))
-          return Math.ceil baseqty * modqty
+        roll = rng()
+        isspawned = level == minlevel or rng() < prob
+        $log.debug 'roll to spawn: ', level, roll, prob, isspawned
+        if isspawned
+          roll = rng()
+          modqty = minqty + (roll * (maxqty - minqty))
+          qty = Math.ceil baseqty * modqty
+          $log.debug 'spawned. roll for quantity: ', level, roll, modqty, qty
+          return qty
       return 0
   effecttypes.register
     name: 'compoundUnit'

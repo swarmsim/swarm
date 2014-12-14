@@ -12,6 +12,8 @@
       {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.plural}}
       <span ng-if="tab.leadunit.capValue()">({{tab.leadunit.capPercent()*100|number:0}}%)</span>
       <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
+      <!--TODO: ewww, a special case-->
+      <span ng-if="tab.name=='mutagen'">(+{{game.unit('premutagen').count()|bignum:0}})</span>
       <span ng-if="tab.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
     </a>
   </li>
