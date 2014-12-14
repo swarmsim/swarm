@@ -212,34 +212,24 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     if not butDontSave
       @save()
 
-  ascendTotal: ->
-    meat = @unit('meat').count() + @unit('meat').spent()
-    exp = @upgrade('expansion').count()
-    pow = Math.pow 1.1, exp
-    scale = meat * 1e-33 * pow
-    ret = Math.max Math.log(scale)/Math.log(2), @unit('mutageninit').count()
-    #$log.debug 'ascendgains', pow, scale, ret
-    return ret
-
-  ascendGains: ->
-    return Math.max 0, @ascendTotal() - @unit('mutageninit').count()
-
   ascend: ->
     @withSave =>
       # hardcode ascension bonuses. TODO: spreadsheetify
-      mutageninit = @unit 'mutageninit'
+      premutagen = @unit 'premutagen'
       mutagen = @unit 'mutagen'
-      gains = @ascendGains()
-      init = mutageninit.count() + gains
+      ascension = @unit 'ascension'
+      mutagen._addCount premutagen.count()
+      premutagen._setCount 0
+      ascension._addCount 1
       # do not use @reset(): we don't want achievements, etc. reset
       @_init()
       for unit in @unitlist()
-        unit._setCount unit.unittype.init
+        if unit.tab?.name != 'mutagen'
+          console.log 'ascend', unit.unittype.name, unit.unittype.init
+          unit._setCount unit.unittype.init
       for upgrade in @upgradelist()
-        upgrade._setCount 0
-      # apply ascension bonuses after resetting all units
-      mutageninit._setCount init
-      mutagen._setCount init
+        if upgrade.unit.tab?.name != 'mutagen'
+          upgrade._setCount 0
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session
