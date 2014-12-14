@@ -1488,7 +1488,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.unittype": "",
         "cost.val": "",
         "description": "-",
-        "disabled": "TRUE",
+        "disabled": "",
         "effect.stat": "",
         "effect.type": "",
         "effect.unittype": "",
@@ -1506,6 +1506,39 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.upgradetype": "",
         "requires.val": 1e+30,
         "rowNumber": 8,
+        "showparent": "",
+        "tab": "mutagen",
+        "tier": "",
+        "unbuyable": "TRUE",
+        "verb": "",
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
+      },
+      {
+        "column": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "-",
+        "disabled": "",
+        "effect.stat": "",
+        "effect.type": "",
+        "effect.unittype": "",
+        "effect.unittype2": "",
+        "effect.val": "",
+        "effect.val2": "",
+        "init": "",
+        "label": "mutagen (inactive)",
+        "lol": "",
+        "name": "premutagen",
+        "plural": "mutagen (inactive)",
+        "prod.unittype": "",
+        "prod.val": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "rowNumber": 9,
         "showparent": "",
         "tab": "mutagen",
         "tier": "",
@@ -1538,7 +1571,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 9,
+        "rowNumber": 10,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1571,7 +1604,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 10,
+        "rowNumber": 11,
         "showparent": "",
         "tab": "mutagen",
         "tier": "",
@@ -1604,7 +1637,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 0,
-        "rowNumber": 11,
+        "rowNumber": 12,
         "showparent": "",
         "tab": "meat",
         "tier": 1,
@@ -1637,7 +1670,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 12,
+        "rowNumber": 13,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1670,7 +1703,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "drone",
         "requires.upgradetype": "",
         "requires.val": 10,
-        "rowNumber": 13,
+        "rowNumber": 14,
         "showparent": "",
         "tab": "meat",
         "tier": 2,
@@ -1703,7 +1736,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 14,
+        "rowNumber": 15,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1736,7 +1769,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 15,
+        "rowNumber": 16,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1769,7 +1802,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 16,
+        "rowNumber": 17,
         "showparent": "",
         "tab": "meat",
         "tier": 3,
@@ -1802,7 +1835,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "territory",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 17,
+        "rowNumber": 18,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1835,7 +1868,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 18,
+        "rowNumber": 19,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1868,7 +1901,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "nest",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 19,
+        "rowNumber": 20,
         "showparent": "",
         "tab": "meat",
         "tier": 4,
@@ -1901,7 +1934,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 20,
+        "rowNumber": 21,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1934,7 +1967,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 21,
+        "rowNumber": 22,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -1967,7 +2000,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "greaterqueen",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 22,
+        "rowNumber": 23,
         "showparent": "",
         "tab": "meat",
         "tier": 5,
@@ -2000,7 +2033,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 23,
+        "rowNumber": 24,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2033,7 +2066,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 24,
+        "rowNumber": 25,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2066,7 +2099,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "hive",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 25,
+        "rowNumber": 26,
         "showparent": "",
         "tab": "meat",
         "tier": 6,
@@ -2099,7 +2132,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 26,
+        "rowNumber": 27,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2132,7 +2165,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 27,
+        "rowNumber": 28,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2165,7 +2198,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "hivequeen",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 28,
+        "rowNumber": 29,
         "showparent": "",
         "tab": "meat",
         "tier": 7,
@@ -2198,7 +2231,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 29,
+        "rowNumber": 30,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2231,7 +2264,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 30,
+        "rowNumber": 31,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2264,7 +2297,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "empress",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 31,
+        "rowNumber": 32,
         "showparent": "",
         "tab": "meat",
         "tier": 8,
@@ -2297,7 +2330,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 32,
+        "rowNumber": 33,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2330,7 +2363,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 33,
+        "rowNumber": 34,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2363,7 +2396,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "prophet",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 34,
+        "rowNumber": 35,
         "showparent": "",
         "tab": "meat",
         "tier": 9,
@@ -2396,7 +2429,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 35,
+        "rowNumber": 36,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2429,7 +2462,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 36,
+        "rowNumber": 37,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2462,7 +2495,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "goddess",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 37,
+        "rowNumber": 38,
         "showparent": "",
         "tab": "meat",
         "tier": 10,
@@ -2495,7 +2528,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 38,
+        "rowNumber": 39,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2528,7 +2561,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 39,
+        "rowNumber": 40,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2561,7 +2594,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 40,
+        "rowNumber": 41,
         "showparent": "",
         "tab": "meat",
         "tier": 11,
@@ -2594,7 +2627,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 41,
+        "rowNumber": 42,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2627,7 +2660,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 42,
+        "rowNumber": 43,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2660,7 +2693,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon2",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 43,
+        "rowNumber": 44,
         "showparent": "",
         "tab": "meat",
         "tier": 12,
@@ -2693,7 +2726,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 44,
+        "rowNumber": 45,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2726,7 +2759,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 45,
+        "rowNumber": 46,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2759,7 +2792,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon3",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 46,
+        "rowNumber": 47,
         "showparent": "",
         "tab": "meat",
         "tier": 13,
@@ -2792,7 +2825,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 47,
+        "rowNumber": 48,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2825,7 +2858,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 48,
+        "rowNumber": 49,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2858,7 +2891,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon4",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 49,
+        "rowNumber": 50,
         "showparent": "",
         "tab": "meat",
         "tier": 14,
@@ -2891,7 +2924,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 50,
+        "rowNumber": 51,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2924,7 +2957,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 51,
+        "rowNumber": 52,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -2957,7 +2990,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon5",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 52,
+        "rowNumber": 53,
         "showparent": "",
         "tab": "meat",
         "tier": 15,
@@ -2990,7 +3023,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 53,
+        "rowNumber": 54,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3023,7 +3056,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 54,
+        "rowNumber": 55,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3056,7 +3089,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon6",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 55,
+        "rowNumber": 56,
         "showparent": "",
         "tab": "meat",
         "tier": 16,
@@ -3089,7 +3122,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 56,
+        "rowNumber": 57,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3122,7 +3155,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 57,
+        "rowNumber": 58,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3155,7 +3188,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "pantheon7",
         "requires.upgradetype": "",
         "requires.val": 1,
-        "rowNumber": 58,
+        "rowNumber": 59,
         "showparent": "",
         "tab": "meat",
         "tier": 17,
@@ -3188,7 +3221,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 59,
+        "rowNumber": 60,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3221,7 +3254,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 60,
+        "rowNumber": 61,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3254,7 +3287,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 225,
-        "rowNumber": 61,
+        "rowNumber": 62,
         "showparent": "",
         "tab": "territory",
         "tier": 1,
@@ -3287,7 +3320,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 62,
+        "rowNumber": 63,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3320,7 +3353,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 101250,
-        "rowNumber": 63,
+        "rowNumber": 64,
         "showparent": "",
         "tab": "territory",
         "tier": 2,
@@ -3353,7 +3386,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 64,
+        "rowNumber": 65,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3386,7 +3419,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 45562500,
-        "rowNumber": 65,
+        "rowNumber": 66,
         "showparent": "",
         "tab": "territory",
         "tier": 3,
@@ -3419,7 +3452,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 66,
+        "rowNumber": 67,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3452,7 +3485,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 20503125000,
-        "rowNumber": 67,
+        "rowNumber": 68,
         "showparent": "",
         "tab": "territory",
         "tier": 4,
@@ -3485,7 +3518,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 68,
+        "rowNumber": 69,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3518,7 +3551,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 9226406250000,
-        "rowNumber": 69,
+        "rowNumber": 70,
         "showparent": "",
         "tab": "territory",
         "tier": 5,
@@ -3551,7 +3584,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 70,
+        "rowNumber": 71,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3584,7 +3617,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 4151880000000000,
-        "rowNumber": 71,
+        "rowNumber": 72,
         "showparent": "",
         "tab": "territory",
         "tier": 6,
@@ -3617,7 +3650,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 72,
+        "rowNumber": 73,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3650,7 +3683,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 1868350000000000000,
-        "rowNumber": 73,
+        "rowNumber": 74,
         "showparent": "",
         "tab": "territory",
         "tier": 7,
@@ -3683,7 +3716,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 74,
+        "rowNumber": 75,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3716,7 +3749,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 840756000000000000000,
-        "rowNumber": 75,
+        "rowNumber": 76,
         "showparent": "",
         "tab": "territory",
         "tier": 8,
@@ -3749,7 +3782,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 76,
+        "rowNumber": 77,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3782,7 +3815,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 3.7834e+23,
-        "rowNumber": 77,
+        "rowNumber": 78,
         "showparent": "",
         "tab": "territory",
         "tier": 9,
@@ -3815,7 +3848,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 78,
+        "rowNumber": 79,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3848,7 +3881,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 1.70253e+26,
-        "rowNumber": 79,
+        "rowNumber": 80,
         "showparent": "",
         "tab": "territory",
         "tier": 10,
@@ -3881,7 +3914,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 80,
+        "rowNumber": 81,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3914,7 +3947,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "meat",
         "requires.upgradetype": "",
         "requires.val": 7.66139e+28,
-        "rowNumber": 81,
+        "rowNumber": 82,
         "showparent": "",
         "tab": "territory",
         "tier": 11,
@@ -3947,7 +3980,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "queen",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 82,
+        "rowNumber": 83,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -3980,7 +4013,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "nexus",
         "requires.upgradetype": "",
         "requires.val": 3,
-        "rowNumber": 83,
+        "rowNumber": 84,
         "showparent": "",
         "tab": "energy",
         "tier": "",
@@ -4013,7 +4046,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 84,
+        "rowNumber": 85,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -4046,7 +4079,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "nexus",
         "requires.upgradetype": "",
         "requires.val": 4,
-        "rowNumber": 85,
+        "rowNumber": 86,
         "showparent": "",
         "tab": "energy",
         "tier": "",
@@ -4079,7 +4112,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 86,
+        "rowNumber": 87,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -4112,7 +4145,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "nexus",
         "requires.upgradetype": "",
         "requires.val": 5,
-        "rowNumber": 87,
+        "rowNumber": 88,
         "showparent": "",
         "tab": "energy",
         "tier": "",
@@ -4145,7 +4178,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "rowNumber": 88,
+        "rowNumber": 89,
         "showparent": "",
         "tab": "",
         "tier": "",
@@ -4203,6 +4236,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "unittype": "invisiblehatchery"
       },
       {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "addUnitRand",
+        "effect.unittype": "premutagen",
+        "effect.unittype2": "",
+        "effect.val": "",
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "hatchery",
+        "requires.unittype": "",
+        "requires.val": "",
+        "rowNumber": 2,
+        "unittype": ""
+      },
+      {
         "class": "upgrade",
         "cost.factor": 2.45,
         "cost.unittype": "territory",
@@ -4220,7 +4274,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "expansion",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 2,
+        "rowNumber": 3,
         "unittype": "invisiblehatchery"
       },
       {
@@ -4241,7 +4295,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "achievementbonus",
         "requires.unittype": "meat",
         "requires.val": 50000,
-        "rowNumber": 3,
+        "rowNumber": 4,
         "unittype": "invisiblehatchery"
       },
       {
@@ -4262,7 +4316,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "achievementbonus",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 4,
+        "rowNumber": 5,
         "unittype": ""
       },
       {
@@ -4283,7 +4337,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "cocooning",
         "requires.unittype": "nexus",
         "requires.val": 4,
-        "rowNumber": 5,
+        "rowNumber": 6,
         "unittype": "invisiblehatchery"
       },
       {
@@ -4304,7 +4358,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "droneprod",
         "requires.unittype": "drone",
         "requires.val": 67,
-        "rowNumber": 6,
+        "rowNumber": 7,
         "unittype": "drone"
       },
       {
@@ -4325,7 +4379,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "queenprod",
         "requires.unittype": "queen",
         "requires.val": 67,
-        "rowNumber": 7,
+        "rowNumber": 8,
         "unittype": "queen"
       },
       {
@@ -4346,7 +4400,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nestprod",
         "requires.unittype": "nest",
         "requires.val": 67,
-        "rowNumber": 8,
+        "rowNumber": 9,
         "unittype": "nest"
       },
       {
@@ -4367,7 +4421,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "greaterqueenprod",
         "requires.unittype": "greaterqueen",
         "requires.val": 67,
-        "rowNumber": 9,
+        "rowNumber": 10,
         "unittype": "greaterqueen"
       },
       {
@@ -4388,7 +4442,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "hiveprod",
         "requires.unittype": "hive",
         "requires.val": 67,
-        "rowNumber": 10,
+        "rowNumber": 11,
         "unittype": "hive"
       },
       {
@@ -4409,7 +4463,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "hivequeenprod",
         "requires.unittype": "hivequeen",
         "requires.val": 67,
-        "rowNumber": 11,
+        "rowNumber": 12,
         "unittype": "hivequeen"
       },
       {
@@ -4430,7 +4484,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "empressprod",
         "requires.unittype": "empress",
         "requires.val": 67,
-        "rowNumber": 12,
+        "rowNumber": 13,
         "unittype": "empress"
       },
       {
@@ -4451,7 +4505,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "prophetprod",
         "requires.unittype": "prophet",
         "requires.val": 67,
-        "rowNumber": 13,
+        "rowNumber": 14,
         "unittype": "prophet"
       },
       {
@@ -4472,7 +4526,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goddessprod",
         "requires.unittype": "goddess",
         "requires.val": 67,
-        "rowNumber": 14,
+        "rowNumber": 15,
         "unittype": "goddess"
       },
       {
@@ -4493,7 +4547,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheonprod",
         "requires.unittype": "pantheon",
         "requires.val": 67,
-        "rowNumber": 15,
+        "rowNumber": 16,
         "unittype": "pantheon"
       },
       {
@@ -4514,7 +4568,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon2prod",
         "requires.unittype": "pantheon2",
         "requires.val": 67,
-        "rowNumber": 16,
+        "rowNumber": 17,
         "unittype": "pantheon2"
       },
       {
@@ -4535,7 +4589,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon3prod",
         "requires.unittype": "pantheon3",
         "requires.val": 67,
-        "rowNumber": 17,
+        "rowNumber": 18,
         "unittype": "pantheon3"
       },
       {
@@ -4556,7 +4610,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon4prod",
         "requires.unittype": "pantheon4",
         "requires.val": 67,
-        "rowNumber": 18,
+        "rowNumber": 19,
         "unittype": "pantheon4"
       },
       {
@@ -4577,7 +4631,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon5prod",
         "requires.unittype": "pantheon5",
         "requires.val": 67,
-        "rowNumber": 19,
+        "rowNumber": 20,
         "unittype": "pantheon5"
       },
       {
@@ -4598,7 +4652,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon6prod",
         "requires.unittype": "pantheon6",
         "requires.val": 67,
-        "rowNumber": 20,
+        "rowNumber": 21,
         "unittype": "pantheon6"
       },
       {
@@ -4619,7 +4673,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon7prod",
         "requires.unittype": "pantheon7",
         "requires.val": 67,
-        "rowNumber": 21,
+        "rowNumber": 22,
         "unittype": "pantheon7"
       },
       {
@@ -4640,7 +4694,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon8prod",
         "requires.unittype": "pantheon8",
         "requires.val": 67,
-        "rowNumber": 22,
+        "rowNumber": 23,
         "unittype": "pantheon8"
       },
       {
@@ -4661,7 +4715,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "dronetwin",
         "requires.unittype": "queen",
         "requires.val": 1,
-        "rowNumber": 23,
+        "rowNumber": 24,
         "unittype": "drone"
       },
       {
@@ -4682,7 +4736,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "queentwin",
         "requires.unittype": "nest",
         "requires.val": 1,
-        "rowNumber": 24,
+        "rowNumber": 25,
         "unittype": "queen"
       },
       {
@@ -4703,7 +4757,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nesttwin",
         "requires.unittype": "greaterqueen",
         "requires.val": 1,
-        "rowNumber": 25,
+        "rowNumber": 26,
         "unittype": "nest"
       },
       {
@@ -4724,7 +4778,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "greaterqueentwin",
         "requires.unittype": "hive",
         "requires.val": 1,
-        "rowNumber": 26,
+        "rowNumber": 27,
         "unittype": "greaterqueen"
       },
       {
@@ -4745,7 +4799,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "hivetwin",
         "requires.unittype": "hivequeen",
         "requires.val": 1,
-        "rowNumber": 27,
+        "rowNumber": 28,
         "unittype": "hive"
       },
       {
@@ -4766,7 +4820,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "hivequeentwin",
         "requires.unittype": "empress",
         "requires.val": 1,
-        "rowNumber": 28,
+        "rowNumber": 29,
         "unittype": "hivequeen"
       },
       {
@@ -4787,7 +4841,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "empresstwin",
         "requires.unittype": "prophet",
         "requires.val": 1,
-        "rowNumber": 29,
+        "rowNumber": 30,
         "unittype": "empress"
       },
       {
@@ -4808,7 +4862,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "prophettwin",
         "requires.unittype": "goddess",
         "requires.val": 1,
-        "rowNumber": 30,
+        "rowNumber": 31,
         "unittype": "prophet"
       },
       {
@@ -4829,7 +4883,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goddesstwin",
         "requires.unittype": "pantheon",
         "requires.val": 1,
-        "rowNumber": 31,
+        "rowNumber": 32,
         "unittype": "goddess"
       },
       {
@@ -4850,7 +4904,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheontwin",
         "requires.unittype": "pantheon2",
         "requires.val": 1,
-        "rowNumber": 32,
+        "rowNumber": 33,
         "unittype": "pantheon"
       },
       {
@@ -4871,7 +4925,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon2twin",
         "requires.unittype": "pantheon3",
         "requires.val": 1,
-        "rowNumber": 33,
+        "rowNumber": 34,
         "unittype": "pantheon2"
       },
       {
@@ -4892,7 +4946,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon3twin",
         "requires.unittype": "pantheon4",
         "requires.val": 1,
-        "rowNumber": 34,
+        "rowNumber": 35,
         "unittype": "pantheon3"
       },
       {
@@ -4913,7 +4967,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon4twin",
         "requires.unittype": "pantheon5",
         "requires.val": 1,
-        "rowNumber": 35,
+        "rowNumber": 36,
         "unittype": "pantheon4"
       },
       {
@@ -4934,7 +4988,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon5twin",
         "requires.unittype": "pantheon6",
         "requires.val": 1,
-        "rowNumber": 36,
+        "rowNumber": 37,
         "unittype": "pantheon5"
       },
       {
@@ -4955,7 +5009,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon6twin",
         "requires.unittype": "pantheon7",
         "requires.val": 1,
-        "rowNumber": 37,
+        "rowNumber": 38,
         "unittype": "pantheon6"
       },
       {
@@ -4976,7 +5030,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon7twin",
         "requires.unittype": "pantheon8",
         "requires.val": 1,
-        "rowNumber": 38,
+        "rowNumber": 39,
         "unittype": "pantheon7"
       },
       {
@@ -4997,7 +5051,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "pantheon8twin",
         "requires.unittype": "invisiblehatchery",
         "requires.val": 2,
-        "rowNumber": 39,
+        "rowNumber": 40,
         "unittype": "pantheon8"
       },
       {
@@ -5018,7 +5072,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmlingtwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 40,
+        "rowNumber": 41,
         "unittype": "swarmling"
       },
       {
@@ -5039,7 +5093,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmlingtwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 41,
+        "rowNumber": 42,
         "unittype": ""
       },
       {
@@ -5060,7 +5114,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "stingertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 42,
+        "rowNumber": 43,
         "unittype": "stinger"
       },
       {
@@ -5081,7 +5135,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "stingertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 43,
+        "rowNumber": 44,
         "unittype": ""
       },
       {
@@ -5102,7 +5156,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "spidertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 44,
+        "rowNumber": 45,
         "unittype": "spider"
       },
       {
@@ -5123,7 +5177,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "spidertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 45,
+        "rowNumber": 46,
         "unittype": ""
       },
       {
@@ -5144,7 +5198,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mosquitotwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 46,
+        "rowNumber": 47,
         "unittype": "mosquito"
       },
       {
@@ -5165,7 +5219,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mosquitotwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 47,
+        "rowNumber": 48,
         "unittype": ""
       },
       {
@@ -5186,7 +5240,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "locusttwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 48,
+        "rowNumber": 49,
         "unittype": "locust"
       },
       {
@@ -5207,7 +5261,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "locusttwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 49,
+        "rowNumber": 50,
         "unittype": ""
       },
       {
@@ -5228,7 +5282,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "roachtwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 50,
+        "rowNumber": 51,
         "unittype": "roach"
       },
       {
@@ -5249,7 +5303,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "roachtwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 51,
+        "rowNumber": 52,
         "unittype": ""
       },
       {
@@ -5270,7 +5324,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "giantspidertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 52,
+        "rowNumber": 53,
         "unittype": "giantspider"
       },
       {
@@ -5291,7 +5345,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "giantspidertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 53,
+        "rowNumber": 54,
         "unittype": ""
       },
       {
@@ -5312,7 +5366,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "centipedetwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 54,
+        "rowNumber": 55,
         "unittype": "centipede"
       },
       {
@@ -5333,7 +5387,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "centipedetwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 55,
+        "rowNumber": 56,
         "unittype": ""
       },
       {
@@ -5354,7 +5408,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "wasptwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 56,
+        "rowNumber": 57,
         "unittype": "wasp"
       },
       {
@@ -5375,7 +5429,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "wasptwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 57,
+        "rowNumber": 58,
         "unittype": ""
       },
       {
@@ -5396,7 +5450,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "devourertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 58,
+        "rowNumber": 59,
         "unittype": "devourer"
       },
       {
@@ -5417,7 +5471,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "devourertwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 59,
+        "rowNumber": 60,
         "unittype": ""
       },
       {
@@ -5438,7 +5492,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goontwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 60,
+        "rowNumber": 61,
         "unittype": "goon"
       },
       {
@@ -5459,7 +5513,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goontwin",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 61,
+        "rowNumber": 62,
         "unittype": ""
       },
       {
@@ -5480,7 +5534,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmlingempower",
         "requires.unittype": "meat",
         "requires.val": 2.5538e+29,
-        "rowNumber": 62,
+        "rowNumber": 63,
         "unittype": "swarmling"
       },
       {
@@ -5501,7 +5555,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmlingempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 63,
+        "rowNumber": 64,
         "unittype": ""
       },
       {
@@ -5522,7 +5576,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmlingempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 64,
+        "rowNumber": 65,
         "unittype": ""
       },
       {
@@ -5543,7 +5597,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmlingempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 65,
+        "rowNumber": 66,
         "unittype": ""
       },
       {
@@ -5564,7 +5618,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "stingerempower",
         "requires.unittype": "meat",
         "requires.val": 1.14921e+32,
-        "rowNumber": 66,
+        "rowNumber": 67,
         "unittype": "stinger"
       },
       {
@@ -5585,7 +5639,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "stingerempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 67,
+        "rowNumber": 68,
         "unittype": ""
       },
       {
@@ -5606,7 +5660,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "stingerempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 68,
+        "rowNumber": 69,
         "unittype": ""
       },
       {
@@ -5627,7 +5681,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "stingerempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 69,
+        "rowNumber": 70,
         "unittype": ""
       },
       {
@@ -5648,7 +5702,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "spiderempower",
         "requires.unittype": "meat",
         "requires.val": 5.17144e+34,
-        "rowNumber": 70,
+        "rowNumber": 71,
         "unittype": "spider"
       },
       {
@@ -5669,7 +5723,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "spiderempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 71,
+        "rowNumber": 72,
         "unittype": ""
       },
       {
@@ -5690,7 +5744,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "spiderempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 72,
+        "rowNumber": 73,
         "unittype": ""
       },
       {
@@ -5711,7 +5765,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "spiderempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 73,
+        "rowNumber": 74,
         "unittype": ""
       },
       {
@@ -5732,7 +5786,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mosquitoempower",
         "requires.unittype": "meat",
         "requires.val": 2.32715e+37,
-        "rowNumber": 74,
+        "rowNumber": 75,
         "unittype": "mosquito"
       },
       {
@@ -5753,7 +5807,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mosquitoempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 75,
+        "rowNumber": 76,
         "unittype": ""
       },
       {
@@ -5774,7 +5828,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mosquitoempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 76,
+        "rowNumber": 77,
         "unittype": ""
       },
       {
@@ -5795,7 +5849,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mosquitoempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 77,
+        "rowNumber": 78,
         "unittype": ""
       },
       {
@@ -5816,7 +5870,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "locustempower",
         "requires.unittype": "meat",
         "requires.val": 1.04722e+40,
-        "rowNumber": 78,
+        "rowNumber": 79,
         "unittype": "locust"
       },
       {
@@ -5837,7 +5891,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "locustempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 79,
+        "rowNumber": 80,
         "unittype": ""
       },
       {
@@ -5858,7 +5912,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "locustempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 80,
+        "rowNumber": 81,
         "unittype": ""
       },
       {
@@ -5879,7 +5933,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "locustempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 81,
+        "rowNumber": 82,
         "unittype": ""
       },
       {
@@ -5900,7 +5954,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "roachempower",
         "requires.unittype": "meat",
         "requires.val": 4.71247e+42,
-        "rowNumber": 82,
+        "rowNumber": 83,
         "unittype": "roach"
       },
       {
@@ -5921,7 +5975,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "roachempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 83,
+        "rowNumber": 84,
         "unittype": ""
       },
       {
@@ -5942,7 +5996,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "roachempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 84,
+        "rowNumber": 85,
         "unittype": ""
       },
       {
@@ -5963,7 +6017,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "roachempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 85,
+        "rowNumber": 86,
         "unittype": ""
       },
       {
@@ -5984,7 +6038,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "giantspiderempower",
         "requires.unittype": "meat",
         "requires.val": 2.12061e+45,
-        "rowNumber": 86,
+        "rowNumber": 87,
         "unittype": "giantspider"
       },
       {
@@ -6005,7 +6059,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "giantspiderempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 87,
+        "rowNumber": 88,
         "unittype": ""
       },
       {
@@ -6026,7 +6080,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "giantspiderempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 88,
+        "rowNumber": 89,
         "unittype": ""
       },
       {
@@ -6047,7 +6101,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "giantspiderempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 89,
+        "rowNumber": 90,
         "unittype": ""
       },
       {
@@ -6068,7 +6122,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "centipedeempower",
         "requires.unittype": "meat",
         "requires.val": 9.54276e+47,
-        "rowNumber": 90,
+        "rowNumber": 91,
         "unittype": "centipede"
       },
       {
@@ -6089,7 +6143,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "centipedeempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 91,
+        "rowNumber": 92,
         "unittype": ""
       },
       {
@@ -6110,7 +6164,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "centipedeempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 92,
+        "rowNumber": 93,
         "unittype": ""
       },
       {
@@ -6131,7 +6185,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "centipedeempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 93,
+        "rowNumber": 94,
         "unittype": ""
       },
       {
@@ -6152,7 +6206,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "waspempower",
         "requires.unittype": "meat",
         "requires.val": 4.29424e+50,
-        "rowNumber": 94,
+        "rowNumber": 95,
         "unittype": "wasp"
       },
       {
@@ -6173,7 +6227,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "waspempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 95,
+        "rowNumber": 96,
         "unittype": ""
       },
       {
@@ -6194,7 +6248,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "waspempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 96,
+        "rowNumber": 97,
         "unittype": ""
       },
       {
@@ -6215,7 +6269,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "waspempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 97,
+        "rowNumber": 98,
         "unittype": ""
       },
       {
@@ -6236,7 +6290,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "devourerempower",
         "requires.unittype": "meat",
         "requires.val": 1.93241e+53,
-        "rowNumber": 98,
+        "rowNumber": 99,
         "unittype": "devourer"
       },
       {
@@ -6257,7 +6311,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "devourerempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 99,
+        "rowNumber": 100,
         "unittype": ""
       },
       {
@@ -6278,7 +6332,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "devourerempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 100,
+        "rowNumber": 101,
         "unittype": ""
       },
       {
@@ -6299,7 +6353,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "devourerempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 101,
+        "rowNumber": 102,
         "unittype": ""
       },
       {
@@ -6320,7 +6374,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goonempower",
         "requires.unittype": "meat",
         "requires.val": 8.69584e+55,
-        "rowNumber": 102,
+        "rowNumber": 103,
         "unittype": "goon"
       },
       {
@@ -6341,7 +6395,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goonempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 103,
+        "rowNumber": 104,
         "unittype": ""
       },
       {
@@ -6362,7 +6416,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goonempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 104,
+        "rowNumber": 105,
         "unittype": ""
       },
       {
@@ -6383,7 +6437,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "goonempower",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 105,
+        "rowNumber": 106,
         "unittype": ""
       },
       {
@@ -6404,7 +6458,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus1",
         "requires.unittype": "meat",
         "requires.val": 333333333333,
-        "rowNumber": 106,
+        "rowNumber": 107,
         "unittype": "meat"
       },
       {
@@ -6425,7 +6479,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus1",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 107,
+        "rowNumber": 108,
         "unittype": ""
       },
       {
@@ -6446,7 +6500,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus2",
         "requires.unittype": "meat",
         "requires.val": 0,
-        "rowNumber": 108,
+        "rowNumber": 109,
         "unittype": "nexus"
       },
       {
@@ -6467,7 +6521,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus2",
         "requires.unittype": "nexus",
         "requires.val": 1,
-        "rowNumber": 109,
+        "rowNumber": 110,
         "unittype": ""
       },
       {
@@ -6488,7 +6542,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus3",
         "requires.unittype": "meat",
         "requires.val": 0,
-        "rowNumber": 110,
+        "rowNumber": 111,
         "unittype": "nexus"
       },
       {
@@ -6509,7 +6563,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus3",
         "requires.unittype": "nexus",
         "requires.val": 2,
-        "rowNumber": 111,
+        "rowNumber": 112,
         "unittype": ""
       },
       {
@@ -6530,7 +6584,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus3",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 112,
+        "rowNumber": 113,
         "unittype": ""
       },
       {
@@ -6551,7 +6605,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus4",
         "requires.unittype": "meat",
         "requires.val": 0,
-        "rowNumber": 113,
+        "rowNumber": 114,
         "unittype": "nexus"
       },
       {
@@ -6572,7 +6626,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus4",
         "requires.unittype": "nexus",
         "requires.val": 3,
-        "rowNumber": 114,
+        "rowNumber": 115,
         "unittype": ""
       },
       {
@@ -6593,7 +6647,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus4",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 115,
+        "rowNumber": 116,
         "unittype": ""
       },
       {
@@ -6614,7 +6668,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus5",
         "requires.unittype": "meat",
         "requires.val": 0,
-        "rowNumber": 116,
+        "rowNumber": 117,
         "unittype": "nexus"
       },
       {
@@ -6635,7 +6689,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus5",
         "requires.unittype": "nexus",
         "requires.val": 4,
-        "rowNumber": 117,
+        "rowNumber": 118,
         "unittype": ""
       },
       {
@@ -6656,7 +6710,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "nexus5",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 118,
+        "rowNumber": 119,
         "unittype": ""
       },
       {
@@ -6677,7 +6731,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "larvarush",
         "requires.unittype": "nexus",
         "requires.val": 1,
-        "rowNumber": 119,
+        "rowNumber": 120,
         "unittype": "energy"
       },
       {
@@ -6698,7 +6752,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "larvarush",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 120,
+        "rowNumber": 121,
         "unittype": ""
       },
       {
@@ -6719,7 +6773,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "swarmwarp",
         "requires.unittype": "nexus",
         "requires.val": 1,
-        "rowNumber": 121,
+        "rowNumber": 122,
         "unittype": "energy"
       },
       {
@@ -6740,7 +6794,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "meatrush",
         "requires.unittype": "nexus",
         "requires.val": 2,
-        "rowNumber": 122,
+        "rowNumber": 123,
         "unittype": "energy"
       },
       {
@@ -6761,7 +6815,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "meatrush",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 123,
+        "rowNumber": 124,
         "unittype": ""
       },
       {
@@ -6782,7 +6836,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "territoryrush",
         "requires.unittype": "nexus",
         "requires.val": 3,
-        "rowNumber": 124,
+        "rowNumber": 125,
         "unittype": "energy"
       },
       {
@@ -6803,7 +6857,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "territoryrush",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 125,
+        "rowNumber": 126,
         "unittype": ""
       },
       {
@@ -6824,7 +6878,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "clonelarvae",
         "requires.unittype": "nexus",
         "requires.val": 4,
-        "rowNumber": 126,
+        "rowNumber": 127,
         "unittype": "energy"
       },
       {
@@ -6845,7 +6899,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "frenzy",
         "requires.unittype": "nexus",
         "requires.val": 6,
-        "rowNumber": 127,
+        "rowNumber": 128,
         "unittype": "energy"
       },
       {
@@ -6866,7 +6920,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "mutanthatcheries",
         "requires.unittype": "",
         "requires.val": "",
-        "rowNumber": 128,
+        "rowNumber": 129,
         "unittype": "mutagen"
       }
     ],

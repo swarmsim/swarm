@@ -34,6 +34,7 @@ module.exports = (config) ->
       'bower_components/angular-hotkeys/build/hotkeys.min.js'
       'bower_components/jquery/dist/jquery.js'
       'bower_components/favico.js/favico.js'
+      'bower_components/seedrandom/seedrandom.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'

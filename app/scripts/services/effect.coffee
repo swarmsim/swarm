@@ -72,6 +72,12 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     output: (effect, game) ->
       effect.unit.velocity() * effect.val * effect.parentStat 'power', 1
   effecttypes.register
+    name: 'addUnitRand'
+    onBuy: (effect, game) ->
+      effect.unit._addCount @output effect, game
+    output: (effect, game) ->
+      effect.val * effect.parentStat 'power', 1
+  effecttypes.register
     name: 'compoundUnit'
     bank: (effect, game) ->
       base = effect.unit.count()
