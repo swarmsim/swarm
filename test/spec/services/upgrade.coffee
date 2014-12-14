@@ -235,3 +235,15 @@ describe 'Service: upgrade', ->
     expect(unit.count()).toBe 102400
     expect(upgrade.effect[0].output()).toBe 2400
     expect(upgrade.effect[1].output()).toBe 100000
+
+  it 'randomly spawns premutagen when buying hatcheries/expansions', ->
+    game = mkgame {hatchery:0, meat:9e+100, premutagen:0}
+    hatchery = game.upgrade 'hatchery'
+    effect = hatchery.effect[1] # mutagen-spawner effect
+    premutagen = game.unit 'premutagen'
+    hatchery.buy 49
+    expect(premutagen.count()).toBe 0
+    hatchery.buy 1
+    # random range. first spawn is guaranteed.
+    expect(premutagen.count()).not.toBeGreaterThan 2
+    expect(premutagen.count()).not.toBeLessThan 1

@@ -14,8 +14,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   parentStat: (statname, _default) ->
     @parentUnit().stat statname, _default
 
-  onBuy: ->
-    @type.onBuy? this, @game, @parent
+  onBuy: (level) ->
+    @type.onBuy? this, @game, @parent, level
 
   calcStats: (stats={}, schema={}, level=@parent.count()) ->
     @type.calcStats? this, stats, schema, level
@@ -49,7 +49,7 @@ angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
     @byName[effecttype.name] = effecttype
     return this
 
-angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util) ->
+angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util, seedrand) ->
   # short hardcoded list, but we don't actually use very high numbers for these
   ROMANNUM = ['', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'
               'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX']
@@ -73,10 +73,28 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       effect.unit.velocity() * effect.val * effect.parentStat 'power', 1
   effecttypes.register
     name: 'addUnitRand'
-    onBuy: (effect, game) ->
-      effect.unit._addCount @output effect, game
-    output: (effect, game) ->
-      effect.val * effect.parentStat 'power', 1
+    onBuy: (effect, game, parent, level) ->
+      effect.unit._addCount @output effect, game, parent, level
+    output: (effect, game, parent, level) ->
+      # minimum level needed to spawn units. Also, guarantees a spawn at exactly this level.
+      minlevel = 50
+      #console.log 'addunitrand output', level, minlevel, level >= minlevel
+      if level >= minlevel
+        # chance of any unit spawning at all.
+        prob = 0.35
+        # quantity of units spawned, if any spawn at all.
+        minqty = 0.8
+        maxqty = 1.2
+        qtyfactor = effect.val
+        baseqty = Math.pow qtyfactor, level - minlevel
+        # consistent random seed. No savestate scumming.
+        seed = "[#{parent.name}, #{level}]"
+        rng = seedrand.rng seed
+        # at exactly minlevel, a free spawn is guaranteed, no random roll
+        if level == minlevel or rng() < prob
+          modqty = minqty + (rng() * (maxqty - minqty))
+          return Math.ceil baseqty * modqty
+      return 0
   effecttypes.register
     name: 'compoundUnit'
     bank: (effect, game) ->

@@ -140,10 +140,11 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
         util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
         util.assert cost.val > 0, "zero cost from sumCost, yet cost was met?", @name, name, cost
         cost.unit._subtractCount cost.val
+      count = @count()
       @_addCount num
       for i in [0...num]
         for effect in @effect
-          effect.onBuy()
+          effect.onBuy count + i + 1
       @viewNewUpgrades()
       return num
 
