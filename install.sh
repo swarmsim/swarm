@@ -17,7 +17,7 @@ sudo apt-get install -y git nodejs nodejs-legacy npm ruby ruby-dev phantomjs
 sudo npm install -g yo generator-angular grunt-cli
 sudo gem install compass
 # updates too.
-sudo npm update yo generator-angular
+sudo npm update -g yo generator-angular grunt-cli
 
 # check out the package and install its deps.
 test -d swarm || git clone https://github.com/erosson/swarm.git
