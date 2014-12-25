@@ -23,7 +23,7 @@ sudo npm update -g yo generator-angular grunt-cli
 test -d swarm || git clone https://github.com/erosson/swarm.git
 cd swarm
 npm install
-bower install
+yes | bower install
 
 # everything's installed! test it.
 grunt
