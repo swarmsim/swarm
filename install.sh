@@ -14,7 +14,7 @@ sudo apt-get update
 # nodejs-legacy symlinks nodejs -> node, like node built from source in every other non-debian system
 # ruby-dev needed to build compass
 sudo apt-get install -y git nodejs nodejs-legacy npm ruby ruby-dev phantomjs
-sudo npm install -g yo generator-angular
+sudo npm install -g yo generator-angular grunt-cli
 sudo gem install compass
 # updates too.
 sudo npm update yo generator-angular
