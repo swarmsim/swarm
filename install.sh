@@ -6,7 +6,7 @@
 #
 # Usage:
 #
-#    sh | curl https://raw.githubusercontent.com/erosson/swarm/master/install.sh
+#    curl https://raw.githubusercontent.com/erosson/swarm/master/install.sh | sh
 #
 
 # first, all the sudo stuff.
