@@ -247,3 +247,13 @@ describe 'Service: upgrade', ->
     # random range. first spawn is guaranteed.
     expect(premutagen.count()).not.toBeGreaterThan 2
     expect(premutagen.count()).not.toBeLessThan 1
+
+  it 'swarmwarps without changing energy', ->
+    game = mkgame {energy:50000, nexus:999, invisiblehatchery:1, drone:1, meat:0}
+    upgrade = game.upgrade 'swarmwarp'
+    energy = game.unit 'energy'
+    expect(energy.count()).toBe 50000
+    upgrade.buy 1
+    expect(energy.count()).toBe 48000
+    upgrade.buy 1
+    expect(energy.count()).toBe 46000
