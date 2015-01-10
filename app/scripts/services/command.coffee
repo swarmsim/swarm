@@ -66,3 +66,21 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
       num:num
       percent:opts.percent
       ui:opts.ui
+
+  buyAllUpgrades: (opts) ->
+    upgrades = opts.upgrades
+    for upgrade in upgrades
+      num = upgrade.buyMax opts.percent
+      @_emit 'buyMaxUpgrade',
+        upgrade:upgrade
+        upgradename:upgrade.name
+        now:upgrade.game.now
+        elapsed:upgrade.game.elapsedStartMillis()
+        num:num
+        percent:opts.percent
+        ui:'buyAllUpgrades'
+    if upgrades.length
+      @_emit 'buyAllUpgrades',
+        now:upgrades[0].game.now
+        elapsed:upgrades[0].game.elapsedStartMillis()
+        percent:opts.percent
