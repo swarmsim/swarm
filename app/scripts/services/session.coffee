@@ -85,9 +85,11 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # during beta, 0.n.0 resets all games from 0.n-1.x. Don't import older games.
       if sM == gM == 0 and sm != gm
         throw new Error 'Beta save from different minor version'
-      # 1.0's a reset too. 2.0 is not.
-      if (sM == 0) != (gM == 0)
-        throw new Error 'Beta save in non-beta version'
+      # No importing 1.0.x games into 0.2.x. Need this for publictest.
+      # Importing 0.2.x into 1.0.x is fine.
+      # Keep in mind - 0.2.x might not be running this code, but older code that resets at 1.0. (Should make no difference.)
+      if (sM > 0) and (gM == 0)
+        throw new Error '1.0 save in 0.x game'
       ## save state must not be newer than the game running it
       ## actually, let's allow this. support for fast rollbacks is more important.
       #if sM > gM or (sM == gM and (sm > gm or (sm == gm and sp > gp)))

@@ -68,7 +68,7 @@ describe 'Service: session', ->
     # current-version based. breaks when we upgrade to 0.3.0!
     expect(-> session._validateSaveVersion '0.1.0').toThrow()
     expect(-> session._validateSaveVersion '0.2.0').not.toThrow()
-    expect(-> session._validateSaveVersion '0.3.0').toThrow()
+    expect(-> session._validateSaveVersion '1.0.0').toThrow() # fix me on 1.0 release!
     expect(-> session._validateSaveVersion undefined).toThrow()
 
   it 'validates the save version on import', inject (version) ->
