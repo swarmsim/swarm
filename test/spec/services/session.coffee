@@ -55,8 +55,10 @@ describe 'Service: session', ->
     expect(-> session._validateSaveVersion '0.2.30', '0.2.0').not.toThrow()
     expect(-> session._validateSaveVersion '0.2.0', '0.2.0').not.toThrow()
     expect(-> session._validateSaveVersion '1.0.0', '1.0.0').not.toThrow()
-    # 0.x to 1.0 is a reset too, no imports
-    expect(-> session._validateSaveVersion '0.9.0', '1.0.0').toThrow()
+    # 0.x to 1.0 is not a reset, but no reverse-imports, and 0.1.x's still blacklisted
+    expect(-> session._validateSaveVersion '0.9.0', '1.0.0').not.toThrow()
+    expect(-> session._validateSaveVersion '1.0.0', '0.9.0').toThrow()
+    expect(-> session._validateSaveVersion '0.1.0', '1.0.0').toThrow()
     expect(-> session._validateSaveVersion '1.9.0', '1.0.0').not.toThrow()
     expect(-> session._validateSaveVersion '1.0.0', '1.9.0').not.toThrow()
     # major versions after 1.0 aren't resets
@@ -65,10 +67,10 @@ describe 'Service: session', ->
     # default version - very old saves.
     expect(-> session._validateSaveVersion undefined, '0.1.0').not.toThrow()
     expect(-> session._validateSaveVersion undefined, '0.2.0').toThrow()
-    # current-version based. breaks when we upgrade to 0.3.0!
+    # current-version based. Breaks when upgrading versions.
     expect(-> session._validateSaveVersion '0.1.0').toThrow()
     expect(-> session._validateSaveVersion '0.2.0').not.toThrow()
-    expect(-> session._validateSaveVersion '1.0.0').toThrow() # fix me on 1.0 release!
+    expect(-> session._validateSaveVersion '1.0.0').not.toThrow()
     expect(-> session._validateSaveVersion undefined).toThrow()
 
   it 'validates the save version on import', inject (version) ->
@@ -77,7 +79,7 @@ describe 'Service: session', ->
     expect(-> session._loads encoded).toThrow()
     session.version.started = '1.0.0'
     encoded = session._saves()
-    expect(-> session._loads encoded).toThrow()
+    expect(-> session._loads encoded).not.toThrow()
     session.version.started = version
     encoded = session._saves()
     expect(-> session._loads encoded).not.toThrow()

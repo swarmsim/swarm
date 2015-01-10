@@ -90,6 +90,10 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # Keep in mind - 0.2.x might not be running this code, but older code that resets at 1.0. (Should make no difference.)
       if (sM > 0) and (gM == 0)
         throw new Error '1.0 save in 0.x game'
+      # 0.1.x saves are blacklisted for 1.0.x, already reset
+      if (gM > 0) and (sM == 0) and (sm < 2)
+        console.log sm, gM, saveversion, gameversion
+        throw new Error 'nice try, no 0.1.x saves'
       ## save state must not be newer than the game running it
       ## actually, let's allow this. support for fast rollbacks is more important.
       #if sM > gM or (sM == gM and (sm > gm or (sm == gm and sp > gp)))
