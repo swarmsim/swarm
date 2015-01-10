@@ -238,7 +238,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      spreadsheetpreload: 'app/scripts/spreadsheetpreload',
+      //spreadsheetpreload: 'app/scripts/spreadsheetpreload',
+      spreadsheetpreload: 'app/scripts/spreadsheetpreload/v0.1.js',
       server: '.tmp'
     },
 
@@ -529,6 +530,8 @@ module.exports = function (grunt) {
 
   // One of few swarmapp-specific tasks
   grunt.registerMultiTask('preloadSpreadsheet', 'Update spreadsheet data', function () {
+    // TODO: spreadsheet updates disabled for 0.2.x branch. Remove this when merging!
+    return;
     var Tabletop = require('tabletop');
     var stringify = require('json-stable-stringify');
     var _ = require('lodash');
