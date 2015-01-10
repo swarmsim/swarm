@@ -253,6 +253,20 @@ describe 'Service: unit', ->
     expect(upgrade.isVisible()).toBe false #because...
     expect(upgrade.count()).toBe upgrade.type.maxlevel
 
+  it 'parses OR unit requirements', ->
+    game = mkgame {mutagen:1}
+    expect(game.unit('mutagen').isVisible()).toBe true
+    expect(game.unit('premutagen').isVisible()).toBe true
+    game = mkgame {premutagen:1}
+    expect(game.unit('mutagen').isVisible()).toBe true
+    expect(game.unit('premutagen').isVisible()).toBe true
+    game = mkgame {ascension:1}
+    expect(game.unit('mutagen').isVisible()).toBe true
+    expect(game.unit('premutagen').isVisible()).toBe true
+    game = mkgame {}
+    expect(game.unit('mutagen').isVisible()).toBe false
+    expect(game.unit('premutagen').isVisible()).toBe false
+
   it 'caps energy', ->
     game = mkgame {energy:1000000000000000000000000000000000000000, nexus:5}
     unit = game.unit 'energy'

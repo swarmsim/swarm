@@ -200,7 +200,11 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     util.assert @requires.length > 0, "unit without visibility requirements", @name
     for require in @requires
       if require.val > require.resource.count()
-        return false
+        if require.op != 'OR' # most requirements are ANDed, any one failure fails them all
+          return false
+        # req-not-met for OR requirements: no-op
+      else if require.op == 'OR' # single necessary requirement is met
+        return true
     return true
 
   isBuyButtonVisible: ->
