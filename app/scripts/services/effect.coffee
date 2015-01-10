@@ -8,7 +8,10 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     if data.unittype2?
       @unit2 = util.assert @game.unit data.unittype2
   parentUnit: ->
+    # parent can be a unit or an upgrade
     if @parent.unittype? then @parent else @parent.unit
+  parentUpgrade: ->
+    if parent.unittype? then null else @parent
   hasParentStat: (statname, _default) ->
     @parentUnit().hasStat statname, _default
   parentStat: (statname, _default) ->
@@ -24,7 +27,13 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
   bank: -> @type.bank? this, @game
   cap: -> @type.cap? this, @game
   output: -> @type.output? this, @game
-
+  power: ->
+    ret = @parentStat('power', 1)
+    # include, for example, "power.swarmwarp"
+    upname = @parentUpgrade()?.name
+    if upname
+      ret *= @parentStat("power.#{upname}", 1)
+    return ret
 
 angular.module('swarmApp').factory 'EffectType', -> class EffectType
   constructor: (data) ->
@@ -64,13 +73,13 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
     output: (effect, game) ->
-      effect.val * effect.parentStat 'power', 1
+      effect.val * effect.power()
   effecttypes.register
     name: 'addUnitByVelocity'
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
     output: (effect, game) ->
-      effect.unit.velocity() * effect.val * effect.parentStat 'power', 1
+      effect.unit.velocity() * effect.val * effect.power()
   effecttypes.register
     name: 'addUnitRand'
     onBuy: (effect, game, parent, level) ->
@@ -80,13 +89,15 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       minlevel = 50
       #console.log 'addunitrand output', level, minlevel, level >= minlevel
       if level >= minlevel
+        stat_freq = effect.parentStat 'random.freq', 1
+        stat_each = effect.parentStat 'random.each', 1
         # chance of any unit spawning at all.
-        prob = 0.35
+        prob = 0.35 * stat_freq
         # quantity of units spawned, if any spawn at all.
         minqty = 0.8
         maxqty = 1.2
         qtyfactor = effect.val
-        baseqty = Math.pow qtyfactor, level - minlevel
+        baseqty = stat_each * Math.pow qtyfactor, level - minlevel
         # consistent random seed. No savestate scumming.
         seed = "[#{parent.name}, #{level}]"
         rng = seedrand.rng seed
@@ -114,7 +125,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       velocity = effect.unit.velocity()
       if effect.unit2?
         velocity += effect.unit2.velocity()
-      return effect.val2 * velocity * effect.parentStat 'power', 1
+      return effect.val2 * velocity * effect.power()
     output: (effect, game) ->
       base = @bank effect, game
       ret = base * (effect.val - 1)
@@ -136,7 +147,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     onBuy: (effect) ->
       effect.game.skipTime @output(effect), 'seconds'
     output: (effect) ->
-      effect.val * effect.parentStat 'power', 1
+      effect.val * effect.power()
 
   effecttypes.register
     name: 'multStat'
