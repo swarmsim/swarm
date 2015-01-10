@@ -132,6 +132,7 @@ describe 'Service: game achievements', ->
   it "builds one of each upgrade", ->
     for upgrade in game.upgradelist()
       upgrade._visible = true
+      upgrade.unit._visible = true
       clear upgrade
       expect(upgrade.count()).toBe 0
       upgrade.buy()

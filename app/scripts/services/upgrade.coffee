@@ -37,6 +37,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     @_addCount -val
 
   isVisible: ->
+    # disabled: hack for larvae/showparent. We really need to just remove showparent already...
+    if not @unit.isVisible() and not @unit.unittype.disabled
+      return false
     if @type.maxlevel? and @count() >= @type.maxlevel
       return false
     if @type.disabled
@@ -120,9 +123,16 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   viewNewUpgrades: ->
     if @isVisible() and util.isWindowFocused true
       @_lastUpgradeSeen = @maxCostMet()
-  isNewlyUpgradable: ->
+  isNewlyUpgradable: (costPercent=undefined) ->
     #@_lastUpgradeSeen < @maxCostMet()
-    @isBuyable() and @_lastUpgradeSeen == 0 and @maxCostMet() > 0 and @type.class == 'upgrade'
+    @isUpgradable(costPercent) and not @isIgnored()
+  isIgnored: ->
+    @_lastUpgradeSeen != 0
+  unignore: ->
+    @_lastUpgradeSeen = 0
+  isUpgradable: (costPercent=undefined) ->
+    #@_lastUpgradeSeen < @maxCostMet()
+    @isBuyable() and @maxCostMet(costPercent) > 0 and @type.class == 'upgrade'
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->

@@ -17,6 +17,27 @@
       <span ng-if="tab.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
     </a>
   </li>
+  <li ng-if="options.showAdvancedUnitData()" role="tab" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:">
+      <!--span class="glyphicon glyphicon-circle-arrow-up"></span-->
+      {{game.newUpgrades().length | number}} upgrades
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableUpgrades())">
+        <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableUpgrades().length | number}} upgrades
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableUpgrades(0.25), 0.25)">
+        <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableUpgrades(0.25).length | number}} upgrades
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="ignoreUpgrades(game.newUpgrades())">
+        <span class="glyphicon glyphicon-eye-close"></span> Ignore all {{game.newUpgrades().length | number}} upgrade notifications
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="unignoreUpgrades(game.ignoredUpgrades())">
+        <span class="glyphicon glyphicon-eye-open"></span> Unignore {{game.ignoredUpgrades().length | number}} upgrade notifications
+      </a></li>
+    </ul>
+  </li>
   <li role="tab" class="dropdown" ng-class="{active: !cur}">
     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:">
       More...
