@@ -35,6 +35,13 @@ module.exports = function (grunt) {
         options: {},
         src: ['**']
       },
+      publictest: {
+        options: {
+          branch: 'master',
+          repo: 'https://github.com/swarmsim-publictest/swarmsim-publictest.github.io.git'
+        },
+        src: ['**']
+      },
       prod: {
         options: {
           branch: 'master',
@@ -646,6 +653,10 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy-staging', [
     'build',
     'gh-pages:staging'
+  ]);
+  grunt.registerTask('deploy-publictest', [
+    'build',
+    'gh-pages:publictest'
   ]);
   grunt.registerTask('deploy-prod', [
     'build',
