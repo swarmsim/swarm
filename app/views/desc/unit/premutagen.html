@@ -1,3 +1,5 @@
 <p>Mutagen cannot be used while inactive. Ascend to begin a new swarm, resetting most of your units and upgrades, but activating all of your mutagen. Active mutagen allows powerful upgrades.</p>
 <p>Ascending will activate {{unit.count()|longnum}} new mutagen. You have ascended {{game.unit('ascension').count()|longnum}} times.</p>
 <p><button title="" ng-click="game.ascend()" class="btn btn-default">Ascend</button></p>
+<p>Respeccing refunds {{game.respecSpent() * game.respecRate() | longnum}} mutagen - {{game.respecRate() * 100 | number:0}}% of the {{game.respecSpent() | longnum}} mutagen you've spent - but resets all mutagen units and upgrades to 0.</p>
+<p><button title="" ng-click="game.respecConfirm()" class="btn btn-default">Respec</button></p>
