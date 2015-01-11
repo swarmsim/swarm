@@ -166,6 +166,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       count += @_gainsPath pathdata, secs
     return @capValue count
 
+  # All units that cost this unit.
+  spentResources: ->
+    (u for u in [].concat(@game.unitlist(), @game.upgradelist()) when u.costByName[@name]?)
   spent: ->
     ret = 0
     for u in @game.unitlist()

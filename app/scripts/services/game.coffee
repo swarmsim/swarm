@@ -239,5 +239,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
         if upgrade.unit.tab?.name != 'mutagen'
           upgrade._setCount 0
 
+  respec: ->
+    mutagen = @unit 'mutagen'
+    spent = mutagen.spent()
+    for resource in mutagen.spentResources()
+      resource._setCount 0
+    mutagen._addCount spent * 0.70
+    util.assert mutagen.spent() == 0, "respec didn't refund all mutagen!"
+
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session
