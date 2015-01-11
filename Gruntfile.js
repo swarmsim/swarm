@@ -493,6 +493,20 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>'
         }]
       },
+      phonegap: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.dist %>',
+          src: '*.xml'
+        }, {
+          dest: '<%= yeoman.dist %>/icon.png',
+          src: '<%= yeoman.app %>/images/swarmsim-icon.png'
+        }, {
+          dest: '<%= yeoman.dist %>/splash.png',
+          src: '<%= yeoman.app %>/images/swarmsim-icon.png'
+        }]
+      },
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -648,6 +662,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy-staging', [
     'build',
+    'gh-pages:staging'
+  ]);
+  grunt.registerTask('phonegap-staging', [
+    'build',
+    'copy:phonegap',
     'gh-pages:staging'
   ]);
   grunt.registerTask('deploy-prod', [
