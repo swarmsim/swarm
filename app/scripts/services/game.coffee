@@ -247,7 +247,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     ignores = {}
     for up in mutagen.upgrades.list
       ignores[up.name] = true
-    return mutagen.spent ignores
+    # Upgrades come with a free(ish) unit too, so remove their cost. (Mostly for unit tests, doesn't really matter.)
+    return mutagen.spent(ignores) - @upgrade('mutatehidden').count()
   respecConfirm: ->
     # TODO move me to a controller or something
     if window.confirm "Are you sure you want to respec? You will only be refunded #{@respecRate() * 100}% of the mutagen you've spent."
@@ -259,7 +260,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       resource._setCount 0
       if resource._visible?
         resource._visible = false
-    mutagen._addCount spent * @respecRate()
+    mutagen._addCount Math.floor spent * @respecRate()
     util.assert mutagen.spent() == 0, "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
