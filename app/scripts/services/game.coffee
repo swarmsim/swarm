@@ -220,6 +220,24 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     if not butDontSave
       @save()
 
+  ascendEnergySpent: ->
+    energy = @unit 'energy'
+    return energy.spent()
+  ascendCost: ->
+    spent = @ascendEnergySpent()
+    return Math.ceil 999999 / (1 + spent/50000)
+  ascendCostCapDiff: ->
+    return @ascendCost() - @unit('energy').capValue()
+  ascendCostPercent: ->
+    @unit('energy').count() / @ascendCost()
+  ascendCostDurationSecs: ->
+    energy = @unit 'energy'
+    cost = @ascendCost()
+    if cost <= energy.capValue()
+      return energy.estimateSecs cost
+  ascendCostDurationMoment: ->
+    if (secs=@ascendCostDurationSecs())?
+      return moment.duration secs, 'seconds'
   ascend: ->
     @withSave =>
       # hardcode ascension bonuses. TODO: spreadsheetify
