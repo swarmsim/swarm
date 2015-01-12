@@ -233,7 +233,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       @_init()
       for unit in @unitlist()
         if unit.tab?.name != 'mutagen'
-          console.log 'ascend', unit.unittype.name, unit.unittype.init
           unit._setCount unit.unittype.init
       for upgrade in @upgradelist()
         if upgrade.unit.tab?.name != 'mutagen'
@@ -242,16 +241,24 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   respecRate: ->
     0.70
   respecSpent: ->
-    @unit('mutagen').spent()
+    mutagen = @unit 'mutagen'
+    # upgrade costs are weird - upgrade costs rely on other upgrades, which breaks spending tracking.
+    # ignore them, relying on the mutateHidden upgrade for the true cost.
+    ignores = {}
+    for up in mutagen.upgrades.list
+      ignores[up.name] = true
+    return mutagen.spent ignores
   respecConfirm: ->
     # TODO move me to a controller or something
-    if window.confirm "Are you sure you want to respec? You will only be refunded #{@respecRate * 100}% of the mutagen you've spent."
+    if window.confirm "Are you sure you want to respec? You will only be refunded #{@respecRate() * 100}% of the mutagen you've spent."
       @respec()
   respec: ->
     mutagen = @unit 'mutagen'
-    spent = mutagen.spent()
+    spent = @respecSpent()
     for resource in mutagen.spentResources()
       resource._setCount 0
+      if resource._visible?
+        resource._visible = false
     mutagen._addCount spent * @respecRate()
     util.assert mutagen.spent() == 0, "respec didn't refund all mutagen!"
 

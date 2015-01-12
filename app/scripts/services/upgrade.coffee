@@ -31,6 +31,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   _setCount: (val) ->
     @game.session.upgrades[@name] = val
     util.clearMemoCache @_totalCost, @unit._stats, @unit._eachCost
+    for u in @unit.upgrades.list
+      util.clearMemoCache u._totalCost
   _addCount: (val) ->
     @_setCount @count() + val
   _subtractCount: (val) ->
@@ -57,9 +59,10 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   # TODO refactor cost/buyable to share code with unit?
   totalCost: -> @_totalCost @count()
   _totalCost: (count=@count()) ->
-    _.map @cost, (cost) ->
+    fakelevels = @unit.stat 'upgradecost', 0
+    _.map @cost, (cost) =>
       total = _.clone cost
-      total.val *= Math.pow total.factor, count
+      total.val *= Math.pow total.factor, count + fakelevels
       return total
   sumCost: (num, startCount) ->
     costs0 = @_totalCost startCount
@@ -192,10 +195,11 @@ angular.module('swarmApp').factory 'UpgradeTypes', (spreadsheetUtil, UpgradeType
       spreadsheetUtil.resolveList upgrade.cost, 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.requires, 'unittype', unittypes.byName
       spreadsheetUtil.resolveList upgrade.effect, 'unittype', unittypes.byName, {required:false}
+      spreadsheetUtil.resolveList upgrade.effect, 'upgradetype', ret.byName, {required:false}
       spreadsheetUtil.resolveList upgrade.effect, 'type', effecttypes.byName
       for cost in upgrade.cost
         util.assert cost.val > 0, "upgradetype cost.val must be positive", cost
-        if upgrade.maxlevel == 1
+        if upgrade.maxlevel == 1 and not cost.factor
           cost.factor = 1
         util.assert cost.factor > 0, "upgradetype cost.factor must be positive", cost
     # resolve unittype.require.upgradetype, since upgrades weren't available when it was parsed. kinda hacky.

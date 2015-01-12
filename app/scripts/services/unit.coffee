@@ -169,13 +169,13 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
   # All units that cost this unit.
   spentResources: ->
     (u for u in [].concat(@game.unitlist(), @game.upgradelist()) when u.costByName[@name]?)
-  spent: ->
+  spent: (ignores={})->
     ret = 0
     for u in @game.unitlist()
       costeach = u.costByName[@name]?.val ? 0
       ret += costeach * u.count()
     for u in @game.upgradelist()
-      if u.costByName[@name]
+      if u.costByName[@name] and not ignores[u.name]?
         # cost for $count upgrades starting from level 1
         costs = u.sumCost u.count(), 0
         cost = _.find costs, (c) => c.unit.name == @name

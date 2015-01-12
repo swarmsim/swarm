@@ -7,6 +7,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
       @unit = util.assert @game.unit data.unittype
     if data.unittype2?
       @unit2 = util.assert @game.unit data.unittype2
+    if data.upgradetype?
+      @upgrade = util.assert @game.upgrade data.upgradetype
   parentUnit: ->
     # parent can be a unit or an upgrade
     if @parent.unittype? then @parent else @parent.unit
@@ -134,6 +136,12 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       return ret
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
+  effecttypes.register
+    name: 'addUpgrade'
+    onBuy: (effect, game) ->
+      effect.upgrade._addCount @output effect, game
+    output: (effect, game) ->
+      effect.val * effect.power()
   effecttypes.register
     name: 'applyBuff'
     onBuy: (effect) ->
