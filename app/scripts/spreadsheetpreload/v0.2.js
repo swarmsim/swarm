@@ -1514,7 +1514,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val3": "",
         "init": "",
         "label": "mutagen",
-        "lol": "Also creates heroic turtles.",
+        "lol": "",
         "name": "mutagen",
         "plural": "mutagen",
         "prod.unittype": "larva",
