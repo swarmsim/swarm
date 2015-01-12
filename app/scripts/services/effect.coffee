@@ -180,7 +180,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       # minimum value is 1.
       validateSchema effect.stat, schema, 'mult' # this isn't multstat, but it's commutative with it
       stats[effect.stat] ?= 1
-      stats[effect.stat] *= Math.log(effect.val2 + effect.val * level)/Math.log(effect.val2)
+      stats[effect.stat] *= (effect.val3 ? 1) * (Math.log(effect.val2 + effect.val * level)/Math.log(effect.val2) - 1) + 1
   effecttypes.register
     name: 'addStat'
     calcStats: (effect, stats, schema, level) ->
