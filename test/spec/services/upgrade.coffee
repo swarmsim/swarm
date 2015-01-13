@@ -241,7 +241,7 @@ describe 'Service: upgrade', ->
     hatchery = game.upgrade 'hatchery'
     effect = hatchery.effect[1] # mutagen-spawner effect
     premutagen = game.unit 'premutagen'
-    hatchery.buy 49
+    hatchery.buy 39
     expect(premutagen.count()).toBe 0
     hatchery.buy 1
     # random range. first spawn is guaranteed.

@@ -85,35 +85,36 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
   effecttypes.register
     name: 'addUnitRand'
     onBuy: (effect, game, parent, level) ->
-      effect.unit._addCount @output effect, game, parent, level
-    output: (effect, game, parent, level) ->
+      out = @output effect, game
+      if out.spawned
+        effect.unit._addCount out.qty
+    output: (effect, game) ->
       # minimum level needed to spawn units. Also, guarantees a spawn at exactly this level.
-      minlevel = 50
+      level = effect.parent.count()
+      minlevel = effect.parentStat 'random.minlevel'
       #console.log 'addunitrand output', level, minlevel, level >= minlevel
       if level >= minlevel
-        stat_freq = effect.parentStat 'random.freq', 1
         stat_each = effect.parentStat 'random.each', 1
-        # chance of any unit spawning at all.
-        prob = 0.35 * stat_freq
+        # chance of any unit spawning at all. base chance set in spreadsheet with statinit.
+        prob = effect.parentStat 'random.freq'
         # quantity of units spawned, if any spawn at all.
         minqty = 0.8
         maxqty = 1.2
         qtyfactor = effect.val
         baseqty = stat_each * Math.pow qtyfactor, level - minlevel
         # consistent random seed. No savestate scumming.
-        seed = "[#{parent.name}, #{level}]"
+        seed = "[#{effect.parent.name}, #{level}]"
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
         roll = rng()
         isspawned = level == minlevel or roll < prob
-        $log.debug 'roll to spawn: ', level, roll, prob, isspawned
-        if isspawned
-          roll = rng()
-          modqty = minqty + (roll * (maxqty - minqty))
-          qty = Math.ceil baseqty * modqty
-          $log.debug 'spawned. roll for quantity: ', {level:level, roll:roll, modqty:modqty, baseqty:baseqty, qtyfactor:qtyfactor, qty:qty, stat_each:stat_each}
-          return qty
-      return 0
+        #$log.debug 'roll to spawn: ', level, roll, prob, isspawned
+        roll2 = rng()
+        modqty = minqty + (roll2 * (maxqty - minqty))
+        qty = Math.ceil baseqty * modqty
+        #$log.debug 'spawned. roll for quantity: ', {level:level, roll:roll2, modqty:modqty, baseqty:baseqty, qtyfactor:qtyfactor, qty:qty, stat_each:stat_each}
+        return spawned:isspawned, baseqty:baseqty, qty:qty
+      return spawned:false, baseqty:0, qty:0
   effecttypes.register
     name: 'compoundUnit'
     bank: (effect, game) ->
@@ -187,6 +188,13 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       validateSchema effect.stat, schema, 'add'
       stats[effect.stat] ?= 0
       stats[effect.stat] += effect.val * level
+  # multStat by a constant, level independent
+  effecttypes.register
+    name: 'initStat'
+    calcStats: (effect, stats, schema, level) ->
+      validateSchema effect.stat, schema, 'mult'
+      stats[effect.stat] ?= 1
+      stats[effect.stat] *= effect.val
   effecttypes.register
     name: 'multStatPerAchievementPoint'
     calcStats: (effect, stats, schema, level) ->
