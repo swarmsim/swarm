@@ -8722,7 +8722,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutatehatchery",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 138,
         "unittype": "mutagen"
       },
@@ -8788,7 +8788,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutatebat",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 141,
         "unittype": "mutagen"
       },
@@ -8854,7 +8854,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutateclone",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 144,
         "unittype": "mutagen"
       },
@@ -8920,7 +8920,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutateswarmwarp",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 147,
         "unittype": "mutagen"
       },
@@ -8986,7 +8986,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutaterush",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 150,
         "unittype": "mutagen"
       },
@@ -9052,7 +9052,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutateeach",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 153,
         "unittype": "mutagen"
       },
@@ -9118,7 +9118,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutatefreq",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 156,
         "unittype": "mutagen"
       },
@@ -9184,7 +9184,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutatenexus",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 159,
         "unittype": "mutagen"
       },
@@ -9250,7 +9250,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "maxlevel": 1,
         "name": "mutatearmy",
         "requires.unittype": "ascension",
-        "requires.val": 1,
+        "requires.val": 0,
         "rowNumber": 162,
         "unittype": "mutagen"
       },
