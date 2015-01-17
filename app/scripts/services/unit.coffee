@@ -120,6 +120,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
   capValue: (val) ->
     cap = @_getCap()
     if not cap?
+      # if both are undefined, prefer undefined to NaN, mostly for legacy
+      if not val?
+        return val
       # "uncapped" - still capped, below the JS max of 1e307 or so.
       return Math.min val, 1e+300
     if not val?
