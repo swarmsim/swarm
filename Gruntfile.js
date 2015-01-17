@@ -38,14 +38,14 @@ module.exports = function (grunt) {
       publictest: {
         options: {
           branch: 'master',
-          repo: 'https://github.com/swarmsim-publictest/swarmsim-publictest.github.io.git'
+          repo: 'ssh://git@github.com:swarmsim-publictest/swarmsim-publictest.github.io.git'
         },
         src: ['**']
       },
       prod: {
         options: {
           branch: 'master',
-          repo: 'https://github.com/swarmsim/swarmsim.github.io.git'
+          repo: 'ssh://git@github.com:swarmsim/swarmsim.github.io.git'
         },
         src: ['**']
       }
