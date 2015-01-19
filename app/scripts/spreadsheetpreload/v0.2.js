@@ -9879,7 +9879,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.upgradetype": "",
         "effect.val": 1,
         "effect.val2": "",
-        "label": "mutate nexus",
+        "label": "mutate lepidoptera",
         "lol": "",
         "maxlevel": 1,
         "name": "mutatenexus",
