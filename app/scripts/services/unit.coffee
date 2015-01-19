@@ -98,6 +98,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       val = ancestordata.prod.val + ancestordata.parent.stat 'base', 0
       bonus *= val
       bonus *= ancestordata.parent.stat 'prod', 1
+      # Cap bonus, just like count(). This prevents Infinity * 0 = NaN problems, too.
+      bonus = Math.min 1e300, bonus
     return count * bonus / c * math.pow secs, gen
 
   # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
@@ -186,7 +188,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     return ret
 
   _costMetPercent: ->
-    max = Number.MAX_VALUE
+    max = Infinity
     for cost in @eachCost()
       if cost.val > 0
         max = Math.min max, cost.unit.count() / cost.val
@@ -291,7 +293,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       prod = parent.totalProduction()
       util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
       sum += prod[@name]
-    return sum
+    # global anti-infinity cap just like count()
+    return Math.min 1e300, sum
 
   isVelocityConstant: ->
     for parent in @_parents()
