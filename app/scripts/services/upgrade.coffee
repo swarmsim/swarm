@@ -27,6 +27,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     if _.isNaN ret
       util.error "count is NaN! resetting to zero. #{@name}"
       ret = 0
+    # we shouldn't ever exceed maxlevel, but just in case...
+    if @type.maxlevel
+      ret = Math.min @type.maxlevel, ret
     return ret
   _setCount: (val) ->
     @game.session.upgrades[@name] = val
@@ -89,7 +92,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # have just brute forced this, we don't have that many upgrades so O(1)
     # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
     # do, kids.
-    max = @type.maxlevel or Number.MAX_VALUE
+    max = (@type.maxlevel - @count()) or Number.MAX_VALUE
     for cost in @totalCost()
       util.assert cost.val > 0, 'upgrade cost <= 0', @name, this
       if cost.factor == 1 #special case: math.log(1) == 0; x / math.log(1) == boom
