@@ -102,7 +102,7 @@ describe 'Service: game achievements', ->
     expect(game.achievementPoints()).toBe 10
     
   it 'respecs mutagen', ->
-    game = mkgame {mutagen:11000, ascension:1}
+    game = mkgame {mutagen:100000, ascension:1}
     mutagen = game.unit 'mutagen'
     mutant = game.unit 'mutanthatchery'
     mutant2 = game.unit 'mutantbat'
@@ -112,16 +112,16 @@ describe 'Service: game achievements', ->
     game.upgrade('mutatebat').buy()
     expect(mutant.count()).toBe 1
     expect(mutant2.count()).toBe 1
-    mutant.buy 4998
-    mutant2.buy 5000
-    expect(mutant.count()).toBe 4999
-    expect(mutant2.count()).toBe 5001
-    expect(mutagen.count()).toBe 876 # upgrades cost 1 + 125 - 2 free upgrade-units = 124
-    expect(game.respecSpent()).toBe 10124
+    mutant.buy 39998
+    mutant2.buy 40000
+    expect(mutant.count()).toBe 39999
+    expect(mutant2.count()).toBe 40001
+    expect(mutagen.count()).toBe 4376 # upgrades cost 1 + 15625 - 2 free upgrade-units = 15624
+    expect(game.respecSpent()).toBe 95624
     game.respec()
     expect(mutant.count()).toBe 0
     expect(mutant2.count()).toBe 0
-    expect(mutagen.count()).toBe 7962 # 7000 (70%) refunded
+    expect(mutagen.count()).toBe 71312 # 70% refunded
 
 describe 'Service: game achievements', ->
 

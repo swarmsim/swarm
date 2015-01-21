@@ -245,8 +245,8 @@ describe 'Service: upgrade', ->
     expect(premutagen.count()).toBe 0
     hatchery.buy 1
     # random range. first spawn is guaranteed.
-    expect(premutagen.count()).not.toBeGreaterThan 2
-    expect(premutagen.count()).not.toBeLessThan 1
+    expect(premutagen.count()).not.toBeGreaterThan 6000
+    expect(premutagen.count()).not.toBeLessThan 3000
 
   it 'swarmwarps without changing energy', ->
     game = mkgame {energy:50000, nexus:999, invisiblehatchery:1, drone:1, meat:0}
