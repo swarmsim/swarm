@@ -324,9 +324,11 @@ describe 'Service: unit', ->
     nexus._setCount 2
     util.clearMemoCache energy._stats
     expect(energy._getCap()).toBe 20000
-    nightbug._setCount 200
+    nightbug._setCount 250
     util.clearMemoCache energy._stats
-    expect(energy._getCap()).toBe 30000
+    # darn floating-point precision
+    expect(energy._getCap()).toBeLessThan 40000
+    expect(energy._getCap()).toBeGreaterThan 39999
 
   it 'calculates resources spent for units', ->
     game = mkgame {meat:0, drone:3}
