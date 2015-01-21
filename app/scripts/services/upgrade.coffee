@@ -59,13 +59,11 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       if require.val > require.unit.count()
         return false
     return true
-  # TODO refactor cost/buyable to share code with unit?
-  totalCost: -> @_totalCost @count()
-  _totalCost: (count=@count()) ->
-    fakelevels = @unit.stat 'upgradecost', 0
+  totalCost: -> @_totalCost @count() + @unit.stat 'upgradecost', 0
+  _totalCost: (count=@count() + @unit.stat 'upgradecost', 0)->
     _.map @cost, (cost) =>
       total = _.clone cost
-      total.val *= Math.pow total.factor, count + fakelevels
+      total.val *= Math.pow total.factor, count
       return total
   sumCost: (num, startCount) ->
     costs0 = @_totalCost startCount
