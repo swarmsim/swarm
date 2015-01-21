@@ -96,10 +96,10 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         # chance of any unit spawning at all. base chance set in spreadsheet with statinit.
         prob = effect.parentStat 'random.freq'
         # quantity of units spawned, if any spawn at all.
-        minqty = 0.8
-        maxqty = 1.2
+        minqty = 0.9
+        maxqty = 1.1
         qtyfactor = effect.val
-        baseqty = stat_each * Math.pow qtyfactor, level - minlevel
+        baseqty = stat_each * Math.pow qtyfactor, level
         # consistent random seed. No savestate scumming.
         seed = "[#{effect.parent.name}, #{level}]"
         rng = seedrand.rng seed

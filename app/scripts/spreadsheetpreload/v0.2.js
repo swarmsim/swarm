@@ -9384,7 +9384,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "ability",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9406,7 +9406,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9472,7 +9472,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9538,7 +9538,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9604,7 +9604,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9670,7 +9670,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9736,7 +9736,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9802,7 +9802,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9868,7 +9868,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -9934,7 +9934,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
@@ -10000,7 +10000,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "class": "upgrade",
-        "cost.factor": 125,
+        "cost.factor": 15625,
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "",
