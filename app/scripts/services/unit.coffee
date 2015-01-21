@@ -69,7 +69,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
         prodlink = prodlink[0]
         parent:parent
         child:child
-        prod:prod
+        prod:prodlink
 
   rawCount: ->
     ret = @game.session.unittypes[@name] ? 0
@@ -396,11 +396,6 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []
-    #for unittype in ret.list
-    #  unittype.label = 'bedbug'
-    #  unittype.plural = 'bedbugs'
-    #  unittype.description = 'bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs bedbugs'
-    #  unittype.lol = "can't sleep, bugs will eat me. can't sleep, bugs will eat me. can't sleep, bugs will eat me."
     $log.debug 'built unittypes', ret
     return ret
 
