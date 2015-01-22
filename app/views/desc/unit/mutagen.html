@@ -12,7 +12,7 @@
     {{game.unit('energy').count()|longnum}} energy, {{game.ascendCostPercent()*100|number:0}}%<span ng-if="game.ascendCostCapDiff() <= 0 && game.ascendCostPercent() < 1">: {{game.ascendCostDurationMoment().humanize()}}</span>
   </div>
 </div>
-<p><button title="" ng-click="game.ascend()" class="btn btn-default" ng-class="{disabled:game.ascendCost() > game.unit('energy').count()}">Ascend - activate mutagen and restart</button></p>
+<p><button title="" ng-click="commands.ascend({game:game})" class="btn btn-default" ng-class="{disabled:game.ascendCost() > game.unit('energy').count()}">Ascend - activate mutagen and restart</button></p>
 
 <div ng-if="game.respecSpent() > 0">
 <p>Respeccing refunds {{game.respecSpent() * game.respecRate() | longnum}} mutagen - {{game.respecRate() * 100 | number:0}}% of the {{game.respecSpent() | longnum}} mutagen you've spent - but resets all mutagen units and upgrades to 0.</p>

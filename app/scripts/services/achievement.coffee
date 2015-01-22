@@ -107,6 +107,38 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
   constructor: (@game, @scope) ->
     @_listen @scope
 
+  achieveUnit: (unitname, rawcount=false) ->
+    # TODO index these better, check on only the current unit
+    for achieve in @game.achievementlist()
+      for require in achieve.requires
+        # unit count achievement
+        if not require.event and require.unit and require.val
+          if require.unit.name == unitname
+            if rawcount
+              # exceptional case, count all units, ignoring statistics
+              count = require.unit.count()
+            else
+              # usually we want to ignore generators, so use statistics-count
+              # statistics are added before achievement-check, fortunately
+              count = require.unit.statistics().twinnum ? 0
+            $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
+            if count? && count >= require.val
+              $log.debug 'earned', achieve.name, achieve
+              # requirements are 'or'ed
+              achieve.earn()
+  achieveUpgrade: (upgradename) ->
+    # actually checks all upgrades
+    for achieve in @game.achievementlist()
+      for require in achieve.requires
+        if not require.event and require.upgrade and require.val
+          # no upgrade-generators, so count() is safe
+          count = require.upgrade.count()
+          $log.debug 'achievement check: upgradecount after command', require.upgrade.name, count, count? && count >= require.val
+          if count? && count >= require.val
+            $log.debug 'earned', achieve.name, achieve
+            # requirements are 'or'ed
+            achieve.earn()
+
   _listen: (@scope) ->
     for achieve in @game.achievementlist() then do (achieve) =>
       for require in achieve.requires
@@ -131,31 +163,12 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
     @scope.$on 'command', (event, cmd) =>
       $log.debug 'checking achievements for command', cmd
       if cmd.unitname?
-        # TODO index these better, check on only the current unit
-        for achieve in @game.achievementlist()
-          for require in achieve.requires
-            # unit count achievement
-            if not require.event and require.unit and require.val
-              # want to ignore generators, so use statistics-count
-              # statistics are added before achievement-check, fortunately
-              if require.unit.name == cmd.unitname
-                count = require.unit.statistics().twinnum ? 0
-                $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
-                if count? && count >= require.val
-                  $log.debug 'earned', achieve.name, achieve
-                  # requirements are 'or'ed
-                  achieve.earn()
+        @achieveUnit cmd.unitname
       if cmd.upgradename?
-        for achieve in @game.achievementlist()
-          for require in achieve.requires
-            if not require.event and require.upgrade and require.val
-              # no upgrade-generators, so count() is safe
-              count = require.upgrade.count()
-              $log.debug 'achievement check: upgradecount after command', require.upgrade.name, count, count? && count >= require.val
-              if count? && count >= require.val
-                $log.debug 'earned', achieve.name, achieve
-                # requirements are 'or'ed
-                achieve.earn()
+        @achieveUpgrade cmd.upgradename
+      if cmd.name == 'ascension'
+        $log.debug 'ascending!', @game.unit('ascension').count()
+        @achieveUnit 'ascension', true
 
 angular.module('swarmApp').factory 'achievementslistener', (AchievementsListener, game, $rootScope) ->
   new AchievementsListener game, $rootScope
