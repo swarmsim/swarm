@@ -1156,7 +1156,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Find the Patch Notes.",
+        "description": "Find the Patch Notes",
         "label": "patchy knowledge",
         "longdesc": "Don't take any books, please.",
         "name": "changelog",
@@ -1211,6 +1211,21 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.upgradetype": "",
         "requires.val": "",
         "rowNumber": 79,
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
+      },
+      {
+        "description": "Find the debug page",
+        "label": "even de bugs have bugs",
+        "longdesc": "",
+        "name": "debug",
+        "points": 30,
+        "requires.event": "debugPage",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "rowNumber": 80,
         "visible.unittype": "",
         "visible.upgradetype": "",
         "visible.val": ""
