@@ -25,6 +25,9 @@
     <button ng-click="error()" title="Test error report">Test error report</button>
   </div>
   <div>
+    numberformat: <input placeholder="int" ng-model="form.numberformat"> == {{form.numberformat | longnum}}; {{form.numberformat | bignum}}
+  </div>
+  <div>
     <input type="text" ng-model="form.notify.label" ng-init="form.notify.label='hihi'">
     <input type="number" size="3" ng-model="form.notify.points" ng-init="form.notify.points=10">
     <input type="text" ng-model="form.notify.description" ng-init="form.notify.description='haha'">
