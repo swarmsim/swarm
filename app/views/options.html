@@ -23,6 +23,13 @@
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="hybrid" ng-change="options.notation(form.notation)">Hybrid</input></label>
     <p>Examples: {{123456789|longnum}}, {{123456789|bignum}}, {{123456789e+30|longnum}}, {{123456789e+30|bignum}}</p>
   </div>
+  <div class="form-group">
+    <div><label class="control-label"><span class="glyphicon glyphicon-barcode" ng-init="form.velocityUnit=options.velocityUnit().name"></span> Velocity format</label></div>
+    <label ng-repeat="vu in options.VELOCITY_UNITS.list" style="font-weight:normal" class="titlecase">
+      <input type="radio" ng-model="form.velocityUnit" value="{{vu.name}}" ng-change="options.velocityUnit(form.velocityUnit)">{{vu.plural}}</input>
+    </label>
+    <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
+  </div>
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
     <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
