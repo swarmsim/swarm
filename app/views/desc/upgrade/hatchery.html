@@ -1,1 +1,1 @@
-Each hatchery produces {{upgrade.type.effect[0].val | number}} more larva per second. Currently, your hatcheries produce {{upgrade.unit.prod[0].val + upgrade.effect[0].calcStats().base | number:0}} larvae.
+Each hatchery produces {{upgrade.type.effect[0].val * options.velocityUnit().mult | longnum}} more larva per {{options.velocityUnit().label}}. Currently, your hatcheries produce {{(upgrade.unit.prod[0].val + upgrade.effect[0].calcStats().base) * options.velocityUnit().mult | longnum:0}} larvae per {{options.velocityUnit().label}}.
