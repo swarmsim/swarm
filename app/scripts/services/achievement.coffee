@@ -71,6 +71,8 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> cl
     if req.upgrade?
       return req.upgrade.count()
     if req.unit?
+      if req.unit.unittype.unbuyable
+        return req.unit.count()
       return req.unit.statistics().twinnum ? 0
     return undefined
   progressPercent: ->
