@@ -37,4 +37,4 @@ angular.module('swarmApp').directive 'cost', ($log) ->
     scope.isRemainingBuyable = (cost) ->
       remaining = scope.countRemaining cost
       # there is a cost remaining that we can't afford, but the remaining units are buyable. Can't necessarily afford them, even one.
-      return (remaining > 0 and cost.unit.isBuyable true)
+      return (remaining > 0 and cost.unit.isBuyable(true) and cost.unit.isBuyButtonVisible())
