@@ -101,7 +101,7 @@ angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $
       spreadsheetUtil.resolveList row.requires, 'upgradetype', upgradetypes.byName, {required:false}
       spreadsheetUtil.resolveList row.visible, 'unittype', unittypes.byName, {required:false}
       spreadsheetUtil.resolveList row.visible, 'upgradetype', upgradetypes.byName, {required:false}
-      util.assert row.points > 0, 'achievement must have points', row.name, row
+      util.assert row.points >= 0, 'achievement must have points', row.name, row
       util.assert _.isNumber(row.points), 'achievement points must be number', row.name, row
     return ret
 

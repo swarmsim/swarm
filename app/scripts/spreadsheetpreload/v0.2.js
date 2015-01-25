@@ -1514,6 +1514,21 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.unittype": "",
         "visible.upgradetype": "",
         "visible.val": ""
+      },
+      {
+        "description": "Reach the meat limit",
+        "label": "I am rich",
+        "longdesc": "You win! (For now.)",
+        "name": "iamrich",
+        "points": 0,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "iamrich",
+        "requires.val": 1,
+        "rowNumber": 100,
+        "visible.unittype": "",
+        "visible.upgradetype": "iamrich",
+        "visible.val": 1
       }
     ],
     "name": "achievements"
@@ -10398,6 +10413,28 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.val": "",
         "rowNumber": 167,
         "unittype": ""
+      },
+      {
+        "class": "upgrade",
+        "cost.factor": 1,
+        "cost.unittype": "meat",
+        "cost.val": 1e+300,
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "",
+        "effect.unittype": "",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": "",
+        "effect.val2": "",
+        "label": "I am rich",
+        "lol": "",
+        "maxlevel": "",
+        "name": "iamrich",
+        "requires.unittype": "meat",
+        "requires.val": 1e+280,
+        "rowNumber": 168,
+        "unittype": "meat"
       }
     ],
     "name": "upgrades"
