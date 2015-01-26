@@ -9,8 +9,8 @@
   </ng-pluralize>
   <div ng-if="cur.capValue()">
     <div class="progress" style="margin-bottom:0">
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent()*100|number:0}}%">
-        {{floor(cur.capPercent()*100)|number:0}}%, {{cur.capDurationMoment().humanize()}}
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent().times(100)+""|number:0}}%">
+        {{cur.capPercent().times(100).floor()+""|number:0}}%, {{cur.capDurationMoment().humanize()}}
       </div>
     </div>
     <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
@@ -20,16 +20,16 @@
       Each produces
       <span ng-repeat="(name, val) in cur.eachProduction()">
         <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-        <span>{{val * options.velocityUnit().mult|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+        <span>{{val.times(options.velocityUnit().mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
       </span>
       per {{options.velocityUnit().label}}.
       <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     </p>
-    <p ng-if="cur.count() > 0">
+    <p ng-if="cur.count().greaterThan(0)">
       In total, they produce
       <span ng-repeat="(name, val) in cur.totalProduction()">
         <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-        <span>{{val * options.velocityUnit().mult|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+        <span>{{val.times(options.velocityUnit().mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
       </span>
       per {{options.velocityUnit().label}}.
     </p>
@@ -40,7 +40,7 @@
       <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
       <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
     </span-->
-    <span>{{cur.velocity() * options.velocityUnit().mult|longnum:2}} {{cur.unittype.plural}}</span>
+    <span>{{cur.velocity().times(options.velocityUnit().mult)|longnum:2}} {{cur.unittype.plural}}</span>
     per {{options.velocityUnit().label}}.
     <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     <span ng-if="cur.capValue()">
@@ -50,7 +50,7 @@
   <div ng-if="!cur.showparent && cur.velocity() > 0">
     You earn
     <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
-    <span>{{cur.velocity() * options.velocityUnit().mult|longnum:2}} {{cur.unittype.plural}}</span>
+    <span>{{cur.velocity().times(options.velocityUnit().mult)|longnum:2}} {{cur.unittype.plural}}</span>
     per {{options.velocityUnit().label}}.
     <span ng-if="cur.capValue()">
       At 100%, you'll stop earning {{cur.unittype.label}}.
@@ -66,7 +66,7 @@
         </span>
       </button>
     </div-->
-    <div ng-if="cur.count() == 0 && cur.isCostMet()" ng-repeat="warn in (cur.warnfirst | filter:isWarningVisible)">
+    <div ng-if="cur.count().isZero() && cur.isCostMet()" ng-repeat="warn in (cur.warnfirst | filter:isWarningVisible)">
       <!-- nested div to get the animation right: disappear instantly when switching units, fade when closing manually -->
       <!-- TODO: too bad the "fade when closing manually" part doesn't want to work -->
       <div class="alert alert-warning alert-dismissable animif" role="alert">
@@ -79,22 +79,22 @@
         You're buying
         <input type="number" ng-model="form.mainBuynum" min="1">
         {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
-        <span ng-if="cur.twinMult() > 1">(&times;{{cur.twinMult()|bignum}} twins)</span>
+        <span ng-if="cur.twinMult().greaterThan(1)">(&times;{{cur.twinMult()|bignum}} twins)</span>
         for
         <cost costlist="cur.eachCost()" num="mainBuynum()"></cost>
       </p>
       <p ng-if="options.showAdvancedUnitData()">
-        <span ng-if="cur.maxCostMet() > 0">
+        <span ng-if="cur.maxCostMet().greaterThan(0)">
           Buying your maximum of
-          {{cur.maxCostMet()*cur.twinMult()|longnum}} {{cur.maxCostMet()*cur.twinMult() == 1 ? cur.unittype.label : cur.unittype.plural}}
+          {{cur.maxCostMet().times(cur.twinMult())|longnum}} {{cur.maxCostMet().times(cur.twinMult()).equals(1) ? cur.unittype.label : cur.unittype.plural}}
         </span>
-        <span ng-if="cur.maxCostMet() <= 0">
+        <span ng-if="cur.maxCostMet().lessThanOrEqualTo(0)">
           Buying your next {{cur.unittype.label}}
         </span>
         will cost
         <span ng-repeat="cost in cur.eachCost()">
           <span ng-if="!$first && $last"> and </span>
-          <span>{{unitCostAsPercent(cur, cost) * 100 | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
+          <span>{{unitCostAsPercent(cur, cost).times(100) | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
         </span>
       </p>
       <buyunit unit="cur" num="form.mainBuynum"></buyunit>
@@ -106,7 +106,7 @@
     <ul class="list-unstyled">
       <li ng-repeat="upgrade in visibleUpgrades">
         <h5>{{upgrade.type.label}}
-          <span ng-if="upgrade.type.maxlevel != 1">({{upgrade.count()}})</span>
+          <span ng-if="upgrade.type.maxlevel != 1">({{upgrade.count()+""|number}})</span>
         </h5>
         <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>
         <p>
@@ -118,8 +118,8 @@
         </p>
 
         <div class="progress" style="margin-bottom:0">
-          <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent()*100|number:1}}%">
-            {{floor(upgrade.costMetPercent()*100)|number:0}}%{{estimtateUpgradeSecs(upgrade)}}
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent().times(100)+""|number:1}}%">
+            {{upgrade.costMetPercent().times(100).floor()+""|number:0}}%{{estimtateUpgradeSecs(upgrade)}}
           </div>
         </div>
         <buyupgrade upgrade="upgrade"></buyupgrade>
@@ -140,8 +140,8 @@
         </p>
 
         <div class="progress" style="margin-bottom:0">
-          <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent()*1000}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent()*100|number:1}}%">
-            {{floor(abil.costMetPercent()*100)|number:0}}%{{estimtateUpgradeSecs(abil)}}
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent().times(100)+""|number:1}}%">
+            {{abil.costMetPercent().times(100).floor()+""|number:0}}%{{estimtateUpgradeSecs(abil)}}
           </div>
         </div>
         <buyupgrade upgrade="abil"></buyupgrade>

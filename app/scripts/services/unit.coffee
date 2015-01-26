@@ -18,11 +18,13 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @cost = _.map @unittype.cost, (cost) =>
       ret = _.clone cost
       ret.unit = @game.unit cost.unittype
+      ret.val = new Decimal ret.val
       return ret
     @costByName = _.indexBy @cost, (cost) -> cost.unit.name
     @prod = _.map @unittype.prod, (prod) =>
       ret = _.clone prod
       ret.unit = @game.unit prod.unittype
+      ret.val = new Decimal ret.val
       return ret
     @prodByName = _.indexBy @prod, (prod) -> prod.unit.name
     @warnfirst = _.map @unittype.warnfirst, (warnfirst) =>
@@ -39,6 +41,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       util.assert require.unittype or require.upgradetype, 'unit require without a unittype or upgradetype', @name, name, require
       util.assert not (require.unittype and require.upgradetype), 'unit require with both unittype and upgradetype', @name, name, require
       ret = _.clone require
+      ret.val = new Decimal ret.val
       if require.unittype?
         ret.resource = ret.unit = util.assert @game.unit require.unittype
       if require.upgradetype?
@@ -47,6 +50,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @cap = _.map @unittype.cap, (capspec) =>
       ret = _.clone capspec
       ret.unit = @game.unit ret.unittype
+      ret.val = new Decimal ret.val
       return ret
     @effect = _.map @unittype.effect, (effect) =>
       ret = new Effect @game, this, effect
@@ -76,14 +80,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     if _.isNaN ret
       util.error 'NaN count. oops.', @name, ret
       ret = 0
-    return ret
+    return new Decimal ret
   _setCount: (val) ->
-    @game.session.unittypes[@name] = val
+    @game.session.unittypes[@name] = new Decimal val
     util.clearMemoCache @_count, @_velocity, @_eachCost, @_stats
   _addCount: (val) ->
-    @_setCount @rawCount() + val
+    @_setCount @rawCount().plus(val)
   _subtractCount: (val) ->
-    @_addCount -val
+    @_addCount new Decimal(val).times(-1)
 
   _gainsPath: (pathdata, secs) ->
     producerdata = pathdata[0]
@@ -93,14 +97,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     # Bonus for ancestor to produced-child == product of all bonuses along the path
     # (intuitively, if velocity and velocity-changes are doubled, acceleration is doubled too)
     # Quantity of buildings along the path do not matter, they're calculated separately.
-    bonus = 1
+    bonus = new Decimal 1
     for ancestordata in pathdata
-      val = ancestordata.prod.val + ancestordata.parent.stat 'base', 0
-      bonus *= val
-      bonus *= ancestordata.parent.stat 'prod', 1
+      val = new Decimal(ancestordata.prod.val).plus ancestordata.parent.stat 'base', 0
+      bonus = bonus.times val
+      bonus = bonus.times ancestordata.parent.stat 'prod', 1
       # Cap bonus, just like count(). This prevents Infinity * 0 = NaN problems, too.
-      bonus = Math.min 1e300, bonus
-    return count * bonus / c * math.pow secs, gen
+      bonus = Decimal.min bonus, 1e300
+    return bonus.times(count).dividedBy(c).times(Decimal.pow(secs, gen))
 
   # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
   _parents: ->
@@ -109,7 +113,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
   _getCap: ->
     if @hasStat 'capBase'
       ret = @stat 'capBase'
-      ret *= @stat 'capMult', 1
+      ret = ret.times @stat 'capMult', 1
       return ret
     #cap = 0
     #for capspec in @cap
@@ -125,16 +129,15 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       # if both are undefined, prefer undefined to NaN, mostly for legacy
       if not val?
         return val
-      # "uncapped" - still capped, below the JS max of 1e307 or so.
-      return Math.min val, 1e+300
+      return Decimal.min val, 1e+300
     if not val?
       # no value supplied - return just the cap
       return cap
-    return Math.min val, cap
+    return Decimal.min val, cap
 
   capPercent: ->
     if (cap = @capValue())?
-      return @count() / cap
+      return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
       return @estimateSecs cap
@@ -143,20 +146,21 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       return moment.duration secs, 'seconds'
 
   estimateSecs: (num) ->
-    remaining = num - @count()
-    if remaining <= 0
+    # result is *not* a bigdecimal!
+    remaining = new Decimal(num).minus @count()
+    if remaining.lessThanOrEqualTo 0
       return 0
     velocity = @velocity()
-    if velocity <= 0
+    if velocity.lessThanOrEqualTo 0
       return Infinity
-    secs = remaining / velocity
+    secs = remaining.dividedBy velocity
     # verify it's linear
-    estimate = @_countInSecsFromNow secs
-    if util.isFloatEqual num, estimate, 0.1
-      return secs
+    #estimate = @_countInSecsFromNow secs
+    #if util.isFloatEqual num, estimate, 0.1
+    #  return secs
     #throw new Error 'nonlinear estimation not yet implemented'
     # fuck it. TODO nonlinear estimation
-    return secs
+    return secs.toNumber()
 
   count: -> @_count @game.now.getTime()
   _count: ->
@@ -168,31 +172,31 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
   _countInSecsFromReified: (secs=0) ->
     count = @rawCount()
     for pathdata in @_producerPathData()
-      count += @_gainsPath pathdata, secs
+      count = count.plus @_gainsPath pathdata, secs
     return @capValue count
 
   # All units that cost this unit.
   spentResources: ->
     (u for u in [].concat(@game.unitlist(), @game.upgradelist()) when u.costByName[@name]?)
   spent: (ignores={})->
-    ret = 0
+    ret = new Decimal 0
     for u in @game.unitlist()
       costeach = u.costByName[@name]?.val ? 0
-      ret += costeach * u.count()
+      ret = ret.plus u.count().times costeach
     for u in @game.upgradelist()
       if u.costByName[@name] and not ignores[u.name]?
         # cost for $count upgrades starting from level 1
         costs = u.sumCost u.count(), 0
         cost = _.find costs, (c) => c.unit.name == @name
-        ret += cost?.val ? 0
+        ret = ret.plus cost?.val ? 0
     return ret
 
   _costMetPercent: ->
-    max = Infinity
+    max = new Decimal Infinity
     for cost in @eachCost()
-      if cost.val > 0
-        max = Math.min max, cost.unit.count() / cost.val
-    util.assert max >= 0, "invalid unit cost max", @name
+      if cost.val.greaterThan(0)
+        max = Decimal.min max, cost.unit.count().dividedBy cost.val
+    util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
     return max
 
   isVisible: ->
@@ -203,11 +207,11 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     return @_visible = @_isVisible()
 
   _isVisible: ->
-    if @count() > 0
+    if @count().greaterThan 0
       return true
     util.assert @requires.length > 0, "unit without visibility requirements", @name
     for require in @requires
-      if require.val > require.resource.count()
+      if require.val.greaterThan require.resource.count()
         if require.op != 'OR' # most requirements are ANDed, any one failure fails them all
           return false
         # req-not-met for OR requirements: no-op
@@ -225,10 +229,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     return true
 
   maxCostMet: (percent=1) ->
-    Math.floor @_costMetPercent() * percent
+    @_costMetPercent().times(percent).floor()
 
   isCostMet: ->
-    @maxCostMet() > 0
+    @maxCostMet().greaterThan 0
 
   isBuyable: (ignoreCost=false) ->
     return (@isCostMet() or ignoreCost) and @isVisible() and not @unittype.unbuyable
@@ -237,20 +241,20 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @buy @maxCostMet percent
 
   twinMult: ->
-    ret = 1
-    ret += @stat 'twinbase', 0
-    ret *= @stat 'twin', 1
+    ret = new Decimal 1
+    ret = ret.plus @stat 'twinbase', 0
+    ret = ret.times @stat 'twin', 1
     return ret
   buy: (num=1) ->
     if not @isCostMet()
       throw new Error "We require more resources"
     if not @isBuyable()
       throw new Error "Cannot buy that unit"
-    num = Math.min num, @maxCostMet()
+    num = Decimal.min num, @maxCostMet()
     @game.withSave =>
       for cost in @eachCost()
-        cost.unit._subtractCount cost.val * num
-      twinnum = num * @twinMult()
+        cost.unit._subtractCount cost.val.times num
+      twinnum = num.times @twinMult()
       @_addCount twinnum
       return {num:num, twinnum:twinnum}
 
@@ -267,13 +271,13 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     ret = {}
     count = @count()
     for key, val of @eachProduction()
-      ret[key] = val * count
+      ret[key] = val.times count
     return ret
 
   eachProduction: ->
     ret = {}
     for prod in @prod
-      ret[prod.unit.unittype.name] = (prod.val + @stat 'base', 0) * @stat 'prod', 1
+      ret[prod.unit.unittype.name] = (prod.val.plus @stat 'base', 0).times @stat 'prod', 1
     return ret
 
   eachCost: -> @_eachCost @game.now.getTime()
@@ -281,20 +285,20 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     util.clearMemoCache @_eachCost # store only the most recent
     _.map @cost, (cost) =>
       cost = _.clone cost
-      cost.val *= @stat('cost', 1) * @stat("cost.#{cost.unit.unittype.name}", 1)
+      cost.val = cost.val.times(@stat 'cost', 1).times(@stat "cost.#{cost.unit.unittype.name}", 1)
       return cost
 
   # speed at which other units are producing this unit.
   velocity: -> @_velocity @game.now.getTime()
   _velocity: ->
     util.clearMemoCache @_velocity # store only the most recent velocity
-    sum = 0
+    sum = new Decimal 0
     for parent in @_parents()
       prod = parent.totalProduction()
       util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
-      sum += prod[@name]
+      sum = sum.plus prod[@name]
     # global anti-infinity cap just like count()
-    return Math.min 1e300, sum
+    return Decimal.min 1e300, sum
 
   isVelocityConstant: ->
     for parent in @_parents()
@@ -309,7 +313,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     util.assert key?
     ret = @stats()[key] ? default_
     util.assert ret?, 'no such stat', @name, key
-    return ret
+    return new Decimal ret
   stats: -> @_stats @game.now.getTime()
   _stats: ->
     util.clearMemoCache @_stats # store only the most recent
