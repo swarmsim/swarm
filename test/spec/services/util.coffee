@@ -30,3 +30,8 @@ describe 'Service: util', ->
           return path
       expect(ret.length).toBe 1
       expect(ret[0]).toBe path
+
+  it 'imports decimal.js bignums', ->
+    expect(!!window.Decimal).toBe true
+    expect(!!Decimal).toBe true
+    expect(new Decimal('1e+500').times(2).toString()).toBe '2e+500'

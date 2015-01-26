@@ -86,3 +86,10 @@ angular.module('swarmApp').run (env, $location, $log) ->
 
 angular.module('swarmApp').run ($rootScope) ->
   $rootScope.floor = (val) -> Math.floor val
+
+# decimal.js does not play nice with tests. hacky workaround.
+angular.module('swarmApp').run ($rootScope) ->
+  # are we running tests with decimal.js imported?
+  if window.module and window.module.exports and not window.Decimal and window.module.exports.random
+    window.Decimal = window.module.exports
+    delete window.module.exports
