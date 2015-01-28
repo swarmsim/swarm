@@ -225,7 +225,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     return energy.spent()
   ascendCost: ->
     spent = @ascendEnergySpent()
-    return Math.ceil 999999 / (1 + spent/50000)
+    ascends = @unit('ascension').count()
+    ascendPenalty = Math.pow 1.2, ascends
+    #return Math.ceil 999999 / (1 + spent/50000)
+    # initial cost 5 million, halved every 50k spent, increases 20% per past ascension
+    return Math.ceil ascendPenalty * 5e6 / (Math.pow 2, spent/50000)
   ascendCostCapDiff: ->
     return @ascendCost() - @unit('energy').capValue()
   ascendCostPercent: ->
