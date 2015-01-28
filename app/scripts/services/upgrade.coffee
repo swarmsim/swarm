@@ -137,6 +137,14 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   isUpgradable: (costPercent=undefined) ->
     #@_lastUpgradeSeen < @maxCostMet()
     @isBuyable() and @maxCostMet(costPercent) > 0 and @type.class == 'upgrade'
+  isAutobuyable: ->
+    # don't autobuy meat-twins or mutations
+    # TODO this should be a spreadsheet column
+    if @unit.unittype.tab == 'mutagen'
+      return false
+    if @unit.unittype.tab == 'meat' and /twin$/.test @name
+      return false
+    return true
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->

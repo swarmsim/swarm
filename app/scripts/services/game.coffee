@@ -155,6 +155,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     _.clone @_upgrades.list
   availableUpgrades: (costPercent=undefined) ->
     (u for u in @upgradelist() when u.isVisible() and u.isUpgradable costPercent)
+  availableAutobuyUpgrades: (costPercent=undefined) ->
+    (u for u in @availableUpgrades(costPercent) when u.isAutobuyable())
   newUpgrades: (costPercent=undefined) ->
     (u for u in @upgradelist() when u.isVisible() and u.isNewlyUpgradable costPercent)
   ignoredUpgrades: ->
