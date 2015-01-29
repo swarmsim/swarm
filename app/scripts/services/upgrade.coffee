@@ -143,11 +143,11 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # if an upgrade's available, it won't disappear before the next update. however, unavailable
     # upgrades may become available anytime - so only the true case is cacheable.
     # lots of extra trouble to do this complex caching, but maxCostMet is so expensive it's worth it.
-    if @game.cache.upgradeIsUpgradable
-      return @game.cache.upgradeIsUpgradable
+    if @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"]
+      return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"]
     ret = @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
     if ret
-      @game.cache.upgradeIsUpgradable = ret
+      @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] = ret
     return ret
   isAutobuyable: ->
     # don't autobuy meat-twins or mutations
