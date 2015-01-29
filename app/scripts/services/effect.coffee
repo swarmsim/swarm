@@ -109,7 +109,9 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         #$log.debug 'roll to spawn: ', level, roll, prob, isspawned
         roll2 = rng()
         modqty = minqty + (roll2 * (maxqty - minqty))
-        qty = Decimal.ceil baseqty.times modqty
+        # toPrecision: decimal.js insists on this precision, and it'll parse the string output.
+        # decimal.js would rather we use Decimal.random(), but we can't seed that.
+        qty = baseqty.times(modqty.toPrecision 15).ceil()
         #$log.debug 'spawned. roll for quantity: ', {level:level, roll:roll2, modqty:modqty, baseqty:baseqty, qtyfactor:qtyfactor, qty:qty, stat_each:stat_each}
         return spawned:isspawned, baseqty:baseqty, qty:qty
       return spawned:false, baseqty:new Decimal(0), qty:new Decimal(0)
