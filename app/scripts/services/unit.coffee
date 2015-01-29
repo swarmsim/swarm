@@ -311,9 +311,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     util.assert ret?, 'no such stat', @name, key
     return ret
   stats: ->
-    if (ret = @game._stats[@name])
+    if (ret = @game.cache.stats[@name])
       return ret
-    @game._stats[@name] = stats = {}
+    @game.cache.stats[@name] = stats = {}
     schema = {}
     for upgrade in @upgrades.list
       upgrade.calcStats stats, schema
