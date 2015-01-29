@@ -81,7 +81,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return @maxCostMet().greaterThan 0
 
   maxCostMet: (percent=1) ->
-    return @game.cache.upgradeMaxCostMet["#{name}:#{percent}"] ?= do =>
+    return @game.cache.upgradeMaxCostMet["#{@name}:#{percent}"] ?= do =>
       # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
       #
       # been way too long since my math classes... given from wikipedia:
