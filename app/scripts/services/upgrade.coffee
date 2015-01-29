@@ -33,7 +33,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return ret
   _setCount: (val) ->
     @game.session.upgrades[@name] = val
-    util.clearMemoCache @_totalCost, @unit._stats, @unit._eachCost
+    util.clearMemoCache @_totalCost, @unit._eachCost
+    @game.clearStatsCache @unit
     for u in @unit.upgrades.list
       util.clearMemoCache u._totalCost
   _addCount: (val) ->

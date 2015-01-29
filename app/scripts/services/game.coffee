@@ -38,6 +38,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
 
+    @clearStatsCache()
+
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
     @tick @session?.date?.reified
@@ -164,7 +166,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @skippedMillis = 0
     @session.skippedMillis += @diffMillis() - @_realDiffMillis()
     @session.date.reified = @now
+    @clearStatsCache()
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
+
+  # Whenever we buy something.
+  clearStatsCache: (unitname) ->
+    # unitname ignored for now, just clear em all
+    @_stats = {}
 
   save: ->
     @withSave ->
@@ -183,6 +191,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @reify()
     ret = fn()
     @session.save()
+    @clearStatsCache()
     return ret
 
   reset: (butDontSave=false) ->
