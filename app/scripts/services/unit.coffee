@@ -236,7 +236,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
     return true
 
   maxCostMet: (percent=1) ->
-    @_costMetPercent().times(percent).floor()
+    return @game.cache.unitMaxCostMet["#{name}:#{percent}"] ?= do =>
+      @_costMetPercent().times(percent).floor()
 
   isCostMet: ->
     @maxCostMet().greaterThan 0

@@ -17,6 +17,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @unitCount = {}
     @velocity = {}
     @upgradeMaxCostMet = {}
+    @unitMaxCostMet = {}
 
 ###*
  # @ngdoc service
