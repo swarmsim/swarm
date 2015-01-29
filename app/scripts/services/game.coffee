@@ -220,14 +220,14 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCost: ->
     spent = @ascendEnergySpent()
     ascends = @unit('ascension').count()
-    ascendPenalty = Math.pow 1.2, ascends
+    ascendPenalty = Decimal.pow 1.2, ascends
     #return Math.ceil 999999 / (1 + spent/50000)
     # initial cost 5 million, halved every 50k spent, increases 20% per past ascension
-    return Math.ceil ascendPenalty * 5e6 / (Math.pow 2, spent/50000)
+    return ascendPenalty.times(5e6).dividedBy(Decimal.pow 2, spent.dividedBy 50000).ceil()
   ascendCostCapDiff: ->
-    return @ascendCost() - @unit('energy').capValue()
+    return @ascendCost().minus @unit('energy').capValue()
   ascendCostPercent: ->
-    Math.min 1, @unit('energy').count() / @ascendCost()
+    Math.min 1, @unit('energy').count().dividedBy @ascendCost()
   ascendCostDurationSecs: ->
     energy = @unit 'energy'
     cost = @ascendCost()
@@ -264,7 +264,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     for up in mutagen.upgrades.list
       ignores[up.name] = true
     # Upgrades come with a free(ish) unit too, so remove their cost. (Mostly for unit tests, doesn't really matter.)
-    return mutagen.spent(ignores) - @upgrade('mutatehidden').count()
+    return mutagen.spent(ignores).minus(@upgrade('mutatehidden').count())
   respecConfirm: ->
     # TODO move me to a controller or something
     if window.confirm "Are you sure you want to respec? You will only be refunded #{@respecRate() * 100}% of the mutagen you've spent."
@@ -276,8 +276,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       resource._setCount 0
       if resource._visible?
         resource._visible = false
-    mutagen._addCount Math.floor spent * @respecRate()
-    util.assert mutagen.spent() == 0, "respec didn't refund all mutagen!"
+    mutagen._addCount spent.times(@respecRate()).floor()
+    util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session
