@@ -36,16 +36,16 @@ describe 'Service: upgrade', ->
   it 'buys upgrades', ->
     game = mkgame {territory:999999999}
     expect(upgrade = game.upgrade 'expansion').toBe game.unit('invisiblehatchery').upgrades.byName['expansion']
-    expect(upgrade.count()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 0
     upgrade.buy()
-    expect(upgrade.count()).toBe 1
+    expect(upgrade.count().toNumber()).toBe 1
 
   it 'blocks expensive upgrades', ->
     game = mkgame {territory:1}
     upgrade = game.upgrade 'expansion'
-    expect(upgrade.count()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 0
     expect(-> upgrade.buy()).toThrow()
-    expect(upgrade.count()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 0
 
   it 'calcs upgrade stats, no unit', ->
     game = mkgame {drone:99999999999999}
@@ -54,123 +54,123 @@ describe 'Service: upgrade', ->
     stats = {}
     schema = {}
     upgrade.calcStats stats, schema
-    expect(stats.prod).toBe 1
+    expect(stats.prod.toNumber()).toBe 1
     stats2 = {}
     upgrade2.calcStats stats2, schema
-    expect(stats2.prod).toBe 1
+    expect(stats2.prod.toNumber()).toBe 1
 
     upgrade.buy()
     stats = {}
     upgrade.calcStats stats, schema
-    expect(stats.prod).toBeGreaterThan 1
+    expect(stats.prod.toNumber()).toBeGreaterThan 1
     stats2 = {}
     upgrade2.calcStats stats2, schema
-    expect(stats2.prod).toBe 1
+    expect(stats2.prod.toNumber()).toBe 1
 
   it 'buys/calcs max upgrades', ->
     game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
-    expect(upgrade.maxCostMet()).toBe 0
+    expect(upgrade.maxCostMet().toNumber()).toBe 0
     game.unit('territory')._setCount 10
-    expect(upgrade.maxCostMet()).toBe 1
+    expect(upgrade.maxCostMet().toNumber()).toBe 1
     game.unit('territory')._setCount 50
-    expect(upgrade.maxCostMet()).toBe 2
+    expect(upgrade.maxCostMet().toNumber()).toBe 2
     game.unit('territory')._setCount 1000
-    expect(upgrade.maxCostMet()).toBe 5
+    expect(upgrade.maxCostMet().toNumber()).toBe 5
     upgrade.buyMax()
-    expect(upgrade.maxCostMet()).toBe 0
-    expect(upgrade.count()).toBe 5
+    expect(upgrade.maxCostMet().toNumber()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 5
 
   it 'clones larvae', ->
     game = mkgame {energy:9999999999999999999, larva:1000, invisiblehatchery:1, nexus:999}
     upgrade = game.upgrade 'clonelarvae'
     unit = game.unit 'larva'
-    expect(upgrade.effect[0].bank()).toBe 1000
-    expect(upgrade.effect[0].output()).toBe 1000
+    expect(upgrade.effect[0].bank().toNumber()).toBe 1000
+    expect(upgrade.effect[0].output().toNumber()).toBe 1000
     upgrade.buy 3
-    expect(upgrade.count()).toBe 3
-    expect(unit.count()).toBe 8000
-    expect(upgrade.effect[0].bank()).toBe 8000
-    expect(upgrade.effect[0].output()).toBe 8000
+    expect(upgrade.count().toNumber()).toBe 3
+    expect(unit.count().toNumber()).toBe 8000
+    expect(upgrade.effect[0].bank().toNumber()).toBe 8000
+    expect(upgrade.effect[0].output().toNumber()).toBe 8000
 
   it 'buy more than max', ->
     game = mkgame {territory:10}
     upgrade = game.upgrade 'expansion'
-    expect(upgrade.maxCostMet()).toBe 1
-    expect(upgrade.count()).toBe 0
+    expect(upgrade.maxCostMet().toNumber()).toBe 1
+    expect(upgrade.count().toNumber()).toBe 0
     upgrade.buy 10
-    expect(upgrade.maxCostMet()).toBe 0
-    expect(upgrade.count()).toBe 1
+    expect(upgrade.maxCostMet().toNumber()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 1
 
   it 'clones cocoons', ->
     game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 100, larva: 10, invisiblehatchery:1, nexus:999}
     cocoon = game.unit 'cocoon'
     larva = game.unit 'larva'
     upgrade = game.upgrade 'clonelarvae'
-    expect(cocoon.count()).toBe 100
-    expect(larva.count()).toBe 10
-    expect(upgrade.effect[0].bank()).toBe 110
-    expect(upgrade.effect[0].cap()).toBe 100000
-    expect(upgrade.effect[0].output()).toBe 110
+    expect(cocoon.count().toNumber()).toBe 100
+    expect(larva.count().toNumber()).toBe 10
+    expect(upgrade.effect[0].bank().toNumber()).toBe 110
+    expect(upgrade.effect[0].cap().toNumber()).toBe 100000
+    expect(upgrade.effect[0].output().toNumber()).toBe 110
     upgrade.buy()
-    expect(cocoon.count()).toBe 100 # no change
-    expect(larva.count()).toBe 120 # 0 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
+    expect(cocoon.count().toNumber()).toBe 100 # no change
+    expect(larva.count().toNumber()).toBe 120 # 0 base larvae + 100 cloned cocoons + 10 cloned larvae + 10 starting larvae
 
   it 'caps clones', ->
     game = mkgame {energy:1000000000000000000000000000000000000000, cocoon: 60000, larva: 70000, invisiblehatchery:1, nexus:999}
     cocoon = game.unit 'cocoon'
     larva = game.unit 'larva'
     upgrade = game.upgrade 'clonelarvae'
-    expect(cocoon.count()).toBe 60000
-    expect(larva.count()).toBe 70000
-    expect(upgrade.effect[0].bank()).toBe 130000
-    expect(upgrade.effect[0].cap()).toBe 100000
-    expect(upgrade.effect[0].output()).toBe 100000
+    expect(cocoon.count().toNumber()).toBe 60000
+    expect(larva.count().toNumber()).toBe 70000
+    expect(upgrade.effect[0].bank().toNumber()).toBe 130000
+    expect(upgrade.effect[0].cap().toNumber()).toBe 100000
+    expect(upgrade.effect[0].output().toNumber()).toBe 100000
     upgrade.buy()
-    expect(cocoon.count()).toBe 60000 # no change
-    expect(larva.count()).toBe 170000 # 70k base larvae + 100k cloned capped bank
+    expect(cocoon.count().toNumber()).toBe 60000 # no change
+    expect(larva.count().toNumber()).toBe 170000 # 70k base larvae + 100k cloned capped bank
     # cap is unchanged after clone
-    expect(upgrade.effect[0].bank()).toBe 230000
-    expect(upgrade.effect[0].cap()).toBe 100000
-    expect(upgrade.effect[0].output()).toBe 100000
+    expect(upgrade.effect[0].bank().toNumber()).toBe 230000
+    expect(upgrade.effect[0].cap().toNumber()).toBe 100000
+    expect(upgrade.effect[0].output().toNumber()).toBe 100000
 
   it 'sums costs', ->
     game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
-    expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',10]]
-    expect(_.map upgrade.sumCost(3), (cost) -> [cost.unit.name, cost.val]).toEqual [['territory',94.525]]
+    expect(_.map upgrade.sumCost(1), (cost) -> [cost.unit.name, cost.val.toNumber()]).toEqual [['territory',10]]
+    expect(_.map upgrade.sumCost(3), (cost) -> [cost.unit.name, cost.val.toNumber()]).toEqual [['territory',94.525]]
 
   it 'notices newly available upgrades', ->
     game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
-    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
     upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
     # we now have money for an upgrade
     game.unit('territory')._addCount 1
-    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe true
     # upon seeing the upgrade with viewNewUpgrades(), remove the indicator
     upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen).toEqual 1
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 1
     expect(upgrade.isNewlyUpgradable()).toBe false
     # stays removed when upgrade bought
     upgrade.buy()
-    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
     # we now have money for another upgrade, which disappears when viewNewUpgradesed
     game.unit('territory')._addCount 50
-    expect(upgrade._lastUpgradeSeen).toEqual 0
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe true
     upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen).toEqual 1
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 1
     expect(upgrade.isNewlyUpgradable()).toBe false
     # money for a third upgrade does not make the indicator reappear, since we didn't buy upgrade #2
     game.unit('territory')._addCount 150
     upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen).toEqual 2
+    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 2
     expect(upgrade.isNewlyUpgradable()).toBe false
 
   xit 'doesnt notice invisible upgrades, even if we can afford them. https://github.com/erosson/swarm/issues/94', ->
@@ -204,37 +204,38 @@ describe 'Service: upgrade', ->
     game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, stinger:1}
     upgrade = game.upgrade 'meatrush'
     unit = game.unit 'meat'
-    expect(upgrade.effect[0].output()).toBe 1 * 7200
-    expect(upgrade.effect[1].output()).toBe 100000000000
+    expect(upgrade.effect[0].output().toNumber()).toBe 1 * 7200
+    expect(upgrade.effect[1].output().toNumber()).toBe 100000000000
     upgrade.buy 1
-    expect(upgrade.count()).toBe 1
-    expect(unit.count()).toBe 100000007200
-    expect(upgrade.effect[0].output()).toBe 1 * 7200
-    expect(upgrade.effect[1].output()).toBe 100000000000
+    expect(upgrade.count().toNumber()).toBe 1
+    expect(unit.count().toNumber()).toBe 100000007200
+    expect(upgrade.effect[0].output().toNumber()).toBe 1 * 7200
+    expect(upgrade.effect[1].output().toNumber()).toBe 100000000000
 
   it 'rushes territory', ->
     game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, swarmling:1}
     upgrade = game.upgrade 'territoryrush'
     unit = game.unit 'territory'
-    expect(upgrade.effect[0].output()).toBe 0.07 * 7200
-    expect(upgrade.effect[1].output()).toBe 1000000000
+    expect(504).toBe new Decimal(0.07).times(7200).toNumber() #stupid floating-point precision
+    expect(upgrade.effect[0].output().toNumber()).toBe 504
+    expect(upgrade.effect[1].output().toNumber()).toBe 1000000000
     upgrade.buy 1
-    expect(upgrade.count()).toBe 1
-    expect(unit.count()).toBe 1000000000 + 0.07 * 7200
-    expect(upgrade.effect[0].output()).toBe 0.07 * 7200
-    expect(upgrade.effect[1].output()).toBe 1000000000
+    expect(upgrade.count().toNumber()).toBe 1
+    expect(unit.count().toNumber()).toBe 1000000000 + 504
+    expect(upgrade.effect[0].output().toNumber()).toBe 504
+    expect(upgrade.effect[1].output().toNumber()).toBe 1000000000
 
   it 'rushes larvae', ->
     game = mkgame {energy:9999999999999999999, nexus:999, invisiblehatchery:1, drone:1, swarmling:1}
     upgrade = game.upgrade 'larvarush'
     unit = game.unit 'larva'
-    expect(upgrade.effect[0].output()).toBe 2400
-    expect(upgrade.effect[1].output()).toBe 100000
+    expect(upgrade.effect[0].output().toNumber()).toBe 2400
+    expect(upgrade.effect[1].output().toNumber()).toBe 100000
     upgrade.buy 1
-    expect(upgrade.count()).toBe 1
-    expect(unit.count()).toBe 102400
-    expect(upgrade.effect[0].output()).toBe 2400
-    expect(upgrade.effect[1].output()).toBe 100000
+    expect(upgrade.count().toNumber()).toBe 1
+    expect(unit.count().toNumber()).toBe 102400
+    expect(upgrade.effect[0].output().toNumber()).toBe 2400
+    expect(upgrade.effect[1].output().toNumber()).toBe 100000
 
   it 'randomly spawns premutagen when buying hatcheries/expansions', ->
     game = mkgame {hatchery:0, meat:9e+100, premutagen:0}
@@ -242,42 +243,42 @@ describe 'Service: upgrade', ->
     effect = hatchery.effect[1] # mutagen-spawner effect
     premutagen = game.unit 'premutagen'
     hatchery.buy 39
-    expect(premutagen.count()).toBe 0
+    expect(premutagen.count().toNumber()).toBe 0
     hatchery.buy 1
     # random range. first spawn is guaranteed.
-    expect(premutagen.count()).not.toBeGreaterThan 6000
-    expect(premutagen.count()).not.toBeLessThan 3000
+    expect(premutagen.count().toNumber()).not.toBeGreaterThan 6000
+    expect(premutagen.count().toNumber()).not.toBeLessThan 3000
 
   it 'swarmwarps without changing energy', ->
     game = mkgame {energy:50000, nexus:999, invisiblehatchery:1, drone:1, meat:0}
     upgrade = game.upgrade 'swarmwarp'
     energy = game.unit 'energy'
-    expect(energy.count()).toBe 50000
+    expect(energy.count().toNumber()).toBe 50000
     upgrade.buy 1
-    expect(energy.count()).toBe 48000
+    expect(energy.count().toNumber()).toBe 48000
     upgrade.buy 1
-    expect(energy.count()).toBe 46000
+    expect(energy.count().toNumber()).toBe 46000
   it "won't exceed maxlevel in count()", ->
     game = mkgame {}
     upgrade = game.upgrade 'achievementbonus'
     expect(upgrade.type.maxlevel).toBe 5
-    expect(upgrade.count()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 0
     upgrade._setCount 999
-    expect(upgrade.count()).toBe 5
+    expect(upgrade.count().toNumber()).toBe 5
 
   it "won't buy more than maxlevel", ->
     game = mkgame {meat:1e300, territory:1e300}
     upgrade = game.upgrade 'achievementbonus'
     expect(upgrade.type.maxlevel).toBe 5
 
-    expect(upgrade.count()).toBe 0
-    expect(upgrade.maxCostMet()).toBe 5
+    expect(upgrade.count().toNumber()).toBe 0
+    expect(upgrade.maxCostMet().toNumber()).toBe 5
     upgrade._setCount 1
-    expect(upgrade.count()).toBe 1
-    expect(upgrade.maxCostMet()).toBe 4
+    expect(upgrade.count().toNumber()).toBe 1
+    expect(upgrade.maxCostMet().toNumber()).toBe 4
     upgrade._setCount 3
-    expect(upgrade.count()).toBe 3
-    expect(upgrade.maxCostMet()).toBe 2
+    expect(upgrade.count().toNumber()).toBe 3
+    expect(upgrade.maxCostMet().toNumber()).toBe 2
 
   it "knows autobuyable upgrades", ->
     game = mkgame {}

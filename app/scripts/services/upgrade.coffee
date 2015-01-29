@@ -4,7 +4,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
-    @_lastUpgradeSeen = 0
+    @_lastUpgradeSeen = new Decimal 0
   _init: ->
     @costByName = {}
     @cost = _.map @type.cost, (cost) =>
@@ -64,7 +64,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   _totalCost: (count=@count() + @unit.stat 'upgradecost', 0) ->
     _.map @cost, (cost) =>
       total = _.clone cost
-      total.val = total.val.plus Decimal.pow total.factor, count
+      total.val = total.val.times Decimal.pow total.factor, count
       return total
   sumCost: (num, startCount) ->
     _.map @_totalCost(startCount), (cost0) ->
@@ -75,7 +75,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       else
         # see maxCostMet for O(1) summation formula derivation.
         # cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
-        cost.val = cost.val.times new Decimal(1).minus(Decimal.pow cost.factor, num).dividedBy(new Decimal(1).minus cost.factor)
+        cost.val = cost.val.times Decimal.ONE.minus(Decimal.pow cost.factor, num).dividedBy(Decimal.ONE.minus cost.factor)
       return cost
   isCostMet: ->
     return @maxCostMet().greaterThan 0
