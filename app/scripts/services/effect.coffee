@@ -142,14 +142,6 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     output: (effect, game) ->
       effect.val * effect.power()
   effecttypes.register
-    name: 'applyBuff'
-    onBuy: (effect) ->
-      # TODO type
-      duration = moment.duration effect.val, 'seconds'
-      effect.game.applyBuff 'testtype', duration
-    output: (effect) ->
-      1
-  effecttypes.register
     name: 'skipTime'
     onBuy: (effect) ->
       effect.game.skipTime @output(effect), 'seconds'
