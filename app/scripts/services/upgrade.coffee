@@ -4,7 +4,6 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
-    @_totalCost = util.memoize @_totalCost
     @_lastUpgradeSeen = 0
   _init: ->
     @costByName = {}
@@ -36,10 +35,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return new Decimal ret
   _setCount: (val) ->
     @game.session.upgrades[@name] = new Decimal val
-    util.clearMemoCache @_totalCost, @unit._eachCost
-    @game.clearStatsCache @unit
-    for u in @unit.upgrades.list
-      util.clearMemoCache u._totalCost
+    @game.cache.onUpdate @unit
   _addCount: (val) ->
     @_setCount @count().plus val
   _subtractCount: (val) ->
@@ -63,14 +59,14 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       if require.val.greaterThan require.unit.count()
         return false
     return true
-  totalCost: -> @_totalCost @count().plus @unit.stat 'upgradecost', 0
-  _totalCost: (count=@count().plus @unit.stat 'upgradecost', 0)->
+  totalCost: ->
+    return @game.cache.upgradeTotalCost[@name] ?= @_totalCost @count().plus @unit.stat 'upgradecost', 0
+  _totalCost: (count) ->
     _.map @cost, (cost) =>
       total = _.clone cost
       total.val = total.val.plus Decimal.pow total.factor, count
       return total
   sumCost: (num, startCount) ->
-    costs0 = @_totalCost startCount
     _.map @_totalCost(startCount), (cost0) ->
       cost = _.clone cost0
       # special case: 1 / (1 - 1) == boom
