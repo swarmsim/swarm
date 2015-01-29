@@ -6,8 +6,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @name = @unittype.name
     @suffix = ''
     @affectedBy = []
-    for fn in ['_count', '_velocity', '_eachCost']
-      @[fn] = util.memoize @[fn]
   _init: ->
     # copy all the inter-unittype references, replacing the type references with units
     @_producerPathList = _.map @unittype.producerPathList, (path) =>
@@ -79,7 +77,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     return ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = val
-    util.clearMemoCache @_count, @_velocity, @_eachCost
+    @game.cache.onUpdate()
   _addCount: (val) ->
     @_setCount @rawCount() + val
   _subtractCount: (val) ->
@@ -158,10 +156,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     # fuck it. TODO nonlinear estimation
     return secs
 
-  count: -> @_count @game.now.getTime()
-  _count: ->
-    util.clearMemoCache @_count # store only the most recent count
-    return @_countInSecsFromNow 0
+  count: ->
+    return @game.cache.unitCount[@name] ?= @_countInSecsFromNow 0
 
   _countInSecsFromNow: (secs=0) ->
     return @_countInSecsFromReified @game.diffSeconds() + secs
@@ -276,25 +272,22 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       ret[prod.unit.unittype.name] = (prod.val + @stat 'base', 0) * @stat 'prod', 1
     return ret
 
-  eachCost: -> @_eachCost @game.now.getTime()
-  _eachCost: ->
-    util.clearMemoCache @_eachCost # store only the most recent
-    _.map @cost, (cost) =>
+  eachCost: ->
+    return @game.cache.eachCost[@name] ?= _.map @cost, (cost) =>
       cost = _.clone cost
       cost.val *= @stat('cost', 1) * @stat("cost.#{cost.unit.unittype.name}", 1)
       return cost
 
   # speed at which other units are producing this unit.
-  velocity: -> @_velocity @game.now.getTime()
-  _velocity: ->
-    util.clearMemoCache @_velocity # store only the most recent velocity
-    sum = 0
-    for parent in @_parents()
-      prod = parent.totalProduction()
-      util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
-      sum += prod[@name]
-    # global anti-infinity cap just like count()
-    return Math.min 1e300, sum
+  velocity: ->
+    return @game.cache.velocity[@name] ?= do =>
+      sum = 0
+      for parent in @_parents()
+        prod = parent.totalProduction()
+        util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
+        sum += prod[@name]
+      # global anti-infinity cap just like count()
+      return Math.min 1e300, sum
 
   isVelocityConstant: ->
     for parent in @_parents()

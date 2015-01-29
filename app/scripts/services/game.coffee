@@ -7,9 +7,12 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   onUpdate: ->
     @onTick()
     @stats = {}
+    @eachCost = {}
+    @upgradeTotalCost = {}
 
   onTick: ->
-    @count = {}
+    @unitCount = {}
+    @velocity = {}
 
 ###*
  # @ngdoc service
@@ -90,6 +93,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     util.assert now, "can't tick to undefined time", now
     if (not @now) or @now <= now
       @now = now
+      @cache.onTick()
     else
       # system clock problem! don't whine for small timing errors, but don't update the clock either.
       # TODO I hope this accounts for DST
