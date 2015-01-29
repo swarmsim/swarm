@@ -311,15 +311,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     util.assert ret?, 'no such stat', @name, key
     return ret
   stats: ->
-    if (ret = @game.cache.stats[@name])
-      return ret
-    @game.cache.stats[@name] = stats = {}
-    schema = {}
-    for upgrade in @upgrades.list
-      upgrade.calcStats stats, schema
-    for uniteffect in @affectedBy
-      uniteffect.calcStats stats, schema, uniteffect.parent.count()
-    return stats
+    return @game.cache.stats[@name] ?= do =>
+      stats = {}
+      schema = {}
+      for upgrade in @upgrades.list
+        upgrade.calcStats stats, schema
+      for uniteffect in @affectedBy
+        uniteffect.calcStats stats, schema, uniteffect.parent.count()
+      return stats
 
   statistics: ->
     @game.session.statistics.byUnit[@name] ? {}
