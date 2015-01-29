@@ -322,10 +322,8 @@ describe 'Service: unit', ->
     [energy, nexus, nightbug] = _.map ['energy', 'nexus', 'nightbug'], (name) -> game.unit name
     expect(energy._getCap()).toBe 10000
     nexus._setCount 2
-    util.clearMemoCache energy._stats
     expect(energy._getCap()).toBe 20000
     nightbug._setCount 250
-    util.clearMemoCache energy._stats
     # darn floating-point precision
     expect(energy._getCap()).toBeLessThan 40000
     expect(energy._getCap()).toBeGreaterThan 39999
