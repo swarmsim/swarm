@@ -198,7 +198,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @session.reset()
     @_init()
     for unit in @unitlist()
-      unit._setCount unit.unittype.init
+      unit._setCount unit.unittype.init or 0
     if not butDontSave
       @save()
 

@@ -311,7 +311,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @stats()[key]? and @stats()[key] != default_
   stat: (key, default_=undefined) ->
     util.assert key?
-    ret = @stats()[key] ? default_
+    ret = @stats()[key] ? new Decimal default_
     util.assert ret?, 'no such stat', @name, key
     return new Decimal ret
   stats: ->

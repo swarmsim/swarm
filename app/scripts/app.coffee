@@ -93,3 +93,6 @@ angular.module('swarmApp').run ($rootScope) ->
   if window.module and window.module.exports and not window.Decimal and window.module.exports.random
     window.Decimal = window.module.exports
     delete window.module.exports
+
+angular.module('swarmApp').run ($rootScope) ->
+  #Decimal.config errors:false

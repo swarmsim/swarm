@@ -153,7 +153,8 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'multStat'
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
-      stats[effect.stat] = (stats[effect.stat] ? new Decimal 1).times(Decimal.pow effect.val, level)
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow effect.val, level)
+      console.log 'multStat', level+'', stats[effect.stat]+''
   effecttypes.register
     name: 'asympStat'
     calcStats: (effect, stats, schema, level) ->
@@ -163,17 +164,15 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       weight = level.times effect.val2
       util.assert not weight.isNegative(), 'negative asympStat weight'
       #stats[effect.stat] *= 1 + (effect.val-1) * (1 - 1 / (1 + weight))
-      ONE = new Decimal 1
-      stats[effect.stat] = (stats[effect.stat] ? ONE).plus new Decimal(effect.val).minus(1).times(ONE.minus(ONE.dividedBy(weight.plus(1))))
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).plus new Decimal(effect.val).minus(1).times(Decimal.ONE.minus(Decimal.ONE.dividedBy(weight.plus(1))))
   effecttypes.register
     name: 'logStat'
     calcStats: (effect, stats, schema, level) ->
       # val: log multiplier; val2: log base
       # minimum value is 1.
       validateSchema effect.stat, schema, 'mult' # this isn't multstat, but it's commutative with it
-      ONE = new Decimal 1
       #stats[effect.stat] *= (effect.val3 ? 1) * (Math.log(effect.val2 + effect.val * level)/Math.log(effect.val2) - 1) + 1
-      stats[effect.stat] = (stats[effect.stat] ? ONE).times(effect.val3 ? 1).times(Decimal.log(level.times(effect.val).plus(effect.val2)).dividedBy(Decimal.log(effect.val2).minus(1))).plus(1)
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(effect.val3 ? 1).times(Decimal.log(level.times(effect.val).plus(effect.val2)).dividedBy(Decimal.log(effect.val2)).minus(1)).plus(1)
   effecttypes.register
     name: 'addStat'
     calcStats: (effect, stats, schema, level) ->
@@ -184,13 +183,13 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'initStat'
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
-      stats[effect.stat] = (stats[effect.stat] ? new Decimal 1).times(effect.val)
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(effect.val)
   effecttypes.register
     name: 'multStatPerAchievementPoint'
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
       points = effect.game.achievementPoints()
-      stats[effect.stat] = (stats[effect.stat] ? new Decimal 1).times(Decimal.pow new Decimal(1).plus(effect.val).times(points), level)
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow Decimal.ONE.plus(effect.val).times(points), level)
   effecttypes.register
     name: 'suffix'
     calcStats: (effect, stats, schema, level) ->
