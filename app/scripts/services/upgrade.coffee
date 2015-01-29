@@ -81,29 +81,30 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return @maxCostMet().greaterThan 0
 
   maxCostMet: (percent=1) ->
-    # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
-    #
-    # been way too long since my math classes... given from wikipedia:
-    # > cost.unit.count = cost.val (1 - cost.factor ^ maxAffordable) / (1 - cost.factor)
-    # solve the equation for maxAffordable to get the formula below.
-    #
-    # This is O(1), but that's totally premature optimization - should really
-    # have just brute forced this, we don't have that many upgrades so O(1)
-    # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
-    # do, kids.
-    max = new Decimal Infinity
-    if @type.maxlevel
-      max = new Decimal(@type.maxlevel).minus(@count())
-    for cost in @totalCost()
-      util.assert cost.val.greaterThan(0), 'upgrade cost <= 0', @name, this
-      if cost.factor.equals(1) #special case: math.log(1) == 0; x / math.log(1) == boom
-        m = cost.unit.count().dividedBy(cost.val)
-      else
-        #m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
-        m = Decimal.ONE.minus(cost.unit.count().times(percent).times(Decimal.ONE.minus cost.factor).dividedBy(cost.val)).log().dividedBy(cost.factor.log())
-      max = Decimal.min max, m
-      #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
-    return max.floor()
+    return @game.cache.upgradeMaxCostMet["#{name}:#{percent}"] ?= do =>
+      # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
+      #
+      # been way too long since my math classes... given from wikipedia:
+      # > cost.unit.count = cost.val (1 - cost.factor ^ maxAffordable) / (1 - cost.factor)
+      # solve the equation for maxAffordable to get the formula below.
+      #
+      # This is O(1), but that's totally premature optimization - should really
+      # have just brute forced this, we don't have that many upgrades so O(1)
+      # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
+      # do, kids.
+      max = new Decimal Infinity
+      if @type.maxlevel
+        max = new Decimal(@type.maxlevel).minus(@count())
+      for cost in @totalCost()
+        util.assert cost.val.greaterThan(0), 'upgrade cost <= 0', @name, this
+        if cost.factor.equals(1) #special case: math.log(1) == 0; x / math.log(1) == boom
+          m = cost.unit.count().dividedBy(cost.val)
+        else
+          #m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
+          m = Decimal.ONE.minus(cost.unit.count().times(percent).times(Decimal.ONE.minus cost.factor).dividedBy(cost.val)).log().dividedBy(cost.factor.log())
+        max = Decimal.min max, m
+        #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
+      return max.floor()
 
   costMetPercent: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name

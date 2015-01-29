@@ -16,6 +16,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   onTick: ->
     @unitCount = {}
     @velocity = {}
+    @upgradeMaxCostMet = {}
 
 ###*
  # @ngdoc service
