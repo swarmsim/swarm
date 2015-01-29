@@ -163,8 +163,7 @@ describe 'Service: game achievements', ->
     # energy cap hack
     game.unit('nexus')._setCount 5 #energy cap hack
     for cost in resource.cost
-      # add more than it really costs: hack for the 1e+1-format imprecision
-      cost.unit._setCount Math.floor cost.val * 1.001
+      cost.unit._setCount cost.val
     
   it "builds one of each unit", ->
     for unit in game.unitlist()
@@ -175,6 +174,8 @@ describe 'Service: game achievements', ->
         unit.buy()
         expect(unit.count().toNumber()).toBe 1
 
+  # This test is really slow after adding decimal.js - had to extend browserNoActivityTimeout. Why?
+  # Empower upgrades seem especially slow. Larger numbers...? It's fine in prod outside of tests though.
   it "builds one of each upgrade", ->
     for upgrade in game.upgradelist()
       upgrade._visible = true

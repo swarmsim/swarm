@@ -5,6 +5,9 @@
 
 module.exports = (config) ->
   config.set
+    # game:build-all-upgrades test needs the extra time
+    browserNoActivityTimeout: 20000
+
     # base path, that will be used to resolve files and exclude
     basePath: '../'
 
