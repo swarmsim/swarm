@@ -32,7 +32,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return ret
   _setCount: (val) ->
     @game.session.upgrades[@name] = val
-    @game.cache.onUpdate @unit
+    @game.cache.onUpdate()
   _addCount: (val) ->
     @_setCount @count() + val
   _subtractCount: (val) ->
@@ -57,8 +57,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
         return false
     return true
   totalCost: ->
-    return @game.cache.upgradeTotalCost[@name] ?= @_totalCost @count() + @unit.stat 'upgradecost', 0
-  _totalCost: (count) ->
+    return @game.cache.upgradeTotalCost[@name] ?= @_totalCost()
+  _totalCost: (count=@count() + @unit.stat 'upgradecost', 0) ->
     _.map @cost, (cost) =>
       total = _.clone cost
       total.val *= Math.pow total.factor, count
