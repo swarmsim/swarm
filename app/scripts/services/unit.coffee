@@ -94,11 +94,13 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
         prod:prodlink
 
   rawCount: ->
-    ret = @game.session.unittypes[@name] ? 0
-    if _.isNaN ret
-      util.error 'NaN count. oops.', @name, ret
-      ret = 0
-    return new Decimal ret
+    return @game.cache.unitRawCount[@name] ?= do =>
+      # caching's helpful to avoid re-parsing session strings
+      ret = @game.session.unittypes[@name] ? 0
+      if _.isNaN ret
+        util.error 'NaN count. oops.', @name, ret
+        ret = 0
+      return new Decimal ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = new Decimal val
     @game.cache.onUpdate()
