@@ -1,6 +1,26 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
+angular.module('swarmApp').factory 'ProducerPath', ($log) -> class ProducerPath
+  constructor: (@unit, @path) ->
+    pathname = _.map(@path, (p) => p.parent.name).join '>'
+    # unit.name's in the name twice, just so there's no confusion about where the path ends
+    @name = "#{@unit.name}:#{pathname}>#{@unit.name}"
+  first: -> @path[0]
+  prodEach: ->
+    return @unit.game.cache.producerPathProdEach[@name] ?= do =>
+      # Bonus for ancestor to produced-child == product of all bonuses along the path
+      # (intuitively, if velocity and velocity-changes are doubled, acceleration is doubled too)
+      # Quantity of buildings along the path do not matter, they're calculated separately.
+      ret = new Decimal 1
+      for ancestordata in @path
+        val = new Decimal(ancestordata.prod.val).plus ancestordata.parent.stat 'base', 0
+        ret = ret.times val
+        ret = ret.times ancestordata.parent.stat 'prod', 1
+        # Cap ret, just like count(). This prevents Infinity * 0 = NaN problems, too.
+        ret = Decimal.min ret, 1e300
+      return ret
+
+angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
@@ -61,9 +81,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       @prev = @tab.prev this
 
   _producerPathData: ->
-    _.map @_producerPathList, (path) =>
+    return @__producerPathData ?= _.map @_producerPathList, (path) =>
       tailpath = path.concat [this]
-      _.map path, (parent, index) =>
+      return new ProducerPath this, _.map path, (parent, index) =>
         child = tailpath[index+1]
         # TODO index prod by name?
         prodlink = (prod for prod in parent.prod when prod.unit.name == child.name)
@@ -88,25 +108,16 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @_addCount new Decimal(val).times(-1)
 
   _gainsPath: (pathdata, secs) ->
-    producerdata = pathdata[0]
-    gen = pathdata.length
+    producerdata = pathdata.first()
+    gen = pathdata.path.length
     c = math.factorial gen
     count = producerdata.parent.rawCount()
-    # Bonus for ancestor to produced-child == product of all bonuses along the path
-    # (intuitively, if velocity and velocity-changes are doubled, acceleration is doubled too)
-    # Quantity of buildings along the path do not matter, they're calculated separately.
-    bonus = new Decimal 1
-    for ancestordata in pathdata
-      val = new Decimal(ancestordata.prod.val).plus ancestordata.parent.stat 'base', 0
-      bonus = bonus.times val
-      bonus = bonus.times ancestordata.parent.stat 'prod', 1
-      # Cap bonus, just like count(). This prevents Infinity * 0 = NaN problems, too.
-      bonus = Decimal.min bonus, 1e300
-    return bonus.times(count).dividedBy(c).times(Decimal.pow(secs, gen))
+    prodEach = pathdata.prodEach()
+    return prodEach.times(count).dividedBy(c).times(Decimal.pow(secs, gen))
 
   # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
   _parents: ->
-    (pathdata[0].parent for pathdata in @_producerPathData() when pathdata[0].parent.prodByName[@name])
+    (pathdata.first().parent for pathdata in @_producerPathData() when pathdata.first().parent.prodByName[@name])
 
   _getCap: ->
     if @hasStat 'capBase'
