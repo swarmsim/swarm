@@ -145,7 +145,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
   effecttypes.register
     name: 'skipTime'
     onBuy: (effect) ->
-      effect.game.skipTime @output(effect), 'seconds'
+      effect.game.skipTime @output(effect).toNumber(), 'seconds'
     output: (effect) ->
       effect.power().times(effect.val)
 
