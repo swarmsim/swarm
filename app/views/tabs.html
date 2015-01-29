@@ -2,7 +2,7 @@
   <li ng-repeat="buff in game.buffs">
     <!-- TODO buff icon -->
     <span class="glyphicon glyphicon-flash"></span>
-    {{buff.type}}: {{buff.expiresInMillis()}}, {{buff.expiresPercent() * 100 | number:0}}%
+    {{buff.type}}: {{buff.expiresInMillis()}}, {{buff.expiresPercent() | percent:0}}
   </li>
 </ul>
 <ul class="nav nav-tabs" role="tablist">
@@ -10,7 +10,7 @@
     <a ng-href="#{{tab.url()}}" role="tab">
       <!-- TODO why isnt' pluralize working? -->
       {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.plural}}
-      <span ng-if="tab.leadunit.capValue()">({{tab.leadunit.capPercent()*100|number:0}}%)</span>
+      <span ng-if="tab.leadunit.capValue()">({{tab.leadunit.capPercent()|percent:0}})</span>
       <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
       <!--TODO: ewww, a special case-->
       <span ng-if="tab.name=='mutagen'">(+{{game.unit('premutagen').count()|bignum:0}})</span>

@@ -154,3 +154,19 @@ angular.module('swarmApp').filter 'longnum', (bignumFormatter) ->
 
 angular.module('swarmApp').filter 'ceil', ->
   (num) -> Math.ceil num
+
+angular.module('swarmApp').filter 'percent', ($filter) ->
+  (num, opts={}) ->
+    if _.isNumber opts
+      opts = {places:opts}
+    try
+      dec = new Decimal num
+    catch
+      dec = new Decimal num.toPrecision(15)
+    if opts.plusOne
+      dec = dec.minus(1)
+    dec = dec.times(100)
+    dec = dec.toDecimalPlaces(opts.places ? 0)
+    if opts.longnum
+      dec = $filter('longnum')(dec)
+    return "#{dec}%"

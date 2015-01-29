@@ -14,6 +14,8 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @producerPathProdEach = {}
     @unitRawCount = {}
     @upgradeIsUpgradable = {}
+    @unitCap = {}
+    @unitCapPercent = {}
 
   onTick: ->
     @unitCount = {}

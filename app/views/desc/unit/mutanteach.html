@@ -1,1 +1,1 @@
-<p>When a hatchery or expansion spawns mutagen, {{(unit.effect[0].calcStats()['random.each'] - 1) * 100 | number:2}}% more mutagen is generated.</p>
+<p>When a hatchery or expansion spawns mutagen, {{unit.effect[0].calcStats()['random.each'] | percent:{places:2,plusOne:true} }} more mutagen is generated.</p>

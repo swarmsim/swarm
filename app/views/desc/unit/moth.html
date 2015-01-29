@@ -1,2 +1,2 @@
 <p>Lepidoptera are mysterious creatures, with furry bodies and large wings, emerging from their dens only at night. The lepidoptera are attracted to the light of your nightbugs, and energy is attracted to the lepidoptera.</p>
-<p>Your lepidoptera generate {{(unit.effect[0].calcStats().prod - 1) * 100 | number:2}}% more energy. Hatching more can increase this to a maximum of {{(unit.effect[0].val - 1) * 100 | number:0}}%.</p>
+<p>Your lepidoptera generate {{unit.effect[0].calcStats().prod | percent:{places:2,plusOne:true} }} more energy. Hatching more can increase this to a maximum of {{unit.effect[0].val | percent:{plusOne:true} }}.</p>

@@ -122,18 +122,11 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
     (pathdata.first().parent for pathdata in @_producerPathData() when pathdata.first().parent.prodByName[@name])
 
   _getCap: ->
-    if @hasStat 'capBase'
-      ret = @stat 'capBase'
-      ret = ret.times @stat 'capMult', 1
-      return ret
-    #cap = 0
-    #for capspec in @cap
-    #  capval = capspec.val
-    #  if capspec.unit?
-    #    capval *= capspec.unit.count()
-    #  cap += capval
-    #util.assert cap >= 0, 'negative cap', @name, cap
-    #return cap
+    return @game.cache.unitCap[@name] ?= do =>
+      if @hasStat 'capBase'
+        ret = @stat 'capBase'
+        ret = ret.times @stat 'capMult', 1
+        return ret
   capValue: (val) ->
     cap = @_getCap()
     if not cap?
@@ -147,8 +140,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
     return Decimal.min val, cap
 
   capPercent: ->
-    if (cap = @capValue())?
-      return @count().dividedBy(cap)
+    return @game.cache.unitCapPercent[@name] ?= do =>
+      if (cap = @capValue())?
+        return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
       return @estimateSecs cap

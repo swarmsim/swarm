@@ -9,8 +9,8 @@
   </ng-pluralize>
   <div ng-if="cur.capValue()">
     <div class="progress" style="margin-bottom:0">
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent().times(100)+""|number:0}}%">
-        {{cur.capPercent().times(100).floor()+""|number:0}}%, {{cur.capDurationMoment().humanize()}}
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent()|percent:0}}">
+        {{cur.capPercent()|percent:0}}, {{cur.capDurationMoment().humanize()}}
       </div>
     </div>
     <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
@@ -94,7 +94,7 @@
         will cost
         <span ng-repeat="cost in cur.eachCost()">
           <span ng-if="!$first && $last"> and </span>
-          <span>{{unitCostAsPercent(cur, cost).times(100) | number:0}}% of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
+          <span>{{unitCostAsPercent(cur, cost) | percent:0}} of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
         </span>
       </p>
       <buyunit unit="cur" num="form.mainBuynum"></buyunit>
@@ -118,8 +118,8 @@
         </p>
 
         <div class="progress" style="margin-bottom:0">
-          <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent().times(100)+""|number:1}}%">
-            {{upgrade.costMetPercent().times(100).floor()+""|number:0}}%{{estimtateUpgradeSecs(upgrade)}}
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{upgrade.costMetPercent()|percent:1}}">
+            {{upgrade.costMetPercent()|percent:0}}{{estimtateUpgradeSecs(upgrade)}}
           </div>
         </div>
         <buyupgrade upgrade="upgrade"></buyupgrade>
@@ -140,8 +140,8 @@
         </p>
 
         <div class="progress" style="margin-bottom:0">
-          <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent().times(100)+""|number:1}}%">
-            {{abil.costMetPercent().times(100).floor()+""|number:0}}%{{estimtateUpgradeSecs(abil)}}
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" style="width:{{abil.costMetPercent()|percent:1}}">
+            {{abil.costMetPercent()|percent:0}}{{estimtateUpgradeSecs(abil)}}
           </div>
         </div>
         <buyupgrade upgrade="abil"></buyupgrade>

@@ -105,7 +105,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
         roll = rng()
-        isspawned = level.equals(minlevel) or new Decimal(roll).lessThan(prob.toNumber())
+        isspawned = level.equals(minlevel) or new Decimal(roll.toPrecision 15).lessThan(prob.toNumber())
         #$log.debug 'roll to spawn: ', level, roll, prob, isspawned
         roll2 = rng()
         modqty = minqty + (roll2 * (maxqty - minqty))
