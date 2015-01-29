@@ -264,17 +264,19 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
       upgrade.isVisible() and upgrade.isNewlyUpgradable()
 
   totalProduction: ->
-    ret = {}
-    count = @count()
-    for key, val of @eachProduction()
-      ret[key] = val.times count
-    return ret
+    return @game.cache.totalProduction[@name] ?= do =>
+      ret = {}
+      count = @count()
+      for key, val of @eachProduction()
+        ret[key] = val.times count
+      return ret
 
   eachProduction: ->
-    ret = {}
-    for prod in @prod
-      ret[prod.unit.unittype.name] = (prod.val.plus @stat 'base', 0).times @stat 'prod', 1
-    return ret
+    return @game.cache.eachProduction[@name] ?= do =>
+      ret = {}
+      for prod in @prod
+        ret[prod.unit.unittype.name] = (prod.val.plus @stat 'base', 0).times @stat 'prod', 1
+      return ret
 
   eachCost: ->
     return @game.cache.eachCost[@name] ?= _.map @cost, (cost) =>

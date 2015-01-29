@@ -8,6 +8,8 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @onTick()
     @stats = {}
     @eachCost = {}
+    @eachProduction = {}
+    @totalProduction = {}
     @upgradeTotalCost = {}
 
   onTick: ->
