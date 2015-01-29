@@ -6,7 +6,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     @name = @unittype.name
     @suffix = ''
     @affectedBy = []
-    for fn in ['_stats', '_count', '_velocity', '_eachCost']
+    for fn in ['_count', '_velocity', '_eachCost']
       @[fn] = util.memoize @[fn]
   _init: ->
     # copy all the inter-unittype references, replacing the type references with units
@@ -83,7 +83,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     return new Decimal ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = new Decimal val
-    util.clearMemoCache @_count, @_velocity, @_eachCost, @_stats
+    util.clearMemoCache @_count, @_velocity, @_eachCost
   _addCount: (val) ->
     @_setCount @rawCount().plus(val)
   _subtractCount: (val) ->
@@ -314,10 +314,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect) -> class Unit
     ret = @stats()[key] ? default_
     util.assert ret?, 'no such stat', @name, key
     return new Decimal ret
-  stats: -> @_stats @game.now.getTime()
-  _stats: ->
-    util.clearMemoCache @_stats # store only the most recent
-    stats = {}
+  stats: ->
+    if (ret = @game._stats[@name])
+      return ret
+    @game._stats[@name] = stats = {}
     schema = {}
     for upgrade in @upgrades.list
       upgrade.calcStats stats, schema

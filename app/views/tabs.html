@@ -23,11 +23,11 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-      <li ng-if="options.showAdvancedUnitData()" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableUpgrades())">
-        <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableUpgrades().length | number}} upgrades
+      <li ng-if="options.showAdvancedUnitData()" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades())">
+        <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrades
       </a></li>
-      <li ng-if="options.showAdvancedUnitData()" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableUpgrades(0.25), 0.25)">
-        <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableUpgrades(0.25).length | number}} upgrades
+      <li ng-if="options.showAdvancedUnitData()" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades(0.25), 0.25)">
+        <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableAutobuyUpgrades(0.25).length | number}} upgrades
       </a></li>
       <li ng-if="options.showAdvancedUnitData()" role="presentation" class="divider"></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/options">

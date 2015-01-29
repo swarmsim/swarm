@@ -278,3 +278,10 @@ describe 'Service: upgrade', ->
     upgrade._setCount 3
     expect(upgrade.count()).toBe 3
     expect(upgrade.maxCostMet()).toBe 2
+
+  it "knows autobuyable upgrades", ->
+    game = mkgame {}
+    expect(game.upgrade('droneprod').isAutobuyable()).toBe true
+    expect(game.upgrade('dronetwin').isAutobuyable()).toBe false
+    expect(game.upgrade('swarmlingtwin').isAutobuyable()).toBe true
+    expect(game.upgrade('mutatemeat').isAutobuyable()).toBe false

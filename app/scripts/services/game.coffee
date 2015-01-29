@@ -1,16 +1,5 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Buff', (util, $log) -> class Buff
-  constructor: (@game, @type, @started, @duration) ->
-    @started = moment @started
-    @expires = @started.clone()
-    @expires.add @duration
-
-  expiresInMillis: ->
-    return @expires.valueOf() - @game.now.valueOf()
-  expiresPercent: ->
-    return @expiresInMillis() / @duration.valueOf()
-
 ###*
  # @ngdoc service
  # @name swarmApp.game
@@ -18,7 +7,7 @@ angular.module('swarmApp').factory 'Buff', (util, $log) -> class Buff
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab, Buff) -> class Game
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab) -> class Game
   constructor: (@session) ->
     @_init()
   _init: ->
@@ -49,8 +38,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
 
-    # TODO persistent buffs
-    @buffs = []
+    @clearStatsCache()
 
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
@@ -90,8 +78,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   tick: (now=new Date(), skipExpire=false) ->
     util.assert now, "can't tick to undefined time", now
     if (not @now) or @now <= now
-      if not skipExpire
-        @expireBuffs now
       @now = now
     else
       # system clock problem! don't whine for small timing errors, but don't update the clock either.
@@ -103,19 +89,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @now.getTime() - @session.date.started.getTime()
   timestampMillis: ->
     @elapsedStartMillis() + @totalSkippedMillis()
-
-  applyBuff: (type, duration) ->
-    @buffs.push buff = new Buff this, type, @now, duration
-    # earliest-expiring buffs at the front
-    @buffs.sort (a, b) ->
-      a.expires.valueOf() - b.expires.valueOf()
-  expireBuffs: (now) ->
-    while (buff = @buffs[0])? and buff.expires.isBefore now
-      util.assert (not @now) or (not buff.expires.isBefore @now), "failed to expire a buff before ticking"
-      # careful: this specifically requires isBefore in the above line, buff < now. buff <= now would be an infinite loop.
-      @tick buff.expires.toDate(), true
-      @reify()
-      @buffs.shift()
 
   unit: (unitname) ->
     if _.isUndefined unitname
@@ -155,6 +128,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     _.clone @_upgrades.list
   availableUpgrades: (costPercent=undefined) ->
     (u for u in @upgradelist() when u.isVisible() and u.isUpgradable costPercent)
+  availableAutobuyUpgrades: (costPercent=undefined) ->
+    (u for u in @availableUpgrades(costPercent) when u.isAutobuyable())
   newUpgrades: (costPercent=undefined) ->
     (u for u in @upgradelist() when u.isVisible() and u.isNewlyUpgradable costPercent)
   ignoredUpgrades: ->
@@ -191,7 +166,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @skippedMillis = 0
     @session.skippedMillis += @diffMillis() - @_realDiffMillis()
     @session.date.reified = @now
+    @clearStatsCache()
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
+
+  # Whenever we buy something.
+  clearStatsCache: (unitname) ->
+    # unitname ignored for now, just clear em all
+    @_stats = {}
 
   save: ->
     @withSave ->
@@ -210,6 +191,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @reify()
     ret = fn()
     @session.save()
+    @clearStatsCache()
     return ret
 
   reset: (butDontSave=false) ->
@@ -225,7 +207,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     return energy.spent()
   ascendCost: ->
     spent = @ascendEnergySpent()
-    return Math.ceil 999999 / (1 + spent/50000)
+    ascends = @unit('ascension').count()
+    ascendPenalty = Math.pow 1.2, ascends
+    #return Math.ceil 999999 / (1 + spent/50000)
+    # initial cost 5 million, halved every 50k spent, increases 20% per past ascension
+    return Math.ceil ascendPenalty * 5e6 / (Math.pow 2, spent/50000)
   ascendCostCapDiff: ->
     return @ascendCost() - @unit('energy').capValue()
   ascendCostPercent: ->

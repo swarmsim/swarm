@@ -36,7 +36,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return new Decimal ret
   _setCount: (val) ->
     @game.session.upgrades[@name] = new Decimal val
-    util.clearMemoCache @_totalCost, @unit._stats, @unit._eachCost
+    util.clearMemoCache @_totalCost, @unit._eachCost
+    @game.clearStatsCache @unit
     for u in @unit.upgrades.list
       util.clearMemoCache u._totalCost
   _addCount: (val) ->
@@ -144,6 +145,14 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   isUpgradable: (costPercent=undefined) ->
     #@_lastUpgradeSeen < @maxCostMet()
     @isBuyable() and @maxCostMet(costPercent).greaterThan(0) and @type.class == 'upgrade'
+  isAutobuyable: ->
+    # don't autobuy meat-twins or mutations
+    # TODO this should be a spreadsheet column
+    if @unit.unittype.tab == 'mutagen'
+      return false
+    if @unit.unittype.tab == 'meat' and /twin$/.test @name
+      return false
+    return true
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->

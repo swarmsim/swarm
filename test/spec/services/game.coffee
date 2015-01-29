@@ -123,6 +123,30 @@ describe 'Service: game achievements', ->
     expect(mutant2.count()).toBe 0
     expect(mutagen.count()).toBe 71312 # 70% refunded
 
+  it 'has sane ascension costs', ->
+    game = mkgame {nexus:1e100, energy:1e100}
+    ascends = game.unit 'ascension'
+    warps = game.upgrade 'swarmwarp'
+    expect(game.ascendEnergySpent()).toBe 0
+    expect(game.ascendCost()).toBe 5000000
+    ascends._setCount 1
+    expect(game.ascendCost()).toBe 6000000
+    ascends._setCount 2
+    expect(game.ascendCost()).toBe 7200000
+    ascends._setCount 0
+    warps._setCount 25
+    expect(game.ascendEnergySpent()).toBe 50000
+    expect(game.ascendCost()).toBe 2500000
+    warps._setCount 50
+    expect(game.ascendEnergySpent()).toBe 100000
+    expect(game.ascendCost()).toBe 1250000
+    warps._setCount 75
+    expect(game.ascendEnergySpent()).toBe 150000
+    expect(game.ascendCost()).toBe 625000
+    ascends._setCount 1
+    expect(game.ascendEnergySpent()).toBe 150000
+    expect(game.ascendCost()).toBe 750000
+
 describe 'Service: game achievements', ->
 
   # load the service's module
