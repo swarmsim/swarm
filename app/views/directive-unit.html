@@ -2,7 +2,7 @@
 <p>
   <!-- hack to viewNewUpgrades() on every frame, while this unit is in view -->
   {{viewNewUpgrades()}}
-  <ng-pluralize ng-if="!cur.capValue()" count="cur.count()"
+  <ng-pluralize ng-if="!cur.capValue()" count="cur.count().toNumber()"
     when="{'0':'You own no {{cur.unittype.plural}}.',
            'one':'You own 1 {{cur.unittype.label}}.',
            'other':'You own {{cur.count()|longnum}} {{cur.unittype.plural}}.'}">

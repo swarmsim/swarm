@@ -10,14 +10,6 @@
 ###
 angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
   run: (game) ->
-    # hacky 0.2.11 fix - for a short time, nexus upgrades didn't
-    do ->
-      for i in [1..5]
-        if game.upgrade("nexus#{i}").count() > 0 and game.unit('nexus').count() < i
-          $log.debug 'nexusfix', i, game.upgrade("nexus#{i}").count(), game.unit('nexus').count()
-          $log.info 'fixed nexus count', i
-          game.unit('nexus')._setCount i
-
     # grant mutagen for old saves, created before mutagen existed
     do ->
       premutagen = game.unit 'premutagen'
@@ -27,7 +19,7 @@ angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
       minlevel = game.unit('invisiblehatchery').stat 'random.minlevel'
       # at minlevel hatcheries/expos, premutagen is always granted. if it wasn't - no ascensions and no premutagen -
       # this must be an old save, they got the upgrades before mutagen existed.
-      if premutagen.count() == ascension.count() == 0 and (hatchery.count() >= minlevel or expansion.count() >= minlevel)
+      if premutagen.count().isZero() and ascension.count().isZero() and (hatchery.count().greaterThanOrEqualTo(minlevel) or expansion.count().greaterThanOrEqualTo(minlevel))
         $log.info 'backfilling mutagen for old save'
         for up in [hatchery, expansion]
           for i in [0...up.count()]

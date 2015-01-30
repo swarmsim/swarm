@@ -54,7 +54,7 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> cl
     if @visible.length == 0
       return @_visible = false
     for visible in @visible
-      if visible.resource.count() < visible.val
+      if visible.resource.count().lessThan(visible.val)
         return false
     return @_visible = true
 
