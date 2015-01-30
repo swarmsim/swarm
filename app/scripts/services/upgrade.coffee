@@ -140,15 +140,20 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   unignore: ->
     @_lastUpgradeSeen = new Decimal 0
   isUpgradable: (costPercent=undefined) ->
-    # if an upgrade's available, it won't disappear before the next update. however, unavailable
-    # upgrades may become available anytime - so only the true case is cacheable.
-    # lots of extra trouble to do this complex caching, but maxCostMet is so expensive it's worth it.
-    if @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"]
-      return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"]
-    ret = @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
-    if ret
-      @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] = ret
-    return ret
+    # results are cached and updated only once every few seconds; may be out of date.
+    # This function's used for the upgrade-available arrows, and without caching it'd be called once per
+    # frame for every upgrade in the game. cpu profiler found it guilty of taking half our cpu when we
+    # did that, so the delay's worth it.
+    #
+    # we could onUpdate-cache true results - false results may change to true at any time, but true
+    # results can change to false only at an update. Complexity's not worth it, since true is the less
+    # common case (most upgrades are *not* available at any given time). Actually used to do this, but
+    # the code got ugly when we added separate periodic caching for falses.
+    #
+    # we could also predict when an update will be available, instead of rechecking every few seconds,
+    # using estimateSecs. Complexity's not worth it yet, but if players start complaining about the
+    # caching delay, this would reduce it.
+    return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] ?= @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
   isAutobuyable: ->
     # don't autobuy meat-twins or mutations
     # TODO this should be a spreadsheet column

@@ -4,7 +4,12 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   constructor: ->
     @onUpdate()
 
+  onPeriodic: ->
+    @_lastPeriodicClear = new Date().getTime()
+    @upgradeIsUpgradable = {}
+
   onUpdate: ->
+    @onPeriodic()
     @onTick()
     @stats = {}
     @eachCost = {}
@@ -12,7 +17,6 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @upgradeTotalCost = {}
     @producerPathProdEach = {}
     @unitRawCount = {}
-    @upgradeIsUpgradable = {}
     @unitCap = {}
     @unitCapPercent = {}
 
@@ -22,6 +26,10 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @totalProduction = {}
     @upgradeMaxCostMet = {}
     @unitMaxCostMet = {}
+
+    # clear periodic caches every few seconds
+    if new Date().getTime() - @_lastPeriodicClear >= 3000
+      @onPeriodic()
 
 ###*
  # @ngdoc service
