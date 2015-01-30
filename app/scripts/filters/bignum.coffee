@@ -17,7 +17,10 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       suffixes = suffixes_
       if !num
         return num
-      num = new Decimal num
+      try
+        num = new Decimal num
+      catch
+        num = new Decimal num.toPrecision 15
       if num.isZero()
         return num+''
       if num.lessThan floorlimit
