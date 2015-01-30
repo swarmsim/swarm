@@ -8,7 +8,7 @@
         <td class="upgrade-indicator"></td>
         <td class="titlecase"><a href="#/achievements">achievement points</a></td>
         <td>{{game.achievementPoints()|bignum:0}}</td>
-        <td>+{{(game.upgrade('achievementbonus').calcStats().prod.minus(1))|percent:0}} larvae</td>
+        <td>+{{game.upgrade('achievementbonus').calcStats().prod|percent:{plusOne:true} }} larvae</td>
       </tr>
       <tr ng-repeat="unit in cur.tab.sortUnits() | filter:filterVisible track by unit.name">
         <td class="upgrade-indicator" ng-click="click(unit)">

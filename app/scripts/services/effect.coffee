@@ -190,7 +190,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
       points = effect.game.achievementPoints()
-      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow Decimal.ONE.plus(effect.val).times(points), level)
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow Decimal.ONE.plus(new Decimal(effect.val).times(points)), level)
   effecttypes.register
     name: 'suffix'
     calcStats: (effect, stats, schema, level) ->

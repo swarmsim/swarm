@@ -29,12 +29,12 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   link: (scope, element, attrs) ->
     scope.num ?= 1
     scope.totalCostVal = (cost) ->
-      cost.val * scope.num
+      cost.val.times(scope.num)
     scope.isCostMet = (cost) ->
-      cost.unit.count() >= scope.totalCostVal(cost)
+      cost.unit.count().greaterThanOrEqualTo(scope.totalCostVal(cost))
     scope.countRemaining = (cost) ->
-      return Math.ceil scope.totalCostVal(cost) - cost.unit.count()
+      return scope.totalCostVal(cost).minus(cost.unit.count()).ceil()
     scope.isRemainingBuyable = (cost) ->
       remaining = scope.countRemaining cost
       # there is a cost remaining that we can't afford, but the remaining units are buyable. Can't necessarily afford them, even one.
-      return (remaining > 0 and cost.unit.isBuyable(true) and cost.unit.isBuyButtonVisible())
+      return (remaining.greaterThan(0) and cost.unit.isBuyable(true) and cost.unit.isBuyButtonVisible())

@@ -17,18 +17,25 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       suffixes = suffixes_
       if !num
         return num
-      if num < floorlimit
+      num = new Decimal num
+      if num.isZero()
+        return num+''
+      if num.lessThan floorlimit
         return num.toPrecision(opts.sigfigs).replace /\.?0+$/, ''
-      num = Math.floor num
-      if num < opts.minsuffix
+      num = num.floor()
+      if num.lessThan opts.minsuffix
         # sadly, num.toLocaleString() does not work in unittests. node vs browser?
         # toLocaleString would be nice for foreign users, but my unittests are
         # more important, sorry. Maybe later.
-        return numeral(num).format '0,0'
+        return numeral(num.toNumber()).format '0,0'
       # nope. Numeral only supports up to trillions, so have to do this myself :(
       # return numeral(num).format '0.[00]a'
       # http://mathforum.org/library/drmath/view/59154.html
-      index = Math.floor Math.log(num) / Math.log 1000
+      #index = num.log().dividedToIntegerBy(Decimal.log 1000)
+      # Decimal.log() is too slow for large numbers. Docs say performance degrades exponentially as # digits increases, boo.
+      # Lucky me, the length is used by decimal.js internally: num.e
+      # this is in the docs, so I think it's stable enough to use...
+      index = Math.floor num.e / 3
       # so hacky
       if options.notation() == 'hybrid'
         suffixes = suffixes.slice 0, 12
@@ -39,7 +46,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
         return num.toExponential(opts.sigfigs-1).replace 'e+', 'e'
       else
         suffix = suffixes[index]
-      num /= Math.pow 1000, index
+      num = num.dividedBy Decimal.pow 1000, index
       # regex removes trailing zeros and decimal
       # based on http://stackoverflow.com/a/16471544
       #return "#{num.toPrecision(3).replace(/\.([^0]*)0+$/, '.$1').replace(/\.$/, '')}#{suffix}"
