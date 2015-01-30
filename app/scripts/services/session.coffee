@@ -120,7 +120,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @_validateSaveVersion ret.version?.started
       ret.id = env.saveId
       # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
-      for obj of [ret.unittypes, ret.upgrades]
+      for obj in [ret.unittypes, ret.upgrades]
         for key, val of obj
           if _.isNumber val
             val = val.toPrecision 15
