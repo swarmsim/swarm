@@ -256,7 +256,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       @_init()
       for unit in @unitlist()
         if unit.tab?.name != 'mutagen'
-          unit._setCount unit.unittype.init
+          unit._setCount unit.unittype.init or 0
       for upgrade in @upgradelist()
         if upgrade.unit.tab?.name != 'mutagen'
           upgrade._setCount 0

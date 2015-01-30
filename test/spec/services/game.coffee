@@ -147,6 +147,18 @@ describe 'Service: game achievements', ->
     expect(game.ascendEnergySpent().toNumber()).toBe 150000
     expect(game.ascendCost().toNumber()).toBe 750000
 
+  it "ascends", ->
+    game = mkgame {drone:100, premutagen:100}
+    expect(game.unit('ascension').count().toNumber()).toBe 0
+    expect(game.unit('drone').count().toNumber()).toBe 100
+    expect(game.unit('premutagen').count().toNumber()).toBe 100
+    expect(game.unit('mutagen').count().toNumber()).toBe 0
+    game.ascend()
+    expect(game.unit('ascension').count().toNumber()).toBe 1
+    expect(game.unit('drone').count().toNumber()).toBe 0
+    expect(game.unit('premutagen').count().toNumber()).toBe 0
+    expect(game.unit('mutagen').count().toNumber()).toBe 100
+
 describe 'Service: game achievements', ->
 
   # load the service's module
