@@ -100,6 +100,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
       if _.isNaN ret
         util.error 'NaN count. oops.', @name, ret
         ret = 0
+      # toPrecision avoids Decimal errors when converting old saves
+      if _.isNumber ret
+        ret = ret.toPrecision 15
       return new Decimal ret
   _setCount: (val) ->
     @game.session.unittypes[@name] = new Decimal val
