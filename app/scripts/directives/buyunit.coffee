@@ -20,10 +20,10 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
       return scope.resource.maxCostMet().greaterThan(mcm25) and mcm25.greaterThan(1)
     scope.fullnum = ->
       if scope.fixednum?
-        fixednum = new Decimal(scope.fixednum).dividedBy(scope.unit.twinMult())
+        fixednum = new Decimal(scope.fixednum+'').dividedBy(scope.unit.twinMult())
         return fixednum
-      num = scope.num ? Decimal.ONE
-      num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num).floor()
+      num = scope.num ? 1
+      num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num+'').floor()
       if num.isNaN()
         num = Decimal.ONE
       return num
@@ -54,8 +54,8 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
       mcm25 = scope.resource.maxCostMet(0.25)
       return scope.resource.maxCostMet().greaterThan(mcm25) and mcm25.greaterThan(1)
     scope.fullnum = ->
-      num = scope.num ? Decimal.ONE
-      num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num).floor()
+      num = scope.num ? 1
+      num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num+'').floor()
       if num.isNaN()
         num = Decimal.ONE
       return num
@@ -87,8 +87,8 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
       mcm25 = resource.maxCostMet(0.25)
       return resource.maxCostMet().greaterThan(mcm25) and mcm25.greaterThan(1)
     scope.fullnum = ->
-      num = scope.num ? Decimal.ONE
-      num = Decimal.max 1, Decimal.min scope.unit.maxCostMet(), new Decimal(num).floor()
+      num = scope.num ? 1
+      num = Decimal.max 1, Decimal.min scope.unit.maxCostMet(), new Decimal(num+'').floor()
       if num.isNaN()
         num = Decimal.ONE
       return num

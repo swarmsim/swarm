@@ -123,6 +123,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
               # usually we want to ignore generators, so use statistics-count
               # statistics are added before achievement-check, fortunately
               count = require.unit.statistics().twinnum ? 0
+              count = new Decimal count
             $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
             if count? && count.greaterThan(require.val)
               $log.debug 'earned', achieve.name, achieve

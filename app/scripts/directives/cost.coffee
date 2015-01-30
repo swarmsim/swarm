@@ -29,7 +29,8 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   link: (scope, element, attrs) ->
     scope.num ?= 1
     scope.totalCostVal = (cost) ->
-      cost.val.times(scope.num)
+      # stringifying scope.num is important to avoid decimal.js precision errors
+      cost.val.times(scope.num+'')
     scope.isCostMet = (cost) ->
       cost.unit.count().greaterThanOrEqualTo(scope.totalCostVal(cost))
     scope.countRemaining = (cost) ->
