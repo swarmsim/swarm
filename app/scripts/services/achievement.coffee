@@ -73,11 +73,11 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> cl
     if req.unit?
       if req.unit.unittype.unbuyable
         return req.unit.count()
-      return req.unit.statistics().twinnum ? 0
+      return new Decimal req.unit.statistics().twinnum ? 0
     return undefined
   progressPercent: ->
     if @hasProgress()?
-      return @progressVal() / @progressMax()
+      return @progressVal().dividedBy(@progressMax())
 
 angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $log) -> class AchievementTypes
   constructor: ->
@@ -124,7 +124,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
               # statistics are added before achievement-check, fortunately
               count = require.unit.statistics().twinnum ? 0
             $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
-            if count? && count >= require.val
+            if count? && count.greaterThan(require.val)
               $log.debug 'earned', achieve.name, achieve
               # requirements are 'or'ed
               achieve.earn()
@@ -136,7 +136,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
           # no upgrade-generators, so count() is safe
           count = require.upgrade.count()
           $log.debug 'achievement check: upgradecount after command', require.upgrade.name, count, count? && count >= require.val
-          if count? && count >= require.val
+          if count? && count.greaterThan(require.val)
             $log.debug 'earned', achieve.name, achieve
             # requirements are 'or'ed
             achieve.earn()

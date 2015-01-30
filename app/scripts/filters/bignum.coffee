@@ -176,7 +176,10 @@ angular.module('swarmApp').filter 'percent', ($filter) ->
     if opts.plusOne
       dec = dec.minus(1)
     dec = dec.times(100)
-    dec = dec.toDecimalPlaces(opts.places ? 0)
+    if opts.floor
+      dec = dec.floor()
+    else
+      dec = dec.toDecimalPlaces(opts.places ? 0)
     if opts.longnum
       dec = $filter('longnum')(dec)
     return "#{dec}%"
