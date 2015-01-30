@@ -1,2 +1,2 @@
-<p>Increases the chance of spawning mutagen when buying a hatchery or expansion by {{unit.effect[1].val * (unit.effect[0].calcStats()['random.freq'] - 1) * 100 | number:2}}%.</p>
-<p>You currently have a {{unit.effect[0].unit.stat('random.freq') * 100 | number:2}}% chance to spawn mutagen. More {{unit.plural}} can increase this to a maximum of {{unit.effect[1].val * unit.effect[0].val * 100 | number:2}}%.</p>
+<p>Increases the chance of spawning mutagen when buying a hatchery or expansion by {{unit.effect[1].val * (unit.effect[0].calcStats()['random.freq'] - 1) | percent:2}}.</p>
+<p>You currently have a {{unit.effect[0].unit.stat('random.freq') | percent:2}} chance to spawn mutagen. More {{unit.plural}} can increase this to a maximum of {{unit.effect[1].val * unit.effect[0].val | percent:2}}%.</p>

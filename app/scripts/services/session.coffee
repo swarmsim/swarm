@@ -123,6 +123,10 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # check save version for validity
       @_validateSaveVersion ret.version?.started
       ret.id = env.saveId
+      # bigdecimals
+      for obj of [ret.unittypes, ret.upgrades]
+        for key, val of obj
+          obj[key] = new Decimal val
       return ret
 
     exportSave: ->

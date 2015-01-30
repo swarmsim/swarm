@@ -1,2 +1,2 @@
-<p>Increases energy generation by {{(unit.effect[0].calcStats().prod - 1) * 100 | number:2}}%. Creating more increases this to a maximum of {{(unit.effect[0].val - 1) * 100 | number:2}}%.</p>
-<p>Increases maximum energy by {{(unit.effect[1].calcStats().capMult - 1) * 100 | number:2}}%. Creating more increases this to a maximum of {{(unit.effect[1].val - 1) * 100 | number:2}}%.</p>
+<p>Increases energy generation by {{unit.effect[0].calcStats().prod | percent:{places:2,plusOne:true} }}. Creating more increases this to a maximum of {{unit.effect[0].val | percent:{places:2,plusOne:true} }}.</p>
+<p>Increases maximum energy by {{unit.effect[1].calcStats().capMult | percent:{places:2,plusOne:true} }}. Creating more increases this to a maximum of {{unit.effect[1].val | percent:{places:2,plusOne:true} }}.</p>

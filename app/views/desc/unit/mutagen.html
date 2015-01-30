@@ -5,16 +5,16 @@
 <p>Ascending will activate {{game.unit('premutagen').count()|longnum}} new mutagen. Your swarm's ancestors have infested {{game.unit('ascension').count()|longnum}} worlds so far.</p>
 <p>Ascending now will cost {{game.ascendCost()|longnum}} energy. Spend energy elsewhere to reduce this cost; you've spent {{game.ascendEnergySpent()|longnum}} energy.</p>
 <div class="progress" style="margin-bottom:0">
-  <div ng-if="game.ascendCostCapDiff() > 0" class="progress-bar progress-bar-danger pull-right" role="progressbar" aria-valuenow="{{game.ascendCostCapDiff()}}" aria-valuemin="0" aria-valuemax="{{game.ascendCost()}}" style="width:{{game.ascendCostCapDiff()/game.ascendCost()*100|number:0}}%">
+  <div ng-if="game.ascendCostCapDiff() > 0" class="progress-bar progress-bar-danger pull-right" role="progressbar" aria-valuenow="{{game.ascendCostCapDiff()}}" aria-valuemin="0" aria-valuemax="{{game.ascendCost()}}" style="width:{{game.ascendCostCapDiff().dividedBy(game.ascendCost())|percent:0}}">
     {{game.ascendCostCapDiff()|longnum}} more than your max energy!
   </div>
-  <div class="progress-bar" role="progressbar" aria-valuenow="{{game.unit('energy').count()}}" aria-valuemin="0" aria-valuemax="{{game.ascendCost()}}" style="width:{{game.ascendCostPercent()*100|number:0}}%">
-    {{game.unit('energy').count()|longnum}} energy, {{game.ascendCostPercent()*100|number:0}}%<span ng-if="game.ascendCostCapDiff() <= 0 && game.ascendCostPercent() < 1">: {{game.ascendCostDurationMoment().humanize()}}</span>
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{game.unit('energy').count()}}" aria-valuemin="0" aria-valuemax="{{game.ascendCost()}}" style="width:{{game.ascendCostPercent()|percent:0}}">
+    {{game.unit('energy').count()|longnum}} energy, {{game.ascendCostPercent()|percent:0}}<span ng-if="game.ascendCostCapDiff().isNegative() && game.ascendCostPercent().lessThan(1)">: {{game.ascendCostDurationMoment().humanize()}}</span>
   </div>
 </div>
 <p><button title="" ng-click="commands.ascend({game:game})" class="btn btn-default" ng-class="{disabled:game.ascendCost() > game.unit('energy').count()}">Ascend - activate mutagen and restart</button></p>
 
 <div ng-if="game.respecSpent() > 0">
-<p>Respeccing refunds {{game.respecSpent() * game.respecRate() | longnum}} mutagen - {{game.respecRate() * 100 | number:0}}% of the {{game.respecSpent() | longnum}} mutagen you've spent - but resets all mutagen units and upgrades to 0.</p>
+<p>Respeccing refunds {{game.respecSpent().times(game.respecRate()) | longnum}} mutagen - {{game.respecRate() | percent:0}} of the {{game.respecSpent() | longnum}} mutagen you've spent - but resets all mutagen units and upgrades to 0.</p>
 <p><button title="" ng-click="game.respecConfirm()" class="btn btn-default">Respec</button></p>
 </div>

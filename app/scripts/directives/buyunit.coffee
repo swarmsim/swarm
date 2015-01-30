@@ -16,15 +16,16 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
   link: (scope, element, attrs) ->
     scope.commands = commands
     scope.is25Visible = ->
-      return scope.resource.maxCostMet() > scope.resource.maxCostMet(0.25) > 1
+      mcm25 = scope.resource.maxCostMet(0.25)
+      return scope.resource.maxCostMet().greaterThan(mcm25) and mcm25.greaterThan(1)
     scope.fullnum = ->
       if scope.fixednum?
-        fixednum = Math.ceil scope.fixednum / scope.unit.twinMult()
+        fixednum = new Decimal(scope.fixednum).dividedBy(scope.unit.twinMult())
         return fixednum
-      num = scope.num ? 1
-      num = Math.max 1, Math.min scope.resource.maxCostMet(), Math.floor num
-      if _.isNaN num
-        num = 1
+      num = scope.num ? Decimal.ONE
+      num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num).floor()
+      if num.isNaN()
+        num = Decimal.ONE
       return num
 
     scope.unit = scope.resource = game.unit scope.unit
@@ -50,12 +51,13 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
   link: (scope, element, attrs) ->
     scope.commands = commands
     scope.is25Visible = ->
-      return scope.resource.maxCostMet() > scope.resource.maxCostMet(0.25) > 1
+      mcm25 = scope.resource.maxCostMet(0.25)
+      return scope.resource.maxCostMet().greaterThan(mcm25) and mcm25.greaterThan(1)
     scope.fullnum = ->
-      num = scope.num ? 1
-      num = Math.max 1, Math.min scope.resource.maxCostMet(), Math.floor num
-      if _.isNaN num
-        num = 1
+      num = scope.num ? Decimal.ONE
+      num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num).floor()
+      if num.isNaN()
+        num = Decimal.ONE
       return num
 
     scope.upgrade = scope.resource = game.upgrade scope.upgrade
@@ -68,7 +70,7 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
       args.upgrade = args.resource
       delete args.resource
       commands.buyMaxUpgrade args
-    scope.statTwin = -> 1
+    scope.statTwin = -> Decimal.ONE
     scope.isBuyButtonVisible = -> true
     scope.verb = if scope.upgrade.type.class == 'ability' then 'cast' else 'buy'
 
@@ -82,12 +84,13 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
   link: (scope, element, attrs) ->
     scope.commands = commands
     scope.is25Visible = (resource=scope.unit) ->
-      return resource.maxCostMet() > resource.maxCostMet(0.25) > 1
+      mcm25 = resource.maxCostMet(0.25)
+      return resource.maxCostMet().greaterThan(mcm25) and mcm25.greaterThan(1)
     scope.fullnum = ->
-      num = scope.num ? 1
-      num = Math.max 1, Math.min scope.unit.maxCostMet(), Math.floor num
-      if _.isNaN num
-        num = 1
+      num = scope.num ? Decimal.ONE
+      num = Decimal.max 1, Decimal.min scope.unit.maxCostMet(), new Decimal(num).floor()
+      if num.isNaN()
+        num = Decimal.ONE
       return num
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()

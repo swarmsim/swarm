@@ -36,7 +36,7 @@ describe 'Service: game', ->
 
   it 'recovers NaN saves', ->
     game = mkgame {larva:NaN,meat:9999999,drone:99999}
-    expect(game.unit('larva').count()).toBe 0
+    expect(game.unit('larva').count().toNumber()).toBe 0
 
 describe 'Service: game achievements', ->
 
@@ -106,46 +106,46 @@ describe 'Service: game achievements', ->
     mutagen = game.unit 'mutagen'
     mutant = game.unit 'mutanthatchery'
     mutant2 = game.unit 'mutantbat'
-    expect(mutant.count()).toBe 0
-    expect(mutant2.count()).toBe 0
+    expect(mutant.count().toNumber()).toBe 0
+    expect(mutant2.count().toNumber()).toBe 0
     game.upgrade('mutatehatchery').buy()
     game.upgrade('mutatebat').buy()
-    expect(mutant.count()).toBe 1
-    expect(mutant2.count()).toBe 1
+    expect(mutant.count().toNumber()).toBe 1
+    expect(mutant2.count().toNumber()).toBe 1
     mutant.buy 39998
     mutant2.buy 40000
-    expect(mutant.count()).toBe 39999
-    expect(mutant2.count()).toBe 40001
-    expect(mutagen.count()).toBe 4376 # upgrades cost 1 + 15625 - 2 free upgrade-units = 15624
-    expect(game.respecSpent()).toBe 95624
+    expect(mutant.count().toNumber()).toBe 39999
+    expect(mutant2.count().toNumber()).toBe 40001
+    expect(mutagen.count().toNumber()).toBe 4376 # upgrades cost 1 + 15625 - 2 free upgrade-units = 15624
+    expect(game.respecSpent().toNumber()).toBe 95624
     game.respec()
-    expect(mutant.count()).toBe 0
-    expect(mutant2.count()).toBe 0
-    expect(mutagen.count()).toBe 71312 # 70% refunded
+    expect(mutant.count().toNumber()).toBe 0
+    expect(mutant2.count().toNumber()).toBe 0
+    expect(mutagen.count().toNumber()).toBe 71312 # 70% refunded
 
   it 'has sane ascension costs', ->
     game = mkgame {nexus:1e100, energy:1e100}
     ascends = game.unit 'ascension'
     warps = game.upgrade 'swarmwarp'
-    expect(game.ascendEnergySpent()).toBe 0
-    expect(game.ascendCost()).toBe 5000000
+    expect(game.ascendEnergySpent().toNumber()).toBe 0
+    expect(game.ascendCost().toNumber()).toBe 5000000
     ascends._setCount 1
-    expect(game.ascendCost()).toBe 6000000
+    expect(game.ascendCost().toNumber()).toBe 6000000
     ascends._setCount 2
-    expect(game.ascendCost()).toBe 7200000
+    expect(game.ascendCost().toNumber()).toBe 7200000
     ascends._setCount 0
     warps._setCount 25
-    expect(game.ascendEnergySpent()).toBe 50000
-    expect(game.ascendCost()).toBe 2500000
+    expect(game.ascendEnergySpent().toNumber()).toBe 50000
+    expect(game.ascendCost().toNumber()).toBe 2500000
     warps._setCount 50
-    expect(game.ascendEnergySpent()).toBe 100000
-    expect(game.ascendCost()).toBe 1250000
+    expect(game.ascendEnergySpent().toNumber()).toBe 100000
+    expect(game.ascendCost().toNumber()).toBe 1250000
     warps._setCount 75
-    expect(game.ascendEnergySpent()).toBe 150000
-    expect(game.ascendCost()).toBe 625000
+    expect(game.ascendEnergySpent().toNumber()).toBe 150000
+    expect(game.ascendCost().toNumber()).toBe 625000
     ascends._setCount 1
-    expect(game.ascendEnergySpent()).toBe 150000
-    expect(game.ascendCost()).toBe 750000
+    expect(game.ascendEnergySpent().toNumber()).toBe 150000
+    expect(game.ascendCost().toNumber()).toBe 750000
 
 describe 'Service: game achievements', ->
 
@@ -163,23 +163,24 @@ describe 'Service: game achievements', ->
     # energy cap hack
     game.unit('nexus')._setCount 5 #energy cap hack
     for cost in resource.cost
-      # add more than it really costs: hack for the 1e+1-format imprecision
-      cost.unit._setCount Math.floor cost.val * 1.001
+      cost.unit._setCount cost.val
     
   it "builds one of each unit", ->
     for unit in game.unitlist()
       unit._visible = true
       if not unit.unittype.unbuyable
         clear unit
-        expect(unit.count()).toBe 0
+        expect(unit.count().toNumber()).toBe 0
         unit.buy()
-        expect(unit.count()).toBe 1
+        expect(unit.count().toNumber()).toBe 1
 
+  # This test is really slow after adding decimal.js - had to extend browserNoActivityTimeout. Why?
+  # Empower upgrades seem especially slow. Larger numbers...? It's fine in prod outside of tests though.
   it "builds one of each upgrade", ->
     for upgrade in game.upgradelist()
       upgrade._visible = true
       upgrade.unit._visible = true
       clear upgrade
-      expect(upgrade.count()).toBe 0
+      expect(upgrade.count().toNumber()).toBe 0
       upgrade.buy()
-      expect(upgrade.count()).toBe 1
+      expect(upgrade.count().toNumber()).toBe 1

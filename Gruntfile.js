@@ -277,6 +277,9 @@ module.exports = function (grunt) {
           },
           'konami-js': {
             main: 'konami.js'
+          },
+          'decimal.js': {
+            main: 'decimal.js'
           }
         },
         ignorePath:  /\.\.\//

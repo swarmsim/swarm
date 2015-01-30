@@ -4,19 +4,22 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
-    @_lastUpgradeSeen = 0
+    @_lastUpgradeSeen = new Decimal 0
   _init: ->
     @costByName = {}
     @cost = _.map @type.cost, (cost) =>
       util.assert cost.unittype, 'upgrade cost without a unittype', @name, name, cost
       ret = _.clone cost
       ret.unit = util.assert @game.unit cost.unittype
+      ret.val = new Decimal ret.val
+      ret.factor = new Decimal ret.factor
       @costByName[ret.unit.name] = ret
       return ret
     @requires = _.map @type.requires, (require) =>
       util.assert require.unittype, 'upgrade require without a unittype', @name, name, require
       ret = _.clone require
       ret.unit = util.assert @game.unit require.unittype
+      ret.val = new Decimal ret.val
       return ret
     @effect = _.map @type.effect, (effect) =>
       return new Effect @game, this, effect
@@ -28,21 +31,21 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       ret = 0
     # we shouldn't ever exceed maxlevel, but just in case...
     if @type.maxlevel
-      ret = Math.min @type.maxlevel, ret
-    return ret
+      ret = Decimal.min @type.maxlevel, ret
+    return new Decimal ret
   _setCount: (val) ->
-    @game.session.upgrades[@name] = val
+    @game.session.upgrades[@name] = new Decimal val
     @game.cache.onUpdate()
   _addCount: (val) ->
-    @_setCount @count() + val
+    @_setCount @count().plus val
   _subtractCount: (val) ->
-    @_addCount -val
+    @_addCount new Decimal(val).negated()
 
   isVisible: ->
     # disabled: hack for larvae/showparent. We really need to just remove showparent already...
     if not @unit.isVisible() and not @unit.unittype.disabled
       return false
-    if @type.maxlevel? and @count() >= @type.maxlevel
+    if @type.maxlevel? and @count().greaterThanOrEqualTo @type.maxlevel
       return false
     if @type.disabled
       return false
@@ -50,72 +53,77 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       return true
     return @_visible = @_isVisible()
   _isVisible: ->
-    if @count() > 0
+    if @count().greaterThan 0
       return true
     for require in @requires
-      if require.val > require.unit.count()
+      if require.val.greaterThan require.unit.count()
         return false
     return true
   totalCost: ->
     return @game.cache.upgradeTotalCost[@name] ?= @_totalCost()
-  _totalCost: (count=@count() + @unit.stat 'upgradecost', 0) ->
+  _totalCost: (count=@count().plus(@unit.stat 'upgradecost', 0)) ->
     _.map @cost, (cost) =>
       total = _.clone cost
-      total.val *= Math.pow total.factor, count
+      total.val = total.val.times Decimal.pow total.factor, count
       return total
   sumCost: (num, startCount) ->
     _.map @_totalCost(startCount), (cost0) ->
       cost = _.clone cost0
       # special case: 1 / (1 - 1) == boom
-      if cost.factor == 1
-        cost.val *= num
+      if cost.factor.equals 1
+        cost.val = cost.val.times num
       else
         # see maxCostMet for O(1) summation formula derivation.
-        cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
+        # cost.val *= (1 - Math.pow cost.factor, num) / (1 - cost.factor)
+        cost.val = cost.val.times Decimal.ONE.minus(Decimal.pow cost.factor, num).dividedBy(Decimal.ONE.minus cost.factor)
       return cost
   isCostMet: ->
-    return @maxCostMet() > 0
+    return @maxCostMet().greaterThan 0
 
   maxCostMet: (percent=1) ->
-    # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
-    #
-    # been way too long since my math classes... given from wikipedia:
-    # > cost.unit.count = cost.val (1 - cost.factor ^ maxAffordable) / (1 - cost.factor)
-    # solve the equation for maxAffordable to get the formula below.
-    #
-    # This is O(1), but that's totally premature optimization - should really
-    # have just brute forced this, we don't have that many upgrades so O(1)
-    # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
-    # do, kids.
-    max = (@type.maxlevel - @count()) or Number.MAX_VALUE
-    for cost in @totalCost()
-      util.assert cost.val > 0, 'upgrade cost <= 0', @name, this
-      if cost.factor == 1 #special case: math.log(1) == 0; x / math.log(1) == boom
-        m = cost.unit.count() / cost.val
-      else
-        m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
-      max = Math.min max, m
-      #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
-    return Math.floor max
+    return @game.cache.upgradeMaxCostMet["#{@name}:#{percent}"] ?= do =>
+      # https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series
+      #
+      # been way too long since my math classes... given from wikipedia:
+      # > cost.unit.count = cost.val (1 - cost.factor ^ maxAffordable) / (1 - cost.factor)
+      # solve the equation for maxAffordable to get the formula below.
+      #
+      # This is O(1), but that's totally premature optimization - should really
+      # have just brute forced this, we don't have that many upgrades so O(1)
+      # math really doesn't matter. Yet I did it anyway. Do as I say, not as I
+      # do, kids.
+      max = new Decimal Infinity
+      if @type.maxlevel
+        max = new Decimal(@type.maxlevel).minus(@count())
+      for cost in @totalCost()
+        util.assert cost.val.greaterThan(0), 'upgrade cost <= 0', @name, this
+        if cost.factor.equals(1) #special case: math.log(1) == 0; x / math.log(1) == boom
+          m = cost.unit.count().dividedBy(cost.val)
+        else
+          #m = Math.log(1 - (cost.unit.count() * percent) * (1 - cost.factor) / cost.val) / Math.log cost.factor
+          m = Decimal.ONE.minus(cost.unit.count().times(percent).times(Decimal.ONE.minus cost.factor).dividedBy(cost.val)).log().dividedBy(cost.factor.log())
+        max = Decimal.min max, m
+        #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
+      return max.floor()
 
   costMetPercent: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
-    max = Number.MAX_VALUE
-    if @type.maxlevel? and @maxCostMet() + 1 > @type.maxlevel
-      return 1
-    for cost in @sumCost @maxCostMet() + 1
-      count = cost.unit.count() - costOfMet[cost.unit.name].val
-      val = cost.val - costOfMet[cost.unit.name].val
-      max = Math.min max, (count / val)
-    return Math.min 1, Math.max 0, max
+    max = new Decimal Infinity
+    if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
+      return Decimal.ONE
+    for cost in @sumCost @maxCostMet().plus(1)
+      count = cost.unit.count().minus costOfMet[cost.unit.name].val
+      val = cost.val.minus costOfMet[cost.unit.name].val
+      max = Decimal.min max, (count.dividedBy val)
+    return Decimal.min 1, Decimal.max 0, max
 
   # TODO merge with costMetPercent
   estimateSecs: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = {val:0, unit:null}
-    if @type.maxlevel? and @maxCostMet() + 1 > @type.maxlevel
+    if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
       return 0
-    for cost in @sumCost @maxCostMet() + 1
+    for cost in @sumCost @maxCostMet().plus(1)
       secs = cost.unit.estimateSecs cost.val
       if max.val < secs
         max = {val:secs, unit:cost.unit}
@@ -128,12 +136,19 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     #@_lastUpgradeSeen < @maxCostMet()
     @isUpgradable(costPercent) and not @isIgnored()
   isIgnored: ->
-    @_lastUpgradeSeen != 0
+    @_lastUpgradeSeen and !@_lastUpgradeSeen.isZero()
   unignore: ->
-    @_lastUpgradeSeen = 0
+    @_lastUpgradeSeen = new Decimal 0
   isUpgradable: (costPercent=undefined) ->
-    #@_lastUpgradeSeen < @maxCostMet()
-    @isBuyable() and @maxCostMet(costPercent) > 0 and @type.class == 'upgrade'
+    # if an upgrade's available, it won't disappear before the next update. however, unavailable
+    # upgrades may become available anytime - so only the true case is cacheable.
+    # lots of extra trouble to do this complex caching, but maxCostMet is so expensive it's worth it.
+    if @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"]
+      return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"]
+    ret = @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
+    if ret
+      @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] = ret
+    return ret
   isAutobuyable: ->
     # don't autobuy meat-twins or mutations
     # TODO this should be a spreadsheet column
@@ -152,18 +167,20 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       throw new Error "We require more resources"
     if not @isBuyable()
       throw new Error "Cannot buy that upgrade"
-    num = Math.min num, @maxCostMet()
+    num = Decimal.min num, @maxCostMet()
     $log.debug 'buy', @name, num
     @game.withSave =>
       for cost in @sumCost num
-        util.assert cost.unit.count() >= cost.val, "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
-        util.assert cost.val > 0, "zero cost from sumCost, yet cost was met?", @name, name, cost
+        util.assert cost.unit.count().greaterThanOrEqualTo(cost.val), "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
+        util.assert cost.val.greaterThan(0), "zero cost from sumCost, yet cost was met?", @name, name, cost
         cost.unit._subtractCount cost.val
       count = @count()
       @_addCount num
-      for i in [0...num]
+      # limited to buying less than 1e300 upgrades at once. cost-factors, etc. ensure this is okay.
+      # (not to mention 1e300 onBuy()s would take forever)
+      for i in [0...num.toNumber()]
         for effect in @effect
-          effect.onBuy count + i + 1
+          effect.onBuy count.plus(i + 1)
       @viewNewUpgrades()
       return num
 

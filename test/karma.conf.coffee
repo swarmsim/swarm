@@ -5,6 +5,9 @@
 
 module.exports = (config) ->
   config.set
+    # game:build-all-upgrades test needs the extra time
+    browserNoActivityTimeout: 20000
+
     # base path, that will be used to resolve files and exclude
     basePath: '../'
 
@@ -35,6 +38,7 @@ module.exports = (config) ->
       'bower_components/jquery/dist/jquery.js'
       'bower_components/favico.js/favico.js'
       'bower_components/seedrandom/seedrandom.js'
+      'bower_components/decimal.js/decimal.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'

@@ -70,7 +70,7 @@ describe 'Service: unit', ->
 
   ct = (name, dt) ->
     game.tick new Date dt*1000
-    return game.unit(name).count()
+    return game.unit(name).count().toNumber()
   withNoTick = (game, fn) ->
     now = game.now
     try
@@ -89,8 +89,8 @@ describe 'Service: unit', ->
     expect(ct 'meat', 9.5).toBe 9.5
   it 'calculates a single resource\'s velocity (drone:1)', ->
     game = mkgame {drone:1}
-    expect(game.unit('meat').velocity()).toBe 1
-    expect(game.unit('drone').velocity()).toBe 0
+    expect(game.unit('meat').velocity().toNumber()).toBe 1
+    expect(game.unit('drone').velocity().toNumber()).toBe 0
   it 'calculates a single resource\'s value over time (meat:3,drone:2)', ->
     game = mkgame {meat:3, drone:2}
     expect(ct 'meat', 0).toBe 3
@@ -127,10 +127,10 @@ describe 'Service: unit', ->
 
   it 'calculates costs', ->
     game = mkgame {larva:100,meat:25}
-    expect(game.unit('drone').maxCostMet()).toBe 2
+    expect(game.unit('drone').maxCostMet().toNumber()).toBe 2
     expect(game.unit('drone').isCostMet()).toBe true
     game = mkgame {larva:100,meat:9.99}
-    expect(game.unit('drone').maxCostMet()).toBe 0
+    expect(game.unit('drone').maxCostMet().toNumber()).toBe 0
     expect(game.unit('drone').isCostMet()).toBe false
 
   it 'hides advanced units', ->
@@ -152,12 +152,12 @@ describe 'Service: unit', ->
     unit = game.unit 'drone'
     unit2 = game.unit 'queen'
     upgrade = game.upgrade 'droneprod'
-    expect(unit.stats().prod).toBe 1
-    expect(unit2.stats().prod).toBe 1
+    expect(unit.stats().prod.toNumber()).toBe 1
+    expect(unit2.stats().prod.toNumber()).toBe 1
     expect(unit.stats()).toBe unit.stats()
     upgrade.buy()
-    expect(unit.stats().prod).toBeGreaterThan 1
-    expect(unit2.stats().prod).toBe 1
+    expect(unit.stats().prod.toNumber()).toBeGreaterThan 1
+    expect(unit2.stats().prod.toNumber()).toBe 1
 
   it 'pukes for nonexistent stats', ->
     game = mkgame {}
@@ -168,68 +168,67 @@ describe 'Service: unit', ->
     game = mkgame {larva:9999999,meat:9999999,drone:99999999999999, queen:9999999999999}
     unit = game.unit 'drone'
     upgrade = game.upgrade 'dronetwin'
-    expect(unit.twinMult()).toBe 1
-    count = unit.count()
+    expect(unit.twinMult().toNumber()).toBe 1
+    count = unit.count().toNumber()
     withNoTick game, -> unit.buy 1
-    expect(unit.count()).toBe count + 1
+    expect(unit.count().toNumber()).toBe count + 1
 
     withNoTick game, -> upgrade.buy()
-    expect(unit.twinMult()).toBe 2
-    count = unit.count()
+    expect(unit.twinMult().toNumber()).toBe 2
+    count = unit.count().toNumber()
     withNoTick game, -> unit.buy 1
-    expect(unit.count()).toBe count + 2
+    expect(unit.count().toNumber()).toBe count + 2
     withNoTick game, -> unit.buy 5
-    expect(unit.count()).toBe count + 12
+    expect(unit.count().toNumber()).toBe count + 12
 
     withNoTick game, -> upgrade.buy()
-    expect(unit.twinMult()).toBe 4
-    count = unit.count()
+    expect(unit.twinMult().toNumber()).toBe 4
+    count = unit.count().toNumber()
     withNoTick game, -> unit.buy 1
-    expect(unit.count()).toBe count + 4
+    expect(unit.count().toNumber()).toBe count + 4
     withNoTick game, -> unit.buy 5
-    expect(unit.count()).toBe count + 24
+    expect(unit.count().toNumber()).toBe count + 24
 
   it 'buys multiplicative twin units (military)', ->
     game = mkgame {larva:9999999,meat:9999999,swarmling:0, queen:5}
     unit = game.unit 'swarmling'
     upgrade = game.upgrade 'swarmlingtwin'
-    expect(unit.twinMult()).toBe 1
-    count = unit.count()
+    expect(unit.twinMult().toNumber()).toBe 1
+    count = unit.count().toNumber()
     withNoTick game, -> unit.buy 1
-    expect(unit.count()).toBe count + 1
+    expect(unit.count().toNumber()).toBe count + 1
 
     withNoTick game, -> upgrade.buy()
-    expect(unit.twinMult()).toBe 2
-    count = unit.count()
+    expect(unit.twinMult().toNumber()).toBe 2
+    count = unit.count().toNumber()
     withNoTick game, -> unit.buy 1
-    expect(unit.count()).toBe count + 2
+    expect(unit.count().toNumber()).toBe count + 2
     withNoTick game, -> unit.buy 5
-    expect(unit.count()).toBe count + 12
+    expect(unit.count().toNumber()).toBe count + 12
 
     withNoTick game, -> upgrade.buy()
-    expect(unit.twinMult()).toBe 4
-    count = unit.count()
+    expect(unit.twinMult().toNumber()).toBe 4
+    count = unit.count().toNumber()
     withNoTick game, -> unit.buy 1
-    expect(unit.count()).toBe count + 4
+    expect(unit.count().toNumber()).toBe count + 4
     withNoTick game, -> unit.buy 5
-    expect(unit.count()).toBe count + 24
+    expect(unit.count().toNumber()).toBe count + 24
 
   it 'multiplies production', ->
     drone0 = 1000000
     game = mkgame {larva:9999999,meat:9999999,drone:drone0}
     unit = game.unit 'drone'
     upgrade = game.upgrade 'droneprod'
-    expect(unit.stat 'prod').toBe 1
+    expect(unit.stat('prod').toNumber()).toBe 1
     game.tick new Date 1000
     prod0 = withNoTick game, -> unit.totalProduction()
     game.now = new Date 0
 
-    #upgrade.buy()
     upgrade._addCount 1
-    expect(unit.stat 'prod').toBeGreaterThan 1
+    expect(unit.stat('prod').toNumber()).toBeGreaterThan 1
     game.tick new Date 1000
     prod1 = withNoTick game, -> unit.totalProduction()
-    expect(prod0.meat * unit.stat 'prod').toBe prod1.meat
+    expect(prod0.meat.times(unit.stat 'prod').toNumber()).toBe prod1.meat.toNumber()
 
   it 'parses unit requirements', ->
     game = mkgame {meat:1000000000000000000000000000000000000000, nexus:4}
@@ -240,18 +239,18 @@ describe 'Service: unit', ->
     expect(unit.requires[0].unit).toBeUndefined()
     expect(unit.requires[0].upgrade.name).toBe upgrade.name
     expect(unit.requires[0].resource.name).toBe upgrade.name
-    expect(upgrade.count()).toBe 0
+    expect(upgrade.count().toNumber()).toBe 0
     expect(unit.isVisible()).toBe false
     expect(upgrade.isVisible()).toBe true
     expect(larva.isBuyButtonVisible()).toBe false
-    expect(upgrade.maxCostMet()).toBe 1 #because...
+    expect(upgrade.maxCostMet().toNumber()).toBe 1 #because...
     expect(upgrade.type.maxlevel).toBe 1
     upgrade.buy()
-    expect(upgrade.count()).toBe 1
+    expect(upgrade.count().toNumber()).toBe 1
     expect(unit.isVisible()).toBe true
     expect(larva.isBuyButtonVisible()).toBe true
     expect(upgrade.isVisible()).toBe false #because...
-    expect(upgrade.count()).toBe upgrade.type.maxlevel
+    expect(upgrade.count().toNumber()).toBe upgrade.type.maxlevel
 
   it 'parses OR unit requirements', ->
     game = mkgame {mutagen:1}
@@ -270,21 +269,21 @@ describe 'Service: unit', ->
   it 'caps energy', ->
     game = mkgame {energy:1000000000000000000000000000000000000000, nexus:5}
     unit = game.unit 'energy'
-    expect(unit.capValue()).toBe 50000
-    expect(unit.count()).toBe 50000
-    expect(unit.capPercent()).toBe 1
+    expect(unit.capValue().toNumber()).toBe 50000
+    expect(unit.count().toNumber()).toBe 50000
+    expect(unit.capPercent().toNumber()).toBe 1
     expect(unit.capDurationSeconds()).toBe 0
     unit._setCount 50
-    expect(unit.capValue()).toBe 50000
-    expect(unit.count()).toBe 50
-    expect(unit.capPercent()).toBe 0.001
+    expect(unit.capValue().toNumber()).toBe 50000
+    expect(unit.count().toNumber()).toBe 50
+    expect(unit.capPercent().toNumber()).toBe 0.001
     expect(unit.capDurationSeconds()).toBe 99900
     expect(unit.capDurationMoment().humanize(true)).toBe 'in a day'
   it 'doesnt cap meat', ->
     game = mkgame {meat:1000000000000000000000000000000000000000}
     unit = game.unit 'meat'
     expect(unit.capValue()).toBeUndefined()
-    expect(unit.count()).toBe 1000000000000000000000000000000000000000
+    expect(unit.count().toNumber()).toBe 1000000000000000000000000000000000000000
     expect(unit.capPercent()).toBeUndefined()
     expect(unit.capDurationSeconds()).toBeUndefined()
 
@@ -292,51 +291,49 @@ describe 'Service: unit', ->
     game = mkgame {meat:1e40, larva: 1e40, queen:5}
     ling = game.unit 'swarmling'
     meat = game.unit 'meat'
-    meatcount = meat.count()
+    meatcount = meat.count().toNumber()
     empower = game.upgrade 'swarmlingempower'
-    expect(ling.count()).toBe 0
+    expect(ling.count().toNumber()).toBe 0
 
     lingmax = ling.maxCostMet()
     cost1 = _.indexBy ling.eachCost(), (c) -> c.unit.name
     ling.buy(10)
-    expect(ling.count()).toBe 10
-    expect(meat.count()).not.toBeLessThan meatcount - 750000000
+    expect(ling.count().toNumber()).toBe 10
+    expect(meat.count().toNumber()).not.toBeLessThan meatcount - 750000000
     expect(ling.suffix).toBe ''
 
     empower.buy()
     meat._setCount(meatcount)
     ling.stats() # kick stats so the suffix works
     expect(ling.suffix).toBe 'II' # empowering sets a suffix
-    expect(ling.count()).toBe 0  # empowering destroys all units
+    expect(ling.count().toNumber()).toBe 0  # empowering destroys all units
     # empowering increases cost
     cost2 = _.indexBy ling.eachCost(), (c) -> c.unit.name
-    expect(cost1.meat.val).toBeLessThan cost2.meat.val
-    expect(cost1.larva.val).toEqual cost2.larva.val
-    expect(ling.maxCostMet()).toBeLessThan lingmax
+    expect(cost1.meat.val.toNumber()).toBeLessThan cost2.meat.val.toNumber()
+    expect(cost1.larva.val.toNumber()).toEqual cost2.larva.val.toNumber()
+    expect(ling.maxCostMet().toNumber()).toBeLessThan lingmax
     ling.buy(10)
-    expect(ling.count()).toBe 10
-    expect(meat.count()).toBeLessThan meatcount - 750000000 # really does cost more than unempowered
+    expect(ling.count().toNumber()).toBe 10
+    expect(meat.count().toNumber()).toBeLessThan meatcount - 750000000 # really does cost more than unempowered
 
   it 'calculates stats from unit-effects', ->
     game = mkgame {energy:0, nexus: 1, nightbug:0}
     [energy, nexus, nightbug] = _.map ['energy', 'nexus', 'nightbug'], (name) -> game.unit name
-    expect(energy._getCap()).toBe 10000
+    expect(energy._getCap().toNumber()).toBe 10000
     nexus._setCount 2
-    expect(energy._getCap()).toBe 20000
+    expect(energy._getCap().toNumber()).toBe 20000
     nightbug._setCount 250
-    # darn floating-point precision
-    expect(energy._getCap()).toBeLessThan 40000
-    expect(energy._getCap()).toBeGreaterThan 39999
+    expect(energy._getCap().toNumber()).toBe 40000
 
   it 'calculates resources spent for units', ->
     game = mkgame {meat:0, drone:3}
     meat = game.unit 'meat'
-    expect(meat.spent()).toBe 30
+    expect(meat.spent().toNumber()).toBe 30
 
   it 'calculates resources spent for upgrades', ->
     game = mkgame {meat:0, drone:3}
     game.upgrade('hatchery')._setCount 1
     meat = game.unit 'meat'
-    expect(meat.spent()).toBe 330
+    expect(meat.spent().toNumber()).toBe 330
     game.upgrade('hatchery')._setCount 3
-    expect(meat.spent()).toBe 33330
+    expect(meat.spent().toNumber()).toBe 33330
