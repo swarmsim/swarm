@@ -44,7 +44,7 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
 
   notation: (val) ->
     if val?
-      valid = {'standard-decimal':true, 'scientific-e':true, 'hybrid':true}
+      valid = {'standard-decimal':true, 'scientific-e':true, 'hybrid':true, 'engineering':true}
       util.assert valid[val], 'invalid options.notation value', val
       @maybeSet 'notation', val
     @get 'notation', 'standard-decimal'

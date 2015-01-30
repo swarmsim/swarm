@@ -42,6 +42,13 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       # so hacky
       if options.notation() == 'hybrid'
         suffixes = suffixes.slice 0, 12
+      if options.notation() == 'engineering'
+        #p = num.e; #Math.log10(num);
+        p = num.e - (num.e % 3)
+        e = Decimal.pow 10,p
+        n = Math.floor(num.dividedBy e)
+        m = num.mod( e)
+        return new Decimal("#{n}.#{m.toFixed()}").toSignificantDigits(opts.sigfigs) +  "E" + p
       if options.notation() == 'scientific-e' or index >= suffixes.length
         # too big for any suffix :(
         # TODO: exponent groups of 3? 1e30, 10e30, 100e30, 1e33, ...

@@ -21,6 +21,7 @@
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="standard-decimal" ng-change="options.notation(form.notation)">Standard decimal</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="scientific-e" ng-change="options.notation(form.notation)" ng-init="form.notation=options.notation()">Scientific-E</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="hybrid" ng-change="options.notation(form.notation)">Hybrid</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="engineering" ng-change="options.notation(form.notation)">Engineering</input></label>
     <p>Examples: {{123456789|longnum}}, {{123456789|bignum}}, {{123456789e+30|longnum}}, {{123456789e+30|bignum}}</p>
   </div>
   <div class="form-group">
