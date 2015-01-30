@@ -1,7 +1,7 @@
 <div class="dropdown btn-group" ng-if="isBuyButtonVisible()">
   <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="click()">
-    <span ng-if="unit.maxCostMet()">Buy up to {{unit.maxCostMet().times(statTwin())|bignum}}</span>
-    <span ng-if="!unit.maxCostMet()" class="disabled">Can't buy</span>
+    <span ng-if="!unit.maxCostMet().isZero()">Buy up to {{unit.maxCostMet().times(statTwin())|bignum}}</span>
+    <span ng-if="unit.maxCostMet().isZero()" class="disabled">Can't buy</span>
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
