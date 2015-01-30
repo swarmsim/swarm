@@ -119,7 +119,6 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # parse strings, for decimal.js compatibility in case of rollback
       for obj in [ret.unittypes, ret.upgrades]
         for key, val of obj
-          console.log key, val
           obj[key] = Number val
       # check save version for validity
       @_validateSaveVersion ret.version?.started
