@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'ProducerPath', ($log) -> class ProducerPath
+angular.module('swarmApp').factory 'ProducerPath', ($log, UNIT_LIMIT) -> class ProducerPath
   constructor: (@unit, @path) ->
     pathname = _.map(@path, (p) => p.parent.name).join '>'
     # unit.name's in the name twice, just so there's no confusion about where the path ends
@@ -17,10 +17,10 @@ angular.module('swarmApp').factory 'ProducerPath', ($log) -> class ProducerPath
         ret = ret.times val
         ret = ret.times ancestordata.parent.stat 'prod', 1
         # Cap ret, just like count(). This prevents Infinity * 0 = NaN problems, too.
-        ret = Decimal.min ret, 1e300
+        ret = Decimal.min ret, UNIT_LIMIT
       return ret
 
-angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) -> class Unit
+angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UNIT_LIMIT) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
@@ -136,7 +136,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
       # if both are undefined, prefer undefined to NaN, mostly for legacy
       if not val?
         return val
-      return Decimal.min val, 1e+300
+      return Decimal.min val, UNIT_LIMIT
     if not val?
       # no value supplied - return just the cap
       return cap
@@ -303,8 +303,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath) ->
         prod = parent.totalProduction()
         util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
         sum = sum.plus prod[@name]
-      # global anti-infinity cap just like count()
-      return Decimal.min 1e300, sum
+      return Decimal.min UNIT_LIMIT, sum
 
   isVelocityConstant: ->
     for parent in @_parents()

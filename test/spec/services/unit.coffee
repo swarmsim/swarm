@@ -337,3 +337,8 @@ describe 'Service: unit', ->
     expect(meat.spent().toNumber()).toBe 330
     game.upgrade('hatchery')._setCount 3
     expect(meat.spent().toNumber()).toBe 33330
+
+  it 'caps units globally and exceeds the JS max', ->
+    game = mkgame {meat:'1e999'}
+    console.log game.unit('meat').count().toString()
+    expect(game.unit('meat').count()+'').toBe '1e+400'
