@@ -86,6 +86,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @diffMillis() / 1000
 
   skipMillis: (millis) ->
+    millis = Math.floor millis
     @skippedMillis += millis
     @session.skippedMillis += millis
   skipDuration: (duration) ->
