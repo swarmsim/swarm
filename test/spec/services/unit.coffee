@@ -340,5 +340,4 @@ describe 'Service: unit', ->
 
   it 'caps units globally and exceeds the JS max', ->
     game = mkgame {meat:'1e999'}
-    console.log game.unit('meat').count().toString()
     expect(game.unit('meat').count()+'').toBe '1e+400'
