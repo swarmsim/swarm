@@ -125,7 +125,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
               count = require.unit.statistics().twinnum ? 0
               count = new Decimal count
             $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
-            if count? && count.greaterThan(require.val)
+            if count? && count.greaterThanOrEqualTo(require.val)
               $log.debug 'earned', achieve.name, achieve
               # requirements are 'or'ed
               achieve.earn()
@@ -137,7 +137,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
           # no upgrade-generators, so count() is safe
           count = require.upgrade.count()
           $log.debug 'achievement check: upgradecount after command', require.upgrade.name, count, count? && count >= require.val
-          if count? && count.greaterThan(require.val)
+          if count? && count.greaterThanOrEqualTo(require.val)
             $log.debug 'earned', achieve.name, achieve
             # requirements are 'or'ed
             achieve.earn()
