@@ -22,9 +22,10 @@ angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
       if premutagen.count().isZero() and ascension.count().isZero() and (hatchery.count().greaterThanOrEqualTo(minlevel) or expansion.count().greaterThanOrEqualTo(minlevel))
         $log.info 'backfilling mutagen for old save'
         for up in [hatchery, expansion]
-          for i in [0...up.count()]
+          # toNumber is safe; old saves won't exceed 1e300 expansions/hatcheries
+          for i in [0...up.count().toNumber()]
             for e in up.effect
-              e.onBuy i + 1
+              e.onBuy new Decimal i + 1
       else
         $log.debug 'no mutagen backfill necessary'
 
