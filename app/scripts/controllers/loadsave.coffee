@@ -17,8 +17,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     $event.target.select()
 
   $scope.feedbackUrl = ->
-    param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.form.error}|#{$scope.form.export}"
-    "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
+    session.feedbackUrl $scope.form.error
 
   exportedsave = session.getStoredSaveData()
   try

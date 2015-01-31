@@ -46,6 +46,4 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $log.debug 'konami'
 
   $scope.feedbackUrl = ->
-    param = "#{version}|#{window?.navigator?.userAgent}|#{$scope.session.exportSave()}"
-    "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
-    #"https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform"
+    session.feedbackUrl()
