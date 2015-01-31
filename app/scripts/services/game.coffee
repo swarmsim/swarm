@@ -218,6 +218,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   withSave: (fn) ->
     @reify()
     ret = fn()
+    # reify a second time for swarmwarp; https://github.com/erosson/swarm/issues/241
+    # Unnecessary for other things, but mostly harmless.
+    @reify()
     @session.save()
     @cache.onUpdate()
     return ret
