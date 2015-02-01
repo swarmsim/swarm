@@ -2,6 +2,8 @@
 
 angular.module('swarmApp').factory 'Cache', -> class Cache
   constructor: ->
+    # Never cleared; hacky way to pass messages that get cleared on reload
+    @firstSpawn = {}
     @onUpdate()
 
   onPeriodic: ->
@@ -26,6 +28,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @totalProduction = {}
     @upgradeMaxCostMet = {}
     @unitMaxCostMet = {}
+    delete @tutorialStep
 
     # clear periodic caches every few seconds
     if new Date().getTime() - @_lastPeriodicClear >= 3000

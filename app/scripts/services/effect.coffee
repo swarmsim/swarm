@@ -87,6 +87,9 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     onBuy: (effect, game, parent, level) ->
       out = @output effect, game, parent, level
       if out.spawned
+        if effect.unit.count().isZero()
+          # first spawn. Show tutorial text, this session only. This is totally hacky.
+          game.cache.firstSpawn[effect.unit.name] = game.now
         effect.unit._addCount out.qty
     output: (effect, game, parent=effect.parent, level=parent.count()) ->
       # minimum level needed to spawn units. Also, guarantees a spawn at exactly this level.
