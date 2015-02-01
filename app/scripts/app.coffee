@@ -94,7 +94,7 @@ angular.module('swarmApp').run ($rootScope) ->
     window.Decimal = window.module.exports
     delete window.module.exports
 
-angular.module('swarmApp').value 'UNIT_LIMIT', '1e300'
+angular.module('swarmApp').value 'UNIT_LIMIT', '1e400'
 
 angular.module('swarmApp').run ($rootScope) ->
   #Decimal.config errors:false
