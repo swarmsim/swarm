@@ -43,7 +43,8 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
         suffixes = suffixes.slice 0, 12
       if options.notation() == 'scientific-e' or index >= suffixes.length
         # no suffix, use scientific notation. No grouping in threes or suffixes; quit early.
-        return num.toExponential(opts.sigfigs-1).replace 'e+', 'e'
+        # round down for consistency with suffixed formats, though rounding doesn't matter so much here.
+        return num.toExponential(opts.sigfigs-1, Decimal.ROUND_FLOOR).replace 'e+', 'e'
       if options.notation() == 'engineering'
         # Engineering works like standard, but with number-based suffixes instead of a hardcoded list
         suffix = "E#{index * 3}"
@@ -54,8 +55,9 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       # regex removes trailing zeros and decimal
       # based on http://stackoverflow.com/a/16471544
       #return "#{num.toPrecision(3).replace(/\.([^0]*)0+$/, '.$1').replace(/\.$/, '')}#{suffix}"
-      # turns out it's very distracting to have the number length change, so keep trailing zeros
-      return "#{num.toPrecision(opts.sigfigs).replace(/\.$/, '')}#{suffix}"
+      # turns out it's very distracting to have the number length change, so keep trailing zeros.
+      # always round down to fix #245
+      return "#{num.toPrecision(opts.sigfigs, Decimal.ROUND_FLOOR)}#{suffix}"
 
 angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google
