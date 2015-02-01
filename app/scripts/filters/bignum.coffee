@@ -31,30 +31,24 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
         # toLocaleString would be nice for foreign users, but my unittests are
         # more important, sorry. Maybe later.
         return numeral(num.toNumber()).format '0,0'
-      # nope. Numeral only supports up to trillions, so have to do this myself :(
-      # return numeral(num).format '0.[00]a'
       # http://mathforum.org/library/drmath/view/59154.html
       #index = num.log().dividedToIntegerBy(Decimal.log 1000)
       # Decimal.log() is too slow for large numbers. Docs say performance degrades exponentially as # digits increases, boo.
       # Lucky me, the length is used by decimal.js internally: num.e
       # this is in the docs, so I think it's stable enough to use...
       index = Math.floor num.e / 3
-      # so hacky
+
       if options.notation() == 'hybrid'
+        # hybrid is like standard, but switches to scientific notation sooner: shorter suffix list
         suffixes = suffixes.slice 0, 12
-      if options.notation() == 'engineering'
-        #p = num.e; #Math.log10(num);
-        p = num.e - (num.e % 3)
-        e = Decimal.pow 10,p
-        n = Math.floor(num.dividedBy e)
-        m = num.mod( e)
-        return new Decimal("#{n}.#{m.toFixed()}").toSignificantDigits(opts.sigfigs) +  "E" + p
       if options.notation() == 'scientific-e' or index >= suffixes.length
-        # too big for any suffix :(
-        # TODO: exponent groups of 3? 1e30, 10e30, 100e30, 1e33, ...
-        #return num.toExponential(2).replace(/\.?0+e/, 'e').replace 'e+', 'e'
+        # no suffix, use scientific notation. No grouping in threes or suffixes; quit early.
         return num.toExponential(opts.sigfigs-1).replace 'e+', 'e'
+      if options.notation() == 'engineering'
+        # Engineering works like standard, but with number-based suffixes instead of a hardcoded list
+        suffix = "E#{index * 3}"
       else
+        # use standard-decimal's suffix list
         suffix = suffixes[index]
       num = num.dividedBy Decimal.pow 1000, index
       # regex removes trailing zeros and decimal
