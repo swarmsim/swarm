@@ -10407,7 +10407,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val2": "",
         "label": "I am rich",
         "lol": "",
-        "maxlevel": "",
+        "maxlevel": 1,
         "name": "iamrich",
         "requires.unittype": "meat",
         "requires.val": 1e+280,
