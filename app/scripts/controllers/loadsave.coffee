@@ -59,7 +59,7 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
   # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
   $scope.durationSinceClosed = game.session.durationSinceClosed()
   $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
-  $scope.showWelcomeBack = true # uncomment for testing!
+  #$scope.showWelcomeBack = true # uncomment for testing!
   if not $scope.showWelcomeBack
     return
 
