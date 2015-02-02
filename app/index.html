@@ -67,6 +67,22 @@ https://github.com/erosson/swarm
           </p>
         </div>
       </div>
+      <div ng-cloak ng-controller="WelcomeBackCtrl">
+        <div id="welcomeback" class="alert alert-info alert-dismissible animif" role="alert" ng-if="showWelcomeBack">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <p>Welcome back! While you were away for {{durationSinceClosed.humanize()}}, your swarm produced
+          <!--span ng-repeat="gain in offlineGains">
+            <span ng-if="!$first && $last"> and </span>
+              {{gain.val | longnum}}
+              <a ng-href="#{{gain.unit.url()}}" ng-click="closeWelcomeBack()">{{gain.unit.unittype.plural}}</a><span ng-if="!$last && offlineGains.length > 2">, </span></span>.</p-->
+          <ul>
+            <li ng-repeat="gain in offlineGains">
+              {{gain.val | longnum}}
+              <a ng-href="#{{gain.unit.url()}}" ng-click="closeWelcomeBack()">{{gain.unit.unittype.plural}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <tutorial></tutorial>
       <div class="viewwrap"><div ng-view=""><center><img src="images/ajax-loader.gif"></center></div></div>

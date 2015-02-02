@@ -48,3 +48,48 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     $log.info 'loading game from url successful!'
 
   backfill.run game
+
+angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game) ->
+  # Store when the game was closed. Try to use the browser's onclose (onunload); that's most precise.
+  # It's unreliable though (crashes fail, cross-browser's icky, ...) so use a heartbeat too.
+  $(window).unload -> game.session.onClose()
+  $interval (-> game.session.onHeartbeat()), 60000
+  game.session.onHeartbeat()
+
+  # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
+  $scope.durationSinceClosed = game.session.durationSinceClosed()
+  $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
+  $scope.showWelcomeBack = true # uncomment for testing!
+  if not $scope.showWelcomeBack
+    return
+
+  $scope.closeWelcomeBack = ->
+    $log.debug 'closeWelcomeBack'
+    $('#welcomeback').alert('close')
+    return undefined #quiets an angular error
+
+  reifiedToCloseDiffInSecs = (game.session.dateClosed().getTime() - game.session.date.reified.getTime()) / 1000
+  $log.info 'time since game closed', $scope.durationSinceClosed.humanize(),
+    millis:game.session.millisSinceClosed()
+    reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
+  # show all tab-leading units, and three leading generations of meat
+  interestingUnits = []
+  leaders = 0
+  for unit in game.tabs.byName.meat.sortedUnits
+    if leaders >= 3
+      break
+    if !unit.velocity().isZero()
+      leaders += 1
+      interestingUnits.push unit
+  interestingUnits = interestingUnits.concat _.map game.tabs.list, 'leadunit'
+  # TODO insert highest meat units
+  uniq = {}
+  $scope.offlineGains = _.map interestingUnits, (unit) ->
+    if not uniq[unit.name]
+      uniq[unit.name] = true
+      countNow = unit.count()
+      countClosed = unit._countInSecsFromReified reifiedToCloseDiffInSecs
+      countDiff = countNow.minus countClosed
+      if not countDiff.isZero()
+        return unit:unit, val:countDiff
+  $scope.offlineGains = (g for g in $scope.offlineGains when g)

@@ -21,6 +21,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
   return new class Session
     constructor: ->
       @id = env.saveId
+      @heartbeatId = "#{@id}:heartbeat"
       $log.debug 'save id', @id
       util.assert @id, 'no save id defined'
       @reset()
@@ -34,6 +35,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
         saved: now
         loaded: now
         reified: now
+        closed: now
       @options = {}
       @upgrades = {}
       @statistics = {}
@@ -170,3 +172,39 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       if url.length > LIMIT
         url = url.substring(0,LIMIT) + encodeURIComponent "...TRUNCATED..."
       return url
+
+    onClose: ->
+      # onclose() in browsers is flaky. Need to rely on periodic heartbeats too.
+      @date.closed = new Date()
+      @save()
+
+    onHeartbeat: ->
+      # periodically save the current date, in case onClose() doesn't fire.
+      # give it its own localstorage slot, so it saves quicker (it's more frequent than other saves)
+      # and generally doesn't screw with the rest of the session. It won't be exported; that's fine.
+      localStorage.setItem @heartbeatId, new Date()
+
+    _getHeartbeatDate: ->
+      try
+        if (heartbeat = localStorage.getItem @heartbeatId)
+          return new Date heartbeat
+      catch e
+        $log.debug "Couldn't load heartbeat time to determine game-closed time. No biggie, continuing.", e
+    dateClosed: ->
+      # don't just use date.closed - maybe the browser crashed and it didn't fire. Use the latest date possible.
+      closed = 0
+      if (hb = @_getHeartbeatDate())
+        closed = Math.max closed, hb.getTime()
+      for key, date of @date
+        if key != 'loaded'
+          closed = Math.max closed, date.getTime()
+      return new Date closed
+    millisSinceClosed: (now=new Date()) ->
+      closed = @dateClosed()
+      ret = now.getTime() - closed.getTime()
+      #$log.info {closed:closed, now:now.getTime(), diff:ret}
+      return ret
+
+    durationSinceClosed: (now) ->
+      ms = @millisSinceClosed now
+      return moment.duration ms, 'milliseconds'
