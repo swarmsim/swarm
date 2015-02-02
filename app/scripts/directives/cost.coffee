@@ -19,7 +19,7 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   template: """
   <span ng-repeat="cost in costlist track by cost.unit.name">
     <span ng-if="!$first && $last"> and </span>
-    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{countRemaining(cost)|encodeURIComponent}}">
+    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{showRemaining(cost)|encodeURIComponent}}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
     --></a><span ng-if="!isRemainingBuyable(cost)" ng-class="{costNotMet:!isCostMet(cost)}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
@@ -35,6 +35,13 @@ angular.module('swarmApp').directive 'cost', ($log) ->
       cost.unit.count().greaterThanOrEqualTo(scope.totalCostVal(cost))
     scope.countRemaining = (cost) ->
       return scope.totalCostVal(cost).minus(cost.unit.count()).ceil()
+    scope.showRemaining = (cost) ->
+      ret = scope.countRemaining cost
+      if _.contains ret+'', 'e'
+        # Round exponential formats up, so we always pay a little more than needed rather than a little less
+        # Why precision-3? Because precision-2 and precision-1 didn't work. Rounding is weird.
+        ret = ret.toSignificantDigits(Decimal.precision-3, Decimal.ROUND_CEIL)
+      return ret+''
     scope.isRemainingBuyable = (cost) ->
       remaining = scope.countRemaining cost
       # there is a cost remaining that we can't afford, but the remaining units are buyable. Can't necessarily afford them, even one.
