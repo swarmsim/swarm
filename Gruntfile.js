@@ -557,11 +557,14 @@ module.exports = function (grunt) {
 
     // Test settings
     karma: {
+      // singleRun is needed or else livereload stops working. boo.
       unit: {
         configFile: 'test/karma-unit.conf.coffee',
+        singleRun: true
       },
       integration: {
         configFile: 'test/karma-integration.conf.coffee',
+        singleRun: true
       },
       unit_ci: {
         configFile: 'test/karma-unit.conf.coffee',
