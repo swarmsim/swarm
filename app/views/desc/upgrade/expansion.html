@@ -1,5 +1,5 @@
 <p>Each expansion increases your hatcheries' larvae production by {{upgrade.type.effect[0].val | percent:{plusOne:true} }}.
 Currently, your expansions increase hatchery production by {{upgrade.effect[0].calcStats().prod | percent:{plusOne:true,longnum:true} }}.</p>
-<p ng-if="upgrade.count().greaterThanOrEqualTo(upgrade.unit.stat('random.minlevel'))" title="Savescumming won't work, by the way.">
+<p ng-if="upgrade.count().greaterThanOrEqualTo(upgrade.unit.stat('random.minlevel.expansion'))" title="Savescumming won't work, by the way.">
 Your next expansion has a {{upgrade.unit.stat('random.freq')|percent:0}} chance to award {{upgrade.effect[1].output().qty|longnum}} mutagen.
 </p>
