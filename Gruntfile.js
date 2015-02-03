@@ -707,8 +707,8 @@ module.exports = function (grunt) {
     'copy:phonegap',
     'gh-pages:staging'
   ]);
-  grunt.registerTask('deploy-prod', [
-    'build',
-    'gh-pages:prod'
-  ]);
+  //grunt.registerTask('deploy-prod', [
+  //  'build',
+  //  'gh-pages:prod'
+  //]);
 };
