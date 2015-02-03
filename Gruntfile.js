@@ -146,11 +146,15 @@ module.exports = function (grunt) {
       },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:dist']
+        tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:test', 'karma']
+        tasks: ['newer:coffee:test', 'karma:unit']
+      },
+      integrationTest: {
+        files: ['test/integration/{,*/}*.{coffee,litcoffee,coffee.md}'],
+        tasks: ['newer:coffee:integrationTest', 'karma:integration']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -311,6 +315,15 @@ module.exports = function (grunt) {
           cwd: 'test/spec',
           src: '{,*/}*.coffee',
           dest: '.tmp/spec',
+          ext: '.js'
+        }]
+      },
+      integrationTest: {
+        files: [{
+          expand: true,
+          cwd: 'test/integration',
+          src: '{,*/}*.coffee',
+          dest: '.tmp/integration',
           ext: '.js'
         }]
       }
@@ -545,7 +558,17 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'test/karma.conf.coffee',
+        configFile: 'test/karma-unit.conf.coffee',
+      },
+      integration: {
+        configFile: 'test/karma-integration.conf.coffee',
+      },
+      unit_ci: {
+        configFile: 'test/karma-unit.conf.coffee',
+        singleRun: true
+      },
+      integration_ci: {
+        configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       }
     }
@@ -636,7 +659,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma:unit_ci',
+    'karma:integration_ci'
   ]);
 
   grunt.registerTask('build', [

@@ -43,7 +43,7 @@ module.exports = (config) ->
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
       'test/mock/**/*.coffee'
-      'test/spec/**/*.coffee'
+      'test/integration/**/*.coffee'
     ],
 
     # list of files / patterns to exclude
