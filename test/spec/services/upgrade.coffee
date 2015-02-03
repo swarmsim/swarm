@@ -298,3 +298,9 @@ describe 'Service: upgrade', ->
     expect(game.upgrade('dronetwin').isAutobuyable()).toBe false
     expect(game.upgrade('swarmlingtwin').isAutobuyable()).toBe true
     expect(game.upgrade('mutatemeat').isAutobuyable()).toBe false
+
+  it "calculates asymptotic stats multiplicatively, not additively. #264", ->
+    game = mkgame {nexus:5, moth:1e1000, mutantnexus:1e1000}
+    energyprod = game.unit('energy').velocity().toNumber()
+    expect(energyprod).toBeGreaterThan 1.9
+    expect(energyprod).toBeLessThan 2.1
