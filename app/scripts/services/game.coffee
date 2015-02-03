@@ -242,10 +242,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCost: ->
     spent = @ascendEnergySpent()
     ascends = @unit('ascension').count()
-    ascendPenalty = Decimal.pow 1.2, ascends
+    ascendPenalty = Decimal.pow 1.12, ascends
     #return Math.ceil 999999 / (1 + spent/50000)
     # initial cost 5 million, halved every 50k spent, increases 20% per past ascension
-    return ascendPenalty.times(5e6).dividedBy(Decimal.pow 2, spent.dividedBy 50000).ceil()
+    costVelocity = new Decimal(50000).times(@unit('mutagen').stat 'ascendCost', 1)
+    return ascendPenalty.times(5e6).dividedBy(Decimal.pow 2, spent.dividedBy costVelocity).ceil()
   ascendCostCapDiff: ->
     return @ascendCost().minus @unit('energy').capValue()
   ascendCostPercent: ->
