@@ -149,7 +149,7 @@ describe 'Service: game achievements', ->
     expect(game.ascendCost().toNumber()).toBe 700000
     mutants._setCount 1000
     expect(game.ascendEnergySpent().toNumber()).toBe 150000
-    expect(game.ascendCost().toNumber()).toBe 1061002
+    expect(game.ascendCost().toNumber()).toBe 989950
 
   it "ascends", ->
     game = mkgame {drone:100, premutagen:100}

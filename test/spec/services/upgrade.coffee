@@ -237,8 +237,8 @@ describe 'Service: upgrade', ->
     expect(upgrade.effect[0].output().toNumber()).toBe 2400
     expect(upgrade.effect[1].output().toNumber()).toBe 100000
 
-  it 'randomly spawns premutagen when buying hatcheries/expansions', ->
-    game = mkgame {hatchery:0, meat:9e+100, premutagen:0}
+  it 'randomly spawns premutagen when buying hatcheries', ->
+    game = mkgame {meat:9e+100, premutagen:0}
     hatchery = game.upgrade 'hatchery'
     effect = hatchery.effect[1] # mutagen-spawner effect
     premutagen = game.unit 'premutagen'
@@ -246,8 +246,20 @@ describe 'Service: upgrade', ->
     expect(premutagen.count().toNumber()).toBe 0
     hatchery.buy 1
     # random range. first spawn is guaranteed.
-    expect(premutagen.count().toNumber()).not.toBeGreaterThan 6000
-    expect(premutagen.count().toNumber()).not.toBeLessThan 3000
+    expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
+    expect(premutagen.count().toNumber()).not.toBeLessThan 7000
+
+  it 'randomly spawns premutagen when buying expansions', ->
+    game = mkgame {territory:9e+999, premutagen:0}
+    hatchery = game.upgrade 'expansion'
+    effect = hatchery.effect[1] # mutagen-spawner effect
+    premutagen = game.unit 'premutagen'
+    hatchery.buy 79
+    expect(premutagen.count().toNumber()).toBe 0
+    hatchery.buy 1
+    # random range. first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
+    expect(premutagen.count().toNumber()).not.toBeLessThan 7000
 
   it 'swarmwarps without changing energy', ->
     game = mkgame {energy:50000, nexus:999, invisiblehatchery:1, drone:1, meat:0}
