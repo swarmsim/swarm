@@ -127,12 +127,13 @@ describe 'Service: game achievements', ->
     game = mkgame {nexus:1e100, energy:1e100}
     ascends = game.unit 'ascension'
     warps = game.upgrade 'swarmwarp'
+    mutants = game.unit 'mutantnexus'
     expect(game.ascendEnergySpent().toNumber()).toBe 0
     expect(game.ascendCost().toNumber()).toBe 5000000
     ascends._setCount 1
-    expect(game.ascendCost().toNumber()).toBe 6000000
+    expect(game.ascendCost().toNumber()).toBe 5600000
     ascends._setCount 2
-    expect(game.ascendCost().toNumber()).toBe 7200000
+    expect(game.ascendCost().toNumber()).toBe 6272000
     ascends._setCount 0
     warps._setCount 25
     expect(game.ascendEnergySpent().toNumber()).toBe 50000
@@ -145,7 +146,10 @@ describe 'Service: game achievements', ->
     expect(game.ascendCost().toNumber()).toBe 625000
     ascends._setCount 1
     expect(game.ascendEnergySpent().toNumber()).toBe 150000
-    expect(game.ascendCost().toNumber()).toBe 750000
+    expect(game.ascendCost().toNumber()).toBe 700000
+    mutants._setCount 1000
+    expect(game.ascendEnergySpent().toNumber()).toBe 150000
+    expect(game.ascendCost().toNumber()).toBe 1061002
 
   it "ascends", ->
     game = mkgame {drone:100, premutagen:100}
