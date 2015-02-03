@@ -9,6 +9,7 @@
     </label>
     <p>Show more detailed numbers for each of your units.</p>
   </div>
+
   <div class="form-group">
     <label class="control-label" for="fps"><span class="glyphicon glyphicon-film"></span> Maximum frames per second</label>
     <input type="range" class="form-control" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps)">
@@ -16,6 +17,7 @@
     <p>{{options.fps()|number}} fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
     <p>Reduce this setting if the game is slowing down your computer. This doesn't affect gameplay; your units won't produce resources any faster or slower.</p>
   </div>
+
   <div class="form-group">
     <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Number format</label></div>
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="standard-decimal" ng-change="options.notation(form.notation)">Standard decimal</input></label>
@@ -24,6 +26,7 @@
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="engineering" ng-change="options.notation(form.notation)">Engineering</input></label>
     <p>Examples: {{123456789|longnum}}, {{123456789|bignum}}, {{123456789e+30|longnum}}, {{123456789e+30|bignum}}</p>
   </div>
+
   <div class="form-group">
     <div><label class="control-label"><span class="glyphicon glyphicon-barcode" ng-init="form.velocityUnit=options.velocityUnit().name"></span> Velocity format</label></div>
     <label ng-repeat="vu in options.VELOCITY_UNITS.list" style="font-weight:normal" class="titlecase">
@@ -31,84 +34,42 @@
     </label>
     <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
   </div>
-<div>
+  <div class="form-group">
+      <div ng-cloak ng-controller="DropboxdatastoreCtrl">
+get oauth key from <a href="https://dbxoauth2.site44.com/">https://dbxoauth2.site44.com/</a><br>
+use appid: {{app_key}} and paste into  this box
+ <!--input  ng-model="app_key" 
+currently authorised???: {{isAuth()}} <br>
+-->
+ <form id="savegame-form" ng-submit="doAuth()">
+ <input  ng-model="oauth_token" ng-change"doAuth()" >
+</form>
+<br>
+<br>
+
+ <form id="savegame-form" ng-submit="addSavegame()">
+type name and press enter to save
+        <input id="new-savegame" placeholder="savegame name" ng-model="newSavegame" >
+ </form>
+
+<br>
+ count of saved games <input  ng-model="savedgames.length" >
+<ul>
+    <li ng-repeat="savegame in savedgames">
+  <button ng-click="deleteSavegame(savegame);">Delete</button>
+  <button ng-click="importSavegame(savegame);">Import</button>
+       {{savegame.get('state')}} {{savegame.get('created') }} {{savegame.getId() }} 
+    </li>
+</ul>
+
+
 	<button id="login" style="display:none">Log in with Dropbox</button>
 	<a id="logout" href="#" style="display:none">Log out</a>
 	<button id="dbsave" style="display:none">save to Dropbox</button>
 	<button id="dbreset" style="display:none">reset Dropbox</button>
-	<script>
-		//if (window.location.href.indexOf('http://') === 0 && window.location.host.indexOf('127.0.0.1') !== 0) {
-			//window.location = window.location.href.replace('http://', 'https://');
-		//}
-
-		// Be sure to use your own app key so you can set up your own redirect URI.
-		var APP_KEY = 'k614nfbt1fp1mj7';
-		//var client = new Dropbox.Client({ key: APP_KEY });
-		var client = new Dropbox.Client({ key: APP_KEY , token: 'ajamBZAOqM4AAAAAAAABeVgXMC49WYSBWMbWGffkqCm8FJET0RApvp_6TmX6J53a' });
-
-		// First check if we're already authenticated.
-		client.authenticate({ interactive: false });
-
-		if (client.isAuthenticated()) {
-			// If we're authenticated, update the UI to reflect the logged in status.
-			loggedIn();
-		} else {
-			// Otherwise show the login button.
-			$('#login').show();
-		}
-
-function loggedIn() {
-			$('#login').hide();
-			$('#dbsave').show();
-			$('#dbreset').show();
-			var datastoreManager = new Dropbox.Datastore.DatastoreManager(client);
-
-			datastoreManager.openDefaultDatastore(function (err, datastore) {
-				if (err) { alert('opendatastore Error: ' + err); return; }
-
-				// Make sure we use the "max" resolution rule to resolve conflicts about which level we're on.
-				var table = datastore.getTable('swarmstate');
-				//table.setResolutionRule('level', 'max');
-
-				function getRecord() {
-					// Use getOrInsert to provide a default of level 0.
-					return table.getOrInsert('current_state', { state: 'defaultstate' });
-				}
-
-				function updateLevel(e) {
-					$('#export').val(getRecord().get('state')).change();
-				}
-				//updateLevel();
-
-				// Any time there's a change, update the current level.
-				datastore.recordsChanged.addListener(updateLevel);
-
-				$('#dbsave').click(function (e) {
-					e.preventDefault();
-
-					// Increment the level.
-					var record = getRecord();
-					record.set('state', $('#export').val() );
-				});
-
-				$('#dbreset').click(function (e) {
-					e.preventDefault();
-					// Go back to level 0.
-					getRecord().set('state', '');
-				});
-
-				$('#logout').show().click(function (e) {
-					e.preventDefault();
-					client.signOut();
-					$('#login').show();
-			$('#dbsave').hide();
-			$('#dbreset').hide();
-				});
-			});
-}
-
-</script>
 </div>
+</div>
+
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
     <textarea type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)"></textarea>
