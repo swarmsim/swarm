@@ -293,14 +293,15 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     if window.confirm "Are you sure you want to respec? You will only be refunded #{@respecRate() * 100}% of the mutagen you've spent."
       @respec()
   respec: ->
-    mutagen = @unit 'mutagen'
-    spent = @respecSpent()
-    for resource in mutagen.spentResources()
-      resource._setCount 0
-      if resource._visible?
-        resource._visible = false
-    mutagen._addCount spent.times(@respecRate()).floor()
-    util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
+    @withSave =>
+      mutagen = @unit 'mutagen'
+      spent = @respecSpent()
+      for resource in mutagen.spentResources()
+        resource._setCount 0
+        if resource._visible?
+          resource._visible = false
+      mutagen._addCount spent.times(@respecRate()).floor()
+      util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session
