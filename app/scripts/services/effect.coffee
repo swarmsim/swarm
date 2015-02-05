@@ -93,7 +93,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         effect.unit._addCount out.qty
     output: (effect, game, parent=effect.parent, level=parent.count()) ->
       # minimum level needed to spawn units. Also, guarantees a spawn at exactly this level.
-      minlevel = effect.parentStat 'random.minlevel'
+      minlevel = effect.parentStat "random.minlevel.#{parent.name}"
       if level.greaterThanOrEqualTo minlevel
         stat_each = effect.parentStat 'random.each', 1
         # chance of any unit spawning at all. base chance set in spreadsheet with statinit.
@@ -168,7 +168,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       weight = level.times effect.val2
       util.assert not weight.isNegative(), 'negative asympStat weight'
       #stats[effect.stat] *= 1 + (effect.val-1) * (1 - 1 / (1 + weight))
-      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).plus new Decimal(effect.val).minus(1).times(Decimal.ONE.minus(Decimal.ONE.dividedBy(weight.plus(1))))
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times Decimal.ONE.plus (new Decimal(effect.val).minus(1)).times(Decimal.ONE.minus(Decimal.ONE.dividedBy(weight.plus 1)))
   effecttypes.register
     name: 'logStat'
     calcStats: (effect, stats, schema, level) ->

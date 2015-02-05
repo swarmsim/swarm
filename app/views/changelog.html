@@ -15,19 +15,83 @@
 -->
 
 <div class="panel-group" id="accordion">
-  <div class="panel panel-default">
+  <div class="panel panel-default" ng-if="env.isDebugEnabled">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" data-target="#changelog10x" href="javascript:">
+          Version 1.0.x (debugenabled: {{env.isDebugEnabled}})
+        </a>
+      </h4>
+    </div>
+    <div id="changelog10x" class="panel-collapse collapse">
+      <div class="panel-body">
+<h4>1.0.0<span>2015/02/07?</span></h4>
+<ul>
+  <li>Removed the "we're testing, your progress may be reset" warning. Version 1.0 means no more (intentional) resets, ever.</li>
+  <li>The meat tab looks different. Late game units have been renamed, and there's several new units.</li>
+  <li>Added <b>mutation</b>, a soft-reset/prestige system.
+  <ul>
+    <li>After your 80th expansion or 40th hatchery, building more expansions/hatcheries may, at random, provide some <b>mutagen</b>.
+      <ul><li>If you've already built more than 40 hatcheries or 80 expansions, you should have automatically received mutagen for building them.</li></ul>
+    </li>
+    <li>Mutagen starts off inactive. To activate your mutagen, you must <b>ascend</b> - travel through space to a new world with only a few mutagen-enhanced larvae.</li>
+    <li>Ascension requires a large amount of energy and a mature swarm. (You can't reset as fast as lots of other games.)</li>
+    <li>There are several interesting mutations you can choose to unlock with your mutagen. Unlocking any one type of mutation increases the cost to unlock others. Plan carefully which ones you want first!</li>
+    <li>If you'd like to try a different mutation strategy, you may <b>respec</b> to remove all mutations and restore 70% of all the mutagen you've spent.</li>
+  </ul></li>
+  <li>Several changes to existing units and abilities.
+  <ul>
+    <li>Swarmwarp now costs much less energy, but no longer restores energy.</li>
+    <li>Bats now cost 100 energy. Previously they cost 10 lepidoptera - same energy required per bat, but it's now harder to accidentally spend all your lepidoptera.</li>
+    <li>Nightbugs now increase max energy by up to x6 instead of x4.</li>
+    <li>Expansions now display their total percentage with condensed numbers.</li>
+  </ul></li>
+  <li>Large numbers of units are handled better: it's now possible to produce up to to 1e1000 meat, or any other unit. (Units are no longer limited by Javascript's usual maximum of 1.7e308.) At that point, you'll simply stop producing meat, instead of receiving buggy "infinite" meat.</li>
+  <li>"Buy all upgrades" moved into the "more..." menu, instead of its own menu/tab. It no longer buys meat-tab twin upgrades.</li>
+  <li>Added an option for engineering notation. Thanks to <a target="_blank" href="https://github.com/Shoelace">Shoelace</a> for <a target="_blank" href="https://github.com/erosson/swarm/issues/247">contributing this code</a>.</li>
+  <li>Anonymous feedback form should work more reliably, even with very long save files.</li>
+</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" data-target="#changelog10xpublictest" href="javascript:">
           Version 1.0.x, public test
         </a>
       </h4>
     </div>
-    <div id="changelog10x" class="panel-collapse collapse in">
+    <div id="changelog10xpublictest" class="panel-collapse collapse in">
       <div class="panel-body">
+<h4>1.0.0-publictest24<span>2015/02/03</span></h4>
+<ul>
+  <li>Bugfix: mutagen respecs no longer reduce your current energy/meat/territory.</li>
+</ul>
+<h4>1.0.0-publictest23<span>2015/02/03</span></h4>
+<ul>
+  <li>Bugfix: hatcheries and expansions once again display estimated mutagen rewards.</li>
+</ul>
+<h4>1.0.0-publictest22<span>2015/02/02</span></h4>
+<ul>
+  <li>Fixed a bug that made lepidoptera additive with mutant lepidoptera, instead of multiplicative. Players with both will earn more energy now.</li>
+</ul>
 <h4>1.0.0-publictest21<span>2015/02/02</span></h4>
 <ul>
-  <li>You'll now see a "welcome back" screen when you open the game, showing how long you were away and your swarm's production during that time.</li>
+  <!--li>You'll now see a "welcome back" screen when you open the game, showing how long you were away and your swarm's production during that time.</li-->
+  <li>The meat limit has been raised to 1e1000.</li>
+  <li>Mutant lepidoptera now increase the energy cost of ascending. (More precisely, they decrease the effect of spending energy has on decreasing ascension cost.)
+  <ul>
+    <li>This mutation was speeding up ascensions a bit too much. Paying for an ascension is still quicker with this mutation than without it, but not by quite so much.</li>
+  </ul></li>
+  <li>Ascension cost increases by 12% per ascension, down from 20%.</li>
+  <li>Meta-mutation is about 35% less effective.</li>
+  <li>Meat rush and territory rush mutations are about 4 times stronger. (Larvae rush is unchanged.)</li>
+  <li>Hatcheries grant slightly more mutagen than before.</li>
+  <li>Expansions 40 to 79 no longer grant mutagen. The mutagen tab now appears at 80 expansions or 40 hatcheries, whichever comes first; instead of 40 expansions.
+  <ul>
+    <li>In a new game, mutagen became visible long before you could do anything with it. Timing should now be more appropriate. This change isn't intended to be a nerf; early expansions never gave much mutagen anyway.</li>
+  </ul></li>
 </ul>
 <h4>1.0.0-publictest20<span title="rabbit rabbit">2015/02/01</span></h4>
 <ul>

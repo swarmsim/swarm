@@ -242,10 +242,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCost: ->
     spent = @ascendEnergySpent()
     ascends = @unit('ascension').count()
-    ascendPenalty = Decimal.pow 1.2, ascends
+    ascendPenalty = Decimal.pow 1.12, ascends
     #return Math.ceil 999999 / (1 + spent/50000)
     # initial cost 5 million, halved every 50k spent, increases 20% per past ascension
-    return ascendPenalty.times(5e6).dividedBy(Decimal.pow 2, spent.dividedBy 50000).ceil()
+    costVelocity = new Decimal(50000).times(@unit('mutagen').stat 'ascendCost', 1)
+    return ascendPenalty.times(5e6).dividedBy(Decimal.pow 2, spent.dividedBy costVelocity).ceil()
   ascendCostCapDiff: ->
     return @ascendCost().minus @unit('energy').capValue()
   ascendCostPercent: ->
@@ -292,14 +293,15 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     if window.confirm "Are you sure you want to respec? You will only be refunded #{@respecRate() * 100}% of the mutagen you've spent."
       @respec()
   respec: ->
-    mutagen = @unit 'mutagen'
-    spent = @respecSpent()
-    for resource in mutagen.spentResources()
-      resource._setCount 0
-      if resource._visible?
-        resource._visible = false
-    mutagen._addCount spent.times(@respecRate()).floor()
-    util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
+    @withSave =>
+      mutagen = @unit 'mutagen'
+      spent = @respecSpent()
+      for resource in mutagen.spentResources()
+        resource._setCount 0
+        if resource._visible?
+          resource._visible = false
+      mutagen._addCount spent.times(@respecRate()).floor()
+      util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session

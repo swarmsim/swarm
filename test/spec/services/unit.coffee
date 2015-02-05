@@ -339,5 +339,5 @@ describe 'Service: unit', ->
     expect(meat.spent().toNumber()).toBe 33330
 
   it 'caps units globally and exceeds the JS max', ->
-    game = mkgame {meat:'1e999'}
-    expect(game.unit('meat').count()+'').toBe '1e+400' #soon...
+    game = mkgame {meat:'1e9999'}
+    expect(game.unit('meat').count()+'').toBe '1e+1000'
