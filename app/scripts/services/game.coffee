@@ -270,6 +270,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       mutagen._addCount premutagen.count()
       premutagen._setCount 0
       ascension._addCount 1
+      # grant a free respec every 3 ascensions
+      if ascension.count().modulo(3).isZero()
+        @unit('freeRespec')._addCount 1
       # do not use @reset(): we don't want achievements, etc. reset
       @_init()
       for unit in @unitlist()
@@ -308,14 +311,24 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       # respeccing wipes spent-energy. energy cost of respeccing counts toward spent-energy *after* spent-energy is wiped
       spent = @ascendEnergySpent().minus cost
       @unit('respecEnergy')._addCount spent
-      mutagen = @unit 'mutagen'
-      spent = @respecSpent()
-      for resource in mutagen.spentResources()
-        resource._setCount 0
-        if resource._visible?
-          resource._visible = false
-      mutagen._addCount spent.times(@respecRate()).floor()
-      util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
+      @_respec()
+
+  respecFree: ->
+    @withSave =>
+      if not @unit('freeRespec').count().greaterThan(0)
+        throw new Error "We require more resources"
+      @unit('freeRespec')._subtractCount 1
+      @_respec()
+
+  _respec: ->
+    mutagen = @unit 'mutagen'
+    spent = @respecSpent()
+    for resource in mutagen.spentResources()
+      resource._setCount 0
+      if resource._visible?
+        resource._visible = false
+    mutagen._addCount spent.times(@respecRate()).floor()
+    util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session

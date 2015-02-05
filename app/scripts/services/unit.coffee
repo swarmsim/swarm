@@ -93,6 +93,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
         child:child
         prod:prodlink
 
+  isCountInitialized: ->
+    return @game.session.unittypes[@name]?
   rawCount: ->
     return @game.cache.unitRawCount[@name] ?= do =>
       # caching's helpful to avoid re-parsing session strings

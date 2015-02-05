@@ -31,4 +31,7 @@ but resets all mutagen units and upgrades to 0, and resets your next ascension's
 </div-->
 
 <p><button title="" ng-click="game.respec()" ng-class="{disabled:!game.isRespecCostMet()}" class="btn btn-default">Respec - refund mutagen, but reset ascension cost</button></p>
+
+<p>One free respec is available every three ascensions. You have {{game.unit('freeRespec').count()|longnum}} free respecs remaining.</p>
+<p><button title="" ng-click="game.respecFree()" ng-class="{disabled:game.unit('freeRespec').count().lessThanOrEqualTo(0)}" class="btn btn-default">Respec (free)</button></p>
 </div>

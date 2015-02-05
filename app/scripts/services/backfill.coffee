@@ -30,6 +30,12 @@ angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
       else
         $log.debug 'no mutagen backfill necessary'
 
+    # grant free respecs for all saves created before respecs existed
+    do ->
+      respec = game.unit('freeRespec')
+      if not respec.isCountInitialized()
+        respec._setCount respec.unittype.init
+
     $log.debug 'backfill success'
 
 angular.module('swarmApp').factory 'backfill', (Backfill) -> new Backfill()

@@ -151,7 +151,15 @@ describe 'Service: game achievements', ->
     mutants._setCount 1000
     expect(game.ascendEnergySpent().toNumber()).toBe 150000
     expect(game.ascendCost().toNumber()).toBe 989950
+    # free-respec doesn't reset spent energy
+    game.unit('freeRespec')._setCount game.unit('freeRespec').unittype.init #backfill covers this for existing folks
+    expect(game.unit('freeRespec').count().toNumber()).toBe 4
+    game.respecFree()
+    expect(mutants.count().toNumber()).toBe 0
+    expect(game.unit('freeRespec').count().toNumber()).toBe 3
+    expect(game.ascendCost().toNumber()).toBe 700000
     # respecing resets spent energy
+    mutants._setCount 1000
     warps._setCount 400
     expect(game.respecCost().toNumber()).toBe 163
     game.respec()
