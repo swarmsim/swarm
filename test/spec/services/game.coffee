@@ -102,7 +102,7 @@ describe 'Service: game achievements', ->
     expect(game.achievementPoints()).toBe 10
     
   it 'respecs mutagen', ->
-    game = mkgame {mutagen:100000, ascension:1}
+    game = mkgame {mutagen:100000, ascension:1,nexus:'1e999',energy:'1e999'}
     mutagen = game.unit 'mutagen'
     mutant = game.unit 'mutanthatchery'
     mutant2 = game.unit 'mutantbat'
@@ -121,18 +121,19 @@ describe 'Service: game achievements', ->
     game.respec()
     expect(mutant.count().toNumber()).toBe 0
     expect(mutant2.count().toNumber()).toBe 0
-    expect(mutagen.count().toNumber()).toBe 71312 # 70% refunded
+    expect(mutagen.count().toNumber()).toBe 100000 # 100% refunded
 
   it 'has sane ascension costs', ->
     game = mkgame {nexus:1e100, energy:1e100}
     ascends = game.unit 'ascension'
     warps = game.upgrade 'swarmwarp'
+    mutants = game.unit 'mutantnexus'
     expect(game.ascendEnergySpent().toNumber()).toBe 0
     expect(game.ascendCost().toNumber()).toBe 5000000
     ascends._setCount 1
-    expect(game.ascendCost().toNumber()).toBe 6000000
+    expect(game.ascendCost().toNumber()).toBe 5600000
     ascends._setCount 2
-    expect(game.ascendCost().toNumber()).toBe 7200000
+    expect(game.ascendCost().toNumber()).toBe 6272000
     ascends._setCount 0
     warps._setCount 25
     expect(game.ascendEnergySpent().toNumber()).toBe 50000
@@ -145,7 +146,26 @@ describe 'Service: game achievements', ->
     expect(game.ascendCost().toNumber()).toBe 625000
     ascends._setCount 1
     expect(game.ascendEnergySpent().toNumber()).toBe 150000
-    expect(game.ascendCost().toNumber()).toBe 750000
+    expect(game.ascendCost().toNumber()).toBe 700000
+    # mutant lepidoptera increase ascension cost (compensating for increased energy gains)
+    mutants._setCount 1000
+    expect(game.ascendEnergySpent().toNumber()).toBe 150000
+    expect(game.ascendCost().toNumber()).toBe 989950
+    # free-respec doesn't reset spent energy
+    game.unit('freeRespec')._setCount game.unit('freeRespec').unittype.init #backfill covers this for existing folks
+    expect(game.unit('freeRespec').count().toNumber()).toBe 4
+    game.respecFree()
+    expect(mutants.count().toNumber()).toBe 0
+    expect(game.unit('freeRespec').count().toNumber()).toBe 3
+    expect(game.ascendCost().toNumber()).toBe 700000
+    # respecing resets spent energy
+    mutants._setCount 1000
+    warps._setCount 400
+    expect(game.respecCost().toNumber()).toBe 163
+    game.respec()
+    expect(mutants.count().toNumber()).toBe 0
+    expect(game.ascendEnergySpent().toNumber()).toBe 163
+    expect(game.ascendCost().toNumber()).toBe 5587361
 
   it "ascends", ->
     game = mkgame {drone:100, premutagen:100}
@@ -159,40 +179,3 @@ describe 'Service: game achievements', ->
     expect(game.unit('premutagen').count().toNumber()).toBe 0
     expect(game.unit('mutagen').count().toNumber()).toBe 100
 
-describe 'Service: game achievements', ->
-
-  # load the service's module
-  beforeEach module 'swarmApp'
-
-  # instantiate service
-  game = {}
-  beforeEach inject (_game_) ->
-    game = _game_
-
-  clear = (resource) ->
-    for u in game.unitlist().concat game.upgradelist()
-      u._setCount 0
-    # energy cap hack
-    game.unit('nexus')._setCount 5 #energy cap hack
-    for cost in resource.cost
-      cost.unit._setCount cost.val
-    
-  it "builds one of each unit", ->
-    for unit in game.unitlist()
-      unit._visible = true
-      if not unit.unittype.unbuyable
-        clear unit
-        expect(unit.count().toNumber()).toBe 0
-        unit.buy()
-        expect(unit.count().toNumber()).toBe 1
-
-  # This test is really slow after adding decimal.js - had to extend browserNoActivityTimeout. Why?
-  # Empower upgrades seem especially slow. Larger numbers...? It's fine in prod outside of tests though.
-  it "builds one of each upgrade", ->
-    for upgrade in game.upgradelist()
-      upgrade._visible = true
-      upgrade.unit._visible = true
-      clear upgrade
-      expect(upgrade.count().toNumber()).toBe 0
-      upgrade.buy()
-      expect(upgrade.count().toNumber()).toBe 1

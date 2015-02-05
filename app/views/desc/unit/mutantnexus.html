@@ -1,2 +1,3 @@
 <p>Increases energy generation by {{unit.effect[0].calcStats().prod | percent:{places:2,plusOne:true} }}. Creating more increases this to a maximum of {{unit.effect[0].val | percent:{places:2,plusOne:true} }}.</p>
 <p>Increases maximum energy by {{unit.effect[1].calcStats().capMult | percent:{places:2,plusOne:true} }}. Creating more increases this to a maximum of {{unit.effect[1].val | percent:{places:2,plusOne:true} }}.</p>
+<p>However, {{unit.effect[2].calcStats().ascendCost | percent:{places:2,plusOne:true} }} more energy must be spent to decrease ascension costs. Creating more increases this to a maximum of {{unit.effect[2].val | percent:{places:2,plusOne:true} }}.</p>

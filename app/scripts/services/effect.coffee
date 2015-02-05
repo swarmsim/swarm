@@ -93,7 +93,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         effect.unit._addCount out.qty
     output: (effect, game, parent=effect.parent, level=parent.count()) ->
       # minimum level needed to spawn units. Also, guarantees a spawn at exactly this level.
-      minlevel = effect.parentStat 'random.minlevel'
+      minlevel = effect.parentStat "random.minlevel.#{parent.name}"
       if level.greaterThanOrEqualTo minlevel
         stat_each = effect.parentStat 'random.each', 1
         # chance of any unit spawning at all. base chance set in spreadsheet with statinit.
@@ -108,13 +108,13 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
         roll = rng()
-        isspawned = level.equals(minlevel) or new Decimal(roll.toPrecision 15).lessThan(prob)
+        isspawned = level.equals(minlevel) or new Decimal(roll+'').lessThan(prob)
         #$log.debug 'roll to spawn: ', level, roll, prob, isspawned
         roll2 = rng()
         modqty = minqty + (roll2 * (maxqty - minqty))
         # toPrecision: decimal.js insists on this precision, and it'll parse the string output.
         # decimal.js would rather we use Decimal.random(), but we can't seed that.
-        qty = baseqty.times(modqty.toPrecision 15).ceil()
+        qty = baseqty.times(modqty+'').ceil()
         #$log.debug 'spawned. roll for quantity: ', {level:level, roll:roll2, modqty:modqty, baseqty:baseqty, qtyfactor:qtyfactor, qty:qty, stat_each:stat_each}
         return spawned:isspawned, baseqty:baseqty, qty:qty
       return spawned:false, baseqty:new Decimal(0), qty:new Decimal(0)
@@ -168,7 +168,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       weight = level.times effect.val2
       util.assert not weight.isNegative(), 'negative asympStat weight'
       #stats[effect.stat] *= 1 + (effect.val-1) * (1 - 1 / (1 + weight))
-      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).plus new Decimal(effect.val).minus(1).times(Decimal.ONE.minus(Decimal.ONE.dividedBy(weight.plus(1))))
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times Decimal.ONE.plus (new Decimal(effect.val).minus(1)).times(Decimal.ONE.minus(Decimal.ONE.dividedBy(weight.plus 1)))
   effecttypes.register
     name: 'logStat'
     calcStats: (effect, stats, schema, level) ->

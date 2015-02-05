@@ -6,7 +6,7 @@
 module.exports = (config) ->
   config.set
     # game:build-all-upgrades test needs the extra time
-    browserNoActivityTimeout: 20000
+    browserNoActivityTimeout: 30000
 
     # base path, that will be used to resolve files and exclude
     basePath: '../'
@@ -43,7 +43,7 @@ module.exports = (config) ->
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
       'test/mock/**/*.coffee'
-      'test/spec/**/*.coffee'
+      'test/integration/**/*.coffee'
     ],
 
     # list of files / patterns to exclude

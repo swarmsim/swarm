@@ -77,11 +77,11 @@
     <div class="form-group">
       <p>
         You're buying
-        <input type="number" ng-model="form.mainBuynum" min="1">
-        {{mainBuynum() == 1 ? cur.unittype.label : cur.unittype.plural}}
+        <input name="buyN" type="number" min="1" value="{{buyN().toJSON()}}" ng-init="initBuyN()">
+        {{buyN().equals(1) ? cur.unittype.label : cur.unittype.plural}}
         <span ng-if="cur.twinMult().greaterThan(1)">(&times;{{cur.twinMult()|bignum}} twins)</span>
         for
-        <cost costlist="cur.eachCost()" num="mainBuynum()"></cost>
+        <cost costlist="cur.eachCost()" num="buyN()"></cost>
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet().greaterThan(0)">
@@ -97,7 +97,7 @@
           <span>{{unitCostAsPercent(cur, cost) | percent:0}} of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
         </span>
       </p>
-      <buyunit unit="cur" num="form.mainBuynum"></buyunit>
+      <buyunit unit="cur" num="buyN()"></buyunit>
     </div>
   </div>
   <div ng-if="(visibleUpgrades = (cur.upgrades.byClass.upgrade | filter:filterVisible)).length > 0">
