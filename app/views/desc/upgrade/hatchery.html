@@ -4,3 +4,6 @@ Currently, your hatcheries produce {{upgrade.unit.prod[0].val.plus(upgrade.effec
 <p ng-if="upgrade.count().greaterThanOrEqualTo(upgrade.unit.stat('random.minlevel.hatchery'))" title="Savescumming won't work, by the way.">
 Your next hatchery has a {{upgrade.unit.stat('random.freq')|percent:0}} chance to award {{upgrade.effect[1].output().qty|longnum}} mutagen.
 </p>
+<p ng-if="!upgrade.count().greaterThanOrEqualTo(upgrade.unit.stat('random.minlevel.hatchery')) && game.unit('mutagen').isVisible()">
+Build {{upgrade.unit.stat('random.minlevel.hatchery')|longnum}} hatcheries to begin earning mutagen.
+</p>
