@@ -39,6 +39,7 @@ module.exports = (config) ->
       'bower_components/favico.js/favico.js'
       'bower_components/seedrandom/seedrandom.js'
       'bower_components/decimal.js/decimal.js'
+      'bower_components/dropbox-datastores-1.0-latest/index.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
