@@ -5692,7 +5692,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "disabled": "",
         "effect.stat": "capMult",
         "effect.type": "asympStat",
-        "effect.unittype": "nexus",
+        "effect.unittype": "energy",
         "effect.unittype2": "",
         "effect.val": 2,
         "effect.val2": 0.0005,

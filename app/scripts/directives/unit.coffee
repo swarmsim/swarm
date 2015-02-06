@@ -62,6 +62,8 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
         _buyN = Decimal.max 1, val
         $log.debug 'updateBuyN', inputElement.val(), _buyN.toJSON()
       inputElement.change scope.updateBuyN
+      #inputElement.keypress scope.updateBuyN
+      inputElement.keyup scope.updateBuyN
       return undefined
     scope.buyN = ->
       # careful here, angular freaks out if you return different objects when the value hasn't changed

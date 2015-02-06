@@ -134,7 +134,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       unitname = unitname.name
     @_units.byName[unitname]
   unitBySlug: (unitslug) ->
-    @_units.bySlug[unitslug]
+    if unitslug
+      @_units.bySlug[unitslug]
   units: ->
     _.clone @_units.byName
   unitlist: ->
