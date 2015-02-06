@@ -93,6 +93,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
         child:child
         prod:prodlink
 
+  isCountInitialized: ->
+    return @game.session.unittypes[@name]?
   rawCount: ->
     return @game.cache.unitRawCount[@name] ?= do =>
       # caching's helpful to avoid re-parsing session strings
@@ -316,7 +318,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     @stats()[key]? and @stats()[key] != default_
   stat: (key, default_=undefined) ->
     util.assert key?
-    ret = @stats()[key] ? new Decimal default_
+    if default_?
+      default_ = new Decimal default_
+    ret = @stats()[key] ? default_
     util.assert ret?, 'no such stat', @name, key
     return new Decimal ret
   stats: ->
@@ -400,7 +404,7 @@ angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util
         prod.unittype.producedBy.push unittype
         util.assert prod.val > 0, "unittype prod.val must be positive", prod
       for cost in unittype.cost
-        util.assert cost.val > 0, "unittype cost.val must be positive", cost
+        util.assert cost.val > 0 or (unittype.unbuyable and unittype.disabled), "unittype cost.val must be positive", cost
     for unittype in ret.list
       for producer in unittype.producedBy
         @_buildProducerPath unittype, producer, []

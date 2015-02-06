@@ -38,9 +38,8 @@ angular.module('swarmApp').directive 'cost', ($log) ->
     scope.showRemaining = (cost) ->
       ret = scope.countRemaining cost
       if _.contains ret+'', 'e'
-        # Round exponential formats up, so we always pay a little more than needed rather than a little less
-        # Why precision-3? Because precision-2 and precision-1 didn't work. Rounding is weird.
-        ret = ret.toSignificantDigits(Decimal.precision-3, Decimal.ROUND_CEIL)
+        # force it not to round. `new Decimal(...)` parses both numbers and strings. (Decimal.toJSON() is a string.)
+        ret = ret.toJSON()
       return ret+''
     scope.isRemainingBuyable = (cost) ->
       remaining = scope.countRemaining cost

@@ -10,10 +10,11 @@
 
 #angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill) ->
 
-angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log , dropboxdatastore, env , dropstoreClient, session) ->
+angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  env , session) ->
 
     #$scope.dropstore = dropstoreClient
     _datastore = null
+    _recschanged = null
     $scope.env = env
 
 
@@ -22,41 +23,79 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log , dr
       'AngularJS'
       'Karma'
     ]
-    $log.debug 'hello world:' ;
-
-    $scope.app_key = 'k614nfbt1fp1mj7';
-    $scope.oauth_token = 'ajamBZAOqM4AAAAAAAABsOkiHt2xjk1hOjloitZmn_dx9s6wS1plhTzICsTBLFHq';
 
     $scope.savedgames = [];
     $scope.newSavegame = ''; 
 
+    $scope.app_key = 'k614nfbt1fp1mj7';
+    $scope.dsc =  new Dropbox.Client({key: $scope.app_key });
+#	// Use a pop-up for auth.
+    #$scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.href + 'oauth_receiver.html' }));
+    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: 'https://shoelace.github.io/views/dropboxauth.html'  }));
+
+    #else
+			#// If we're authenticated, update the UI to reflect the logged in status.
+		#} else {
+			#// Otherwise show the login button.
+			#$('#login').show();
+		#}
+
 
     $scope.isAuth = ->
-        return dropstorec.isAuthenticated();
-
-    $scope.doAuth = -> 
-      $log.debug "do auth";
-      #dropstoreClient.create({key: $scope.app_key })
-      dropstoreClient.create({key: $scope.app_key , token: $scope.oauth_token })
-        .authenticate({interactive: false })
-        .then((datastoreManager) -> 
-            console.log('completed authentication');
-            return datastoreManager.openDefaultDatastore();
-        )
-        .then((datastore) ->
-           console.log('completed openDefaultDatastore');
-           _datastore = datastore
+        return $scope.dsc.isAuthenticated();
 
 
-           _datastore.SubscribeRecordsChanged((event) ->
-               records = event.affectedRecordsForTable('swarmstate');
-               taskTable = _datastore.getTable('swarmstate');
-               $scope.savedgames = taskTable.query();
-           );
+    $scope.updatesavelisting = (event) ->
+       #records = event.affectedRecordsForTable('swarmstate');
+       taskTable = _datastore.getTable('swarmstate');
+       $scope.savedgames = taskTable.query();
 
-           taskTable = _datastore.getTable('swarmstate');
-           $scope.savedgames = taskTable.query();
+
+    $scope.loggedin = () ->
+      $log.debug "loggedIn()";
+      $('#dropboxlogin').hide();
+
+      datastoreManager = new Dropbox.Datastore.DatastoreManager($scope.dsc);
+      datastoreManager.openDefaultDatastore( (err,datastore)->
+          $log.debug "opendef err: "+err;
+          $log.debug "opendef datastore: "+datastore;
+
+          _datastore = datastore;
+          datastore.recordsChanged.addListener( $scope.updatesavelisting );
+          $scope.updatesavelisting();
+         
+      );
+      $('#dropboxlogout').show();
+   
+    # First check if we're already authenticated.
+    $scope.dsc.authenticate({ interactive : false});
+
+
+    if $scope.dsc.isAuthenticated()
+      # If we're authenticated, update the UI to reflect the logged in status.
+      $scope.loggedin()
+    else
+      # Otherwise show the login button.
+      $('#dropboxlogin').show();
+
+
+    $scope.droplogin = -> 
+      $log.debug "attempt login";
+      $scope.dsc
+        .authenticate( (err,client)->
+          $log.debug "authenticate err: "+err;
+          $log.debug "authenticate client: "+client;
+          $scope.loggedin()
+         
         );
+       
+
+    $scope.droplogout = -> 
+        $scope.savedgames = [];
+        _datastore.recordsChanged.removeListener($scope.updatesavelisting) ;
+        $scope.dsc.signOut({mustInvalidate: true});
+        $('#dropboxlogin').show();
+        $('#dropboxlogout').hide();
     
     $scope.addSavegame =  ->
         taskTable = _datastore.getTable('swarmstate')

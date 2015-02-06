@@ -17,10 +17,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       suffixes = suffixes_
       if !num
         return num
-      try
-        num = new Decimal num
-      catch
-        num = new Decimal num.toPrecision 15
+      num = new Decimal num+''
       if num.isZero()
         return num+''
       if num.lessThan floorlimit
@@ -173,10 +170,7 @@ angular.module('swarmApp').filter 'percent', ($filter) ->
     if _.isNumber opts
       opts = {places:opts}
     opts.places ?= 0
-    try
-      dec = new Decimal num
-    catch
-      dec = new Decimal num.toPrecision(15)
+    dec = new Decimal num+''
     if opts.plusOne
       dec = dec.minus(1)
     dec = dec.times(100)
