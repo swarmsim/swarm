@@ -26,3 +26,13 @@ describe 'Service: effecttypes', ->
     expect(stats.t.toNumber()).toBe 12
     expect(-> effecttypes.byName.addStat.calcStats {stat:'x',val:3}, stats, schema, 1).toThrow()
     expect(-> effecttypes.byName.multStat.calcStats {stat:'t',val:3}, stats, schema, 1).toThrow()
+
+  it 'romanizes', inject (romanize) ->
+    expect(romanize 2).toBe 'II'
+    expect(romanize 6).toBe 'VI'
+    expect(romanize 21).toBe 'XXI'
+    expect(romanize 51).toBe 'LI'
+    expect(romanize 100).toBe 'C'
+    expect(romanize 1000).toBe 'M'
+    expect(romanize 3999).toBe 'MMMCMXCIX'
+    #expect(romanize 4000).toBe '4000'

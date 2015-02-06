@@ -60,10 +60,27 @@ angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
     @byName[effecttype.name] = effecttype
     return this
 
-angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util, seedrand, $log) ->
-  # short hardcoded list, but we don't actually use very high numbers for these
-  ROMANNUM = ['', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'
-              'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX']
+angular.module('swarmApp').factory 'romanize', ->
+  # romanize() from http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+  # MIT licensed, according to a comment from the author - safe to copy here
+  `
+  var romanize = function(num) {
+    if (!+num)
+      return false;
+    var digits = String(+num).split(""),
+      key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+             "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+             "","I","II","III","IV","V","VI","VII","VIII","IX"],
+      roman = "",
+      i = 3;
+    while (i--)
+      roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+    return Array(+digits.join("") + 1).join("M") + roman;
+  }
+  `
+  return romanize
+
+angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util, seedrand, $log, romanize) ->
   effecttypes = new EffectTypes()
   # Can't write functions in our spreadsheet :(
   # TODO: move this to upgrade parsing. this only asserts at runtime if a conflict happens, we want it to assert at loadtime
@@ -198,10 +215,14 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'suffix'
     calcStats: (effect, stats, schema, level) ->
       # using calcstats for this is so hacky....
-      if level == 0
+      if level.isZero()
         suffix = ''
-      else
-        suffix = ROMANNUM[level] ? level.plus(1).toString()
+      else if level.lessThan(3999)
+        # should be safe to assume suffix levels are below 1e308
+        suffix = romanize(level.plus(1).toNumber())
+      if not suffix?
+        # romanize lists a bunch of Ms past this point; just use regular numbers instead
+        suffix = level.plus(1).toString()
       effect.unit.suffix = suffix
       stats.empower = (stats.empower ? new Decimal 0).plus(level)
   return effecttypes
