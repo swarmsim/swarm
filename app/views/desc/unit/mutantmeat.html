@@ -1,1 +1,5 @@
-<p>Increases production of all meat units by {{unit.effect[0].calcStats().prod | percent:{places:2, plusOne:true} }}.</p>
+<p ng-repeat="effect in unit.effect">
+  <span ng-if="effect.unit.isVisible()">
+    <span class="titlecase">{{effect.unit.unittype.plural}}<span> are {{effect.calcStats().prod | percent:{places:2, plusOne:true} }} more productive.
+  </span>
+</p>
