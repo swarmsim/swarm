@@ -50,6 +50,9 @@ https://github.com/erosson/swarm
             </ul>
           </div-->
         </div>
+        <div ng-if="loadIframe" ng-cloak>
+          <iframe style="width:100%;height:0;visibility:hidden;" src="https://swarmsim-publictest.github.io/#/iframe/achieve-publictest1"></iframe>
+        </div>
       </div>
 
       <!--div class="header"></div-->
@@ -231,6 +234,7 @@ https://github.com/erosson/swarm
         <script src="scripts/services/backfill.js"></script>
         <script src="scripts/services/dropboxdatastore.js"></script>
         <script src="scripts/controllers/dropboxdatastore.js"></script>
+        <script src="scripts/controllers/iframe.js"></script>
         <!-- endbuild -->
 </body>
 </html>

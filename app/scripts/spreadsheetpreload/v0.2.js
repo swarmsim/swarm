@@ -1514,6 +1514,21 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.unittype": "",
         "visible.upgradetype": "",
         "visible.val": ""
+      },
+      {
+        "description": "Help test Swarm Simulator v1.0.",
+        "label": "public test v1.0",
+        "longdesc": "Thank you!",
+        "name": "publictest1",
+        "points": 10,
+        "requires.event": "achieve-publictest1",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "rowNumber": 100,
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
       }
     ],
     "name": "achievements"

@@ -55,6 +55,9 @@ angular.module('swarmApp').config ($routeProvider ) ->
       .when '/tab/:tab',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+      .when '/iframe/:call',
+        templateUrl: 'views/iframe.html'
+        controller: 'IframeCtrl'
       .otherwise
         redirectTo: '/'
 

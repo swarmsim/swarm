@@ -7,7 +7,7 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, achievePublicTest1
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
@@ -47,3 +47,29 @@ versioncheck, analytics, statistics, achievementslistener, favico
 
   $scope.feedbackUrl = ->
     session.feedbackUrl()
+
+  achievePublicTest1 $scope
+
+angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game) -> return ($scope) ->
+  # use an iframe to ask the publictest server if the player's eligible for the achievement
+  framed = window.top and window != window.top
+  alreadyEarned = game.achievement('publictest1').isEarned()
+  isPublicTest = _.contains '-publictest', version
+  $scope.loadIframe = (not framed) and (not alreadyEarned) and (not isPublicTest)
+  $log.debug 'achievePublicTest1: creating iframe:', $scope.loadIframe, framed:framed, alreadyEarned:alreadyEarned, isPublicTest:isPublicTest
+  if $scope.loadIframe
+    # setup a message-handler; cleanup either when the message arrives, or after 30 seconds
+    cleanup = ->
+      onmessage.off()
+      $timeout.cancel timeout
+      $scope.loadIframe = false
+    onmessage = $(window).on 'message', (e) ->
+      try
+        data = e?.originalEvent?.data
+        data = JSON.parse data
+        $log.debug 'achievePublicTest1: iframe response', e, data, data.achieved
+        if data.achieved
+          $scope.$emit 'achieve-publictest1'
+      finally
+        cleanup()
+    timeout = $timeout cleanup, 30000
