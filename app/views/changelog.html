@@ -37,7 +37,7 @@
     <li>Mutagen starts off inactive. To activate your mutagen, you must <b>ascend</b> - travel through space to a new world with only a few mutagen-enhanced larvae.</li>
     <li>Ascension requires a large amount of energy and a mature swarm. (You can't reset as fast as lots of other games.)</li>
     <li>There are several interesting mutations you can choose to unlock with your mutagen. Unlocking any one type of mutation increases the cost to unlock others. Plan carefully which ones you want first!</li>
-    <li>If you'd like to try a different mutation strategy, you may <b>respec</b> to remove all mutations and restore 70% of all the mutagen you've spent.</li>
+    <li>If you'd like to try a different mutation strategy, you may <b>respec</b> to remove all mutations and restore all the mutagen you've spent. You have a limited number of free respecs, and you can pay energy to respec more frequently.</li>
   </ul></li>
   <li>Several changes to existing units and abilities.
   <ul>
@@ -46,10 +46,12 @@
     <li>Nightbugs now increase max energy by up to x6 instead of x4.</li>
     <li>Expansions now display their total percentage with condensed numbers.</li>
   </ul></li>
-  <li>Large numbers of units are handled better: it's now possible to produce up to to 1e1000 meat, or any other unit. (Units are no longer limited by Javascript's usual maximum of 1.7e308.) At that point, you'll simply stop producing meat, instead of receiving buggy "infinite" meat.</li>
+  <li>Large numbers of units are handled better: it's now possible to produce up to to 1e100,000 meat, or any other unit. (Units are no longer limited by Javascript's usual maximum of 1.7e308.) At that point, you'll simply stop producing meat, instead of receiving buggy "infinite" meat.</li>
   <li>"Buy all upgrades" moved into the "more..." menu, instead of its own menu/tab. It no longer buys meat-tab twin upgrades.</li>
-  <li>Added an option for engineering notation. Thanks to <a target="_blank" href="https://github.com/Shoelace">Shoelace</a> for <a target="_blank" href="https://github.com/erosson/swarm/issues/247">contributing this code</a>.</li>
+  <li>Added an option to format numbers with engineering notation. Thanks to <a target="_blank" href="https://github.com/Shoelace">Shoelace</a> for <a target="_blank" href="https://github.com/erosson/swarm/issues/247">contributing this code</a>!</li>
   <li>Anonymous feedback form should work more reliably, even with very long save files.</li>
+  <li>The buy-N-units input field now suports scientific-e notation, and allows buying more than 1e21 units at once.</li>
+  <li>Added an achievement for everyone who's helped test v1.0. Your game on <a href="https://swarmsim.github.io">the production server</a> should receive the achievement automatically if you've ascended at least once on <a href="https://swarmsim-publictest.github.io">the test server</a>.</li>
 </ul>
       </div>
     </div>
@@ -67,6 +69,7 @@
 <h4>1.0.0-publictest27<span>2015/02/10</span></h4>
 <ul>
   <li>Updated the previous changelog entry to mention the new achievement.</li>
+  <li>Disabled all UI. Full 1.0 release is coming. Thanks for all your help testing things!</li>
 </ul>
 <h4>1.0.0-publictest26<span>2015/02/09</span></h4>
 <ul>
@@ -76,7 +79,7 @@
   <li>Added a few more meat-producing units.</li>
   <li>Twin costs for very advanced units have increased.</li>
   <li>A few invisible changes to prepare for the v1.0 release.</li>
-  <li>Added an achievement for everyone who's helped test v1.0. After v1.0 is released to <a href="https://swarmsim.github.io">the production server</a>, you should receive the achievement automatically if you have a game on <a href="https://swarmsim-publictest.github.io">the test server</a> with at least one ascension.</li>
+  <li>Added an achievement for everyone who's helped test v1.0. After v1.0 is released, your game on <a href="https://swarmsim.github.io">the production server</a> should receive the achievement automatically if you've ascended at least once on <a href="https://swarmsim-publictest.github.io">the test server</a>.</li>
 </ul>
 <h4>1.0.0-publictest25<span>2015/02/05</span></h4>
 <ul>

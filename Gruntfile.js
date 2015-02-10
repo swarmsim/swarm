@@ -72,6 +72,7 @@ module.exports = function (grunt) {
             showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: '0',
+            isOffline: false,
             gaTrackingID: null
           }
         }
@@ -86,6 +87,7 @@ module.exports = function (grunt) {
             showSkipped: true,
             spreadsheetKey: 'v0.2',
             saveId: 'publictest9',
+            isOffline: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -101,6 +103,7 @@ module.exports = function (grunt) {
             showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: 'publictest9',
+            isOffline: true,
             gaTrackingID: 'UA-53523462-1'
           }
         }

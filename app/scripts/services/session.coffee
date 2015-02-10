@@ -141,6 +141,8 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @_exportCache = encoded
     
     save: ->
+      if env.isOffline
+        throw new Error 'cannot save; game is offline'
       # exportCache is necessary because sjcl encryption isn't deterministic,
       # but exportSave() must be ...not necessarily deterministic, but
       # consistent enough to not confuse angular's $apply().
@@ -179,6 +181,8 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @save()
 
     onHeartbeat: ->
+      if env.isOffline
+        return false
       # periodically save the current date, in case onClose() doesn't fire.
       # give it its own localstorage slot, so it saves quicker (it's more frequent than other saves)
       # and generally doesn't screw with the rest of the session. It won't be exported; that's fine.

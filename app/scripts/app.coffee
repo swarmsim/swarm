@@ -23,14 +23,24 @@ angular.module 'swarmApp', [
     # TODO: hotkeys disabled for now.
     #'cfp.hotkeys'
   ]
-angular.module('swarmApp').config ($routeProvider ) ->
+angular.module('swarmApp').config ($routeProvider, env) ->
+    if env.isOffline
+      return $routeProvider
+        .when '/changelog',
+          templateUrl: 'views/changelog.html'
+          controller: 'ChangelogCtrl'
+        .when '/iframe/:call',
+          templateUrl: 'views/iframe.html'
+          controller: 'IframeCtrl'
+        .when '/',
+          templateUrl: 'views/offline.html'
+          controller: 'OfflineCtrl'
+        .otherwise
+          redirectTo: '/'
     $routeProvider
       .when '/debug',
         templateUrl: 'views/debug.html'
         controller: 'DebugCtrl'
-      #.when '/',
-      #  templateUrl: 'views/unitlist.html'
-      #  controller: 'UnitlistCtrl'
       .when '/options',
         templateUrl: 'views/options.html'
         controller: 'OptionsCtrl'
@@ -66,7 +76,7 @@ angular.module('swarmApp').config (env, $logProvider) ->
   $logProvider.debugEnabled env.isDebugLogged
 
 angular.module('swarmApp').config (env, version) ->
-  if env.gaTrackingID and window.ga?
+  if env.gaTrackingID and window.ga? and not env.isOffline
     #console.log 'analytics', gaTrackingID
     window.ga 'create', env.gaTrackingID, 'auto'
     # appVersion breaks analytics, presumably because it's mobile-only.

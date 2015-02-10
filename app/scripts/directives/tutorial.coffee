@@ -6,7 +6,7 @@
  # @description
  # # tutorial
 ###
-angular.module('swarmApp').directive 'tutorial', (game) ->
+angular.module('swarmApp').directive 'tutorial', (game, env) ->
   template: """
     <div ng-if="tutStep() > 0" class="alert animif alert-info" role="alert">
       <button ng-if="showCloseButton()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -63,3 +63,7 @@ angular.module('swarmApp').directive 'tutorial', (game) ->
         if units.drone.greaterThan(0)
           return 2
         return 1
+
+    if env.isOffline
+      scope.tutStep = ->
+        return 0
