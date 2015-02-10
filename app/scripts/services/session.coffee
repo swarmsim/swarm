@@ -101,9 +101,12 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       #  throw new Error "save version newer than game version: #{saveversion} > #{gameversion}"
 
       # coffeescript: two-dot range is inclusive
-      blacklisted = ('1.0.0-publictest'+i for i in [0..8])
-      if _.contains blacklisted, saveversion
-        throw new Error 'blacklisted save version'
+      blacklisted = [/^1\.0\.0-publictest/]
+      # never blacklist the current version; also makes tests pass before we do `npm version 1.0.0`
+      if saveversion != gameversion
+        for b in blacklisted
+          if b.test saveversion
+            throw new Error 'blacklisted save version'
 
     _loads: (encoded) ->
       #encoded = atob encoded

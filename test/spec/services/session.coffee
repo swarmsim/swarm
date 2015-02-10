@@ -72,6 +72,9 @@ describe 'Service: session', ->
     expect(-> session._validateSaveVersion '0.2.0').not.toThrow()
     expect(-> session._validateSaveVersion '1.0.0').not.toThrow()
     expect(-> session._validateSaveVersion undefined).toThrow()
+    expect(-> session._validateSaveVersion '1.0.0-publictest1').toThrow()
+    expect(-> session._validateSaveVersion '1.0.0-publictest8').toThrow()
+    expect(-> session._validateSaveVersion '1.0.0-publictest20').toThrow()
 
   it 'validates the save version on import', inject (version) ->
     session.version.started = '0.0.1'
