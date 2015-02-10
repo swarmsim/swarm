@@ -42,6 +42,10 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     @maybeSet 'showAdvancedUnitData', val
     !!@get 'showAdvancedUnitData'
 
+  showAccurateTiming: (val) ->
+    @maybeSet 'showAccurateTiming', val
+    !!@get 'showAccurateTiming'
+
   notation: (val) ->
     if val?
       valid = {'standard-decimal':true, 'scientific-e':true, 'hybrid':true, 'engineering':true}

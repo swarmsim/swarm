@@ -24,10 +24,16 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       #util.utcdoy 1000 * secs
       if isFinite estimate.val
         nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
-        secs = moment.duration(estimate.val, 'seconds').humanize()
-        if /\ years$/.test secs
-          secs = 'a long time'
-          nonlinear = ''
+        secs = moment.duration(estimate.val, 'seconds')
+        if options.showAccurateTiming()
+           secs = secs.format("Y [yr] M [mth] d [day] h [hr] m [min] s [sec]")
+           nonlinear = ''
+           #secs = secs.format("[seconds:] s -- [minutes:] m -- [hours:] h -- [days:] d", { trim: "right" });
+        else
+           secs = secs.humanize()
+           if /\ years$/.test secs
+             secs = 'a long time'
+             nonlinear = ''
         return ", #{nonlinear}#{secs}"
       return ""
 
