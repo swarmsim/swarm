@@ -75,7 +75,7 @@ type name and press enter to save
 
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
-    <textarea type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)"></textarea>
+    <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
     <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
     <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
     <p>To export, click the text above and copy (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.</p>
