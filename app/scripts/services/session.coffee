@@ -108,10 +108,20 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
           if b.test saveversion
             throw new Error 'blacklisted save version'
 
+    _validateFormatVersion: (formatversion, gameversion=version) ->
+      # coffeescript: two-dot range is inclusive
+      blacklisted = [/^1\.0\.0-publictest/]
+      # never blacklist the current version; also makes tests pass before we do `npm version 1.0.0`
+      if formatversion != gameversion
+        for b in blacklisted
+          if b.test formatversion
+            throw new Error 'blacklisted save version'
+
     _loads: (encoded) ->
       #encoded = atob encoded
       [saveversion, encoded] = @_splitVersionHeader encoded
       # don't compare this saveversion for validity! it's only for figuring out changing save formats.
+      # (with some exceptions, like publictest.)
       encoded = encoded.substring PREFIX.length
       #encoded = sjcl.decrypt KEY, encoded
       #encoded = LZString.decompressFromUTF16 encoded
@@ -123,6 +133,9 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       ret.date.loaded = new Date()
       # check save version for validity
       @_validateSaveVersion ret.version?.started
+      # prevent saves imported from publictest. easy to hack around, but good enough to deter non-cheaters.
+      if saveversion
+        @_validateFormatVersion atob saveversion
       ret.id = env.saveId
       # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
       for obj in [ret.unittypes, ret.upgrades]
