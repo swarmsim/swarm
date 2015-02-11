@@ -1412,7 +1412,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Build 1 nexus",
-        "label": "phenominal cosmic power",
+        "label": "phenomenal cosmic power",
         "longdesc": "",
         "name": "nexus1",
         "points": 10,
