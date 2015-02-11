@@ -26,6 +26,9 @@ angular.module 'swarmApp', [
 angular.module('swarmApp').config ($routeProvider, env) ->
     if env.isOffline
       return $routeProvider
+        .when '/debug',
+          templateUrl: 'views/debug.html'
+          controller: 'DebugCtrl'
         .when '/changelog',
           templateUrl: 'views/changelog.html'
           controller: 'ChangelogCtrl'
