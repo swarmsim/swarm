@@ -72,6 +72,7 @@ module.exports = function (grunt) {
             showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: '0',
+            isOffline: false,
             gaTrackingID: null
           }
         }
@@ -85,7 +86,8 @@ module.exports = function (grunt) {
             httpsAllowInsecure: true,
             showSkipped: true,
             spreadsheetKey: 'v0.2',
-            saveId: 'publictest9',
+            saveId: 'v0.2',
+            isOffline: false,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -100,7 +102,8 @@ module.exports = function (grunt) {
             //gaTrackingID: 'UA-53523462-2'
             showSkipped: false,
             spreadsheetKey: 'v0.2',
-            saveId: 'publictest9',
+            saveId: 'v0.2',
+            isOffline: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -707,8 +710,8 @@ module.exports = function (grunt) {
     'copy:phonegap',
     'gh-pages:staging'
   ]);
-  //grunt.registerTask('deploy-prod', [
-  //  'build',
-  //  'gh-pages:prod'
-  //]);
+  grunt.registerTask('deploy-prod', [
+    'build',
+    'gh-pages:prod'
+  ]);
 };

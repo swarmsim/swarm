@@ -1,11 +1,4 @@
-<ul class="list-inline">
-  <li ng-repeat="buff in game.buffs">
-    <!-- TODO buff icon -->
-    <span class="glyphicon glyphicon-flash"></span>
-    {{buff.type}}: {{buff.expiresInMillis()}}, {{buff.expiresPercent() | percent:0}}
-  </li>
-</ul>
-<ul class="nav nav-tabs" role="tablist">
+<ul ng-if="!isOffline" class="nav nav-tabs" role="tablist">
   <li ng-repeat="tab in tabs.list | filter:filterVisible" ng-class="{active: cur.name === tab.name}">
     <a ng-href="#{{tab.url()}}" role="tab">
       <!-- TODO why isnt' pluralize working? -->

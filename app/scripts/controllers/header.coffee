@@ -54,8 +54,9 @@ angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $locati
   # use an iframe to ask the publictest server if the player's eligible for the achievement
   framed = window.top and window != window.top
   alreadyEarned = game.achievement('publictest1').isEarned()
-  isPublicTest = _.contains '-publictest', version
-  $scope.loadIframe = (not framed) and (not alreadyEarned) and (not isPublicTest)
+  isPublicTest = _.contains version, '-publictest'
+  # accidentally pushed this to publictest with isPublicTest broken - seemed to work, though! `framed` stopped any loops.
+  $scope.loadIframe = (not framed) and (not alreadyEarned) #and (not isPublicTest)
   $log.debug 'achievePublicTest1: creating iframe:', $scope.loadIframe, framed:framed, alreadyEarned:alreadyEarned, isPublicTest:isPublicTest
   if $scope.loadIframe
     # setup a message-handler; cleanup either when the message arrives, or after 30 seconds
