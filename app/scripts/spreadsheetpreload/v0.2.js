@@ -167,7 +167,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch 10,000 drones",
-        "label": "exponential growth",
+        "label": "\"exponential\" growth",
         "longdesc": "Drones hatched by queens don't count.",
         "name": "drone3",
         "points": 30,
