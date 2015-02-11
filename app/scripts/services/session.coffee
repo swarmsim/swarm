@@ -142,7 +142,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
     
     save: ->
       if env.isOffline
-        throw new Error 'cannot save; game is offline'
+        $log.warn 'cannot save; game is offline'
       # exportCache is necessary because sjcl encryption isn't deterministic,
       # but exportSave() must be ...not necessarily deterministic, but
       # consistent enough to not confuse angular's $apply().
