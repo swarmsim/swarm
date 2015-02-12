@@ -27,11 +27,11 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     $scope.savedgames = [];
     $scope.newSavegame = ''; 
 
-    $scope.app_key = 'k614nfbt1fp1mj7';
+    $scope.app_key = '6hagxaf8041upxz';
     $scope.dsc =  new Dropbox.Client({key: $scope.app_key });
 #	// Use a pop-up for auth.
     #$scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.href + 'oauth_receiver.html' }));
-    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: 'https://shoelace.github.io/views/dropboxauth.html'  }));
+    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.protocol + '//' + window.location.host + '/views/dropboxauth.html'  }));
 
     #else
 			#// If we're authenticated, update the UI to reflect the logged in status.
