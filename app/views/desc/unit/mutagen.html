@@ -14,24 +14,16 @@
 </div>
 <p><button title="" ng-click="commands.ascend({game:game})" class="btn btn-default" ng-class="{disabled:game.ascendCost().greaterThan(game.unit('energy').count())}">Ascend - activate mutagen and restart</button></p>
 
-<div ng-if="game.respecSpent().greaterThan(0)">
+<div>
 <p>
 Respeccing refunds all {{game.respecSpent().times(game.respecRate()) | longnum}} mutagen you've spent,
 but resets all mutagen units and upgrades to 0, and resets your next ascension's energy cost to {{game.ascendCost({spent:0}) | longnum}}.
 </p>
 
 <p>Respeccing now will cost {{game.respecCost()|longnum}} energy ({{game.respecCostRate|percent}} of your next ascension's cost).</p>
-<!--div class="progress" style="margin-bottom:0">
-  <div ng-if="game.respecCostCapDiff().greaterThan(0)" class="progress-bar progress-bar-danger pull-right" role="progressbar" aria-valuenow="{{game.respecCostCapDiff()}}" aria-valuemin="0" aria-valuemax="{{game.respecCost()}}" style="width:{{game.respecCostCapDiff().dividedBy(game.respecCost())|percent:0}}">
-    {{game.respecCostCapDiff()|longnum}} more than your max energy!
-  </div>
-  <div class="progress-bar" role="progressbar" aria-valuenow="{{game.unit('energy').count()}}" aria-valuemin="0" aria-valuemax="{{game.respecCost()}}" style="width:{{game.respecCostPercent()|percent:0}}">
-    {{game.unit('energy').count()|longnum}} energy, {{game.respecCostPercent()|percent:0}}<span ng-if="game.respecCostCapDiff().isNegative() && game.respecCostPercent().lessThan(1)">: {{game.respecCostDurationMoment().humanize()}}</span>
-  </div>
-</div-->
 
-<p><button title="" ng-click="game.respec()" ng-class="{disabled:!game.isRespecCostMet()}" class="btn btn-default">Respec - refund mutagen, but reset ascension cost</button></p>
+<p><button title="" ng-click="game.respec()" ng-class="{disabled:game.respecSpent().isZero() || !game.isRespecCostMet()}" class="btn btn-default">Respec - refund mutagen, but reset ascension cost</button></p>
 
 <p>One free respec is available every three ascensions. You have {{game.unit('freeRespec').count()|longnum}} free respecs remaining.</p>
-<p><button title="" ng-click="game.respecFree()" ng-class="{disabled:game.unit('freeRespec').count().lessThanOrEqualTo(0)}" class="btn btn-default">Respec (free)</button></p>
+<p><button title="" ng-click="game.respecFree()" ng-class="{disabled:game.respecSpent().isZero() || game.unit('freeRespec').count().lessThanOrEqualTo(0)}" class="btn btn-default">Respec (free)</button></p>
 </div>
