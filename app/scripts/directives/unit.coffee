@@ -19,8 +19,9 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
     # not good enough - this runs only once, we want to be viewNewUpgrades()'ing constantly while the unit is in view
     #scope.cur.viewNewUpgrades()
 
+    formatDuration = (estimate) ->
     scope.estimtateUpgradeSecs = (upgrade) ->
-      estimate = upgrade.estimateSecs()
+      estimate = upgrade.estimateSecsUntilBuyable()
       #util.utcdoy 1000 * secs
       if isFinite estimate.val
         nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''

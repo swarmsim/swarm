@@ -118,13 +118,13 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return Decimal.min 1, Decimal.max 0, max
 
   # TODO merge with costMetPercent
-  estimateSecs: ->
+  estimateSecsUntilBuyable: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = {val:0, unit:null}
     if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
       return 0
     for cost in @sumCost @maxCostMet().plus(1)
-      secs = cost.unit.estimateSecs cost.val
+      secs = cost.unit.estimateSecsUntilEarned cost.val
       if max.val < secs
         max = {val:secs, unit:cost.unit}
     return max

@@ -150,12 +150,12 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
         return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
-      return @estimateSecs cap
+      return @estimateSecsUntilEarned cap
   capDurationMoment: ->
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
 
-  estimateSecs: (num) ->
+  estimateSecsUntilEarned: (num) ->
     # result is *not* a bigdecimal!
     remaining = new Decimal(num).minus @count()
     if remaining.lessThanOrEqualTo 0
