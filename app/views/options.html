@@ -18,6 +18,17 @@
   </div>
 
   <div class="form-group">
+    <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Duration format</label></div>
+    <label style="font-weight:normal"><input type="radio" ng-init="form.durationFormat=options.durationFormat()" ng-model="form.durationFormat" value="human" ng-change="options.durationFormat(form.durationFormat)">Human</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="full" ng-change="options.durationFormat(form.durationFormat)" ng-init="form.notation=options.notation()">Full</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="abbreviated" ng-change="options.durationFormat(form.durationFormat)">Abbreviated</input></label>
+    <p>Examples:  
+    <label style="font-weight:normal" ng-repeat="sample_duration in duration_examples">{{sample_duration }} , </label>
+</p>
+
+  </div>
+
+  <div class="form-group">
     <label class="control-label" for="fps"><span class="glyphicon glyphicon-film"></span> Maximum frames per second</label>
     <input type="range" class="form-control" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps)">
     <!--button ng-click="options.reset('fps');form.fps=options.fps()">Reset</button-->

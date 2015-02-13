@@ -14,6 +14,12 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.env = env
   $scope.imported = {}
 
+  $scope.duration_examples = [
+      moment.duration(16,'seconds')
+      moment.duration(2.5,'hours')
+      moment.duration(3.33333333,'weeks')
+  ];
+
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
     $event.target.select()
