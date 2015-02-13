@@ -2,7 +2,7 @@
 <html class="no-js">
 <!--
 
-Hi there, the non-minified source code is a lot easier to read
+Hi there! The non-minified source code is a lot easier to read:
 https://github.com/erosson/swarm
 
 -->
@@ -73,7 +73,7 @@ https://github.com/erosson/swarm
       <div ng-cloak ng-controller="WelcomeBackCtrl">
         <div id="welcomeback" class="alert alert-info alert-dismissible animif" role="alert" ng-if="showWelcomeBack">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <p>Welcome back! While you were away for {{durationSinceClosed.humanize()}}, your swarm produced
+          <p>Welcome back! While you were away for {{durationSinceClosed.humanize()}}, your swarm produced:
           <!--span ng-repeat="gain in offlineGains">
             <span ng-if="!$first && $last"> and </span>
               {{gain.val | longnum}}

@@ -50,17 +50,23 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
   backfill.run game
 
 angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game) ->
+  # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
+  # Do all time-checks for the welcome-back screen *before* scheduling heartbeats/onclose.
+  $scope.durationSinceClosed = game.session.durationSinceClosed()
+  $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
+  #$scope.showWelcomeBack = true # uncomment for testing!
+  reifiedToCloseDiffInSecs = (game.session.dateClosed().getTime() - game.session.date.reified.getTime()) / 1000
+  $log.debug 'time since game closed', $scope.durationSinceClosed.humanize(),
+    millis:game.session.millisSinceClosed()
+    reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
+
   # Store when the game was closed. Try to use the browser's onclose (onunload); that's most precise.
   # It's unreliable though (crashes fail, cross-browser's icky, ...) so use a heartbeat too.
+  # Wait until showWelcomeBack is set before doing these, or it'll never show
   $(window).unload -> game.session.onClose()
   $interval (-> game.session.onHeartbeat()), 60000
-  game.session.onHeartbeat()
+  game.session.onHeartbeat() # game.session time checks after this point will be wrong
 
-  # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
-  #$scope.durationSinceClosed = game.session.durationSinceClosed()
-  #$scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
-  #$scope.showWelcomeBack = true # uncomment for testing!
-  $scope.showWelcomeBack = false # disable, let onClose() set times for a while before re-enabling
   if not $scope.showWelcomeBack
     return
 
@@ -69,10 +75,6 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
     $('#welcomeback').alert('close')
     return undefined #quiets an angular error
 
-  reifiedToCloseDiffInSecs = (game.session.dateClosed().getTime() - game.session.date.reified.getTime()) / 1000
-  $log.info 'time since game closed', $scope.durationSinceClosed.humanize(),
-    millis:game.session.millisSinceClosed()
-    reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
   # show all tab-leading units, and three leading generations of meat
   interestingUnits = []
   leaders = 0
@@ -83,7 +85,6 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
       leaders += 1
       interestingUnits.push unit
   interestingUnits = interestingUnits.concat _.map game.tabs.list, 'leadunit'
-  # TODO insert highest meat units
   uniq = {}
   $scope.offlineGains = _.map interestingUnits, (unit) ->
     if not uniq[unit.name]
@@ -91,6 +92,6 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
       countNow = unit.count()
       countClosed = unit._countInSecsFromReified reifiedToCloseDiffInSecs
       countDiff = countNow.minus countClosed
-      if not countDiff.isZero()
+      if countDiff.greaterThan 0
         return unit:unit, val:countDiff
   $scope.offlineGains = (g for g in $scope.offlineGains when g)
