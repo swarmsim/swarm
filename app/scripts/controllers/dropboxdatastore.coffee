@@ -38,10 +38,12 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     $scope.isAuth = ->
         return $scope.dsc.isAuthenticated();
 
+    getTable = ->
+      return _datastore.getTable 'saveddata'
 
     $scope.updatesavelisting = (event) ->
        #records = event.affectedRecordsForTable('swarmstate');
-       taskTable = _datastore.getTable('saveddata');
+       taskTable = getTable()
        $scope.savedgames = taskTable.query();
 
 
@@ -93,7 +95,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     
     $scope.addSavegame =  ->
         $log.debug 'saving to dropbox'
-        taskTable = _datastore.getTable('saveddata')
+        taskTable = getTable()
 
         firstTask = taskTable.insert({
                         name: $scope.newSavegame,
@@ -109,4 +111,4 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     
     $scope.deleteSavegame = (savegame)  ->
         $log.debug 'do delete of:'+ savegame;
-        _datastore.getTable('swarmstate').get(savegame.getId()).deleteRecord();
+        getTable().get(savegame.getId()).deleteRecord()
