@@ -34,7 +34,7 @@
     </label>
     <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
   </div>
-  <div class="form-group" ng-if="env.isDebugEnabled" style="border:1px solid red">
+  <div class="form-group" ng-if="env.dropboxAppKey" style="border:1px solid red">
     <div><label class="control-label"><span class="glyphicon glyphicon-barcode" ></span> Dropbox syncing</label></div>
       <div ng-cloak ng-controller="DropboxdatastoreCtrl">
 currently authorised???: {{isAuth()}} <br> 
