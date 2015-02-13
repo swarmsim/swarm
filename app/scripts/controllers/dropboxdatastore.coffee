@@ -36,32 +36,29 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
 
 
     $scope.isAuth = ->
-        return $scope.dsc.isAuthenticated();
+        return $scope.dsc.isAuthenticated()
 
     getTable = ->
       return _datastore.getTable 'saveddata'
 
+    newSavegame = 'game'
     $scope.updatesavelisting = (event) ->
        #records = event.affectedRecordsForTable('swarmstate');
        taskTable = getTable()
-       $scope.savedgames = taskTable.query();
-
+       $scope.savedgames = taskTable.query name:newSavegame
+       $scope.savedgame = $scope.savedgames[0]
 
     $scope.loggedin = () ->
       $log.debug "loggedIn()";
-      $('#dropboxlogin').hide();
 
       datastoreManager = new Dropbox.Datastore.DatastoreManager($scope.dsc);
-      datastoreManager.openDefaultDatastore( (err,datastore)->
+      datastoreManager.openDefaultDatastore (err,datastore)->
           $log.debug "opendef err: "+err if err;
           $log.debug "opendef datastore: "+datastore;
 
           _datastore = datastore;
           datastore.recordsChanged.addListener( $scope.updatesavelisting );
           $scope.updatesavelisting();
-         
-      );
-      $('#dropboxlogout').show();
    
     # First check if we're already authenticated.
     $scope.dsc.authenticate({ interactive : false});
@@ -70,9 +67,6 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     if $scope.dsc.isAuthenticated()
       # If we're authenticated, update the UI to reflect the logged in status.
       $scope.loggedin()
-    else
-      # Otherwise show the login button.
-      $('#dropboxlogin').show();
 
 
     $scope.droplogin = -> 
@@ -90,25 +84,26 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
         $scope.savedgames = [];
         _datastore.recordsChanged.removeListener($scope.updatesavelisting) ;
         $scope.dsc.signOut({mustInvalidate: true});
-        $('#dropboxlogin').show();
-        $('#dropboxlogout').hide();
     
-    $scope.addSavegame =  ->
+    $scope.addSavegame = ->
+        for save in $scope.savedgames
+          $scope.deleteSavegame save
         $log.debug 'saving to dropbox'
         taskTable = getTable()
 
-        firstTask = taskTable.insert({
-                        name: $scope.newSavegame,
-                        created: new Date()
-                        ,data: session.exportSave()
-                    });
-        $scope.newSavegame = ''; 
+        firstTask = taskTable.insert
+          name: newSavegame
+          created: new Date()
+          data: session.exportSave()
+        $scope.updatesavelisting()
 
-    $scope.importSavegame = (savegame)  ->
+    $scope.importSavegame = (savegame=$scope.savedgame)  ->
         $log.debug 'do import of:'+ savegame;
         $scope.importSave(savegame.get('data'));
-
     
-    $scope.deleteSavegame = (savegame)  ->
+    $scope.deleteSavegame = (savegame=$scope.savedgame)  ->
         $log.debug 'do delete of:'+ savegame;
         getTable().get(savegame.getId()).deleteRecord()
+
+    $scope.moment = (datestring=savedgame.get 'created') ->
+      return moment datestring
