@@ -65,7 +65,7 @@ type name and press enter to save
     <li ng-repeat="savegame in savedgames">
   <button ng-click="deleteSavegame(savegame);">Delete</button>
   <button ng-click="importSavegame(savegame);">Import</button>
-       {{savegame.get('state')}} {{savegame.get('created') }} {{savegame.getId() }} 
+       {{savegame.get('name')}} created: {{savegame.get('created') }}
     </li>
 </ul>
 </div>

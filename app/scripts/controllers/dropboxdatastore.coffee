@@ -18,20 +18,14 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     $scope.env = env
 
 
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karma'
-    ]
-
     $scope.savedgames = [];
     $scope.newSavegame = ''; 
 
-    $scope.app_key = 'k614nfbt1fp1mj7';
+    $scope.app_key = '6hagxaf8041upxz';
     $scope.dsc =  new Dropbox.Client({key: $scope.app_key });
 #	// Use a pop-up for auth.
     #$scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.href + 'oauth_receiver.html' }));
-    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: 'https://shoelace.github.io/views/dropboxauth.html'  }));
+    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.protocol + '//' + window.location.host + '/views/dropboxauth.html'  }));
 
     #else
 			#// If we're authenticated, update the UI to reflect the logged in status.
@@ -47,7 +41,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
 
     $scope.updatesavelisting = (event) ->
        #records = event.affectedRecordsForTable('swarmstate');
-       taskTable = _datastore.getTable('swarmstate');
+       taskTable = _datastore.getTable('saveddata');
        $scope.savedgames = taskTable.query();
 
 
@@ -57,7 +51,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
 
       datastoreManager = new Dropbox.Datastore.DatastoreManager($scope.dsc);
       datastoreManager.openDefaultDatastore( (err,datastore)->
-          $log.debug "opendef err: "+err;
+          $log.debug "opendef err: "+err if err;
           $log.debug "opendef datastore: "+datastore;
 
           _datastore = datastore;
@@ -98,16 +92,19 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
         $('#dropboxlogout').hide();
     
     $scope.addSavegame =  ->
-        taskTable = _datastore.getTable('swarmstate')
+        $log.debug 'saving to dropbox'
+        taskTable = _datastore.getTable('saveddata')
 
         firstTask = taskTable.insert({
-                        state: $scope.newSavegame,
-                        completed: false,
+                        name: $scope.newSavegame,
                         created: new Date()
-                        ,export: session.exportSave()
+                        ,data: session.exportSave()
                     });
         $scope.newSavegame = ''; 
 
+    $scope.importSavegame = (savegame)  ->
+        $log.debug 'do import of:'+ savegame;
+        $scope.importSave(savegame.get('data'));
 
     
     $scope.deleteSavegame = (savegame)  ->
