@@ -7,12 +7,15 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, kongregate) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
   $scope.env = env
   $scope.imported = {}
+
+  $scope.isKongregate = ->
+    kongregate.isKongregate()
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->

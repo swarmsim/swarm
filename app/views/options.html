@@ -78,6 +78,9 @@
     <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
     <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
     <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
+    <div class="alert alert-warning" ng-cloak ng-if="isKongregate() && !game.session.kongregate">
+      This saved data was imported from outside Kongregate. You can still play it on Kongregate, but you won't appear on Kongregate's leaderboards. Start a new game on Kongregate to be eligible for the leaderboards.
+    </div>
     <p>To export, click the text above and copy (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.</p>
     <p>It's normal for imported saves to have more units than you exported with. Your swarm continues its work even after saved data is exported/before it's imported.</p>
   </div>

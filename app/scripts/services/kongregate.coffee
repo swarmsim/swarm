@@ -21,21 +21,26 @@ angular.module('swarmApp').factory 'Kongregate', ($log, $location) -> class Kong
     # - separate deployment? functional, but ugly maintenance.
     # - when-framed-assume-kongregate? could work...
     # - hard-querystring (/?kongregate#/tab/meat) seems to work well! can't figure out how to get out of it in 30sec.
+  storageKeySuffix: ->
+    # Builds the cookie/localstorage name that games are saved to. Kongregate saves are separate from the independent site's.
+    if @isKongregate()
+      return '-kongregate'
+    return ''
   load: ->
     $log.debug 'loading kongregate script...'
     $.getScript 'https://cdn1.kongregate.com/javascripts/kongregate_api.js'
       .done (script, textStatus, xhr) =>
-        $log.debug 'kongregate script loaded'
+        $log.debug 'kongregate script loaded, now trying to load api', window.kongregateAPI
+        # loadAPI() requires an actual kongregate frame, `?kongregate=1` in its own tab is insufficient. fails silently.
         window.kongregateAPI.loadAPI =>
           $log.debug 'kongregate api loaded'
           @kongregate = window.kongregateAPI.getAPI()
           @_onLoad()
       .fail (xhr, settings, exception) =>
         $log.error 'kongregate load failed', xhr, settings, exception
-        $log.error 'wat'
 
   _onLoad: ->
-    $log.debug 'kongregate all loaded', @kongregate
+    $log.debug 'kongregate successfully loaded!', @kongregate
 
 angular.module('swarmApp').factory 'kongregate', ($log, Kongregate) ->
   ret = new Kongregate()
