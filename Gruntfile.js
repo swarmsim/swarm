@@ -21,6 +21,18 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var dropboxAppKey = function(configuredKey) {
+    var KEYS = {
+      shoelaceDev:'6hagxaf8041upxz',
+      dev:'q5b8awxy8r3qjus', //account dropbox@swarmsim.com
+      prod:'n2mff9wz6bv0f91' //account dropbox@swarmsim.com
+    };
+    // `--dropboxAppKey=x` can always override this file's configuration
+    var key = grunt.option('dropboxAppKey') || configuredKey;
+    // key can either be a named key configured above (`--dropboxAppKey=dev`) or the key itself (`--dropboxAppKey=q5b8awxy8r3qjus`)
+    return KEYS[key] || key;
+  };
+
   // Define the configuration for all the tasks
   grunt.initConfig({
     // https://www.npmjs.org/package/grunt-gh-pages
@@ -73,7 +85,7 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: '0',
             isOffline: false,
-            dropboxAppKey: 'q5b8awxy8r3qjus',
+            dropboxAppKey: dropboxAppKey('dev'),
             gaTrackingID: null
           }
         }
@@ -89,7 +101,7 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
-            dropboxAppKey: 'q5b8awxy8r3qjus',
+            dropboxAppKey: dropboxAppKey('dev'),
             gaTrackingID: 'UA-53523462-3'
           }
         }

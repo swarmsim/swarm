@@ -22,6 +22,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     $scope.newSavegame = ''; 
 
     $scope.app_key = env.dropboxAppKey
+    $log.debug 'env.dropboxAppKey:', env.dropboxAppKey
     $scope.dsc =  new Dropbox.Client({key: $scope.app_key });
 #	// Use a pop-up for auth.
     #$scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.href + 'oauth_receiver.html' }));
