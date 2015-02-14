@@ -19,8 +19,9 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
     # not good enough - this runs only once, we want to be viewNewUpgrades()'ing constantly while the unit is in view
     #scope.cur.viewNewUpgrades()
 
+    formatDuration = (estimate) ->
     scope.estimtateUpgradeSecs = (upgrade) ->
-      estimate = upgrade.estimateSecs()
+      estimate = upgrade.estimateSecsUntilBuyable()
       #util.utcdoy 1000 * secs
       if isFinite estimate.val
         nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
@@ -33,40 +34,55 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
 
     parseNum = (num) ->
       if num?
-        num = Number num
-        if (_.isNumber num) and (not _.isNaN num) and num > 0
+        try
+          num = new Decimal num
+        catch e
+          return undefined
+        if num.isFinite() and not num.isNaN()
           return num
       return undefined
-    scope.form =
-      mainBuynum: do ->
-        if (search = $location.search())?
-          if (ret = parseNum search.num)?
-            return Math.ceil ret
-          if (ret = parseNum search.twinnum)?
-            ret /= scope.cur.twinMult()
-            return Math.ceil ret
-        return 1
-    scope.mainBuynum = ->
-      ret = Math.max 1, Math.floor Number scope.form.mainBuynum
-      if _.isNaN ret
-        ret = 1
+    _buyN = do ->
+      ret = Decimal.ONE
+      if (search = $location.search())?
+        if (val = parseNum search.num)?
+          ret = val.ceil()
+        else if (val = parseNum search.twinnum)?
+          ret = val.dividedBy(scope.cur.twinMult()).ceil()
+      $log.debug 'buyN initial value', ret.toJSON()
       return ret
-    scope.unitBuyTotal = (num) ->
-      Math.min(num, scope.cur.maxCostMet()) * $scope.cur.twinMult()
+    scope.initBuyN = =>
+      # I know you're not supposed to reference dom from angular controllers; I'd rather use ng-model too.
+      # Angular's (quite reasonably) casting input with type="number" to a JS number, but I need a string 
+      # for decimal.js and can't turn that off. I want type="number" on the input (instead of, say,
+      # type="text" with extra validation) for the number-spinner on desktop and number-keyboard on mobile.
+      inputElement = element.find 'input[name="buyN"]'
+      scope.updateBuyN = ->
+        val = inputElement.val()
+        if not val
+          val = 1
+        _buyN = Decimal.max 1, val
+        $log.debug 'updateBuyN', inputElement.val(), _buyN.toJSON()
+      inputElement.change scope.updateBuyN
+      #inputElement.keypress scope.updateBuyN
+      inputElement.keyup scope.updateBuyN
+      return undefined
+    scope.buyN = ->
+      # careful here, angular freaks out if you return different objects when the value hasn't changed
+      return _buyN
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()
 
     scope.viewNewUpgrades = ->
-      scope.cur.viewNewUpgrades()
+      scope?.cur?.viewNewUpgrades()
       return undefined # important - the result is displayed
 
     scope.unitCostAsPercent = (unit, cost) ->
-      MAX = 9999.99
+      MAX = new Decimal 9999.99
       count = cost.unit.count()
-      if count <= 0
+      if count.lessThanOrEqualTo 0
         return MAX
-      num = Math.max 1, unit.maxCostMet()
-      Math.min MAX, cost.val * num / count
+      num = Decimal.max 1, unit.maxCostMet()
+      Decimal.min MAX, cost.val.times(num).dividedBy(count)
 
     scope.description = (resource, desc=resource.descriptionFn) ->
       # this makes descriptions a potential xss vector. careful to only use numbers.

@@ -50,8 +50,6 @@ angular.module('swarmApp').directive 'debug', (env, game, util) ->
           <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
         </div>
         <dl class="dl-horizontal col-md-4">
-          <debugdd label="'totalMemoCacheSize'" value="util.totalMemoCacheSize()" max="10000"></debugdd>
-          <debugdd label="'memoized.length'" value="util.memoized.length" max="1000"></debugdd>
           <debugdd label="'performance.memory.usedJSHeapSize'" value="mem()" max="100000000"></debugdd>
         </dl>
       </div>

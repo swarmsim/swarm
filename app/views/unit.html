@@ -44,7 +44,7 @@
               <div class="pull-left">{{unit.unittype.label}} {{unit.suffix}}</div>
               <div class="unit-count">
                 {{unit.count()|bignum:0}}
-                <span ng-if="unit.capValue()">({{unit.capPercent()*100|number:0}}%)</span>
+                <span ng-if="unit.capValue()">({{unit.capPercent()|percent:0}})</span>
               </div>
             </a>
           </td>

@@ -17,34 +17,44 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       suffixes = suffixes_
       if !num
         return num
-      if num < floorlimit
+      num = new Decimal num+''
+      if num.isZero()
+        return num+''
+      if num.lessThan floorlimit
         return num.toPrecision(opts.sigfigs).replace /\.?0+$/, ''
-      num = Math.floor num
-      if num < opts.minsuffix
+      num = num.floor()
+      if num.lessThan opts.minsuffix
         # sadly, num.toLocaleString() does not work in unittests. node vs browser?
         # toLocaleString would be nice for foreign users, but my unittests are
         # more important, sorry. Maybe later.
-        return numeral(num).format '0,0'
-      # nope. Numeral only supports up to trillions, so have to do this myself :(
-      # return numeral(num).format '0.[00]a'
+        return numeral(num.toNumber()).format '0,0'
       # http://mathforum.org/library/drmath/view/59154.html
-      index = Math.floor Math.log(num) / Math.log 1000
-      # so hacky
+      #index = num.log().dividedToIntegerBy(Decimal.log 1000)
+      # Decimal.log() is too slow for large numbers. Docs say performance degrades exponentially as # digits increases, boo.
+      # Lucky me, the length is used by decimal.js internally: num.e
+      # this is in the docs, so I think it's stable enough to use...
+      index = Math.floor num.e / 3
+
       if options.notation() == 'hybrid'
+        # hybrid is like standard, but switches to scientific notation sooner: shorter suffix list
         suffixes = suffixes.slice 0, 12
       if options.notation() == 'scientific-e' or index >= suffixes.length
-        # too big for any suffix :(
-        # TODO: exponent groups of 3? 1e30, 10e30, 100e30, 1e33, ...
-        #return num.toExponential(2).replace(/\.?0+e/, 'e').replace 'e+', 'e'
-        return num.toExponential(opts.sigfigs-1).replace 'e+', 'e'
+        # no suffix, use scientific notation. No grouping in threes or suffixes; quit early.
+        # round down for consistency with suffixed formats, though rounding doesn't matter so much here.
+        return num.toExponential(opts.sigfigs-1, Decimal.ROUND_FLOOR).replace 'e+', 'e'
+      if options.notation() == 'engineering'
+        # Engineering works like standard, but with number-based suffixes instead of a hardcoded list
+        suffix = "E#{index * 3}"
       else
+        # use standard-decimal's suffix list
         suffix = suffixes[index]
-      num /= Math.pow 1000, index
+      num = num.dividedBy Decimal.pow 1000, index
       # regex removes trailing zeros and decimal
       # based on http://stackoverflow.com/a/16471544
       #return "#{num.toPrecision(3).replace(/\.([^0]*)0+$/, '.$1').replace(/\.$/, '')}#{suffix}"
-      # turns out it's very distracting to have the number length change, so keep trailing zeros
-      return "#{num.toPrecision(opts.sigfigs).replace(/\.$/, '')}#{suffix}"
+      # turns out it's very distracting to have the number length change, so keep trailing zeros.
+      # always round down to fix #245
+      return "#{num.toPrecision(opts.sigfigs, Decimal.ROUND_FLOOR)}#{suffix}"
 
 angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google
@@ -151,3 +161,23 @@ angular.module('swarmApp').filter 'longnum', (bignumFormatter) ->
                    ' unoctogintillion'
                    ' duooctogintillion'
                    ], {sigfigs:6, minsuffix:1e6}
+
+angular.module('swarmApp').filter 'ceil', ->
+  (num) -> Math.ceil num
+
+angular.module('swarmApp').filter 'percent', ($filter) ->
+  (num, opts={}) ->
+    if _.isNumber opts
+      opts = {places:opts}
+    opts.places ?= 0
+    dec = new Decimal num+''
+    if opts.plusOne
+      dec = dec.minus(1)
+    dec = dec.times(100)
+    if opts.floor
+      dec = dec.floor()
+    if opts.longnum
+      dec = $filter('longnum')(dec)
+    else
+      dec = $filter('number')(dec.toNumber(), opts.places)
+    return "#{dec}%"

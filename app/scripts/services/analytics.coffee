@@ -86,10 +86,15 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
 
   errorCount = 0
   ERROR_THROTTLE_THRESHOLD = 12
+  IGNORED_ERRORS = [/We require more resources/, /too many errors logged to analytics this session/]
   logThrottledError = (action, label) ->
+    label = if _.isString label then label else JSON.stringify label
+    for re in IGNORED_ERRORS
+      if re.test label
+        return
+
     errorCount += 1
     if errorCount <= ERROR_THROTTLE_THRESHOLD
-      label = if _.isString label then label else JSON.stringify label
       $log.debug 'logging error to google analytics', {category:'error', action:action, label: label}
       $analytics.eventTrack action,
         category: 'error'

@@ -19,7 +19,7 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   template: """
   <span ng-repeat="cost in costlist track by cost.unit.name">
     <span ng-if="!$first && $last"> and </span>
-    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{countRemaining(cost)|encodeURIComponent}}">
+    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{showRemaining(cost)|encodeURIComponent}}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
     --></a><span ng-if="!isRemainingBuyable(cost)" ng-class="{costNotMet:!isCostMet(cost)}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
@@ -29,12 +29,19 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   link: (scope, element, attrs) ->
     scope.num ?= 1
     scope.totalCostVal = (cost) ->
-      cost.val * scope.num
+      # stringifying scope.num is important to avoid decimal.js precision errors
+      cost.val.times(scope.num+'')
     scope.isCostMet = (cost) ->
-      cost.unit.count() >= scope.totalCostVal(cost)
+      cost.unit.count().greaterThanOrEqualTo(scope.totalCostVal(cost))
     scope.countRemaining = (cost) ->
-      return Math.ceil scope.totalCostVal(cost) - cost.unit.count()
+      return scope.totalCostVal(cost).minus(cost.unit.count()).ceil()
+    scope.showRemaining = (cost) ->
+      ret = scope.countRemaining cost
+      if _.contains ret+'', 'e'
+        # force it not to round. `new Decimal(...)` parses both numbers and strings. (Decimal.toJSON() is a string.)
+        ret = ret.toJSON()
+      return ret+''
     scope.isRemainingBuyable = (cost) ->
       remaining = scope.countRemaining cost
       # there is a cost remaining that we can't afford, but the remaining units are buyable. Can't necessarily afford them, even one.
-      return (remaining > 0 and cost.unit.isBuyable true)
+      return (remaining.greaterThan(0) and cost.unit.isBuyable(true) and cost.unit.isBuyButtonVisible())

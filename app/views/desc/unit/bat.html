@@ -1,2 +1,2 @@
-<p>Bats feed on your lepidoptera, but empower all of your swarm's energy-based abilities.</p>
-<p>Your bats make your abilities {{(unit.effect[0].calcStats().power - 1) * 100 | number:2}}% more powerful. Raising more can increase this to a maximum of {{(unit.effect[0].val - 1) * 100 | number:0}}%.</p>
+<p>Bats empower all of your swarm's energy-based abilities.</p>
+<p>Your bats make your abilities {{unit.effect[0].calcStats().power | percent:{places:2,plusOne:true} }} more powerful. Raising more can increase this to a maximum of {{unit.effect[0].val | percent:{plusOne:true} }}.</p>

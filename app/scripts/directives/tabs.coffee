@@ -6,7 +6,7 @@
  # @description
  # # tabs
 ###
-angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands) ->
+angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands, env) ->
   templateUrl: 'views/tabs.html'
   scope:
     cur: '='
@@ -15,12 +15,12 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version, comm
     scope.tabs = game.tabs
     scope.options = options
     scope.game = game
+    scope.isOffline = env.isOffline
 
     scope.filterVisible = (tab) -> tab.isVisible()
 
     scope.feedbackUrl = ->
-      param = "#{version}|#{window?.navigator?.userAgent}|#{game.session.exportSave()}"
-      "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437=#{encodeURIComponent param}"
+      game.session.feedbackUrl()
 
     scope.buyUpgrades = (upgrades, costPercent=1) ->
       commands.buyAllUpgrades upgrades:upgrades, percent:costPercent

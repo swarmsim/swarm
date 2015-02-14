@@ -9,7 +9,7 @@
  # Spreadsheet descriptions of '' or '-' indicate that we should try to use a template.
  # (We used to do stupid $compile tricks to allow templating in the spreadsheet, but that caused memory leaks. #177)
 ###
-angular.module('swarmApp').directive 'unitdesc', (game) ->
+angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl"></p><p ng-if="!templateUrl">{{desc}}</p>'
   scope:
     unit: '='
@@ -17,13 +17,15 @@ angular.module('swarmApp').directive 'unitdesc', (game) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     scope.game ?= game
+    scope.commands = commands
+    scope.options = options
     scope.desc = scope.unit.unittype.description
     scope.templateUrl = do ->
       if scope.desc == '-' or not scope.desc
         return "views/desc/unit/#{scope.unit.name}.html"
       return ''
 
-angular.module('swarmApp').directive 'upgradedesc', (game) ->
+angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl"></p><p ng-if="!templateUrl">{{desc}}</p>'
   scope:
     upgrade: '='
@@ -31,6 +33,8 @@ angular.module('swarmApp').directive 'upgradedesc', (game) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     scope.game ?= game
+    scope.commands = commands
+    scope.options = options
     scope.desc = scope.upgrade.type.description
     scope.templateUrl = do ->
       if scope.desc == '-' or not scope.desc

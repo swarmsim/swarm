@@ -7,7 +7,7 @@
  # # command
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class Commands
+angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new class Commands
   constructor: ->
 
   _emit: (name, params) ->
@@ -84,3 +84,14 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope) -> new class C
         now:upgrades[0].game.now
         elapsed:upgrades[0].game.elapsedStartMillis()
         percent:opts.percent
+
+  ascend: (opts) ->
+    game = opts.game
+    game.ascend()
+    @_emit 'ascension',
+      now: game.now
+      unit: game.unit 'ascension'
+      unitname: 'ascension'
+      num: 1
+      twinnum: 1
+      elapsed: game.elapsedStartMillis()

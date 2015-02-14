@@ -6,10 +6,10 @@
  # @description
  # # tutorial
 ###
-angular.module('swarmApp').directive 'tutorial', (game) ->
+angular.module('swarmApp').directive 'tutorial', (game, env) ->
   template: """
     <div ng-if="tutStep() > 0" class="alert animif alert-info" role="alert">
-      <!--button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
+      <button ng-if="showCloseButton()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
       <div ng-if="tutStep() == 1">
         <p>Welcome to Swarm Simulator. Starting with just a few larvae and a small pile of meat, grow a massive swarm of giant bugs.</p>
@@ -23,33 +23,47 @@ angular.module('swarmApp').directive 'tutorial', (game) ->
       <p ng-if="tutStep() == 7">Your warriors have slowly begun securing territory. Continue expanding your military.</p>
       <p ng-if="tutStep() == 8">Your warriors have captured a lot of territory, and soon you can secure your first expansion. Expansions increase larva production. Select '<a href="#/unit/larva">larvae</a>' to expand.</p>
       <p ng-if="tutStep() == 9">Expansion is the key to growing your swarm rapidly. Build a large military to expand your territory and produce more larvae. Build more queens and, eventually, nests to produce more meat for your military.</p>
+
+      <p ng-if="tutStep() == 10">Your swarm has grown large enough to <b>ascend</b> - gain even greater power and restart on a new world! Take a look at the <a href="#/unit/mutagen">mutagen tab</a>.</p>
     </div>
   """
   scope:
     game: '=?'
   restrict: 'E'
   link: (scope, element, attrs) ->
+    game_ = scope.game ? game
+    scope.showCloseButton = ->
+      return scope.tutStep() == 10
     scope.tutStep = ->
-      game_ = scope.game ? game
-      units = game_.countUnits()
-      upgrades = game_.countUpgrades()
-      if units.mutageninit > 0 or upgrades.expansion >= 5
-        return null
-      if upgrades.expansion > 0
-        return 9
-      if upgrades.hatchery > 0
-        if units.queen >= 5
-          if units.territory > 5
-            return 8
-          if units.territory > 0
-            return 7
-          return 6
-        if units.queen > 0
-          return 5
-      if units.drone >= 10
-        if upgrades.hatchery > 0
-          return 4
-        return 3
-      if units.drone > 0
-        return 2
-      return 1
+      return game.cache.tutorialStep ?= do =>
+        units = game_.countUnits()
+        upgrades = game_.countUpgrades()
+        if !units.ascension.isZero()
+          # No tutorial messages after first ascension.
+          return 0
+        if game_.cache.firstSpawn.premutagen and units.ascension.isZero()
+          return 10
+        if upgrades.expansion.greaterThanOrEqualTo(5)
+          return 0
+        if upgrades.expansion.greaterThan(0)
+          return 9
+        if upgrades.hatchery.greaterThan(0)
+          if units.queen.greaterThanOrEqualTo(5)
+            if units.territory.greaterThan(5)
+              return 8
+            if units.territory.greaterThan(0)
+              return 7
+            return 6
+          if units.queen.greaterThan(0)
+            return 5
+        if units.drone.greaterThanOrEqualTo(10)
+          if upgrades.hatchery.greaterThan(0)
+            return 4
+          return 3
+        if units.drone.greaterThan(0)
+          return 2
+        return 1
+
+    if env.isOffline
+      scope.tutStep = ->
+        return 0

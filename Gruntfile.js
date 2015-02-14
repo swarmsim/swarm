@@ -21,6 +21,18 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var dropboxAppKey = function(configuredKey) {
+    var KEYS = {
+      shoelaceDev:'6hagxaf8041upxz',
+      dev:'q5b8awxy8r3qjus', //account dropbox@swarmsim.com
+      prod:'n2mff9wz6bv0f91' //account dropbox@swarmsim.com
+    };
+    // `--dropboxAppKey=x` can always override this file's configuration
+    var key = grunt.option('dropboxAppKey') || configuredKey;
+    // key can either be a named key configured above (`--dropboxAppKey=dev`) or the key itself (`--dropboxAppKey=q5b8awxy8r3qjus`)
+    return KEYS[key] || key;
+  };
+
   // Define the configuration for all the tasks
   grunt.initConfig({
     // https://www.npmjs.org/package/grunt-gh-pages
@@ -35,10 +47,17 @@ module.exports = function (grunt) {
         options: {},
         src: ['**']
       },
+      publictest: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-publictest/swarmsim-publictest.github.io.git'
+        },
+        src: ['**']
+      },
       prod: {
         options: {
           branch: 'master',
-          repo: 'https://github.com/swarmsim/swarmsim.github.io.git'
+          repo: 'git@github.com:swarmsim/swarmsim.github.io.git'
         },
         src: ['**']
       }
@@ -65,6 +84,8 @@ module.exports = function (grunt) {
             showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: '0',
+            isOffline: false,
+            dropboxAppKey: dropboxAppKey('dev'),
             gaTrackingID: null
           }
         }
@@ -79,6 +100,8 @@ module.exports = function (grunt) {
             showSkipped: true,
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
+            isOffline: false,
+            dropboxAppKey: dropboxAppKey('dev'),
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -94,6 +117,8 @@ module.exports = function (grunt) {
             showSkipped: false,
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
+            isOffline: false,
+            dropboxAppKey: null, // null: dropbox is disabled
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -139,11 +164,15 @@ module.exports = function (grunt) {
       },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:dist']
+        tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:test', 'karma']
+        tasks: ['newer:coffee:test', 'karma:unit']
+      },
+      integrationTest: {
+        files: ['test/integration/{,*/}*.{coffee,litcoffee,coffee.md}'],
+        tasks: ['newer:coffee:integrationTest', 'karma:integration']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -238,8 +267,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      //spreadsheetpreload: 'app/scripts/spreadsheetpreload',
-      spreadsheetpreload: 'app/scripts/spreadsheetpreload/v0.1.js',
+      spreadsheetpreload: 'app/scripts/spreadsheetpreload',
       server: '.tmp'
     },
 
@@ -271,6 +299,9 @@ module.exports = function (grunt) {
           },
           'konami-js': {
             main: 'konami.js'
+          },
+          'decimal.js': {
+            main: 'decimal.js'
           }
         },
         ignorePath:  /\.\.\//
@@ -302,6 +333,15 @@ module.exports = function (grunt) {
           cwd: 'test/spec',
           src: '{,*/}*.coffee',
           dest: '.tmp/spec',
+          ext: '.js'
+        }]
+      },
+      integrationTest: {
+        files: [{
+          expand: true,
+          cwd: 'test/integration',
+          src: '{,*/}*.coffee',
+          dest: '.tmp/integration',
           ext: '.js'
         }]
       }
@@ -535,8 +575,21 @@ module.exports = function (grunt) {
 
     // Test settings
     karma: {
+      // singleRun is needed or else livereload stops working. boo.
       unit: {
-        configFile: 'test/karma.conf.coffee',
+        configFile: 'test/karma-unit.conf.coffee',
+        singleRun: true
+      },
+      integration: {
+        configFile: 'test/karma-integration.conf.coffee',
+        singleRun: true
+      },
+      unit_ci: {
+        configFile: 'test/karma-unit.conf.coffee',
+        singleRun: true
+      },
+      integration_ci: {
+        configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       }
     }
@@ -544,8 +597,6 @@ module.exports = function (grunt) {
 
   // One of few swarmapp-specific tasks
   grunt.registerMultiTask('preloadSpreadsheet', 'Update spreadsheet data', function () {
-    // TODO: spreadsheet updates disabled for 0.2.x branch. Remove this when merging!
-    return;
     var Tabletop = require('tabletop');
     var stringify = require('json-stable-stringify');
     var _ = require('lodash');
@@ -569,7 +620,7 @@ module.exports = function (grunt) {
         // built-in stringify puts sheets in a random order. Use a consistent
         // order with json-stable-stringify for cleaner diffs.
         var text = stringify(data, {space:'  '});
-        text = "// This is an automatically generated file! Do not edit!\n// Edit the source at: "+url+"\n// Generated by Gruntfile.js:preloadSpreadsheet\n// key: "+key+"\n'use strict';\n\ntry {\n  angular.module('swarmSpreadsheetPreload');\n  //console.log('second"+key+"');\n}\ncatch (e) {\n  // module not yet initialized by some other module, we're the first\n  angular.module('swarmSpreadsheetPreload', []);\n  //console.log('first"+key+"');\n}\nangular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-"+key+"', "+text+");";
+        text = '// This is an automatically generated file! Do not edit!\n// Edit the source at: '+url+'\n// Generated by Gruntfile.js:preloadSpreadsheet\n// key: '+key+'\n\'use strict\';\n\ntry {\n  angular.module(\'swarmSpreadsheetPreload\');\n  //console.log(\'second'+key+'\');\n}\ncatch (e) {\n  // module not yet initialized by some other module, we\'re the first\n  angular.module(\'swarmSpreadsheetPreload\', []);\n  //console.log(\'first'+key+'\');\n}\nangular.module(\'swarmSpreadsheetPreload\').value(\'spreadsheetPreload-'+key+'\', '+text+');';
         var filename = directory + key + '.js';
         grunt.file.write(filename, text);
         console.log('Wrote '+filename);
@@ -580,7 +631,7 @@ module.exports = function (grunt) {
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
-    var text = JSON.stringify(data, undefined, 2)
+    var text = JSON.stringify(data, undefined, 2);
     grunt.file.write('.tmp/version.json', text);
     grunt.file.write('dist/version.json', text);
   });
@@ -629,7 +680,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma:unit_ci',
+    'karma:integration_ci'
   ]);
 
   grunt.registerTask('build', [
@@ -663,6 +715,10 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy-staging', [
     'build',
     'gh-pages:staging'
+  ]);
+  grunt.registerTask('deploy-publictest', [
+    'build',
+    'gh-pages:publictest'
   ]);
   grunt.registerTask('phonegap-staging', [
     'build',

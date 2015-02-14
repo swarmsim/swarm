@@ -7,7 +7,7 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -22,6 +22,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     $scope.imported = {}
     try
       $scope.game.importSave encoded
+      backfill.run $scope.game
       $scope.imported.success = true
       $scope.$emit 'import', {success:true}
       $log.debug 'import success'

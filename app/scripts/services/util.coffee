@@ -8,8 +8,6 @@
  # Service in the swarmApp.
 ###
 angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new class Util
-  constructor: ->
-    @memoized = []
   sum: (ns) -> _.reduce ns, ((a,b) -> a+b), 0
   assert: (val, message...) ->
     if not val
@@ -30,11 +28,6 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
       for key, prop of obj
         @walk prop, fn, "#{path}.#{key}", rets
     return rets
-  # For use with lodash _.memoize
-  clearMemoCache: (memoizedFns...) ->
-    for fn in memoizedFns
-      for key, val of fn.cache
-        delete fn.cache[key]
 
   animateController: ($scope, opts={}) ->
     game = opts.game ? $scope.game
@@ -53,15 +46,6 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
     # true if browser tab focused, false if tab unfocused. NOT 100% RELIABLE! If we can't tell, default == focused (true).
     # err, default != hidden
     return not (document.hidden?() ? not default_)
-
-  memoize: (fn) ->
-    ret = _.memoize fn
-    @memoized.push ret
-    return ret
-  clearAllMemoCaches: ->
-    @clearMemoCache @memoized
-  totalMemoCacheSize: ->
-    @sum _.map @memoized, (fn) -> (_.keys fn.cache).length ? 0
 
   isFloatEqual: (a, b, tolerance=0) ->
     return Math.abs(a - b) <= tolerance

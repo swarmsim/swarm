@@ -21,6 +21,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
   return new class Session
     constructor: ->
       @id = env.saveId
+      @heartbeatId = "#{@id}:heartbeat"
       $log.debug 'save id', @id
       util.assert @id, 'no save id defined'
       @reset()
@@ -34,6 +35,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
         saved: now
         loaded: now
         reified: now
+        closed: now
       @options = {}
       @upgrades = {}
       @statistics = {}
@@ -85,18 +87,41 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # during beta, 0.n.0 resets all games from 0.n-1.x. Don't import older games.
       if sM == gM == 0 and sm != gm
         throw new Error 'Beta save from different minor version'
-      # 1.0's a reset too. 2.0 is not.
-      if (sM == 0) != (gM == 0)
-        throw new Error 'Beta save in non-beta version'
+      # No importing 1.0.x games into 0.2.x. Need this for publictest.
+      # Importing 0.2.x into 1.0.x is fine.
+      # Keep in mind - 0.2.x might not be running this code, but older code that resets at 1.0. (Should make no difference.)
+      if (sM > 0) and (gM == 0)
+        throw new Error '1.0 save in 0.x game'
+      # 0.1.x saves are blacklisted for 1.0.x, already reset
+      if (gM > 0) and (sM == 0) and (sm < 2)
+        throw new Error 'nice try, no 0.1.x saves'
       ## save state must not be newer than the game running it
       ## actually, let's allow this. support for fast rollbacks is more important.
       #if sM > gM or (sM == gM and (sm > gm or (sm == gm and sp > gp)))
       #  throw new Error "save version newer than game version: #{saveversion} > #{gameversion}"
 
+      # coffeescript: two-dot range is inclusive
+      blacklisted = [/^1\.0\.0-publictest/]
+      # never blacklist the current version; also makes tests pass before we do `npm version 1.0.0`
+      if saveversion != gameversion
+        for b in blacklisted
+          if b.test saveversion
+            throw new Error 'blacklisted save version'
+
+    _validateFormatVersion: (formatversion, gameversion=version) ->
+      # coffeescript: two-dot range is inclusive
+      blacklisted = [/^1\.0\.0-publictest/]
+      # never blacklist the current version; also makes tests pass before we do `npm version 1.0.0`
+      if formatversion != gameversion
+        for b in blacklisted
+          if b.test formatversion
+            throw new Error 'blacklisted save version'
+
     _loads: (encoded) ->
       #encoded = atob encoded
       [saveversion, encoded] = @_splitVersionHeader encoded
       # don't compare this saveversion for validity! it's only for figuring out changing save formats.
+      # (with some exceptions, like publictest.)
       encoded = encoded.substring PREFIX.length
       #encoded = sjcl.decrypt KEY, encoded
       #encoded = LZString.decompressFromUTF16 encoded
@@ -108,6 +133,16 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       ret.date.loaded = new Date()
       # check save version for validity
       @_validateSaveVersion ret.version?.started
+      # prevent saves imported from publictest. easy to hack around, but good enough to deter non-cheaters.
+      if saveversion
+        @_validateFormatVersion atob saveversion
+      ret.id = env.saveId
+      # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
+      for obj in [ret.unittypes, ret.upgrades]
+        for key, val of obj
+          if _.isNumber val
+            val = val.toPrecision 15
+          obj[key] = new Decimal val
       return ret
 
     exportSave: ->
@@ -122,6 +157,8 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @_exportCache = encoded
     
     save: ->
+      if env.isOffline
+        $log.warn 'cannot save; game is offline'
       # exportCache is necessary because sjcl encryption isn't deterministic,
       # but exportSave() must be ...not necessarily deterministic, but
       # consistent enough to not confuse angular's $apply().
@@ -137,3 +174,57 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
 
     load: (id) ->
       @importSave @getStoredSaveData id
+
+    feedbackUrl: (error='') ->
+      if error
+        # copying how we did errors in older copypasted code. could probably improve this and use the same fn for save, but don't want to mess with it right now.
+        error += '|'
+        save = @getStoredSaveData()
+      else
+        save = @exportSave()
+      baseurl = "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437="
+      param = "#{version}|#{window?.navigator?.userAgent}|#{error}#{save}"
+      url = "#{baseurl}#{encodeURIComponent param}"
+      # starts throwing bad requests for length around this point. Send whatever we can.
+      LIMIT = 1950
+      if url.length > LIMIT
+        url = url.substring(0,LIMIT) + encodeURIComponent "...TRUNCATED..."
+      return url
+
+    onClose: ->
+      # onclose() in browsers is flaky. Need to rely on periodic heartbeats too.
+      @date.closed = new Date()
+      @save()
+
+    onHeartbeat: ->
+      if env.isOffline
+        return false
+      # periodically save the current date, in case onClose() doesn't fire.
+      # give it its own localstorage slot, so it saves quicker (it's more frequent than other saves)
+      # and generally doesn't screw with the rest of the session. It won't be exported; that's fine.
+      localStorage.setItem @heartbeatId, new Date()
+
+    _getHeartbeatDate: ->
+      try
+        if (heartbeat = localStorage.getItem @heartbeatId)
+          return new Date heartbeat
+      catch e
+        $log.debug "Couldn't load heartbeat time to determine game-closed time. No biggie, continuing.", e
+    dateClosed: ->
+      # don't just use date.closed - maybe the browser crashed and it didn't fire. Use the latest date possible.
+      closed = 0
+      if (hb = @_getHeartbeatDate())
+        closed = Math.max closed, hb.getTime()
+      for key, date of @date
+        if key != 'loaded'
+          closed = Math.max closed, date.getTime()
+      return new Date closed
+    millisSinceClosed: (now=new Date()) ->
+      closed = @dateClosed()
+      ret = now.getTime() - closed.getTime()
+      #$log.info {closed:closed, now:now.getTime(), diff:ret}
+      return ret
+
+    durationSinceClosed: (now) ->
+      ms = @millisSinceClosed now
+      return moment.duration ms, 'milliseconds'

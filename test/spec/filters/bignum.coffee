@@ -7,8 +7,12 @@ describe 'Filter: bignum', ->
 
   # initialize a new instance of the filter before each test
   bignum = {}
-  beforeEach inject ($filter) ->
+  longnum = {}
+  options = {}
+  beforeEach inject ($filter, _options_) ->
     bignum = $filter 'bignum'
+    longnum = $filter 'longnum'
+    options = _options_
 
   it 'should format numbers', ->
     expect(bignum 1).toBe '1'
@@ -95,3 +99,36 @@ describe 'Filter: bignum', ->
     #expect(bignum 1111111111111111111111111111111111111).toBe '1.11e36'
     #expect(bignum 1e37).toBe '1.00e37'
     #expect(bignum 11111111111111111111111111111111111111).toBe '1.11e37'
+    
+  it 'should use other number formats', ->
+    expect(options.notation()).toBe 'standard-decimal'
+    expect(bignum 123456789).toBe '123M'
+    expect(longnum 123456789).toBe '123.456 million'
+    expect(bignum 123456789e30).toBe '123UDc'
+    expect(longnum 123456789e30).toBe '123.456 undecillion'
+    options.notation 'scientific-e'
+    expect(bignum 123456789).toBe '1.23e8'
+    expect(longnum 123456789).toBe '1.23456e8'
+    expect(bignum 123456789e30).toBe '1.23e38'
+    expect(longnum 123456789e30).toBe '1.23456e38'
+    options.notation 'hybrid'
+    expect(bignum 123456789).toBe '123M'
+    expect(longnum 123456789).toBe '123.456 million'
+    expect(bignum 123456789e30).toBe '1.23e38'
+    expect(longnum 123456789e30).toBe '1.23456e38'
+    options.notation 'engineering'
+    expect(bignum 123456789).toBe '123E6'
+    expect(bignum 12345678).toBe '12.3E6'
+    expect(bignum 1234567).toBe '1.23E6'
+    expect(bignum 100000000).toBe '100E6'
+    expect(bignum 10000000).toBe '10.0E6'
+    expect(bignum 1000000).toBe '1.00E6'
+    expect(longnum 123456789).toBe '123.456E6'
+    expect(longnum 12345678).toBe '12.3456E6'
+    expect(longnum 1234567).toBe '1.23456E6'
+    expect(bignum 123456789e30).toBe '123E36'
+    expect(longnum 123456789e30).toBe '123.456E36'
+
+  it 'rounds down, preventing things like "1.00e+3M", bug #245', ->
+    expect(bignum 1000000000).toBe '1.00B'
+    expect(bignum 1000000000-1).toBe '999M'

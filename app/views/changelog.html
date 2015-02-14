@@ -18,13 +18,278 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" data-target="#changelog10x" href="javascript:">
+          Version 1.0.x
+        </a>
+      </h4>
+    </div>
+    <div id="changelog10x" class="panel-collapse collapse in">
+      <div class="panel-body">
+<h4>1.0.4<span>2015/02/13</span></h4>
+<ul>
+  <li>Long swarmwarp durations are now formatted with hours and days, not just minutes.</li>
+  <li>Fixed a bug with very expensive unit/upgrade purchases that would sometimes enable the buy button when you didn't have quite enough resources to actually buy.</li>
+  <li>Ascensions are now tracked on the statistics screen. (Your first ascension date is probably wrong because ascension dates/times weren't tracked before now - sorry!)</li>
+</ul>
+<h4>1.0.3<span>2015/02/12</span></h4>
+<ul>
+  <li>When you reopen the game after being away for more than a few minutes, you'll see a "welcome back" screen that says how long you were away and how much your swarm produced.</li>
+</ul>
+<h4>1.0.2<span>2015/02/11</span></h4>
+<ul>
+  <li>Fixed a misspeeled achievement.</li>
+  <li>When you haven't yet spent any mutagen, the mutagen respec buttons are now visible, but disabled. Previously they weren't visible.</li>
+  <li title="They have mouseover text now!">Added a critically important secret that was missing from most of v1.0's new units.</li>
+  <li>The achievement for helping on the test server is now awarded if you ascended before the game was reset in v1.0.0-publictest9.</li>
+</ul>
+<h4>1.0.1<span>2015/02/10</span></h4>
+<ul>
+  <li>Importing certain saved games from the test server should no longer work.</li>
+</ul>
+<h4>1.0.0 - <a href="https://www.reddit.com/r/swarmsim/comments/2vhiwp/v10_mutation_prestige_new_units_bigger_numbers_no/">release announcement</a><span>2015/02/10</span></h4>
+<ul>
+  <li>Removed the "we're testing, your progress may be reset" warning. Version 1.0 means no more (intentional) resets, ever.</li>
+  <li>The meat tab looks different. Late game units have been renamed, and there's several new units.</li>
+  <li>Added <b>mutation</b>, a soft-reset/prestige system.
+  <ul>
+    <li>After your 80th expansion or 40th hatchery, building more expansions/hatcheries may, at random, provide some <b>mutagen</b>.
+      <ul><li>If you've already built more than 40 hatcheries or 80 expansions, you should have automatically received mutagen for building them.</li></ul>
+    </li>
+    <li>Mutagen starts off inactive. To activate your mutagen, you must <b>ascend</b> - travel through space to a new world with only a few mutagen-enhanced larvae.</li>
+    <li>Ascension requires a large amount of energy and a mature swarm. (You can't reset as fast as lots of other games.)</li>
+    <li>There are several interesting mutations you can choose to unlock with your mutagen. Unlocking any one type of mutation increases the cost to unlock others. Plan carefully which ones you want first!</li>
+    <li>If you'd like to try a different mutation strategy, you may <b>respec</b> to remove all mutations and restore all the mutagen you've spent. You have a limited number of free respecs, and you can pay energy to respec more frequently.</li>
+  </ul></li>
+  <li>Several changes to existing units and abilities.
+  <ul>
+    <li>Swarmwarp now costs much less energy, but no longer restores energy.</li>
+    <li>Bats now cost 100 energy. Previously they cost 10 lepidoptera - same energy required per bat, but it's now harder to accidentally spend all your lepidoptera.</li>
+    <li>Nightbugs now increase max energy by up to x6 instead of x4.</li>
+    <li>Expansions now display their total percentage with condensed numbers.</li>
+  </ul></li>
+  <li>Large numbers of units are handled better: it's now possible to produce up to 1e100,000 meat, or any other unit. (Units are no longer limited by Javascript's usual maximum of 1.7e308.) At that point, you'll simply stop producing meat, instead of receiving buggy "infinite" meat.</li>
+  <li>"Buy all upgrades" moved into the "more..." menu, instead of its own menu/tab. It no longer buys meat-tab twin upgrades.</li>
+  <li>Added an option to format numbers with engineering notation. Thanks to <a target="_blank" href="https://github.com/Shoelace">Shoelace</a> for <a target="_blank" href="https://github.com/erosson/swarm/issues/247">contributing this code</a>!</li>
+  <li>Anonymous feedback form should work more reliably, even with very long save files.</li>
+  <li>The buy-N-units input field now suports scientific-e notation, and allows buying more than 1e21 units at once.</li>
+  <li>Added an achievement for everyone who's helped test v1.0. Your game on <a href="https://swarmsim.github.io">the production server</a> should receive the achievement automatically if you've ascended at least once on <a href="https://swarmsim-publictest.github.io">the test server</a>.</li>
+</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" data-target="#changelog10xpublictest" href="javascript:">
+          Version 1.0.x, public test
+        </a>
+      </h4>
+    </div>
+    <div id="changelog10xpublictest" class="panel-collapse collapse">
+      <div class="panel-body">
+<h4>1.0.0-publictest28<span>2015/02/11</span></h4>
+<ul>
+  <li>The achievement for helping on publictest is now awarded if you ascended before the game was reset in v1.0.0-publictest9.</li>
+  <li>Updated offline-screen text: 1.0's out now, not "soon."</li>
+</ul>
+<h4>1.0.0-publictest27<span>2015/02/10</span></h4>
+<ul>
+  <li>Updated the previous changelog entry to mention the new achievement.</li>
+  <li>Disabled all UI. Full 1.0 release is coming. Thanks for all your help testing things!</li>
+</ul>
+<h4>1.0.0-publictest26<span>2015/02/09</span></h4>
+<ul>
+  <li>Empowered units beyond level 20 now have their name formatted correctly.</li>
+  <li>Meat mutation now has different effects on different units. It's a little more powerful for units earlier than hives, but becomes substantially less powerful for later units.</li>
+  <li>The meat limit has been raised to 1e100,000.</li>
+  <li>Added a few more meat-producing units.</li>
+  <li>Twin costs for very advanced units have increased.</li>
+  <li>A few invisible changes to prepare for the v1.0 release.</li>
+  <li>Added an achievement for everyone who's helped test v1.0. After v1.0 is released, your game on <a href="https://swarmsim.github.io">the production server</a> should receive the achievement automatically if you've ascended at least once on <a href="https://swarmsim-publictest.github.io">the test server</a>.</li>
+</ul>
+<h4>1.0.0-publictest25<span>2015/02/05</span></h4>
+<ul>
+  <li>Fixed a typo in Mutation Frequency's description.</li>
+  <li>Bugfix: mutant lepidoptera now increase maximum energy, as advertised.</li>
+  <li>Bugfix: meat tab is selected by default, not mutagen.</li>
+  <li>Bugfix: the buy-N-units input once again updates costs every time you press a key.</li>
+  <li>Once mutagen is visible, hatcheries/expansions now show the minimum number required to earn mutagen.</li>
+</ul>
+<h4>1.0.0-publictest24<span>2015/02/05</span></h4>
+<ul>
+  <li>Bugfix: mutagen respecs no longer reduce your current energy/meat/territory.</li>
+  <li>Mutagen respecs have been redesigned. Respeccing now refunds 100% of your mutagen, but requires a fraction of your next ascension's energy cost, <i>and</i> resets your next ascension's energy cost (that is, sets your energy-spent for this ascension to 0). You may respec with no penalty 4 times, and gain 1 more free respec every three times you ascend.
+  <ul>
+    <li>Respeccing was intended to be a rarely-used way to correct mistakes or try a new mutation strategy, not something done multiple times per ascension to exploit specific mutations. The original cost of respeccing was a mistake; the cost was much too low to limit respec usage.</li>
+  </ul></li>
+  <li>The buy-N-units input field now suports scientific-e notation, and allows buying more than 1e21 units at once.</li>
+  <li>Exact-cost links no longer round costs, and should now always cover the full cost of expensive upgrades. (Really this time.)</li>
+</ul>
+<h4>1.0.0-publictest23<span>2015/02/03</span></h4>
+<ul>
+  <li>Bugfix: hatcheries and expansions once again display estimated mutagen rewards.</li>
+</ul>
+<h4>1.0.0-publictest22<span>2015/02/02</span></h4>
+<ul>
+  <li>Fixed a bug that made lepidoptera additive with mutant lepidoptera, instead of multiplicative. Players with both will earn more energy now.</li>
+</ul>
+<h4>1.0.0-publictest21<span>2015/02/02</span></h4>
+<ul>
+  <!--li>You'll now see a "welcome back" screen when you open the game, showing how long you were away and your swarm's production during that time.</li-->
+  <li>The meat limit has been raised to 1e1000.</li>
+  <li>Mutant lepidoptera now increase the energy cost of ascending. (More precisely, they decrease the effect of spending energy has on decreasing ascension cost.)
+  <ul>
+    <li>This mutation was speeding up ascensions a bit too much. Paying for an ascension is still quicker with this mutation than without it, but not by quite so much.</li>
+  </ul></li>
+  <li>Ascension cost increases by 12% per ascension, down from 20%.</li>
+  <li>Meta-mutation is about 35% less effective.</li>
+  <li>Meat rush and territory rush mutations are about 4 times stronger. (Larvae rush is unchanged.)</li>
+  <li>Hatcheries grant slightly more mutagen than before.</li>
+  <li>Expansions 40 to 79 no longer grant mutagen. The mutagen tab now appears at 80 expansions or 40 hatcheries, whichever comes first; instead of 40 expansions.
+  <ul>
+    <li>In a new game, mutagen became visible long before you could do anything with it. Timing should now be more appropriate. This change isn't intended to be a nerf; early expansions never gave much mutagen anyway.</li>
+  </ul></li>
+</ul>
+<h4>1.0.0-publictest20<span title="rabbit rabbit">2015/02/01</span></h4>
+<ul>
+  <li>It's no longer possible to crash the game by buying millions of upgrades at once.</li>
+  <li>Exact-cost links now always round up whenever rounding is necessary; they should now always cover an upgrade's full cost.</li>
+</ul>
+<h4>1.0.0-publictest19<span>2015/01/31</span></h4>
+<ul>
+  <li>Numbers throughout the game are always rounded down now. No more numbers formatted like "1.00e+3M".</li>
+  <li>The unit limit has been raised from 1e300 to 1e400. (Units can exceed Javascript's normal maximum for the first time.)</li>
+  <li>There's now some tutorial text when you first unlock mutagen.</li>
+</ul>
+<h4>1.0.0-publictest18<span>2015/01/31</span></h4>
+<ul>
+  <li>The cocoons link in Clone Larvae's description now works properly.</li>
+  <li>Ascension should no longer be disabled when you have enough energy.</li>
+  <li>Importing v0.2 games should work again.</li>
+  <li>Anonymous feedback form should work more reliably, even with very long save files.</li>
+  <li>Using swarmwarp and immediately reloading the page should no longer result in negative energy.</li>
+</ul>
+<h4>1.0.0-publictest17<span>2015/01/30</span></h4>
+<ul>
+  <li>Swarmwarp should now work properly.</li>
+  <li>Available upgrades are updated slightly less often, but the game should run faster now.</li>
+  <li>Added an option for engineering notation. Thanks to <a target="_blank" href="https://github.com/Shoelace">Shoelace</a> for <a target="_blank" href="https://github.com/erosson/swarm/issues/247">contributing this code</a>.</li>
+</ul>
+<h4>1.0.0-publictest16<span>2015/01/30</span></h4>
+<ul>
+  <li>Ascending works once again.</li>
+  <li>Buying large numbers of units with buy-exact-cost links or with the buy-exactly-n field work again.</li>
+  <li>Units-bought are tracked properly for achievements once again.</li>
+</ul>
+<h4>1.0.0-publictest15<span>2015/01/29</span></h4>
+<ul>
+  <li>Lots of invisible backend changes; preparing to remove the 1e300 meat limit. High risk of something breaking in this version - if you find bugs, or the game runs much slower than before, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>. (The meat limit has <i>not</i> been removed yet.)</li>
+  <li>Saved games should now load properly in all browsers.</li>
+</ul>
+<h4><s>1.0.0-publictest14</s><span><s>2015/01/29</s></span></h4>
+<h4>1.0.0-publictest13<span>2015/01/29</span></h4>
+<ul>
+  <li>Ascending initially costs much more energy, but the cost drops much faster as you spend energy. This change should reduce the need to hoard energy for a long time before ascending.</li>
+  <li>The cost of ascending now increases every time you ascend.</li>
+  <li>"Upgrade all" no longer buys meat-tab twin upgrades or mutagen unlock upgrades.</li>
+  <li>Unspent mutagen no longer produces meat. (It still produces larvae.)</li>
+  <li>Some invisible backend changes.</li>
+</ul>
+<h4>1.0.0-publictest12<span>2015/01/24</span></h4>
+<ul>
+  <li>Expansions now display their total percentage with condensed numbers.</li>
+  <li>Ascension achievements now properly display a progress bar and progress percentage.</li>
+  <li>The Clone Larvae description now has a link to preserve exactly your maximum cloneable as cocoons, similar to the exact-cost links found for upgrades.</li>
+  <li>Upgrades that cost larvae no longer have a buy-exact-cost link for larvae before cocoons are available.</li>
+  <li>Added a new secret.</li>
+</ul>
+<h4 title="also, celebrated programmer's birthday">1.0.0-publictest11 <span>2015/1/23</span></h4>
+<ul title="also, celebrated programmer's birthday">
+  <li>Merged change from 0.2.26: Added 'velocity format' to the options menu. Units gained per second may instead be shown per-minute, per-hour, or per-day.</li>
+</ul>
+<h4>1.0.0-publictest10<span>2015/01/21</span></h4>
+<ul>
+  <li>Unlocking mutations now works reliably.</li>
+  <li>The game now saves/reloads reliably. (You might have lost progress since the last version. Sorry!)</li>
+</ul>
+<h4>1.0.0-publictest9<span>2015/01/21</span></h4>
+<ul>
+  <li><b><a href="https://www.reddit.com/r/swarmsim/comments/2t5m25/v100publictest8_test_server_resetting_soon/">Your progress has been reset!</a></b></li>
+  <li>All twin upgrades and achievements now use the correct unit names.</li>
+  <li>Lots of new achievements are now available. You should see achievements for all new units, ascending, and unlocking mutations.</li>
+  <li>Queens and nests are visible immediately after ascending.</li>
+</ul>
+<h4>1.0.0-publictest8<span>2015/01/21</span></h4>
+<ul>
+  <li>Fixed a bug where mutagen-unlock costs were displayed too low.</li>
+  <li>Mutagen gains increased, but mutation unlock costs also increased.</li>
+  <ul>
+    <li>The intent is to make it more difficult to unlock every type of mutation. Your first 2-3 mutations require fewer hatcheries/expansions now, but everything past that requires more.</li>
+  </ul>
+  <li>Reduced random range for amount of mutagen gained. The expected amount of mutagen for building an expansion will always be greater than the amount for the previous expansion.</li>
+  <li>Nightbugs now increase max energy by up to x6 instead of x4.</li>
+  <li>Mutant lepidoptera now increase both max energy and energy regeneration.</li>
+  <li>Unused mutagen now produces the correct/advertised amount of larvae, instead of 10x that.</li>
+  <li>Mutagen text for hatcheries and expansions now names the correct upgrade.</li>
+</ul>
+<h4>1.0.0-publictest7<span>2015/01/19</span></h4>
+<ul>
+  <li>Merged bugfix from 0.2.25: Fixed a bug that made it possible to buy more than 5 levels of Accomplished Ancestry upgrades.</li>
+</ul>
+<h4>1.0.0-publictest6<span>2015/01/19</span></h4>
+<ul>
+  <li>All 0.2.x saves with the required 40 expansions now properly award mutagen when imported. If yours didn't, try again.</li>
+</ul>
+<h4>1.0.0-publictest5<span>2015/01/19</span></h4>
+<ul>
+  <li>"Buy all upgrades" moved into the "more..." menu, instead of its own menu/tab</li>
+  <li>The "mutant lepidoptera" upgrade now has the correct name</li>
+  <li>The 1e300 unit cap is more thorough now</li>
+  <li>Updated the description of bats to reflect their cost change</li>
+</ul>
+<h4>1.0.0-publictest4 - <a href="https://www.reddit.com/r/swarmsim/comments/2ssnw5/help_test_v10_mutation_and_new_units/">release announcement</a><span>2015/01/17</span></h4>
+<ul>
+  <li>0.2.x saves no longer need to refresh the page to get their mutagen</li>
+  <li>One new mutation; several rebalanced mutations</li>
+</ul>
+<h4>1.0.0-publictest3<span>2015/01/17</span></h4>
+<ul>
+  <li>The 'ascend' button works again</li>
+  <li>Infinity meat is no longer possible; there's now a cap of 1e300</li>
+  <li>Importing a mutagen-less 0.2.x save and reloading the page now awards you mutagen for the expansions/hatcheries you've already bought</li>
+</ul>
+<h4>1.0.0-publictest2<span>2015/01/14</span></h4>
+<ul>
+  <li>Opened <a href="http://swarmsim-publictest.github.io">http://swarmsim-publictest.github.io</a>. Break things!</li>
+  <li>The meat tab looks different. Late game units have been renamed, and there's several new units.</li>
+  <li>Added <b>mutation</b>, a soft-reset/prestige system.
+  <ul>
+    <li>After your 40th expansion or hatchery, building more expansions/hatcheries may, at random, provide some <b>mutagen</b>.</li>
+    <li>Mutagen starts off inactive. To activate your mutagen, you must <b>ascend</b> - travel through space to a new world with only a few mutagen-enhanced larvae.</li>
+    <li>Ascension requires a large amount of energy and a mature swarm. (You can't reset as fast as lots of other games.)</li>
+    <li>There are several interesting mutations you can choose to unlock with your mutagen. Unlocking any one type of mutation increases the cost to unlock others. Plan carefully which ones you want first!</li>
+    <li>If you'd like to try a different mutation strategy, you may <b>respec</b> to remove all mutations and restore 70% of all the mutagen you've spent.</li>
+  </ul></li>
+  <li>Swarmwarp now costs much less energy, but no longer restores energy.</li>
+  <li>Bats now cost 100 energy. Previously they cost 10 lepidoptera - same energy required per bat, but it's now harder to accidentally spend all your lepidoptera.</li>
+</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" data-target="#changelog02x" href="javascript:">
           Version 0.2.x
         </a>
       </h4>
     </div>
-    <div id="changelog02x" class="panel-collapse collapse in">
+    <div id="changelog02x" class="panel-collapse collapse">
       <div class="panel-body">
+<h4 title="also, celebrated programmer's birthday">0.2.26 <span>2015/1/23</span></h4>
+<ul title="also, celebrated programmer's birthday">
+  <li>Added 'velocity format' to the options menu. Units gained per second may instead be shown per-minute, per-hour, or per-day.</li>
+</ul>
 <h4>0.2.25 <span>2015/1/19</span></h4>
 <ul>
   <li>Fixed a bug that made it possible to buy more than 5 levels of Accomplished Ancestry upgrades.</li>

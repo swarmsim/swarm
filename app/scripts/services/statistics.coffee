@@ -77,15 +77,24 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, ReplayLog, $log)
         ustats = stats.byUnit[cmd.unitname] = {clicks:0,num:0,twinnum:0,elapsedFirst:cmd.elapsed}
         @scope.$emit 'buyFirst', cmd
       ustats.clicks += 1
-      ustats.num += cmd.num
-      ustats.twinnum += cmd.twinnum
+      try
+        ustats.num = new Decimal(ustats.num).plus(cmd.num)
+        ustats.twinnum = new Decimal(ustats.twinnum).plus(cmd.twinnum)
+      catch e
+        $log.warn 'statistics corrupt for unit, resetting', cmd.unitname, ustats, e
+        ustats.num = new Decimal cmd.num
+        ustats.twinnum = new Decimal cmd.twinnum
     if cmd.upgradename?
       ustats = stats.byUpgrade[cmd.upgradename]
       if not ustats?
         ustats = stats.byUpgrade[cmd.upgradename] = {clicks:0,num:0,elapsedFirst:cmd.elapsed}
         @scope.$emit 'buyFirst', cmd
       ustats.clicks += 1
-      ustats.num += cmd.num
+      try
+        ustats.num = new Decimal(ustats.num).plus(cmd.num)
+      catch e
+        $log.warn 'statistics corrupt for upgrade, resetting', cmd.upgradename, ustats, e
+        ustats.num = new Decimal cmd.num
     @session.save() #TODO session is saved twice for every command, kind of lame
     delete cmd.now
     delete cmd.unit

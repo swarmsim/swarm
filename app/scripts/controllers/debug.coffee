@@ -8,6 +8,11 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes, flashqueue, $timeout, $log, util) ->
+  $scope.$emit 'debugPage'
+
+  if not env.isDebugEnabled
+    return
+
   $scope.dumps = [
     {title:'env', data:env}
     {title:'game', data:!!game}
@@ -17,7 +22,7 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
     ]
 
   $scope.notify = flashqueue
-  $timeout (->$scope.notify.push {label:'hihi', points:10, description:'ahaha'}), 1000
+  #$timeout (->$scope.notify.push {label:'hihi', points:10, description:'ahaha'}), 1000
 
   $scope.throwUp = ->
     throw new Error "throwing up (test exception)"

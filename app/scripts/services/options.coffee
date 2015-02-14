@@ -9,6 +9,15 @@
 ###
 angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
   constructor: (@session) ->
+    @VELOCITY_UNITS = byName:{}, list:[]
+    addvunit = (name, label, plural, mult) =>
+      vu = name:name, label:label, plural:plural, mult:mult
+      @VELOCITY_UNITS.byName[vu.name] = vu
+      @VELOCITY_UNITS.list.push vu
+    addvunit 'sec', 'second', 'seconds', 1
+    addvunit 'min', 'minute', 'minutes', 60
+    addvunit 'hr', 'hour', 'hours', 60 * 60
+    addvunit 'day', 'day', 'days', 60 * 60 * 24
 
   maybeSet: (field, val) ->
     if val?
@@ -35,10 +44,16 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
 
   notation: (val) ->
     if val?
-      valid = {'standard-decimal':true, 'scientific-e':true, 'hybrid':true}
+      valid = {'standard-decimal':true, 'scientific-e':true, 'hybrid':true, 'engineering':true}
       util.assert valid[val], 'invalid options.notation value', val
       @maybeSet 'notation', val
     @get 'notation', 'standard-decimal'
+
+  velocityUnit: (name) ->
+    if name?
+      util.assert @VELOCITY_UNITS.byName[name], 'invalid options.velocityUnit value', name
+      @maybeSet 'velocityUnit', name
+    return @VELOCITY_UNITS.byName[@get 'velocityUnit'] ? @VELOCITY_UNITS.list[0]
 
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session

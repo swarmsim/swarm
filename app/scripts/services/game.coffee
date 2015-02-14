@@ -1,15 +1,38 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Buff', (util, $log) -> class Buff
-  constructor: (@game, @type, @started, @duration) ->
-    @started = moment @started
-    @expires = @started.clone()
-    @expires.add @duration
+angular.module('swarmApp').factory 'Cache', -> class Cache
+  constructor: ->
+    # Never cleared; hacky way to pass messages that get cleared on reload
+    @firstSpawn = {}
+    @onUpdate()
 
-  expiresInMillis: ->
-    return @expires.valueOf() - @game.now.valueOf()
-  expiresPercent: ->
-    return @expiresInMillis() / @duration.valueOf()
+  onPeriodic: ->
+    @_lastPeriodicClear = new Date().getTime()
+    @upgradeIsUpgradable = {}
+
+  onUpdate: ->
+    @onPeriodic()
+    @onTick()
+    @stats = {}
+    @eachCost = {}
+    @eachProduction = {}
+    @upgradeTotalCost = {}
+    @producerPathProdEach = {}
+    @unitRawCount = {}
+    @unitCap = {}
+    @unitCapPercent = {}
+
+  onTick: ->
+    @unitCount = {}
+    @velocity = {}
+    @totalProduction = {}
+    @upgradeMaxCostMet = {}
+    @unitMaxCostMet = {}
+    delete @tutorialStep
+
+    # clear periodic caches every few seconds
+    if new Date().getTime() - @_lastPeriodicClear >= 3000
+      @onPeriodic()
 
 ###*
  # @ngdoc service
@@ -18,7 +41,7 @@ angular.module('swarmApp').factory 'Buff', (util, $log) -> class Buff
  # # game
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab, Buff) -> class Game
+angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievements, util, $log, Upgrade, Unit, Achievement, Tab, Cache) -> class Game
   constructor: (@session) ->
     @_init()
   _init: ->
@@ -49,8 +72,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
 
-    # TODO persistent buffs
-    @buffs = []
+    @cache = new Cache()
 
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
@@ -61,12 +83,12 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
     ret = @now.getTime() - @session.date.reified.getTime()
-    util.assert ret >= 0, 'negative _realdiffmillis! went back in time somehow!'
-    return ret
+    return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
 
   skipMillis: (millis) ->
+    millis = Math.floor millis
     @skippedMillis += millis
     @session.skippedMillis += millis
   skipDuration: (duration) ->
@@ -90,9 +112,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   tick: (now=new Date(), skipExpire=false) ->
     util.assert now, "can't tick to undefined time", now
     if (not @now) or @now <= now
-      if not skipExpire
-        @expireBuffs now
       @now = now
+      @cache.onTick()
     else
       # system clock problem! don't whine for small timing errors, but don't update the clock either.
       # TODO I hope this accounts for DST
@@ -104,19 +125,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   timestampMillis: ->
     @elapsedStartMillis() + @totalSkippedMillis()
 
-  applyBuff: (type, duration) ->
-    @buffs.push buff = new Buff this, type, @now, duration
-    # earliest-expiring buffs at the front
-    @buffs.sort (a, b) ->
-      a.expires.valueOf() - b.expires.valueOf()
-  expireBuffs: (now) ->
-    while (buff = @buffs[0])? and buff.expires.isBefore now
-      util.assert (not @now) or (not buff.expires.isBefore @now), "failed to expire a buff before ticking"
-      # careful: this specifically requires isBefore in the above line, buff < now. buff <= now would be an infinite loop.
-      @tick buff.expires.toDate(), true
-      @reify()
-      @buffs.shift()
-
   unit: (unitname) ->
     if _.isUndefined unitname
       return undefined
@@ -125,7 +133,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       unitname = unitname.name
     @_units.byName[unitname]
   unitBySlug: (unitslug) ->
-    @_units.bySlug[unitslug]
+    if unitslug
+      @_units.bySlug[unitslug]
   units: ->
     _.clone @_units.byName
   unitlist: ->
@@ -155,6 +164,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     _.clone @_upgrades.list
   availableUpgrades: (costPercent=undefined) ->
     (u for u in @upgradelist() when u.isVisible() and u.isUpgradable costPercent)
+  availableAutobuyUpgrades: (costPercent=undefined) ->
+    (u for u in @availableUpgrades(costPercent) when u.isAutobuyable())
   newUpgrades: (costPercent=undefined) ->
     (u for u in @upgradelist() when u.isVisible() and u.isNewlyUpgradable costPercent)
   ignoredUpgrades: ->
@@ -191,6 +202,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @skippedMillis = 0
     @session.skippedMillis += @diffMillis() - @_realDiffMillis()
     @session.date.reified = @now
+    @cache.onUpdate()
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
 
   save: ->
@@ -209,45 +221,114 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   withSave: (fn) ->
     @reify()
     ret = fn()
+    # reify a second time for swarmwarp; https://github.com/erosson/swarm/issues/241
+    # Unnecessary for other things, but mostly harmless.
+    @reify()
     @session.save()
+    @cache.onUpdate()
     return ret
 
   reset: (butDontSave=false) ->
     @session.reset()
     @_init()
     for unit in @unitlist()
-      unit._setCount unit.unittype.init
+      unit._setCount unit.unittype.init or 0
     if not butDontSave
       @save()
 
-  ascendTotal: ->
-    meat = @unit('meat').count() + @unit('meat').spent()
-    exp = @upgrade('expansion').count()
-    pow = Math.pow 1.1, exp
-    scale = meat * 1e-33 * pow
-    ret = Math.max Math.log(scale)/Math.log(2), @unit('mutageninit').count()
-    #$log.debug 'ascendgains', pow, scale, ret
-    return ret
-
-  ascendGains: ->
-    return Math.max 0, @ascendTotal() - @unit('mutageninit').count()
-
+  ascendEnergySpent: ->
+    energy = @unit 'energy'
+    return energy.spent()
+  ascendCost: (opts={}) ->
+    if opts.spent?
+      spent = new Decimal opts.spent
+    else
+      spent = @ascendEnergySpent()
+    ascends = @unit('ascension').count()
+    ascendPenalty = Decimal.pow 1.12, ascends
+    #return Math.ceil 999999 / (1 + spent/50000)
+    # initial cost 5 million, halved every 50k spent, increases 20% per past ascension
+    costVelocity = new Decimal(50000).times(@unit('mutagen').stat 'ascendCost', 1)
+    return ascendPenalty.times(5e6).dividedBy(Decimal.pow 2, spent.dividedBy costVelocity).ceil()
+  ascendCostCapDiff: (cost=@ascendCost()) ->
+    return cost.minus @unit('energy').capValue()
+  ascendCostPercent: (cost=@ascendCost()) ->
+    Math.min 1, @unit('energy').count().dividedBy cost
+  ascendCostDurationSecs: (cost = @ascendCost()) ->
+    energy = @unit 'energy'
+    if cost <= energy.capValue()
+      return energy.estimateSecsUntilEarned cost
+  ascendCostDurationMoment: (cost) ->
+    if (secs=@ascendCostDurationSecs cost)?
+      return moment.duration secs, 'seconds'
   ascend: ->
     @withSave =>
       # hardcode ascension bonuses. TODO: spreadsheetify
-      mutageninit = @unit 'mutageninit'
+      premutagen = @unit 'premutagen'
       mutagen = @unit 'mutagen'
-      gains = @ascendGains()
-      init = mutageninit.count() + gains
+      ascension = @unit 'ascension'
+      mutagen._addCount premutagen.count()
+      premutagen._setCount 0
+      ascension._addCount 1
+      # grant a free respec every 3 ascensions
+      if ascension.count().modulo(3).isZero()
+        @unit('freeRespec')._addCount 1
       # do not use @reset(): we don't want achievements, etc. reset
       @_init()
       for unit in @unitlist()
-        unit._setCount unit.unittype.init
+        if unit.tab?.name != 'mutagen'
+          unit._setCount unit.unittype.init or 0
       for upgrade in @upgradelist()
-        upgrade._setCount 0
-      # apply ascension bonuses after resetting all units
-      mutageninit._setCount init
-      mutagen._setCount init
+        if upgrade.unit.tab?.name != 'mutagen'
+          upgrade._setCount 0
+
+  respecRate: ->
+    1.00
+  respecCost: ->
+    @ascendCost().times(@respecCostRate).ceil()
+  respecCostRate: 0.3
+  respecCostCapDiff: -> @ascendCostCapDiff @respecCost()
+  respecCostPercent: -> @ascendCostPercent @respecCost()
+  respecCostDurationSecs: -> @ascendCostDurationSecs @respecCost()
+  respecCostDurationMoment: -> @ascendCostDurationMoment @respecCost()
+  isRespecCostMet: ->
+    @unit('energy').count().greaterThanOrEqualTo @respecCost()
+  respecSpent: ->
+    mutagen = @unit 'mutagen'
+    # upgrade costs are weird - upgrade costs rely on other upgrades, which breaks spending tracking.
+    # ignore them, relying on the mutateHidden upgrade for the true cost.
+    ignores = {}
+    for up in mutagen.upgrades.list
+      ignores[up.name] = true
+    # Upgrades come with a free(ish) unit too, so remove their cost. (Mostly for unit tests, doesn't really matter.)
+    return mutagen.spent(ignores).minus(@upgrade('mutatehidden').count())
+  respec: ->
+    @withSave =>
+      if not @isRespecCostMet()
+        throw new Error "We require more resources"
+      cost = @respecCost()
+      @unit('energy')._subtractCount cost
+      # respeccing wipes spent-energy. energy cost of respeccing counts toward spent-energy *after* spent-energy is wiped
+      spent = @ascendEnergySpent().minus cost
+      @unit('respecEnergy')._addCount spent
+      @_respec()
+
+  respecFree: ->
+    @withSave =>
+      if not @unit('freeRespec').count().greaterThan(0)
+        throw new Error "We require more resources"
+      @unit('freeRespec')._subtractCount 1
+      @_respec()
+
+  _respec: ->
+    mutagen = @unit 'mutagen'
+    spent = @respecSpent()
+    for resource in mutagen.spentResources()
+      resource._setCount 0
+      if resource._visible?
+        resource._visible = false
+    mutagen._addCount spent.times(@respecRate()).floor()
+    util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
   new Game session
