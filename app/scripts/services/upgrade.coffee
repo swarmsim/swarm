@@ -107,12 +107,13 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       # sumCost is sometimes more precise than maxCostMet, leading to buy() breaking - #290.
       # Compare our result here with sumCost, and adjust if precision's a problem.
       max = max.floor()
-      for cost in @sumCost max
-        # maxCostMet is supposed to guarantee we have more units than the cost of this many upgrades!
-        # if that's not true, it must be a precision error.
-        if cost.unit.count().lessThan cost.val
-          $debug.log 'maxCostMet corrected its own precision'
-          return max - 1
+      if max.greaterThanOrEqualTo 0 # just in case
+        for cost in @sumCost max
+          # maxCostMet is supposed to guarantee we have more units than the cost of this many upgrades!
+          # if that's not true, it must be a precision error.
+          if cost.unit.count().lessThan cost.val
+            $debug.log 'maxCostMet corrected its own precision'
+            return max - 1
       return max
 
   costMetPercent: ->

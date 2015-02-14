@@ -83,8 +83,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
     ret = @now.getTime() - @session.date.reified.getTime()
-    util.assert ret >= 0, 'negative _realdiffmillis! went back in time somehow!'
-    return ret
+    return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
 

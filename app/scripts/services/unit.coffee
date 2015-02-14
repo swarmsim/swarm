@@ -204,7 +204,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     for cost in @eachCost()
       if cost.val.greaterThan(0)
         max = Decimal.min max, cost.unit.count().dividedBy cost.val
-    util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
+    #util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
     return max
 
   isVisible: ->

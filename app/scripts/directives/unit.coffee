@@ -73,7 +73,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       upgrade.isVisible()
 
     scope.viewNewUpgrades = ->
-      scope.cur.viewNewUpgrades()
+      scope?.cur?.viewNewUpgrades()
       return undefined # important - the result is displayed
 
     scope.unitCostAsPercent = (unit, cost) ->
