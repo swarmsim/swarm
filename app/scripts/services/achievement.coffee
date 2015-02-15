@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> class Achievement
+angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filter) -> class Achievement
   constructor: (@game, @type) ->
     @name = @type.name
   _init: ->
@@ -23,6 +23,17 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope) -> cl
       util.assert !!visible.unit isnt !!visible.upgrade, "achievement visiblity must have unit xor upgrade", @name
       return visible
     @_visible = null
+
+  description: ->
+    # "Why not angular templates?" I don't want to be forced to keep every
+    # achievement description as a file, there's only one substitution needed,
+    # and last time I tried to $compile spreadsheet data we leaked memory all
+    # over the place. So, just do the one substitution.
+    desc = @type.description
+    if @type.requires.length > 0
+      # don't apply significant figures, achievement numbers are okay as-is
+      desc = desc.replace '$REQUIRED', $filter('longnum')(@type.requires[0].val, undefined, true)
+    return desc
 
   isEarned: ->
     @game.session.achievements[@name]?

@@ -26,7 +26,7 @@
       <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
       <span class="achievepoints-xs" ng-if="achievement.type.points > 0">+{{achievement.type.points|number}}</span>
       <h3>{{achievement.type.label}}</h3>
-      <p class="achievedesc">{{achievement.type.description}}</p>
+      <p class="achievedesc">{{achievement.description()}}</p>
       <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
       <span class="achievedate small" title="{{achievement.earnedAtMoment().format('dddd, MMMM Do YYYY, h:mm:ss a')}}">Earned {{achievement.earnedAtMoment().fromNow()}}</span>
     </div>
@@ -36,7 +36,7 @@
       <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
       <span class="achievepoints-xs" ng-if="achievement.type.points > 0">+{{achievement.type.points|number}}</span>
       <h3>{{achievement.type.label}}</h3>
-      <p class="achievedesc">{{achievement.type.description}}</p>
+      <p class="achievedesc">{{achievement.description()}}</p>
       <p><em>{{achievement.type.longdesc || '&nbsp;'}}</em></p>
       <div ng-if="achievement.hasProgress()" class="progress" style="margin-bottom:0">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{achievement.progressVal()}}" aria-valuemin="0" aria-valuemax="{{achievement.progressMax()}}" style="width:{{achievement.progressPercent()|percent:0}}">
