@@ -112,7 +112,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
           # maxCostMet is supposed to guarantee we have more units than the cost of this many upgrades!
           # if that's not true, it must be a precision error.
           if cost.unit.count().lessThan cost.val
-            $debug.log 'maxCostMet corrected its own precision'
+            $log.debug 'maxCostMet corrected its own precision'
             return max - 1
       return max
 
