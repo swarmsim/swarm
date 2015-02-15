@@ -31,6 +31,12 @@
   <li>Achievements worth no points no longer display "+0 points", and aren't visible in the achievements list unless you've earned them.</li>
   <li>Numbers in achievement descriptions now use the number format you've selected in the options screen.</li>
   <li>Fixed a crash that sometimes occurred when calculating upgrade costs.</li>
+  <li>Changes to the contact-the-developer link:
+  <ul>
+    <li>Fixed a bug that prevented saved data from being properly sent with all messages. Saved games are now included as shortened URLs.</li>
+    <li>Instead of one form, there's now a "contact" page with three links: Reddit PM, email, or the anonymous feedback form. All of these include debug information for bug reports.</li>
+    <li>Removed the Reddit-username-or-email field from the anonymous feedback form, since you can now contact the developer by Reddit or email directly.</li>
+  </ul></li>
 </ul>
 <h4>1.0.4<span>2015/02/13</span></h4>
 <ul>
@@ -190,7 +196,7 @@
 </ul>
 <h4>1.0.0-publictest15<span>2015/01/29</span></h4>
 <ul>
-  <li>Lots of invisible backend changes; preparing to remove the 1e300 meat limit. High risk of something breaking in this version - if you find bugs, or the game runs much slower than before, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>. (The meat limit has <i>not</i> been removed yet.)</li>
+  <li>Lots of invisible backend changes; preparing to remove the 1e300 meat limit. High risk of something breaking in this version - if you find bugs, or the game runs much slower than before, <a target="_blank" ng-href="#/contact">please let me know</a>. (The meat limit has <i>not</i> been removed yet.)</li>
   <li>Saved games should now load properly in all browsers.</li>
 </ul>
 <h4><s>1.0.0-publictest14</s><span><s>2015/01/29</s></span></h4>
@@ -315,7 +321,7 @@
 </ul>
 <h4>0.2.21 <span>2014/11/10</span></h4>
 <ul>
-  <li>Fixed another memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>.</li>
+  <li>Fixed another memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="#/contact">please let me know</a>.</li>
 </ul>
 <h4>0.2.20 <span>2014/11/09</span></h4>
 <ul>
@@ -350,7 +356,7 @@
 <h4>0.2.13 <span>2014/10/8</span></h4>
 <ul>
   <li>The statistics screen works again.</li>
-  <li>Fixed a possible memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>.</li>
+  <li>Fixed a possible memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="#/contact">please let me know</a>.</li>
 </ul>
 <h4>0.2.12 <span>2014/10/7</span></h4>
 <ul>

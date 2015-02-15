@@ -16,8 +16,8 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
   $scope.select = ($event) ->
     $event.target.select()
 
-  $scope.feedbackUrl = ->
-    session.feedbackUrl $scope.form.error
+  $scope.contactUrl = ->
+    "#/contact?#{$.param error:$scope.form.error}"
 
   exportedsave = session.getStoredSaveData()
   try

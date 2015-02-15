@@ -193,22 +193,6 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
     load: (id) ->
       @importSave @getStoredSaveData id
 
-    feedbackUrl: (error='') ->
-      if error
-        # copying how we did errors in older copypasted code. could probably improve this and use the same fn for save, but don't want to mess with it right now.
-        error += '|'
-        save = @getStoredSaveData()
-      else
-        save = @exportSave()
-      baseurl = "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437="
-      param = "#{version}|#{window?.navigator?.userAgent}|#{error}#{save}"
-      url = "#{baseurl}#{encodeURIComponent param}"
-      # starts throwing bad requests for length around this point. Send whatever we can.
-      LIMIT = 1950
-      if url.length > LIMIT
-        url = url.substring(0,LIMIT) + encodeURIComponent "...TRUNCATED..."
-      return url
-
     onClose: ->
       # onclose() in browsers is flaky. Need to rely on periodic heartbeats too.
       @date.closed = new Date()

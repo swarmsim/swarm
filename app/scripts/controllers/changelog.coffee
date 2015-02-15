@@ -30,6 +30,3 @@ angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env, versi
   [$scope.changestats.lastrelease, ..., $scope.changestats.firstrelease] = $scope.changestats.headers
   $scope.changestats.days = $scope.changestats.firstrelease?.diffDays
   $log.debug 'changelogdate', $scope.changestats
-
-  $scope.feedbackUrl = ->
-    session.feedbackUrl()

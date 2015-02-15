@@ -71,6 +71,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/iframe/:call',
         templateUrl: 'views/iframe.html'
         controller: 'IframeCtrl'
+      .when '/contact',
+        templateUrl: 'views/contact.html'
+        controller: 'ContactCtrl'
       .otherwise
         redirectTo: '/'
 

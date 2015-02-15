@@ -9,5 +9,3 @@
 ###
 angular.module('swarmApp').controller 'OfflineCtrl', ($scope, game) ->
   $scope.achieved = game.unit('ascension').count().greaterThan(0)
-  $scope.feedbackUrl = ->
-    game.session.feedbackUrl()

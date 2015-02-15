@@ -64,10 +64,7 @@ https://github.com/erosson/swarm
           <p>Here's your saved game data. <b>Save this</b>: once the bug is fixed, you can import this to restore your game.</p>
           <input type="text" class="form-control" readonly style="cursor:auto" ng-model="form.export" ng-click="select($event)">
           <p>The error message was: <code>{{form.error}}</code></p>
-          <p>Please report this bug using the
-            <a target="_blank" ng-href="{{feedbackUrl()}}">anonymous feedback form</a> or
-            <a target="_blank" href="http://reddit.com/r/swarmsim">community subreddit</a>.
-          </p>
+          <p>Please <a target="_blank" ng-href="{{contactUrl()}}">report this bug</a>. Thanks!</p>
         </div>
       </div>
       <div ng-cloak ng-controller="WelcomeBackCtrl">
@@ -239,6 +236,8 @@ https://github.com/erosson/swarm
         <script src="scripts/controllers/iframe.js"></script>
         <script src="scripts/controllers/offline.js"></script>
         <script src="scripts/filters/moment.js"></script>
+        <script src="scripts/services/feedback.js"></script>
+        <script src="scripts/controllers/contact.js"></script>
         <!-- endbuild -->
 </body>
 </html>

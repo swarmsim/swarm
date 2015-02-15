@@ -45,9 +45,6 @@ versioncheck, analytics, statistics, achievementslistener, favico, kongregate
     $scope.$emit 'konami'
     $log.debug 'konami'
 
-  $scope.feedbackUrl = ->
-    session.feedbackUrl()
-
   achievePublicTest1 $scope
   try
     linkPublicTest1 $scope
