@@ -1520,7 +1520,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "label": "public test v1.0",
         "longdesc": "Thank you!",
         "name": "publictest1",
-        "points": 10,
+        "points": 0,
         "requires.event": "achieve-publictest1",
         "requires.unittype": "",
         "requires.upgradetype": "",

@@ -106,7 +106,7 @@ https://github.com/erosson/swarm
       <div class="achieve achievealert animif" ng-if="achieveQueue.isVisible()">
         <div class="container alert alert-success achievetext">
             <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
-            <span class="achievepoints">+{{achieveQueue.get().pointsEarned()|number}}</span>
+            <span class="achievepoints" ng-if="achieveQueue.get().pointsEarned() > 0">+{{achieveQueue.get().pointsEarned()|number}}</span>
             <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
             <span class="achievepoints-xs">+{{achieveQueue.get().pointsEarned()|number}}</span>
             <p>Achievement:</p>
