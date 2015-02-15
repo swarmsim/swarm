@@ -1518,7 +1518,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Help test Swarm Simulator v1.0.",
         "label": "public test v1.0",
-        "longdesc": "Thank you!",
+        "longdesc": "Thank you for your help!",
         "name": "publictest1",
         "points": 0,
         "requires.event": "achieve-publictest1",
