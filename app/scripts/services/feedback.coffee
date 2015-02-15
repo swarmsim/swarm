@@ -11,7 +11,7 @@ angular.module('swarmApp').factory 'feedback', ($log, game, version) -> new clas
   # other alternatives: pastebin (rate-limited), github gist
   # tinyurl doesn't allow cross-site requests
   createTinyurl: (exported=game.session.exportSave()) ->
-    load_url = "http://swarmsim.github.io/#/savedata=#{encodeURIComponent exported}"
+    load_url = "http://swarmsim.github.io/#/?savedata=#{encodeURIComponent exported}"
     jQuery.ajax('https://www.googleapis.com/urlshortener/v1/url',
       type: 'POST'
       data:JSON.stringify
