@@ -228,6 +228,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @cache.onUpdate()
     return ret
 
+  withUnreifiedSave: (fn) ->
+    ret = fn()
+    @session.save()
+    return ret
+
   reset: (butDontSave=false) ->
     @session.reset()
     @_init()

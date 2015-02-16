@@ -95,9 +95,6 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()
 
-    scope.click = ->
-      scope.unit.viewNewUpgrades()
-
     scope.unit = game.unit scope.unit
     $log.debug 'buyunit', scope.unit
     scope.buyUnit = (args) ->
