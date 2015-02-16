@@ -70,7 +70,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       upgrade.isVisible()
 
     scope.watched = {}
-    for upgrade in scope.cur.upgrades.byClass.upgrade
+    for upgrade in scope.cur.upgrades.byClass.upgrade ? []
       scope.watched[upgrade.name] = upgrade.isWatched()
     scope.updateWatched = (upgrade) ->
       upgrade.watch scope.watched[upgrade.name]
