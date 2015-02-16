@@ -10,20 +10,12 @@
     <p>Show more detailed numbers for each of your units.</p>
   </div>
   <div class="form-group">
-    <label class="control-label">
-      <span class="glyphicon glyphicon-eye-open"></span> Show accurate times 
-      <input type="checkbox" ng-init="form.showaccuratetiming=options.showAccurateTiming()"     ng-model="form.showaccuratetiming"   ng-change="options.showAccurateTiming(form.showaccuratetiming)">
-    </label>
-    <p>Show more accurate time estimates.</p>
-  </div>
-
-  <div class="form-group">
     <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Duration format</label></div>
     <label style="font-weight:normal"><input type="radio" ng-init="form.durationFormat=options.durationFormat()" ng-model="form.durationFormat" value="human" ng-change="options.durationFormat(form.durationFormat)">Human</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="full" ng-change="options.durationFormat(form.durationFormat)" ng-init="form.notation=options.notation()">Full</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="abbreviated" ng-change="options.durationFormat(form.durationFormat)">Abbreviated</input></label>
     <p>Examples:  
-    <label style="font-weight:normal" ng-repeat="sample_duration in duration_examples">{{sample_duration }} , </label>
+    <label style="font-weight:normal" ng-repeat="sample_duration in duration_examples">{{sample_duration |duration}}</label>
 </p>
 
   </div>

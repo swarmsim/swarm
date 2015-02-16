@@ -24,26 +24,6 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
         nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
         secs = moment.duration(estimate.val, 'seconds')
         return secs
-        switch options.durationFormat()
-          when "human"
-             secs = secs.humanize()
-             if /\ years$/.test secs
-               secs = 'a long time'
-               nonlinear = ''
-          when "full" then secs = secs.format("Y [yr] M [mth] d [day] h [hr] m [min] s [sec]")
-          when "abbreviated"
-              if secs.asDays() > 7
-                  secs.format("Y [yr] M [mth] d [days]")
-              else
-                  secs.format("d [day] h [hr] m [min] s [sec]")
-
-           #secs = secs.format("[seconds:] s -- [minutes:] m -- [hours:] h -- [days:] d", { trim: "right" });
-        #else
-           #secs = secs.humanize()
-           #if /\ years$/.test secs
-             #secs = 'a long time'
-             #nonlinear = ''
-        return ", #{nonlinear}#{secs}"
       return ""
 
     parseNum = (num) ->
