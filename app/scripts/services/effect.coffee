@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     # parent can be a unit or an upgrade
     if @parent.unittype? then @parent else @parent.unit
   parentUpgrade: ->
-    if parent.unittype? then null else @parent
+    if @parent.unittype? then null else @parent
   hasParentStat: (statname, _default) ->
     @parentUnit().hasStat statname, _default
   parentStat: (statname, _default) ->
