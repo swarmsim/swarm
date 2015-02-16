@@ -26,3 +26,7 @@ describe 'Service: achievements', ->
     expect(achieve.isEarned()).toBe true
     expect(achieve.earnedAtMillisElapsed()).toBe 55
     expect(achieve.pointsEarned()).toBe 10
+
+  it 'describes', ->
+    for achievement in achievements.list
+      expect(-> new Achievement(game, achievement).description()).not.toThrow()
