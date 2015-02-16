@@ -7,7 +7,7 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, achievePublicTest1, linkPublicTest1
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, achievePublicTest1
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico, kongregate
 ) ->
@@ -46,10 +46,6 @@ versioncheck, analytics, statistics, achievementslistener, favico, kongregate
     $log.debug 'konami'
 
   achievePublicTest1 $scope
-  try
-    linkPublicTest1 $scope
-  catch e
-    # pass
 
 angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, kongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement
@@ -77,12 +73,3 @@ angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $locati
         cleanup()
     timeout = $timeout cleanup, 30000
 
-angular.module('swarmApp').factory 'linkPublicTest1', ($log, $location, game, kongregate) -> return ($scope) ->
-  encoded = $location.search().publictest
-  if encoded
-    args = JSON.parse LZString.decompressFromBase64 encoded
-    datediff = Math.abs new Date().getTime() - new Date(args.date ? 0).getTime()
-    if datediff < 5 * 60 * 1000
-      $scope.$emit 'achieve-publictest1'
-      $log.debug 'linkPublicTest1: achieve-publictest1', datediff
-      $location.search 'publictest', null
