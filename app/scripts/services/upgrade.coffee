@@ -4,7 +4,6 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
-    @_lastUpgradeSeen = new Decimal 0
   _init: ->
     @costByName = {}
     @cost = _.map @type.cost, (cost) =>
