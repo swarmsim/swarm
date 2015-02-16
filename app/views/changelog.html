@@ -25,6 +25,44 @@
     </div>
     <div id="changelog10x" class="panel-collapse collapse in">
       <div class="panel-body">
+<h4>1.0.8<span>2015/02/15</span></h4>
+<ul>
+  <li>Fixed a bug where simply viewing some types of units would log many errors.</li>
+  <li>Fixed a bug that displayed a description of "undefined" for some achievements.</li>
+  <li>Fixed a bug that sometimes caused problems when buying your first nexus.</li>
+  <li>Preparing to release the game on Kongregate. (No visible changes.)</li>
+</ul>
+<h4>1.0.7<span>2015/02/15</span></h4>
+<ul>
+  <li>You can now ignore upgrade notifiers <span class="glyphicon glyphicon-circle-arrow-up"></span> using the checkbox <input type="checkbox" checked> next to each upgrade. Viewing an upgrade no longer causes its upgrade notifier to disappear. This new setting's saved when closing the browser or refreshing the page.</li>
+</ul>
+<h4>1.0.6<span>2015/02/15</span></h4>
+<ul>
+  <li>Fixed a bug related to getting the public test achievement.</li>
+</ul>
+<h4>1.0.5<span>2015/02/15</span></h4>
+<ul>
+  <li>The achievement earned for helping on public test is now worth no points.</li>
+  <li>Achievements worth no points no longer display "+0 points", and aren't visible in the achievements list unless you've earned them.</li>
+  <li>Numbers in achievement descriptions now use the number format you've selected in the options screen.</li>
+  <li>Fixed a crash that sometimes occurred when calculating upgrade costs.</li>
+  <li>Changes to the contact-the-developer link:
+  <ul>
+    <li>Fixed a bug that prevented saved data from being properly sent with all messages. Saved games are now included as shortened URLs.</li>
+    <li>Instead of one form, there's now a "contact" page with three links: Reddit PM, email, or the anonymous feedback form. All of these include debug information for bug reports.</li>
+    <li>Removed the Reddit-username-or-email field from the anonymous feedback form, since you can now contact the developer directly by Reddit or email.</li>
+  </ul></li>
+</ul>
+<h4>1.0.4<span>2015/02/13</span></h4>
+<ul>
+  <li>Long swarmwarp durations are now formatted with hours and days, not just minutes.</li>
+  <li>Fixed a bug with very expensive unit/upgrade purchases that would sometimes enable the buy button when you didn't have quite enough resources to actually buy.</li>
+  <li>Ascensions are now tracked on the statistics screen. (Your first ascension date is probably wrong because ascension dates/times weren't tracked before now - sorry!)</li>
+</ul>
+<h4>1.0.3<span>2015/02/12</span></h4>
+<ul>
+  <li>When you reopen the game after being away for more than a few minutes, you'll see a "welcome back" screen that says how long you were away and how much your swarm produced.</li>
+</ul>
 <h4>1.0.2<span>2015/02/11</span></h4>
 <ul>
   <li>Fixed a misspeeled achievement.</li>
@@ -77,6 +115,10 @@
     </div>
     <div id="changelog10xpublictest" class="panel-collapse collapse">
       <div class="panel-body">
+<h4>1.0.0-publictest29<span>2015/02/15</span></h4>
+<ul>
+  <li>Created a button to award the publictest achievement. It's still awarded automatically, but this helps players with a web browser that doesn't allow it.</li>
+</ul>
 <h4>1.0.0-publictest28<span>2015/02/11</span></h4>
 <ul>
   <li>The achievement for helping on publictest is now awarded if you ascended before the game was reset in v1.0.0-publictest9.</li>
@@ -173,7 +215,7 @@
 </ul>
 <h4>1.0.0-publictest15<span>2015/01/29</span></h4>
 <ul>
-  <li>Lots of invisible backend changes; preparing to remove the 1e300 meat limit. High risk of something breaking in this version - if you find bugs, or the game runs much slower than before, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>. (The meat limit has <i>not</i> been removed yet.)</li>
+  <li>Lots of invisible backend changes; preparing to remove the 1e300 meat limit. High risk of something breaking in this version - if you find bugs, or the game runs much slower than before, <a target="_blank" ng-href="#/contact">please let me know</a>. (The meat limit has <i>not</i> been removed yet.)</li>
   <li>Saved games should now load properly in all browsers.</li>
 </ul>
 <h4><s>1.0.0-publictest14</s><span><s>2015/01/29</s></span></h4>
@@ -298,7 +340,7 @@
 </ul>
 <h4>0.2.21 <span>2014/11/10</span></h4>
 <ul>
-  <li>Fixed another memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>.</li>
+  <li>Fixed another memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="#/contact">please let me know</a>.</li>
 </ul>
 <h4>0.2.20 <span>2014/11/09</span></h4>
 <ul>
@@ -333,7 +375,7 @@
 <h4>0.2.13 <span>2014/10/8</span></h4>
 <ul>
   <li>The statistics screen works again.</li>
-  <li>Fixed a possible memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="{{feedbackUrl()}}">please let me know</a>.</li>
+  <li>Fixed a possible memory leak. If you're still seeing the game crash your browser, <a target="_blank" ng-href="#/contact">please let me know</a>.</li>
 </ul>
 <h4>0.2.12 <span>2014/10/7</span></h4>
 <ul>

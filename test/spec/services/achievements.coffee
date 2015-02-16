@@ -26,3 +26,9 @@ describe 'Service: achievements', ->
     expect(achieve.isEarned()).toBe true
     expect(achieve.earnedAtMillisElapsed()).toBe 55
     expect(achieve.pointsEarned()).toBe 10
+
+  it 'describes', ->
+    for achievement in achievements.list
+      a = new Achievement game, achievement
+      expect(-> a.description()).not.toThrow()
+      expect(_.contains a.description(), '$REQUIRE').toBe false

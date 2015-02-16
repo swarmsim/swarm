@@ -45,18 +45,16 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $scope.$emit 'konami'
     $log.debug 'konami'
 
-  $scope.feedbackUrl = ->
-    session.feedbackUrl()
-
   achievePublicTest1 $scope
 
-angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game) -> return ($scope) ->
+angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement
   framed = window.top and window != window.top
   alreadyEarned = game.achievement('publictest1').isEarned()
   isPublicTest = _.contains version, '-publictest'
   # accidentally pushed this to publictest with isPublicTest broken - seemed to work, though! `framed` stopped any loops.
-  $scope.loadIframe = (not framed) and (not alreadyEarned) #and (not isPublicTest)
+  # kongregate doesn't like iframes, and newer kongregate players won't qualify anyway
+  $scope.loadIframe = (not framed) and (not alreadyEarned) and (not isKongregate()) #and (not isPublicTest)
   $log.debug 'achievePublicTest1: creating iframe:', $scope.loadIframe, framed:framed, alreadyEarned:alreadyEarned, isPublicTest:isPublicTest
   if $scope.loadIframe
     # setup a message-handler; cleanup either when the message arrives, or after 30 seconds
@@ -74,3 +72,4 @@ angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $locati
       finally
         cleanup()
     timeout = $timeout cleanup, 30000
+

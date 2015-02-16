@@ -13,7 +13,11 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
     opts.sigfigs ?= 3
     # special case: 99k or less looks nicer with the 'k' omitted
     opts.minsuffix ?= 1e5
-    (num, floorlimit=0) ->
+    toPrecision = (num, noSigfigs) ->
+      if noSigfigs
+        return num+''
+      return num.toPrecision opts.sigfigs, Decimal.ROUND_FLOOR
+    (num, floorlimit=0, noSigfigs=false) ->
       suffixes = suffixes_
       if !num
         return num
@@ -21,7 +25,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       if num.isZero()
         return num+''
       if num.lessThan floorlimit
-        return num.toPrecision(opts.sigfigs).replace /\.?0+$/, ''
+        return toPrecision(num, noSigfigs).replace /\.?0+$/, ''
       num = num.floor()
       if num.lessThan opts.minsuffix
         # sadly, num.toLocaleString() does not work in unittests. node vs browser?
@@ -41,7 +45,10 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       if options.notation() == 'scientific-e' or index >= suffixes.length
         # no suffix, use scientific notation. No grouping in threes or suffixes; quit early.
         # round down for consistency with suffixed formats, though rounding doesn't matter so much here.
-        return num.toExponential(opts.sigfigs-1, Decimal.ROUND_FLOOR).replace 'e+', 'e'
+        precision = opts.sigfigs-1
+        if noSigfigs
+          precision = undefined
+        return num.toExponential(precision, Decimal.ROUND_FLOOR).replace 'e+', 'e'
       if options.notation() == 'engineering'
         # Engineering works like standard, but with number-based suffixes instead of a hardcoded list
         suffix = "E#{index * 3}"
@@ -54,7 +61,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       #return "#{num.toPrecision(3).replace(/\.([^0]*)0+$/, '.$1').replace(/\.$/, '')}#{suffix}"
       # turns out it's very distracting to have the number length change, so keep trailing zeros.
       # always round down to fix #245
-      return "#{num.toPrecision(opts.sigfigs, Decimal.ROUND_FLOOR)}#{suffix}"
+      return "#{toPrecision(num, noSigfigs)}#{suffix}"
 
 angular.module('swarmApp').filter 'bignum', (bignumFormatter) ->
   # These aren't official abbreviations, apparently, can't find them on google

@@ -48,13 +48,9 @@
     </div>
   </div>
   <dl class="dl-horizontal">
-    <dt>total clicks</dt>
-    <dd>{{stats.clicks | number}}</dd>
     <dt>save file size</dt>
     <dd>{{session.exportSave().length | number}} base64 chars</dd>
-    <dt>logged clicks</dt>
-    <dd>{{listener.replay.log.length | number}}</dd>
-    <dt>click log size</dt>
-    <dd>{{listener.replay.compressToUTF16().length | number}} utf16 chars (or {{listener.replay.compressToBase64().length | number}} base64 chars)</dd>
+    <dt>start date</dt>
+    <dd>{{game.momentStarted().fromNow()}} - {{game.dateStarted().toString()}}</dd>
   </dl>
 </div>

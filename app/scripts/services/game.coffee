@@ -83,8 +83,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
     ret = @now.getTime() - @session.date.reified.getTime()
-    util.assert ret >= 0, 'negative _realdiffmillis! went back in time somehow!'
-    return ret
+    return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
 
@@ -229,6 +228,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @cache.onUpdate()
     return ret
 
+  withUnreifiedSave: (fn) ->
+    ret = fn()
+    @session.save()
+    return ret
+
   reset: (butDontSave=false) ->
     @session.reset()
     @_init()
@@ -258,7 +262,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCostDurationSecs: (cost = @ascendCost()) ->
     energy = @unit 'energy'
     if cost <= energy.capValue()
-      return energy.estimateSecs cost
+      return energy.estimateSecsUntilEarned cost
   ascendCostDurationMoment: (cost) ->
     if (secs=@ascendCostDurationSecs cost)?
       return moment.duration secs, 'seconds'

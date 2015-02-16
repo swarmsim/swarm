@@ -90,4 +90,8 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
     game.ascend()
     @_emit 'ascension',
       now: game.now
+      unit: game.unit 'ascension'
+      unitname: 'ascension'
+      num: 1
+      twinnum: 1
       elapsed: game.elapsedStartMillis()

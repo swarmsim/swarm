@@ -150,12 +150,12 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
         return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
-      return @estimateSecs cap
+      return @estimateSecsUntilEarned cap
   capDurationMoment: ->
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
 
-  estimateSecs: (num) ->
+  estimateSecsUntilEarned: (num) ->
     # result is *not* a bigdecimal!
     remaining = new Decimal(num).minus @count()
     if remaining.lessThanOrEqualTo 0
@@ -204,7 +204,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     for cost in @eachCost()
       if cost.val.greaterThan(0)
         max = Decimal.min max, cost.unit.count().dividedBy cost.val
-    util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
+    #util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
     return max
 
   isVisible: ->
@@ -267,10 +267,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
       @_addCount twinnum
       return {num:num, twinnum:twinnum}
 
-  viewNewUpgrades: ->
-    upgrades = @showparent?.upgrades?.list ? @upgrades.list
-    for upgrade in upgrades
-      upgrade.viewNewUpgrades()
   isNewlyUpgradable: ->
     upgrades = @showparent?.upgrades?.list ? @upgrades.list
     _.some upgrades, (upgrade) ->

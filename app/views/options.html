@@ -52,50 +52,53 @@
     </label>
     <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
   </div>
-  <div class="form-group" ng-if="env.isDebugEnabled" style="border:1px solid red">
-    <div><label class="control-label"><span class="glyphicon glyphicon-barcode" ></span> Dropbox syncing</label></div>
-      <div ng-cloak ng-controller="DropboxdatastoreCtrl">
-currently authorised???: {{isAuth()}} <br> 
-<button id="dropboxlogin" ng-click="droplogin()" style="display:none">
-  Dropbox Login
-</button>
-<button id="dropboxlogout" ng-click="droplogout()" style="display:none">
-  Dropbox Logout
-</button>
-<!--
- <form id="savegame-form" ng-submit="doAuth()">
- <input  ng-model="oauth_token" >
- <input type="submit" id="submit" value="Authenticate" />
-</form>
--->
-<br>
-<br>
-<div id="savelisting">
- <form id="savegame-form" ng-submit="addSavegame()">
-type name and press enter to save
-        <input id="new-savegame" placeholder="savegame name" ng-model="newSavegame" >
- <input type="submit" id="save" value="Save" />
- </form>
+  <div class="form-group" ng-if="env.dropboxAppKey" style="border:1px solid red">
+    <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
+    <div><label class="control-label"><img src="images/dropbox-logos_dropbox-glyph-black.png" style="height:18px;width:18px;">Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+    <div ng-cloak ng-controller="DropboxdatastoreCtrl">
+      <input ng-if="!isAuth()" type="image" class="btn btn-default" ng-click="droplogin()" alt="Log in with Dropbox" title="Log in with Dropbox" src="images/dropbox-logos_dropbox-logotype-blue.png" style="height:30%;width:30%;">
+      <!--button ng-if="!isAuth()" class="btn btn-default" ng-click="droplogin()">
+        <img alt="Log in with Dropbox" title="Log in with Dropbox" src="images/dropbox-logos_dropbox-logotype-blue.png" style="height:30%;width:30%;display:inline">
+      </button-->
+      <div ng-if="isAuth()">
+        <img src="images/dropbox-logos_dropbox-vertical-blue.png" style="float:left">
+        <div><button class="btn btn-default" id="dropboxlogout" ng-click="droplogout()">Logout</button></div>
+        
+        <div><button class="btn btn-default" ng-click="addSavegame()">Export saved data to Dropbox</button></div>
+        <p ng-if="!savedgame">Nothing exported to Dropbox yet.</p>
+        <div ng-if="savedgame">
+          <div><button class="btn btn-default" ng-click="importSavegame()">Import saved data (replaces your current game)</button></div>
+          <div><button class="btn btn-default" ng-click="deleteSavegame()">Delete saved data from Dropbox</button></div>
+          <!-- TODO moment-formatted -->
+          <p>Last exported to Dropbox {{moment(savedgame.get('created')).fromNow()}}.</p>
+        </div>
 
-<br>
- count of saved games <input  ng-model="savedgames.length" >
-<ul>
-    <li ng-repeat="savegame in savedgames">
-  <button ng-click="deleteSavegame(savegame);">Delete</button>
-  <button ng-click="importSavegame(savegame);">Import</button>
-       {{savegame.get('state')}} {{savegame.get('created') }} {{savegame.getId() }} 
-    </li>
-</ul>
-</div>
-
-</div>
-</div>
+        <!-- Let's stick with one saved game for now - less confusing, less exploitable.
+        <form id="savegame-form" ng-submit="addSavegame()">
+          <input id="new-savegame" placeholder="savegame name" ng-model="newSavegame">
+          <input type="submit" id="save" value="Save" />
+        </form>
+        <p>{{savedgames.length}} saved games:</p>
+        <ul>
+          <li ng-repeat="savegame in savedgames">
+            <button ng-click="deleteSavegame(savegame);">Delete</button>
+            <button ng-click="importSavegame(savegame);">Import</button>
+            {{savegame.get('name')}} created: {{savegame.get('created') }}
+          </li>
+        </ul-->
+        <div style="clear:left"></div>
+      </div>
+    </div>
+  </div>
 
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
     <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
     <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
     <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
+    <div class="alert alert-warning" ng-cloak ng-if="isKongregate() && !game.session.kongregate">
+      This saved data was imported from outside Kongregate. You can still play it on Kongregate, but you won't appear on Kongregate's leaderboards. Start a new game on Kongregate to be eligible for the leaderboards.
+    </div>
     <p>To export, click the text above and copy (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.</p>
     <p>It's normal for imported saves to have more units than you exported with. Your swarm continues its work even after saved data is exported/before it's imported.</p>
   </div>

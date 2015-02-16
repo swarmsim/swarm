@@ -20,6 +20,9 @@ angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $locati
       return 'earned'
     if achievement.isUnmasked()
       return 'unearned'
+    # 'masked' zero-point vanity achievements aren't masked, but entirely hidden
+    if achievement.type.points <= 0
+      return 'hidden'
     return 'masked'
   $scope.isVisible = (achievement) ->
     state = $scope.state achievement

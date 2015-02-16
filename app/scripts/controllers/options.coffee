@@ -7,12 +7,14 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
   $scope.env = env
   $scope.imported = {}
+
+  $scope.isKongregate = isKongregate
 
   $scope.duration_examples = [
       moment.duration(16,'seconds')

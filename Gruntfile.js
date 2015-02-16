@@ -21,6 +21,18 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var dropboxAppKey = function(configuredKey) {
+    var KEYS = {
+      shoelaceDev:'6hagxaf8041upxz',
+      dev:'q5b8awxy8r3qjus', //account dropbox@swarmsim.com
+      prod:'n2mff9wz6bv0f91' //account dropbox@swarmsim.com
+    };
+    // `--dropboxAppKey=x` can always override this file's configuration
+    var key = grunt.option('dropboxAppKey') || configuredKey;
+    // key can either be a named key configured above (`--dropboxAppKey=dev`) or the key itself (`--dropboxAppKey=q5b8awxy8r3qjus`)
+    return KEYS[key] || key;
+  };
+
   // Define the configuration for all the tasks
   grunt.initConfig({
     // https://www.npmjs.org/package/grunt-gh-pages
@@ -42,7 +54,14 @@ module.exports = function (grunt) {
         },
         src: ['**']
       },
-      prod: {
+      prodDotcom: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-dotcom/swarmsim-dotcom.github.io.git'
+        },
+        src: ['**']
+      },
+      prodGithubio: {
         options: {
           branch: 'master',
           repo: 'git@github.com:swarmsim/swarmsim.github.io.git'
@@ -73,6 +92,7 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: '0',
             isOffline: false,
+            dropboxAppKey: dropboxAppKey('dev'),
             gaTrackingID: null
           }
         }
@@ -88,6 +108,7 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
+            dropboxAppKey: dropboxAppKey('dev'),
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -104,6 +125,7 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
+            dropboxAppKey: null, // null: dropbox is disabled
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -620,6 +642,12 @@ module.exports = function (grunt) {
     grunt.file.write('.tmp/version.json', text);
     grunt.file.write('dist/version.json', text);
   });
+  grunt.registerTask('buildCname', 'build swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'www.swarmsim.com');
+  });
+  grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
+    grunt.file.delete('dist/CNAME');
+  });
   grunt.registerTask('ss', 'Preload spreadsheet data and save to .tmp', function () {
     grunt.task.run(['preloadSpreadsheet']);
   });
@@ -699,19 +727,28 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy-staging', [
     'build',
-    'gh-pages:staging'
+    'cleanCname','gh-pages:staging'
   ]);
   grunt.registerTask('deploy-publictest', [
     'build',
-    'gh-pages:publictest'
+    'cleanCname','gh-pages:publictest'
   ]);
   grunt.registerTask('phonegap-staging', [
     'build',
     'copy:phonegap',
-    'gh-pages:staging'
+    'cleanCname','gh-pages:staging'
+  ]);
+  grunt.registerTask('deploy-prod-dotcom', [
+    'build',
+    'buildCname','gh-pages:prodDotcom','cleanCname'
+  ]);
+  grunt.registerTask('deploy-prod-githubio', [
+    'build',
+    'cleanCname','gh-pages:prodGithubio',
   ]);
   grunt.registerTask('deploy-prod', [
     'build',
-    'gh-pages:prod'
+    'cleanCname','gh-pages:prodGithubio',
+    'buildCname','gh-pages:prodDotcom','cleanCname'
   ]);
 };

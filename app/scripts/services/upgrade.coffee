@@ -4,7 +4,6 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   constructor: (@game, @type) ->
     @name = @type.name
     @unit = util.assert @game.unit @type.unittype
-    @_lastUpgradeSeen = new Decimal 0
   _init: ->
     @costByName = {}
     @cost = _.map @type.cost, (cost) =>
@@ -104,7 +103,17 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
           m = Decimal.ONE.minus(cost.unit.count().times(percent).times(Decimal.ONE.minus cost.factor).dividedBy(cost.val)).log().dividedBy(cost.factor.log())
         max = Decimal.min max, m
         #$log.debug 'iscostmet', @name, cost.unit.name, m, max, cost.unit.count(), cost.val
-      return max.floor()
+      # sumCost is sometimes more precise than maxCostMet, leading to buy() breaking - #290.
+      # Compare our result here with sumCost, and adjust if precision's a problem.
+      max = max.floor()
+      if max.greaterThanOrEqualTo 0 # just in case
+        for cost in @sumCost max
+          # maxCostMet is supposed to guarantee we have more units than the cost of this many upgrades!
+          # if that's not true, it must be a precision error.
+          if cost.unit.count().lessThan cost.val
+            $log.debug 'maxCostMet corrected its own precision'
+            return max - 1
+      return max
 
   costMetPercent: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
@@ -118,27 +127,17 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return Decimal.min 1, Decimal.max 0, max
 
   # TODO merge with costMetPercent
-  estimateSecs: ->
+  estimateSecsUntilBuyable: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = {val:0, unit:null}
     if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
       return 0
     for cost in @sumCost @maxCostMet().plus(1)
-      secs = cost.unit.estimateSecs cost.val
+      secs = cost.unit.estimateSecsUntilEarned cost.val
       if max.val < secs
         max = {val:secs, unit:cost.unit}
     return max
 
-  viewNewUpgrades: ->
-    if @isVisible() and util.isWindowFocused true
-      @_lastUpgradeSeen = @maxCostMet()
-  isNewlyUpgradable: (costPercent=undefined) ->
-    #@_lastUpgradeSeen < @maxCostMet()
-    @isUpgradable(costPercent) and not @isIgnored()
-  isIgnored: ->
-    @_lastUpgradeSeen and !@_lastUpgradeSeen.isZero()
-  unignore: ->
-    @_lastUpgradeSeen = new Decimal 0
   isUpgradable: (costPercent=undefined) ->
     # results are cached and updated only once every few seconds; may be out of date.
     # This function's used for the upgrade-available arrows, and without caching it'd be called once per
@@ -155,13 +154,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # caching delay, this would reduce it.
     return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] ?= @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
   isAutobuyable: ->
-    # don't autobuy meat-twins or mutations
-    # TODO this should be a spreadsheet column
-    if @unit.unittype.tab == 'mutagen'
-      return false
-    if @unit.unittype.tab == 'meat' and /twin$/.test @name
-      return false
-    return true
+    return @isWatched()
+  isNewlyUpgradable: (costPercent=undefined) ->
+    @isUpgradable(costPercent) and @isWatched()
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->
@@ -186,7 +181,6 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       for i in [0...num.toNumber()]
         for effect in @effect
           effect.onBuy count.plus(i + 1)
-      @viewNewUpgrades()
       return num
 
   buyMax: (percent) ->
@@ -198,6 +192,24 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       effect.calcStats stats, schema, count
     return stats
 
+  statistics: ->
+    @game.session.statistics.byUpgrade[@name] ? {}
+
+  _isWatchedDefault: ->
+    # watch everything by default - except mutagen
+    @unit.tab?.name != 'mutagen'
+  isWatched: ->
+    @game.session.watched ?= {}
+    return !!(@game.session.watched[@name] ? @_isWatchedDefault())
+  watch: (state) ->
+    @game.withUnreifiedSave =>
+      @game.session.watched ?= {}
+      state = !!state
+      # make savestates a little smaller
+      if state != @_isWatchedDefault()
+        @game.session.watched[@name] = state
+      else
+        delete @game.session.watched[@name]
 
 angular.module('swarmApp').factory 'UpgradeType', -> class UpgradeType
   constructor: (data) ->

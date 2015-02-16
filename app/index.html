@@ -2,7 +2,7 @@
 <html class="no-js">
 <!--
 
-Hi there, the non-minified source code is a lot easier to read
+Hi there! The non-minified source code is a lot easier to read:
 https://github.com/erosson/swarm
 
 -->
@@ -64,16 +64,13 @@ https://github.com/erosson/swarm
           <p>Here's your saved game data. <b>Save this</b>: once the bug is fixed, you can import this to restore your game.</p>
           <input type="text" class="form-control" readonly style="cursor:auto" ng-model="form.export" ng-click="select($event)">
           <p>The error message was: <code>{{form.error}}</code></p>
-          <p>Please report this bug using the
-            <a target="_blank" ng-href="{{feedbackUrl()}}">anonymous feedback form</a> or
-            <a target="_blank" href="http://reddit.com/r/swarmsim">community subreddit</a>.
-          </p>
+          <p>Please <a target="_blank" ng-href="{{contactUrl()}}">report this bug</a>. Thanks!</p>
         </div>
       </div>
       <div ng-cloak ng-controller="WelcomeBackCtrl">
         <div id="welcomeback" class="alert alert-info alert-dismissible animif" role="alert" ng-if="showWelcomeBack">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <p>Welcome back! While you were away for {{durationSinceClosed.humanize()}}, your swarm produced
+          <p title="Please don't go. The drones need you. They look up to you.">Welcome back! While you were away for {{durationSinceClosed.humanize()}}, your swarm produced:</p>
           <!--span ng-repeat="gain in offlineGains">
             <span ng-if="!$first && $last"> and </span>
               {{gain.val | longnum}}
@@ -106,14 +103,14 @@ https://github.com/erosson/swarm
       <div class="achieve achievealert animif" ng-if="achieveQueue.isVisible()">
         <div class="container alert alert-success achievetext">
             <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
-            <span class="achievepoints">+{{achieveQueue.get().pointsEarned()|number}}</span>
+            <span class="achievepoints" ng-if="achieveQueue.get().pointsEarned() > 0">+{{achieveQueue.get().pointsEarned()|number}}</span>
             <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
             <span class="achievepoints-xs">+{{achieveQueue.get().pointsEarned()|number}}</span>
             <p>Achievement:</p>
             <a class="alert-link" ng-href="#/achievements">
               <h3>{{achieveQueue.get().type.label}}</h3>
             </a>
-            <p class="achievedesc">{{achieveQueue.get().type.description}}</p>
+            <p class="achievedesc">{{achieveQueue.get().description()}}</p>
             <p><em>{{achieveQueue.get().type.longdesc}}</em></p>
             <button type="button" class="close" data-dismiss="alert" ng-click="achieveQueue.clear()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
@@ -231,12 +228,16 @@ https://github.com/erosson/swarm
         <script src="scripts/services/favico.js"></script>
         <script src="scripts/directives/debug.js"></script>
         <script src="scripts/app.templates.js"></script>
+        <script src="scripts/services/kongregate.js"></script>
         <script src="scripts/services/seedrand.js"></script>
         <script src="scripts/services/backfill.js"></script>
         <script src="scripts/services/dropboxdatastore.js"></script>
         <script src="scripts/controllers/dropboxdatastore.js"></script>
         <script src="scripts/controllers/iframe.js"></script>
         <script src="scripts/controllers/offline.js"></script>
+        <script src="scripts/filters/moment.js"></script>
+        <script src="scripts/services/feedback.js"></script>
+        <script src="scripts/controllers/contact.js"></script>
         <!-- endbuild -->
 </body>
 </html>

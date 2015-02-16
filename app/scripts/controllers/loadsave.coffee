@@ -9,15 +9,15 @@
  #
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
-angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill) ->
+angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, linkPublicTest1) ->
   $scope.form = {}
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
     $event.target.select()
 
-  $scope.feedbackUrl = ->
-    session.feedbackUrl $scope.form.error
+  $scope.contactUrl = ->
+    "#/contact?#{$.param error:$scope.form.error}"
 
   exportedsave = session.getStoredSaveData()
   try
@@ -48,19 +48,30 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     $log.info 'loading game from url successful!'
 
   backfill.run game
+  try
+    linkPublicTest1 $scope
+  catch e
+    # pass
+    console.error e
 
 angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game) ->
+  # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
+  # Do all time-checks for the welcome-back screen *before* scheduling heartbeats/onclose.
+  $scope.durationSinceClosed = game.session.durationSinceClosed()
+  $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
+  #$scope.showWelcomeBack = true # uncomment for testing!
+  reifiedToCloseDiffInSecs = (game.session.dateClosed().getTime() - game.session.date.reified.getTime()) / 1000
+  $log.debug 'time since game closed', $scope.durationSinceClosed.humanize(),
+    millis:game.session.millisSinceClosed()
+    reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
+
   # Store when the game was closed. Try to use the browser's onclose (onunload); that's most precise.
   # It's unreliable though (crashes fail, cross-browser's icky, ...) so use a heartbeat too.
+  # Wait until showWelcomeBack is set before doing these, or it'll never show
   $(window).unload -> game.session.onClose()
   $interval (-> game.session.onHeartbeat()), 60000
-  game.session.onHeartbeat()
+  game.session.onHeartbeat() # game.session time checks after this point will be wrong
 
-  # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
-  #$scope.durationSinceClosed = game.session.durationSinceClosed()
-  #$scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
-  #$scope.showWelcomeBack = true # uncomment for testing!
-  $scope.showWelcomeBack = false # disable, let onClose() set times for a while before re-enabling
   if not $scope.showWelcomeBack
     return
 
@@ -69,10 +80,6 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
     $('#welcomeback').alert('close')
     return undefined #quiets an angular error
 
-  reifiedToCloseDiffInSecs = (game.session.dateClosed().getTime() - game.session.date.reified.getTime()) / 1000
-  $log.info 'time since game closed', $scope.durationSinceClosed.humanize(),
-    millis:game.session.millisSinceClosed()
-    reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
   # show all tab-leading units, and three leading generations of meat
   interestingUnits = []
   leaders = 0
@@ -83,7 +90,6 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
       leaders += 1
       interestingUnits.push unit
   interestingUnits = interestingUnits.concat _.map game.tabs.list, 'leadunit'
-  # TODO insert highest meat units
   uniq = {}
   $scope.offlineGains = _.map interestingUnits, (unit) ->
     if not uniq[unit.name]
@@ -91,6 +97,18 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
       countNow = unit.count()
       countClosed = unit._countInSecsFromReified reifiedToCloseDiffInSecs
       countDiff = countNow.minus countClosed
-      if not countDiff.isZero()
+      if countDiff.greaterThan 0
         return unit:unit, val:countDiff
   $scope.offlineGains = (g for g in $scope.offlineGains when g)
+
+angular.module('swarmApp').factory 'linkPublicTest1', ($log, $location, game, kongregate) -> return ($scope) ->
+  #console.log LZString.compressToBase64 JSON.stringify date:new Date()
+
+  encoded = $location.search().publictest
+  if encoded
+    args = JSON.parse LZString.decompressFromBase64 encoded
+    datediff = Math.abs new Date().getTime() - new Date(args.date ? 0).getTime()
+    if datediff < 5 * 60 * 1000
+      $scope.$emit 'achieve-publictest1'
+      $log.debug 'linkPublicTest1: achieve-publictest1', datediff
+      $location.search 'publictest', null
