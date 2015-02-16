@@ -17,6 +17,7 @@ angular.module('swarmApp').directive 'tutorial', (game, env) ->
       </div>
       <p ng-if="tutStep() == 2">You lead a small brood of worker drones. Drones gather meat. Use this meat to build more drones and expand your brood.</p>
       <p ng-if="tutStep() == 3">You lead a small brood of worker drones. Once you have plenty of meat, upgrade your hatchery to produce more larvae by selecting '<a href="#/unit/larva">larvae</a>' and spending some meat.</p>
+      <p ng-if="tutStep() == 11">A <span class="glyphicon glyphicon-circle-arrow-up"></span> shows when you have enough meat to upgrade your hatchery.</p>
       <p ng-if="tutStep() == 4">You lead a small brood of worker drones. They long for a <a href="#/unit/queen">queen</a>. You must sacrifice many drones to hatch a queen, but once born, your queen will slowly hatch drones without consuming meat or larvae.</p>
       <p ng-if="tutStep() == 5">Hatch more queens to grow your swarm. Hatching drones with the "Twin Drones" upgrade will allow you to rapidly raise more queens.</p>
       <p ng-if="tutStep() == 6">Queens have rapidly grown your swarm, and your growth demands more <a href="#/unit/territory">territory</a>. Begin capturing <a href="#/unit/territory">territory</a> by building military units - swarmlings or stingers.</p>
@@ -59,6 +60,8 @@ angular.module('swarmApp').directive 'tutorial', (game, env) ->
         if units.drone.greaterThanOrEqualTo(10)
           if upgrades.hatchery.greaterThan(0)
             return 4
+          if units.meat.greaterThanOrEqualTo(300)
+            return 11
           return 3
         if units.drone.greaterThan(0)
           return 2
