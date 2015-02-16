@@ -120,8 +120,8 @@ angular.module('swarmApp').run (env, $location, $log) ->
 # swarmsim.com itself.
 #
 # Github automatically redirects the naked-domain to www.
-angular.module('swarmApp').run ($location, kongregate) ->
-  if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com') and not ($location.search().noredirect or kongregate.isKongregate())
+angular.module('swarmApp').run ($location, isKongregate) ->
+  if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com') and not ($location.search().noredirect or isKongregate())
     window.location.host = 'swarmsim.github.io'
 
 angular.module('swarmApp').run ($rootScope) ->
