@@ -30,7 +30,7 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
     # and last time I tried to $compile spreadsheet data we leaked memory all
     # over the place. So, just do the one substitution.
     desc = @type.description
-    if @type.requires.length > 0 and (@type.requires[0].unit or @type.requires[0].upgrade)
+    if @type.requires.length > 0 and (@type.requires[0].unittype or @type.requires[0].upgradetype)
       # don't apply significant figures, achievement numbers are okay as-is
       desc = desc.replace '$REQUIRED', $filter('longnum')(@type.requires[0].val, undefined, true)
     return desc
