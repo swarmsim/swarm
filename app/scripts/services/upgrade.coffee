@@ -192,6 +192,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       effect.calcStats stats, schema, count
     return stats
 
+  statistics: ->
+    @game.session.statistics.byUpgrade[@name] ? {}
+
   _isWatchedDefault: ->
     # watch everything by default - except mutagen
     @unit.tab?.name != 'mutagen'

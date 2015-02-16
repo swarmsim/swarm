@@ -50,17 +50,26 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     now = new Date()
     if @lastReported and now.getTime() < @lastReported.getTime() + 60 * 1000
       return
-    if not @lastReported
-      @kongregate.stats.submit 'Initialized', 1
+    #if not @lastReported
+    #  @kongregate.stats.submit 'Initialized', 1
     @lastReported = now
     @kongregate.stats.submit 'Hatcheries', @_count game.upgrade 'hatchery'
     @kongregate.stats.submit 'Expansions', @_count game.upgrade 'expansion'
     @kongregate.stats.submit 'GameComplete', @_count game.unit 'ascension'
     @kongregate.stats.submit 'Mutations Unlocked', @_count game.upgrade 'mutatehidden'
     @kongregate.stats.submit 'Achievement Points', game.achievementPoints()
+    @_submitTimetrialMins 'Minutes to First Nexus', game.upgrade 'nexus1'
+    @_submitTimetrialMins 'Minutes to First Ascension', game.unit 'ascension'
 
   _count: (u) ->
     return u.count().floor().toNumber()
+  _timetrialMins: (u) ->
+    if (millis = u.statistics()?.elapsedFirst)
+      return Math.ceil millis / 1000 / 60
+  _submitTimetrialMins: (name, u) ->
+    time = @_timetrialMins u
+    if time
+      @kongregate.stats.submit name, time
 
 angular.module('swarmApp').factory 'kongregate', ($log, Kongregate) ->
   ret = new Kongregate()
