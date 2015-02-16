@@ -267,10 +267,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
       @_addCount twinnum
       return {num:num, twinnum:twinnum}
 
-  viewNewUpgrades: ->
-    upgrades = @showparent?.upgrades?.list ? @upgrades.list
-    for upgrade in upgrades
-      upgrade.viewNewUpgrades()
   isNewlyUpgradable: ->
     upgrades = @showparent?.upgrades?.list ? @upgrades.list
     _.some upgrades, (upgrade) ->

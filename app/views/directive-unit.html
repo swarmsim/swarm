@@ -1,7 +1,5 @@
 <unitdesc title="{{cur.unittype.lol}}" unit="cur"></unitdesc>
 <p>
-  <!-- hack to viewNewUpgrades() on every frame, while this unit is in view -->
-  {{viewNewUpgrades()}}
   <ng-pluralize ng-if="!cur.capValue()" count="cur.count().toNumber()"
     when="{'0':'You own no {{cur.unittype.plural}}.',
            'one':'You own 1 {{cur.unittype.label}}.',
@@ -107,6 +105,11 @@
       <li ng-repeat="upgrade in visibleUpgrades">
         <h5>{{upgrade.type.label}}
           <span ng-if="upgrade.type.maxlevel != 1">({{upgrade.count()+""|number}})</span>
+          <label class="pull-right" title="Show upgrade notifier when checked">
+            <span class="glyphicon glyphicon-circle-arrow-up small" ng-show="watched[upgrade.name]"></span>
+            <span class="glyphicon glyphicon-remove-sign small" ng-hide="watched[upgrade.name]"></span>
+            <input type="checkbox" class="checkbox-inline" style="margin:0" ng-model="watched[upgrade.name]" ng-change="updateWatched(upgrade)">
+          </label>
         </h5>
         <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>
         <p>

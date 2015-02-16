@@ -43,14 +43,15 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @upgrades = {}
       @statistics = {}
       @achievements = {}
+      @watched = {}
       @skippedMillis = 0
       @version =
         started: version
         saved: version
-      #if kongregate.isKongregate()
-      #  @kongregate = true
-      #else
-      #  delete @kongregate
+      if kongregate.isKongregate()
+        @kongregate = true
+      else
+        delete @kongregate
       $log.debug 'reset', @kongregate
       $rootScope.$emit 'reset', {session:this}
 
