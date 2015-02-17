@@ -705,7 +705,7 @@ module.exports = function (grunt) {
     // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
     'clean:spreadsheetpreload',
     'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
-    'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
+    'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
@@ -717,7 +717,7 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'filerev',
-    'usemin',
+    'usemin', 'ngtemplates:dist',
     'htmlmin',
     'preloadSpreadsheet'
   ]);

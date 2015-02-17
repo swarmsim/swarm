@@ -26,7 +26,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     $scope.dsc =  new Dropbox.Client({key: $scope.app_key });
 #	// Use a pop-up for auth.
     #$scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.href + 'oauth_receiver.html' }));
-    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: window.location.protocol + '//' + window.location.host + '/views/dropboxauth.html'  }));
+    $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: "#{window.location.protocol}//#{window.location.host}#{window.location.pathname}views/dropboxauth.html"  }))
 
     #else
 			#// If we're authenticated, update the UI to reflect the logged in status.
