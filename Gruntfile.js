@@ -93,6 +93,7 @@ module.exports = function (grunt) {
             saveId: '0',
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
+            isDropboxEnabled: true,
             gaTrackingID: null
           }
         }
@@ -109,6 +110,7 @@ module.exports = function (grunt) {
             saveId: 'v0.2',
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
+            isDropboxEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -125,7 +127,8 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
-            dropboxAppKey: null, // null: dropbox is disabled
+            dropboxAppKey: dropboxAppKey('prod'),
+            isDropboxEnabled: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }

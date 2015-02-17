@@ -15,6 +15,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.imported = {}
 
   $scope.isKongregate = isKongregate
+  $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ? env.isDropboxEnabled)
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
