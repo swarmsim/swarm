@@ -27,7 +27,7 @@ describe 'Service: upgrade', ->
     Game = _Game_
     unittypes = _unittypes_
   mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified,started:reified,restarted:reified}, save:->}
     game.now = new Date 0
     return game
 
@@ -255,6 +255,30 @@ describe 'Service: upgrade', ->
     # random range. first spawn is guaranteed.
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
+
+  it 'rolls different mutagen values after ascending; mutagen spawns depend on date', ->
+    game = mkgame {invisiblehatchery:1, meat:1e100}
+    expect(game.session.date.restarted.getTime()).toBe 0
+    premutagen = game.unit 'premutagen'
+    game.upgrade('hatchery').buy 80
+    precount = premutagen.count()
+    expect(precount.isZero()).toBe false #sanity check
+
+    # rolls change when date.restarted changes
+    game.now = new Date 1
+    game.ascend()
+    expect(game.session.date.restarted.getTime()).toBe 1
+    game.unit('meat')._setCount 1e100
+    game.upgrade('hatchery').buy 80
+    postcount = premutagen.count()
+    expect(precount.toNumber()).not.toBe postcount.toNumber()
+
+    # but change the date back, and mutagen rolls are identical
+    game.ascend()
+    game.session.date.restarted = new Date 0
+    game.unit('meat')._setCount 1e100
+    game.upgrade('hatchery').buy 80
+    expect(precount.toNumber()).toBe premutagen.count().toNumber()
 
   it 'swarmwarps without changing energy', ->
     game = mkgame {energy:50000, nexus:999, invisiblehatchery:1, drone:1, meat:0}
