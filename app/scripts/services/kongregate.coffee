@@ -59,6 +59,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     @kongregate.stats.submit 'Mutations Unlocked', @_count game.upgrade 'mutatehidden'
     @kongregate.stats.submit 'Achievement Points', game.achievementPoints()
     @_submitTimetrialMins 'Minutes to First Nexus', game.upgrade 'nexus1'
+    @_submitTimetrialMins 'Minutes to Fifth Nexus', game.upgrade 'nexus5'
     @_submitTimetrialMins 'Minutes to First Ascension', game.unit 'ascension'
 
   _count: (u) ->
