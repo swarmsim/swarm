@@ -52,5 +52,8 @@
     <dd>{{session.exportSave().length | number}} base64 chars</dd>
     <dt>start date</dt>
     <dd>{{game.momentStarted().fromNow()}} - {{game.dateStarted().toString()}}</dd>
+    <dt>last ascended</dt>
+    <dd ng-if="game.unit('ascension').count().isZero()">never</dd>
+    <dd ng-if="!game.unit('ascension').count().isZero()">{{game.session.date.restarted|momentFromNow}} - {{game.session.date.restarted.toString()}}</dd>
   </dl>
 </div>
