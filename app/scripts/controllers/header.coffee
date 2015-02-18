@@ -9,7 +9,7 @@
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, achievePublicTest1
 # analytics/statistics not actually used, just want them to init
-versioncheck, analytics, statistics, achievementslistener, favico
+versioncheck, analytics, statistics, achievementslistener, favico, kongregate
 ) ->
   $scope.env = env
   $scope.version = version
@@ -46,6 +46,8 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $log.debug 'konami'
 
   achievePublicTest1 $scope
+  $scope.onRender = ->
+    kongregate.onResize()
 
 angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement

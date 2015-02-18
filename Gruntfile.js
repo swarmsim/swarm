@@ -176,7 +176,8 @@ module.exports = function (grunt) {
       },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
+        //tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
+        tasks: ['newer:coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
