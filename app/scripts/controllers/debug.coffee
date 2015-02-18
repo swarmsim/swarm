@@ -22,7 +22,8 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
     ]
 
   $scope.notify = flashqueue
-  #$timeout (->$scope.notify.push {label:'hihi', points:10, description:'ahaha'}), 1000
+  $scope.achieve = ->
+    $scope.notify.push {type:{label:'fake achievement',longdesc:'yay'}, pointsEarned:(->42), description:(->'wee')}
 
   $scope.throwUp = ->
     throw new Error "throwing up (test exception)"
