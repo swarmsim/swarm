@@ -45,8 +45,11 @@ versioncheck, analytics, statistics, achievementslistener, favico
 angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
   $scope.$watch 'options.theme()', (theme, oldval) =>
     $log.debug 'themeing', theme
+    html = $('html')
+    if oldval != 'none'
+      html.removeClass "theme-#{oldval}"
     if theme != 'none'
-      $('html').addClass "theme-#{theme}"
+      html.addClass "theme-#{theme}"
 
 angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
   $scope.options = options
