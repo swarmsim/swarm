@@ -77,6 +77,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
           oldheight = height
           olddate = date
           @kongregate.services.resizeGame 800, height
+    @onScrollOptionChange true
     # resize whenever size changes.
     #html.resize onResize
     # NOPE. can't detect page height changes with standard events. header calls onResize every frame.
