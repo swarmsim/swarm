@@ -19,9 +19,11 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     addvunit 'hr', 'hour', 'hours', 60 * 60
     addvunit 'day', 'day', 'days', 60 * 60 * 24
 
-  maybeSet: (field, val) ->
+  maybeSet: (field, val, valid) ->
     if val?
       $log.debug 'set options value', field, val
+      if valid?
+        util.assert valid[val], "invalid option for #{field}: #{val}"
       @set field, val
   set: (field, val) ->
     @session.options[field] = val
@@ -50,10 +52,13 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     @get 'notation', 'standard-decimal'
 
   velocityUnit: (name) ->
-    if name?
-      util.assert @VELOCITY_UNITS.byName[name], 'invalid options.velocityUnit value', name
-      @maybeSet 'velocityUnit', name
+    @maybeSet 'velocityUnit', name, @VELOCITY_UNITS.byName[name]
     return @VELOCITY_UNITS.byName[@get 'velocityUnit'] ? @VELOCITY_UNITS.list[0]
+
+  # Scrolling style on kongregate/iframed pages
+  scrolling: (name) ->
+    @maybeSet 'scrolling', name, {'none':true, 'resize':true}
+    return @get('scrolling') ? 'none'
 
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session
