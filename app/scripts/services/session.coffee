@@ -186,8 +186,17 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # TODO: refactor so it's in another object and we don't have to do this exclusion silliness
       delete @_exportCache
       @_exportCache = @_saves()
-      localStorage.setItem this.id, this._exportCache
-      $rootScope.$emit 'save', this
+      try
+        localStorage.setItem this.id, this._exportCache
+        success = true
+      catch e
+        $log.error 'failed to save game', e
+        $rootScope.$broadcast 'save:failed', {error:e, session:this}
+      if success
+        $rootScope.$broadcast 'save', this
+
+    _setItem: (key, val) ->
+      localStorage.setItem key, val
 
     getStoredSaveData: (id=@id) ->
       localStorage.getItem id
@@ -206,7 +215,11 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # periodically save the current date, in case onClose() doesn't fire.
       # give it its own localstorage slot, so it saves quicker (it's more frequent than other saves)
       # and generally doesn't screw with the rest of the session. It won't be exported; that's fine.
-      localStorage.setItem @heartbeatId, new Date()
+      try
+        @_setItem @heartbeatId, new Date()
+      catch e
+        # No noisy error handling, heartbeats aren't critical.
+        $log.warn "couldn't write heartbeat"
 
     _getHeartbeatDate: ->
       try
