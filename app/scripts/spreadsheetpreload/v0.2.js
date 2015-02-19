@@ -902,7 +902,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Unlock $REQUIRED mutations",
-        "label": "abathur",
+        "label": "a bath, ur",
         "longdesc": "",
         "name": "mutation4",
         "points": 40,
@@ -1426,7 +1426,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 33333333333
       },
       {
-        "description": "Build $REQUIRED nexus",
+        "description": "Build 5 nexus",
         "label": "power overwhelming",
         "longdesc": "",
         "name": "nexus2",

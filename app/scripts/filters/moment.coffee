@@ -25,3 +25,7 @@ angular.module('swarmApp').filter 'duration', (options) ->
 angular.module('swarmApp').filter 'warpDuration', ($filter) ->
   (input, unitOfTime, precision) ->
     $filter('duration')(input, unitOfTime, 'd [days] h [hours and] m [minutes]', precision)
+
+angular.module('swarmApp').filter 'momentFromNow', ($filter) ->
+  (input) ->
+    return moment(input).fromNow()

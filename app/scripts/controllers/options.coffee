@@ -15,6 +15,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.imported = {}
 
   $scope.isKongregate = isKongregate
+  $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ? env.isDropboxEnabled)
 
   $scope.duration_examples = [
       moment.duration(16,'seconds')

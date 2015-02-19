@@ -9,8 +9,9 @@
  #
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
-angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, linkPublicTest1) ->
+angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, linkPublicTest1, isKongregate) ->
   $scope.form = {}
+  $scope.isKongregate = isKongregate
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
@@ -19,7 +20,19 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
   $scope.contactUrl = ->
     "#/contact?#{$.param error:$scope.form.error}"
 
-  exportedsave = session.getStoredSaveData()
+  try
+    exportedsave = session.getStoredSaveData()
+  catch e
+    $log.error "couldn't even read localstorage! oh no!"
+    game.reset true
+    # show a noisy freakout message at the top of the screen with the exported save
+    $scope.form.errored = true
+    $scope.form.error = e.message
+    $scope.form.domain = window.location.host
+    # tell analytics
+    $scope.$emit 'loadGameFromStorageFailed', e.message
+    return
+
   try
     session.load()
     $log.debug 'Game data loaded successfully.', this
@@ -35,6 +48,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
       # reset, but don't save after resetting. Try to keep the bad data around unless the player takes an action.
       game.reset true
       # show a noisy freakout message at the top of the screen with the exported save
+      $scope.form.errored = true
       $scope.form.error = e.message
       $scope.form.export = exportedsave
       # tell analytics

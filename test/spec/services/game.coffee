@@ -14,7 +14,7 @@ describe 'Service: game', ->
     Game = _Game_
     unittypes = _unittypes_
   mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified,started:reified,restarted:reified}, save:->}
     game.now = new Date 0
     return game
 
@@ -54,7 +54,7 @@ describe 'Service: game achievements', ->
     statistics = _statistics_
     scope = $rootScope.$new()
   mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified,started:reified,restarted:reified}, save:->}
     game.now = new Date 0
     return game
 
@@ -173,9 +173,12 @@ describe 'Service: game achievements', ->
     expect(game.unit('drone').count().toNumber()).toBe 100
     expect(game.unit('premutagen').count().toNumber()).toBe 100
     expect(game.unit('mutagen').count().toNumber()).toBe 0
+    expect(game.session.date.restarted.getTime()).toBe 0
+    game.now = new Date 1
     game.ascend()
     expect(game.unit('ascension').count().toNumber()).toBe 1
     expect(game.unit('drone').count().toNumber()).toBe 0
     expect(game.unit('premutagen').count().toNumber()).toBe 0
     expect(game.unit('mutagen').count().toNumber()).toBe 100
+    expect(game.session.date.restarted.getTime()).toBe 1
 

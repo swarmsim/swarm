@@ -275,6 +275,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       mutagen._addCount premutagen.count()
       premutagen._setCount 0
       ascension._addCount 1
+      @session.date.restarted = @now
       # grant a free respec every 3 ascensions
       if ascension.count().modulo(3).isZero()
         @unit('freeRespec')._addCount 1

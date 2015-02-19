@@ -93,6 +93,7 @@ module.exports = function (grunt) {
             saveId: '0',
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
+            isDropboxEnabled: true,
             gaTrackingID: null
           }
         }
@@ -109,6 +110,7 @@ module.exports = function (grunt) {
             saveId: 'v0.2',
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
+            isDropboxEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -125,7 +127,8 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
-            dropboxAppKey: null, // null: dropbox is disabled
+            dropboxAppKey: dropboxAppKey('prod'),
+            isDropboxEnabled: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -137,16 +140,18 @@ module.exports = function (grunt) {
       'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
     },
 
+    // added based on https://github.com/yeoman/generator-angular/pull/277/files
     ngtemplates: {
       dist: {
-        cwd: 'app',
-        // ** not working for some reason
-        src: ['views/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
-        dest: '.tmp/scripts/app.templates.js',
         options: {
           module: 'swarmApp',
-          htmlmin: '<%= htmlmin.dist.options %>'
-        }
+          htmlmin: '<%= htmlmin.dist.options %>',
+          usemin: '<%= yeoman.dist %>/scripts/scripts.js'
+        },
+        cwd: '<%= yeoman.app %>',
+        // '**' not grabbing subdirs for some reason, do it manually
+        src: ['views/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
+        dest: '.tmp/scripts/templateCache.js'
       },
       // no templates for dev, so they reload properly when changed
       dev: {
@@ -171,7 +176,8 @@ module.exports = function (grunt) {
       },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
+        //tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
+        tasks: ['newer:coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
@@ -415,11 +421,16 @@ module.exports = function (grunt) {
     },
 
     // Performs rewrites based on filerev and the useminPrepare configuration
+    // js/pattern changes based on https://github.com/yeoman/generator-angular/pull/277/files
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
+        patterns: {
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+        }
       }
     },
 
@@ -524,7 +535,7 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             '*.svg',
-            'views/{,*/}*.html',
+            'views/{,*/}*.html',//'views/desc/unit/{,*/}*.html','views/desc/upgrade/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -702,10 +713,11 @@ module.exports = function (grunt) {
     // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
     'clean:spreadsheetpreload',
     'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
-    'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
+    'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
+    'ngtemplates:dist',
     'autoprefixer',
     'concat',
     'ngmin',

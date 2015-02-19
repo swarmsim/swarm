@@ -9,11 +9,16 @@
 ###
 angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $location, $log) ->
   $scope.game = game
+  game.session.achievementsShown ?=
+    earned: true
+    unearned: true
+    masked: true
   $scope.form =
-    show:
-      earned: true
-      unearned: true
-      masked: true
+    show: _.clone game.session.achievementsShown
+
+  $scope.onChangeVisibility = ->
+    game.withUnreifiedSave ->
+      game.session.achievementsShown = _.clone $scope.form.show
 
   $scope.state = (achievement) ->
     if achievement.isEarned()

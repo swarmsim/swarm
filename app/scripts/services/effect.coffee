@@ -121,11 +121,14 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         qtyfactor = effect.val
         baseqty = stat_each.times Decimal.pow qtyfactor, level
         # consistent random seed. No savestate scumming.
-        seed = "[#{effect.parent.name}, #{level}]"
+        game.session.date.restarted ?= game.session.date.started
+        seed = "[#{game.session.date.restarted.getTime()}, #{effect.parent.name}, #{level}]"
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
+        # guarantee a spawn every 8 levels too, so people don't get long streaks of bad rolls
+        # TODO: remove the 8-levels guaranteed spawns, inspect previous spawns to look for failing streaks and increase odds based on that.
         roll = rng()
-        isspawned = level.equals(minlevel) or new Decimal(roll+'').lessThan(prob)
+        isspawned = level.equals(minlevel) or level.modulo(8).equals(0) or new Decimal(roll+'').lessThan(prob)
         #$log.debug 'roll to spawn: ', level, roll, prob, isspawned
         roll2 = rng()
         modqty = minqty + (roll2 * (maxqty - minqty))

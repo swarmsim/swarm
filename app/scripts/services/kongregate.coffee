@@ -21,7 +21,7 @@ angular.module('swarmApp').factory 'isKongregate', ->
     # - when-framed-assume-kongregate? could work...
     # - hard-querystring (/?kongregate#/tab/meat) seems to work well! can't figure out how to get out of it in 30sec.
 
-angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game) -> class Kongregate
+angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval) -> class Kongregate
   constructor: ->
   isKongregate: ->
     isKongregate()
@@ -38,10 +38,38 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       .fail (xhr, settings, exception) =>
         $log.error 'kongregate load failed', xhr, settings, exception
 
+  onResize: -> #overridden on load
   _onLoad: ->
     $log.debug 'kongregate successfully loaded!', @kongregate
     @isLoaded = true
     @reportStats()
+
+    ## configure resizing iframe
+    #html = $(document.documentElement)
+    #body = $(document.body)
+    ## no blinking scrollbar on resize. https://stackoverflow.com/questions/2469529/how-to-disable-scrolling-the-document-body
+    #document.body.style.overflow = 'hidden'
+    #oldheight = null
+    #olddate = new Date 0
+    #@onResize = =>
+    #  height = Math.max html.height(), body.height()
+    #  if height != oldheight
+    #    date = new Date()
+    #    datediff = date.getTime() - olddate.getTime()
+    #    # jumpy height changes while rendering, especially in IE!
+    #    # throttle height decreases to 1 per second, to avoid some of the
+    #    # jumpiness. height increases must be responsive though, so don't
+    #    # throttle those. seems to be enough. (if this proves too jumpy, could
+    #    # add a 100px buffer to size increases, but not necessary yet I think.)
+    #    if height > oldheight or datediff >= 1000
+    #      $log.debug "onresize: #{oldheight} to #{height} (#{if height > oldheight then 'up' else 'down'}), #{datediff}ms"
+    #      oldheight = height
+    #      olddate = date
+    #      @kongregate.services.resizeGame 800, height
+    ## resize whenever size changes.
+    ##html.resize onResize
+    ## NOPE. can't detect page height changes with standard events. header calls onResize every frame.
+    #$log.debug 'setup onresize'
 
   reportStats: ->
     if not @isLoaded or not game.session.kongregate
@@ -59,6 +87,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     @kongregate.stats.submit 'Mutations Unlocked', @_count game.upgrade 'mutatehidden'
     @kongregate.stats.submit 'Achievement Points', game.achievementPoints()
     @_submitTimetrialMins 'Minutes to First Nexus', game.upgrade 'nexus1'
+    @_submitTimetrialMins 'Minutes to Fifth Nexus', game.upgrade 'nexus5'
     @_submitTimetrialMins 'Minutes to First Ascension', game.unit 'ascension'
 
   _count: (u) ->
@@ -72,6 +101,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       @kongregate.stats.submit name, time
 
 angular.module('swarmApp').factory 'kongregate', ($log, Kongregate) ->
+
   ret = new Kongregate()
   $log.debug 'isKongregate:', ret.isKongregate()
   if ret.isKongregate()

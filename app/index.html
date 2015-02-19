@@ -28,7 +28,6 @@ https://github.com/erosson/swarm
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
     <div class="container">
       <div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl">
         <div class="container">
@@ -58,13 +57,30 @@ https://github.com/erosson/swarm
       <!--div class="header"></div-->
 
       <div ng-cloak ng-controller="LoadSaveCtrl">
-        <div class="alert alert-danger alert-dismissible animif" role="alert" ng-if="form.export">
+        <div class="alert alert-danger alert-dismissible animif" role="alert" ng-if="form.errored && form.export">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <p>Oh no! There was a problem loading your saved game. <b>This is a bug.</b></p>
           <p>Here's your saved game data. <b>Save this</b>: once the bug is fixed, you can import this to restore your game.</p>
           <input type="text" class="form-control" readonly style="cursor:auto" ng-model="form.export" ng-click="select($event)">
           <p>The error message was: <code>{{form.error}}</code></p>
-          <p>Please <a target="_blank" ng-href="{{contactUrl()}}">report this bug</a>. Thanks!</p>
+          <p>Please <a ng-href="{{contactUrl()}}">report this bug</a>. Thanks!</p>
+        </div>
+        <div class="alert alert-danger alert-dismissible animif" role="alert" ng-if="form.errored && !form.export">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <p>Oh no! There was a problem loading your saved game.</p>
+          <p><b>Please make sure <code>{{form.domain}}</code> has permission to set cookies/localstorage in your browser.</b></p>
+          <p ng-if="isKongregate()">This problem usually happens when your browser is <a href="https://www.google.com/search?q=how%20to%20enable%20third-party%20cookies" target="_blank">blocking third-party cookies</a>. Swarm Simulator needs this storage to save your game. It's not doing anything evil, I promise.</p>
+          <p>The error message was: <code>{{form.error}}</code></p>
+          <p>If you think this is a bug, you can <a ng-href="{{contactUrl()}}">report it</a>. Thanks!</p>
+        </div>
+      </div>
+      <div ng-cloak ng-controller="ErrorSavingCtrl">
+        <div class="alert alert-danger alert-dismissible animif" role="alert" ng-if="form.errored">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <p>Oh no! There was a problem saving your game.</p>
+          <p>Here's the data we tried to save. You can import this through the <a href="#/options">options screen</a>.</p>
+          <input type="text" class="form-control" readonly style="cursor:auto" ng-model="form.export" ng-click="select($event)">
+          <p>The error message was: <code>{{form.error}}</code></p>
         </div>
       </div>
       <div ng-cloak ng-controller="WelcomeBackCtrl">
@@ -227,7 +243,6 @@ https://github.com/erosson/swarm
         <script src="scripts/controllers/loadsave.js"></script>
         <script src="scripts/services/favico.js"></script>
         <script src="scripts/directives/debug.js"></script>
-        <script src="scripts/app.templates.js"></script>
         <script src="scripts/services/kongregate.js"></script>
         <script src="scripts/services/seedrand.js"></script>
         <script src="scripts/services/backfill.js"></script>
@@ -238,6 +253,7 @@ https://github.com/erosson/swarm
         <script src="scripts/filters/moment.js"></script>
         <script src="scripts/services/feedback.js"></script>
         <script src="scripts/controllers/contact.js"></script>
+        <script src="scripts/controllers/errorsaving.js"></script>
         <!-- endbuild -->
 </body>
 </html>
