@@ -60,5 +60,9 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     @maybeSet 'scrolling', name, {'none':true, 'resize':true}
     return @get('scrolling') ? 'none'
 
+  theme: (name) ->
+    @maybeSet 'theme', name, {'none':true, 'dark-ff':true, 'dark-chrome':true}
+    return @get('theme') ? 'none'
+
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session
