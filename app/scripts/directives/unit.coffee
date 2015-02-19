@@ -21,8 +21,9 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       estimate = upgrade.estimateSecsUntilBuyable()
       #util.utcdoy 1000 * secs
       if isFinite estimate.val
-        nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
         secs = moment.duration(estimate.val, 'seconds')
+        #add nonlinear annotation for use by filter
+        secs.nonlinear = not (estimate.unit?.isVelocityConstant?() ? true) 
         return secs
       return ""
 
