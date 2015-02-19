@@ -52,7 +52,7 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     @get 'notation', 'standard-decimal'
 
   velocityUnit: (name) ->
-    @maybeSet 'velocityUnit', name, @VELOCITY_UNITS.byName[name]
+    @maybeSet 'velocityUnit', name, @VELOCITY_UNITS.byName
     return @VELOCITY_UNITS.byName[@get 'velocityUnit'] ? @VELOCITY_UNITS.list[0]
 
   # Scrolling style on kongregate/iframed pages
