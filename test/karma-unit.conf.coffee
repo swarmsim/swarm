@@ -6,7 +6,8 @@
 module.exports = (config) ->
   config.set
     # If a unit test needs extra time, make it an integration test!
-    #browserNoActivityTimeout: 30000
+    # TODO comment this out again; #359
+    browserNoActivityTimeout: 30000
 
     # base path, that will be used to resolve files and exclude
     basePath: '../'

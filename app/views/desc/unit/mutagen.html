@@ -9,7 +9,7 @@
     {{game.ascendCostCapDiff()|longnum}} more than your max energy!
   </div>
   <div class="progress-bar" role="progressbar" aria-valuenow="{{game.unit('energy').count()}}" aria-valuemin="0" aria-valuemax="{{game.ascendCost()}}" style="width:{{game.ascendCostPercent()|percent:0}}">
-    {{game.unit('energy').count()|longnum}} energy, {{game.ascendCostPercent()|percent:0}}<span ng-if="game.ascendCostCapDiff().isNegative() && game.ascendCostPercent().lessThan(1)">: {{game.ascendCostDurationMoment().humanize()}}</span>
+    {{game.unit('energy').count()|longnum}} energy, {{game.ascendCostPercent()|percent:0}}<span ng-if="game.ascendCostCapDiff().lessThanOrEqualTo(0) && game.ascendCostPercent().lessThan(1)">: {{game.ascendCostDurationMoment()|duration}}</span>
   </div>
 </div>
 <p><button title="" ng-click="commands.ascend({game:game})" class="btn btn-default" ng-class="{disabled:game.ascendCost().greaterThan(game.unit('energy').count())}">Ascend - activate mutagen and restart</button></p>
