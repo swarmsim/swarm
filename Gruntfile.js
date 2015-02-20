@@ -42,9 +42,16 @@ module.exports = function (grunt) {
         base: 'dist'
       },
       src: ['**'],
-      staging: {
+      default_: {
         // default options
         options: {},
+        src: ['**']
+      },
+      staging: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-staging/swarmsim-staging.github.io.git'
+        },
         src: ['**']
       },
       publictest: {
@@ -656,6 +663,9 @@ module.exports = function (grunt) {
   grunt.registerTask('buildCname', 'build swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'www.swarmsim.com');
   });
+  grunt.registerTask('stagingCname', 'build staging.swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'staging.swarmsim.com');
+  });
   grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
     grunt.file.delete('dist/CNAME');
   });
@@ -739,7 +749,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy-staging', [
     'build',
-    'cleanCname','gh-pages:staging'
+    'stagingCname','gh-pages:staging','cleanCname'
   ]);
   grunt.registerTask('deploy-publictest', [
     'build',
@@ -748,7 +758,7 @@ module.exports = function (grunt) {
   grunt.registerTask('phonegap-staging', [
     'build',
     'copy:phonegap',
-    'cleanCname','gh-pages:staging'
+    'stagingCname','gh-pages:staging','cleanCname'
   ]);
   grunt.registerTask('deploy-prod-dotcom', [
     'build',
