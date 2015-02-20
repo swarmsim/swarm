@@ -44,8 +44,9 @@
   <div class="form-group">
     <div><label class="control-label"><span class="glyphicon glyphicon-picture" ng-init="form.theme=options.theme()"></span> Theme <span class="envalert">(beta)</span></label></div>
     <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="none" ng-change="options.theme(form.theme)">White</input></label>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-ff" ng-change="options.theme(form.theme)">Dark (Firefox)</input></label>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-chrome" ng-change="options.theme(form.theme)">Dark (Chrome)</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-ff" ng-change="options.theme(form.theme)">Inverted (Firefox)</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-chrome" ng-change="options.theme(form.theme)">Inverted (Chrome)</input></label>
+    <p>These themes are experimental and may cause problems for some unlucky players. If you can't see anything, <a style="color:red" href="#/cleartheme" title="restore default theme">restore default theme</a>.</p>
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
