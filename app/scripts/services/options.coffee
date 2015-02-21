@@ -79,12 +79,23 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     return ret
 
   theme: (name) ->
-    @maybeSet 'theme', name, Options.THEMES.byName
-    name = @get('theme') ? 'none'
-    # legacy themes. pick another dark theme.
-    if name == 'dark-ff' or name == 'dark-chrome'
-      name = 'slate'
-    return Options.THEMES.byName[name]
+    # getter for both theme and customTheme
+    if name?
+      @set 'isCustomTheme', false
+      @maybeSet 'theme', name, Options.THEMES.byName
+
+    if @get 'isCustomTheme'
+      return @get('theme')
+    else
+      name = @get('theme') ? 'none'
+      # legacy themes. pick another dark theme.
+      if name == 'dark-ff' or name == 'dark-chrome'
+        name = 'slate'
+      return Options.THEMES.byName[name]
+
+  customTheme: (url) ->
+    @set 'isCustomTheme', true
+    @set 'theme', {isCustom:true,url:url}
 
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session

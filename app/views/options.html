@@ -44,16 +44,27 @@
   <div class="form-group">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-        <span class="glyphicon glyphicon-picture" ng-init="form.theme=options.theme().name"></span> Theme <span class="envalert">(beta)</span>
+        <span class="glyphicon glyphicon-picture"></span> Theme <span class="envalert">(beta)</span>
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" aria-labelledby="themeMenu">
         <li ng-repeat="theme in options.constructor.THEMES.list" role="presentation">
-          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="options.theme(theme.name)" href="javascript:">{{theme.label}}</a>
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="setTheme(theme.name)" href="javascript:">{{theme.label}}</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="selectCustomTheme()" href="javascript:">Custom</a>
         </li>
       </ul>
     </div>
-    <p>Current theme: <a ng-href="{{options.theme().credit}}" target="_blank" class="titlecase">{{options.theme().label}}</a></p>
+    <p ng-if="!form.isCustomTheme">Current theme: <a ng-href="{{options.theme().credit}}" target="_blank" class="titlecase">{{options.theme().label}}</a></p>
+    <div ng-if="form.isCustomTheme">
+      <p>CSS file URL: (<a href="#/cleartheme">Reset</a>)</p>
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="form.customThemeUrl">
+        <span class="input-group-btn"><button class="btn btn-default" ng-click="setCustomTheme(form.customThemeUrl)">Set theme</button></span>
+      </div>
+    </div>
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->

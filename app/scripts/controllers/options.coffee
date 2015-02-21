@@ -17,6 +17,20 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.isKongregate = isKongregate
   $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ? env.isDropboxEnabled)
 
+  $scope.form =
+    isCustomTheme: options.theme().isCustom
+    customThemeUrl: options.theme().url
+    theme: options.theme().name
+  $scope.setTheme = (name) ->
+    $scope.options.theme name
+    $scope.form.isCustomTheme = false
+  $scope.selectCustomTheme = ->
+    $scope.form.isCustomTheme = true
+    $scope.form.customThemeUrl = ''
+  $scope.setCustomTheme = (url) ->
+    console.log 'setcustomtheme', url
+    $scope.options.customTheme url
+
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
     $event.target.select()
