@@ -10,6 +10,8 @@
 ###
 angular.module('swarmApp').filter 'duration', (options) ->
   (input, unitOfTime, template, precision) ->
+    if input is Infinity
+      return ''
     if input.toNumber?
       input = input.toNumber()
     nonlinear = if input?.nonlinear? then 'less than ' else ''
