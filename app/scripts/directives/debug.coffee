@@ -42,10 +42,10 @@ angular.module('swarmApp').directive 'debug', (env, game, util) ->
             <button ng-click="game.setGameSpeed(2)">2x</button>
             <button ng-click="game.setGameSpeed(4)">4x</button>
             <button ng-click="game.setGameSpeed(10)">10x</button>
-            <button ng-click="game.setGameSpeed(20)">20x</button>
-            <button ng-click="game.setGameSpeed(50)">50x</button>
+            <button ng-click="game.setGameSpeed(60)">60x</button>
             <button ng-click="game.setGameSpeed(100)">100x</button>
             <button ng-click="game.setGameSpeed(1000)">1000x</button>
+            <button ng-click="game.setGameSpeed(3600)">3600x</button>
           </div>
           <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
         </div>

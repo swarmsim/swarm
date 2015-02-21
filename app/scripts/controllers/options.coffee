@@ -30,6 +30,13 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.setCustomTheme = (url) ->
     console.log 'setcustomtheme', url
     $scope.options.customTheme url
+  $scope.duration_examples = [
+      moment.duration(16,'seconds')
+      moment.duration(2.5,'hours')
+      moment.duration(3.33333333,'weeks')
+      moment.duration(2.222222222222,'months')
+      moment.duration(1.2,'year')
+  ]
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
