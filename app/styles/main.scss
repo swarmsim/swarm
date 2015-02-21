@@ -95,12 +95,10 @@ td.upgrade-indicator, td.upgrade-indicator .glyphicon {
   padding-right:1em;
 }
 .achieveicon, .achievepoints {
-  @extend .hidden-xs;
   font-size:400%;
   font-weight:bold;
 }
 .achieveicon-xs, .achievepoints-xs {
-  @extend .visible-xs;
   font-size:100%;
   font-weight:bold;
 }
@@ -167,9 +165,12 @@ td.upgrade-indicator, td.upgrade-indicator .glyphicon {
 }
 // changelog release dates. <h4>0.0.1<span>2009/09/09</span></h4>
 .changelog h4 span {
-  @extend .small;
-  @extend .text-muted;
-  @extend .pull-right;
+  //@extend .small;
+  font-size: 85%;
+  //@extend .text-muted;
+  color: #999;
+  //@extend .pull-right;
+  float: right!important;
 }
 .resetalert {
   color: red;

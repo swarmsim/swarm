@@ -119,10 +119,10 @@ https://github.com/erosson/swarm
     <div ng-cloak ng-controller="FlashQueueCtrl">
       <div class="achieve achievealert animif" ng-if="achieveQueue.isVisible()">
         <div class="container alert alert-success achievetext">
-            <span class="achieveicon glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
-            <span class="achievepoints" ng-if="achieveQueue.get().pointsEarned() > 0">+{{achieveQueue.get().pointsEarned()|number}}</span>
-            <span class="achieveicon-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
-            <span class="achievepoints-xs">+{{achieveQueue.get().pointsEarned()|number}}</span>
+            <span class="achieveicon hidden-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
+            <span class="achievepoints hidden-xs" ng-if="achieveQueue.get().pointsEarned() > 0">+{{achieveQueue.get().pointsEarned()|number}}</span>
+            <span class="achieveicon-xs visible-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
+            <span class="achievepoints-xs visible-xs">+{{achieveQueue.get().pointsEarned()|number}}</span>
             <p>Achievement:</p>
             <a class="alert-link" ng-href="#/achievements">
               <h3>{{achieveQueue.get().type.label}}</h3>
