@@ -7,13 +7,8 @@
   </ng-pluralize>
   <div ng-if="cur.capValue()">
     <div class="progress" style="margin-bottom:0">
-<<<<<<< HEAD
       <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" ng-style="{width:cur.capPercent().times(100)+'%'}">
-        {{cur.capPercent()|percent:{floor:true} }}, {{cur.capDurationMoment().humanize()}}
-=======
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" style="width:{{cur.capPercent()|percent:0}}">
         {{cur.capPercent()|percent:{floor:true} }}, {{cur.capDurationMoment()|duration}}
->>>>>>> f7bd200be2d73f01442670920865f083b82edd97
       </div>
     </div>
     <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
