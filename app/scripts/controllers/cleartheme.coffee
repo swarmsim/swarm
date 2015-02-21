@@ -7,5 +7,5 @@
  # # ClearthemeCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'ClearthemeCtrl', ($scope, options) ->
-  options.theme 'none'
+angular.module('swarmApp').controller 'ClearthemeCtrl', ($scope, options, $location) ->
+  options.theme $location.search().theme ? 'none'
