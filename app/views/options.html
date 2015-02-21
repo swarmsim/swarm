@@ -42,11 +42,18 @@
     <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
   </div>
   <div class="form-group">
-    <div><label class="control-label"><span class="glyphicon glyphicon-picture" ng-init="form.theme=options.theme()"></span> Theme <span class="envalert">(beta)</span></label></div>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="none" ng-change="options.theme(form.theme)">White</input></label>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-ff" ng-change="options.theme(form.theme)">Inverted (Firefox)</input></label>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-chrome" ng-change="options.theme(form.theme)">Inverted (Chrome)</input></label>
-    <p>These themes are experimental and may cause problems for some unlucky players. If you can't see anything, <a style="color:red" href="#/cleartheme" title="restore default theme">restore default theme</a>.</p>
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <span class="glyphicon glyphicon-picture" ng-init="form.theme=options.theme().name"></span> Theme <span class="envalert">(beta)</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="themeMenu">
+        <li ng-repeat="theme in options.constructor.THEMES.list" role="presentation">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="options.theme(theme.name)" href="javascript:">{{theme.label}}</a>
+        </li>
+      </ul>
+    </div>
+    <p>Current theme: <a ng-href="{{options.theme().credit}}" target="_blank" class="titlecase">{{options.theme().label}}</a></p>
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->

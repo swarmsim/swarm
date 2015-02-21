@@ -60,9 +60,31 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     @maybeSet 'scrolling', name, {'none':true, 'resize':true}
     return @get('scrolling') ? 'none'
 
+  @THEMES: do ->
+    ret =
+      list: []
+    ret.list.push
+      name: 'none'
+      label: 'Default white'
+      url: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'
+      credit: 'http://bootswatch.com/default/'
+    # bootswatch themes
+    for name in ['cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'lumen', 'paper', 'readable', 'sandstone', 'simplex', 'slate', 'spacelab', 'superhero', 'united', 'yeti']
+      ret.list.push
+        name: name
+        label: name
+        url: "//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/#{name}/bootstrap.min.css"
+        credit: "http://bootswatch.com/#{name}/"
+    ret.byName = _.indexBy ret.list, 'name'
+    return ret
+
   theme: (name) ->
-    @maybeSet 'theme', name, {'none':true, 'dark-ff':true, 'dark-chrome':true}
-    return @get('theme') ? 'none'
+    @maybeSet 'theme', name, Options.THEMES.byName
+    name = @get('theme') ? 'none'
+    # legacy themes. pick another dark theme.
+    if name == 'dark-ff' or name == 'dark-chrome'
+      name = 'slate'
+    return Options.THEMES.byName[name]
 
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session

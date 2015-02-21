@@ -1,7 +1,4 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-// bower:scss
-@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
-// endbower
 
 .progress-bar {
   overflow-x: visible;
@@ -17,21 +14,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 }
 .animrotate {
   -webkit-animation: animrotate 1s infinite linear;
-}
-
-// usage: ?theme=dark-[ff/chrome]. see scripts/controllers/header.coffee
-// specifying browser is totally lame, but I don't want to fight with this anymore
-html.theme-dark-ff, html.theme-dark-chrome {
-  //filter: invert(100%); // you'd like that, wouldn't you. broken in both ff and ie
-  // http://stackoverflow.com/questions/19686153/css-filter-invert-not-working-on-mozilla-firefox
-  //-webkit-filter: url("#theme-dark");
-  filter: url("../theme-dark.svg#theme-dark");
-  -ms-filter: invert(100%);
-  height:100%;
-}
-html.theme-dark-ff {
-  // firefox! y u no invert background color?
-  background-color:black;
 }
 
 td.upgrade-indicator {
@@ -103,10 +85,10 @@ td.upgrade-indicator, td.upgrade-indicator .glyphicon {
   font-weight:bold;
 }
 .achieveicon, .achieveicon-xs {
-  position:absolute;left:15px;top:15px;
+  position:absolute!important;left:15px!important;top:15px!important;
 }
 .achievepoints, .achievepoints-xs {
-  position:absolute;right:15px;top:15px;
+  position:absolute!important;right:15px!important;top:15px!important;
 }
 .achievedesc {
 }
