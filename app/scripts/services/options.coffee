@@ -7,7 +7,7 @@
  # # options
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
+angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
   constructor: (@session) ->
     @VELOCITY_UNITS = byName:{}, list:[]
     addvunit = (name, label, plural, mult) =>
@@ -63,7 +63,8 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
   # can't attach an id to the theme element - usemin-compiled
   @THEME_EL: $('link[href^="styles/bootstrapdefault"]')
   @THEMES: do ->
-    util.assert Options.THEME_EL[0], "couldn't find theme link"
+    # don't assert this in dev because it breaks tests
+    util.assert (env.isDebugEnabled || Options.THEME_EL[0]), "couldn't find theme link"
     ret =
       list: []
     ret.list.push
