@@ -20,6 +20,13 @@
 
   </div>
 
+  <div class="form-group" ng-if="isKongregate()">
+    <div><label class="control-label"><span class="glyphicon glyphicon-resize-vertical"></span> Kongregate scrolling style</label></div>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="none" ng-change="options.scrolling(form.scrolling)" ng-init="form.scrolling=options.scrolling()">Browser default</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="resize" ng-change="options.scrolling(form.scrolling)">Resize automatically, no inner scrollbar</input></label>
+    <p ng-if="options.isScrollingChangedSincePageLoad && form.scrolling=='none'">The game will widen to fill your screen when you refresh the page.</p>
+  </div>
+
   <div class="form-group">
     <label class="control-label" for="fps"><span class="glyphicon glyphicon-film"></span> Maximum frames per second</label>
     <input type="range" class="form-control" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps)">
@@ -38,11 +45,36 @@
   </div>
 
   <div class="form-group">
-    <div><label class="control-label"><span class="glyphicon glyphicon-barcode" ng-init="form.velocityUnit=options.velocityUnit().name"></span> Velocity format</label></div>
+    <div><label class="control-label"><span class="glyphicon glyphicon-dashboard" ng-init="form.velocityUnit=options.velocityUnit().name"></span> Velocity format</label></div>
     <label ng-repeat="vu in options.VELOCITY_UNITS.list" style="font-weight:normal" class="titlecase">
       <input type="radio" ng-model="form.velocityUnit" value="{{vu.name}}" ng-change="options.velocityUnit(form.velocityUnit)">{{vu.plural}}</input>
     </label>
     <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
+  </div>
+  <div class="form-group">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <span class="glyphicon glyphicon-picture"></span> Theme <span class="envalert">(beta)</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="themeMenu">
+        <li ng-repeat="theme in options.constructor.THEMES.list" role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="setTheme(theme.name)" href="javascript:">{{theme.label}}</a>
+        </li>
+        <li role="presentation" class="divider" style="list-style-type:none"></li>
+        <li role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="selectCustomTheme()" href="javascript:">Custom</a>
+        </li>
+      </ul>
+    </div>
+    <p ng-if="!form.isCustomTheme">Current theme: <a ng-href="{{options.theme().credit}}" target="_blank" class="titlecase">{{options.theme().label}}</a></p>
+    <div ng-if="form.isCustomTheme">
+      <p>CSS file URL: (<a href="#/cleartheme">Reset</a>)</p>
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="form.customThemeUrl">
+        <span class="input-group-btn"><button class="btn btn-default" ng-click="setCustomTheme(form.customThemeUrl)">Set theme</button></span>
+      </div>
+    </div>
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
@@ -105,12 +137,5 @@
     <label class="control-label"><span class="glyphicon glyphicon-cloud-upload"></span> Analytics</label>
     <p>Swarm Simulator, like many websites, uses Google Analytics to track actions you take while playing. We use this data to improve the game. Feel free to <a target="_blank" href="https://tools.google.com/dlpage/gaoptout" title="I thought about asking Analytics to track how many people click this link, but decided not to.">opt out of Google Analytics</a>.</p>
     <p><a target="_blank" href="http://www.google.com/policies/privacy/partners/">How Google uses data when you use our partners' sites or apps</a></p>
-  </div>
-  <div class="form-group">
-    <div><label class="control-label"><span class="glyphicon glyphicon-circle-arrow-down"></span> Play an older version</label></div>
-    <p>Not ready to lose your saved progress yet? Return to an older version of the game. These are no longer updated nor supported.</p>
-    <ul>
-      <li role="presentation"><a href="archive/0.1.37">Version 0.1.37</a></li>
-    </ul>
   </div>
 </div>

@@ -75,8 +75,8 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
         return true
     return false
   progressMax: ->
-    if @hasProgress()?
-      return @requires[0].val
+    if @hasProgress()? and @requires[0].val?
+      return new Decimal @requires[0].val
   progressVal: ->
     req = @requires[0]
     if req.upgrade?

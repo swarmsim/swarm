@@ -7,21 +7,14 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, achievePublicTest1
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
+achievePublicTest1, kongregateScrolling, pageTheme
 # analytics/statistics not actually used, just want them to init
-versioncheck, analytics, statistics, achievementslistener, favico, kongregate
+versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
   $scope.env = env
   $scope.version = version
   $scope.session = session
-
-  themes = {'dark-ff':true,'dark-chrome':true}
-  if theme = $location.search().theme
-    if themes[theme]
-      $log.debug 'themeing', theme
-      $('html').addClass "theme-#{theme}"
-    else
-      $log.warn 'invalid theme, ignoring', theme
 
   do enforce = ->
     timecheck.enforceNetTime().then(
@@ -46,6 +39,26 @@ versioncheck, analytics, statistics, achievementslistener, favico, kongregate
     $log.debug 'konami'
 
   achievePublicTest1 $scope
+  kongregateScrolling $scope
+  pageTheme $scope
+
+angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
+  $scope.options = options
+  themeEl = $('#theme')
+  $scope.$watch 'options.theme()', (theme, oldval) =>
+    # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
+    if theme.url != themeEl.attr 'href'
+      themeEl.attr 'href', theme.url
+
+angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
+  $scope.options = options
+  if !kongregate.isKongregate()
+    return
+  $scope.$watch 'options.scrolling()', (newval, oldval) =>
+    if newval != oldval
+      options.isScrollingChangedSincePageLoad = true
+    kongregate.onScrollOptionChange()
+  kongregate.onScrollOptionChange true
   $scope.onRender = ->
     kongregate.onResize()
 
