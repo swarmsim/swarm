@@ -554,7 +554,13 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
+          src: [
+            'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
+            'bower_components/bootswatch/fonts/*',
+            'bower_components/bootswatch/*/bootstrap.min.css',
+            'bower_components/bootswatch/*/bootstrap.min.css',
+            'bower_components/bootswatch/*/thumbnail.png'
+          ],
           dest: '<%= yeoman.dist %>'
         }]
       },

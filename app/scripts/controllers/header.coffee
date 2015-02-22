@@ -44,7 +44,7 @@ versioncheck, analytics, statistics, achievementslistener, favico
 
 angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
   $scope.options = options
-  themeEl = $('#theme')
+  themeEl = options.constructor.THEME_EL
   $scope.$watch 'options.theme()', (theme, oldval) =>
     # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
     if theme.url != themeEl.attr 'href'

@@ -60,20 +60,25 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
     @maybeSet 'scrolling', name, {'none':true, 'resize':true}
     return @get('scrolling') ? 'none'
 
+  # can't attach an id to the theme element - usemin-compiled
+  @THEME_EL: $('link[href^="styles/bootstrapdefault"]')
   @THEMES: do ->
+    util.assert Options.THEME_EL[0], "couldn't find theme link"
     ret =
       list: []
     ret.list.push
       name: 'none'
       label: 'Default white'
-      url: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'
+      #url: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'
+      url: Options.THEME_EL.attr('href')
       credit: 'http://bootswatch.com/default/'
     # bootswatch themes
     for name in ['cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'lumen', 'paper', 'readable', 'sandstone', 'simplex', 'slate', 'spacelab', 'superhero', 'united', 'yeti']
       ret.list.push
         name: name
         label: name
-        url: "//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/#{name}/bootstrap.min.css"
+        #url: "//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/#{name}/bootstrap.min.css" # why do people block the cdn srsly
+        url: "bower_components/bootswatch/#{name}/bootstrap.min.css"
         credit: "http://bootswatch.com/#{name}/"
     ret.byName = _.indexBy ret.list, 'name'
     return ret
