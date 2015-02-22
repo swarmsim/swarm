@@ -47,7 +47,7 @@
         <span class="glyphicon glyphicon-picture"></span> Theme <span class="envalert">(beta)</span>
         <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="themeMenu">
+      <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="themeMenu">
         <li ng-repeat="theme in options.constructor.THEMES.list" role="presentation" style="list-style-type:none">
           <a role="menuitem" tabindex="-1" class="titlecase" ng-click="setTheme(theme.name)" href="javascript:">{{theme.label}}</a>
         </li>

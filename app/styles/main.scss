@@ -1,5 +1,11 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
+// based on https://stackoverflow.com/questions/19227496/scrollable-menu-with-bootstrap-3-menu-expanding-its-container-when-it-should-n
+.scrollable-menu {
+  height: auto;
+  max-height: 220px;
+  overflow-x: hidden;
+}
 .progress-bar {
   overflow-x: visible;
   white-space: nowrap;
