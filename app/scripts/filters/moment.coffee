@@ -12,18 +12,23 @@ angular.module('swarmApp').filter 'duration', (options) ->
   (input, unitOfTime, template, precision) ->
     if input.toNumber?
       input = input.toNumber()
-    nonlinear = if input?.nonlinear? then 'less than ' else ''
+    return '' if not input
+    nonlinear = if input?.nonlinear?  and input.nonlinear then 'less than ' else ''
     duration = moment.duration input, unitOfTime
     if not template?
       template = 'd[d] h:mm:ss'
       switch options.durationFormat?()
         when 'human' then return nonlinear + duration.humanize()
-        when 'full' then template = 'y [yr] M [mth] d [day] hh:mm:ss'
+        when 'full' then
+          template = switch
+            when duration.asSeconds() < 60 then 's [seconds]'
+            else 'y [yr] M [mth] d [day] hh:mm:ss'
         when 'abbreviated'
           template = switch
             when duration.asYears() > 1 then 'y [years] M [months]'
             when duration.asMonths() > 1 then 'M [months] d [days]'
             when duration.asDays() > 1 then 'd [days] h [hours]'
+            when duration.asSeconds() < 60 then 's [seconds]'
             else template
 
     return nonlinear + duration.format template, precision
