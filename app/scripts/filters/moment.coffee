@@ -19,7 +19,7 @@ angular.module('swarmApp').filter 'duration', (options) ->
       template = 'd[d] h:mm:ss'
       switch options.durationFormat?()
         when 'human' then return nonlinear + duration.humanize()
-        when 'full' then
+        when 'full' 
           template = switch
             when duration.asSeconds() < 60 then 's [seconds]'
             else 'y [yr] M [mth] d [day] hh:mm:ss'
