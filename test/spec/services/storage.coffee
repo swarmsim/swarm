@@ -66,3 +66,16 @@ describe 'Service: storage', ->
     expect(store.good.getItem 'key').toBe 4
     expect(store.ignored.getItem 'key').toBe 4
     expect(store.getItem 'key').toBe 4
+
+  it 'throws an error iff all storages throw an error', ->
+    store = new MultiStorage()
+    store.addStorage 'one', new BrokenStorage()
+    store.addStorage 'two', new BrokenStorage()
+    expect(-> store.getItem 'key').toThrow()
+    expect(-> store.setItem 'key', 3).toThrow()
+    expect(-> store.removeItem 'key').toThrow()
+    # but add one working storage, and no error
+    store.addStorage 'three', new MemoryStorage()
+    expect(-> store.getItem 'key').not.toThrow()
+    expect(-> store.setItem 'key', 3).not.toThrow()
+    expect(-> store.removeItem 'key').not.toThrow()
