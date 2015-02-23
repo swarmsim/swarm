@@ -116,6 +116,21 @@
     <p>To export, click the text above and copy (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.</p>
     <p>It's normal for imported saves to have more units than you exported with. Your swarm continues its work even after saved data is exported/before it's imported.</p>
   </div>
+  <div>
+    <p><a class="" data-toggle="collapse" data-target="#saveDetails" href="javascript:" aria-expanded="false" aria-controls="saveDetails">
+      Where is Swarm Simulator's data saved?
+    </a></p>
+    <div class="collapse" id="saveDetails">
+      <div class="well">
+        <p>Swarm Simulator saves its data in your browser's localStorage, cookies, and Flash storage. Your saved game will be loaded if it's found in any one of these sources. The intent is to make it harder to accidentally lose your saved game, not to do any evil tracking or invade your privacy. Use the 'wipe all saved data' button below to clear all three storage locations.</p>
+        <p ng-repeat="detail in savedDataDetails">
+          <span class="titlecase">{{detail.name}}</span> storage:
+          <span ng-if="detail.exists">{{detail.size}} chars</span>
+          <span ng-if="!detail.exists">empty</span>
+        </p>
+      </div>
+    </div>
+  </div>
   <div class="form-group">
     <button class="resetalert" ng-click="confirmReset()">
       <span class="glyphicon glyphicon-warning-sign"></span>

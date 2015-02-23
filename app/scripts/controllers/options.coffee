@@ -7,7 +7,7 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -34,6 +34,19 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
     $event.target.select()
+
+  savedDataDetails = (store) ->
+    try
+      encoded = store.storage.getItem session.id
+    catch e
+      $log.debug 'error loading saveddatadetails from storage, continuing', store.name, e
+    ret =
+      name: store.name
+      exists: encoded?
+    if encoded?
+      ret.size = encoded.length
+    return ret
+  $scope.savedDataDetails = (savedDataDetails(store) for store in storage.storages.list)
 
   $scope.importSave = (encoded) ->
     $scope.imported = {}
