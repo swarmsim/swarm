@@ -146,15 +146,47 @@ module.exports = function (grunt) {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
       'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
     },
-    buildSwf: {
-      dev: {
-        swfPath: "./.tmp/storage.swf",
-        asPath: "./jsflash/dev/Storage.as"
+
+    mxmlc: {
+        options: {
+          // Task-specific options go here.
+        },
+        dev: {
+          files:{
+            './.tmp/storage.swf' : ['./jsflash/dev/Storage.as']
+          }
+        },
+        prod: {
+          files:{
+            './.tmp/storage.swf' : ['./jsflash/prod/Storage.as']
+          },
+        },
       },
-      prod: {
-        swfPath: "./dist/storage.swf",
-        asPath: "./jsflash/prod/Storage.as"
-      }
+
+    manifest: {
+     generate: {
+      options: {
+        basePath: '<%= yeoman.app %>',
+        cache: [],
+        network: ['*'],
+        //fallback: ['/ /offline.html'],
+        exclude: ['js/jquery.min.js'],
+        preferOnline: true,
+        verbose: true,
+        timestamp: true,
+        hash: true,
+        master: ['index.html'],
+        process: function(path) {
+          return path.substring('app/'.length);
+        }
+      },
+      src: [
+        'views/*.html',
+        'scripts/*.js',
+        'styles/*.css'
+      ],
+      dest: '.tmp/manifest.appcache'
+     }
     },
 
     // added based on https://github.com/yeoman/generator-angular/pull/277/files
@@ -210,6 +242,10 @@ module.exports = function (grunt) {
       },
       gruntfile: {
         files: ['Gruntfile.js']
+      },
+      manifest: {
+        files: [ 'app/views/*.html',],
+        tasks: [ 'manifest' ]
       },
       livereload: {
         options: {
@@ -625,11 +661,11 @@ module.exports = function (grunt) {
         configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       },
-      unit_ci: {
+      unitCi: {
         configFile: 'test/karma-unit.conf.coffee',
         singleRun: true
       },
-      integration_ci: {
+      integrationCi: {
         configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       }
@@ -669,17 +705,6 @@ module.exports = function (grunt) {
       }
     });
   });
-  grunt.registerMultiTask('buildSwf', 'build swf for flash storage', function () {
-    var taskDone = this.async();
-    grunt.util.spawn({
-      cmd: "./jsflash/flex/bin/mxmlc",
-      args: [this.data.asPath, "-output", this.data.swfPath],
-      opts: {stdio:'inherit'}
-    }, function spawnDone(error, result, code) {
-      grunt.log.ok(error, result, code);
-      taskDone(error);
-    });
-  });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
@@ -707,9 +732,10 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'preloadSpreadsheet', 'buildSwf:prod',
+        'preloadSpreadsheet', 'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
-        'wiredep',
+        'manifest',
+        'wiredep', 
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
@@ -719,8 +745,9 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'preloadSpreadsheet', 'buildSwf:dev',
+      'preloadSpreadsheet', 'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
+      'manifest',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -741,8 +768,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma:unit_ci',
-    'karma:integration_ci'
+    'karma:unitCi',
+    'karma:integrationCi'
   ]);
 
   grunt.registerTask('build', [
@@ -765,7 +792,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'preloadSpreadsheet', 'buildSwf:prod'
+    'preloadSpreadsheet', 'mxmlc:prod'
   ]);
 
   grunt.registerTask('default', [
