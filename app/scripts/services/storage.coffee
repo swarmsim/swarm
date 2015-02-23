@@ -36,7 +36,7 @@ angular.module('swarmApp').factory 'flashStorage', ($q, $log, env) -> new class 
         onerror: =>
           @isReady = false
           deferred.reject()
-          $log.warning 'flash storage error'
+          $log.warn 'flash storage error'
     catch e
       @isReady = false
       deferred.reject()
@@ -59,17 +59,20 @@ angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
     obj = {name:name, storage:storage}
     @storages.list.push obj
     @storages.byName[name] = obj
+    this[name] = storage
     return this
   getItem: (key) ->
     # Go through the storage list and return the first one that's not empty.
     # Storage order in the ctor matters, earlier storages are higher priority.
     for store in @storages.list
+      $log.debug 'multistore.getitem', store.name
       try
         val = store.storage.getItem key
         if val?
           return val
       catch e
-        $log.warning 'getitem error, continuing', store.name, key, e
+        $log.warn 'multistore.getitem error, continuing', store.name, key, e
+      $log.debug 'multistore.getitem empty, continuing', store.name
     # not found
     return undefined
   setItem: (key, val) ->
@@ -78,20 +81,19 @@ angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
       try
         store.storage.setItem key, val
       catch e
-        $log.warning 'setitem error, continuing', store.name, key, val, e
+        $log.warn 'multistore.setitem error, continuing', store.name, key, val, e
   removeItem: (key) ->
     # Set all storages.
     for store in @storages.list
       try
         store.storage.removeItem key
       catch e
-        $log.warning 'removeitem error, continuing', store.name, key, val, e
+        $log.warn 'multistore.removeitem error, continuing', store.name, key, val, e
   toJSON: ->
     return undefined
 
 angular.module('swarmApp').factory 'storage', (MultiStorage, flashStorage, cookieStorage) ->
-  return window.localStorage
-  #return new MultiStorage()
-  #  .addStorage 'local', window.localStorage
-  #  .addStorage 'cookie', cookieStorage
-  #  .addStorage 'flash', flashStorage
+  return new MultiStorage()
+    .addStorage 'local', window.localStorage
+    .addStorage 'cookie', cookieStorage
+    .addStorage 'flash', flashStorage
