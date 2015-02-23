@@ -205,9 +205,8 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       @importSave @getStoredSaveData id
 
     onClose: ->
-      # onclose() in browsers is flaky. Need to rely on periodic heartbeats too.
-      @date.closed = new Date()
-      @save()
+      # Don't save the whole session - this avoids overwriting everything if the save failed to load.
+      @onHeartbeat()
 
     onHeartbeat: ->
       if env.isOffline
