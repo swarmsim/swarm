@@ -63,7 +63,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     oldheight = null
     olddate = new Date 0
     @_onResize = =>
-      height = Math.max html.height(), body.height()
+      height = Math.max html.height(), body.height(), 600
       if height != oldheight
         date = new Date()
         datediff = date.getTime() - olddate.getTime()
