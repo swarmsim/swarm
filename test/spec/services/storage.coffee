@@ -1,14 +1,68 @@
 'use strict'
 
 describe 'Service: storage', ->
+  class MemoryStorage
+    constructor: (@data={}) ->
+    getItem: (key) ->
+      return @data[key]
+    setItem: (key, val) ->
+      @data[key] = val
+    removeItem: (key) ->
+      delete @data[key]
+
+  class BrokenStorage
+    getItem: -> throw new Error 'broken get'
+    setItem: -> throw new Error 'broken set'
+    removeItem: -> throw new Error 'broken remove'
 
   # load the service's module
   beforeEach module 'swarmApp'
 
   # instantiate service
   storage = {}
-  beforeEach inject (_storage_) ->
+  MultiStorage = {}
+  beforeEach inject (_storage_, _MultiStorage_) ->
     storage = _storage_
+    MultiStorage = _MultiStorage_
 
   it 'should do something', ->
     expect(!!storage).toBe true
+
+  it 'adds stores, writes, reads', ->
+    store = new MultiStorage()
+    store.addStorage 'one', new MemoryStorage()
+    store.addStorage 'two', new MemoryStorage()
+
+    expect(store.getItem 'key').toBeUndefined()
+    expect(store.one.getItem 'key').toBeUndefined()
+    expect(store.two.getItem 'key').toBeUndefined()
+    store.setItem 'key', 3
+    expect(store.getItem 'key').toBe 3
+    expect(store.one.getItem 'key').toBe 3
+    expect(store.two.getItem 'key').toBe 3
+    store.removeItem 'key'
+    expect(store.getItem 'key').toBeUndefined()
+    expect(store.one.getItem 'key').toBeUndefined()
+    expect(store.two.getItem 'key').toBeUndefined()
+
+  it 'reads from one store, in order, if others are missing or broken', ->
+    store = new MultiStorage()
+    store.addStorage 'broken', new BrokenStorage()
+    store.addStorage 'missing', new MemoryStorage()
+    store.addStorage 'good', new MemoryStorage()
+    store.addStorage 'ignored', new MemoryStorage()
+
+    store.good.setItem 'key', 3
+    store.ignored.setItem 'key', 13
+    # store.getitem ignores broken and missing storage, uses the good storage first
+    expect(-> store.broken.getItem 'key').toThrow()
+    expect(store.missing.getItem 'key').toBeUndefined()
+    expect(store.getItem 'key').toBe 3
+
+    # store.setitem sets them all in sync (except broken)
+    store.setItem 'key', 4
+    expect(-> store.broken.getItem 'key').toThrow()
+    expect(store.missing.getItem 'key').toBe 4
+    expect(store.good.getItem 'key').toBe 4
+    expect(store.ignored.getItem 'key').toBe 4
+    expect(store.getItem 'key').toBe 4
