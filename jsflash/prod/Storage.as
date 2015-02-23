@@ -88,8 +88,8 @@ public class Storage extends Sprite {
         //   Security.allowDomain("nfriedly.com", "www.nfriedly.com");
         // and then comment the allowInsecureDomain line.
         // More information: http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/system/Security.html#allowDomain%28%29
-        Security.allowDomain("swarmsim.github.io", "swarmsim-staging.github.io", "swarmsim-publictest.github.io", "www.swarmsim.com", "swarmsim.com", "staging.swarmsim.com", "publictest.swarmsim.com");
-        Security.allowInsecureDomain("swarmsim.github.io", "swarmsim-staging.github.io", "swarmsim-publictest.github.io", "www.swarmsim.com", "swarmsim.com", "staging.swarmsim.com", "publictest.swarmsim.com");
+        Security.allowDomain("swarmsim.github.io", "swarmsim-staging.github.io", "www.swarmsim.com", "swarmsim.com", "staging.swarmsim.com");
+        Security.allowInsecureDomain("swarmsim.github.io", "swarmsim-staging.github.io", "www.swarmsim.com", "swarmsim.com", "staging.swarmsim.com");
 
         // try to initialize our lso
         try {
