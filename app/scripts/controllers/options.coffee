@@ -47,6 +47,9 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       ret.size = encoded.length
     return ret
   $scope.savedDataDetails = (savedDataDetails(store) for store in storage.storages.list)
+  if !storage.flash.isReady?
+    storage.flash.onReady.then =>
+      $scope.savedDataDetails = (savedDataDetails(store) for store in storage.storages.list)
 
   $scope.importSave = (encoded) ->
     $scope.imported = {}
