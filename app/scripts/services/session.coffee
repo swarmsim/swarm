@@ -11,7 +11,7 @@ angular.module('swarmApp').factory 'saveId', (env, isKongregate) ->
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, env, saveId, isKongregate) ->
+angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, version, env, saveId, isKongregate) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
@@ -187,7 +187,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       delete @_exportCache
       @_exportCache = @_saves()
       try
-        localStorage.setItem this.id, this._exportCache
+        storage.setItem this.id, this._exportCache
         success = true
       catch e
         $log.error 'failed to save game', e
@@ -196,10 +196,10 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
         $rootScope.$broadcast 'save', this
 
     _setItem: (key, val) ->
-      localStorage.setItem key, val
+      storage.setItem key, val
 
     getStoredSaveData: (id=@id) ->
-      localStorage.getItem id
+      storage.getItem id
 
     load: (id) ->
       @importSave @getStoredSaveData id
@@ -223,7 +223,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
 
     _getHeartbeatDate: ->
       try
-        if (heartbeat = localStorage.getItem @heartbeatId)
+        if (heartbeat = storage.getItem @heartbeatId)
           return new Date heartbeat
       catch e
         $log.debug "Couldn't load heartbeat time to determine game-closed time. No biggie, continuing.", e
