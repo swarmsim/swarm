@@ -122,7 +122,7 @@
     </a></p>
     <div class="collapse" id="saveDetails">
       <div class="well">
-        <p>Swarm Simulator saves its data in your browser's localStorage, cookies, and Flash storage. Your saved game will be loaded if it's found in any one of these sources. The intent is to make it harder to accidentally lose your saved game, not to do any evil tracking or invade your privacy. Use the 'wipe all saved data' button below to clear all three storage locations.</p>
+        <p>Swarm Simulator saves your progress in your browser's localstorage, cookies, and Flash (SWF) storage. Your saved game will be loaded if it's found in any one of these sources. This is used to avoid accidentally losing your saved data; it's not intended to track you or otherwise invade your privacy. The 'wipe all saved data' button below will clear all three storage locations.</p>
         <p ng-repeat="detail in savedDataDetails">
           <span class="titlecase">{{detail.name}}</span> storage:
           <span ng-if="detail.exists">{{detail.size}} chars</span>
