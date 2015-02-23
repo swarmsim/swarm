@@ -78,6 +78,7 @@ angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
   setItem: (key, val) ->
     # Set all storages.
     for store in @storages.list
+      $log.debug 'multistore.setitem', store.name, key
       try
         store.storage.setItem key, val
       catch e
@@ -85,10 +86,11 @@ angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
   removeItem: (key) ->
     # Set all storages.
     for store in @storages.list
+      $log.debug 'multistore.removeitem', store.name, key
       try
         store.storage.removeItem key
       catch e
-        $log.warn 'multistore.removeitem error, continuing', store.name, key, val, e
+        $log.warn 'multistore.removeitem error, continuing', store.name, key, e
   toJSON: ->
     return undefined
 
