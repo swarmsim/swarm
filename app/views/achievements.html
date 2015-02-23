@@ -13,13 +13,16 @@
   <label><input type="checkbox" checked ng-model="form.show.earned" ng-change="onChangeVisibility()">earned</label>
   <label><input type="checkbox" checked ng-model="form.show.unearned" ng-change="onChangeVisibility()">unearned</label>
   <label><input type="checkbox" checked ng-model="form.show.masked" ng-change="onChangeVisibility()">masked</label>
-  achievements
+  achievements, sorted by
+  <label><input type="radio" ng-model="form.show.order" value="default" ng-change="onChangeVisibility()">default</label>
+  <label><input type="radio" ng-model="form.show.order" value="percentComplete" ng-change="onChangeVisibility()">% complete</label>,
+  <label><input type="checkbox" checked ng-model="form.show.reverse" ng-change="onChangeVisibility()">{{form.show.reverse ? "highest" : "lowest"}} first</label>
 </p>
 
 <p ng-if="game.upgrade('achievementbonus').count().greaterThan(0)">Your achievements grant a <b>+{{game.upgrade('achievementbonus').calcStats().prod|percent:{plusOne:true} }}</b> bonus to larva production.</p>
 
 <ul class="list-unstyled">
-  <li ng-repeat="achievement in game.achievementsSorted() | filter:isVisible:achievement" class="achieve">
+  <li ng-repeat="achievement in game.achievementsSorted() | filter:isVisible:achievement | orderBy:order.pred:form.show.reverse" class="achieve">
     <div ng-if="state(achievement) == 'earned'" class="alert achievetext alert-success" ng-click="achieveclick(achievement)">
       <span class="achieveicon hidden-xs glyphicon glyphicon-ok" title="Someday I'll add real achievement icons"></span>
       <span class="achievepoints hidden-xs" ng-if="achievement.type.points > 0">+{{achievement.type.points|number}}</span>

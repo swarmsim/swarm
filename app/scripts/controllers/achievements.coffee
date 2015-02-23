@@ -13,10 +13,18 @@ angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $locati
     earned: true
     unearned: true
     masked: true
+    order: 'default'
+    reverse: false
   $scope.form =
     show: _.clone game.session.achievementsShown
 
+  preds =
+    'default': (achievement) -> achievement.earnedAtMillisElapsed()
+    percentComplete: (achievement) -> achievement.progressOrder()
+  $scope.order =
+    pred: preds[$scope.form.show.order]
   $scope.onChangeVisibility = ->
+    $scope.order.pred = preds[$scope.form.show.order]
     game.withUnreifiedSave ->
       game.session.achievementsShown = _.clone $scope.form.show
 
