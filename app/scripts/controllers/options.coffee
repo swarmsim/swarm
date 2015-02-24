@@ -66,5 +66,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
 
   $scope.confirmReset = ->
     if confirm 'You will lose everything and restart the game. No reset-bonuses here. You sure?'
-      $scope.game.reset()
+      # delete all storage, as advertised
+      storage.removeItem session.id
+      $scope.game.reset true
       $location.url '/'

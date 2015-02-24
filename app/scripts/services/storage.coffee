@@ -61,36 +61,40 @@ angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
     @storages.byName[name] = obj
     this[name] = storage
     return this
+
+  _withEachStore: (name, fn, pred=(ret)->false) ->
+    errorcount = 0
+    for store in @storages.list
+      try
+        ret = fn store
+        if pred ret
+          return ret
+      catch e
+        errorcount += 1
+        if errorcount >= @storages.list.length
+          $log.warn "multistore.#{name} failed with all stores, throwing", e
+          throw e
+        else
+          $log.info "multistore.#{name} error (continuing)", store.name, e
+    return undefined
+
   getItem: (key) ->
     # Go through the storage list and return the first one that's not empty.
     # Storage order in the ctor matters, earlier storages are higher priority.
-    for store in @storages.list
+    fn = (store) ->
       $log.debug 'multistore.getitem', store.name
-      try
-        val = store.storage.getItem key
-        if val?
-          return val
-      catch e
-        $log.warn 'multistore.getitem error, continuing', store.name, key, e
-      $log.debug 'multistore.getitem empty, continuing', store.name
-    # not found
-    return undefined
+      return store.storage.getItem key
+    return @_withEachStore 'getItem', fn, (ret) -> ret?
   setItem: (key, val) ->
     # Set all storages.
-    for store in @storages.list
+    return @_withEachStore 'setItem', (store) ->
       $log.debug 'multistore.setitem', store.name, key
-      try
-        store.storage.setItem key, val
-      catch e
-        $log.warn 'multistore.setitem error, continuing', store.name, key, val, e
+      store.storage.setItem key, val
   removeItem: (key) ->
     # Set all storages.
-    for store in @storages.list
+    return @_withEachStore 'removeItem', (store) ->
       $log.debug 'multistore.removeitem', store.name, key
-      try
-        store.storage.removeItem key
-      catch e
-        $log.warn 'multistore.removeitem error, continuing', store.name, key, e
+      store.storage.removeItem key
   toJSON: ->
     return undefined
 
