@@ -139,5 +139,11 @@ angular.module('swarmApp').run ($rootScope) ->
 
 angular.module('swarmApp').value 'UNIT_LIMIT', '1e100000'
 
-angular.module('swarmApp').run ($rootScope) ->
+angular.module('swarmApp').run ($rootScope, env) ->
   #Decimal.config errors:false
+  appCacheNanny.set('loaderPath', '/views/appcache-loader.html')
+  if env.isDebugEnabled
+    appCacheNanny.start({checkInterval: 5000})  #5 seconds on debug
+  else
+    appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
+

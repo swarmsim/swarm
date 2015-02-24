@@ -164,11 +164,10 @@ module.exports = function (grunt) {
       },
 
     manifest: {
-     generate: {
       options: {
-        basePath: '<%= yeoman.app %>',
+        basePath: '<%= yeoman.dist %>',
         cache: [],
-        network: ['*'],
+        network: ['*', 'http://*', 'https://*',],
         //fallback: ['/ /offline.html'],
         exclude: ['js/jquery.min.js'],
         preferOnline: true,
@@ -180,12 +179,24 @@ module.exports = function (grunt) {
           return path.substring('app/'.length);
         }
       },
+      prod: {
       src: [
         'views/*.html',
         'scripts/*.js',
         'styles/*.css'
       ],
-      dest: '.tmp/manifest.appcache'
+        dest: '<%= yeoman.dist %>/manifest.appcache'
+      },
+      dev: {
+        options:{
+        basePath: '<%= yeoman.app %>',
+	},
+      src: [
+        'views/*.html',
+        'scripts/*.js',
+        'styles/*.css'
+      ],
+        dest: '.tmp/manifest.appcache'
      }
     },
 
@@ -244,7 +255,7 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       manifest: {
-        files: [ 'app/views/*.html',],
+        files: [ '<%= yeoman.app %>/{,*/}*.html',],
         tasks: [ 'manifest' ]
       },
       livereload: {
@@ -478,11 +489,19 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      manifest: ['<%= yeoman.dist %>/manifest.appcache'],
       js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
         patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']],
+          manifest: [
+              //[/(scripts/vendor.js)/, 'Replacing reference to vendor.js'],
+              //[/(scripts/main.js)/, 'Replacing reference to main.js'],
+              //[/(styles/vendor.css)/, 'Replacing reference to vendor.css'],
+              //[/(styles/main.css)/, 'Replacing reference to main.css']
+            ]
+
         }
       }
     },
@@ -734,7 +753,7 @@ module.exports = function (grunt) {
         'clean:server',
         'preloadSpreadsheet', 'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
-        'manifest',
+        'manifest:prod',
         'wiredep', 
         'concurrent:server',
         'autoprefixer',
@@ -747,7 +766,7 @@ module.exports = function (grunt) {
       'clean:server',
       'preloadSpreadsheet', 'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
-      'manifest',
+      'manifest:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -790,6 +809,7 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'filerev',
+    'manifest',
     'usemin',
     'htmlmin',
     'preloadSpreadsheet', 'mxmlc:prod'

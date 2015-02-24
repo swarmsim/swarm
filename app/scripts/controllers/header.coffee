@@ -16,6 +16,13 @@ versioncheck, analytics, statistics, achievementslistener, favico
   $scope.version = version
   $scope.session = session
 
+  $scope.updateIsAvailable  = ->
+    appCacheNanny.hasUpdate()
+
+  $scope.reload = ->
+    window.location.reload();
+
+
   do enforce = ->
     timecheck.enforceNetTime().then(
       (invalid) ->
@@ -37,6 +44,7 @@ versioncheck, analytics, statistics, achievementslistener, favico
   $scope.konami = new Konami ->
     $scope.$emit 'konami'
     $log.debug 'konami'
+
 
   achievePublicTest1 $scope
   kongregateScrolling $scope
