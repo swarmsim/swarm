@@ -49,7 +49,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 
   onResize: -> #overridden on load
   _onResize: -> #overridden on load
-  onScrollOptionChange: (firstCall) ->
+  onScrollOptionChange: (noresizedefault) ->
     scrolling = options.scrolling()
     $log.debug 'updating kong scroll option', scrolling
     if scrolling == 'resize'
@@ -59,7 +59,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     else if scrolling == 'none'
       document.body.style.overflow = ''
       @onResize = ->
-      if @isLoaded and not firstCall
+      if @isLoaded and not noresizedefault
         @kongregate.services.resizeGame null, null
   _onLoad: ->
     $log.debug 'kongregate successfully loaded!', @kongregate
