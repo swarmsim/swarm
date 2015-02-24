@@ -27,6 +27,15 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     isKongregate()
   load: ->
     $log.debug 'loading kongregate script...'
+    try
+      @kongregate = window.parent.kongregate
+    catch e
+      # pass - no kongregate_shell.html. load the api ourselves
+    if @kongregate
+      $log.debug 'kongregate api loaded from parent frame'
+      @parented = window.parent.document.getElementsByTagName('iframe')[0]
+      @_onLoad()
+      return
     $.getScript 'https://cdn1.kongregate.com/javascripts/kongregate_api.js'
       .done (script, textStatus, xhr) =>
         $log.debug 'kongregate script loaded, now trying to load api', window.kongregateAPI
@@ -72,11 +81,13 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
         # jumpiness. height increases must be responsive though, so don't
         # throttle those. seems to be enough. (if this proves too jumpy, could
         # add a 100px buffer to size increases, but not necessary yet I think.)
-        if height > oldheight or datediff >= 1000
+        if height > oldheight or (datediff >= 1000 and oldheight - height > 100)
           $log.debug "onresize: #{oldheight} to #{height} (#{if height > oldheight then 'up' else 'down'}), #{datediff}ms"
           oldheight = height
           olddate = date
           @kongregate.services.resizeGame 800, height
+          if @parented
+            @parented.style.height = height+'px'
     @onScrollOptionChange true
     # resize whenever size changes.
     #html.resize onResize
@@ -84,23 +95,26 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     $log.debug 'setup onresize'
 
   reportStats: ->
-    if not @isLoaded or not game.session.kongregate
-      return
-    # don't report more than once per minute
-    now = new Date()
-    if @lastReported and now.getTime() < @lastReported.getTime() + 60 * 1000
-      return
-    #if not @lastReported
-    #  @kongregate.stats.submit 'Initialized', 1
-    @lastReported = now
-    @kongregate.stats.submit 'Hatcheries', @_count game.upgrade 'hatchery'
-    @kongregate.stats.submit 'Expansions', @_count game.upgrade 'expansion'
-    @kongregate.stats.submit 'GameComplete', @_count game.unit 'ascension'
-    @kongregate.stats.submit 'Mutations Unlocked', @_count game.upgrade 'mutatehidden'
-    @kongregate.stats.submit 'Achievement Points', game.achievementPoints()
-    @_submitTimetrialMins 'Minutes to First Nexus', game.upgrade 'nexus1'
-    @_submitTimetrialMins 'Minutes to Fifth Nexus', game.upgrade 'nexus5'
-    @_submitTimetrialMins 'Minutes to First Ascension', game.unit 'ascension'
+    try
+      if not @isLoaded or not game.session.kongregate
+        return
+      # don't report more than once per minute
+      now = new Date()
+      if @lastReported and now.getTime() < @lastReported.getTime() + 60 * 1000
+        return
+      #if not @lastReported
+      #  @kongregate.stats.submit 'Initialized', 1
+      @lastReported = now
+      @kongregate.stats.submit 'Hatcheries', @_count game.upgrade 'hatchery'
+      @kongregate.stats.submit 'Expansions', @_count game.upgrade 'expansion'
+      @kongregate.stats.submit 'GameComplete', @_count game.unit 'ascension'
+      @kongregate.stats.submit 'Mutations Unlocked', @_count game.upgrade 'mutatehidden'
+      @kongregate.stats.submit 'Achievement Points', game.achievementPoints()
+      @_submitTimetrialMins 'Minutes to First Nexus', game.upgrade 'nexus1'
+      @_submitTimetrialMins 'Minutes to Fifth Nexus', game.upgrade 'nexus5'
+      @_submitTimetrialMins 'Minutes to First Ascension', game.unit 'ascension'
+    catch e
+      $log.warn 'kongregate reportstats failed - continuing', e
 
   _count: (u) ->
     return u.count().floor().toNumber()
