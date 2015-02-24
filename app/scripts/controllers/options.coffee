@@ -15,7 +15,11 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.imported = {}
 
   $scope.isKongregate = isKongregate
-  $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ? env.isDropboxEnabled)
+  # A dropbox key must be supplied, no exceptions.
+  # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
+  # ?dropbox in the URL overrides these things.
+  $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ?
+    (env.isDropboxEnabled and not isKongregate()))
 
   $scope.form =
     isCustomTheme: options.theme().isCustom

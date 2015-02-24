@@ -135,7 +135,7 @@ module.exports = function (grunt) {
             saveId: 'v0.2',
             isOffline: false,
             dropboxAppKey: dropboxAppKey('prod'),
-            isDropboxEnabled: false,
+            isDropboxEnabled: true,
             gaTrackingID: 'UA-53523462-1'
           }
         }
