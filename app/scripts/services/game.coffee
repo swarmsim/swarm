@@ -281,6 +281,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
         @unit('freeRespec')._addCount 1
       # do not use @reset(): we don't want achievements, etc. reset
       @_init()
+      # show tutorial message for first ascension. must go after @_init, or cache is cleared
+      if ascension.count().equals(1)
+        @cache.firstSpawn.ascension = true
       for unit in @unitlist()
         if unit.tab?.name != 'mutagen'
           unit._setCount unit.unittype.init or 0
