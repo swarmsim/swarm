@@ -57,7 +57,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
 
   # Scrolling style on kongregate/iframed pages
   scrolling: (name) ->
-    @maybeSet 'scrolling', name, {'none':true, 'resize':true}
+    @maybeSet 'scrolling', name, {'none':true, 'resize':true, 'lockhover'}
     return @get('scrolling') ? 'none'
 
   # can't attach an id to the theme element - usemin-compiled
