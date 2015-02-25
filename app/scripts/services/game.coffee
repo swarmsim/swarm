@@ -173,6 +173,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   unignoredUpgrades: ->
     (u for u in @upgradelist() when u.isVisible() and not u.isIgnored())
 
+  resourcelist: ->
+    return @unitlist().concat @upgradelist()
+
   achievement: (name) ->
     if not _.isString name
       name = name.name
