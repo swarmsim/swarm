@@ -239,8 +239,16 @@ describe 'Service: upgrade', ->
     premutagen = game.unit 'premutagen'
     hatchery.buy 39
     expect(premutagen.count().toNumber()).toBe 0
+    eff = hatchery.effect[1]
+    # Random range, but consistent.
+    expect(eff.type.name).toBe 'addUnitRand'
+    spawned = eff.outputNext().qty.toNumber()
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
     hatchery.buy 1
-    # random range. first spawn is guaranteed.
+    # first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).toBe spawned
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
 
@@ -251,8 +259,16 @@ describe 'Service: upgrade', ->
     premutagen = game.unit 'premutagen'
     hatchery.buy 79
     expect(premutagen.count().toNumber()).toBe 0
+    eff = hatchery.effect[1]
+    # Random range, but consistent.
+    expect(eff.type.name).toBe 'addUnitRand'
+    spawned = eff.outputNext().qty.toNumber()
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
     hatchery.buy 1
     # random range. first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).toBe spawned
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
 
