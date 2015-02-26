@@ -49,7 +49,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 
   onResize: -> #overridden on load
   _onResize: -> #overridden on load
-  onScrollOptionChange: (noresizedefault) ->
+  onScrollOptionChange: (noresizedefault, oldscroll) ->
     scrolling = options.scrolling()
     $log.debug 'updating kong scroll option', scrolling
 
@@ -66,7 +66,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     else
       @unbindLockhover()
 
-    if scrolling == 'none' and @isLoaded and not noresizedefault
+    if scrolling != 'resize' and oldscroll == 'resize' and @isLoaded and not noresizedefault
       @kongregate.services.resizeGame null, null
 
   unbindLockhover: ->

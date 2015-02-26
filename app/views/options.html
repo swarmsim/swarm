@@ -15,8 +15,8 @@
     <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="none" ng-change="options.scrolling(form.scrolling)" ng-init="form.scrolling=options.scrolling()">Browser default</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="resize" ng-change="options.scrolling(form.scrolling)">Resize automatically, no inner scrollbar</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="lockhover" ng-change="options.scrolling(form.scrolling)"><span class="envalert">(beta)</span> Lock mousewheel scrolling</input></label>
-    <p ng-if="options.isScrollingChangedSincePageLoad && form.scrolling=='none'">The game will widen to fill your screen when you refresh the page.</p>
     <p ng-if="form.scrolling=='lockhover'">This makes mousewheel scrolling only affect Swarm Simulator's scrollbar, instead of the whole Kongregate page, while your mouse is over the game. We're still testing this option - if it's broken for you, <a href="#/contact">please report it</a>!</p>
+    <p ng-if="options.isScrollingChangedFromResizeSincePageLoad && form.scrolling!='resize'">The game will widen to fill your screen when you refresh the page.</p>
   </div>
 
   <div class="form-group">
