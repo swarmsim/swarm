@@ -343,3 +343,7 @@ describe 'Service: upgrade', ->
     energyprod = game.unit('energy').velocity().toNumber()
     expect(energyprod).toBeGreaterThan 1.9
     expect(energyprod).toBeLessThan 2.1
+
+  it "fetches empty stats", ->
+    game = mkgame {}
+    expect(-> game.upgrade('nexus1').statistics()).not.toThrow()
