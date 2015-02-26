@@ -49,6 +49,16 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 
   onResize: -> #overridden on load
   _onResize: -> #overridden on load
+  _resizeGame: (w, h) ->
+    @kongregate.services.resizeGame w, h
+    if @parented
+      # kongregate resizes its shell instead of my game. scroll lock demands my game have the scrollbar, not the iframe.
+      h = @parented.style.height
+      w = @parented.style.width
+      @parented.style.height = '100%'
+      @parented.style.width = '100%'
+      window.style.height = h
+      window.style.width = w
   onScrollOptionChange: (noresizedefault, oldscroll) ->
     scrolling = options.scrolling()
     $log.debug 'updating kong scroll option', scrolling
@@ -67,7 +77,28 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       @unbindLockhover()
 
     if scrolling != 'resize' and oldscroll == 'resize' and @isLoaded and not noresizedefault
-      @kongregate.services.resizeGame null, null
+      @_resizeGame null, null
+
+  unbindLockhover: ->
+    $('html').off 'DOMMouseScroll mousewheel'
+  bindLockhover: ->
+    # heavily based on https://stackoverflow.com/questions/5802467/prevent-scrolling-of-parent-element
+    body = $('body')[0]
+    $both = $('body,html')
+    $('html').on 'DOMMouseScroll mousewheel', (ev) ->
+      $this = $(this)
+      scrollTop = this.scrollTop or body.scrollTop
+      scrollHeight = this.scrollHeight
+      #height = $this.height()
+      #height = $this.outerHeight true
+      height = window.innerHeight
+      if ev.type == 'DOMMouseScroll'
+        delta = ev.originalEvent.detail * -40
+      else
+        delta = ev.originalEvent.wheelDelta
+      up = delta > 0
+      # not even log.debugs; scroll events are performance-sensitve.
+      #console.log 'mousewheelin', delta, up, scrollTop, scrollHeight, height
 
   unbindLockhover: ->
     $('html').off 'DOMMouseScroll mousewheel'
@@ -133,7 +164,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
           $log.debug "onresize: #{oldheight} to #{height} (#{if height > oldheight then 'up' else 'down'}), #{datediff}ms"
           oldheight = height
           olddate = date
-          @kongregate.services.resizeGame 800, height
+          @_resizeGame 800, height
           if @parented
             @parented.style.height = height+'px'
     @onScrollOptionChange true
