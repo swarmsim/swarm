@@ -547,7 +547,6 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            'archive/**/*',
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
@@ -565,6 +564,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.',
           src: [
+            'archive/**/*',
             'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
             'bower_components/bootswatch/fonts/*',
             'bower_components/bootswatch/*/bootstrap.min.css',
