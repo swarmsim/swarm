@@ -282,7 +282,7 @@ describe 'Service: upgrade', ->
 
     # rolls change when date.restarted changes
     game.now = new Date 1
-    game.ascend()
+    game.ascend true
     expect(game.session.date.restarted.getTime()).toBe 1
     game.unit('meat')._setCount 1e100
     game.upgrade('hatchery').buy 80
@@ -290,7 +290,7 @@ describe 'Service: upgrade', ->
     expect(precount.toNumber()).not.toBe postcount.toNumber()
 
     # but change the date back, and mutagen rolls are identical
-    game.ascend()
+    game.ascend true
     game.session.date.restarted = new Date 0
     game.unit('meat')._setCount 1e100
     game.upgrade('hatchery').buy 80

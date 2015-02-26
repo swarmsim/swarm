@@ -269,7 +269,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCostDurationMoment: (cost) ->
     if (secs=@ascendCostDurationSecs cost)?
       return moment.duration secs, 'seconds'
-  ascend: ->
+  ascend: (free=false) ->
+    if !free and @ascendCostPercent() < 1
+      throw new Error "We require more resources (ascension cost)"
     @withSave =>
       # hardcode ascension bonuses. TODO: spreadsheetify
       premutagen = @unit 'premutagen'
