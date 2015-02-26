@@ -57,8 +57,8 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       w = @parented.style.width
       @parented.style.height = '100%'
       @parented.style.width = '100%'
-      window.style.height = h
-      window.style.width = w
+      document.documentElement.style.height = h
+      document.documentElement.style.width = w
   onScrollOptionChange: (noresizedefault, oldscroll) ->
     scrolling = options.scrolling()
     $log.debug 'updating kong scroll option', scrolling
@@ -67,6 +67,8 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       # no blinking scrollbar on resize. https://stackoverflow.com/questions/2469529/how-to-disable-scrolling-the-document-body
       document.body.style.overflow = 'hidden'
       @onResize = @_onResize
+      # selecting autoresize should always trigger a resize
+      @onResize true
     else
       document.body.style.overflow = ''
       @onResize = ->
@@ -150,9 +152,9 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     body = $(document.body)
     oldheight = null
     olddate = new Date 0
-    @_onResize = =>
+    @_onResize = (force) =>
       height = Math.max html.height(), body.height(), 600
-      if height != oldheight
+      if height != oldheight or force
         date = new Date()
         datediff = date.getTime() - olddate.getTime()
         # jumpy height changes while rendering, especially in IE!
@@ -160,7 +162,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
         # jumpiness. height increases must be responsive though, so don't
         # throttle those. seems to be enough. (if this proves too jumpy, could
         # add a 100px buffer to size increases, but not necessary yet I think.)
-        if height > oldheight or (datediff >= 1000 and oldheight - height > 100)
+        if height > oldheight or (datediff >= 1000 and oldheight - height > 100) or force
           $log.debug "onresize: #{oldheight} to #{height} (#{if height > oldheight then 'up' else 'down'}), #{datediff}ms"
           oldheight = height
           olddate = date
