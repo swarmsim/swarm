@@ -341,3 +341,14 @@ describe 'Service: unit', ->
   it 'caps units globally and exceeds the JS max', ->
     game = mkgame {meat:'1e9999999'}
     expect(game.unit('meat').count()+'').toBe '1e+100000'
+
+  it 'finds max production polynomial', ->
+    game = mkgame {hive:'1'}
+    expect(game.unit('hive').getPolynomialDegree()).toBe 0
+    expect(game.unit('hivequeen').getPolynomialDegree()).toBe 0
+    expect(game.unit('energy').getPolynomialDegree()).toBe 0
+    expect(game.unit('greaterqueen').getPolynomialDegree()).toBe 1
+    expect(game.unit('nest').getPolynomialDegree()).toBe 2
+    expect(game.unit('queen').getPolynomialDegree()).toBe 3
+    expect(game.unit('drone').getPolynomialDegree()).toBe 4
+    expect(game.unit('meat').getPolynomialDegree()).toBe 5

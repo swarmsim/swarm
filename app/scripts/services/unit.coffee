@@ -6,6 +6,7 @@ angular.module('swarmApp').factory 'ProducerPath', ($log, UNIT_LIMIT) -> class P
     # unit.name's in the name twice, just so there's no confusion about where the path ends
     @name = "#{@unit.name}:#{pathname}>#{@unit.name}"
   first: -> @path[0]
+  isZero: -> @first().parent.count().isZero()
   prodEach: ->
     return @unit.game.cache.producerPathProdEach[@name] ?= do =>
       # Bonus for ancestor to produced-child == product of all bonuses along the path
@@ -161,9 +162,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     remaining = new Decimal(num).minus @count()
     if remaining.lessThanOrEqualTo 0
       return 0
+    #degree = getPolynomialDegree()
+    #switch degree
+    #  when 0 then return Infinity
     velocity = @velocity()
     if velocity.lessThanOrEqualTo 0
+      # zero velocity, no estimate
       return Infinity
+
     secs = remaining.dividedBy velocity
     # verify it's linear
     #estimate = @_countInSecsFromNow secs
@@ -183,6 +189,21 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     for pathdata in @_producerPathData()
       count = count.plus @_gainsPath pathdata, secs
     return @capValue count
+
+  # Highest polynomial degree of this unit's production chain where the ancestor has nonzero count.
+  # Or, how many parents it has. Examples of degree:
+  #
+  # [drone > meat] is degree 1
+  # [queen > drone > meat] is degree 2
+  # [nest > queen > drone > meat] is degree 3
+  # [nest > queen > drone] is degree 2
+  getPolynomialDegree: ->
+    max = 0
+    for pathdata in @_producerPathData()
+      if not pathdata.isZero()
+        # producer path length == how many parents it has == polynomial degree
+        max = Math.max max, pathdata.path.length
+    return max
 
   # All units that cost this unit.
   spentResources: ->
