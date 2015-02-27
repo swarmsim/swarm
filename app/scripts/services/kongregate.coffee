@@ -29,11 +29,11 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     $log.debug 'loading kongregate script...'
     try
       @kongregate = window.parent.kongregate
+      @parented = window.parent.document.getElementsByTagName('iframe')[0]
     catch e
-      # pass - no kongregate_shell.html. load the api ourselves
+      # pass - no kongregate_shell.html, or kongregate api's blocked in it. try to load the api ourselves
     if @kongregate
       $log.debug 'kongregate api loaded from parent frame'
-      @parented = window.parent.document.getElementsByTagName('iframe')[0]
       @_onLoad()
       return
     $.getScript 'https://cdn1.kongregate.com/javascripts/kongregate_api.js'
