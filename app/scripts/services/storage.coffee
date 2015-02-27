@@ -50,6 +50,32 @@ angular.module('swarmApp').factory 'flashStorage', ($q, $log, env) -> new class 
   clear: ->
     @storage.clearAll()
 
+angular.module('swarmApp').factory 'awsS3Storage', -> new class AwsS3Storage
+  constructor: ->
+    # TODO configify
+    @bucket = new AWS.S3
+      credentials: {}
+      params:
+        Bucket:'swarmsim-dev'
+  getItemAsync: (key, fn) ->
+    # https://github.com/aws/aws-sdk-js/issues/206
+    @bucket.makeUnauthenticatedRequest 'getObject',
+      Key: "#{key}.json"
+      (err, data) ->
+        if data?.Body
+          data.Body = JSON.parse data.Body
+        fn err, data
+  setItemAsync: (key, val, fn) ->
+    @bucket.makeUnauthenticatedRequest 'putObject',
+      Key: "#{key}.json"
+      ContentType: 'application/json'
+      Body: JSON.stringify val
+      fn
+  removeItemAsync: (key, fn) ->
+    @bucket.makeUnauthenticatedRequest 'deleteObject',
+      Key: "#{key}.json"
+      fn
+
 angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
   constructor: ->
     @storages =

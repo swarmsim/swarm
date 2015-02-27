@@ -44,6 +44,7 @@ module.exports = (config) ->
       'bower_components/moment-duration-format/lib/moment-duration-format.js'
       'bower_components/jquery-cookie/jquery.cookie.js'
       'bower_components/javascript-flash-cookies/dist/swfstore.min.js'
+      'bower_components/aws-sdk-js/dist/aws-sdk.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
