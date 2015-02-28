@@ -106,6 +106,19 @@
       </div>
     </div>
   </div>
+  <div ng-cloak ng-controller="KongregateS3Ctrl">
+    kongregate!
+    <div ng-if="api.isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to sync</a></div>
+    <div ng-if="!api.isGuest()">
+      <p>you're signed in, lovely. hi {{api.getUsername()}}</p>
+      <div><button class="btn btn-default" ng-click="push()">Export online saved data</button></div>
+      <p ng-if="!remoteSave">Nothing exported to Swarm Simulator servers yet.</p>
+      <div ng-if="remoteSave">
+        <div><button class="btn btn-default" ng-click="pull()">Import saved data (replaces your current game)</button></div>
+        <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
+        <p>Last exported: {{remoteDate|momentFromNow}}</p>
+    </div>
+  </div>
 
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>

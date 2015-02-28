@@ -108,3 +108,41 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
 
     $scope.moment = (datestring=savedgame.get 'created') ->
       return moment datestring
+
+
+angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, session, kongregate, awsS3Storage) ->
+  # http://www.kongregate.com/pages/general-services-api
+  api = $scope.api = kongregate.kongregate.services
+  $scope.kongregate = kongregate
+  if !kongregate.isKongregate()
+    return
+  api.addEventListener 'login', (event) ->
+    $scope.$apply()
+
+  remoteKey = "#{api.getGameAuthToken()}_#{api.getUserId()}"
+  awsS3Storage.getItemAsync remoteKey, (err, data) ->
+    if err
+      $scope.remoteSave = null
+      $scope.remoteDate = null
+    else
+      $scope.remoteSave = data.Body
+      $scope.remoteDate = new Date data.LastModified
+      console.log 'successful fetch', $scope.remoteDate, data
+
+  $scope.push = ->
+    encoded = session.exportSave()
+    awsS3Storage.setItemAsync remoteKey, encoded, (err, data) ->
+      console.log 'put status', err, data
+      if !err
+        $scope.remoteSave = encoded
+        $scope.remoteDate = new Date()
+        $scope.$apply()
+  $scope.pull = (save=$scope.remoteSave) ->
+    if save
+      session.importSave save
+  $scope.clear = ->
+    awsS3Storage.removeItemAsync remoteKey, (err, data) ->
+      if !err
+        $scope.remoteSave = null
+        $scope.remoteDate = null
+        $scope.$apply()
