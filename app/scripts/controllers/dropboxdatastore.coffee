@@ -110,7 +110,8 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
       return moment datestring
 
 
-angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, session, kongregate, awsS3Storage) ->
+angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, session, kongregate, kongregateS3Syncer) ->
+  syncer = kongregateS3Syncer
   # http://www.kongregate.com/pages/general-services-api
   api = $scope.api = kongregate.kongregate.services
   $scope.kongregate = kongregate
@@ -118,31 +119,29 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
     return
   api.addEventListener 'login', (event) ->
     $scope.$apply()
+  userid = api.getUserId()
+  token = api.getGameAuthToken()
 
-  remoteKey = "#{api.getGameAuthToken()}_#{api.getUserId()}"
-  awsS3Storage.getItemAsync remoteKey, (err, data) ->
-    if err
-      $scope.remoteSave = null
-      $scope.remoteDate = null
-    else
-      $scope.remoteSave = data.Body
-      $scope.remoteDate = new Date data.LastModified
-      console.log 'successful fetch', $scope.remoteDate, data
+  #userid = '21627386'
+  #token = '1dd85395a2291302abdb80e5eeb2ec3a80f594ddaca92fa7606571e5af69e881'
+  $scope.isGuest = ->
+    #return false
+    $scope.api.isGuest()
+  syncer.init ((data, status, xhr) ->
+    $log.debug 'kong syncer inited', data, status, xhr
+    syncer.fetch (data, status, xhr) ->
+      $scope.$apply()
+      $log.debug 'kong syncer fetched', data, status, xhr
+  ), userid, token
+
+  $scope.remoteSave = -> syncer.fetched?.encoded
+  $scope.remoteDate = -> syncer.fetched?.date
 
   $scope.push = ->
-    encoded = session.exportSave()
-    awsS3Storage.setItemAsync remoteKey, encoded, (err, data) ->
-      console.log 'put status', err, data
-      if !err
-        $scope.remoteSave = encoded
-        $scope.remoteDate = new Date()
-        $scope.$apply()
-  $scope.pull = (save=$scope.remoteSave) ->
-    if save
-      session.importSave save
+    syncer.push ->
+      $scope.$apply()
+  $scope.pull = ->
+    syncer.pull()
   $scope.clear = ->
-    awsS3Storage.removeItemAsync remoteKey, (err, data) ->
-      if !err
-        $scope.remoteSave = null
-        $scope.remoteDate = null
-        $scope.$apply()
+    syncer.clear ->
+      $scope.$apply()

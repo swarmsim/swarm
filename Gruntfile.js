@@ -118,6 +118,7 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -136,6 +137,7 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('prod'),
             isDropboxEnabled: true,
+            saveServerUrl: 'http://swarmsim.elasticbeanstalk.com',
             gaTrackingID: 'UA-53523462-1'
           }
         }

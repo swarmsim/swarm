@@ -107,16 +107,19 @@
     </div>
   </div>
   <div ng-cloak ng-controller="KongregateS3Ctrl">
-    kongregate!
-    <div ng-if="api.isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to sync</a></div>
-    <div ng-if="!api.isGuest()">
-      <p>you're signed in, lovely. hi {{api.getUsername()}}</p>
-      <div><button class="btn btn-default" ng-click="push()">Export online saved data</button></div>
-      <p ng-if="!remoteSave">Nothing exported to Swarm Simulator servers yet.</p>
-      <div ng-if="remoteSave">
-        <div><button class="btn btn-default" ng-click="pull()">Import saved data (replaces your current game)</button></div>
-        <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
-        <p>Last exported: {{remoteDate|momentFromNow}}</p>
+    <div ng-if="kongregate.isKongregate()">
+      <div><label class="control-label"><img src="http://cdn1.kongcdn.com/images/sharedassets/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+      <div ng-if="isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to Kongregate to save your game to Swarm Simulator's servers.</a></div>
+      <div ng-if="!isGuest()">
+        <p>Hi {{api.getUsername()}}! Save your game to Swarm Simulator's servers using your Kongregate account.</p>
+        <div><button class="btn btn-default" ng-click="push()">Export online saved data</button></div>
+        <p ng-if="!remoteSave()">Nothing exported to Swarm Simulator servers yet.</p>
+        <div ng-if="remoteSave()">
+          <div><button class="btn btn-default" ng-click="pull()">Import saved data (replaces your current game)</button></div>
+          <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
+          <p>Last exported: {{remoteSave().length|number}} chars {{remoteDate()|momentFromNow}}</p>
+        </div>
+      </div>
     </div>
   </div>
 
