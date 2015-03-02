@@ -79,20 +79,3 @@ describe 'Service: storage', ->
     expect(-> store.getItem 'key').not.toThrow()
     expect(-> store.setItem 'key', 3).not.toThrow()
     expect(-> store.removeItem 'key').not.toThrow()
-
-  it 'connects to aws', (done) -> inject (awsS3Storage) ->
-    withValidation = (fn) ->
-      return (err, data) ->
-        expect(err).toBeNull()
-        return fn data
-    thekey = 'testkey'+Math.random()
-    awsS3Storage.setItemAsync thekey, 'testval', withValidation (data) ->
-      awsS3Storage.getItemAsync thekey, withValidation (data) ->
-        expect(data.Body).toBe 'testval'
-        awsS3Storage.setItemAsync thekey, {wee:'testval2'}, withValidation (data) ->
-          awsS3Storage.getItemAsync thekey, withValidation (data) ->
-            expect(data.Body).toEqual {wee:'testval2'}
-            awsS3Storage.removeItemAsync thekey, withValidation (data) ->
-              #awsS3Storage.getItemAsync thekey, withValidation (data) ->
-              #  expect(data).toBeNull()
-              done()
