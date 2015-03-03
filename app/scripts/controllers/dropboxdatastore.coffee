@@ -113,32 +113,40 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
 angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, session, kongregate, kongregateS3Syncer) ->
   syncer = kongregateS3Syncer
   # http://www.kongregate.com/pages/general-services-api
-  api = $scope.api = kongregate.kongregate.services
   $scope.kongregate = kongregate
-  $scope.saveServerUrl = env.saveServerUrl
   if !kongregate.isKongregate()
     return
-  api.addEventListener 'login', (event) ->
-    $scope.$apply()
-  userid = api.getUserId()
-  token = api.getGameAuthToken()
+  clear = $scope.$watch 'kongregate.kongregate', (newval, oldval) ->
+    if newval?
+      clear()
+      onload()
 
-  #userid = '21627386'
-  #token = '1dd85395a2291302abdb80e5eeb2ec3a80f594ddaca92fa7606571e5af69e881'
   $scope.isGuest = ->
-    #return false
-    $scope.api.isGuest()
-
+    return !$scope.api? or $scope.api.isGuest()
+  $scope.saveServerUrl = env.saveServerUrl
   $scope.remoteSave = -> syncer.fetched?.encoded
   $scope.remoteDate = -> syncer.fetched?.date
   $scope.policy = -> syncer.policy
   $scope.isPolicyCached = -> syncer.cached
+  $scope.policyError = null
+
+  onload = ->
+    $scope.api = kongregate.kongregate.services
+    $scope.api.addEventListener 'login', (event) ->
+      $scope.$apply()
+
+    $scope.init()
 
   $scope.init = (force) ->
-    syncer.init ((data, status, xhr) ->
+    $scope.policyError = null
+    xhr = syncer.init ((data, status, xhr) ->
       $log.debug 'kong syncer inited', data, status, xhr
       $scope.fetch()
-    ), userid, token, force
+    ), $scope.api.getUserId(), $scope.api.getGameAuthToken(), force
+    #), '21627386', '1dd85395a2291302abdb80e5eeb2ec3a80f594ddaca92fa7606571e5af69e881', force
+    xhr.error (data, status, xhr) ->
+      $scope.policyError = "Failed to fetch sync permissions: #{data?.status}, #{data?.statusText}, #{data?.responseText}"
+      
   $scope.fetch = ->
     xhr = syncer.fetch (data, status, xhr) ->
       $scope.$apply()
@@ -154,5 +162,3 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   $scope.clear = ->
     syncer.clear ->
       $scope.$apply()
-
-  $scope.init()

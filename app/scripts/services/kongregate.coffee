@@ -210,14 +210,21 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env) -> new class KongregateS3Syncer
   constructor: ->
   init: (fn, userid, token, force) ->
+    # Fetch an S3 policy from our server. This allows S3 access without ever agan calling our custom server.
+    @policy = null
+    if force
+      storage.removeItem 's3Policy'
     try
       policy = storage.getItem 's3Policy'
-      @policy = JSON.parse policy
-      @cached = true
+      if policy
+        @policy = JSON.parse policy
+        @cached = true
+      else
+        $log.debug 'no cached s3 policy', @policy
     catch e
       $log.warn "couldn't load cached s3 policy", e
     $log.debug 'cached policy', @policy
-    if force or not @policy? or (expired=@policy.localDate?.expires < game.now.getTime())
+    if not @policy? or (expired=@policy.localDate?.expires < game.now.getTime())
       @cached = false
       $log.debug 'refreshing s3 policy', force, expired
       onRefresh = (data, status, xhr) =>
@@ -244,7 +251,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         expires: game.now.getTime() + data.expiresIn*1000
       fn data, status, xhr
     xhr.fail (data, status, xhr) ->
-      console.log 'refreshing s3 failed', data, status, xhr
+      $log.error 'refreshing s3 failed', data, status, xhr
 
   # sync operations named after git commands.
   # fetch: get a local copy we might import/pull, but don't actually import
@@ -256,7 +263,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       @fetched = data
       fn data, status, xhr
     xhr.fail (data, status, xhr) ->
-      $log.warn 's3 fetch failed', data, status, xhr
+      $log.info 's3 fetch failed (possibly empty)', data, status, xhr
   # pull: actually import, after fetching
   pull: (fn=(->)) ->
     if not @fetched
@@ -285,7 +292,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       processData: false,
       type: 'POST',
       error: (data, status, xhr) =>
-        $log.warn 's3 post fail', data.responseText, data, status, xhr
+        $log.error 's3 post fail', data?.responseText, data, status, xhr
       success: (data, status, xhr) =>
         $log.debug 'exported to s3', data, status, xhr
         @fetched = pushed
@@ -297,7 +304,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       type: 'DELETE'
       url: @policy.delete
       error: (data, status, xhr) =>
-        $log.warn 's3 delete failed', data.responseText, data, status, xhr
+        $log.error 's3 delete failed', data?.responseText, data, status, xhr
       success: (data, status, xhr) =>
         $log.debug 'cleared from s3', data, status, xhr
         delete @fetched
