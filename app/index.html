@@ -22,11 +22,12 @@ https://github.com/erosson/swarm
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <!-- this one gets replaced dynamically -->
-    <link id="theme" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <!-- build:css(.tmp) styles/bootstrapdefault.css -->
+    <link rel="stylesheet" href="styles/bootstrapdefault.css" />
+    <!-- endbuild -->
   </head>
   <body ng-app="swarmApp">
-    <!--[if lt IE 7]>
+    <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
@@ -203,6 +204,8 @@ https://github.com/erosson/swarm
     <script src="bower_components/decimal.js/decimal.js"></script>
     <script src="bower_components/dropbox-datastores-1.0-latest/index.js"></script>
     <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
+    <script src="bower_components/jquery-cookie/jquery.cookie.js"></script>
+    <script src="bower_components/javascript-flash-cookies/dist/swfstore.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -258,6 +261,7 @@ https://github.com/erosson/swarm
         <script src="scripts/controllers/contact.js"></script>
         <script src="scripts/controllers/errorsaving.js"></script>
         <script src="scripts/controllers/cleartheme.js"></script>
+        <script src="scripts/services/storage.js"></script>
         <!-- endbuild -->
 </body>
 </html>

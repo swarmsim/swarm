@@ -193,7 +193,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return stats
 
   statistics: ->
-    @game.session.statistics.byUpgrade[@name] ? {}
+    @game.session.statistics?.byUpgrade?[@name] ? {}
 
   _isWatchedDefault: ->
     # watch everything by default - except mutagen

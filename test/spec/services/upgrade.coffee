@@ -239,8 +239,16 @@ describe 'Service: upgrade', ->
     premutagen = game.unit 'premutagen'
     hatchery.buy 39
     expect(premutagen.count().toNumber()).toBe 0
+    eff = hatchery.effect[1]
+    # Random range, but consistent.
+    expect(eff.type.name).toBe 'addUnitRand'
+    spawned = eff.outputNext().qty.toNumber()
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
     hatchery.buy 1
-    # random range. first spawn is guaranteed.
+    # first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).toBe spawned
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
 
@@ -251,8 +259,16 @@ describe 'Service: upgrade', ->
     premutagen = game.unit 'premutagen'
     hatchery.buy 79
     expect(premutagen.count().toNumber()).toBe 0
+    eff = hatchery.effect[1]
+    # Random range, but consistent.
+    expect(eff.type.name).toBe 'addUnitRand'
+    spawned = eff.outputNext().qty.toNumber()
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
     hatchery.buy 1
     # random range. first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).toBe spawned
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
 
@@ -266,7 +282,7 @@ describe 'Service: upgrade', ->
 
     # rolls change when date.restarted changes
     game.now = new Date 1
-    game.ascend()
+    game.ascend true
     expect(game.session.date.restarted.getTime()).toBe 1
     game.unit('meat')._setCount 1e100
     game.upgrade('hatchery').buy 80
@@ -274,7 +290,7 @@ describe 'Service: upgrade', ->
     expect(precount.toNumber()).not.toBe postcount.toNumber()
 
     # but change the date back, and mutagen rolls are identical
-    game.ascend()
+    game.ascend true
     game.session.date.restarted = new Date 0
     game.unit('meat')._setCount 1e100
     game.upgrade('hatchery').buy 80
@@ -327,3 +343,7 @@ describe 'Service: upgrade', ->
     energyprod = game.unit('energy').velocity().toNumber()
     expect(energyprod).toBeGreaterThan 1.9
     expect(energyprod).toBeLessThan 2.1
+
+  it "fetches empty stats", ->
+    game = mkgame {}
+    expect(-> game.upgrade('nexus1').statistics()).not.toThrow()

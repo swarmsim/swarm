@@ -9,7 +9,7 @@
  #
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
-angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, linkPublicTest1, isKongregate) ->
+angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, linkPublicTest1, isKongregate, storage, saveId) ->
   $scope.form = {}
   $scope.isKongregate = isKongregate
 
@@ -23,7 +23,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
   try
     exportedsave = session.getStoredSaveData()
   catch e
-    $log.error "couldn't even read localstorage! oh no!"
+    $log.error "couldn't even read localstorage! oh no!", e
     game.reset true
     # show a noisy freakout message at the top of the screen with the exported save
     $scope.form.errored = true
@@ -41,7 +41,17 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     if not exportedsave
       # If this is their first visit to the site, that's normal, no problems
       $log.debug "Empty saved data; probably the user's first visit here. Resetting quietly."
-      game.reset()
+      game.reset true #but don't save, in case we're waiting for flash recovery
+      # listen for flash to load - loading it takes extra time, but we might find a save there.
+      storage.flash.onReady.then =>
+        encoded = storage.flash.getItem saveId
+        if encoded
+          $log.debug "flash loaded successfully, and found a saved game there that wasn't in cookies/localstorage! importing."
+          # recovered save from flash! tell analytics
+          $scope.$emit 'savedGameRecoveredFromFlash', e.message
+          game.importSave encoded, true # don't save when recovering from flash - if this is somehow a mistake, player can take no action
+        else
+          $log.debug 'flash loaded successfully, but no saved game found. this is truly a new visitor.'
     else
       # Couldn't load an actual real save. Shit.
       $log.warn "Failed to load non-empty saved data! Oh no!"

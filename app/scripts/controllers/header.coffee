@@ -44,7 +44,7 @@ versioncheck, analytics, statistics, achievementslistener, favico
 
 angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
   $scope.options = options
-  themeEl = $('#theme')
+  themeEl = options.constructor.THEME_EL
   $scope.$watch 'options.theme()', (theme, oldval) =>
     # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
     if theme.url != themeEl.attr 'href'
@@ -57,8 +57,10 @@ angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, opt
   $scope.$watch 'options.scrolling()', (newval, oldval) =>
     if newval != oldval
       options.isScrollingChangedSincePageLoad = true
-    kongregate.onScrollOptionChange()
-  kongregate.onScrollOptionChange true
+      if oldval == 'resize'
+        options.isScrollingChangedFromResizeSincePageLoad = true
+    kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad, oldval
+  kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad
   $scope.onRender = ->
     kongregate.onResize()
 

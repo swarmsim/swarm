@@ -89,6 +89,14 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
   progressPercent: ->
     if @hasProgress()?
       return @progressVal().dividedBy(@progressMax())
+  progressOrder: ->
+    if @isEarned()
+      return 2
+    if @isMasked()
+      return -2
+    if @hasProgress() and @progressMax() > 0
+      return @progressPercent().toNumber()
+    return -1
 
 angular.module('swarmApp').factory 'AchievementTypes', (spreadsheetUtil, util, $log) -> class AchievementTypes
   constructor: ->
