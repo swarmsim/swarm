@@ -40,7 +40,7 @@
     </span-->
     <span>{{cur.velocity().times(options.velocityUnit().mult)|longnum:2}} {{cur.unittype.plural}}</span>
     per {{options.velocityUnit().label}}.
-    <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
+    <span ng-if="cur.showparent.hasStat('prod', 1)">(&times;{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
     <span ng-if="cur.capValue()">
       At 100%, you'll stop earning {{cur.unittype.label}}.
     </span>

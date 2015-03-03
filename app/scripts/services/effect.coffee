@@ -28,7 +28,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
 
   bank: -> @type.bank? this, @game
   cap: -> @type.cap? this, @game
-  output: -> @type.output? this, @game
+  output: (level) -> @type.output? this, @game, undefined, level
+  outputNext: -> @output @parent.count().plus 1
   power: ->
     ret = @parentStat('power', 1)
     # include, for example, "power.swarmwarp"

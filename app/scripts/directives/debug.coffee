@@ -18,12 +18,30 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
  # @description
  # # debug
 ###
-angular.module('swarmApp').directive 'debug', (env, game, util) ->
+angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     template: """
     <div ng-if="env.isDebugEnabled" class="container well">
       <p class="envalert">Debug</p>
       <div class="row">
         <div class="col-md-8">
+          <div>
+            Set count: 
+            <select tabindex="1" ng-options="u as u.type.label for u in game.resourcelist()" ng-model="form.resource" ng-change="selectResource()">
+              <option value="">-- select unit --</option>
+            </selected>
+            <input tabindex="2" type="text" ng-model="form.count" ng-change="setResource()">
+            <code>{{form.count|longnum}}</code>
+            <button ng-click="game.save()">save</button>
+          </div>
+          <div>
+            export <input tabindex="3" ng-model="form.export" onclick="this.select()">
+            import <input tabindex="4" ng-model="form.import" ng-change="game.importSave(form.import);form.import=''">
+            <button tabindex="5" class="resetalert" ng-click="confirmReset()">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              Wipe all saved data and start over
+            </button>
+          </div>
+          <p>export age: {{now().getTime() - form.exportAge.getTime()}}</p>
           <div>
             Skip time:
             <button ng-click="game.skipTime(1, 'minute')">1 minute</button>
@@ -60,5 +78,29 @@ angular.module('swarmApp').directive 'debug', (env, game, util) ->
       scope.env = env
       scope.game = game
       scope.util = util
+
+      scope.form = {}
+      scope.export = ->
+        scope.form.export = scope.game.session.exportSave()
+        scope.form.exportAge = new Date()
+      scope.now = -> scope.game.now
+      scope.export()
+      scope.selectResource = ->
+        scope.form.count = scope.form.resource.count()
+      scope.setResource = ->
+        scope.game.withSave ->
+          scope.form.resource._setCount scope.form.count
+          # special case: nexus upgrades
+          if scope.form.resource.name == 'nexus'
+            for upgrade in game.upgradelist()
+              if upgrade.name.substring(0,5) == 'nexus'
+                level = parseInt upgrade.name[5]
+                if scope.form.count >= level
+                  upgrade._setCount 1
+        scope.export()
+      scope.confirmReset = ->
+        if confirm 'really?'
+          scope.game.reset true
+          $location.url '/'
       scope.mem = ->
         performance?.memory?.usedJSHeapSize

@@ -14,7 +14,9 @@
     <div><label class="control-label"><span class="glyphicon glyphicon-resize-vertical"></span> Kongregate scrolling style</label></div>
     <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="none" ng-change="options.scrolling(form.scrolling)" ng-init="form.scrolling=options.scrolling()">Browser default</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="resize" ng-change="options.scrolling(form.scrolling)">Resize automatically, no inner scrollbar</input></label>
-    <p ng-if="options.isScrollingChangedSincePageLoad && form.scrolling=='none'">The game will widen to fill your screen when you refresh the page.</p>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="lockhover" ng-change="options.scrolling(form.scrolling)"><span class="envalert">(beta)</span> Lock mousewheel scrolling</input></label>
+    <p ng-if="form.scrolling=='lockhover'">This makes mousewheel scrolling only affect Swarm Simulator's scrollbar, instead of the whole Kongregate page, while your mouse is over the game. We're still testing this option - if it's broken for you, <a href="#/contact">please report it</a>!</p>
+    <p ng-if="options.isScrollingChangedFromResizeSincePageLoad && form.scrolling!='resize'">The game will widen to fill your screen when you refresh the page.</p>
   </div>
 
   <div class="form-group">
@@ -101,6 +103,37 @@
           </li>
         </ul-->
         <div style="clear:left"></div>
+      </div>
+    </div>
+  </div>
+  <div ng-cloak ng-controller="KongregateS3Ctrl">
+    <div ng-if="env.isKongregateSyncEnabled && kongregate.isKongregate()">
+      <div><label class="control-label"><img src="http://cdn1.kongcdn.com/images/sharedassets/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+      <div ng-if="isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to Kongregate to save your game to Swarm Simulator's servers.</a></div>
+      <div ng-if="!isGuest()">
+        <p>Hi {{api.getUsername()}}! Save your game to Swarm Simulator's servers using your Kongregate account.</p>
+        <div><button class="btn btn-primary" ng-class="{disabled:cooldown.byName.push}" ng-click="push()">Export online saved data</button></div>
+        <div><button class="btn btn-default" ng-class="{disabled:cooldown.byName.fetch}" ng-click="fetch()">Check for new online saved data</button></div>
+        <p ng-if="!remoteSave()">No online saved data yet. <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How does this work?</a></p>
+        <div ng-if="remoteSave()">
+          <div><button class="btn btn-primary" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
+          <div><button class="btn btn-default" ng-class="{disabled:cooldown.byName.clear}" ng-click="clear()">Delete online saved data</button></div>
+          <p>Last exported: {{remoteSave().length|number}} chars {{remoteDate()|momentFromNow}}.
+            <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How does this work?</a>
+          </p>
+        </div>
+        <p ng-if="policyError" class="text-danger">{{policyError}}</p>
+        <div ng-if="!isBrowserSupported()">
+          <p class="text-danger">Looks like your web browser won't work with Kongregate sync: <code>FormData</code>/<code>Blob</code> support not found. <a target="_blank" href="http://browsehappy.com">You should upgrade your browser.</a></p>
+        </div>
+      </div>
+      <div class="collapse" id="kongregateS3Details">
+        <div class="well">
+          <p>A Swarm Simulator server at <b>{{saveServerUrl}}</b> verifies you're logged into Kongregate, and grants your browser permission to upload/download saved data at <b>https://swarmsim.s3.amazonaws.com</b>. If you're having trouble syncing, make sure your browser isn't blocking either of these locations.</p>
+          <p ng-if="policy()">Refreshed S3 permissions {{policy().localDate.refreshed|momentFromNow}}, during {{isPolicyCached() ? "an earlier session" : "this session"}}. Expires {{policy().localDate.expires|momentFromNow}}.</p>
+          <p ng-if="!policy()" class="text-danger">S3 permissions are missing!</p>
+          <p><button class="btn btn-default" ng-class="{disabled:cooldown.byName.init}" ng-click="init(true)">Force permission refresh now</button></p>
+        </div>
       </div>
     </div>
   </div>
