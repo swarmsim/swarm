@@ -101,6 +101,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: null
           }
         }
@@ -119,6 +121,7 @@ module.exports = function (grunt) {
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -137,7 +140,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('prod'),
             isDropboxEnabled: true,
-            saveServerUrl: 'http://swarmsim.elasticbeanstalk.com',
+            saveServerUrl: 'https://swarm-server.swarmsim.com',
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-1'
           }
         }

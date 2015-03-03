@@ -114,7 +114,8 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   syncer = kongregateS3Syncer
   # http://www.kongregate.com/pages/general-services-api
   $scope.kongregate = kongregate
-  if !kongregate.isKongregate()
+  $scope.env = env
+  if !env.isKongregateSyncEnabled or !kongregate.isKongregate()
     return
   clear = $scope.$watch 'kongregate.kongregate', (newval, oldval) ->
     if newval?
