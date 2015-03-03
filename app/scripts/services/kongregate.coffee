@@ -235,10 +235,11 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         else
           $log.warn "couldn't refresh s3 policy", data, status
         fn data, status, xhr
-      @_refreshPolicy onRefresh, userid, token
+      return @_refreshPolicy onRefresh, userid, token
     else
       $log.debug 'cached s3 policy is good; not refreshing', @policy
       fn()
+      return undefined
 
   _refreshPolicy: (fn=(->), userid, token) ->
     userid ?= kongregate.kongregate.services.getUserId()
