@@ -115,6 +115,7 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   # http://www.kongregate.com/pages/general-services-api
   api = $scope.api = kongregate.kongregate.services
   $scope.kongregate = kongregate
+  $scope.saveServerUrl = env.saveServerUrl
   if !kongregate.isKongregate()
     return
   api.addEventListener 'login', (event) ->
@@ -127,16 +128,24 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   $scope.isGuest = ->
     #return false
     $scope.api.isGuest()
-  syncer.init ((data, status, xhr) ->
-    $log.debug 'kong syncer inited', data, status, xhr
-    syncer.fetch (data, status, xhr) ->
-      $scope.$apply()
-      $log.debug 'kong syncer fetched', data, status, xhr
-  ), userid, token
 
   $scope.remoteSave = -> syncer.fetched?.encoded
   $scope.remoteDate = -> syncer.fetched?.date
+  $scope.policy = -> syncer.policy
+  $scope.isPolicyCached = -> syncer.cached
 
+  $scope.init = (force) ->
+    syncer.init ((data, status, xhr) ->
+      $log.debug 'kong syncer inited', data, status, xhr
+      $scope.fetch()
+    ), userid, token, force
+  $scope.fetch = ->
+    xhr = syncer.fetch (data, status, xhr) ->
+      $scope.$apply()
+      $log.debug 'kong syncer fetched', data, status, xhr
+    xhr.error (data, status, xhr) ->
+      $scope.$apply()
+      $log.debug 'kong syncer failed to fetch', data, status, xhr
   $scope.push = ->
     syncer.push ->
       $scope.$apply()
@@ -145,3 +154,5 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   $scope.clear = ->
     syncer.clear ->
       $scope.$apply()
+
+  $scope.init()

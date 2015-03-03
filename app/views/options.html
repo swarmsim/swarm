@@ -113,11 +113,22 @@
       <div ng-if="!isGuest()">
         <p>Hi {{api.getUsername()}}! Save your game to Swarm Simulator's servers using your Kongregate account.</p>
         <div><button class="btn btn-default" ng-click="push()">Export online saved data</button></div>
-        <p ng-if="!remoteSave()">Nothing exported to Swarm Simulator servers yet.</p>
+        <div><button class="btn btn-default" ng-click="fetch()">Check for new online saved data</button></div>
+        <p ng-if="!remoteSave()">No online saved data yet. <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How does this work?</a></p>
         <div ng-if="remoteSave()">
-          <div><button class="btn btn-default" ng-click="pull()">Import saved data (replaces your current game)</button></div>
+          <div><button class="btn btn-default" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
           <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
-          <p>Last exported: {{remoteSave().length|number}} chars {{remoteDate()|momentFromNow}}</p>
+          <p>Last exported: {{remoteSave().length|number}} chars {{remoteDate()|momentFromNow}}.
+            <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How does this work?</a>
+          </p>
+        </div>
+      </div>
+      <div class="collapse" id="kongregateS3Details">
+        <div class="well">
+          <p>A Swarm Simulator server at <b>{{saveServerUrl}}</b> verifies you're logged into Kongregate, and grants your browser permission to upload/download saved data at <b>https://swarmsim.s3.amazonaws.com</b>. If you're having trouble syncing, make sure your browser isn't blocking either of these locations.</p>
+          <p>Refreshed S3 permissions {{policy().localDate.refreshed|momentFromNow}}, during {{isPolicyCached() ? "an earlier session" : "this session"}}. Expires {{policy().localDate.expires|momentFromNow}}.
+            <a href="javascript:" ng-click="init(true)">Force permission refresh now.</a>
+          </p>
         </div>
       </div>
     </div>

@@ -209,18 +209,28 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env) -> new class KongregateS3Syncer
   constructor: ->
-  init: (fn, userid, token) ->
-    #@policy = storage.getItem 's3Policy'
-    if not @policy?
+  init: (fn, userid, token, force) ->
+    try
+      policy = storage.getItem 's3Policy'
+      @policy = JSON.parse policy
+      @cached = true
+    catch e
+      $log.warn "couldn't load cached s3 policy", e
+    $log.debug 'cached policy', @policy
+    if force or not @policy? or (expired=@policy.localDate?.expires < game.now.getTime())
+      @cached = false
+      $log.debug 'refreshing s3 policy', force, expired
       onRefresh = (data, status, xhr) =>
         if status == 'success'
           @policy = data
-          storage.setItem 's3Policy', @policy
+          $log.debug 'caching s3 policy', @policy
+          storage.setItem 's3Policy', JSON.stringify @policy
         else
           $log.warn "couldn't refresh s3 policy", data, status
         fn data, status, xhr
       @_refreshPolicy onRefresh, userid, token
     else
+      $log.debug 'cached s3 policy is good; not refreshing', @policy
       fn()
 
   _refreshPolicy: (fn=(->), userid, token) ->
@@ -229,6 +239,9 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
     args = policy: {user_id:userid, game_auth_token:token}
     xhr = $.post "#{env.saveServerUrl}/policies", args, (data, status, xhr) =>
       $log.debug 'refreshed s3 policy', data, status, xhr
+      data.localDate =
+        refreshed: game.now.getTime()
+        expires: game.now.getTime() + data.expiresIn*1000
       fn data, status, xhr
     xhr.fail (data, status, xhr) ->
       console.log 'refreshing s3 failed', data, status, xhr
