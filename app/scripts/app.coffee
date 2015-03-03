@@ -74,6 +74,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/contact',
         templateUrl: 'views/contact.html'
         controller: 'ContactCtrl'
+      .when '/cleartheme',
+        templateUrl: 'views/cleartheme.html'
+        controller: 'ClearthemeCtrl'
       .otherwise
         redirectTo: '/'
 

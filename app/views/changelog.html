@@ -1,7 +1,9 @@
 <tabs></tabs>
 <h1>Patch Notes</h1>
-<p>See the <a analytics-on analytics-category="outbound" analytics-event="click" analytics-label="source code repository" target="_blank" href="https://github.com/erosson/swarm">source code repository</a> for a more thorough, but less readable, change history.</p><hr>
-<div ng-if="env.isDebugEnabled" class="well">
+<p>See the <a analytics-on analytics-category="outbound" analytics-event="click" analytics-label="source code repository" target="_blank" href="https://github.com/erosson/swarm">source code repository</a> for a more thorough, but less readable, change history.
+{{changestats.headers.length|number}} updates released since {{changestats.firstrelease.date.format('YYYY/MM/DD')}}.</p>
+<hr>
+<div ng-if="false && env.isDebugEnabled" class="well">
   <p>The game has been running since {{changestats.firstrelease.date.format('YYYY/MM/DD')}}, for {{changestats.days|number}} days</p>
   <p>All-time: {{changestats.headers.length|number}} releases, {{changestats.headers.length/changestats.days|number:2}} releases per day</p>
   <p>Last week: {{changestats.lastHeaders(7).length|number}} releases, {{changestats.lastHeaders(7).length/7|number:2}} releases per day</p>
@@ -25,10 +27,24 @@
     </div>
     <div id="changelog10x" class="panel-collapse collapse in">
       <div class="panel-body">
-<h4>1.0.16<span>2015/02/19</span></h4>
+<h4>1.0.18<span>2015/02/21</span></h4>
+<ul>
+  <li>The patch notes page now displays how many times the game's been updated.</li>
+  <li>You can now choose from a list of color themes from <a href="http://bootswatch.com/" target="_blank">http://bootswatch.com/</a>.
+  <ul>
+    <li>If you were using the dark/inverted theme before, it's been removed. You're now using the (far less buggy) <a href="http://bootswatch.com/slate" target="_blank">slate theme</a>. You might also like <a href="http://bootswatch.com/cyborg" target="_blank">cyborg</a> or <a href="http://bootswatch.com/darkly" target="_blank">darkly</a>.</li>
+    <li>Designers: you can set a URL for your own custom theme (CSS file). <a href="#/contact">Contact me</a> if you come up with something cool, and I might add it to the game!</li>
+  </ul></li>
+</ul>
+<h4>1.0.17<span>2015/02/20</span></h4>
+<ul>
+  <li>Progress bars are now displayed correctly in Internet Explorer.</li>
+</ul>
+<h4>1.0.16<span>2015/02/20</span></h4>
 <ul>
   <li>Fixed ascension cost progress bar estimates better than in v1.0.14.</li>
   <li>Removed the link to a very old version of the game from the options menu.</li>
+  <li>You can now <a href="#/cleartheme">disable the experimental dark theme with this link</a> if it's not working properly.</li>
 </ul>
 <h4>1.0.15<span>2015/02/19</span></h4>
 <ul>

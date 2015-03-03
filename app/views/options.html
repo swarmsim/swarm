@@ -9,7 +9,7 @@
     </label>
     <p>Show more detailed numbers for each of your units.</p>
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-if="env.isDebugEnabled">
     <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Duration format</label></div>
     <label style="font-weight:normal"><input type="radio" ng-init="form.durationFormat=options.durationFormat()" ng-model="form.durationFormat" value="human" ng-change="options.durationFormat(form.durationFormat)">Human</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="full" ng-change="options.durationFormat(form.durationFormat)" ng-init="form.notation=options.notation()">Full</input></label>
@@ -52,10 +52,29 @@
     <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
   </div>
   <div class="form-group">
-    <div><label class="control-label"><span class="glyphicon glyphicon-picture" ng-init="form.theme=options.theme()"></span> Theme <span class="envalert">(beta)</span></label></div>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="none" ng-change="options.theme(form.theme)">White</input></label>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-ff" ng-change="options.theme(form.theme)">Dark (Firefox)</input></label>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.theme" value="dark-chrome" ng-change="options.theme(form.theme)">Dark (Chrome)</input></label>
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <span class="glyphicon glyphicon-picture"></span> Theme <span class="envalert">(beta)</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="themeMenu">
+        <li ng-repeat="theme in options.constructor.THEMES.list" role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="setTheme(theme.name)" href="javascript:">{{theme.label}}</a>
+        </li>
+        <li role="presentation" class="divider" style="list-style-type:none"></li>
+        <li role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="selectCustomTheme()" href="javascript:">Custom</a>
+        </li>
+      </ul>
+    </div>
+    <p ng-if="!form.isCustomTheme">Current theme: <a ng-href="{{options.theme().credit}}" target="_blank" class="titlecase">{{options.theme().label}}</a></p>
+    <div ng-if="form.isCustomTheme">
+      <p>CSS file URL: (<a href="#/cleartheme">Reset</a>)</p>
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="form.customThemeUrl">
+        <span class="input-group-btn"><button class="btn btn-default" ng-click="setCustomTheme(form.customThemeUrl)">Set theme</button></span>
+      </div>
+    </div>
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
