@@ -134,8 +134,9 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
     $scope.api = kongregate.kongregate.services
     $scope.api.addEventListener 'login', (event) ->
       $scope.$apply()
-
     $scope.init()
+
+  $scope.isBrowserSupported = -> window.FormData? and window.Blob?
 
   cooldown = $scope.cooldown =
     byName: {}

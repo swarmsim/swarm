@@ -123,6 +123,9 @@
           </p>
         </div>
         <p ng-if="policyError" class="text-danger">{{policyError}}</p>
+        <div ng-if="!isBrowserSupported()">
+          <p class="text-danger">Looks like your web browser won't work with Kongregate sync: <code>FormData</code>/<code>Blob</code> support not found. <a target="_blank" href="http://browsehappy.com">You should upgrade your browser.</a></p>
+        </div>
       </div>
       <div class="collapse" id="kongregateS3Details">
         <div class="well">
