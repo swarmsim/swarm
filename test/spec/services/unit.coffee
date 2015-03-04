@@ -360,14 +360,14 @@ describe 'Service: unit', ->
     expect(unit._producerPath.getMaxDegree()).toBe 1
     expect(JSON.stringify unit._producerPath.getCoefficients()).toEqual JSON.stringify ['0','5']
     expect(unit.isEstimateExact()).toBe true
-    expect(unit.estimateSecsUntilEarned 100).toBe 20
+    expect(unit.estimateSecsUntilEarned(100).toNumber()).toBe 20
     expect(unit._countInSecsFromReified(20).toNumber()).toBe 100
     # 4000 = 5*4 * t^2/2! ; t^2 = 4000 * 2 / 20 = 400 ; t = 20
     unit = game.unit('nest')
     expect(unit._producerPath.getMaxDegree()).toBe 2
     expect(JSON.stringify unit._producerPath.getCoefficients()).toEqual JSON.stringify ['0','0','20']
     expect(unit.isEstimateExact()).toBe true
-    expect(unit.estimateSecsUntilEarned 4000).toBe 20
+    expect(unit.estimateSecsUntilEarned(4000).toNumber()).toBe 20
     expect(unit._countInSecsFromReified(20).toNumber()).toBe 4000
     # 80000 = 5*4*3 * t^3/3!
     # estimtes stop being exact at degree 3, but let's at least do better than linear
@@ -376,21 +376,41 @@ describe 'Service: unit', ->
     expect(JSON.stringify unit._producerPath.getCoefficients()).toEqual JSON.stringify ['0','0','0','60']
     expect(unit.isEstimateExact()).toBe false
     expect(unit._countInSecsFromReified(20).toNumber()).toBe 80000
-    expect(unit.estimateSecsUntilEarned 80000).not.toBeLessThan 20
-    expect(unit.estimateSecsUntilEarned 80000).not.toBeGreaterThan 30
+    expect(unit.estimateSecsUntilEarned(80000).toNumber()).not.toBeLessThan 20
+    expect(unit.estimateSecsUntilEarned(80000).toNumber()).not.toBeGreaterThan 30
     # 10000 = 5*4*3*2 * t^4/4!
     unit = game.unit('drone')
     expect(unit._producerPath.getMaxDegree()).toBe 4
     expect(JSON.stringify unit._producerPath.getCoefficients()).toEqual JSON.stringify ['0','0','0','0','120']
     expect(unit.isEstimateExact()).toBe false
     expect(unit._countInSecsFromReified(20).toNumber()).toBe 800000
-    expect(unit.estimateSecsUntilEarned 800000).not.toBeLessThan 20
-    expect(unit.estimateSecsUntilEarned 800000).not.toBeGreaterThan 30
+    expect(unit.estimateSecsUntilEarned(800000).toNumber()).not.toBeLessThan 20
+    expect(unit.estimateSecsUntilEarned(800000).toNumber()).not.toBeGreaterThan 30
     # 10000 = 5*4*3*2*1 * t^5/5!
     unit = game.unit('meat')
     expect(unit._producerPath.getMaxDegree()).toBe 5
     expect(JSON.stringify unit._producerPath.getCoefficients()).toEqual JSON.stringify ['0','0','0','0','0','120']
     expect(unit.isEstimateExact()).toBe false
     expect(unit._countInSecsFromReified(20).toNumber()).toBe 3200000
-    expect(unit.estimateSecsUntilEarned 3200000).not.toBeLessThan 20
-    expect(unit.estimateSecsUntilEarned 3200000).not.toBeGreaterThan 30
+    expect(unit.estimateSecsUntilEarned(3200000).toNumber()).not.toBeLessThan 20
+    expect(unit.estimateSecsUntilEarned(3200000).toNumber()).not.toBeGreaterThan 30
+
+  it 'makes smooth predictions', ->
+    game = mkgame {hive:'1'}
+    unit = game.unit('nest')
+    expect(unit._producerPath.getMaxDegree()).toBe 2
+    expect(unit.isEstimateExact()).toBe true
+    expect(unit.estimateSecsUntilEarned(4000).toNumber()).toBe 20
+    expect(unit._countInSecsFromReified(20).toNumber()).toBe 4000
+    game.tick new Date(game.now.getTime() + 5000)
+    expect(unit.estimateSecsUntilEarned(4000).toNumber()).toBe 15
+    expect(unit._countInSecsFromReified(20).toNumber()).toBe 4000
+    game.tick new Date(game.now.getTime() + 5000)
+    expect(unit.estimateSecsUntilEarned(4000).toNumber()).toBe 10
+    expect(unit._countInSecsFromReified(20).toNumber()).toBe 4000
+    game.tick new Date(game.now.getTime() + 5000)
+    expect(unit.estimateSecsUntilEarned(4000).toNumber()).toBe 5
+    expect(unit._countInSecsFromReified(20).toNumber()).toBe 4000
+    game.tick new Date(game.now.getTime() + 3000)
+    expect(unit.estimateSecsUntilEarned(4000).toNumber()).toBe 2
+    expect(unit._countInSecsFromReified(20).toNumber()).toBe 4000

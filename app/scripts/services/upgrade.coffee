@@ -139,12 +139,12 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     
   _estimateSecsUntilBuyable: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
-    max = {val:new Decimal(0), unit:null}
+    max = {rawVal:new Decimal(0), unit:null}
     if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
       return 0
     for cost in @sumCost @maxCostMet().plus(1)
       secs = cost.unit.estimateSecsUntilEarned cost.val
-      if max.val.lessThan secs
+      if max.rawVal.lessThan secs
         max = {rawVal:secs, unit:cost.unit, now: @game.now.getTime()}
     return max
 

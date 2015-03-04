@@ -80,7 +80,7 @@ angular.module('swarmApp').factory 'ProducerPaths', ($log, ProducerPath) -> clas
     return ret
 
   getCoefficientsNow: ->
-    return @getCoefficients true
+    return @_getCoefficients true
   
   count: (secs) ->
     ret = new Decimal 0
@@ -201,7 +201,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
         return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
-      return @estimateSecsUntilEarned(cap).toNumber()
+      return @estimateSecsUntilEarned(cap).toNumber?() ? 0
   capDurationMoment: ->
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
@@ -209,7 +209,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   isEstimateExact: ->
     return @_producerPath.getMaxDegree() <= 2
   estimateSecsUntilEarned: (num) ->
-    remaining = new Decimal(num).minus @count()
+    count = @count()
+    remaining = new Decimal(num).minus count
     if remaining.lessThanOrEqualTo 0
       return 0
     degree = @_producerPath.getMaxDegree()
@@ -229,31 +230,79 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
           c = remaining.negated()
           a = a.dividedBy 2 # for the "/2!" in "c * t^2/2!"
           # a > 0, b >= 0, c < 0: `root` is always positive/non-imaginary, and + is the correct choice for +/- because - will always be a negative root which doesn't make sense for this problem
-          # sqrt(16000) / 2
           #$log.debug 'quadratic: ', a+'', b+'', c+''
           disc = b.times(b).minus(a.times(c).times(4)).sqrt()
           ret = Decimal.min ret, b.negated().plus(disc).dividedBy(a.times 2)
           #$log.debug 'quadratic estimate', ret+''
           # TODO there's an exact cubic formula, isn't there? implement it.
         if degree > 2
-          # hard to solve large-degree polynomials, use the estimation technique from this post: http://www.kongregate.com/forums/4545-swarm-simulator/topics/473244-time-remaining-suggestion?page=1#posts-8985615
-          for coeff, deg in coeffs[3...]
-            # remaining (r) = c * (t^d)/d!
-            # solve for t: r * d! / c = t^d
-            # solve for t: (r * d! / c) ^ (1/d) = t
-            if not coeff.isZero()
-              #loop starts iterating from 0, not 3. no need to recalculate first few degrees, we did more precise math for them earlier.
-              deg += 3
-              ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
-              #$log.debug 'single-degree estimate', deg, ret+''
+          ### Bisection method ###
+          # if we couldn't pick a starting point, pretend a second's passed and try again, possibly quitting if we finished in a second or less. This basically only happens in unit tests.
+          maxSec = if ret.isFinite() then ret else @_countInSecsFromNow(Decimal.ONE).minus count
+          if not maxSec.greaterThan(0)
+            ret = Decimal.ONE
+          else
+            ret = @estimateSecsUntilEarnedBisection remaining, maxSec
+
+          ### Estimate from minimum degree ###
+          # http://www.kongregate.com/forums/4545-swarm-simulator/topics/473244-time-remaining-suggestion?page=1#posts-8985615
+          #for coeff, deg in coeffs[3...]
+          #  # remaining (r) = c * (t^d)/d!
+          #  # solve for t: r * d! / c = t^d
+          #  # solve for t: (r * d! / c) ^ (1/d) = t
+          #  if not coeff.isZero()
+          #    #loop starts iterating from 0, not 3. no need to recalculate first few degrees, we did more precise math for them earlier.
+          #    deg += 3
+          #    ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
+          #    #$log.debug 'single-degree estimate', deg, ret+''
     #$log.debug 'done estimating', ret.toNumber()
     return ret
 
-  count: ->
-    return @game.cache.unitCount[@name] ?= @_countInSecsFromNow 0
+  estimateSecsUntilEarnedBisection: (num, maxSec) ->
+    $log.debug 'bisecting'
+    # https://en.wikipedia.org/wiki/Bisection_method#Algorithm
+    f = (sec) =>
+      num.minus @_countInSecsFromNow sec
+    isInThresh = (min, max) ->
+      # Different thresholds for different search spaces
+      # (We don't care about seconds if the result's in days)
+      thresh = new Decimal 0.2
+      #if min < 60 * 60
+      #  thresh = 1
+      #else if min < 60 * 60 * 24
+      #  thresh = 60
+      #else
+      #  thresh = 60 * 60
+      return max.minus(min).dividedBy(2).lessThan(thresh)
 
-  _countInSecsFromNow: (secs=0) ->
-    return @_countInSecsFromReified @game.diffSeconds() + secs
+    minSec = new Decimal 0
+    maxSec = maxSec
+    minVal = f minSec
+    maxVal = f maxSec
+    iteration = 0
+    while iteration < 25
+      midSec = maxSec.plus(minSec).dividedBy(2)
+      midVal = f midSec
+      #$log.debug "bisection estimate: iteration #{iteration}, midsec #{midSec}, midVal #{midVal}"
+      if midVal.isZero() or isInThresh minSec, maxSec
+        $log.debug "bisection estimate for #{@name} finished in #{iteration} iterations. original range: #{maxSec}, estimate is #{midSec} - plus game.difftime of #{@game.diffSeconds()}, that's #{midSec.plus(@game.diffSeconds())} - this shouldn't change much over multiple iterations."
+        return midSec
+      iteration += 1
+      if (midVal.isNegative()) == (minVal.isNegative())
+        minSec = midSec
+        minVal = f minSec
+      else
+        maxSec = midSec
+        maxVal = f maxSec
+    # too many iterations
+    $log.debug "bisection estimate for #{@name} took more than #{iteration} iterations; quitting. precision: #{max.minus(min).dividedBy(2)} (down from #{maxSec})"
+    return midSec
+
+  count: ->
+    return @game.cache.unitCount[@name] ?= @_countInSecsFromNow()
+
+  _countInSecsFromNow: (secs=new Decimal 0) ->
+    return @_countInSecsFromReified secs.plus(@game.diffSeconds())
   _countInSecsFromReified: (secs=0) ->
     return @capValue @_producerPath.count secs
 
