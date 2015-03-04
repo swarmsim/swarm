@@ -9,7 +9,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   onPeriodic: ->
     @_lastPeriodicClear = new Date().getTime()
     @upgradeIsUpgradable = {}
-    @upgradeEstimateSecsUntilBuyable = {}
+    @upgradeEstimateSecsUntilBuyablePeriodic = {}
 
   onUpdate: ->
     @onPeriodic()
@@ -23,6 +23,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @unitRawCount = {}
     @unitCap = {}
     @unitCapPercent = {}
+    @upgradeEstimateSecsUntilBuyableCacheSafe = {}
 
   onTick: ->
     @unitCount = {}

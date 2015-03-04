@@ -206,11 +206,17 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
 
+  @ESTIMATE_BISECTION: true
   isEstimateExact: ->
-    return @_producerPath.getMaxDegree() <= 2
+    # Bisection estimates are precise enough to not say "or less" next to, too.
+    return @_producerPath.getMaxDegree() <= 2 or @constructor.ESTIMATE_BISECTION
+  isEstimateCacheable: ->
+    # Bisection estimates are precise enough to cache. 50 iterations is quick and covers estimates up to like 10 years.
+    return @_producerPath.getMaxDegree() <= 2 or @constructor.ESTIMATE_BISECTION
   estimateSecsUntilEarned: (num) ->
     count = @count()
-    remaining = new Decimal(num).minus count
+    num = new Decimal num
+    remaining = num.minus count
     if remaining.lessThanOrEqualTo 0
       return 0
     degree = @_producerPath.getMaxDegree()
@@ -220,7 +226,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     if degree > 0
       # TODO this is exact, don't clear the cache periodically
       if not coeffs[1].isZero()
-        ret = Decimal.min ret, remaining.dividedBy coeffs[1]
+        linear = ret = Decimal.min ret, remaining.dividedBy coeffs[1]
         #$log.debug 'linear estimate', ret+''
       if degree > 1
         # quadratic formula: (-b +/- (b^2 - 4ac)^0.5) / 2a
@@ -232,33 +238,34 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
           # a > 0, b >= 0, c < 0: `root` is always positive/non-imaginary, and + is the correct choice for +/- because - will always be a negative root which doesn't make sense for this problem
           #$log.debug 'quadratic: ', a+'', b+'', c+''
           disc = b.times(b).minus(a.times(c).times(4)).sqrt()
-          ret = Decimal.min ret, b.negated().plus(disc).dividedBy(a.times 2)
+          quadratic = ret = Decimal.min ret, b.negated().plus(disc).dividedBy(a.times 2)
           #$log.debug 'quadratic estimate', ret+''
           # TODO there's an exact cubic formula, isn't there? implement it.
         if degree > 2
-          ### Bisection method ###
-          # if we couldn't pick a starting point, pretend a second's passed and try again, possibly quitting if we finished in a second or less. This basically only happens in unit tests.
-          maxSec = if ret.isFinite() then ret else @_countInSecsFromNow(Decimal.ONE).minus count
-          if not maxSec.greaterThan(0)
-            ret = Decimal.ONE
+          if @constructor.ESTIMATE_BISECTION
+            # Bisection method - slower/more complex, but more precise
+            # if we couldn't pick a starting point, pretend a second's passed and try again, possibly quitting if we finished in a second or less. This basically only happens in unit tests.
+            maxSec = linear ? remaining.dividedBy @_countInSecsFromNow(Decimal.ONE).minus(count)
+            if not maxSec.greaterThan(0)
+              ret = Decimal.ONE
+            else
+              ret = @estimateSecsUntilEarnedBisection num, maxSec
           else
-            ret = @estimateSecsUntilEarnedBisection remaining, maxSec
-
-          ### Estimate from minimum degree ###
-          # http://www.kongregate.com/forums/4545-swarm-simulator/topics/473244-time-remaining-suggestion?page=1#posts-8985615
-          #for coeff, deg in coeffs[3...]
-          #  # remaining (r) = c * (t^d)/d!
-          #  # solve for t: r * d! / c = t^d
-          #  # solve for t: (r * d! / c) ^ (1/d) = t
-          #  if not coeff.isZero()
-          #    #loop starts iterating from 0, not 3. no need to recalculate first few degrees, we did more precise math for them earlier.
-          #    deg += 3
-          #    ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
-          #    #$log.debug 'single-degree estimate', deg, ret+''
+            # Estimate from minimum degree - faster/simpler, but less precise
+            # http://www.kongregate.com/forums/4545-swarm-simulator/topics/473244-time-remaining-suggestion?page=1#posts-8985615
+            for coeff, deg in coeffs[3...]
+              # remaining (r) = c * (t^d)/d!
+              # solve for t: r * d! / c = t^d
+              # solve for t: (r * d! / c) ^ (1/d) = t
+              if not coeff.isZero()
+                #loop starts iterating from 0, not 3. no need to recalculate first few degrees, we did more precise math for them earlier.
+                deg += 3
+                ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
+                #$log.debug 'single-degree estimate', deg, ret+''
     #$log.debug 'done estimating', ret.toNumber()
     return ret
 
-  estimateSecsUntilEarnedBisection: (num, maxSec) ->
+  estimateSecsUntilEarnedBisection: (num, origMaxSec) ->
     $log.debug 'bisecting'
     # https://en.wikipedia.org/wiki/Bisection_method#Algorithm
     f = (sec) =>
@@ -276,26 +283,31 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       return max.minus(min).dividedBy(2).lessThan(thresh)
 
     minSec = new Decimal 0
-    maxSec = maxSec
+    maxSec = origMaxSec
     minVal = f minSec
     maxVal = f maxSec
     iteration = 0
-    while iteration < 25
+    starttime = new Date().getTime()
+    done = false
+    while iteration < 50 and not done
+      iteration += 1
       midSec = maxSec.plus(minSec).dividedBy(2)
       midVal = f midSec
       #$log.debug "bisection estimate: iteration #{iteration}, midsec #{midSec}, midVal #{midVal}"
       if midVal.isZero() or isInThresh minSec, maxSec
-        $log.debug "bisection estimate for #{@name} finished in #{iteration} iterations. original range: #{maxSec}, estimate is #{midSec} - plus game.difftime of #{@game.diffSeconds()}, that's #{midSec.plus(@game.diffSeconds())} - this shouldn't change much over multiple iterations."
-        return midSec
-      iteration += 1
-      if (midVal.isNegative()) == (minVal.isNegative())
+        done = true
+      else if (midVal.isNegative()) == (minVal.isNegative())
         minSec = midSec
         minVal = f minSec
       else
         maxSec = midSec
         maxVal = f maxSec
     # too many iterations
-    $log.debug "bisection estimate for #{@name} took more than #{iteration} iterations; quitting. precision: #{max.minus(min).dividedBy(2)} (down from #{maxSec})"
+    timediff = new Date().getTime() - starttime
+    if not done
+      $log.debug "bisection estimate for #{@name} took more than #{iteration} iterations; quitting. precision: #{max.minus(min).dividedBy(2)} (down from #{maxSec}). time: #{timediff}"
+    else
+      $log.debug "bisection estimate for #{@name} finished in #{iteration} iterations. original range: #{origMaxSec}, estimate is #{midSec} - plus game.difftime of #{@game.diffSeconds()}, that's #{midSec.plus(@game.diffSeconds())} - this shouldn't change much over multiple iterations. time: #{timediff}"
     return midSec
 
   count: ->
