@@ -27,11 +27,11 @@ angular.module('swarmApp').filter 'duration', (options) ->
             else 'y [yr] M [mth] d [day] hh:mm:ss'
         when 'abbreviated'
           template = switch
-            when duration.asYears() > 1 then 'y [years] M [months]'
-            when duration.asMonths() > 1 then 'M [months] d [days]'
-            when duration.asDays() > 1 then 'd [days] h [hours]'
-            when duration.asHours() > 1 then 'hh:mm'
-            else {template:'00:mm:ss', trim:false}
+            when duration.asYears() >= 1 then 'y [years] M [months]'
+            when duration.asMonths() >= 1 then 'M [months] d [days]'
+            when duration.asDays() >= 1 then 'd [days] h [hours]'
+            when duration.asMinutes() >= 1 then 'h:mm:ss'
+            else {template:'00:ss', trim:false}
 
     return duration.format(template, precision) + nonexact
 # could just pass the template from the view, but this is testable

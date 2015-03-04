@@ -283,13 +283,15 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       return max.minus(min).dividedBy(2).lessThan(thresh)
 
     minSec = new Decimal 0
-    maxSec = origMaxSec
+    # No estimates longer than two years, because seriously, why?
+    maxSec = Decimal.min origMaxSec, 86400 * 365 * 2
     minVal = f minSec
     maxVal = f maxSec
     iteration = 0
     starttime = new Date().getTime()
     done = false
-    while iteration < 50 and not done
+    # 40 iterations gives 0.1-second precision for any estimate that starts below 3000 years. Should be plenty.
+    while iteration < 40 and not done
       iteration += 1
       midSec = maxSec.plus(minSec).dividedBy(2)
       midVal = f midSec

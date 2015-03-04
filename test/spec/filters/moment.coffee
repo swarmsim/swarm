@@ -47,6 +47,7 @@ describe 'Filter: moment', ->
     expect(duration 123, 'hours').toBe '5 days 3 hours'
     expect(duration 123, 'days').toBe '4 months 1 days'
     expect(duration 1234, 'days').toBe '3 years 4 months'
+    expect(duration 33, 'seconds').toBe '00:33'
 
   it 'should format human style durations', ->
     options.durationFormat('human')
