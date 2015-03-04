@@ -20,7 +20,7 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
 ###
 angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     template: """
-    <div ng-if="env.isDebugEnabled" class="container well">
+    <div ng-cloak ng-if="env.isDebugEnabled" class="container well">
       <p class="envalert">Debug</p>
       <div class="row">
         <div class="col-md-8">

@@ -115,10 +115,13 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
             return max - 1
       return max
 
+  isMaxAffordable: ->
+    return @type.maxlevel? and @maxCostMet().greaterThanOrEqualTo(@type.maxlevel)
+
   costMetPercent: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = new Decimal Infinity
-    if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
+    if @isMaxAffordable()
       return Decimal.ONE
     for cost in @sumCost @maxCostMet().plus(1)
       count = cost.unit.count().minus costOfMet[cost.unit.name].val
@@ -127,8 +130,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return Decimal.min 1, Decimal.max 0, max
 
   estimateSecsUntilBuyable: (noRecurse) ->
+    if @isMaxAffordable()
+      return {val:new Decimal Infinity}
     # tricky caching - take the estimated when it was cached, then subtract time that's passed since then.
-    # TODO non-periodic caching for exact estimates
     cached = @game.cache.upgradeEstimateSecsUntilBuyableCacheSafe[@name]
     if not cached?
       cached = @game.cache.upgradeEstimateSecsUntilBuyablePeriodic[@name] ?= @_estimateSecsUntilBuyable()
