@@ -42,13 +42,13 @@ angular.module('swarmApp').factory 'ProducerPaths', ($log, ProducerPath) -> clas
         parent:parent
         child:child
         prod:prodlink
-    @byDegree = _.indexBy @list, (path) ->
+    @byDegree = _.groupBy @list, (path) ->
       path.degree()
 
-  getDegreeCoefficient: (degree) ->
+  getDegreeCoefficient: (degree, now=false) ->
     ret = new Decimal 0
     for path in @byDegree[degree] ? []
-      ret = ret.plus path.coefficient()
+      ret = ret.plus if now then path.coefficientNow() else path.coefficient()
     return ret
 
   # Highest polynomial degree of this unit's production chain where the ancestor has nonzero count.
@@ -432,7 +432,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
 
   # speed at which other units are producing this unit.
   velocity: ->
-    return @game.cache.velocity[@name] ?= Decimal.min UNIT_LIMIT, @_producerPath.getCoefficients()[1] ? 0
+    return @game.cache.velocity[@name] ?= Decimal.min UNIT_LIMIT, @_producerPath.getDegreeCoefficient(1, true)
 
   isVelocityConstant: ->
     return @_producerPath.getMaxCoefficient() <= 1
