@@ -52,15 +52,35 @@ angular.module('swarmApp').factory 'ProducerPaths', ($log, ProducerPath) -> clas
   # Highest polynomial degree of this unit's production chain where the ancestor has nonzero count.
   # Or, how many parents it has. Examples of degree:
   #
+  # [drone] is degree 0 (constant, rawcount() with no time factor)
   # [drone > meat] is degree 1
   # [queen > drone > meat] is degree 2
   # [nest > queen > drone > meat] is degree 3
   # [nest > queen > drone] is degree 2
   getMaxDegree: ->
-    max = 0
-    for pathdata in @list
-      max = Math.max max, pathdata.degreeOrZero()
-    return max
+    return @getCoefficients().length - 1
+
+  getCoefficients: ->
+    # array indexes are polynomial degrees, values are coefficients
+    # [1, 3, 5, 7] = 7t^3 + 5t^2 + 3t + 1
+    return @unit.game.cache.producerPathCoefficients[@unit.name] ?= do =>
+      ret = [@unit.rawCount()]
+      for pathdata in @list
+        degree = pathdata.degree()
+        coefficient = pathdata.coefficient()
+        if not coefficient.isZero()
+          ret[degree] = (ret[degree] ? new Decimal 0).plus coefficient
+      for coeff, degree in ret
+        if not coeff?
+          ret[degree] = new Decimal 0
+      return ret
+  
+  count: (secs) ->
+    ret = new Decimal 0
+    for coeff, degree in @getCoefficients()
+      # c * (t^d)/d!
+      ret = ret.plus coeff.times(Decimal.pow(secs, degree)).dividedBy(math.factorial degree)
+    return ret
 
 angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, UNIT_LIMIT) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
@@ -207,10 +227,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   _countInSecsFromNow: (secs=0) ->
     return @_countInSecsFromReified @game.diffSeconds() + secs
   _countInSecsFromReified: (secs=0) ->
-    count = @rawCount()
-    for pathdata in @_producerPath.list
-      count = count.plus pathdata.count(secs)
-    return @capValue count
+    return @capValue @_producerPath.count secs
 
   # All units that cost this unit.
   spentResources: ->

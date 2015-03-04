@@ -18,6 +18,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @eachProduction = {}
     @upgradeTotalCost = {}
     @producerPathProdEach = {}
+    @producerPathCoefficients = {}
     @unitRawCount = {}
     @unitCap = {}
     @unitCapPercent = {}
