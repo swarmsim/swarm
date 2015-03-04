@@ -64,6 +64,7 @@ angular.module('swarmApp').factory 'EffectTypes', -> class EffectTypes
 angular.module('swarmApp').factory 'romanize', ->
   # romanize() from http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
   # MIT licensed, according to a comment from the author - safe to copy here
+  # coffeelint: disable=no_backticks
   `
   var romanize = function(num) {
     if (!+num)
@@ -79,6 +80,7 @@ angular.module('swarmApp').factory 'romanize', ->
     return Array(+digits.join("") + 1).join("M") + roman;
   }
   `
+  # coffeelint: enable=no_backticks
   return romanize
 
 angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util, seedrand, $log, romanize) ->

@@ -154,12 +154,12 @@ module.exports = function (grunt) {
     },
     buildSwf: {
       dev: {
-        swfPath: "./.tmp/storage.swf",
-        asPath: "./jsflash/dev/Storage.as"
+        swfPath: './.tmp/storage.swf',
+        asPath: './jsflash/dev/Storage.as'
       },
       prod: {
-        swfPath: "./dist/storage.swf",
-        asPath: "./jsflash/prod/Storage.as"
+        swfPath: './dist/storage.swf',
+        asPath: './jsflash/prod/Storage.as'
       }
     },
 
@@ -233,7 +233,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: process.env.PORT,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: '0.0.0.0',
         //livereload: 55728  // ngrok won't bind remote ports below 50000
@@ -289,6 +289,19 @@ module.exports = function (grunt) {
           'Gruntfile.js'
         ]
       }
+    },
+    coffeelint: {
+    
+      options: {
+        //configFile: 'coffeelint.json'
+        'no_unnecessary_fat_arrows': {
+          'level': 'ignore' 
+        },
+        'max_line_length': {
+            'level': 'ignore',
+        },
+      },
+      app: ['<%= yeoman.app %>/**/*.coffee']
     },
 
     // Empties folders to start fresh
@@ -631,11 +644,11 @@ module.exports = function (grunt) {
         configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       },
-      unit_ci: {
+      unitCi: {
         configFile: 'test/karma-unit.conf.coffee',
         singleRun: true
       },
-      integration_ci: {
+      integrationCi: {
         configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       }
@@ -676,15 +689,16 @@ module.exports = function (grunt) {
     });
   });
   grunt.registerMultiTask('buildSwf', 'build swf for flash storage', function () {
-    var taskDone = this.async();
+   /* var taskDone = this.async();
     grunt.util.spawn({
-      cmd: "./jsflash/flex/bin/mxmlc",
-      args: [this.data.asPath, "-output", this.data.swfPath],
+      cmd: './jsflash/flex/bin/mxmlc',
+      args: [this.data.asPath, '-output', this.data.swfPath],
       opts: {stdio:'inherit'}
     }, function spawnDone(error, result, code) {
       grunt.log.ok(error, result, code);
       taskDone(error);
     });
+    */
   });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
@@ -747,8 +761,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma:unit_ci',
-    'karma:integration_ci'
+    'karma:unitCi',
+    'karma:integrationCi'
   ]);
 
   grunt.registerTask('build', [

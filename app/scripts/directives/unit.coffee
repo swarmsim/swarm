@@ -24,14 +24,14 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
         nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
         secs = moment.duration(estimate.val, 'seconds')
         if options.showAccurateTiming()
-           secs = secs.format("Y [yr] M [mth] d [day] h [hr] m [min] s [sec]")
-           nonlinear = ''
-           #secs = secs.format("[seconds:] s -- [minutes:] m -- [hours:] h -- [days:] d", { trim: "right" });
+          secs = secs.format("Y [yr] M [mth] d [day] h [hr] m [min] s [sec]")
+          nonlinear = ''
+          #secs = secs.format("[seconds:] s -- [minutes:] m -- [hours:] h -- [days:] d", { trim: "right" });
         else
-           secs = secs.humanize()
-           if /\ years$/.test secs
-             secs = 'a long time'
-             nonlinear = ''
+          secs = secs.humanize()
+          if /\ years$/.test secs
+            secs = 'a long time'
+            nonlinear = ''
         return ", #{nonlinear}#{secs}"
       return ""
 
@@ -55,7 +55,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       return ret
     scope.initBuyN = =>
       # I know you're not supposed to reference dom from angular controllers; I'd rather use ng-model too.
-      # Angular's (quite reasonably) casting input with type="number" to a JS number, but I need a string 
+      # Angular's (quite reasonably) casting input with type="number" to a JS number, but I need a string
       # for decimal.js and can't turn that off. I want type="number" on the input (instead of, say,
       # type="text" with extra validation) for the number-spinner on desktop and number-keyboard on mobile.
       inputElement = element.find 'input[name="buyN"]'

@@ -146,10 +146,10 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
   counts: -> @countUnits()
   countUnits: ->
-    _.mapValues @units(), (unit, name) =>
+    _.mapValues @units(), (unit, name) ->
       unit.count()
   countUpgrades: ->
-    _.mapValues @upgrades(), (upgrade, name) =>
+    _.mapValues @upgrades(), (upgrade, name) ->
       upgrade.count()
   getNewlyUpgradableUnits: ->
     (u for u in @unitlist() when u.isNewlyUpgradable() and u.isVisible())
