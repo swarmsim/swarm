@@ -1,5 +1,9 @@
 'use strict'
 
+angular.module('swarmApp').factory 'saveId', (env, isKongregate) ->
+  suffix = if isKongregate() then '-kongregate' else ''
+  return "#{env.saveId}#{suffix}"
+
 ###*
  # @ngdoc service
  # @name swarmApp.session
@@ -7,7 +11,7 @@
  # # session
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, env) ->
+angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, version, env, saveId, isKongregate) ->
   # TODO separate file, outside of source control?
   # Client-side encryption is inherently insecure anyway, probably not worth it.
   # All we can do is prevent the most casual of savestate hacking.
@@ -20,13 +24,13 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
 
   return new class Session
     constructor: ->
-      @id = env.saveId
-      @heartbeatId = "#{@id}:heartbeat"
+      @_clear()
       $log.debug 'save id', @id
       util.assert @id, 'no save id defined'
       @reset()
 
     reset: ->
+      @_clear()
       @unittypes = {}
       now = new Date()
       @date =
@@ -40,10 +44,24 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       @upgrades = {}
       @statistics = {}
       @achievements = {}
+      @watched = {}
       @skippedMillis = 0
       @version =
         started: version
+        saved: version
+      if isKongregate()
+        @kongregate = true
+      else
+        delete @kongregate
+      $log.debug 'reset', @kongregate
       $rootScope.$emit 'reset', {session:this}
+
+    _clear: ->
+      for key, val of this
+        if this.hasOwnProperty key
+          delete this[key]
+      @id = saveId
+      @heartbeatId = "#{@id}:heartbeat"
 
     _replacer: (key, val) ->
       #if _.isDate val
@@ -65,6 +83,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       if setdates
         data.date.saved = new Date()
         delete data.date.loaded
+        data.version?.saved = version
       ret = @jsonSaves data
       ret = LZString.compressToBase64 ret
       #ret = LZString.compressToUTF16 ret
@@ -136,7 +155,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # prevent saves imported from publictest. easy to hack around, but good enough to deter non-cheaters.
       if saveversion
         @_validateFormatVersion atob saveversion
-      ret.id = env.saveId
+      ret.id = saveId
       # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
       for obj in [ret.unittypes, ret.upgrades]
         for key, val of obj
@@ -153,6 +172,7 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
 
     importSave: (encoded) ->
       data = @_loads encoded
+      @_clear()
       _.extend this, data
       @_exportCache = encoded
     
@@ -166,35 +186,27 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # TODO: refactor so it's in another object and we don't have to do this exclusion silliness
       delete @_exportCache
       @_exportCache = @_saves()
-      localStorage.setItem this.id, this._exportCache
-      $rootScope.$emit 'save', this
+      try
+        storage.setItem this.id, this._exportCache
+        success = true
+      catch e
+        $log.error 'failed to save game', e
+        $rootScope.$broadcast 'save:failed', {error:e, session:this}
+      if success
+        $rootScope.$broadcast 'save', this
+
+    _setItem: (key, val) ->
+      storage.setItem key, val
 
     getStoredSaveData: (id=@id) ->
-      localStorage.getItem id
+      storage.getItem id
 
     load: (id) ->
       @importSave @getStoredSaveData id
 
-    feedbackUrl: (error='') ->
-      if error
-        # copying how we did errors in older copypasted code. could probably improve this and use the same fn for save, but don't want to mess with it right now.
-        error += '|'
-        save = @getStoredSaveData()
-      else
-        save = @exportSave()
-      baseurl = "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437="
-      param = "#{version}|#{window?.navigator?.userAgent}|#{error}#{save}"
-      url = "#{baseurl}#{encodeURIComponent param}"
-      # starts throwing bad requests for length around this point. Send whatever we can.
-      LIMIT = 1950
-      if url.length > LIMIT
-        url = url.substring(0,LIMIT) + encodeURIComponent "...TRUNCATED..."
-      return url
-
     onClose: ->
-      # onclose() in browsers is flaky. Need to rely on periodic heartbeats too.
-      @date.closed = new Date()
-      @save()
+      # Don't save the whole session - this avoids overwriting everything if the save failed to load.
+      @onHeartbeat()
 
     onHeartbeat: ->
       if env.isOffline
@@ -202,11 +214,15 @@ angular.module('swarmApp').factory 'session', ($rootScope, $log, util, version, 
       # periodically save the current date, in case onClose() doesn't fire.
       # give it its own localstorage slot, so it saves quicker (it's more frequent than other saves)
       # and generally doesn't screw with the rest of the session. It won't be exported; that's fine.
-      localStorage.setItem @heartbeatId, new Date()
+      try
+        @_setItem @heartbeatId, new Date()
+      catch e
+        # No noisy error handling, heartbeats aren't critical.
+        $log.warn "couldn't write heartbeat"
 
     _getHeartbeatDate: ->
       try
-        if (heartbeat = localStorage.getItem @heartbeatId)
+        if (heartbeat = storage.getItem @heartbeatId)
           return new Date heartbeat
       catch e
         $log.debug "Couldn't load heartbeat time to determine game-closed time. No biggie, continuing.", e

@@ -71,6 +71,12 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/iframe/:call',
         templateUrl: 'views/iframe.html'
         controller: 'IframeCtrl'
+      .when '/contact',
+        templateUrl: 'views/contact.html'
+        controller: 'ContactCtrl'
+      .when '/cleartheme',
+        templateUrl: 'views/cleartheme.html'
+        controller: 'ClearthemeCtrl'
       .otherwise
         redirectTo: '/'
 
@@ -100,6 +106,26 @@ angular.module('swarmApp').run (env, $location, $log) ->
   if $location.protocol() == 'http' and not allowinsecure
     window.location.protocol = 'https'
     $log.debug "window.location.protocol = 'https:'"
+
+# swarmsim.github.io is the place to play swarmsim standalone, for legacy
+# reasons. It'll eventually move to swarmsim.com, but that migration's a long
+# process that's not done (or started) yet.
+#
+# Kongregate uses swarmsim.com - it was implemented later and has no legacy
+# savestates to worry about.
+#
+# I don't want people playing in two standalone locations, juggling savestates.
+# There's "Kongregate" and there's "standalone"; no more urls. So, redirect
+# standalone visitors from swarmsim.com to swarmsim.github.io until the
+# migration's done. One exception: ?noredirect=1, for debugging/power-users.
+#
+# Github automatically redirects the .github.io address behind swarmsim.com to
+# swarmsim.com itself.
+#
+# Github automatically redirects the naked-domain to www.
+angular.module('swarmApp').run ($location, isKongregate) ->
+  if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com') and not ($location.search().noredirect or isKongregate())
+    window.location.host = 'swarmsim.github.io'
 
 angular.module('swarmApp').run ($rootScope) ->
   $rootScope.floor = (val) -> Math.floor val

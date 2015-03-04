@@ -7,21 +7,14 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, achievePublicTest1
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
+achievePublicTest1, kongregateScrolling, pageTheme
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
   $scope.env = env
   $scope.version = version
   $scope.session = session
-
-  themes = {'dark-ff':true,'dark-chrome':true}
-  if theme = $location.search().theme
-    if themes[theme]
-      $log.debug 'themeing', theme
-      $('html').addClass "theme-#{theme}"
-    else
-      $log.warn 'invalid theme, ignoring', theme
 
   do enforce = ->
     timecheck.enforceNetTime().then(
@@ -45,18 +38,40 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $scope.$emit 'konami'
     $log.debug 'konami'
 
-  $scope.feedbackUrl = ->
-    session.feedbackUrl()
-
   achievePublicTest1 $scope
+  kongregateScrolling $scope
+  pageTheme $scope
 
-angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game) -> return ($scope) ->
+angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
+  $scope.options = options
+  themeEl = options.constructor.THEME_EL
+  $scope.$watch 'options.theme()', (theme, oldval) =>
+    # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
+    if theme.url != themeEl.attr 'href'
+      themeEl.attr 'href', theme.url
+
+angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
+  $scope.options = options
+  if !kongregate.isKongregate()
+    return
+  $scope.$watch 'options.scrolling()', (newval, oldval) =>
+    if newval != oldval
+      options.isScrollingChangedSincePageLoad = true
+      if oldval == 'resize'
+        options.isScrollingChangedFromResizeSincePageLoad = true
+    kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad, oldval
+  kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad
+  $scope.onRender = ->
+    kongregate.onResize()
+
+angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement
   framed = window.top and window != window.top
   alreadyEarned = game.achievement('publictest1').isEarned()
   isPublicTest = _.contains version, '-publictest'
   # accidentally pushed this to publictest with isPublicTest broken - seemed to work, though! `framed` stopped any loops.
-  $scope.loadIframe = (not framed) and (not alreadyEarned) #and (not isPublicTest)
+  # kongregate doesn't like iframes, and newer kongregate players won't qualify anyway
+  $scope.loadIframe = (not framed) and (not alreadyEarned) and (not isKongregate()) #and (not isPublicTest)
   $log.debug 'achievePublicTest1: creating iframe:', $scope.loadIframe, framed:framed, alreadyEarned:alreadyEarned, isPublicTest:isPublicTest
   if $scope.loadIframe
     # setup a message-handler; cleanup either when the message arrives, or after 30 seconds
@@ -74,3 +89,4 @@ angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $locati
       finally
         cleanup()
     timeout = $timeout cleanup, 30000
+

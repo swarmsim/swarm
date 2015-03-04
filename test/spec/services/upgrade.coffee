@@ -27,7 +27,7 @@ describe 'Service: upgrade', ->
     Game = _Game_
     unittypes = _unittypes_
   mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified,started:reified,restarted:reified}, save:->}
     game.now = new Date 0
     return game
 
@@ -143,34 +143,29 @@ describe 'Service: upgrade', ->
   it 'notices newly available upgrades', ->
     game = mkgame {territory:9}
     upgrade = game.upgrade 'expansion'
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
-    upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
+    upgrade.watch false
+    expect(upgrade.isNewlyUpgradable()).toBe false
+    upgrade.watch true
     expect(upgrade.isNewlyUpgradable()).toBe false
     # we now have money for an upgrade
     game.unit('territory')._addCount 1
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe true
-    # upon seeing the upgrade with viewNewUpgrades(), remove the indicator
-    upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 1
+    # upon disabling isWatched, remove the indicator
+    upgrade.watch false
     expect(upgrade.isNewlyUpgradable()).toBe false
+    upgrade.watch true
+    expect(upgrade.isNewlyUpgradable()).toBe true
     # stays removed when upgrade bought
     upgrade.buy()
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe false
-    # we now have money for another upgrade, which disappears when viewNewUpgradesed
+    # we now have money for another upgrade, which disappears when watch disabled
     game.unit('territory')._addCount 50
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 0
     expect(upgrade.isNewlyUpgradable()).toBe true
-    upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 1
+    upgrade.watch false
     expect(upgrade.isNewlyUpgradable()).toBe false
     # money for a third upgrade does not make the indicator reappear, since we didn't buy upgrade #2
     game.unit('territory')._addCount 150
-    upgrade.viewNewUpgrades()
-    expect(upgrade._lastUpgradeSeen.toNumber()).toEqual 2
     expect(upgrade.isNewlyUpgradable()).toBe false
 
   xit 'doesnt notice invisible upgrades, even if we can afford them. https://github.com/erosson/swarm/issues/94', ->
@@ -244,8 +239,16 @@ describe 'Service: upgrade', ->
     premutagen = game.unit 'premutagen'
     hatchery.buy 39
     expect(premutagen.count().toNumber()).toBe 0
+    eff = hatchery.effect[1]
+    # Random range, but consistent.
+    expect(eff.type.name).toBe 'addUnitRand'
+    spawned = eff.outputNext().qty.toNumber()
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
     hatchery.buy 1
-    # random range. first spawn is guaranteed.
+    # first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).toBe spawned
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
 
@@ -256,10 +259,42 @@ describe 'Service: upgrade', ->
     premutagen = game.unit 'premutagen'
     hatchery.buy 79
     expect(premutagen.count().toNumber()).toBe 0
+    eff = hatchery.effect[1]
+    # Random range, but consistent.
+    expect(eff.type.name).toBe 'addUnitRand'
+    spawned = eff.outputNext().qty.toNumber()
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
+    expect(eff.outputNext().qty.toNumber()).toBe spawned
     hatchery.buy 1
     # random range. first spawn is guaranteed.
+    expect(premutagen.count().toNumber()).toBe spawned
     expect(premutagen.count().toNumber()).not.toBeGreaterThan 10000
     expect(premutagen.count().toNumber()).not.toBeLessThan 7000
+
+  it 'rolls different mutagen values after ascending; mutagen spawns depend on date', ->
+    game = mkgame {invisiblehatchery:1, meat:1e100}
+    expect(game.session.date.restarted.getTime()).toBe 0
+    premutagen = game.unit 'premutagen'
+    game.upgrade('hatchery').buy 80
+    precount = premutagen.count()
+    expect(precount.isZero()).toBe false #sanity check
+
+    # rolls change when date.restarted changes
+    game.now = new Date 1
+    game.ascend true
+    expect(game.session.date.restarted.getTime()).toBe 1
+    game.unit('meat')._setCount 1e100
+    game.upgrade('hatchery').buy 80
+    postcount = premutagen.count()
+    expect(precount.toNumber()).not.toBe postcount.toNumber()
+
+    # but change the date back, and mutagen rolls are identical
+    game.ascend true
+    game.session.date.restarted = new Date 0
+    game.unit('meat')._setCount 1e100
+    game.upgrade('hatchery').buy 80
+    expect(precount.toNumber()).toBe premutagen.count().toNumber()
 
   it 'swarmwarps without changing energy', ->
     game = mkgame {energy:50000, nexus:999, invisiblehatchery:1, drone:1, meat:0}
@@ -292,15 +327,23 @@ describe 'Service: upgrade', ->
     expect(upgrade.count().toNumber()).toBe 3
     expect(upgrade.maxCostMet().toNumber()).toBe 2
 
-  it "knows autobuyable upgrades", ->
+  it "knows autobuyable upgrades depend on watched status", ->
     game = mkgame {}
     expect(game.upgrade('droneprod').isAutobuyable()).toBe true
-    expect(game.upgrade('dronetwin').isAutobuyable()).toBe false
+    expect(game.upgrade('dronetwin').isAutobuyable()).toBe true
     expect(game.upgrade('swarmlingtwin').isAutobuyable()).toBe true
     expect(game.upgrade('mutatemeat').isAutobuyable()).toBe false
+    game.upgrade('dronetwin').watch false
+    expect(game.upgrade('dronetwin').isAutobuyable()).toBe false
+    game.upgrade('dronetwin').watch true
+    expect(game.upgrade('dronetwin').isAutobuyable()).toBe true
 
   it "calculates asymptotic stats multiplicatively, not additively. #264", ->
     game = mkgame {nexus:5, moth:1e1000, mutantnexus:1e1000}
     energyprod = game.unit('energy').velocity().toNumber()
     expect(energyprod).toBeGreaterThan 1.9
     expect(energyprod).toBeLessThan 2.1
+
+  it "fetches empty stats", ->
+    game = mkgame {}
+    expect(-> game.upgrade('nexus1').statistics()).not.toThrow()

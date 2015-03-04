@@ -61,7 +61,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 20 expansions",
+        "description": "Create $REQUIRED expansions",
         "label": "vast expanse",
         "longdesc": "",
         "name": "expansion2",
@@ -76,7 +76,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 50 expansions",
+        "description": "Create $REQUIRED expansions",
         "label": "infestation",
         "longdesc": "",
         "name": "expansion3",
@@ -91,7 +91,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 100 expansions",
+        "description": "Create $REQUIRED expansions",
         "label": "creepy",
         "longdesc": "",
         "name": "expansion4",
@@ -106,7 +106,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 20
       },
       {
-        "description": "Create 200 expansions",
+        "description": "Create $REQUIRED expansions",
         "label": "no vacancy",
         "longdesc": "",
         "name": "expansion5",
@@ -121,7 +121,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 50
       },
       {
-        "description": "Create 500 expansions",
+        "description": "Create $REQUIRED expansions",
         "label": "diminishing returns",
         "longdesc": "",
         "name": "expansion6",
@@ -151,7 +151,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 201 drones",
+        "description": "Hatch $REQUIRED drones",
         "label": "supply limit exceeded",
         "longdesc": "Drones hatched by queens don't count.",
         "name": "drone2",
@@ -166,7 +166,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 10,000 drones",
+        "description": "Hatch $REQUIRED drones",
         "label": "\"exponential\" growth",
         "longdesc": "Drones hatched by queens don't count.",
         "name": "drone3",
@@ -196,7 +196,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 1,000 queens",
+        "description": "Hatch $REQUIRED queens",
         "label": "the chessboard is too small",
         "longdesc": "Queens hatched by nests don't count.",
         "name": "queen2",
@@ -211,7 +211,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 1 million queens",
+        "description": "Hatch $REQUIRED queens",
         "label": "not enough larvae",
         "longdesc": "Queens hatched by nests don't count.",
         "name": "queen3",
@@ -241,7 +241,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 10,000 nests",
+        "description": "Create $REQUIRED nests",
         "label": "to hatch them is my real test",
         "longdesc": "",
         "name": "nest2",
@@ -256,7 +256,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 100 million nests",
+        "description": "Create $REQUIRED  nests",
         "label": "final nesting place",
         "longdesc": "",
         "name": "nest3",
@@ -286,7 +286,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Hatch 100 thousand greater queens",
+        "description": "Hatch $REQUIRED greater queens",
         "label": "catherine",
         "longdesc": "",
         "name": "greaterqueen2",
@@ -301,7 +301,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 10 billion greater queens",
+        "description": "Hatch $REQUIRED greater queens",
         "label": "greater and greater",
         "longdesc": "",
         "name": "greaterqueen3",
@@ -331,7 +331,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Build 1 million hives",
+        "description": "Build $REQUIRED hives",
         "label": "breaking out",
         "longdesc": "",
         "name": "hive2",
@@ -346,7 +346,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Build 1 trillion hives",
+        "description": "Build $REQUIRED hives",
         "label": "hive mind",
         "longdesc": "",
         "name": "hive3",
@@ -376,7 +376,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Hatch 10 million hive queens",
+        "description": "Hatch $REQUIRED hive queens",
         "label": "or just too many queens",
         "longdesc": "",
         "name": "hivequeen2",
@@ -391,7 +391,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 100 trillion hive queens",
+        "description": "Hatch $REQUIRED hive queens",
         "label": "no more queens, honest",
         "longdesc": "",
         "name": "hivequeen3",
@@ -421,7 +421,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Grow 100 million hive empresses",
+        "description": "Grow $REQUIRED hive empresses",
         "label": "wu zetian",
         "longdesc": "",
         "name": "empress2",
@@ -436,7 +436,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Grow 10 quadrillion hive empresses",
+        "description": "Grow $REQUIRED hive empresses",
         "label": "matriarchy",
         "longdesc": "",
         "name": "empress3",
@@ -466,7 +466,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Grow 1 billion neuroprophets",
+        "description": "Grow $REQUIRED neuroprophets",
         "label": "2. ?",
         "longdesc": "",
         "name": "prophet2",
@@ -481,7 +481,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Grow 1 quintillion neuroprophets",
+        "description": "Grow $REQUIRED neuroprophets",
         "label": "3. prophet",
         "longdesc": "",
         "name": "prophet3",
@@ -511,7 +511,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 10 billion hive neurons",
+        "description": "Create $REQUIRED hive neurons",
         "label": "new neurons",
         "longdesc": "",
         "name": "goddess2",
@@ -526,7 +526,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 100 quintillion hive neurons",
+        "description": "Create $REQUIRED hive neurons",
         "label": "neuronerd",
         "longdesc": "",
         "name": "goddess3",
@@ -556,7 +556,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 100 billion neural clusters",
+        "description": "Create $REQUIRED neural clusters",
         "label": "ganglion",
         "longdesc": "",
         "name": "pantheon2",
@@ -571,7 +571,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 10 sextillion neural clusters",
+        "description": "Create $REQUIRED neural clusters",
         "label": "cluster-something",
         "longdesc": "",
         "name": "pantheon3",
@@ -601,7 +601,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 1 trillion hive networks",
+        "description": "Create $REQUIRED hive networks",
         "label": "backpropagation",
         "longdesc": "",
         "name": "pantheon22",
@@ -616,7 +616,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 1 septillion hive networks",
+        "description": "Create $REQUIRED hive networks",
         "label": "nydus",
         "longdesc": "",
         "name": "pantheon23",
@@ -646,7 +646,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 10 trillion lesser hive minds",
+        "description": "Create $REQUIRED lesser hive minds",
         "label": "lesser is morer",
         "longdesc": "",
         "name": "pantheon32",
@@ -661,7 +661,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 100 septillion lesser hive minds",
+        "description": "Create $REQUIRED lesser hive minds",
         "label": "lord have mercy",
         "longdesc": "",
         "name": "pantheon33",
@@ -691,7 +691,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 100 trillion hive minds",
+        "description": "Create $REQUIRED hive minds",
         "label": "groupthink",
         "longdesc": "",
         "name": "pantheon42",
@@ -706,7 +706,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 10 octillion hive minds",
+        "description": "Create $REQUIRED hive minds",
         "label": "swarm intelligence",
         "longdesc": "",
         "name": "pantheon43",
@@ -736,7 +736,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 1 quadrillion arch-minds",
+        "description": "Create $REQUIRED arch-minds",
         "label": "archery",
         "longdesc": "",
         "name": "pantheon52",
@@ -751,7 +751,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 1 nonillion arch-minds",
+        "description": "Create $REQUIRED arch-minds",
         "label": "cerebration time",
         "longdesc": "",
         "name": "pantheon53",
@@ -781,7 +781,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create 10 quadrillion overminds",
+        "description": "Create $REQUIRED overminds",
         "label": "how ya like my groove?",
         "longdesc": "",
         "name": "overmind2",
@@ -796,7 +796,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create 100 nonillion overminds",
+        "description": "Create $REQUIRED overminds",
         "label": "well done!",
         "longdesc": "",
         "name": "overmind3",
@@ -826,7 +826,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 40
       },
       {
-        "description": "Ascend 5 times",
+        "description": "Ascend $REQUIRED times",
         "label": "interplanetary infestation",
         "longdesc": "",
         "name": "ascension2",
@@ -841,7 +841,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Ascend 20 times",
+        "description": "Ascend $REQUIRED times",
         "label": "prestigious",
         "longdesc": "",
         "name": "ascension3",
@@ -871,7 +871,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Unlock three mutations",
+        "description": "Unlock $REQUIRED mutations",
         "label": "intelligent design",
         "longdesc": "",
         "name": "mutation2",
@@ -886,7 +886,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Unlock six mutations",
+        "description": "Unlock $REQUIRED mutations",
         "label": "unnatural selection",
         "longdesc": "",
         "name": "mutation3",
@@ -901,8 +901,8 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Unlock ten mutations",
-        "label": "abathur",
+        "description": "Unlock $REQUIRED mutations",
+        "label": "a bath, ur",
         "longdesc": "",
         "name": "mutation4",
         "points": 40,
@@ -916,7 +916,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 6 swarmlings",
+        "description": "Hatch $REQUIRED swarmlings",
         "label": "rush",
         "longdesc": "",
         "name": "swarmling1",
@@ -931,7 +931,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 1 million swarmlings",
+        "description": "Hatch $REQUIRED swarmlings",
         "label": "metabolic boost",
         "longdesc": "",
         "name": "swarmling2",
@@ -946,7 +946,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 1 quadrillion swarmlings",
+        "description": "Hatch $REQUIRED swarmlings",
         "label": "adrenal glands",
         "longdesc": "",
         "name": "swarmling3",
@@ -961,7 +961,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 100 stingers",
+        "description": "Hatch $REQUIRED stingers",
         "label": "beekeeper",
         "longdesc": "",
         "name": "stinger1",
@@ -976,7 +976,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 1 million stingers",
+        "description": "Hatch $REQUIRED stingers",
         "label": "to bee or not to bee",
         "longdesc": "",
         "name": "stinger2",
@@ -991,7 +991,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 1 quadrillion stingers",
+        "description": "Hatch $REQUIRED stingers",
         "label": "waxing poetic",
         "longdesc": "",
         "name": "stinger3",
@@ -1006,7 +1006,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Hatch 100 arachnomorphs",
+        "description": "Hatch $REQUIRED arachnomorphs",
         "label": "with great power",
         "longdesc": "",
         "name": "spider1",
@@ -1021,7 +1021,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million arachnomorphs",
+        "description": "Hatch $REQUIRED arachnomorphs",
         "label": "the amazing spider",
         "longdesc": "",
         "name": "spider2",
@@ -1036,7 +1036,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion arachnomorphs",
+        "description": "Hatch $REQUIRED arachnomorphs",
         "label": "how do i shot web",
         "longdesc": "",
         "name": "spider3",
@@ -1051,7 +1051,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 culicimorphs",
+        "description": "Hatch $REQUIRED culicimorphs",
         "label": "sparkly",
         "longdesc": "",
         "name": "mosquito1",
@@ -1066,7 +1066,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million culicimorphs",
+        "description": "Hatch $REQUIRED culicimorphs",
         "label": "west nile",
         "longdesc": "",
         "name": "mosquito2",
@@ -1081,7 +1081,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion culicimorphs",
+        "description": "Hatch $REQUIRED culicimorphs",
         "label": "this achievement sucks",
         "longdesc": "",
         "name": "mosquito3",
@@ -1096,7 +1096,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 locusts",
+        "description": "Hatch $REQUIRED locusts",
         "label": "shadow over egypt",
         "longdesc": "",
         "name": "locust1",
@@ -1111,7 +1111,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million locusts",
+        "description": "Hatch $REQUIRED locusts",
         "label": "stalemate",
         "longdesc": "",
         "name": "locust2",
@@ -1126,7 +1126,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion locusts",
+        "description": "Hatch $REQUIRED locusts",
         "label": "trypophobia",
         "longdesc": "",
         "name": "locust3",
@@ -1141,7 +1141,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 roaches",
+        "description": "Hatch $REQUIRED roaches",
         "label": "roach coach",
         "longdesc": "",
         "name": "roach1",
@@ -1156,7 +1156,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million roaches",
+        "description": "Hatch $REQUIRED roaches",
         "label": "roach clips",
         "longdesc": "",
         "name": "roach2",
@@ -1171,7 +1171,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion roaches",
+        "description": "Hatch $REQUIRED roaches",
         "label": "papa",
         "longdesc": "",
         "name": "roach3",
@@ -1186,7 +1186,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 giant arachnomorphs",
+        "description": "Hatch $REQUIRED giant arachnomorphs",
         "label": "with greater power",
         "longdesc": "",
         "name": "giantspider1",
@@ -1201,7 +1201,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million giant arachnomorphs",
+        "description": "Hatch $REQUIRED giant arachnomorphs",
         "label": "whatever a spider can",
         "longdesc": "",
         "name": "giantspider2",
@@ -1216,7 +1216,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion giant arachnomorphs",
+        "description": "Hatch $REQUIRED giant arachnomorphs",
         "label": "and I'm just sitting here",
         "longdesc": "",
         "name": "giantspider3",
@@ -1231,7 +1231,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 chilopodomorphs",
+        "description": "Hatch $REQUIRED chilopodomorphs",
         "label": "centipede",
         "longdesc": "",
         "name": "centipede1",
@@ -1246,7 +1246,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million chilopodomorphs",
+        "description": "Hatch $REQUIRED chilopodomorphs",
         "label": "millipede",
         "longdesc": "",
         "name": "centipede2",
@@ -1261,7 +1261,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion chilopodomorphs",
+        "description": "Hatch $REQUIRED chilopodomorphs",
         "label": "missile command",
         "longdesc": "",
         "name": "centipede3",
@@ -1276,7 +1276,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 wasps",
+        "description": "Hatch $REQUIRED wasps",
         "label": "aldrin",
         "longdesc": "",
         "name": "wasp1",
@@ -1291,7 +1291,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million wasps",
+        "description": "Hatch $REQUIRED wasps",
         "label": "lightyear",
         "longdesc": "",
         "name": "wasp2",
@@ -1306,7 +1306,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion wasps",
+        "description": "Hatch $REQUIRED wasps",
         "label": "kill",
         "longdesc": "",
         "name": "wasp3",
@@ -1321,7 +1321,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 devourers",
+        "description": "Hatch $REQUIRED devourers",
         "label": "these things fly, right?",
         "longdesc": "",
         "name": "devourer1",
@@ -1336,7 +1336,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million devourers",
+        "description": "Hatch $REQUIRED devourers",
         "label": "or do they burrow?",
         "longdesc": "",
         "name": "devourer2",
@@ -1351,7 +1351,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion devourers",
+        "description": "Hatch $REQUIRED devourers",
         "label": "sometimes they drain energy",
         "longdesc": "",
         "name": "devourer3",
@@ -1366,7 +1366,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Hatch 100 goons",
+        "description": "Hatch $REQUIRED goons",
         "label": "new year's",
         "longdesc": "",
         "name": "goon1",
@@ -1381,7 +1381,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 million goons",
+        "description": "Hatch $REQUIRED goons",
         "label": "adam and",
         "longdesc": "",
         "name": "goon2",
@@ -1396,7 +1396,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Hatch 1 quadrillion goons",
+        "description": "Hatch $REQUIRED goons",
         "label": "all hallows'",
         "longdesc": "",
         "name": "goon3",
@@ -1411,7 +1411,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
-        "description": "Build 1 nexus",
+        "description": "Build $REQUIRED nexus",
         "label": "phenomenal cosmic power",
         "longdesc": "",
         "name": "nexus1",
@@ -1518,9 +1518,9 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Help test Swarm Simulator v1.0.",
         "label": "public test v1.0",
-        "longdesc": "Thank you!",
+        "longdesc": "Thank you for your help!",
         "name": "publictest1",
-        "points": 10,
+        "points": 0,
         "requires.event": "achieve-publictest1",
         "requires.unittype": "",
         "requires.upgradetype": "",

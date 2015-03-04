@@ -83,8 +83,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
     ret = @now.getTime() - @session.date.reified.getTime()
-    util.assert ret >= 0, 'negative _realdiffmillis! went back in time somehow!'
-    return ret
+    return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
 
@@ -174,6 +173,9 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   unignoredUpgrades: ->
     (u for u in @upgradelist() when u.isVisible() and not u.isIgnored())
 
+  resourcelist: ->
+    return @unitlist().concat @upgradelist()
+
   achievement: (name) ->
     if not _.isString name
       name = name.name
@@ -229,6 +231,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @cache.onUpdate()
     return ret
 
+  withUnreifiedSave: (fn) ->
+    ret = fn()
+    @session.save()
+    return ret
+
   reset: (butDontSave=false) ->
     @session.reset()
     @_init()
@@ -254,15 +261,17 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCostCapDiff: (cost=@ascendCost()) ->
     return cost.minus @unit('energy').capValue()
   ascendCostPercent: (cost=@ascendCost()) ->
-    Math.min 1, @unit('energy').count().dividedBy cost
+    Decimal.min 1, @unit('energy').count().dividedBy cost
   ascendCostDurationSecs: (cost = @ascendCost()) ->
     energy = @unit 'energy'
-    if cost <= energy.capValue()
-      return energy.estimateSecs cost
+    if cost.lessThan energy.capValue()
+      return energy.estimateSecsUntilEarned cost
   ascendCostDurationMoment: (cost) ->
     if (secs=@ascendCostDurationSecs cost)?
       return moment.duration secs, 'seconds'
-  ascend: ->
+  ascend: (free=false) ->
+    if !free and @ascendCostPercent() < 1
+      throw new Error "We require more resources (ascension cost)"
     @withSave =>
       # hardcode ascension bonuses. TODO: spreadsheetify
       premutagen = @unit 'premutagen'
@@ -271,11 +280,15 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       mutagen._addCount premutagen.count()
       premutagen._setCount 0
       ascension._addCount 1
+      @session.date.restarted = @now
       # grant a free respec every 3 ascensions
       if ascension.count().modulo(3).isZero()
         @unit('freeRespec')._addCount 1
       # do not use @reset(): we don't want achievements, etc. reset
       @_init()
+      # show tutorial message for first ascension. must go after @_init, or cache is cleared
+      if ascension.count().equals(1)
+        @cache.firstSpawn.ascension = true
       for unit in @unitlist()
         if unit.tab?.name != 'mutagen'
           unit._setCount unit.unittype.init or 0

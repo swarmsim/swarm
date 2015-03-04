@@ -21,6 +21,18 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var dropboxAppKey = function(configuredKey) {
+    var KEYS = {
+      shoelaceDev:'6hagxaf8041upxz',
+      dev:'q5b8awxy8r3qjus', //account dropbox@swarmsim.com
+      prod:'n2mff9wz6bv0f91' //account dropbox@swarmsim.com
+    };
+    // `--dropboxAppKey=x` can always override this file's configuration
+    var key = grunt.option('dropboxAppKey') || configuredKey;
+    // key can either be a named key configured above (`--dropboxAppKey=dev`) or the key itself (`--dropboxAppKey=q5b8awxy8r3qjus`)
+    return KEYS[key] || key;
+  };
+
   // Define the configuration for all the tasks
   grunt.initConfig({
     // https://www.npmjs.org/package/grunt-gh-pages
@@ -30,9 +42,16 @@ module.exports = function (grunt) {
         base: 'dist'
       },
       src: ['**'],
-      staging: {
+      default_: {
         // default options
         options: {},
+        src: ['**']
+      },
+      staging: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-staging/swarmsim-staging.github.io.git'
+        },
         src: ['**']
       },
       publictest: {
@@ -42,7 +61,14 @@ module.exports = function (grunt) {
         },
         src: ['**']
       },
-      prod: {
+      prodDotcom: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-dotcom/swarmsim-dotcom.github.io.git'
+        },
+        src: ['**']
+      },
+      prodGithubio: {
         options: {
           branch: 'master',
           repo: 'git@github.com:swarmsim/swarmsim.github.io.git'
@@ -73,6 +99,10 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: '0',
             isOffline: false,
+            dropboxAppKey: dropboxAppKey('dev'),
+            isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: null
           }
         }
@@ -88,6 +118,10 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
+            dropboxAppKey: dropboxAppKey('dev'),
+            isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -104,6 +138,10 @@ module.exports = function (grunt) {
             spreadsheetKey: 'v0.2',
             saveId: 'v0.2',
             isOffline: false,
+            dropboxAppKey: dropboxAppKey('prod'),
+            isDropboxEnabled: true,
+            saveServerUrl: 'https://swarm-server.swarmsim.com',
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -114,17 +152,29 @@ module.exports = function (grunt) {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
       'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
     },
+    buildSwf: {
+      dev: {
+        swfPath: "./.tmp/storage.swf",
+        asPath: "./jsflash/dev/Storage.as"
+      },
+      prod: {
+        swfPath: "./dist/storage.swf",
+        asPath: "./jsflash/prod/Storage.as"
+      }
+    },
 
+    // added based on https://github.com/yeoman/generator-angular/pull/277/files
     ngtemplates: {
       dist: {
-        cwd: 'app',
-        // ** not working for some reason
-        src: ['views/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
-        dest: '.tmp/scripts/app.templates.js',
         options: {
           module: 'swarmApp',
-          htmlmin: '<%= htmlmin.dist.options %>'
-        }
+          htmlmin: '<%= htmlmin.dist.options %>',
+          usemin: '<%= yeoman.dist %>/scripts/scripts.js'
+        },
+        cwd: '<%= yeoman.app %>',
+        // '**' not grabbing subdirs for some reason, do it manually
+        src: ['views/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
+        dest: '.tmp/scripts/templateCache.js'
       },
       // no templates for dev, so they reload properly when changed
       dev: {
@@ -149,7 +199,8 @@ module.exports = function (grunt) {
       },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
+        //tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
+        tasks: ['newer:coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
@@ -393,11 +444,16 @@ module.exports = function (grunt) {
     },
 
     // Performs rewrites based on filerev and the useminPrepare configuration
+    // js/pattern changes based on https://github.com/yeoman/generator-angular/pull/277/files
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
+        patterns: {
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+        }
       }
     },
 
@@ -497,12 +553,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            'archive/**/*',
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
             '*.svg',
-            'views/{,*/}*.html',
+            'views/{,*/}*.html',//'views/desc/unit/{,*/}*.html','views/desc/upgrade/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -514,7 +569,14 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
+          src: [
+            'archive/**/*',
+            'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
+            'bower_components/bootswatch/fonts/*',
+            'bower_components/bootswatch/*/bootstrap.min.css',
+            'bower_components/bootswatch/*/bootstrap.min.css',
+            'bower_components/bootswatch/*/thumbnail.png'
+          ],
           dest: '<%= yeoman.dist %>'
         }]
       },
@@ -613,12 +675,32 @@ module.exports = function (grunt) {
       }
     });
   });
+  grunt.registerMultiTask('buildSwf', 'build swf for flash storage', function () {
+    var taskDone = this.async();
+    grunt.util.spawn({
+      cmd: "./jsflash/flex/bin/mxmlc",
+      args: [this.data.asPath, "-output", this.data.swfPath],
+      opts: {stdio:'inherit'}
+    }, function spawnDone(error, result, code) {
+      grunt.log.ok(error, result, code);
+      taskDone(error);
+    });
+  });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
     var text = JSON.stringify(data, undefined, 2);
     grunt.file.write('.tmp/version.json', text);
     grunt.file.write('dist/version.json', text);
+  });
+  grunt.registerTask('buildCname', 'build swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'www.swarmsim.com');
+  });
+  grunt.registerTask('stagingCname', 'build staging.swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'staging.swarmsim.com');
+  });
+  grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
+    grunt.file.delete('dist/CNAME');
   });
   grunt.registerTask('ss', 'Preload spreadsheet data and save to .tmp', function () {
     grunt.task.run(['preloadSpreadsheet']);
@@ -631,7 +713,7 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'preloadSpreadsheet',
+        'preloadSpreadsheet', 'buildSwf:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'wiredep',
         'concurrent:server',
@@ -643,7 +725,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'preloadSpreadsheet',
+      'preloadSpreadsheet', 'buildSwf:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
       'wiredep',
       'concurrent:server',
@@ -674,10 +756,11 @@ module.exports = function (grunt) {
     // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
     'clean:spreadsheetpreload',
     'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
-    'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
+    'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
+    'ngtemplates:dist',
     'autoprefixer',
     'concat',
     'ngmin',
@@ -688,7 +771,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'preloadSpreadsheet'
+    'preloadSpreadsheet', 'buildSwf:prod'
   ]);
 
   grunt.registerTask('default', [
@@ -699,19 +782,28 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy-staging', [
     'build',
-    'gh-pages:staging'
+    'stagingCname','gh-pages:staging','cleanCname'
   ]);
   grunt.registerTask('deploy-publictest', [
     'build',
-    'gh-pages:publictest'
+    'cleanCname','gh-pages:publictest'
   ]);
   grunt.registerTask('phonegap-staging', [
     'build',
     'copy:phonegap',
-    'gh-pages:staging'
+    'stagingCname','gh-pages:staging','cleanCname'
+  ]);
+  grunt.registerTask('deploy-prod-dotcom', [
+    'build',
+    'buildCname','gh-pages:prodDotcom','cleanCname'
+  ]);
+  grunt.registerTask('deploy-prod-githubio', [
+    'build',
+    'cleanCname','gh-pages:prodGithubio',
   ]);
   grunt.registerTask('deploy-prod', [
     'build',
-    'gh-pages:prod'
+    'cleanCname','gh-pages:prodGithubio',
+    'buildCname','gh-pages:prodDotcom','cleanCname'
   ]);
 };

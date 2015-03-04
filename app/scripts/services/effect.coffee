@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
     # parent can be a unit or an upgrade
     if @parent.unittype? then @parent else @parent.unit
   parentUpgrade: ->
-    if parent.unittype? then null else @parent
+    if @parent.unittype? then null else @parent
   hasParentStat: (statname, _default) ->
     @parentUnit().hasStat statname, _default
   parentStat: (statname, _default) ->
@@ -28,7 +28,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
 
   bank: -> @type.bank? this, @game
   cap: -> @type.cap? this, @game
-  output: -> @type.output? this, @game
+  output: (level) -> @type.output? this, @game, undefined, level
+  outputNext: -> @output @parent.count().plus 1
   power: ->
     ret = @parentStat('power', 1)
     # include, for example, "power.swarmwarp"
@@ -121,11 +122,14 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         qtyfactor = effect.val
         baseqty = stat_each.times Decimal.pow qtyfactor, level
         # consistent random seed. No savestate scumming.
-        seed = "[#{effect.parent.name}, #{level}]"
+        game.session.date.restarted ?= game.session.date.started
+        seed = "[#{game.session.date.restarted.getTime()}, #{effect.parent.name}, #{level}]"
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
+        # guarantee a spawn every 8 levels too, so people don't get long streaks of bad rolls
+        # TODO: remove the 8-levels guaranteed spawns, inspect previous spawns to look for failing streaks and increase odds based on that.
         roll = rng()
-        isspawned = level.equals(minlevel) or new Decimal(roll+'').lessThan(prob)
+        isspawned = level.equals(minlevel) or level.modulo(8).equals(0) or new Decimal(roll+'').lessThan(prob)
         #$log.debug 'roll to spawn: ', level, roll, prob, isspawned
         roll2 = rng()
         modqty = minqty + (roll2 * (maxqty - minqty))
