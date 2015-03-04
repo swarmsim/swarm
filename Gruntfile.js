@@ -101,6 +101,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: null
           }
         }
@@ -118,6 +120,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -136,6 +140,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('prod'),
             isDropboxEnabled: true,
+            saveServerUrl: 'https://swarm-server.swarmsim.com',
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -547,7 +553,6 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            'archive/**/*',
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
@@ -565,6 +570,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.',
           src: [
+            'archive/**/*',
             'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
             'bower_components/bootswatch/fonts/*',
             'bower_components/bootswatch/*/bootstrap.min.css',

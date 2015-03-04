@@ -352,7 +352,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
       return stats
 
   statistics: ->
-    @game.session.statistics.byUnit[@name] ? {}
+    @game.session.statistics?.byUnit?[@name] ? {}
 
   # TODO centralize url handling
   url: ->

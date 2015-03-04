@@ -4,7 +4,7 @@
     <title>Swarm Simulator</title>
     
     <!-- Load the Kongregate Javascript API -->
-    <script type="text/javascript" src="http://www.kongregate.com/javascripts/kongregate_api.js"></script>
+    <script type="text/javascript" src="//www.kongregate.com/javascripts/kongregate_api.js"></script>
     
     <!-- Give the shell no border/scroll bars and match the Kongregate background color.
          If your game needs scrollbars, you might need to modify these styles -->
@@ -29,18 +29,23 @@
         var params = "kongregate_user_id=" + kongregate.services.getUserId() + 
                    "&kongregate_game_auth_token=" + kongregate.services.getGameAuthToken() +
                    "&random=" + (Math.random() * 1000000000);
+        setIFrame(params);
+      }
+
+      function setIFrame(params) {
         //kongregateAPI.embedFrame("index.html?kongregate=1&" + params, 'contentdiv');
         document.getElementById('iframedesu').src = ("index.html?kongregate=1&" + params);
       }
       
       // Begin the process of loading the Kongregate API:
       kongregateAPI.loadAPI(onLoadCompleted);
+      // If it can't load for some reason, the game should still work
     </script>
     
     <!-- The div that the game will be placed into. Make sure to set the width and height properly -->
     <!--div id="contentdiv" style="top:0px; left:0px; width:800px; height:600px; borders:none;"-->
       <!-- You can manually put your game iframe in here instead of calling embedFrame above if you wish -->
     <!--/div-->
-    <iframe id="iframedesu" src="" style="border: none; margin:0; padding:0;width:100%;height:100%;min-height:600px"></iframe>
+    <iframe id="iframedesu" src="index.html?kongregate=1" style="border: none; margin:0; padding:0;width:100%;height:100%;min-height:600px"></iframe>
   </body>
 </html>
