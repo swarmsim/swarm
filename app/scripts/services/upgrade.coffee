@@ -130,21 +130,21 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # tricky caching - take the estimated when it was cached, then subtract time that's passed since then.
     # TODO non-periodic caching for exact estimates
     cached = @game.cache.upgradeEstimateSecsUntilBuyable[@name] ?= @_estimateSecsUntilBuyable()
-    ret = _.extend {val:cached.rawVal + (cached.now - @game.now.getTime())/1000}, cached
+    ret = _.extend {val:cached.rawVal.plus (cached.now - @game.now.getTime())/1000}, cached
     # we can now afford the cached upgrade! clear cache, pick another one.
-    if ret.val <= 0 and not noRecurse
+    if ret.val.lessThanOrEqualTo(0) and not noRecurse
       delete @game.cache.upgradeEstimateSecsUntilBuyable[@name]
       ret = @estimateSecsUntilBuyable true
     return ret
     
   _estimateSecsUntilBuyable: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
-    max = {val:0, unit:null}
+    max = {val:new Decimal(0), unit:null}
     if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
       return 0
     for cost in @sumCost @maxCostMet().plus(1)
       secs = cost.unit.estimateSecsUntilEarned cost.val
-      if max.val < secs
+      if max.val.lessThan secs
         max = {rawVal:secs, unit:cost.unit, now: @game.now.getTime()}
     return max
 

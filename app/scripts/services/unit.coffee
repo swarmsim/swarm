@@ -201,7 +201,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
         return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
-      return @estimateSecsUntilEarned cap
+      return @estimateSecsUntilEarned(cap).toNumber()
   capDurationMoment: ->
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
@@ -209,7 +209,6 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   isEstimateExact: ->
     return @_producerPath.getMaxDegree() <= 2
   estimateSecsUntilEarned: (num) ->
-    # result is *not* a bigdecimal!
     remaining = new Decimal(num).minus @count()
     if remaining.lessThanOrEqualTo 0
       return 0
@@ -248,7 +247,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
               ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
               #$log.debug 'single-degree estimate', deg, ret+''
     #$log.debug 'done estimating', ret.toNumber()
-    return ret.toNumber()
+    return ret
 
   count: ->
     return @game.cache.unitCount[@name] ?= @_countInSecsFromNow 0

@@ -269,7 +269,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCostDurationSecs: (cost = @ascendCost()) ->
     energy = @unit 'energy'
     if cost.lessThan energy.capValue()
-      return energy.estimateSecsUntilEarned cost
+      return energy.estimateSecsUntilEarned(cost).toNumber()
   ascendCostDurationMoment: (cost) ->
     if (secs=@ascendCostDurationSecs cost)?
       return moment.duration secs, 'seconds'
