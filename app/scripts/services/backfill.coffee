@@ -36,6 +36,14 @@ angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
       if not respec.isCountInitialized()
         respec._setCount respec.unittype.init
 
+    # restore lost ascension count. https://github.com/erosson/swarm/issues/431
+    do ->
+      ascension = game.unit('ascension')
+      stats = ascension.statistics()
+      if new Decimal(stats?.num ? 0).greaterThan(ascension.count()) and ascension.count().isZero()
+        $log.info 'backfill lost ascension tally', ascension.count()+'', stats.num
+        ascension._setCount stats.num
+
     $log.debug 'backfill success'
 
 angular.module('swarmApp').factory 'backfill', (Backfill) -> new Backfill()

@@ -125,3 +125,7 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
 
   $rootScope.$on 'loadGameFromStorageFailed', (event, message) ->
     logThrottledError 'loadGameFromStorageFailed', message
+
+  #$rootScope.$on 'savedGameRecoveredFromFlash', (event, args) ->
+  #  $analytics.eventTrack 'savedGameRecoveredFromFlash',
+  #    category:'import'

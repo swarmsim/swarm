@@ -101,6 +101,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: null
           }
         }
@@ -118,6 +120,8 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('dev'),
             isDropboxEnabled: true,
+            saveServerUrl: grunt.option('saveServerUrl'),
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -135,7 +139,9 @@ module.exports = function (grunt) {
             saveId: 'v0.2',
             isOffline: false,
             dropboxAppKey: dropboxAppKey('prod'),
-            isDropboxEnabled: false,
+            isDropboxEnabled: true,
+            saveServerUrl: 'https://swarm-server.swarmsim.com',
+            isKongregateSyncEnabled: true,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -145,6 +151,16 @@ module.exports = function (grunt) {
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
       'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
+    },
+    buildSwf: {
+      dev: {
+        swfPath: "./.tmp/storage.swf",
+        asPath: "./jsflash/dev/Storage.as"
+      },
+      prod: {
+        swfPath: "./dist/storage.swf",
+        asPath: "./jsflash/prod/Storage.as"
+      }
     },
 
     // added based on https://github.com/yeoman/generator-angular/pull/277/files
@@ -537,7 +553,6 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            'archive/**/*',
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
@@ -554,7 +569,14 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
+          src: [
+            'archive/**/*',
+            'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
+            'bower_components/bootswatch/fonts/*',
+            'bower_components/bootswatch/*/bootstrap.min.css',
+            'bower_components/bootswatch/*/bootstrap.min.css',
+            'bower_components/bootswatch/*/thumbnail.png'
+          ],
           dest: '<%= yeoman.dist %>'
         }]
       },
@@ -653,6 +675,17 @@ module.exports = function (grunt) {
       }
     });
   });
+  grunt.registerMultiTask('buildSwf', 'build swf for flash storage', function () {
+    var taskDone = this.async();
+    grunt.util.spawn({
+      cmd: "./jsflash/flex/bin/mxmlc",
+      args: [this.data.asPath, "-output", this.data.swfPath],
+      opts: {stdio:'inherit'}
+    }, function spawnDone(error, result, code) {
+      grunt.log.ok(error, result, code);
+      taskDone(error);
+    });
+  });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
@@ -680,7 +713,7 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'preloadSpreadsheet',
+        'preloadSpreadsheet', 'buildSwf:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'wiredep',
         'concurrent:server',
@@ -692,7 +725,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'preloadSpreadsheet',
+      'preloadSpreadsheet', 'buildSwf:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
       'wiredep',
       'concurrent:server',
@@ -738,7 +771,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'preloadSpreadsheet'
+    'preloadSpreadsheet', 'buildSwf:prod'
   ]);
 
   grunt.registerTask('default', [

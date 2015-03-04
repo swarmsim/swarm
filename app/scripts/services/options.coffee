@@ -7,7 +7,7 @@
  # # options
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
+angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
   constructor: (@session) ->
     @VELOCITY_UNITS = byName:{}, list:[]
     addvunit = (name, label, plural, mult) =>
@@ -49,7 +49,7 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
       valid = {'human':true, 'full':true, 'abbreviated':true }
       util.assert valid[val], 'invalid options.durationFormat value', val
       @maybeSet 'durationFormat', val
-    @get 'durationFormat', 'human'
+    @get 'durationFormat', 'abbreviated'
 
   notation: (val) ->
     if val?
@@ -64,23 +64,29 @@ angular.module('swarmApp').factory 'Options', ($log, util) -> class Options
 
   # Scrolling style on kongregate/iframed pages
   scrolling: (name) ->
-    @maybeSet 'scrolling', name, {'none':true, 'resize':true}
+    @maybeSet 'scrolling', name, {'none':true, 'resize':true, 'lockhover'}
     return @get('scrolling') ? 'none'
 
+  # can't attach an id to the theme element - usemin-compiled
+  @THEME_EL: $('link[href^="styles/bootstrapdefault"]')
   @THEMES: do ->
+    # don't assert this in dev because it breaks tests
+    util.assert (env.isDebugEnabled || Options.THEME_EL[0]), "couldn't find theme link"
     ret =
       list: []
     ret.list.push
       name: 'none'
       label: 'Default white'
-      url: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'
+      #url: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'
+      url: Options.THEME_EL.attr('href')
       credit: 'http://bootswatch.com/default/'
     # bootswatch themes
     for name in ['cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'lumen', 'paper', 'readable', 'sandstone', 'simplex', 'slate', 'spacelab', 'superhero', 'united', 'yeti']
       ret.list.push
         name: name
         label: name
-        url: "//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/#{name}/bootstrap.min.css"
+        #url: "//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/#{name}/bootstrap.min.css" # why do people block the cdn srsly
+        url: "bower_components/bootswatch/#{name}/bootstrap.min.css"
         credit: "http://bootswatch.com/#{name}/"
     ret.byName = _.indexBy ret.list, 'name'
     return ret
