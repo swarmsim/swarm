@@ -15,12 +15,12 @@ angular.module('swarmApp').filter 'duration', (options) ->
     if input.toNumber?
       input = input.toNumber()
     return '' if not input
-    nonlinear = if input?.nonlinear?  and input.nonlinear then 'less than ' else ''
+    nonexact = if input?.nonexact?  and input.nonexact then 'less than ' else ''
     duration = moment.duration input, unitOfTime
     if not template?
       template = 'd[d] h:mm:ss'
       switch options.durationFormat?()
-        when 'human' then return nonlinear + duration.humanize()
+        when 'human' then return nonexact + duration.humanize()
         when 'full' 
           template = switch
             when duration.asSeconds() < 60 then 's [seconds]'
@@ -33,7 +33,7 @@ angular.module('swarmApp').filter 'duration', (options) ->
             when duration.asSeconds() < 60 then 's [seconds]'
             else template
 
-    return nonlinear + duration.format template, precision
+    return nonexact + duration.format template, precision
 # could just pass the template from the view, but this is testable
 angular.module('swarmApp').filter 'warpDuration', ($filter) ->
   (input, unitOfTime, precision) ->
