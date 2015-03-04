@@ -344,11 +344,11 @@ describe 'Service: unit', ->
 
   it 'finds max production polynomial', ->
     game = mkgame {hive:'1'}
-    expect(game.unit('hive').getPolynomialDegree()).toBe 0
-    expect(game.unit('hivequeen').getPolynomialDegree()).toBe 0
-    expect(game.unit('energy').getPolynomialDegree()).toBe 0
-    expect(game.unit('greaterqueen').getPolynomialDegree()).toBe 1
-    expect(game.unit('nest').getPolynomialDegree()).toBe 2
-    expect(game.unit('queen').getPolynomialDegree()).toBe 3
-    expect(game.unit('drone').getPolynomialDegree()).toBe 4
-    expect(game.unit('meat').getPolynomialDegree()).toBe 5
+    expect(game.unit('hive')._producerPath.getMaxDegree()).toBe 0
+    expect(game.unit('hivequeen')._producerPath.getMaxDegree()).toBe 0
+    expect(game.unit('energy')._producerPath.getMaxDegree()).toBe 0
+    expect(game.unit('greaterqueen')._producerPath.getMaxDegree()).toBe 1
+    expect(game.unit('nest')._producerPath.getMaxDegree()).toBe 2
+    expect(game.unit('queen')._producerPath.getMaxDegree()).toBe 3
+    expect(game.unit('drone')._producerPath.getMaxDegree()).toBe 4
+    expect(game.unit('meat')._producerPath.getMaxDegree()).toBe 5

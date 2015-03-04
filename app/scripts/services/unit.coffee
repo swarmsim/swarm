@@ -7,6 +7,8 @@ angular.module('swarmApp').factory 'ProducerPath', ($log, UNIT_LIMIT) -> class P
     @name = "#{@unit.name}:#{pathname}>#{@unit.name}"
   first: -> @path[0]
   isZero: -> @first().parent.count().isZero()
+  degree: -> @path.length
+  degreeOrZero: -> if @isZero() then 0 else @degree()
   prodEach: ->
     return @unit.game.cache.producerPathProdEach[@name] ?= do =>
       # Bonus for ancestor to produced-child == product of all bonuses along the path
@@ -20,8 +22,47 @@ angular.module('swarmApp').factory 'ProducerPath', ($log, UNIT_LIMIT) -> class P
         # Cap ret, just like count(). This prevents Infinity * 0 = NaN problems, too.
         ret = Decimal.min ret, UNIT_LIMIT
       return ret
+  coefficient: ->
+    @first().parent.rawCount().times @prodEach()
+  count: (secs) ->
+    degree = @degree()
+    coeff = @coefficient()
+    # c * (t^d)/d!
+    return coeff.times(Decimal.pow(secs, degree)).dividedBy(math.factorial degree)
 
-angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UNIT_LIMIT) -> class Unit
+angular.module('swarmApp').factory 'ProducerPaths', ($log, ProducerPath) -> class ProducerPaths
+  constructor: (@unit, @raw) ->
+    @list = _.map @raw, (path) =>
+      tailpath = path.concat [@unit]
+      return new ProducerPath @unit, _.map path, (parent, index) =>
+        child = tailpath[index+1]
+        prodlink = parent.prodByName[child.name]
+        parent:parent
+        child:child
+        prod:prodlink
+    @byDegree = _.indexBy @list, (path) ->
+      path.degree()
+
+  getDegreeCoefficient: (degree) ->
+    ret = new Decimal 0
+    for path in @byDegree[degree] ? []
+      ret = ret.plus path.coefficient()
+    return ret
+
+  # Highest polynomial degree of this unit's production chain where the ancestor has nonzero count.
+  # Or, how many parents it has. Examples of degree:
+  #
+  # [drone > meat] is degree 1
+  # [queen > drone > meat] is degree 2
+  # [nest > queen > drone > meat] is degree 3
+  # [nest > queen > drone] is degree 2
+  getMaxDegree: ->
+    max = 0
+    for pathdata in @list
+      max = Math.max max, pathdata.degreeOrZero()
+    return max
+
+angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, UNIT_LIMIT) -> class Unit
   # TODO unit.unittype is needlessly long, rename to unit.type
   constructor: (@game, @unittype) ->
     @name = @unittype.name
@@ -29,24 +70,18 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     @affectedBy = []
     @type = @unittype # start transitioning now
   _init: ->
-    # copy all the inter-unittype references, replacing the type references with units
-    @_producerPathList = _.map @unittype.producerPathList, (path) =>
-      _.map path, (unittype) =>
-        ret = @game.unit unittype
-        util.assert ret
-        return ret
-    @cost = _.map @unittype.cost, (cost) =>
-      ret = _.clone cost
-      ret.unit = @game.unit cost.unittype
-      ret.val = new Decimal ret.val
-      return ret
-    @costByName = _.indexBy @cost, (cost) -> cost.unit.name
     @prod = _.map @unittype.prod, (prod) =>
       ret = _.clone prod
       ret.unit = @game.unit prod.unittype
       ret.val = new Decimal ret.val
       return ret
     @prodByName = _.indexBy @prod, (prod) -> prod.unit.name
+    @cost = _.map @unittype.cost, (cost) =>
+      ret = _.clone cost
+      ret.unit = @game.unit cost.unittype
+      ret.val = new Decimal ret.val
+      return ret
+    @costByName = _.indexBy @cost, (cost) -> cost.unit.name
     @warnfirst = _.map @unittype.warnfirst, (warnfirst) =>
       ret = _.clone warnfirst
       ret.unit = @game.unit warnfirst.unittype
@@ -81,19 +116,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     if @tab
       @next = @tab.next this
       @prev = @tab.prev this
-
-  _producerPathData: ->
-    return @__producerPathData ?= _.map @_producerPathList, (path) =>
-      tailpath = path.concat [this]
-      return new ProducerPath this, _.map path, (parent, index) =>
-        child = tailpath[index+1]
-        # TODO index prod by name?
-        prodlink = (prod for prod in parent.prod when prod.unit.name == child.name)
-        util.assert prodlink.length == 1
-        prodlink = prodlink[0]
-        parent:parent
-        child:child
-        prod:prodlink
+  # hacky, but we need two stages of init() for our object graph: all unit->unittype, all prod->unit, all producerpath->prod
+  _init2: ->
+    # copy all the inter-unittype references, replacing the type references with units
+    @_producerPath = new ProducerPaths this, _.map @unittype.producerPathList, (path) =>
+      _.map path, (unittype) =>
+        ret = @game.unit unittype
+        util.assert ret
+        return ret
 
   isCountInitialized: ->
     return @game.session.unittypes[@name]?
@@ -116,17 +146,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
   _subtractCount: (val) ->
     @_addCount new Decimal(val).times(-1)
 
-  _gainsPath: (pathdata, secs) ->
-    producerdata = pathdata.first()
-    gen = pathdata.path.length
-    c = math.factorial gen
-    count = producerdata.parent.rawCount()
-    prodEach = pathdata.prodEach()
-    return prodEach.times(count).dividedBy(c).times(Decimal.pow(secs, gen))
-
   # direct parents, not grandparents/etc. Drone is parent of meat; queen is parent of drone; queen is not parent of meat.
   _parents: ->
-    (pathdata.first().parent for pathdata in @_producerPathData() when pathdata.first().parent.prodByName[@name])
+    (pathdata.first().parent for pathdata in @_producerPath.list when pathdata.first().parent.prodByName[@name])
 
   _getCap: ->
     return @game.cache.unitCap[@name] ?= do =>
@@ -186,24 +208,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPath, UN
     return @_countInSecsFromReified @game.diffSeconds() + secs
   _countInSecsFromReified: (secs=0) ->
     count = @rawCount()
-    for pathdata in @_producerPathData()
-      count = count.plus @_gainsPath pathdata, secs
+    for pathdata in @_producerPath.list
+      count = count.plus pathdata.count(secs)
     return @capValue count
-
-  # Highest polynomial degree of this unit's production chain where the ancestor has nonzero count.
-  # Or, how many parents it has. Examples of degree:
-  #
-  # [drone > meat] is degree 1
-  # [queen > drone > meat] is degree 2
-  # [nest > queen > drone > meat] is degree 3
-  # [nest > queen > drone] is degree 2
-  getPolynomialDegree: ->
-    max = 0
-    for pathdata in @_producerPathData()
-      if not pathdata.isZero()
-        # producer path length == how many parents it has == polynomial degree
-        max = Math.max max, pathdata.path.length
-    return max
 
   # All units that cost this unit.
   spentResources: ->

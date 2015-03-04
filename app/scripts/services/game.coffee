@@ -71,6 +71,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
+    for item in @_units.list
+      item._init2()
 
     @cache = new Cache()
 
