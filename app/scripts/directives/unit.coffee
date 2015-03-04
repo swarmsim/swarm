@@ -21,8 +21,8 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       estimate = upgrade.estimateSecsUntilBuyable()
       if isFinite estimate.val
         secs = moment.duration(estimate.val, 'seconds')
-        #add nonlinear annotation for use by filter
-        secs.nonlinear = not (estimate.unit?.isVelocityConstant?() ? true)
+        #add nonexact annotation for use by filter
+        secs.nonexact = not (estimate.unit?.isEstimateExact?() ? true)
         return secs
       # infinite estimate, but moment doesn't like infinite durations.
       return Infinity
