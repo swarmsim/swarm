@@ -22,8 +22,10 @@ angular.module('swarmApp').factory 'ProducerPath', ($log, UNIT_LIMIT) -> class P
         # Cap ret, just like count(). This prevents Infinity * 0 = NaN problems, too.
         ret = Decimal.min ret, UNIT_LIMIT
       return ret
-  coefficient: ->
-    @first().parent.rawCount().times @prodEach()
+  coefficient: (count=@first().parent.rawCount()) ->
+    count.times @prodEach()
+  coefficientNow: ->
+    @coefficient @first().parent.count()
   count: (secs) ->
     degree = @degree()
     coeff = @coefficient()
@@ -61,19 +63,24 @@ angular.module('swarmApp').factory 'ProducerPaths', ($log, ProducerPath) -> clas
     return @getCoefficients().length - 1
 
   getCoefficients: ->
+    return @unit.game.cache.producerPathCoefficients[@unit.name] ?= @_getCoefficients()
+
+  _getCoefficients: (now=false) ->
     # array indexes are polynomial degrees, values are coefficients
     # [1, 3, 5, 7] = 7t^3 + 5t^2 + 3t + 1
-    return @unit.game.cache.producerPathCoefficients[@unit.name] ?= do =>
-      ret = [@unit.rawCount()]
-      for pathdata in @list
-        degree = pathdata.degree()
-        coefficient = pathdata.coefficient()
-        if not coefficient.isZero()
-          ret[degree] = (ret[degree] ? new Decimal 0).plus coefficient
-      for coeff, degree in ret
-        if not coeff?
-          ret[degree] = new Decimal 0
-      return ret
+    ret = [if now then @unit.count() else @unit.rawCount()]
+    for pathdata in @list
+      degree = pathdata.degree()
+      coefficient = if now then pathdata.coefficientNow() else pathdata.coefficient()
+      if not coefficient.isZero()
+        ret[degree] = (ret[degree] ? new Decimal 0).plus coefficient
+    for coeff, degree in ret
+      if not coeff?
+        ret[degree] = new Decimal 0
+    return ret
+
+  getCoefficientsNow: ->
+    return @getCoefficients true
   
   count: (secs) ->
     ret = new Decimal 0
@@ -199,27 +206,49 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     if (secs = @capDurationSeconds())?
       return moment.duration secs, 'seconds'
 
+  isEstimateExact: ->
+    return @_producerPath.getMaxDegree() <= 2
   estimateSecsUntilEarned: (num) ->
     # result is *not* a bigdecimal!
     remaining = new Decimal(num).minus @count()
     if remaining.lessThanOrEqualTo 0
       return 0
-    #degree = getPolynomialDegree()
-    #switch degree
-    #  when 0 then return Infinity
-    velocity = @velocity()
-    if velocity.lessThanOrEqualTo 0
-      # zero velocity, no estimate
-      return Infinity
-
-    secs = remaining.dividedBy velocity
-    # verify it's linear
-    #estimate = @_countInSecsFromNow secs
-    #if util.isFloatEqual num, estimate, 0.1
-    #  return secs
-    #throw new Error 'nonlinear estimation not yet implemented'
-    # fuck it. TODO nonlinear estimation
-    return secs.toNumber()
+    degree = @_producerPath.getMaxDegree()
+    #$log.debug 'estimating degree', degree
+    coeffs = @_producerPath.getCoefficientsNow()
+    ret = new Decimal Infinity
+    if degree > 0
+      # TODO this is exact, don't clear the cache periodically
+      if not coeffs[1].isZero()
+        ret = Decimal.min ret, remaining.dividedBy coeffs[1]
+        #$log.debug 'linear estimate', ret+''
+      if degree > 1
+        # quadratic formula: (-b +/- (b^2 - 4ac)^0.5) / 2a
+        # TODO this is exact, don't clear the cache periodically
+        [_, b, a] = coeffs
+        if not a.isZero()
+          c = remaining.negated()
+          a = a.dividedBy 2 # for the "/2!" in "c * t^2/2!"
+          # a > 0, b >= 0, c < 0: `root` is always positive/non-imaginary, and + is the correct choice for +/- because - will always be a negative root which doesn't make sense for this problem
+          # sqrt(16000) / 2
+          #$log.debug 'quadratic: ', a+'', b+'', c+''
+          disc = b.times(b).minus(a.times(c).times(4)).sqrt()
+          ret = Decimal.min ret, b.negated().plus(disc).dividedBy(a.times 2)
+          #$log.debug 'quadratic estimate', ret+''
+          # TODO there's an exact cubic formula, isn't there? implement it.
+        if degree > 2
+          # hard to solve large-degree polynomials, use the estimation technique from this post: http://www.kongregate.com/forums/4545-swarm-simulator/topics/473244-time-remaining-suggestion?page=1#posts-8985615
+          for coeff, deg in coeffs[3...]
+            # remaining (r) = c * (t^d)/d!
+            # solve for t: r * d! / c = t^d
+            # solve for t: (r * d! / c) ^ (1/d) = t
+            if not coeff.isZero()
+              #loop starts iterating from 0, not 3. no need to recalculate first few degrees, we did more precise math for them earlier.
+              deg += 3
+              ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
+              #$log.debug 'single-degree estimate', deg, ret+''
+    #$log.debug 'done estimating', ret.toNumber()
+    return ret.toNumber()
 
   count: ->
     return @game.cache.unitCount[@name] ?= @_countInSecsFromNow 0
@@ -341,19 +370,10 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
 
   # speed at which other units are producing this unit.
   velocity: ->
-    return @game.cache.velocity[@name] ?= do =>
-      sum = new Decimal 0
-      for parent in @_parents()
-        prod = parent.totalProduction()
-        util.assert prod[@name]?, "velocity: a unit's parent doesn't produce that unit?", @name, parent.name
-        sum = sum.plus prod[@name]
-      return Decimal.min UNIT_LIMIT, sum
+    return @game.cache.velocity[@name] ?= Decimal.min UNIT_LIMIT, @_producerPath.getCoefficients()[1] ? 0
 
   isVelocityConstant: ->
-    for parent in @_parents()
-      if parent.velocity() > 0
-        return false
-    return true
+    return @_producerPath.getMaxCoefficient() <= 1
 
   # TODO rework this - shouldn't have to pass a default
   hasStat: (key, default_=undefined) ->

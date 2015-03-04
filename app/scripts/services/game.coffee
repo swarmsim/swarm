@@ -9,6 +9,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   onPeriodic: ->
     @_lastPeriodicClear = new Date().getTime()
     @upgradeIsUpgradable = {}
+    @upgradeEstimateSecsUntilBuyable = {}
 
   onUpdate: ->
     @onPeriodic()

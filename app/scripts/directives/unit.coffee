@@ -21,12 +21,12 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       estimate = upgrade.estimateSecsUntilBuyable()
       #util.utcdoy 1000 * secs
       if isFinite estimate.val
-        nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
+        nonexact = if not (estimate.unit?.isEstimateExact?() ? true) then 'less than ' else ''
         secs = moment.duration(estimate.val, 'seconds').humanize()
         if /\ years$/.test secs
           secs = 'a long time'
-          nonlinear = ''
-        return ", #{nonlinear}#{secs}"
+          nonexact = ''
+        return ", #{nonexact}#{secs}"
       return ""
 
     parseNum = (num) ->
