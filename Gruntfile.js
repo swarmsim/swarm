@@ -150,7 +150,6 @@ module.exports = function (grunt) {
 
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
-      'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
     },
     buildSwf: {
       dev: {
@@ -713,7 +712,7 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'preloadSpreadsheet', 'buildSwf:prod',
+        'buildSwf:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'wiredep',
         'concurrent:server',
@@ -725,7 +724,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'preloadSpreadsheet', 'buildSwf:dev',
+      'buildSwf:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
       'wiredep',
       'concurrent:server',
@@ -742,7 +741,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    //'preloadSpreadsheet',
     'ngconstant:test','writeVersionJson', 'ngtemplates:dev',
     'concurrent:test',
     'autoprefixer',
@@ -753,9 +751,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
-    'clean:spreadsheetpreload',
-    'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
     'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
@@ -771,7 +766,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'preloadSpreadsheet', 'buildSwf:prod'
+    'buildSwf:prod'
   ]);
 
   grunt.registerTask('default', [
