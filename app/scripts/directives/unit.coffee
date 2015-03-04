@@ -17,7 +17,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
     scope.options = options
 
     formatDuration = (estimate) ->
-    scope.estimtateUpgradeSecs = (upgrade) ->
+    scope.estimateUpgradeSecs = (upgrade) ->
       estimate = upgrade.estimateSecsUntilBuyable()
       val = estimate.val.toNumber()
       if isFinite val
