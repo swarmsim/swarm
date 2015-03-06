@@ -284,7 +284,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
 
     minSec = new Decimal 0
     # No estimates longer than two years, because seriously, why?
-    maxSec = Decimal.min origMaxSec, 86400 * 365 * 2
+    # Because endgame swarmwarps, that's why.
+    #maxSec = Decimal.min origMaxSec, 86400 * 365 * 2
+    maxSec = origMaxSec
     minVal = f minSec
     maxVal = f maxSec
     iteration = 0
