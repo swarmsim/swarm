@@ -80,7 +80,7 @@
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
-    <div><label class="control-label"><img src="images/dropbox-logos_dropbox-glyph-black.png" style="height:18px;width:18px;">Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+    <div><label class="control-label"><img src="images/dropbox-logos_dropbox-glyph-blue.png" style="height:18px;width:18px;">Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
     <div ng-cloak ng-controller="DropboxdatastoreCtrl">
       <input ng-if="!isAuth()" type="image" class="btn btn-default" ng-click="droplogin()" alt="Log in with Dropbox" title="Log in with Dropbox" src="images/dropbox-logos_dropbox-logotype-blue.png" style="height:30%;width:30%;">
       <!--button ng-if="!isAuth()" class="btn btn-default" ng-click="droplogin()">
@@ -118,7 +118,7 @@
   </div>
   <div ng-cloak ng-controller="KongregateS3Ctrl">
     <div ng-if="env.isKongregateSyncEnabled && kongregate.isKongregate()">
-      <div><label class="control-label"><img src="http://cdn1.kongcdn.com/images/sharedassets/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+      <div><label class="control-label"><img src="/images/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
       <div ng-if="isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to Kongregate to save your game to Swarm Simulator's servers.</a></div>
       <div ng-if="!isGuest()">
         <p>Hi {{api.getUsername()}}! Save your game to Swarm Simulator's servers using your Kongregate account.</p>
