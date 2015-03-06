@@ -38,6 +38,7 @@ describe 'Filter: moment', ->
 
   it 'should format abbreviated durations', ->
     options.durationFormat('abbreviated')
+    options.notation('standard-decimal')
     expect(options.durationFormat()).toBe 'abbreviated'
     expect(duration 123, 'minutes').toBe '2:03:00'
     expect(duration 900, 'seconds').toBe '15:00'
@@ -48,6 +49,12 @@ describe 'Filter: moment', ->
     expect(duration 123, 'days').toBe '4 months 1 days'
     expect(duration 1234, 'days').toBe '3 years 4 months'
     expect(duration 33, 'seconds').toBe '00:33'
+    expect(duration 1000, 'years').toBe '1,000 years'
+    expect(duration 1000000, 'years').toBe '1.00000 million years'
+    expect(duration 1e21, 'years').toBe '1.00000 sextillion years'
+    options.notation('scientific-e')
+    expect(duration 1000000, 'years').toBe '1.00000e6 years'
+    expect(duration 1e21, 'years').toBe '1.00000e21 years'
 
   it 'should format human style durations', ->
     options.durationFormat('human')
