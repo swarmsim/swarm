@@ -103,6 +103,7 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
+            googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             gaTrackingID: null
           }
         }
@@ -122,6 +123,7 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
+            googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -142,6 +144,7 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: 'https://swarm-server.swarmsim.com',
             isKongregateSyncEnabled: true,
+            googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
             gaTrackingID: 'UA-53523462-1'
           }
         }

@@ -150,7 +150,12 @@
 
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
-    <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
+    <div class="input-group">
+      <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="shorturl()">Create short URL</button>
+      </span>
+    </div>
     <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
     <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
     <div class="alert alert-warning" ng-cloak ng-if="isKongregate() && !game.session.kongregate">
