@@ -293,7 +293,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     starttime = new Date().getTime()
     done = false
     # 40 iterations gives 0.1-second precision for any estimate that starts below 3000 years. Should be plenty.
-    while iteration < 40 and not done
+    # ...swarmwarp demands some damn big iterations. *50* should be plenty.
+    while iteration < 50 and not done
       iteration += 1
       midSec = maxSec.plus(minSec).dividedBy(2)
       midVal = f midSec
@@ -309,7 +310,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     # too many iterations
     timediff = new Date().getTime() - starttime
     if not done
-      $log.debug "bisection estimate for #{@name} took more than #{iteration} iterations; quitting. precision: #{max.minus(min).dividedBy(2)} (down from #{maxSec}). time: #{timediff}"
+      $log.debug "bisection estimate for #{@name} took more than #{iteration} iterations; quitting. precision: #{maxSec.minus(minSec).dividedBy(2)} (down from #{origMaxSec}). time: #{timediff}"
     else
       $log.debug "bisection estimate for #{@name} finished in #{iteration} iterations. original range: #{origMaxSec}, estimate is #{midSec} - plus game.difftime of #{@game.diffSeconds()}, that's #{midSec.plus(@game.diffSeconds())} - this shouldn't change much over multiple iterations. time: #{timediff}"
     return midSec
