@@ -1829,7 +1829,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val3": "",
         "init": "",
         "label": "nexus",
-        "lol": "",
+        "lol": "There was a lot more to magic, as Hairy quickly found out, than waving your antennae and saying a few funny words.",
         "name": "nexus",
         "plural": "nexus",
         "prod.unittype": "energy",
