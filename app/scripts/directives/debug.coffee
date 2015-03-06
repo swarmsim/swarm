@@ -21,6 +21,7 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
 angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     template: """
     <div ng-cloak ng-if="env.isDebugEnabled" class="container well">
+      <p class="small pull-right">{{heights()}}</p>
       <p class="envalert">Debug</p>
       <div class="row">
         <div class="col-md-8">
@@ -78,6 +79,10 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
       scope.env = env
       scope.game = game
       scope.util = util
+
+      scope.heights = ->
+        'htmlheight()': $(document.documentElement).height()
+        'bodyheight()': $(document.body).height()
 
       scope.form = {}
       scope.export = ->
