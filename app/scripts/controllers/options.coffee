@@ -21,6 +21,15 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ?
     (env.isDropboxEnabled and not isKongregate()))
 
+  $scope.duration_examples = [
+      moment.duration(16,'seconds')
+      moment.duration(163,'seconds')
+      moment.duration(2.5,'hours')
+      moment.duration(3.33333333,'weeks')
+      moment.duration(2.222222222222,'months')
+      moment.duration(1.2,'year')
+  ]
+
   $scope.form =
     isCustomTheme: options.theme().isCustom
     customThemeUrl: options.theme().url

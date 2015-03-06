@@ -1,7 +1,7 @@
 {
   "name": "swarm",
   "description": "Swarmsim - A Swarm simulation",
-  "version": "1.0.26",
+  "version": "1.0.28",
   "repository": {
     "url": "http://github.com/erosson/swarm.git",
     "type": "git"

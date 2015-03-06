@@ -44,9 +44,12 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
     @maybeSet 'showAdvancedUnitData', val
     !!@get 'showAdvancedUnitData'
 
-  showAccurateTiming: (val) ->
-    @maybeSet 'showAccurateTiming', val
-    !!@get 'showAccurateTiming'
+  durationFormat: (val) ->
+    if val?
+      valid = {'human':true, 'full':true, 'abbreviated':true }
+      util.assert valid[val], 'invalid options.durationFormat value', val
+      @maybeSet 'durationFormat', val
+    @get 'durationFormat', 'abbreviated'
 
   notation: (val) ->
     if val?

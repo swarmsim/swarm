@@ -115,10 +115,13 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
             return max - 1
       return max
 
+  isMaxAffordable: ->
+    return @type.maxlevel? and @maxCostMet().greaterThanOrEqualTo(@type.maxlevel)
+
   costMetPercent: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = new Decimal Infinity
-    if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
+    if @isMaxAffordable()
       return Decimal.ONE
     for cost in @sumCost @maxCostMet().plus(1)
       count = cost.unit.count().minus costOfMet[cost.unit.name].val
@@ -126,16 +129,36 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       max = Decimal.min max, (count.dividedBy val)
     return Decimal.min 1, Decimal.max 0, max
 
-  # TODO merge with costMetPercent
-  estimateSecsUntilBuyable: ->
+  estimateSecsUntilBuyable: (noRecurse) ->
+    if @isMaxAffordable()
+      return {val:new Decimal Infinity}
+    # tricky caching - take the estimated when it was cached, then subtract time that's passed since then.
+    cached = @game.cache.upgradeEstimateSecsUntilBuyableCacheSafe[@name]
+    if not cached?
+      cached = @game.cache.upgradeEstimateSecsUntilBuyablePeriodic[@name] ?= @_estimateSecsUntilBuyable()
+      # Some estimates can be cached more permanently (until update)
+      if cached.cacheSafe
+        @game.cache.upgradeEstimateSecsUntilBuyableCacheSafe[@name] = cached
+    ret = _.extend {val:cached.rawVal.plus (cached.now - @game.now.getTime())/1000}, cached
+    # we can now afford the cached upgrade! clear cache, pick another one.
+    if ret.val.lessThanOrEqualTo(0) and not noRecurse
+      delete @game.cache.upgradeEstimateSecsUntilBuyableCacheSafe[@name]
+      delete @game.cache.upgradeEstimateSecsUntilBuyablePeriodic[@name]
+      ret = @estimateSecsUntilBuyable true
+    return ret
+    
+  _estimateSecsUntilBuyable: ->
     costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
-    max = {val:0, unit:null}
+    cacheSafe = true
+    max = {rawVal:new Decimal(0), unit:null}
     if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)
       return 0
     for cost in @sumCost @maxCostMet().plus(1)
       secs = cost.unit.estimateSecsUntilEarned cost.val
-      if max.val < secs
-        max = {val:secs, unit:cost.unit}
+      if max.rawVal.lessThan secs
+        max = {rawVal:secs, unit:cost.unit, now: @game.now.getTime()}
+      cacheSafe &= cost.unit.isEstimateCacheable()
+    max.cacheSafe = cacheSafe
     return max
 
   isUpgradable: (costPercent=undefined) ->
