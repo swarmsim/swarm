@@ -281,7 +281,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: process.env.PORT,
+        port: process.env.PORT || 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: '0.0.0.0',
         //livereload: 55728  // ngrok won't bind remote ports below 50000

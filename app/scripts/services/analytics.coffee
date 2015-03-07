@@ -48,8 +48,6 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
     #$analytics.eventTrack 'save', {}
     #console.log 'ga.set', metrics.saveFileChars, session.exportSave().length
     window.ga 'set', metrics.saveFileChars, session.exportSave().length
-    #console.log 'ga.set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
-    window.ga 'set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
 
   $rootScope.$on 'achieve', (event, achievement) ->
     $analytics.eventTrack 'achievementEarned',
