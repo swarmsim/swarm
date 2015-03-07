@@ -61,7 +61,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   totalCost: ->
     return @game.cache.upgradeTotalCost[@name] ?= @_totalCost()
   _totalCost: (count=@count().plus(@unit.stat 'upgradecost', 0)) ->
-    _.map @cost, (cost) =>
+    _.map @cost, (cost) ->
       total = _.clone cost
       total.val = total.val.times Decimal.pow total.factor, count
       return total

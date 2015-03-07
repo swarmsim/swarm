@@ -24,50 +24,14 @@ angular.module 'swarmApp', [
     #'cfp.hotkeys'
   ]
 angular.module('swarmApp').config ($routeProvider, env) ->
-    if env.isOffline
-      return $routeProvider
-        .when '/debug',
-          templateUrl: 'views/debug.html'
-          controller: 'DebugCtrl'
-        .when '/changelog',
-          templateUrl: 'views/changelog.html'
-          controller: 'ChangelogCtrl'
-        .when '/iframe/:call',
-          templateUrl: 'views/iframe.html'
-          controller: 'IframeCtrl'
-        .when '/',
-          templateUrl: 'views/offline.html'
-          controller: 'OfflineCtrl'
-        .otherwise
-          redirectTo: '/'
-    $routeProvider
+  if env.isOffline
+    return $routeProvider
       .when '/debug',
         templateUrl: 'views/debug.html'
         controller: 'DebugCtrl'
-      .when '/options',
-        templateUrl: 'views/options.html'
-        controller: 'OptionsCtrl'
       .when '/changelog',
         templateUrl: 'views/changelog.html'
         controller: 'ChangelogCtrl'
-      .when '/statistics',
-        templateUrl: 'views/statistics.html'
-        controller: 'StatisticsCtrl'
-      .when '/achievements',
-        templateUrl: 'views/achievements.html'
-        controller: 'AchievementsCtrl'
-      .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
-      .when '/tab/:tab/unit/:unit',
-        templateUrl: 'views/unit.html'
-        controller: 'MainCtrl'
-      .when '/unit/:unit',
-        templateUrl: 'views/unit.html'
-        controller: 'MainCtrl'
-      .when '/tab/:tab',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
       .when '/iframe/:call',
         templateUrl: 'views/iframe.html'
         controller: 'IframeCtrl'
@@ -82,6 +46,46 @@ angular.module('swarmApp').config ($routeProvider, env) ->
         controller: 'ImportsplashCtrl'
       .otherwise
         redirectTo: '/'
+
+  $routeProvider
+    .when '/debug',
+      templateUrl: 'views/debug.html'
+      controller: 'DebugCtrl'
+    .when '/options',
+      templateUrl: 'views/options.html'
+      controller: 'OptionsCtrl'
+    .when '/changelog',
+      templateUrl: 'views/changelog.html'
+      controller: 'ChangelogCtrl'
+    .when '/statistics',
+      templateUrl: 'views/statistics.html'
+      controller: 'StatisticsCtrl'
+    .when '/achievements',
+      templateUrl: 'views/achievements.html'
+      controller: 'AchievementsCtrl'
+    .when '/',
+      templateUrl: 'views/main.html'
+      controller: 'MainCtrl'
+    .when '/tab/:tab/unit/:unit',
+      templateUrl: 'views/unit.html'
+      controller: 'MainCtrl'
+    .when '/unit/:unit',
+      templateUrl: 'views/unit.html'
+      controller: 'MainCtrl'
+    .when '/tab/:tab',
+      templateUrl: 'views/main.html'
+      controller: 'MainCtrl'
+    .when '/iframe/:call',
+      templateUrl: 'views/iframe.html'
+      controller: 'IframeCtrl'
+    .when '/contact',
+      templateUrl: 'views/contact.html'
+      controller: 'ContactCtrl'
+    .when '/cleartheme',
+      templateUrl: 'views/cleartheme.html'
+      controller: 'ClearthemeCtrl'
+    .otherwise
+      redirectTo: '/'
 
 
 angular.module('swarmApp').config (env, $logProvider) ->

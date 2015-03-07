@@ -48,7 +48,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       return ret
     scope.initBuyN = =>
       # I know you're not supposed to reference dom from angular controllers; I'd rather use ng-model too.
-      # Angular's (quite reasonably) casting input with type="number" to a JS number, but I need a string 
+      # Angular's (quite reasonably) casting input with type="number" to a JS number, but I need a string
       # for decimal.js and can't turn that off. I want type="number" on the input (instead of, say,
       # type="text" with extra validation) for the number-spinner on desktop and number-keyboard on mobile.
       inputElement = element.find 'input[name="buyN"]'

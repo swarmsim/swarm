@@ -37,13 +37,13 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     session.load()
     $log.debug 'Game data loaded successfully.', this
   catch e
-    # Couldn't load the user's saved data. 
+    # Couldn't load the user's saved data.
     if not exportedsave
       # If this is their first visit to the site, that's normal, no problems
       $log.debug "Empty saved data; probably the user's first visit here. Resetting quietly."
       game.reset true #but don't save, in case we're waiting for flash recovery
       # listen for flash to load - loading it takes extra time, but we might find a save there.
-      storage.flash.onReady.then =>
+      storage.flash.onReady.then ->
         encoded = storage.flash.getItem saveId
         if encoded
           $log.debug "flash loaded successfully, and found a saved game there that wasn't in cookies/localstorage! importing."
