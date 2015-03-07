@@ -9,7 +9,6 @@
 ###
 angular.module('swarmApp').factory 'StatisticsListener', (util, $log, kongregate) -> class StatisticsListener
   constructor: (@session, @scope) ->
-    # Transient. TODO: persist this separately from session, it can get big
     @_init()
 
   _init: ->
