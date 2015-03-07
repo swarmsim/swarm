@@ -196,9 +196,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     return Decimal.min val, cap
 
   capPercent: ->
-    return @game.cache.unitCapPercent[@name] ?= do =>
-      if (cap = @capValue())?
-        return @count().dividedBy(cap)
+    if (cap = @capValue())?
+      return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
       return @estimateSecsUntilEarned(cap).toNumber?() ? 0
