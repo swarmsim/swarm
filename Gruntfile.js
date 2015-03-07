@@ -103,6 +103,7 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
+            googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             gaTrackingID: null
           }
         }
@@ -122,6 +123,7 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
+            googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -142,6 +144,7 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: 'https://swarm-server.swarmsim.com',
             isKongregateSyncEnabled: true,
+            googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -150,7 +153,6 @@ module.exports = function (grunt) {
 
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
-      'v0.1': 'https://docs.google.com/spreadsheets/d/1FgPdB1RzwCvK_gvfFuf0SU9dWJbAmYtewF8A-4SEIZM/pubhtml'
     },
 
     mxmlc: {
@@ -757,7 +759,7 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'preloadSpreadsheet', 'mxmlc:prod',
+        'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'manifest:prod',
         'wiredep', 
@@ -770,7 +772,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'preloadSpreadsheet', 'mxmlc:dev',
+      'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
       'manifest:dev',
       'wiredep',
@@ -788,7 +790,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    //'preloadSpreadsheet',
     'ngconstant:test','writeVersionJson', 'ngtemplates:dev',
     'concurrent:test',
     'autoprefixer',
@@ -799,9 +800,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    // remove spreadsheets and fetch only the prod spreadsheet, to avoid packaging dev data in prod. smaller file size/faster download.
-    'clean:spreadsheetpreload',
-    'preloadSpreadsheet:v0.2', // this must match ngconstant.prod.spreadsheetKey
     'ngconstant:prod','writeVersionJson',
     'wiredep',
     'useminPrepare',
@@ -818,7 +816,7 @@ module.exports = function (grunt) {
     'manifest',
     'usemin',
     'htmlmin',
-    'preloadSpreadsheet', 'mxmlc:prod'
+    'mxmlc:prod'
   ]);
 
   grunt.registerTask('default', [

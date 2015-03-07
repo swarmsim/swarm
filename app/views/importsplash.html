@@ -1,0 +1,11 @@
+<tabs></tabs>
+
+<br>
+<p class="alert alert-info">Game imported, but not yet saved.</p>
+
+<div ng-if="isKongregate">
+  <button class="btn btn-primary" ng-click="click()">Save Game and Return to Kongregate</button>
+</div>
+<div ng-if="!isKongregate">
+  <button class="btn btn-primary" ng-click="click()">Save Game and Continue Playing</button>
+</div>

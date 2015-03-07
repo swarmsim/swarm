@@ -7,7 +7,7 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -20,6 +20,15 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   # ?dropbox in the URL overrides these things.
   $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ?
     (env.isDropboxEnabled and not isKongregate()))
+
+  $scope.duration_examples = [
+      moment.duration(16,'seconds')
+      moment.duration(163,'seconds')
+      moment.duration(2.5,'hours')
+      moment.duration(3.33333333,'weeks')
+      moment.duration(2.222222222222,'months')
+      moment.duration(1.2,'year')
+  ]
 
   $scope.form =
     isCustomTheme: options.theme().isCustom
@@ -56,6 +65,9 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.savedDataDetails = (savedDataDetails(store) for store in storage.storages.list)
 
   $scope.importSave = (encoded) ->
+    # don't try to import short urls
+    if _.startSwith encoded, 'http'
+      return
     $scope.imported = {}
     try
       $scope.game.importSave encoded
@@ -74,3 +86,10 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       storage.removeItem session.id
       $scope.game.reset true
       $location.url '/'
+
+  $scope.shorturl = ->
+    feedback.createTinyurl($scope.form.export)
+    .done (data, status, xhr) ->
+      $scope.form.export = data.id
+    .fail (data, status, error) ->
+      $scope.imported.error = true

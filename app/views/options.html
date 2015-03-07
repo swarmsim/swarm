@@ -9,6 +9,16 @@
     </label>
     <p>Show more detailed numbers for each of your units.</p>
   </div>
+  <div class="form-group" ng-if="env.isDebugEnabled">
+    <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Duration format</label></div>
+    <label style="font-weight:normal"><input type="radio" ng-init="form.durationFormat=options.durationFormat()" ng-model="form.durationFormat" value="human" ng-change="options.durationFormat(form.durationFormat)">Human</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="full" ng-change="options.durationFormat(form.durationFormat)" ng-init="form.notation=options.notation()">Full</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="abbreviated" ng-change="options.durationFormat(form.durationFormat)">Abbreviated</input></label>
+    <p>Examples:  
+    <span ng-repeat="sample_duration in duration_examples">{{sample_duration |duration}}<span ng-if="!$last">, </span></span>
+</p>
+
+  </div>
 
   <div class="form-group" ng-if="isKongregate()">
     <div><label class="control-label"><span class="glyphicon glyphicon-resize-vertical"></span> Kongregate scrolling style</label></div>
@@ -70,7 +80,7 @@
   </div>
   <div class="form-group" ng-if="isDropbox">
     <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
-    <div><label class="control-label"><img src="images/dropbox-logos_dropbox-glyph-black.png" style="height:18px;width:18px;">Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+    <div><label class="control-label"><img src="images/dropbox-logos_dropbox-glyph-blue.png" style="height:18px;width:18px;">Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
     <div ng-cloak ng-controller="DropboxdatastoreCtrl">
       <input ng-if="!isAuth()" type="image" class="btn btn-default" ng-click="droplogin()" alt="Log in with Dropbox" title="Log in with Dropbox" src="images/dropbox-logos_dropbox-logotype-blue.png" style="height:30%;width:30%;">
       <!--button ng-if="!isAuth()" class="btn btn-default" ng-click="droplogin()">
@@ -108,7 +118,7 @@
   </div>
   <div ng-cloak ng-controller="KongregateS3Ctrl">
     <div ng-if="env.isKongregateSyncEnabled && kongregate.isKongregate()">
-      <div><label class="control-label"><img src="http://cdn1.kongcdn.com/images/sharedassets/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
+      <div><label class="control-label"><img src="/images/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
       <div ng-if="isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to Kongregate to save your game to Swarm Simulator's servers.</a></div>
       <div ng-if="!isGuest()">
         <p>Hi {{api.getUsername()}}! Save your game to Swarm Simulator's servers using your Kongregate account.</p>
@@ -140,7 +150,12 @@
 
   <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
     <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
-    <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
+    <div class="input-group">
+      <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="shorturl()">Create short URL</button>
+      </span>
+    </div>
     <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
     <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
     <div class="alert alert-warning" ng-cloak ng-if="isKongregate() && !game.session.kongregate">

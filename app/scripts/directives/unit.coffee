@@ -17,17 +17,16 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
     scope.options = options
 
     formatDuration = (estimate) ->
-    scope.estimtateUpgradeSecs = (upgrade) ->
+    scope.estimateUpgradeSecs = (upgrade) ->
       estimate = upgrade.estimateSecsUntilBuyable()
-      #util.utcdoy 1000 * secs
-      if isFinite estimate.val
-        nonlinear = if not (estimate.unit?.isVelocityConstant?() ? true) then 'less than ' else ''
-        secs = moment.duration(estimate.val, 'seconds').humanize()
-        if /\ years$/.test secs
-          secs = 'a long time'
-          nonlinear = ''
-        return ", #{nonlinear}#{secs}"
-      return ""
+      val = estimate.val.toNumber()
+      if isFinite val
+        secs = moment.duration(val, 'seconds')
+        #add nonexact annotation for use by filter
+        secs.nonexact = not (estimate.unit?.isEstimateExact?() ? true)
+        return secs
+      # infinite estimate, but moment doesn't like infinite durations.
+      return Infinity
 
     parseNum = (num) ->
       if num?

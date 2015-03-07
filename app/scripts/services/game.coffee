@@ -9,18 +9,22 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   onPeriodic: ->
     @_lastPeriodicClear = new Date().getTime()
     @upgradeIsUpgradable = {}
+    @upgradeEstimateSecsUntilBuyablePeriodic = {}
 
   onUpdate: ->
     @onPeriodic()
     @onTick()
+    @tinyUrl = {}
     @stats = {}
     @eachCost = {}
     @eachProduction = {}
     @upgradeTotalCost = {}
     @producerPathProdEach = {}
+    @producerPathCoefficients = {}
     @unitRawCount = {}
     @unitCap = {}
     @unitCapPercent = {}
+    @upgradeEstimateSecsUntilBuyableCacheSafe = {}
 
   onTick: ->
     @unitCount = {}
@@ -71,6 +75,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
+    for item in @_units.list
+      item._init2()
 
     @cache = new Cache()
 
@@ -265,7 +271,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascendCostDurationSecs: (cost = @ascendCost()) ->
     energy = @unit 'energy'
     if cost.lessThan energy.capValue()
-      return energy.estimateSecsUntilEarned cost
+      return energy.estimateSecsUntilEarned(cost).toNumber()
   ascendCostDurationMoment: (cost) ->
     if (secs=@ascendCostDurationSecs cost)?
       return moment.duration secs, 'seconds'

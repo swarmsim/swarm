@@ -77,6 +77,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/cleartheme',
         templateUrl: 'views/cleartheme.html'
         controller: 'ClearthemeCtrl'
+      .when '/importsplash',
+        templateUrl: 'views/importsplash.html'
+        controller: 'ImportsplashCtrl'
       .otherwise
         redirectTo: '/'
 
