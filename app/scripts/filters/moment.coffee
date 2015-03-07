@@ -21,7 +21,7 @@ angular.module('swarmApp').filter 'duration', (options, $filter) ->
       template = 'd[d] h:mm:ss'
       switch options.durationFormat?()
         when 'human' then return nonexact + duration.humanize()
-        when 'full' 
+        when 'full'
           template = switch
             when duration.asSeconds() < 60 then '0:s'
             else 'y [yr] M [mth] d [day] hh:mm:ss'
