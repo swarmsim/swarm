@@ -154,14 +154,56 @@ module.exports = function (grunt) {
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
     },
-    buildSwf: {
+    mxmlc: {
+      options: {
+        // Task-specific options go here.
+      },
       dev: {
-        swfPath: './.tmp/storage.swf',
-        asPath: './jsflash/dev/Storage.as'
+        files:{
+          './.tmp/storage.swf' : ['./jsflash/dev/Storage.as']
+        }
       },
       prod: {
-        swfPath: './dist/storage.swf',
-        asPath: './jsflash/prod/Storage.as'
+        files:{
+          './.tmp/storage.swf' : ['./jsflash/prod/Storage.as']
+        },
+      },
+    },
+
+    manifest: {
+      options: {
+        basePath: '<%= yeoman.dist %>',
+        cache: [],
+        network: ['*', 'http://*', 'https://*',],
+        //fallback: ['/ /offline.html'],
+        exclude: ['js/jquery.min.js'],
+        preferOnline: true,
+        verbose: true,
+        timestamp: true,
+        hash: true,
+        master: ['index.html'],
+        process: function(path) {
+          return path.substring('app/'.length);
+        }
+      },
+      prod: {
+      src: [
+        'views/*.html',
+        'scripts/*.js',
+        'styles/*.css'
+      ],
+        dest: '<%= yeoman.dist %>/manifest.appcache'
+      },
+      dev: {
+        options:{
+          basePath: '<%= yeoman.app %>',
+        },  
+        src: [
+          'views/*.html',
+          'scripts/*.js',
+          'styles/*.css'
+        ],
+        dest: '.tmp/manifest.appcache'
       }
     },
 
@@ -218,6 +260,10 @@ module.exports = function (grunt) {
       },
       gruntfile: {
         files: ['Gruntfile.js']
+      },
+      manifest: {
+        files: [ '<%= yeoman.app %>/{,*/}*.html',],
+        tasks: [ 'manifest' ]
       },
       livereload: {
         options: {
@@ -457,11 +503,19 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      manifest: ['<%= yeoman.dist %>/manifest.appcache'],
       js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
         patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']],
+          manifest: [
+              //[/(scripts/vendor.js)/, 'Replacing reference to vendor.js'],
+              //[/(scripts/main.js)/, 'Replacing reference to main.js'],
+              //[/(styles/vendor.css)/, 'Replacing reference to vendor.css'],
+              //[/(styles/main.css)/, 'Replacing reference to main.css']
+            ]
+
         }
       }
     },
@@ -684,18 +738,6 @@ module.exports = function (grunt) {
       }
     });
   });
-  grunt.registerMultiTask('buildSwf', 'build swf for flash storage', function () {
-   /* var taskDone = this.async();
-    grunt.util.spawn({
-      cmd: './jsflash/flex/bin/mxmlc',
-      args: [this.data.asPath, '-output', this.data.swfPath],
-      opts: {stdio:'inherit'}
-    }, function spawnDone(error, result, code) {
-      grunt.log.ok(error, result, code);
-      taskDone(error);
-    });
-    */
-  });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
@@ -723,9 +765,10 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'buildSwf:prod',
+        'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
-        'wiredep',
+        'manifest:prod',
+        'wiredep', 
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
@@ -735,8 +778,9 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'buildSwf:dev',
+      'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
+      'manifest:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -776,9 +820,10 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'filerev',
+    'manifest',
     'usemin',
     'htmlmin',
-    'buildSwf:prod'
+    'mxmlc:prod'
   ]);
 
   grunt.registerTask('default', [
