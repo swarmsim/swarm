@@ -14,6 +14,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   onUpdate: ->
     @onPeriodic()
     @onTick()
+    @tinyUrl = {}
     @stats = {}
     @eachCost = {}
     @eachProduction = {}

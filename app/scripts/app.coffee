@@ -35,9 +35,15 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/iframe/:call',
         templateUrl: 'views/iframe.html'
         controller: 'IframeCtrl'
-      .when '/',
-        templateUrl: 'views/offline.html'
-        controller: 'OfflineCtrl'
+      .when '/contact',
+        templateUrl: 'views/contact.html'
+        controller: 'ContactCtrl'
+      .when '/cleartheme',
+        templateUrl: 'views/cleartheme.html'
+        controller: 'ClearthemeCtrl'
+      .when '/importsplash',
+        templateUrl: 'views/importsplash.html'
+        controller: 'ImportsplashCtrl'
       .otherwise
         redirectTo: '/'
 

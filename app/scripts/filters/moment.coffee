@@ -8,7 +8,7 @@
  # # moment
  # Filter in the swarmApp.
 ###
-angular.module('swarmApp').filter 'duration', (options) ->
+angular.module('swarmApp').filter 'duration', (options, $filter) ->
   (input, unitOfTime, template, precision) ->
     if input is Infinity
       return ''
@@ -26,6 +26,9 @@ angular.module('swarmApp').filter 'duration', (options) ->
             when duration.asSeconds() < 60 then '0:s'
             else 'y [yr] M [mth] d [day] hh:mm:ss'
         when 'abbreviated'
+          if duration.asYears() >= 100
+            years = $filter('longnum')(duration.asYears())
+            return "#{years} years"
           template = switch
             when duration.asYears() >= 1 then 'y [years] M [months]'
             when duration.asMonths() >= 1 then 'M [months] d [days]'

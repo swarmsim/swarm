@@ -21,6 +21,7 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
 angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     template: """
     <div ng-cloak ng-if="env.isDebugEnabled" class="container well">
+      <p class="small pull-right">{{heights()}}</p>
       <p class="envalert">Debug</p>
       <div class="row">
         <div class="col-md-8">
@@ -94,24 +95,17 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     scope.game = game
     scope.util = util
 
-    scope.form = {}
-    scope.export = ->
-      scope.form.export = scope.game.session.exportSave()
-      scope.form.exportAge = new Date()
-    scope.now = -> scope.game.now
-    scope.export()
-    scope.selectResource = ->
-      scope.form.count = scope.form.resource.count()
-    scope.setResource = ->
-      scope.game.withSave ->
-        scope.form.resource._setCount scope.form.count
-        # special case: nexus upgrades
-        if scope.form.resource.name == 'nexus'
-          for upgrade in game.upgradelist()
-            if upgrade.name.substring(0,5) == 'nexus'
-              level = parseInt upgrade.name[5]
-              if scope.form.count >= level
-                upgrade._setCount 1
+
+      scope.heights = ->
+        'htmlheight()': $(document.documentElement).height()
+        'bodyheight()': $(document.body).height()
+
+      scope.form = {}
+      scope.export = ->
+        scope.form.export = scope.game.session.exportSave()
+        scope.form.exportAge = new Date()
+      scope.now = -> scope.game.now
+
       scope.export()
     scope.confirmReset = ->
       if confirm 'really?'
