@@ -46,7 +46,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
 
   durationFormat: (val) ->
     if val?
-      valid = {'human':true, 'full':true, 'abbreviated':true }
+      valid = {'human':true, 'full':true, 'abbreviated':true}
       util.assert valid[val], 'invalid options.durationFormat value', val
       @maybeSet 'durationFormat', val
     @get 'durationFormat', 'abbreviated'

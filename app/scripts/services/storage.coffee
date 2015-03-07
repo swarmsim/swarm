@@ -62,7 +62,7 @@ angular.module('swarmApp').factory 'MultiStorage', ($log) -> class MultiStorage
     this[name] = storage
     return this
 
-  _withEachStore: (name, fn, pred=(ret)->false) ->
+  _withEachStore: (name, fn, pred=(ret) -> false) ->
     errorcount = 0
     for store in @storages.list
       try
