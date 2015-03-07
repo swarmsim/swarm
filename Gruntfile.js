@@ -104,6 +104,7 @@ module.exports = function (grunt) {
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
+            isAppcacheEnabled: true,
             gaTrackingID: null
           }
         }
@@ -124,6 +125,7 @@ module.exports = function (grunt) {
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
+            isAppcacheEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -145,6 +147,7 @@ module.exports = function (grunt) {
             saveServerUrl: 'https://swarm-server.swarmsim.com',
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
+            isAppcacheEnabled: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -165,7 +168,7 @@ module.exports = function (grunt) {
       },
       prod: {
         files:{
-          './.tmp/storage.swf' : ['./jsflash/prod/Storage.as']
+          './dist/storage.swf' : ['./jsflash/prod/Storage.as']
         },
       },
     },
@@ -187,11 +190,11 @@ module.exports = function (grunt) {
         }
       },
       prod: {
-      src: [
-        'views/*.html',
-        'scripts/*.js',
-        'styles/*.css'
-      ],
+        src: [
+          'views/*.html',
+          'scripts/*.js',
+          'styles/*.css'
+        ],
         dest: '<%= yeoman.dist %>/manifest.appcache'
       },
       dev: {
