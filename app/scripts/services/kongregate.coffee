@@ -102,6 +102,27 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       # not even log.debugs; scroll events are performance-sensitve.
       #console.log 'mousewheelin', delta, up, scrollTop, scrollHeight, height
 
+  unbindLockhover: ->
+    $('html').off 'DOMMouseScroll mousewheel'
+  bindLockhover: ->
+    # heavily based on https://stackoverflow.com/questions/5802467/prevent-scrolling-of-parent-element
+    body = $('body')[0]
+    $both = $('body,html')
+    $('html').on 'DOMMouseScroll mousewheel', (ev) ->
+      $this = $(this)
+      scrollTop = this.scrollTop or body.scrollTop
+      scrollHeight = this.scrollHeight
+      #height = $this.height()
+      #height = $this.outerHeight true
+      height = window.innerHeight
+      if ev.type == 'DOMMouseScroll'
+        delta = ev.originalEvent.detail * -40
+      else
+        delta = ev.originalEvent.wheelDelta
+      up = delta > 0
+      # not even log.debugs; scroll events are performance-sensitve.
+      #console.log 'mousewheelin', delta, up, scrollTop, scrollHeight, height
+
       prevent = ->
         ev.stopPropagation()
         ev.preventDefault()

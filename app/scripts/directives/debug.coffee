@@ -68,33 +68,17 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
           </div>
           <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
         </div>
-        <div>
-          Game speed: {{game.gameSpeed | number}}x
-          <button ng-click="game.setGameSpeed(1)">1x: Normal</button>
-          <button ng-click="game.setGameSpeed(0)">0x: Pause</button>
-          <button ng-click="game.setGameSpeed(1.5)">1.5x</button>
-          <button ng-click="game.setGameSpeed(2)">2x</button>
-          <button ng-click="game.setGameSpeed(4)">4x</button>
-          <button ng-click="game.setGameSpeed(10)">10x</button>
-          <button ng-click="game.setGameSpeed(20)">20x</button>
-          <button ng-click="game.setGameSpeed(50)">50x</button>
-          <button ng-click="game.setGameSpeed(100)">100x</button>
-          <button ng-click="game.setGameSpeed(1000)">1000x</button>
-        </div>
-        <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
+        <dl class="dl-horizontal col-md-4">
+          <debugdd label="'performance.memory.usedJSHeapSize'" value="mem()" max="100000000"></debugdd>
+        </dl>
       </div>
-      <dl class="dl-horizontal col-md-4">
-        <debugdd label="'performance.memory.usedJSHeapSize'" value="mem()" max="100000000"></debugdd>
-      </dl>
     </div>
-  </div>
-  """
-  restrict: 'E'
-  link: (scope, element, attrs) ->
-    scope.env = env
-    scope.game = game
-    scope.util = util
-
+    """
+    restrict: 'E'
+    link: (scope, element, attrs) ->
+      scope.env = env
+      scope.game = game
+      scope.util = util
 
       scope.heights = ->
         'htmlheight()': $(document.documentElement).height()
@@ -105,11 +89,23 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
         scope.form.export = scope.game.session.exportSave()
         scope.form.exportAge = new Date()
       scope.now = -> scope.game.now
-
       scope.export()
-    scope.confirmReset = ->
-      if confirm 'really?'
-        scope.game.reset true
-        $location.url '/'
-    scope.mem = ->
-      performance?.memory?.usedJSHeapSize
+      scope.selectResource = ->
+        scope.form.count = scope.form.resource.count()
+      scope.setResource = ->
+        scope.game.withSave ->
+          scope.form.resource._setCount scope.form.count
+          # special case: nexus upgrades
+          if scope.form.resource.name == 'nexus'
+            for upgrade in game.upgradelist()
+              if upgrade.name.substring(0,5) == 'nexus'
+                level = parseInt upgrade.name[5]
+                if scope.form.count >= level
+                  upgrade._setCount 1
+        scope.export()
+      scope.confirmReset = ->
+        if confirm 'really?'
+          scope.game.reset true
+          $location.url '/'
+      scope.mem = ->
+        performance?.memory?.usedJSHeapSize
