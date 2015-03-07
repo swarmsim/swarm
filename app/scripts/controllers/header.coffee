@@ -16,13 +16,6 @@ versioncheck, analytics, statistics, achievementslistener, favico
   $scope.version = version
   $scope.session = session
 
-  $scope.updateIsAvailable  = ->
-    appCacheNanny.hasUpdate()
-
-  $scope.reload = ->
-    window.location.reload();
-
-
   do enforce = ->
     timecheck.enforceNetTime().then(
       (invalid) ->
