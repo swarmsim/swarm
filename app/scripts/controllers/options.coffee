@@ -66,7 +66,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
 
   $scope.importSave = (encoded) ->
     # don't try to import short urls
-    if _.startSwith encoded, 'http'
+    if encoded and encoded.indexOf('http') == 0
       return
     $scope.imported = {}
     try
