@@ -756,6 +756,7 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
+    'coffeelint',
     'karma:unitCi',
     'karma:integrationCi'
   ]);
