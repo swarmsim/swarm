@@ -19,7 +19,7 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
  # # debug
 ###
 angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
-    template: """
+  template: """
     <div ng-cloak ng-if="env.isDebugEnabled" class="container well">
       <p class="small pull-right">{{heights()}}</p>
       <p class="envalert">Debug</p>
@@ -68,19 +68,6 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
           </div>
           <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
         </div>
-        <div>
-          Game speed: {{game.gameSpeed | number}}x
-          <button ng-click="game.setGameSpeed(1)">1x: Normal</button>
-          <button ng-click="game.setGameSpeed(0)">0x: Pause</button>
-          <button ng-click="game.setGameSpeed(1.5)">1.5x</button>
-          <button ng-click="game.setGameSpeed(2)">2x</button>
-          <button ng-click="game.setGameSpeed(4)">4x</button>
-          <button ng-click="game.setGameSpeed(10)">10x</button>
-          <button ng-click="game.setGameSpeed(20)">20x</button>
-          <button ng-click="game.setGameSpeed(50)">50x</button>
-          <button ng-click="game.setGameSpeed(100)">100x</button>
-          <button ng-click="game.setGameSpeed(1000)">1000x</button>
-        </div>
         <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
       </div>
       <dl class="dl-horizontal col-md-4">
@@ -95,18 +82,17 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     scope.game = game
     scope.util = util
 
+    scope.heights = ->
+      'htmlheight()': $(document.documentElement).height()
+      'bodyheight()': $(document.body).height()
 
-      scope.heights = ->
-        'htmlheight()': $(document.documentElement).height()
-        'bodyheight()': $(document.body).height()
+    scope.form = {}
+    scope.export = ->
+      scope.form.export = scope.game.session.exportSave()
+      scope.form.exportAge = new Date()
+    scope.now = -> scope.game.now
+    scope.export()
 
-      scope.form = {}
-      scope.export = ->
-        scope.form.export = scope.game.session.exportSave()
-        scope.form.exportAge = new Date()
-      scope.now = -> scope.game.now
-
-      scope.export()
     scope.confirmReset = ->
       if confirm 'really?'
         scope.game.reset true
