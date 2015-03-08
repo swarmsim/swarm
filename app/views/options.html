@@ -65,7 +65,10 @@
         </li>
         <li role="presentation" class="divider" style="list-style-type:none"></li>
         <li role="presentation" style="list-style-type:none">
-          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="selectCustomTheme()" href="javascript:">Custom</a>
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="selectCustomTheme()" href="javascript:">Custom style</a>
+        </li>
+        <li role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" data-toggle="collapse" data-target="#themeExtra" href="javascript:" aria-expanded="false" aria-controls="themeExtra">Additional styling (advanced)</a>
         </li>
       </ul>
     </div>
@@ -75,6 +78,16 @@
       <div class="input-group">
         <input type="text" class="form-control" ng-model="form.customThemeUrl">
         <span class="input-group-btn"><button class="btn btn-default" ng-click="setCustomTheme(form.customThemeUrl)">Set theme</button></span>
+      </div>
+    </div>
+    <div>
+      <div class="collapse" id="themeExtra">
+        <div class="well" ng-class="{'has-success':!!form.themeExtraSuccess,'has-error':!!form.themeExtraError,'has-feedback':!!form.themeExtraSuccess || !!form.themeExtraError}">
+          <p>Enter some additional CSS. {{form.themeExtra.length|number}}/1,000 chars. Use <code>@import</code> to save space.</p>
+          <textarea class="form-control" ng-model="form.themeExtra" ng-change="clearThemeExtra()"></textarea>
+          <button class="form-control btn btn-primary" ng-click="themeExtra(form.themeExtra)">Apply</button>
+          <p ng-show="form.themeExtraError" class="text-danger">{{form.themeExtraError}}</p>
+        </div>
       </div>
     </div>
   </div>

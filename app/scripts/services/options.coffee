@@ -110,5 +110,14 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
     @set 'isCustomTheme', true
     @set 'theme', {isCustom:true,url:url}
 
+  @THEME_EXTRA_LENGTH = 1000
+  themeExtra: (css) ->
+    if css?
+      if css.length >= @constructor.THEME_EXTRA_LENGTH
+        throw new Error "But it's so big!"
+      @set 'themeExtra', css
+    return @get 'themeExtra', null
+
+
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session

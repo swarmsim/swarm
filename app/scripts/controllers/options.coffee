@@ -34,6 +34,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     isCustomTheme: options.theme().isCustom
     customThemeUrl: options.theme().url
     theme: options.theme().name
+    themeExtra: options.themeExtra()
   $scope.setTheme = (name) ->
     $scope.options.theme name
     $scope.form.isCustomTheme = false
@@ -93,3 +94,17 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.form.export = data.id
     .fail (data, status, error) ->
       $scope.imported.error = true
+
+  $scope.clearThemeExtra = ->
+    $scope.form.themeExtraSuccess = null
+    $scope.form.themeExtraError = null
+  $scope.themeExtra = (text) ->
+    $scope.clearThemeExtra()
+    try
+      options.themeExtra text
+      $scope.form.themeExtraSuccess = true
+    catch e
+      $log.error e
+      $scope.form.themeExtraError = e?.message
+      return
+    #$log.debug 'themeExtra updates', themeExtraEl
