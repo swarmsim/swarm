@@ -50,6 +50,13 @@ angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scop
     # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
     if theme.url != themeEl.attr 'href'
       themeEl.attr 'href', theme.url
+  $scope.$watch 'options.themeExtra()', (css, oldval) =>
+    if css?
+      if not $scope.themeExtraEl?
+        $scope.themeExtraEl = $('<style type="text/css"></style>')
+        $scope.themeExtraEl.appendTo 'body'
+      $scope.themeExtraEl.html css
+      $log.debug 'extratheming', $scope.themeExtraEl, css
 
 angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
   $scope.options = options
