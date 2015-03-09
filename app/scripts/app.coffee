@@ -25,14 +25,16 @@ angular.module 'swarmApp', [
   ]
 
 angular.module('swarmApp').config (version, env) ->
-  # run this first to log other init errors
-  Raven.config(env.sentryDSN,
-    # http://raven-js.readthedocs.org/en/latest/config/
-    release: version
-    maxMessageLength: 200
-    shouldSendCallback: (data) ->
-      return env.isSentryEnabled
-  ).install()
+  # run this first to log other init errors.
+  # tests don't have a dsn, don't setup raven at all
+  if env.sentryDSN
+    Raven.config(env.sentryDSN,
+      # http://raven-js.readthedocs.org/en/latest/config/
+      release: version
+      maxMessageLength: 200
+      shouldSendCallback: (data) ->
+        return env.isSentryEnabled
+    ).install()
 
 angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline

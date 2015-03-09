@@ -105,7 +105,7 @@ module.exports = function (grunt) {
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             isAppcacheEnabled: true,
-            sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
+            sentryDSN: null,
             isSentryEnabled: false,
             gaTrackingID: null
           }
