@@ -641,7 +641,8 @@ module.exports = function (grunt) {
             'bower_components/bootswatch/fonts/*',
             'bower_components/bootswatch/*/bootstrap.min.css',
             'bower_components/bootswatch/*/bootstrap.min.css',
-            'bower_components/bootswatch/*/thumbnail.png'
+            'bower_components/bootswatch/*/thumbnail.png',
+            'bower_components/ravenjs/dist/raven.min.js'
           ],
           dest: '<%= yeoman.dist %>'
         }]

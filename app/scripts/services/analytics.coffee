@@ -87,44 +87,42 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
   errorCount = 0
   ERROR_THROTTLE_THRESHOLD = 12
   IGNORED_ERRORS = [/We require more resources/, /too many errors logged to analytics this session/]
-  logThrottledError = (action, label) ->
-    label = if _.isString label then label else JSON.stringify label
+  logThrottledError = (exception) ->
+    logThrottledEvent exception?.message ? exception, exception, 'captureException'
+  logThrottledMessage = (message) ->
+    logThrottledEvent message, message, 'captureMessage'
+  logThrottledEvent = (message, logged, key) ->
     for re in IGNORED_ERRORS
-      if re.test label
+      if re.test message
         return
 
     errorCount += 1
     if errorCount <= ERROR_THROTTLE_THRESHOLD
-      $log.debug 'logging error to google analytics', {category:'error', action:action, label: label}
-      $analytics.eventTrack action,
-        category: 'error'
-        label: label
+      Raven[key] logged
+      #$log.debug 'logging error to sentry', logged
       if errorCount == ERROR_THROTTLE_THRESHOLD
-        $log.warn 'error threshold reached, no more errors will be reported to analytics'
-        $analytics.eventTrack 'maxErrorCount',
-          category: 'error'
-          label: 'too many errors logged to analytics this session, future errors will not be logged'
+        $log.warn 'error threshold reached, no more errors will be reported to sentry'
+        Raven.captureMessage 'error threshold reached, no more errors will be reported to sentry'
 
   $rootScope.$on 'unhandledException', (event, args) ->
     try
-      if args.exception?.name? and args.exception?.message?
-        label = "#{args.exception.name}: #{args.exception.message}"
-      else
-        label = if _.isString args.exception then args.exception else JSON.stringify args.exception
-        label = "Unknown exception: #{label}"
-      logThrottledError 'unhandledException', label
+      logThrottledError args.exception
     catch e
       # no infinite loops plz
-      logThrottledError 'unhandledExceptionLoop', "#{e?.name}: #{e?.message}"
+      try
+        $log.warn 'unhandled exception error logging loop', e
+        Raven.captureError e
+      catch e2
+        $log.warn 'exception logging failed, giving up', e2
 
   $rootScope.$on 'error', (event, args) ->
-    logThrottledError 'emittedError', args
+    logThrottledMessage 'emittedError', args
 
   $rootScope.$on 'assertionFailure', (event, args) ->
-    logThrottledError 'assertionFailure', args
+    logThrottledMessage 'assertionFailure', args
 
   $rootScope.$on 'loadGameFromStorageFailed', (event, message) ->
-    logThrottledError 'loadGameFromStorageFailed', message
+    logThrottledMessage 'loadGameFromStorageFailed', message
 
   #$rootScope.$on 'savedGameRecoveredFromFlash', (event, args) ->
   #  $analytics.eventTrack 'savedGameRecoveredFromFlash',

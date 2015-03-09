@@ -143,7 +143,6 @@ https://github.com/erosson/swarm
       //ga('create', 'UA-53523462-3', 'auto');
       //ga('send', 'pageview'); // angulartics does this
     </script>
-
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -204,8 +203,15 @@ https://github.com/erosson/swarm
     <script src="bower_components/jquery-cookie/jquery.cookie.js"></script>
     <script src="bower_components/javascript-flash-cookies/dist/swfstore.min.js"></script>
     <script src="bower_components/appcache-nanny/appcache-nanny.js"></script>
+    <script src="bower_components/ravenjs/dist/raven.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+    <script>
+      // early error logger init to catch other init errors
+      //Raven.config('https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317', {}).install();
+      Raven.config('https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331', {}).install();
+    </script>
+
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
@@ -250,7 +256,6 @@ https://github.com/erosson/swarm
         <script src="scripts/services/kongregate.js"></script>
         <script src="scripts/services/seedrand.js"></script>
         <script src="scripts/services/backfill.js"></script>
-        <script src="scripts/services/dropboxdatastore.js"></script>
         <script src="scripts/controllers/dropboxdatastore.js"></script>
         <script src="scripts/controllers/iframe.js"></script>
         <script src="scripts/controllers/offline.js"></script>
@@ -262,7 +267,6 @@ https://github.com/erosson/swarm
         <script src="scripts/services/storage.js"></script>
         <script src="scripts/controllers/importsplash.js"></script>
         <!-- endbuild -->
-</script>
 </body>
 </html>
 

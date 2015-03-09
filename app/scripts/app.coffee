@@ -154,4 +154,4 @@ angular.module('swarmApp').run ($rootScope, env) ->
       appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
     #else
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
-
+      #
