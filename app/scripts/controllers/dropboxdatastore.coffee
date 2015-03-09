@@ -23,9 +23,9 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
 
   $scope.app_key = env.dropboxAppKey
   $log.debug 'env.dropboxAppKey:', env.dropboxAppKey
-  $scope.dsc =  new Dropbox.Client({key: $scope.app_key })
+  $scope.dsc =  new Dropbox.Client({key: $scope.app_key})
   #// Use a pop-up for auth.
-  $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({ receiverUrl: "#{window.location.protocol}//#{window.location.host}#{window.location.pathname}views/dropboxauth.html"  }))
+  $scope.dsc.authDriver(new Dropbox.AuthDriver.Popup({receiverUrl: "#{window.location.protocol}//#{window.location.host}#{window.location.pathname}views/dropboxauth.html"}))
 
   $scope.isAuth = ->
     return $scope.dsc.isAuthenticated()
@@ -44,7 +44,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
     $log.debug "loggedIn()"
 
     datastoreManager = new Dropbox.Datastore.DatastoreManager($scope.dsc)
-    datastoreManager.openDefaultDatastore (err,datastore)->
+    datastoreManager.openDefaultDatastore (err,datastore) ->
       $log.debug "opendef err: "+err if err
       $log.debug "opendef datastore: "+datastore
 
@@ -53,7 +53,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
       $scope.updatesavelisting()
 
   # First check if we're already authenticated.
-  $scope.dsc.authenticate({ interactive : false})
+  $scope.dsc.authenticate({interactive : false})
 
   if $scope.dsc.isAuthenticated()
     # If we're authenticated, update the UI to reflect the logged in status.
@@ -62,7 +62,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log ,  e
   $scope.droplogin = ->
     $log.debug "attempt login"
     $scope.dsc
-      .authenticate( (err,client)->
+      .authenticate( (err,client) ->
         $log.debug "authenticate err: "+err
         $log.debug "authenticate client: "+client
         $scope.loggedin()
@@ -130,7 +130,7 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   cooldown = $scope.cooldown =
     byName: {}
     set: (name, wait=5000) ->
-      cooldown.byName[name] = $timeout (->cooldown.clear name), wait
+      cooldown.byName[name] = $timeout (-> cooldown.clear name), wait
     clear: (name) ->
       if cooldown.byName[name]
         $timeout.cancel cooldown.byName[name]

@@ -38,6 +38,7 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $scope.$emit 'konami'
     $log.debug 'konami'
 
+
   achievePublicTest1 $scope
   kongregateScrolling $scope
   pageTheme $scope

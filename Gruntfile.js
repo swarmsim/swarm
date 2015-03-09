@@ -104,6 +104,7 @@ module.exports = function (grunt) {
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
+            isAppcacheEnabled: true,
             gaTrackingID: null
           }
         }
@@ -124,6 +125,7 @@ module.exports = function (grunt) {
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
+            isAppcacheEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -145,6 +147,7 @@ module.exports = function (grunt) {
             saveServerUrl: 'https://swarm-server.swarmsim.com',
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
+            isAppcacheEnabled: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -154,14 +157,56 @@ module.exports = function (grunt) {
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
     },
-    buildSwf: {
+    mxmlc: {
+      options: {
+        // Task-specific options go here.
+      },
       dev: {
-        swfPath: './.tmp/storage.swf',
-        asPath: './jsflash/dev/Storage.as'
+        files:{
+          './.tmp/storage.swf' : ['./jsflash/dev/Storage.as']
+        }
       },
       prod: {
-        swfPath: './dist/storage.swf',
-        asPath: './jsflash/prod/Storage.as'
+        files:{
+          './dist/storage.swf' : ['./jsflash/prod/Storage.as']
+        },
+      },
+    },
+
+    manifest: {
+      options: {
+        basePath: '<%= yeoman.dist %>',
+        cache: [],
+        network: ['*', 'http://*', 'https://*',],
+        //fallback: ['/ /offline.html'],
+        exclude: ['js/jquery.min.js'],
+        preferOnline: true,
+        verbose: true,
+        timestamp: true,
+        hash: true,
+        master: ['index.html'],
+        process: function(path) {
+          return path.substring('app/'.length);
+        }
+      },
+      prod: {
+        src: [
+          'views/*.html',
+          'scripts/*.js',
+          'styles/*.css'
+        ],
+        dest: '<%= yeoman.dist %>/manifest.appcache'
+      },
+      dev: {
+        options:{
+          basePath: '<%= yeoman.app %>',
+        },  
+        src: [
+          'views/*.html',
+          'scripts/*.js',
+          'styles/*.css'
+        ],
+        dest: '.tmp/manifest.appcache'
       }
     },
 
@@ -202,15 +247,15 @@ module.exports = function (grunt) {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
         //tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
-        tasks: ['newer:coffee:dist']
+        tasks: ['coffeelint','newer:coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:test', 'karma:unit']
+        tasks: ['coffeelint','newer:coffee:test', 'karma:unit']
       },
       integrationTest: {
         files: ['test/integration/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee:integrationTest', 'karma:integration']
+        tasks: ['coffeelint','newer:coffee:integrationTest', 'karma:integration']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -218,6 +263,10 @@ module.exports = function (grunt) {
       },
       gruntfile: {
         files: ['Gruntfile.js']
+      },
+      manifest: {
+        files: [ '<%= yeoman.app %>/{,*/}*.html',],
+        tasks: [ 'manifest' ]
       },
       livereload: {
         options: {
@@ -235,7 +284,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: process.env.PORT,
+        port: process.env.PORT || 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: '0.0.0.0',
         //livereload: 55728  // ngrok won't bind remote ports below 50000
@@ -295,13 +344,7 @@ module.exports = function (grunt) {
     coffeelint: {
     
       options: {
-        //configFile: 'coffeelint.json'
-        'no_unnecessary_fat_arrows': {
-          'level': 'ignore' 
-        },
-        'max_line_length': {
-            'level': 'ignore',
-        },
+        configFile: 'coffeelint.json'
       },
       app: ['<%= yeoman.app %>/**/*.coffee']
     },
@@ -463,11 +506,19 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      manifest: ['<%= yeoman.dist %>/manifest.appcache'],
       js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
         patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']],
+          manifest: [
+              //[/(scripts/vendor.js)/, 'Replacing reference to vendor.js'],
+              //[/(scripts/main.js)/, 'Replacing reference to main.js'],
+              //[/(styles/vendor.css)/, 'Replacing reference to vendor.css'],
+              //[/(styles/main.css)/, 'Replacing reference to main.css']
+            ]
+
         }
       }
     },
@@ -690,18 +741,6 @@ module.exports = function (grunt) {
       }
     });
   });
-  grunt.registerMultiTask('buildSwf', 'build swf for flash storage', function () {
-   /* var taskDone = this.async();
-    grunt.util.spawn({
-      cmd: './jsflash/flex/bin/mxmlc',
-      args: [this.data.asPath, '-output', this.data.swfPath],
-      opts: {stdio:'inherit'}
-    }, function spawnDone(error, result, code) {
-      grunt.log.ok(error, result, code);
-      taskDone(error);
-    });
-    */
-  });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {version:version, updated:new Date()};
@@ -729,9 +768,10 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'buildSwf:prod',
+        'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
-        'wiredep',
+        'manifest:prod',
+        'wiredep', 
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
@@ -741,8 +781,9 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'buildSwf:dev',
+      'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
+      'manifest:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -762,6 +803,7 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
+    'coffeelint',
     'karma:unitCi',
     'karma:integrationCi'
   ]);
@@ -781,9 +823,10 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'filerev',
+    'manifest',
     'usemin',
     'htmlmin',
-    'buildSwf:prod'
+    'mxmlc:prod'
   ]);
 
   grunt.registerTask('default', [

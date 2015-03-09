@@ -196,9 +196,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     return Decimal.min val, cap
 
   capPercent: ->
-    return @game.cache.unitCapPercent[@name] ?= do =>
-      if (cap = @capValue())?
-        return @count().dividedBy(cap)
+    if (cap = @capValue())?
+      return @count().dividedBy(cap)
   capDurationSeconds: ->
     if (cap = @capValue())?
       return @estimateSecsUntilEarned(cap).toNumber?() ? 0
@@ -326,7 +325,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   # All units that cost this unit.
   spentResources: ->
     (u for u in [].concat(@game.unitlist(), @game.upgradelist()) when u.costByName[@name]?)
-  spent: (ignores={})->
+  spent: (ignores={}) ->
     ret = new Decimal 0
     for u in @game.unitlist()
       costeach = u.costByName[@name]?.val ? 0

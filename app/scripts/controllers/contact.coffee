@@ -57,8 +57,8 @@ if $location.search().error then "\n* Error message: ```"+$location.search().err
   $scope.anonForm = ->
     if (error = $location.search().error or '')
       error += '|'
-    baseurl = "https://docs.google.com/forms/d/1yH2oNcjUJiggxQhoP3pwijWU-nZkT-hJsqOR-5_cwrI/viewform?entry.436676437="
-    param = "#{version}|#{window?.navigator?.userAgent}|#{error}#{$scope.urls.expand}"
+    baseurl = "https://docs.google.com/a/swarmsim.com/forms/d/18ywqkqMlviAgKACVZUI6XkaGte2piKN3LGbii8Qwvmw/viewform?entry.1461412788="
+    param = "#{version}|#{scope.userAgentGuess}|#{error}#{$scope.urls.expand}"
     url = "#{baseurl}#{encodeURIComponent param}"
     # starts throwing bad requests for length around this point. Send whatever we can.
     LIMIT = 1950

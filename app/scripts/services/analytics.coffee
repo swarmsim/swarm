@@ -7,7 +7,8 @@ angular.module('swarmApp').factory 'analyticsDimensions', (analyticsDimensionLis
   ret = {}
   i = 0
   for name in analyticsDimensionList
-    ret[name] = "dimension#{++i}"
+    i += 1
+    ret[name] = "dimension#{i}"
   return ret
     
 angular.module('swarmApp').value 'analyticsMetricList',
@@ -17,7 +18,8 @@ angular.module('swarmApp').factory 'analyticsMetrics', (analyticsMetricList) ->
   ret = {}
   i = 0
   for name in analyticsMetricList
-    ret[name] = "metric#{++i}"
+    i += 1
+    ret[name] = "metric#{i}"
   return ret
     
 ###*
@@ -46,8 +48,6 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
     #$analytics.eventTrack 'save', {}
     #console.log 'ga.set', metrics.saveFileChars, session.exportSave().length
     window.ga 'set', metrics.saveFileChars, session.exportSave().length
-    #console.log 'ga.set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
-    window.ga 'set', metrics.clickLogChars, statistics.replay.compressToUTF16().length
 
   $rootScope.$on 'achieve', (event, achievement) ->
     $analytics.eventTrack 'achievementEarned',
