@@ -86,21 +86,15 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
 
   errorCount = 0
   ERROR_THROTTLE_THRESHOLD = 12
-  IGNORED_ERRORS = [/We require more resources/, /too many errors logged to analytics this session/]
   logThrottledError = (exception) ->
     logThrottledEvent exception?.message ? exception, exception, 'captureException'
   logThrottledMessage = (message) ->
     logThrottledEvent message, message, 'captureMessage'
   logThrottledEvent = (message, logged, key) ->
-    for re in IGNORED_ERRORS
-      if re.test message
-        return
-
     errorCount += 1
     if errorCount <= ERROR_THROTTLE_THRESHOLD
-      if false and Math.random() < 0.001 # random error samples; stop hammering sentry
-        Raven[key] logged
-        $log.debug 'logging error to sentry', logged
+      Raven[key] logged
+      $log.debug 'logging error to sentry', logged
       if errorCount == ERROR_THROTTLE_THRESHOLD
         $log.warn 'error threshold reached, no more errors will be reported to sentry'
         #Raven.captureMessage 'error threshold reached, no more errors will be reported to sentry'

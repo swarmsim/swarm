@@ -28,12 +28,19 @@ angular.module('swarmApp').config (version, env) ->
   # run this first to log other init errors.
   # tests don't have a dsn, don't setup raven at all
   if env.sentryDSN
+    filters = [
+      # https://app.getsentry.com/swarm-simulator/swarmsim/group/57518714/
+      /Permission denied to access property ['\"]toString/
+    ]
     Raven.config(env.sentryDSN,
       # http://raven-js.readthedocs.org/en/latest/config/
       release: version
       maxMessageLength: 200
       shouldSendCallback: (data) ->
-        return env.isSentryEnabled
+        for filter in filters
+          if filter.test data.message
+            return
+        return Math.random() < env.sentrySampleRate
     ).install()
 
 angular.module('swarmApp').config ($routeProvider, env) ->
