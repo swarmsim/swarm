@@ -24,7 +24,7 @@ angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version,
         return "#{browser.name} #{m[1]}"
     return ua
 
-  feedback.createTinyurl().done (data, status, xhr) => $scope.$apply =>
+  feedback.createTinyurl().done (data, status, xhr) =>
     $scope.urls.short = data.id
     $scope.urls.expand = data.id + '+'
 
