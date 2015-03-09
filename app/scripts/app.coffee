@@ -91,13 +91,6 @@ angular.module('swarmApp').config ($routeProvider, env) ->
 angular.module('swarmApp').config (env, $logProvider) ->
   $logProvider.debugEnabled env.isDebugLogged
 
-angular.module('swarmApp').config (env, version) ->
-  if env.gaTrackingID and window.ga? and not env.isOffline
-    #console.log 'analytics', gaTrackingID
-    window.ga 'create', env.gaTrackingID, 'auto'
-    # appVersion breaks analytics, presumably because it's mobile-only.
-    #window.ga 'set', 'appVersion', version
-
 # http and https use different localstorage, which might confuse folks.
 # angular $location doesn't make protocol mutable, so use window.location.
 # allow an out for testing, though.
@@ -134,6 +127,14 @@ angular.module('swarmApp').run ($location, isKongregate) ->
   if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com') and not ($location.search().noredirect or isKongregate())
     window.location.host = 'swarmsim.github.io'
 
+# Google analytics setup. Run this only after redirects are done.
+angular.module('swarmApp').config (env, version) ->
+  if env.gaTrackingID and window.ga? and not env.isOffline
+    #console.log 'analytics', gaTrackingID
+    window.ga 'create', env.gaTrackingID, 'auto'
+    # appVersion breaks analytics, presumably because it's mobile-only.
+    #window.ga 'set', 'appVersion', version
+
 angular.module('swarmApp').run ($rootScope) ->
   $rootScope.floor = (val) -> Math.floor val
 
@@ -154,4 +155,3 @@ angular.module('swarmApp').run ($rootScope, env) ->
       appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
     #else
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
-      #
