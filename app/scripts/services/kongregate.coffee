@@ -127,7 +127,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     @reportStats()
 
     Raven.setUser
-      id: @kongregate.services.getUserId()
+      id: @kongregate.services.getUsername()
 
     # configure resizing iframe
     html = $(document.documentElement)
