@@ -26,14 +26,13 @@ angular.module 'swarmApp', [
 
 angular.module('swarmApp').config (version, env) ->
   # run this first to log other init errors
-  Raven.config('https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
+  Raven.config(env.sentryDSN,
     # http://raven-js.readthedocs.org/en/latest/config/
     release: version
     maxMessageLength: 200
     shouldSendCallback: (data) ->
-      return false
+      return env.isSentryEnabled
   ).install()
-  # Raven.config('https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331', {}).install()
 
 angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline

@@ -44,6 +44,7 @@ module.exports = (config) ->
       'bower_components/jquery-cookie/jquery.cookie.js'
       'bower_components/javascript-flash-cookies/dist/swfstore.min.js'
       'bower_components/appcache-nanny/appcache-nanny.js'
+      'bower_components/ravenjs/dist/raven.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'

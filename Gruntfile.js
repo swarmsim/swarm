@@ -105,6 +105,8 @@ module.exports = function (grunt) {
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             isAppcacheEnabled: true,
+            sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
+            isSentryEnabled: false,
             gaTrackingID: null
           }
         }
@@ -126,6 +128,8 @@ module.exports = function (grunt) {
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             isAppcacheEnabled: true,
+            sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
+            isSentryEnabled: true,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -148,6 +152,8 @@ module.exports = function (grunt) {
             isKongregateSyncEnabled: true,
             googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
             isAppcacheEnabled: false,
+            sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
+            isSentryEnabled: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }
