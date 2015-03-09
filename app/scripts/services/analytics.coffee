@@ -98,12 +98,12 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
 
     errorCount += 1
     if errorCount <= ERROR_THROTTLE_THRESHOLD
-      #if Math.random() < 0.001 # random error samples; stop hammering sentry
-      #  Raven[key] logged
-      #$log.debug 'logging error to sentry', logged
-      #if errorCount == ERROR_THROTTLE_THRESHOLD
-      #  $log.warn 'error threshold reached, no more errors will be reported to sentry'
-      #  Raven.captureMessage 'error threshold reached, no more errors will be reported to sentry'
+      if false and Math.random() < 0.001 # random error samples; stop hammering sentry
+        Raven[key] logged
+        $log.debug 'logging error to sentry', logged
+      if errorCount == ERROR_THROTTLE_THRESHOLD
+        $log.warn 'error threshold reached, no more errors will be reported to sentry'
+        #Raven.captureMessage 'error threshold reached, no more errors will be reported to sentry'
 
   $rootScope.$on 'unhandledException', (event, args) ->
     try
