@@ -67,6 +67,10 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
     @maybeSet 'scrolling', name, {'none':true, 'resize':true, 'lockhover'}
     return @get('scrolling') ? 'none'
 
+  autopush: (enabled) ->
+    @set 'autopush', enabled
+    return @get('autopush') ? true
+
   # can't attach an id to the theme element - usemin-compiled
   @THEME_EL: $('link[href^="styles/bootstrapdefault"]')
   @THEMES: do ->

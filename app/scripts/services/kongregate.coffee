@@ -21,12 +21,15 @@ angular.module('swarmApp').factory 'isKongregate', ->
     # - when-framed-assume-kongregate? could work...
     # - hard-querystring (/?kongregate#/tab/meat) seems to work well! can't figure out how to get out of it in 30sec.
 
-angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval, options) -> class Kongregate
+angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval, options, $q) -> class Kongregate
   constructor: ->
   isKongregate: ->
     isKongregate()
   load: ->
     $log.debug 'loading kongregate script...'
+    onLoad = $q.defer()
+    @onLoad = onLoad.promise
+    @onLoad.then => @_onLoad()
     try
       @kongregate = window.parent.kongregate
       @parented = window.parent.document.getElementsByTagName('iframe')[0]
@@ -34,7 +37,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
       # pass - no kongregate_shell.html, or kongregate api's blocked in it. try to load the api ourselves
     if @kongregate
       $log.debug 'kongregate api loaded from parent frame'
-      @_onLoad()
+      onLoad.resolve()
       return
     $.getScript 'https://cdn1.kongregate.com/javascripts/kongregate_api.js'
       .done (script, textStatus, xhr) =>
@@ -43,9 +46,10 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
         window.kongregateAPI.loadAPI =>
           $log.debug 'kongregate api loaded'
           @kongregate = window.kongregateAPI.getAPI()
-          @_onLoad()
+          onLoad.resolve()
       .fail (xhr, settings, exception) =>
         $log.error 'kongregate load failed', xhr, settings, exception
+        onLoad.reject()
 
   onResize: -> #overridden on load
   _onResize: -> #overridden on load
@@ -190,10 +194,10 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     if time
       @kongregate.stats.submit name, time
 
-angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env) -> new class KongregateS3Syncer
+angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval) -> new class KongregateS3Syncer
   constructor: ->
-  init: (fn, userid, token, force) ->
-    # Fetch an S3 policy from our server. This allows S3 access without ever agan calling our custom server.
+  init: (fn=(->), userid, token, force) ->
+    # Fetch an S3 policy from our server. This allows S3 access without ever again calling our custom server.
     @policy = null
     if force
       storage.removeItem 's3Policy'
@@ -223,6 +227,17 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       $log.debug 'cached s3 policy is good; not refreshing', @policy
       fn()
       return undefined
+
+  initAutopush: (enabled=true) ->
+    if @autopushInterval
+      $interval.cancel @autopushInterval
+      @autopushInterval = null
+    $(window).off 'unload', 'kongregate.autopush'
+    if enabled
+      @autopushInterval = $interval (=>@autopush()), 1000 * 60 * 10
+      $(window).unload 'kongregate.autopush', =>
+        $log.debug 'autopush unload'
+        @autopush()
 
   _refreshPolicy: (fn=(->), userid, token) ->
     userid ?= kongregate.kongregate.services.getUserId()
@@ -281,6 +296,13 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         $log.debug 'exported to s3', data, status, xhr
         @fetched = pushed
         fn data, status, xhr
+  autopush: ->
+    if @policy and @autopushInterval
+      if @fetched?.encoded != game.session.exportSave()
+        $log.debug 'autopushing (with changes, for real)'
+        @push()
+      else
+        $log.debug 'autopush triggered with no changes, ignoring'
   clear: (fn=(->)) ->
     if !@policy.delete
       throw new Error 'no policy. init() first.'

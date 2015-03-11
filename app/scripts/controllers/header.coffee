@@ -58,7 +58,7 @@ angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scop
       $scope.themeExtraEl.html css
       $log.debug 'extratheming', $scope.themeExtraEl, css
 
-angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
+angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, kongregateS3Syncer, options) -> return ($scope) ->
   $scope.options = options
   if !kongregate.isKongregate()
     return
@@ -71,6 +71,10 @@ angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, opt
   kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad
   $scope.onRender = ->
     kongregate.onResize()
+
+  kongregate.onLoad.then =>
+    kongregateS3Syncer.init()
+    kongregateS3Syncer.initAutopush()
 
 angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement
