@@ -234,7 +234,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       @autopushInterval = null
     $(window).off 'unload', 'kongregate.autopush'
     if enabled
-      @autopushInterval = $interval (=>@autopush()), 1000 * 60 * 10
+      @autopushInterval = $interval (=>@autopush()), 1000 * 60 * 15
       $(window).unload 'kongregate.autopush', =>
         $log.debug 'autopush unload'
         @autopush()

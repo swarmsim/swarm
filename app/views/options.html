@@ -135,7 +135,7 @@
       <div ng-if="isGuest()"><a href="javascript:" ng-click="api.showSignInBox()">Sign in to Kongregate to save your game to Swarm Simulator's servers.</a></div>
       <div ng-if="!isGuest()">
         <p>Hi {{api.getUsername()}}! Save your game to Swarm Simulator's servers using your Kongregate account.</p>
-        <div><label><input type="checkbox" ng-init="form.autopush=options.autopush()" ng-model="form.autopush" ng-change="options.autopush(form.autopush)" class="">Auto-export every 10 minutes and before closing</label></div>
+        <div><label><input type="checkbox" ng-init="form.autopush=options.autopush()" ng-model="form.autopush" ng-change="options.autopush(form.autopush)" class="">Auto-export every 15 minutes and before closing</label></div>
         <div><button class="btn btn-primary" ng-class="{disabled:cooldown.byName.push}" ng-click="push()">Export online saved data</button></div>
         <div><button class="btn btn-default" ng-class="{disabled:cooldown.byName.fetch}" ng-click="fetch()">Check for new online saved data</button></div>
         <p ng-if="!remoteSave()">No online saved data yet. <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How does this work?</a></p>
