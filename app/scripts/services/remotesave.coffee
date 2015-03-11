@@ -1,7 +1,19 @@
 'use strict'
 
+# remotesave iface:
+# * isVisible()
+# * init(fn)
+# * initAutopush(enabled=true)
+# * fetch(fn)
+# * pull()
+# * push(fn)
+# * autopush()
+# * clear(fn)
+
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval) -> new class KongregateS3Syncer
   constructor: ->
+  isVisible: ->
+    env.isKongregateSyncEnabled and kongregate.isKongregate()
   init: (fn=(->), userid, token, force) ->
     # Fetch an S3 policy from our server. This allows S3 access without ever again calling our custom server.
     @policy = null
@@ -121,3 +133,69 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         $log.debug 'cleared from s3', data, status, xhr
         delete @fetched
         fn data, status, xhr
+
+angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate) -> new class DropboxSyncer
+  constructor: ->
+    @_datastore = null
+    @_recschanged = null
+    @savedgames = []
+    @newSavegame = 'game'
+    @appKey = env.dropboxAppKey
+    $log.debug 'env.dropboxAppKey:', @appKey
+    @dsc =  new Dropbox.Client({key: @appKey})
+    # First check if we're already authenticated.
+    @dsc.authenticate({interactive : false})
+
+  isVisible: ->
+    # A dropbox key must be supplied, no exceptions.
+    # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
+    # ?dropbox in the URL overrides these things.
+    return env.dropboxAppKey and ($location.search().dropbox ?
+      (env.isDropboxEnabled and not isKongregate()))
+  isAuth: ->
+    return @dsc.isAuthenticated()
+
+  _getTable: ->
+    return @_datastore.getTable 'saveddata'
+
+  init: (fn) ->
+    $log.debug "initializing dropbox"
+
+    datastoreManager = new Dropbox.Datastore.DatastoreManager(@dsc)
+    datastoreManager.openDefaultDatastore (err,datastore) =>
+      $log.debug "dropbox opendef err: "+err if err
+      $log.debug "dropbox opendef datastore: "+datastore
+
+      @_datastore = datastore
+      @_recordChangedListener = => @fetch()
+      @_datastore.recordsChanged.addListener @_recordChangedListener
+      $log.debug 'dropbox done initing, now fetching'
+      @fetch fn
+
+  fetch: (fn=(->)) ->
+    $log.debug 'dropbox is fetching (lulz)'
+    taskTable = @_getTable()
+    @savedgames = taskTable.query name:@newSavegame
+    @savedgame = @savedgames[0]
+    $log.debug 'fetched from dropbox: '+@savedgame
+    fn()
+
+  push: (fn=(->)) ->
+    @clear()
+    $log.debug 'saving to dropbox'
+    taskTable = @_getTable()
+
+    firstTask = taskTable.insert
+      name: @newSavegame
+      created: new Date()
+      data: session.exportSave()
+    @fetch fn
+
+  pull: ->
+    $log.debug 'do import of:'+ @savegame
+    game.importSave(@savegame.get('data'))
+
+  clear: (fn=(->)) ->
+    for savegame in @savedgames
+      $log.debug 'do delete of:'+ savegame
+      @_getTable().get(savegame.getId()).deleteRecord()
