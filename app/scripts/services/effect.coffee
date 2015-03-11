@@ -183,6 +183,11 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       validateSchema effect.stat, schema, 'mult'
       stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow effect.val, level)
   effecttypes.register
+    name: 'expStat'
+    calcStats: (effect, stats, schema, level) ->
+      validateSchema effect.stat, schema, 'mult'
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow(level, effect.val).times(effect.val2))
+  effecttypes.register
     name: 'asympStat'
     calcStats: (effect, stats, schema, level) ->
       # val: asymptote max; val2: 1/x weight
