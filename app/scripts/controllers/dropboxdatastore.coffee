@@ -41,8 +41,8 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log, env
 
   $scope.droplogout = ->
     $scope.syncer.savedgames = []
-    _datastore.recordsChanged.removeListener($scope.syncer._recordChangedListener)
-    $scope.dsc.signOut({mustInvalidate: true})
+    $scope.syncer._datastore.recordsChanged.removeListener($scope.syncer._recordChangedListener)
+    $scope.syncer.dsc.signOut({mustInvalidate: true})
 
   $scope.fetch = ->
     $scope.syncer.fetch ->

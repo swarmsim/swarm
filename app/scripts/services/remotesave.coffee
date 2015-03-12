@@ -102,11 +102,11 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
     return @fetched?.encoded
 
   # pull: actually import, after fetching
-  pull: (fn=(->)) ->
-    if not @fetched
+  pull: ->
+    save = @fetchedSave()
+    if not save
       throw new Error 'nothing to pull'
-    game.importSave @fetched.encoded
-    fn()
+    game.importSave save
 
   # push: export to remote. this is the tricky one; writes to s3.
   push: (fn=(->), encoded=game.session.exportSave()) ->
@@ -245,8 +245,10 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
         $log.debug 'autopush triggered with no changes, ignoring'
 
   pull: ->
-    $log.debug 'do import of:'+ @savegame
-    game.importSave(@savegame.get('data'))
+    save = @fetchedSave()
+    if not save
+      throw new Error 'nothing to pull'
+    game.importSave save
 
   clear: (fn=(->)) ->
     for savegame in @savedgames
