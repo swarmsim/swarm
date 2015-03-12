@@ -67,6 +67,10 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
     @maybeSet 'scrolling', name, {'none':true, 'resize':true, 'lockhover'}
     return @get('scrolling') ? 'none'
 
+  autopush: (enabled) ->
+    @maybeSet 'autopush', enabled
+    return @get('autopush') ? true
+
   # can't attach an id to the theme element - usemin-compiled
   @THEME_EL: $('link[href^="styles/bootstrapdefault"]')
   @THEMES: do ->
@@ -109,6 +113,15 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
   customTheme: (url) ->
     @set 'isCustomTheme', true
     @set 'theme', {isCustom:true,url:url}
+
+  @THEME_EXTRA_LENGTH = 1000
+  themeExtra: (css) ->
+    if css?
+      if css.length >= @constructor.THEME_EXTRA_LENGTH
+        throw new Error "But it's so big!"
+      @set 'themeExtra', css
+    return @get 'themeExtra', null
+
 
 angular.module('swarmApp').factory 'options', (Options, session) ->
   return new Options session

@@ -1,6 +1,7 @@
 <ul ng-if="!isOffline" class="nav nav-tabs" role="tablist">
-  <li ng-repeat="tab in tabs.list | filter:filterVisible" ng-class="{active: cur.name === tab.name}">
+  <li ng-repeat="tab in tabs.list | filter:filterVisible" class="tab-resource tab-{{name}}" ng-class="{active: cur.name === tab.name}">
     <a ng-href="#{{tab.url()}}" role="tab">
+      <div class="tab-icon-resource tab-icon-{{tab.name}} icon-{{tab.name}}"></div>
       <!-- TODO why isnt' pluralize working? -->
       {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.plural}}
       <span ng-if="tab.leadunit.capValue()">({{tab.leadunit.capPercent()|percent:{floor:true,places:0} }})</span>

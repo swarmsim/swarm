@@ -103,8 +103,11 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
+            autopushIntervalMs: 1000 * 60 * 9999,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             isAppcacheEnabled: true,
+            sentryDSN: null,
+            sentrySampleRate: 0,
             gaTrackingID: null
           }
         }
@@ -124,8 +127,11 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: grunt.option('saveServerUrl'),
             isKongregateSyncEnabled: true,
+            autopushIntervalMs: 1000 * 15,
             googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
             isAppcacheEnabled: true,
+            sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
+            sentrySampleRate: 1,
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -146,8 +152,11 @@ module.exports = function (grunt) {
             isDropboxEnabled: true,
             saveServerUrl: 'https://swarm-server.swarmsim.com',
             isKongregateSyncEnabled: true,
+            autopushIntervalMs: 1000 * 60 * 15,
             googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
             isAppcacheEnabled: false,
+            sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
+            sentrySampleRate: 0.001,
             gaTrackingID: 'UA-53523462-1'
           }
         }
@@ -641,7 +650,8 @@ module.exports = function (grunt) {
             'bower_components/bootswatch/fonts/*',
             'bower_components/bootswatch/*/bootstrap.min.css',
             'bower_components/bootswatch/*/bootstrap.min.css',
-            'bower_components/bootswatch/*/thumbnail.png'
+            'bower_components/bootswatch/*/thumbnail.png',
+            'bower_components/ravenjs/dist/raven.min.js'
           ],
           dest: '<%= yeoman.dist %>'
         }]

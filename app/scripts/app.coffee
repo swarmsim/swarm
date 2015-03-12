@@ -23,6 +23,27 @@ angular.module 'swarmApp', [
     # TODO: hotkeys disabled for now.
     #'cfp.hotkeys'
   ]
+
+angular.module('swarmApp').config (version, env) ->
+  # run this first to log other init errors.
+  # tests don't have a dsn, don't setup raven at all
+  # skip multiple runs of setup for dev - happens when unittesting, clutters output - but prod must always run this
+  if env.sentryDSN and ((not env.isDebugEnabled) or (not Raven.isSetup()))
+    filters = [
+      # https://app.getsentry.com/swarm-simulator/swarmsim/group/57518714/
+      /Permission denied to access property ['\"]toString/
+    ]
+    Raven.config(env.sentryDSN,
+      # http://raven-js.readthedocs.org/en/latest/config/
+      release: version
+      maxMessageLength: 200
+      shouldSendCallback: (data) ->
+        for filter in filters
+          if filter.test data.message
+            return
+        return Math.random() < env.sentrySampleRate
+    ).install()
+
 angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline
     return $routeProvider
@@ -91,13 +112,6 @@ angular.module('swarmApp').config ($routeProvider, env) ->
 angular.module('swarmApp').config (env, $logProvider) ->
   $logProvider.debugEnabled env.isDebugLogged
 
-angular.module('swarmApp').config (env, version) ->
-  if env.gaTrackingID and window.ga? and not env.isOffline
-    #console.log 'analytics', gaTrackingID
-    window.ga 'create', env.gaTrackingID, 'auto'
-    # appVersion breaks analytics, presumably because it's mobile-only.
-    #window.ga 'set', 'appVersion', version
-
 # http and https use different localstorage, which might confuse folks.
 # angular $location doesn't make protocol mutable, so use window.location.
 # allow an out for testing, though.
@@ -134,6 +148,14 @@ angular.module('swarmApp').run ($location, isKongregate) ->
   if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com') and not ($location.search().noredirect or isKongregate())
     window.location.host = 'swarmsim.github.io'
 
+# Google analytics setup. Run this only after redirects are done.
+angular.module('swarmApp').config (env, version) ->
+  if env.gaTrackingID and window.ga? and not env.isOffline
+    #console.log 'analytics', gaTrackingID
+    window.ga 'create', env.gaTrackingID, 'auto'
+    # appVersion breaks analytics, presumably because it's mobile-only.
+    #window.ga 'set', 'appVersion', version
+
 angular.module('swarmApp').run ($rootScope) ->
   $rootScope.floor = (val) -> Math.floor val
 
@@ -154,4 +176,3 @@ angular.module('swarmApp').run ($rootScope, env) ->
       appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
     #else
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
-

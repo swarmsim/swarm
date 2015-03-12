@@ -7,7 +7,7 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback, dropboxSyncer) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -15,11 +15,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.imported = {}
 
   $scope.isKongregate = isKongregate
-  # A dropbox key must be supplied, no exceptions.
-  # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
-  # ?dropbox in the URL overrides these things.
-  $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ?
-    (env.isDropboxEnabled and not isKongregate()))
+  $scope.isDropbox = dropboxSyncer.isVisible()
 
   $scope.duration_examples = [
       moment.duration(16,'seconds')
@@ -34,6 +30,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     isCustomTheme: options.theme().isCustom
     customThemeUrl: options.theme().url
     theme: options.theme().name
+    themeExtra: options.themeExtra()
   $scope.setTheme = (name) ->
     $scope.options.theme name
     $scope.form.isCustomTheme = false
@@ -93,3 +90,17 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.form.export = data.id
     .fail (data, status, error) ->
       $scope.imported.error = true
+
+  $scope.clearThemeExtra = ->
+    $scope.form.themeExtraSuccess = null
+    $scope.form.themeExtraError = null
+  $scope.themeExtra = (text) ->
+    $scope.clearThemeExtra()
+    try
+      options.themeExtra text
+      $scope.form.themeExtraSuccess = true
+    catch e
+      $log.error e
+      $scope.form.themeExtraError = e?.message
+      return
+    #$log.debug 'themeExtra updates', themeExtraEl

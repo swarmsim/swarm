@@ -24,7 +24,7 @@ angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version,
         return "#{browser.name} #{m[1]}"
     return ua
 
-  feedback.createTinyurl().done (data, status, xhr) => $scope.$apply =>
+  feedback.createTinyurl().done (data, status, xhr) =>
     $scope.urls.short = data.id
     $scope.urls.expand = data.id + '+'
 
@@ -58,7 +58,7 @@ if $location.search().error then "\n* Error message: ```"+$location.search().err
     if (error = $location.search().error or '')
       error += '|'
     baseurl = "https://docs.google.com/a/swarmsim.com/forms/d/18ywqkqMlviAgKACVZUI6XkaGte2piKN3LGbii8Qwvmw/viewform?entry.1461412788="
-    param = "#{version}|#{scope.userAgentGuess}|#{error}#{$scope.urls.expand}"
+    param = "#{version}|#{$scope.userAgentGuess}|#{error}#{$scope.urls.expand}"
     url = "#{baseurl}#{encodeURIComponent param}"
     # starts throwing bad requests for length around this point. Send whatever we can.
     LIMIT = 1950

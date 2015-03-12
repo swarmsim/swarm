@@ -8,7 +8,7 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
-achievePublicTest1, kongregateScrolling, pageTheme
+achievePublicTest1, kongregateScrolling, pageTheme, remoteSaveInit
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
@@ -38,10 +38,10 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $scope.$emit 'konami'
     $log.debug 'konami'
 
-
   achievePublicTest1 $scope
   kongregateScrolling $scope
   pageTheme $scope
+  remoteSaveInit $scope
 
 angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
   $scope.options = options
@@ -50,8 +50,15 @@ angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scop
     # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
     if theme.url != themeEl.attr 'href'
       themeEl.attr 'href', theme.url
+  $scope.$watch 'options.themeExtra()', (css, oldval) =>
+    if css?
+      if not $scope.themeExtraEl?
+        $scope.themeExtraEl = $('<style type="text/css"></style>')
+        $scope.themeExtraEl.appendTo 'body'
+      $scope.themeExtraEl.html css
+      $log.debug 'extratheming', $scope.themeExtraEl, css
 
-angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
+angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, kongregateS3Syncer, options) -> return ($scope) ->
   $scope.options = options
   if !kongregate.isKongregate()
     return
@@ -64,6 +71,23 @@ angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, opt
   kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad
   $scope.onRender = ->
     kongregate.onResize()
+
+angular.module('swarmApp').factory 'remoteSaveInit', ($log, kongregate, kongregateS3Syncer, dropboxSyncer, options) -> return ($scope) ->
+  $scope.$watch 'options.autopush()', (newval, oldval) =>
+    for syncer in [kongregateS3Syncer, dropboxSyncer] then do (syncer) =>
+      $log.debug 'autopush trying to setup', syncer.constructor.name
+      if syncer.isVisible()
+        $log.debug 'autopush visible', syncer.constructor.name
+        if syncer.isInit()
+          $log.debug 'autopush setup', syncer.constructor.name
+          syncer.initAutopush newval
+        else
+          $log.debug 'autopush not yet init', syncer.constructor.name
+          syncer.init ->
+            $log.debug 'autopush init done, checking success', syncer.constructor.name
+            if syncer.isInit()
+              $log.debug 'autopush setup', syncer.constructor.name
+              syncer.initAutopush newval
 
 angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement
