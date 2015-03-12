@@ -2,13 +2,14 @@
 
 # remotesave iface:
 # * isVisible()
-# * init(fn)
-# * initAutopush(enabled=true)
-# * fetch(fn)
+# * init() -> promise
+# * fetch() -> promise
+# * fetchedSave() -> encoded save
 # * pull()
-# * push(fn)
+# * push() -> promise
+# * clear() -> promise
+# * initAutopush(enabled=true)
 # * autopush()
-# * clear(fn)
 
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q) -> new class KongregateS3Syncer
   constructor: ->
@@ -94,12 +95,17 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       fn data, status, xhr
     xhr.fail (data, status, xhr) ->
       $log.info 's3 fetch failed (possibly empty)', data, status, xhr
+
+  fetchedSave: ->
+    return @fetched?.encoded
+
   # pull: actually import, after fetching
   pull: (fn=(->)) ->
     if not @fetched
       throw new Error 'nothing to pull'
     game.importSave @fetched.encoded
     fn()
+
   # push: export to remote. this is the tricky one; writes to s3.
   push: (fn=(->), encoded=game.session.exportSave()) ->
     if !@policy.post
@@ -128,12 +134,9 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         @fetched = pushed
         fn data, status, xhr
 
-  isDirty: ->
-    return @fetched?.encoded != game.session.exportSave()
-
   autopush: ->
     if @isInit() and @autopushInterval
-      if @isDirty()
+      if @fetchedSave() != game.session.exportSave()
         $log.debug 'autopushing (with changes, for real)'
         @push()
       else
@@ -216,6 +219,9 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
     $log.debug 'fetched from dropbox: '+@savedgame
     fn()
 
+  fetchedSave: ->
+    return @savedgame?.get?('data')
+
   push: (fn=(->)) ->
     @clear()
     $log.debug 'saving to dropbox'
@@ -227,13 +233,10 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
       data: session.exportSave()
     @fetch fn
 
-  isDirty: ->
-    return @savedgame?.get?('data') != game.session.exportSave()
-
   # TODO share code with kong autosync
   autopush: ->
     if @isInit() and @autopushInterval
-      if @isDirty()
+      if @fetchedSave() != game.session.exportSave()
         $log.debug 'autopushing (with changes, for real)'
         @push()
       else
