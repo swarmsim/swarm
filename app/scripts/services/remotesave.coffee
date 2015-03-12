@@ -2,14 +2,16 @@
 
 # remotesave iface:
 # * isVisible()
-# * init() -> promise
-# * fetch() -> promise
+# * init(fn) -> promise
+# * fetch(fn) -> promise
 # * fetchedSave() -> encoded save
 # * pull()
-# * push() -> promise
-# * clear() -> promise
+# * push(fn) -> promise
+# * clear(fn) -> promise
 # * initAutopush(enabled=true)
 # * autopush()
+#
+# TODO: refactor to actually use promises
 
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q) -> new class KongregateS3Syncer
   constructor: ->
