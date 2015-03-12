@@ -10,41 +10,54 @@
 # * autopush()
 # * clear(fn)
 
-angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval) -> new class KongregateS3Syncer
+angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q) -> new class KongregateS3Syncer
   constructor: ->
   isVisible: ->
     env.isKongregateSyncEnabled and kongregate.isKongregate()
   init: (fn=(->), userid, token, force) ->
     # Fetch an S3 policy from our server. This allows S3 access without ever again calling our custom server.
-    @policy = null
-    if force
-      storage.removeItem 's3Policy'
-    try
-      policy = storage.getItem 's3Policy'
-      if policy
-        @policy = JSON.parse policy
-        @cached = true
-      else
-        $log.debug 'no cached s3 policy', @policy
-    catch e
-      $log.warn "couldn't load cached s3 policy", e
-    $log.debug 'cached policy', @policy
-    if not @policy? or (expired=@policy.localDate?.expires < game.now.getTime())
-      @cached = false
-      $log.debug 'refreshing s3 policy', force, expired
-      onRefresh = (data, status, xhr) =>
-        if status == 'success'
-          @policy = data
-          $log.debug 'caching s3 policy', @policy
-          storage.setItem 's3Policy', JSON.stringify @policy
+    defer = $q.defer()
+    ret = defer.promise
+    # TODO refactor to use promises, remove callback
+    ret.then fn
+    kongregate.onLoad.then =>
+      @policy = null
+      if force
+        storage.removeItem 's3Policy'
+      try
+        policy = storage.getItem 's3Policy'
+        if policy
+          @policy = JSON.parse policy
+          @cached = true
         else
-          $log.warn "couldn't refresh s3 policy", data, status
-        fn data, status, xhr
-      return @_refreshPolicy onRefresh, userid, token
-    else
-      $log.debug 'cached s3 policy is good; not refreshing', @policy
-      fn()
-      return undefined
+          $log.debug 'no cached s3 policy', @policy
+      catch e
+        $log.warn "couldn't load cached s3 policy", e
+      $log.debug 'cached policy', @policy
+      if not @policy? or (expired=@policy.localDate?.expires < game.now.getTime())
+        @cached = false
+        $log.debug 'refreshing s3 policy', force, expired
+        onRefresh = (data, status, xhr) =>
+          if status == 'success'
+            @policy = data
+            $log.debug 'caching s3 policy', @policy
+            storage.setItem 's3Policy', JSON.stringify @policy
+          else
+            $log.warn "couldn't refresh s3 policy", data, status
+          @fetch (d) ->
+            defer.resolve d
+        return @_refreshPolicy onRefresh, userid, token
+      else
+        $log.debug 'cached s3 policy is good; not refreshing', @policy
+        @fetch ->
+          defer.resolve()
+        return undefined
+    kongregate.onLoad.catch (val) =>
+      defer.reject val
+    return ret
+
+  isInit: ->
+    return @policy?
 
   initAutopush: (enabled=true) ->
     if @autopushInterval
@@ -52,7 +65,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       @autopushInterval = null
     $(window).off 'unload', 'kongregate.autopush'
     if enabled
-      @autopushInterval = $interval (=>@autopush()), 1000 * 60 * 15
+      @autopushInterval = $interval (=>@autopush()), env.autopushIntervalMs
       $(window).unload 'kongregate.autopush', =>
         $log.debug 'autopush unload'
         @autopush()
@@ -114,13 +127,18 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         $log.debug 'exported to s3', data, status, xhr
         @fetched = pushed
         fn data, status, xhr
+
+  isDirty: ->
+    return @fetched?.encoded != game.session.exportSave()
+
   autopush: ->
-    if @policy and @autopushInterval
-      if @fetched?.encoded != game.session.exportSave()
+    if @isInit() and @autopushInterval
+      if @isDirty()
         $log.debug 'autopushing (with changes, for real)'
         @push()
       else
         $log.debug 'autopush triggered with no changes, ignoring'
+
   clear: (fn=(->)) ->
     if !@policy.delete
       throw new Error 'no policy. init() first.'
@@ -134,7 +152,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         delete @fetched
         fn data, status, xhr
 
-angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate) -> new class DropboxSyncer
+angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate, $interval) -> new class DropboxSyncer
   constructor: ->
     @_datastore = null
     @_recschanged = null
@@ -159,18 +177,36 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
     return @_datastore.getTable 'saveddata'
 
   init: (fn) ->
-    $log.debug "initializing dropbox"
+    if @isAuth()
+      $log.debug "initializing dropbox"
 
-    datastoreManager = new Dropbox.Datastore.DatastoreManager(@dsc)
-    datastoreManager.openDefaultDatastore (err,datastore) =>
-      $log.debug "dropbox opendef err: "+err if err
-      $log.debug "dropbox opendef datastore: "+datastore
+      datastoreManager = new Dropbox.Datastore.DatastoreManager(@dsc)
+      datastoreManager.openDefaultDatastore (err,datastore) =>
+        $log.debug "dropbox opendef err: "+err if err
+        $log.debug "dropbox opendef datastore: "+datastore
 
-      @_datastore = datastore
-      @_recordChangedListener = => @fetch()
-      @_datastore.recordsChanged.addListener @_recordChangedListener
-      $log.debug 'dropbox done initing, now fetching'
-      @fetch fn
+        @_datastore = datastore
+        @_recordChangedListener = => @fetch()
+        @_datastore.recordsChanged.addListener @_recordChangedListener
+        $log.debug 'dropbox done initing, now fetching'
+        @fetch fn
+    else
+      $log.debug 'not logged in to dropbox, not initializing'
+
+  isInit: ->
+    return @_datastore?
+
+  # TODO share code with kongregate autosync
+  initAutopush: (enabled=true) ->
+    if @autopushInterval
+      $interval.cancel @autopushInterval
+      @autopushInterval = null
+    $(window).off 'unload', 'kongregate.autopush'
+    if enabled
+      @autopushInterval = $interval (=>@autopush()), env.autopushIntervalMs
+      $(window).unload 'kongregate.autopush', =>
+        $log.debug 'autopush unload'
+        @autopush()
 
   fetch: (fn=(->)) ->
     $log.debug 'dropbox is fetching (lulz)'
@@ -190,6 +226,18 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
       created: new Date()
       data: session.exportSave()
     @fetch fn
+
+  isDirty: ->
+    return @savedgame?.get?('data') != game.session.exportSave()
+
+  # TODO share code with kong autosync
+  autopush: ->
+    if @isInit() and @autopushInterval
+      if @isDirty()
+        $log.debug 'autopushing (with changes, for real)'
+        @push()
+      else
+        $log.debug 'autopush triggered with no changes, ignoring'
 
   pull: ->
     $log.debug 'do import of:'+ @savegame

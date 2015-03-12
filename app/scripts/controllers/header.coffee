@@ -8,7 +8,7 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
-achievePublicTest1, kongregateScrolling, pageTheme
+achievePublicTest1, kongregateScrolling, pageTheme, remoteSaveInit
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
@@ -38,10 +38,10 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $scope.$emit 'konami'
     $log.debug 'konami'
 
-
   achievePublicTest1 $scope
   kongregateScrolling $scope
   pageTheme $scope
+  remoteSaveInit $scope
 
 angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
   $scope.options = options
@@ -72,9 +72,22 @@ angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, kon
   $scope.onRender = ->
     kongregate.onResize()
 
-  kongregate.onLoad.then =>
-    kongregateS3Syncer.init()
-    kongregateS3Syncer.initAutopush()
+angular.module('swarmApp').factory 'remoteSaveInit', ($log, kongregate, kongregateS3Syncer, dropboxSyncer, options) -> return ($scope) ->
+  $scope.$watch 'options.autopush()', (newval, oldval) =>
+    for syncer in [kongregateS3Syncer, dropboxSyncer] then do (syncer) =>
+      $log.debug 'autopush trying to setup', syncer.constructor.name
+      if syncer.isVisible()
+        $log.debug 'autopush visible', syncer.constructor.name
+        if syncer.isInit()
+          $log.debug 'autopush setup', syncer.constructor.name
+          syncer.initAutopush newval
+        else
+          $log.debug 'autopush not yet init', syncer.constructor.name
+          syncer.init ->
+            $log.debug 'autopush init done, checking success', syncer.constructor.name
+            if syncer.isInit()
+              $log.debug 'autopush setup', syncer.constructor.name
+              syncer.initAutopush newval
 
 angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
   # use an iframe to ask the publictest server if the player's eligible for the achievement

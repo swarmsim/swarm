@@ -102,17 +102,15 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   $scope.init = (force) ->
     $scope.policyError = null
     cooldown.set 'init'
-    xhr = syncer.init ((data, status, xhr) ->
+    q = syncer.init ((data, status, xhr) ->
       $log.debug 'kong syncer inited', data, status
       cooldown.clear 'init'
-      $scope.fetch()
       return undefined
     ), $scope.api.getUserId(), $scope.api.getGameAuthToken(), force
     #), '21627386', '1dd85395a2291302abdb80e5eeb2ec3a80f594ddaca92fa7606571e5af69e881', force
-    xhr?.error (data, status, xhr) ->
+    q.catch (data, status, xhr) ->
       $scope.policyError = "Failed to fetch sync permissions: #{data?.status}, #{data?.statusText}, #{data?.responseText}"
       cooldown.clear 'init'
-      $scope.$apply()
 
   $scope.fetch = ->
     cooldown.set 'fetch'
