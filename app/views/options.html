@@ -110,7 +110,11 @@
           <div><button class="btn btn-primary" ng-click="importSavegame()">Import saved data (replaces your current game)</button></div>
           <div><button class="btn btn-default" ng-click="clearSavegame()">Delete saved data from Dropbox</button></div>
           <div><button class="btn btn-default" id="dropboxlogout" ng-click="droplogout()">Logout</button></div>
-          <p>Last exported: {{syncer.savedgame.get('data').length|number}} chars {{moment(syncer.savedgame.get('created')).fromNow()}}.</p>
+          <p>Last exported: {{syncer.savedgame.get('data').length|number}} chars {{moment(syncer.savedgame.get('created')).fromNow()}}.
+            <span ng-if="syncer.getAutopushError()">Will not auto-export online<span
+              ng-if="syncer.getAutopushError()=='nochanges'"> because nothing's changed since the last export</span><span
+              ng-if="syncer.getAutopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
+          </p>
         </div>
         <div style="clear:left"></div>
       </div>
@@ -130,6 +134,9 @@
           <div><button class="btn btn-primary" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
           <div><button class="btn btn-default" ng-class="{disabled:cooldown.byName.clear}" ng-click="clear()">Delete online saved data</button></div>
           <p>Last exported: {{remoteSave().length|number}} chars {{remoteDate()|momentFromNow}}.
+            <span ng-if="getAutopushError()">Will not auto-export online<span
+              ng-if="getAutopushError()=='nochanges'"> because nothing's changed since the last export</span><span
+              ng-if="getAutopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
             <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How does this work?</a>
           </p>
         </div>

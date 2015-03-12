@@ -81,6 +81,7 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, se
   $scope.policy = -> syncer.policy
   $scope.isPolicyCached = -> syncer.cached
   $scope.policyError = null
+  $scope.getAutopushError = -> syncer.getAutopushError()
 
   onload = ->
     $scope.api = kongregate.kongregate.services

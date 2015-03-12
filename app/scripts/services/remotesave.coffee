@@ -100,6 +100,9 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
 
   fetchedSave: ->
     return @fetched?.encoded
+  fetchedDate: ->
+    if @fetched?.date?
+      return new Date @fetched.date
 
   # pull: actually import, after fetching
   pull: ->
@@ -136,9 +139,14 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         @fetched = pushed
         fn data, status, xhr
 
+  getAutopushError: ->
+    if @fetchedSave() == game.session.exportSave()
+      return 'nochanges'
+    if (@fetchedDate() ? new Date 0) > game.session.date.reified
+      return 'remotenewer'
   autopush: ->
     if @isInit() and @autopushInterval
-      if @fetchedSave() != game.session.exportSave()
+      if not @getAutopushError()
         $log.debug 'autopushing (with changes, for real)'
         @push()
       else
@@ -223,6 +231,9 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
 
   fetchedSave: ->
     return @savedgame?.get?('data')
+  fetchedDate: ->
+    if @savedgame?.get?('created')
+      return new Date @savedgame?.get?('created')
 
   push: (fn=(->)) ->
     @clear()
@@ -235,10 +246,15 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
       data: session.exportSave()
     @fetch fn
 
+  getAutopushError: ->
+    if @fetchedSave() == game.session.exportSave()
+      return 'nochanges'
+    if (@fetchedDate() ? new Date 0) > game.session.date.reified
+      return 'remotenewer'
   # TODO share code with kong autosync
   autopush: ->
     if @isInit() and @autopushInterval
-      if @fetchedSave() != game.session.exportSave()
+      if not @getAutopushError()
         $log.debug 'autopushing (with changes, for real)'
         @push()
       else
