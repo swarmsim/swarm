@@ -144,6 +144,9 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       return 'nochanges'
     if (@fetchedDate() ? new Date 0) > game.session.date.reified
       return 'remotenewer'
+    # you'd think 'Date == Date' would work since >/</>=/<= work, but no, it's reference equality.
+    if game.session.date.reified.getTime() == game.session.date.started.getTime()
+      return 'newgame'
   autopush: ->
     if @isInit() and @autopushInterval
       if not @getAutopushError()
@@ -251,6 +254,10 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
       return 'nochanges'
     if (@fetchedDate() ? new Date 0) > game.session.date.reified
       return 'remotenewer'
+    # you'd think 'Date == Date' would work since >/</>=/<= work, but no, it's reference equality.
+    if game.session.date.reified.getTime() == game.session.date.started.getTime()
+      return 'newgame'
+
   # TODO share code with kong autosync
   autopush: ->
     if @isInit() and @autopushInterval
