@@ -186,7 +186,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'expStat'
     calcStats: (effect, stats, schema, level) ->
       validateSchema effect.stat, schema, 'mult'
-      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow(level, effect.val).times(effect.val2))
+      stats[effect.stat] = (stats[effect.stat] ? Decimal.ONE).times(Decimal.pow(level, effect.val).times(effect.val2).plus(1))
   effecttypes.register
     name: 'asympStat'
     calcStats: (effect, stats, schema, level) ->
