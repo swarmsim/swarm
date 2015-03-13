@@ -34,15 +34,6 @@
         </td>
       </tr>
     </table>
-<div style="float: left" ng-controller="ChartCtrl">
-<div google-chart chart="chart"
-   style="border:1px inset black;padding:0;width:400px">
-  </div>
-<h2>Chart data as JSON:</h2>
-
-  <pre style='clear:both; background-color: lightgray;'>{{chart|json}}</pre>
-
-</div>
     <!-- without this, dropdown creates vertical scrollbar due to table-responsive. we want horiz scrollbars on small screens, not vert on big screens! -->
     <p style="padding-bottom:200px"></p>
   </div>
