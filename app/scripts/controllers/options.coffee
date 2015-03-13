@@ -7,7 +7,7 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback, dropboxSyncer) ->
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -15,11 +15,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   $scope.imported = {}
 
   $scope.isKongregate = isKongregate
-  # A dropbox key must be supplied, no exceptions.
-  # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
-  # ?dropbox in the URL overrides these things.
-  $scope.isDropbox = env.dropboxAppKey and ($location.search().dropbox ?
-    (env.isDropboxEnabled and not isKongregate()))
+  $scope.isDropbox = dropboxSyncer.isVisible()
 
   $scope.duration_examples = [
       moment.duration(16,'seconds')

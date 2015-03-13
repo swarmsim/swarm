@@ -27,7 +27,8 @@ angular.module 'swarmApp', [
 angular.module('swarmApp').config (version, env) ->
   # run this first to log other init errors.
   # tests don't have a dsn, don't setup raven at all
-  if env.sentryDSN
+  # skip multiple runs of setup for dev - happens when unittesting, clutters output - but prod must always run this
+  if env.sentryDSN and ((not env.isDebugEnabled) or (not Raven.isSetup()))
     filters = [
       # https://app.getsentry.com/swarm-simulator/swarmsim/group/57518714/
       /Permission denied to access property ['\"]toString/
