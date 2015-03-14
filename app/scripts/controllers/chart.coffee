@@ -1,6 +1,7 @@
 
-angular.module('swarmApp').controller 'ChartCtrl', ($scope, $log, game, options, $filter) ->
+angular.module('swarmApp').controller 'ChartCtrl', ($scope, $log, game, options) ->
   $scope.game = game
+  $scope.options = options
 
   $scope.prodchart = prodchart =
     type: 'PieChart'
@@ -28,4 +29,5 @@ angular.module('swarmApp').controller 'ChartCtrl', ($scope, $log, game, options,
         #need Number() for full pie.. will die with bignumbers!!!
         prodchart.data.push [unit.type.label, unit.totalProduction().territory.dividedBy(totalVelocity).toNumber()]
 
+  # this works since you can't buy territory units with the chart visible
   $scope.updatecharts()
