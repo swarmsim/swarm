@@ -22,6 +22,7 @@ angular.module 'swarmApp', [
     # https://github.com/chieffancypants/angular-hotkeys/
     # TODO: hotkeys disabled for now.
     #'cfp.hotkeys'
+    , 'googlechart'
   ]
 
 angular.module('swarmApp').config (version, env) ->
