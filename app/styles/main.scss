@@ -1,3 +1,9 @@
+// modal background's missing in non-default themes without this. Works on the bootswatch site.
+// No idea what's broken, but this fixes it.
+.modal-backdrop {
+  height:100%;
+}
+
 // based on https://stackoverflow.com/questions/19227496/scrollable-menu-with-bootstrap-3-menu-expanding-its-container-when-it-should-n
 .scrollable-menu {
   height: auto;
