@@ -114,6 +114,10 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
     @set 'isCustomTheme', true
     @set 'theme', {isCustom:true,url:url}
 
+  showCharts: (enabled) ->
+    @maybeSet 'showCharts', enabled
+    return @get('showCharts') ? true
+
   @THEME_EXTRA_LENGTH = 1000
   themeExtra: (css) ->
     if css?

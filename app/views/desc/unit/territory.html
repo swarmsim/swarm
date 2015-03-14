@@ -1,0 +1,11 @@
+<p title="Your terrifying warriors tear through their foes to capture territory.">Your swarm's military captures territory, fueling your expansion.</p>
+
+<div class="titlecase" ng-controller="ChartCtrl" ng-hide="game.unit('territory').velocity().isZero()">
+  <div ng-if="options.showCharts()" class="animif">
+    <div google-chart chart="prodchart" style="padding:0;width:500px"></div>
+    <div><button class="btn btn-default btn-sm" ng-click="options.showCharts(false)">Hide chart</button></div>
+  </div>
+  <div ng-if="!options.showCharts()">
+    <div><button class="btn btn-default btn-sm" ng-click="options.showCharts(true)">Show chart</button></div>
+  </div>
+</div>
