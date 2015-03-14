@@ -78,7 +78,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     # pass
     $log.error e
 
-angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game) ->
+angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game, $location) ->
   interval = null
   $scope.$on 'import', (event, args) ->
     $log.debug 'welcome back: import', args?.success, args
@@ -93,8 +93,7 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
     # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
     # Do all time-checks for the welcome-back screen *before* scheduling heartbeats/onclose.
     $scope.durationSinceClosed = game.session.durationSinceClosed undefined, ignoreHeartbeat
-    $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
-    #$scope.showWelcomeBack = true # uncomment for testing!
+    $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3 or $location.search().forcewelcome
     reifiedToCloseDiffInSecs = (game.session.dateClosed(ignoreHeartbeat).getTime() - game.session.date.reified.getTime()) / 1000
     $log.debug 'time since game closed', $scope.durationSinceClosed.humanize(),
       millis:game.session.millisSinceClosed undefined, ignoreHeartbeat
