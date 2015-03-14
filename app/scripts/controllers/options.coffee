@@ -70,11 +70,11 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.game.importSave encoded
       backfill.run $scope.game
       $scope.imported.success = true
-      $scope.$emit 'import', {success:true}
+      $scope.$root.$broadcast 'import', {source:'options',success:true}
       $log.debug 'import success'
     catch e
       $scope.imported.error = true
-      $scope.$emit 'import', {success:false}
+      $scope.$root.$broadcast 'import', {source:'options',success:false}
       $log.warn 'import error', e
 
   $scope.confirmReset = ->

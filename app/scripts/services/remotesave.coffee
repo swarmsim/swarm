@@ -13,7 +13,7 @@
 #
 # TODO: refactor to actually use promises
 
-angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q) -> new class KongregateS3Syncer
+angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q, $rootScope) -> new class KongregateS3Syncer
   constructor: ->
   isVisible: ->
     env.isKongregateSyncEnabled and kongregate.isKongregate()
@@ -110,6 +110,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
     if not save
       throw new Error 'nothing to pull'
     game.importSave save
+    $rootScope.$broadcast 'import', {source:'kongregateS3Syncer', success:true}
 
   # push: export to remote. this is the tricky one; writes to s3.
   push: (fn=(->), encoded=game.session.exportSave()) ->
@@ -168,7 +169,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         delete @fetched
         fn data, status, xhr
 
-angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate, $interval) -> new class DropboxSyncer
+angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate, $interval, $rootScope) -> new class DropboxSyncer
   constructor: ->
     @_datastore = null
     @_recschanged = null
@@ -272,6 +273,7 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
     if not save
       throw new Error 'nothing to pull'
     game.importSave save
+    $rootScope.$broadcast 'import', {source:'dropboxSyncer', success:true}
 
   clear: (fn=(->)) ->
     for savegame in @savedgames
