@@ -96,7 +96,8 @@ angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $locati
   isPublicTest = _.contains version, '-publictest'
   # accidentally pushed this to publictest with isPublicTest broken - seemed to work, though! `framed` stopped any loops.
   # kongregate doesn't like iframes, and newer kongregate players won't qualify anyway
-  $scope.loadIframe = (not framed) and (not alreadyEarned) and (not isKongregate()) #and (not isPublicTest)
+  #$scope.loadIframe = (not framed) and (not alreadyEarned) and (not isKongregate()) #and (not isPublicTest)
+  $scope.loadIframe = false
   $log.debug 'achievePublicTest1: creating iframe:', $scope.loadIframe, framed:framed, alreadyEarned:alreadyEarned, isPublicTest:isPublicTest
   if $scope.loadIframe
     # setup a message-handler; cleanup either when the message arrives, or after 30 seconds
