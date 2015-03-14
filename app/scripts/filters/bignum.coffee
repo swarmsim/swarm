@@ -42,16 +42,17 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       if options.notation() == 'hybrid'
         # hybrid is like standard, but switches to scientific notation sooner: shorter suffix list
         suffixes = suffixes.slice 0, 12
-      if options.notation() == 'scientific-e' or index >= suffixes.length
+
+      if options.notation() == 'engineering'
+        # Engineering works like standard, but with number-based suffixes instead of a hardcoded list
+        suffix = "E#{index * 3}"
+      else if options.notation() == 'scientific-e' or index >= suffixes.length
         # no suffix, use scientific notation. No grouping in threes or suffixes; quit early.
         # round down for consistency with suffixed formats, though rounding doesn't matter so much here.
         precision = opts.sigfigs-1
         if noSigfigs
           precision = undefined
         return num.toExponential(precision, Decimal.ROUND_FLOOR).replace 'e+', 'e'
-      if options.notation() == 'engineering'
-        # Engineering works like standard, but with number-based suffixes instead of a hardcoded list
-        suffix = "E#{index * 3}"
       else
         # use standard-decimal's suffix list
         suffix = suffixes[index]

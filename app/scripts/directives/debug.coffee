@@ -90,6 +90,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
       scope.form.exportAge = new Date()
     scope.now = -> scope.game.now
     scope.export()
+
     scope.selectResource = ->
       scope.form.count = scope.form.resource.count()
     scope.setResource = ->
@@ -103,6 +104,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
               if scope.form.count >= level
                 upgrade._setCount 1
       scope.export()
+
     scope.confirmReset = ->
       if confirm 'really?'
         scope.game.reset true

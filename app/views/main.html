@@ -26,6 +26,8 @@
           <span ng-if="!unit.velocity().isZero()">
           +{{unit.velocity().times(options.velocityUnit().mult)|bignum:1}}/{{options.velocityUnit().name}}
           </span>
+          <span ng-if="unit.velocity().isZero() && cur.tab.name == 'territory' && !val.isZero()" ng-repeat="(name, val) in unit.totalProduction()">
+            +{{val.times(options.velocityUnit().mult)|bignum:1}}/{{options.velocityUnit().name}}</span>
         </td>
         <td ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
