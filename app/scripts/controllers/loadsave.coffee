@@ -48,7 +48,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
         if encoded
           $log.debug "flash loaded successfully, and found a saved game there that wasn't in cookies/localstorage! importing."
           # recovered save from flash! tell analytics
-          $scope.$emit 'savedGameRecoveredFromFlash', e.message
+          $scope.$root.$broadcast 'savedGameRecoveredFromFlash', e.message
           game.importSave encoded, true # don't save when recovering from flash - if this is somehow a mistake, player can take no action
         else
           $log.debug 'flash loaded successfully, but no saved game found. this is truly a new visitor.'
@@ -76,54 +76,66 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     linkPublicTest1 $scope
   catch e
     # pass
-    console.error e
+    $log.error e
 
 angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game) ->
-  # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
-  # Do all time-checks for the welcome-back screen *before* scheduling heartbeats/onclose.
-  $scope.durationSinceClosed = game.session.durationSinceClosed()
-  $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
-  #$scope.showWelcomeBack = true # uncomment for testing!
-  reifiedToCloseDiffInSecs = (game.session.dateClosed().getTime() - game.session.date.reified.getTime()) / 1000
-  $log.debug 'time since game closed', $scope.durationSinceClosed.humanize(),
-    millis:game.session.millisSinceClosed()
-    reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
+  interval = null
+  $scope.$on 'import', (event, args) ->
+    $log.debug 'welcome back: import', args?.success, args
+    if args?.success
+      run true, true
+  $scope.$on 'savedGameRecoveredFromFlash', (event, args) ->
+    $log.debug 'welcome back: saved game recovered from flash'
+    run()
+  $scope.$on 'reset', (event, args) ->
+    $scope.closeWelcomeBack?()?
+  do run = (force=false, ignoreHeartbeat=false) ->
+    # Show the welcome-back screen only if we've been gone for a while, ie. not when refreshing.
+    # Do all time-checks for the welcome-back screen *before* scheduling heartbeats/onclose.
+    $scope.durationSinceClosed = game.session.durationSinceClosed undefined, ignoreHeartbeat
+    $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3
+    #$scope.showWelcomeBack = true # uncomment for testing!
+    reifiedToCloseDiffInSecs = (game.session.dateClosed(ignoreHeartbeat).getTime() - game.session.date.reified.getTime()) / 1000
+    $log.debug 'time since game closed', $scope.durationSinceClosed.humanize(),
+      millis:game.session.millisSinceClosed undefined, ignoreHeartbeat
+      reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs
 
-  # Store when the game was closed. Try to use the browser's onclose (onunload); that's most precise.
-  # It's unreliable though (crashes fail, cross-browser's icky, ...) so use a heartbeat too.
-  # Wait until showWelcomeBack is set before doing these, or it'll never show
-  $(window).unload -> game.session.onClose()
-  $interval (-> game.session.onHeartbeat()), 60000
-  game.session.onHeartbeat() # game.session time checks after this point will be wrong
+    # Store when the game was closed. Try to use the browser's onclose (onunload); that's most precise.
+    # It's unreliable though (crashes fail, cross-browser's icky, ...) so use a heartbeat too.
+    # Wait until showWelcomeBack is set before doing these, or it'll never show
+    $(window).unload -> game.session.onClose()
+    interval ?= $interval (-> game.session.onHeartbeat()), 60000
+    game.session.onHeartbeat() # game.session time checks after this point will be wrong
 
-  if not $scope.showWelcomeBack
-    return
+    if not $scope.showWelcomeBack
+      $log.debug 'skipping welcome back screen: offline time too short', $scope.durationSinceClosed.asMinutes()
+      return
 
-  $scope.closeWelcomeBack = ->
-    $log.debug 'closeWelcomeBack'
-    $('#welcomeback').alert('close')
-    return undefined #quiets an angular error
+    $scope.closeWelcomeBack = ->
+      $log.debug 'closeWelcomeBack'
+      $('#welcomeback').alert('close')
+      return undefined #quiets an angular error
 
-  # show all tab-leading units, and three leading generations of meat
-  interestingUnits = []
-  leaders = 0
-  for unit in game.tabs.byName.meat.sortedUnits
-    if leaders >= 3
-      break
-    if !unit.velocity().isZero()
-      leaders += 1
-      interestingUnits.push unit
-  interestingUnits = interestingUnits.concat _.map game.tabs.list, 'leadunit'
-  uniq = {}
-  $scope.offlineGains = _.map interestingUnits, (unit) ->
-    if not uniq[unit.name]
-      uniq[unit.name] = true
-      countNow = unit.count()
-      countClosed = unit._countInSecsFromReified reifiedToCloseDiffInSecs
-      countDiff = countNow.minus countClosed
-      if countDiff.greaterThan 0
-        return unit:unit, val:countDiff
-  $scope.offlineGains = (g for g in $scope.offlineGains when g)
+    # show all tab-leading units, and three leading generations of meat
+    interestingUnits = []
+    leaders = 0
+    for unit in game.tabs.byName.meat.sortedUnits
+      if leaders >= 3
+        break
+      if !unit.velocity().isZero()
+        leaders += 1
+        interestingUnits.push unit
+    interestingUnits = interestingUnits.concat _.map game.tabs.list, 'leadunit'
+    uniq = {}
+    $scope.offlineGains = _.map interestingUnits, (unit) ->
+      if not uniq[unit.name]
+        uniq[unit.name] = true
+        countNow = unit.count()
+        countClosed = unit._countInSecsFromReified reifiedToCloseDiffInSecs
+        countDiff = countNow.minus countClosed
+        if countDiff.greaterThan 0
+          return unit:unit, val:countDiff
+    $scope.offlineGains = (g for g in $scope.offlineGains when g)
 
 angular.module('swarmApp').factory 'linkPublicTest1', ($log, $location, game, kongregate) -> return ($scope) ->
   #console.log LZString.compressToBase64 JSON.stringify date:new Date()

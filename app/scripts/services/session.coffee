@@ -54,7 +54,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       else
         delete @kongregate
       $log.debug 'reset', @kongregate
-      $rootScope.$emit 'reset', {session:this}
+      $rootScope.$broadcast 'reset', {session:this}
 
     _clear: ->
       for key, val of this
@@ -170,15 +170,29 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
         @_exportCache = @_saves undefined, false
       @_exportCache
 
-    importSave: (encoded) ->
+    importSave: (encoded, transient=true) ->
       data = @_loads encoded
       @_clear()
       _.extend this, data
       @_exportCache = encoded
+      if not transient
+        @_write()
     
+    _write: ->
+      # write the game in @_exportCache without building a new one. usually
+      # you'll want @save() instead, but @importSave() uses this to save the
+      # game without overwriting its save-time.
+      try
+        storage.setItem @id, @_exportCache
+        success = true
+      catch e
+        $log.error 'failed to save game', e
+        $rootScope.$broadcast 'save:failed', {error:e, session:this}
+      if success
+        $rootScope.$broadcast 'save', this
     save: ->
       if env.isOffline
-        $log.warn 'cannot save; game is offline'
+        $log.warn 'cannot save, game is offline'
       # exportCache is necessary because sjcl encryption isn't deterministic,
       # but exportSave() must be ...not necessarily deterministic, but
       # consistent enough to not confuse angular's $apply().
@@ -186,14 +200,8 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       # TODO: refactor so it's in another object and we don't have to do this exclusion silliness
       delete @_exportCache
       @_exportCache = @_saves()
-      try
-        storage.setItem this.id, this._exportCache
-        success = true
-      catch e
-        $log.error 'failed to save game', e
-        $rootScope.$broadcast 'save:failed', {error:e, session:this}
-      if success
-        $rootScope.$broadcast 'save', this
+      @_write()
+      $log.debug 'saving game (fresh export)'
 
     _setItem: (key, val) ->
       storage.setItem key, val
@@ -226,21 +234,22 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
           return new Date heartbeat
       catch e
         $log.debug "Couldn't load heartbeat time to determine game-closed time. No biggie, continuing.", e
-    dateClosed: ->
+    dateClosed: (ignoreHeartbeat=false) ->
       # don't just use date.closed - maybe the browser crashed and it didn't fire. Use the latest date possible.
       closed = 0
-      if (hb = @_getHeartbeatDate())
+      if (not ignoreHeartbeat) and (hb = @_getHeartbeatDate())
         closed = Math.max closed, hb.getTime()
       for key, date of @date
-        if key != 'loaded'
+        if key != 'loaded' and key != 'saved'
           closed = Math.max closed, date.getTime()
+      $log.debug 'dateclosed final', closed, key, new Date().getTime()-closed
       return new Date closed
-    millisSinceClosed: (now=new Date()) ->
-      closed = @dateClosed()
+    millisSinceClosed: (now=new Date(), ignoreHeartbeat) ->
+      closed = @dateClosed ignoreHeartbeat
       ret = now.getTime() - closed.getTime()
       #$log.info {closed:closed, now:now.getTime(), diff:ret}
       return ret
 
-    durationSinceClosed: (now) ->
-      ms = @millisSinceClosed now
+    durationSinceClosed: (now, ignoreHeartbeat) ->
+      ms = @millisSinceClosed now, ignoreHeartbeat
       return moment.duration ms, 'milliseconds'

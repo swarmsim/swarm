@@ -217,13 +217,10 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   save: ->
     @withSave ->
 
-  importSave: (encoded, transient=false) ->
-    @session.importSave encoded
+  importSave: (encoded, transient) ->
+    @session.importSave encoded, transient
     # Force-clear various caches.
     @_init()
-    # No errors - successful import. Save now by default, so refreshing the page uses the import.
-    if not transient
-      @session.save()
 
   # A common pattern: change something (reifying first), then save the changes.
   # Use game.withSave(myFunctionThatChangesSomething) to do that.
@@ -242,12 +239,12 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @session.save()
     return ret
 
-  reset: (butDontSave=false) ->
+  reset: (transient=false) ->
     @session.reset()
     @_init()
     for unit in @unitlist()
       unit._setCount unit.unittype.init or 0
-    if not butDontSave
+    if not transient
       @save()
 
   ascendEnergySpent: ->
