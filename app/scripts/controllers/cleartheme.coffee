@@ -13,4 +13,4 @@ angular.module('swarmApp').controller 'ClearthemeCtrl', ($scope, options, $locat
   else
     options.theme $location.search().theme ? 'none'
   if $location.search().themeExtra
-    options.theme $location.search().themeExtra ? ''
+    options.themeExtra $location.search().themeExtra ? ''
