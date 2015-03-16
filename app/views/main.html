@@ -24,10 +24,10 @@
         </td>
         <td ng-click="click(unit)">
           <span ng-if="!unit.velocity().isZero()">
-          +{{unit.velocity().times(options.getVelocityUnit({unit:unit}).mult)|bignum:1}}/{{options.getVelocityUnit({unit:unit}).name}}
+          +{{unit.velocity().times(options.getVelocityUnit({unit:unit}).mult)|bignum:2}}/{{options.getVelocityUnit({unit:unit}).name}}
           </span>
           <span ng-if="unit.velocity().isZero() && cur.tab.name == 'territory' && !val.isZero()" ng-repeat="(name, val) in unit.totalProduction()">
-            +{{val.times(options.getVelocityUnit({unit:name}).mult)|bignum:1}}/{{options.getVelocityUnit({unit:name}).name}}</span>
+            +{{val.times(options.getVelocityUnit({unit:name}).mult)|bignum:2}}/{{options.getVelocityUnit({unit:name}).name}}</span>
         </td>
         <td ng-if="options.showAdvancedUnitData()">
           <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
