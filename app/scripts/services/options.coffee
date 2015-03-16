@@ -7,17 +7,25 @@
  # # options
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
+angular.module('swarmApp').factory 'Options', ($log, util, env, game) -> class Options
   constructor: (@session) ->
     @VELOCITY_UNITS = byName:{}, list:[]
     addvunit = (name, label, plural, mult) =>
       vu = name:name, label:label, plural:plural, mult:mult
+      if _.isFunction mult
+        vu._get = ->
+          ret = _.clone this
+          ret.mult = ret.mult()
+          return ret
+      else
+        vu._get = -> return this
       @VELOCITY_UNITS.byName[vu.name] = vu
       @VELOCITY_UNITS.list.push vu
     addvunit 'sec', 'second', 'seconds', 1
     addvunit 'min', 'minute', 'minutes', 60
     addvunit 'hr', 'hour', 'hours', 60 * 60
     addvunit 'day', 'day', 'days', 60 * 60 * 24
+    addvunit 'warp', 'Swarmwarp', 'Swarmwarp', -> game.upgrade('swarmwarp').effect[0].output()
 
   maybeSet: (field, val, valid) ->
     if val?
@@ -58,9 +66,17 @@ angular.module('swarmApp').factory 'Options', ($log, util, env) -> class Options
       @maybeSet 'notation', val
     @get 'notation', 'standard-decimal'
 
-  velocityUnit: (name) ->
+  velocityUnit: (name, opts={}) ->
     @maybeSet 'velocityUnit', name, @VELOCITY_UNITS.byName
-    return @VELOCITY_UNITS.byName[@get 'velocityUnit'] ? @VELOCITY_UNITS.list[0]
+    ret = @VELOCITY_UNITS.byName[@get 'velocityUnit']
+    # special case: swarmwarp produces no energy, so default to seconds
+    if (not ret?) or (ret.name == 'warp' and (
+      ((opts.unit?.name ? opts.unit) == 'energy') or
+      ((opts.prod?.name ? opts.prod) == 'nexus')))
+      ret = @VELOCITY_UNITS.list[0]
+    return ret._get()
+  getVelocityUnit: (opts={}) ->
+    return @velocityUnit undefined, opts
 
   # Scrolling style on kongregate/iframed pages
   scrolling: (name) ->

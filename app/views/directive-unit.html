@@ -19,18 +19,18 @@
       Each produces
       <span ng-repeat="(name, val) in cur.eachProduction()">
         <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-        <span>{{val.times(options.velocityUnit().mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+        <span>{{val.times(options.getVelocityUnit({prod:cur}).mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
       </span>
-      per {{options.velocityUnit().label}}.
+      per {{options.getVelocityUnit({prod:cur}).label}}.
       <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
     </p>
     <p ng-if="cur.count().greaterThan(0)">
       In total, they produce
       <span ng-repeat="(name, val) in cur.totalProduction()">
         <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
-        <span>{{val.times(options.velocityUnit().mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+        <span>{{val.times(options.getVelocityUnit({prod:cur}).mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
       </span>
-      per {{options.velocityUnit().label}}.
+      per {{options.getVelocityUnit({prod:cur}).label}}.
     </p>
   </div>
   <div ng-if="cur.showparent && cur.showparent.prod.length">
@@ -39,8 +39,8 @@
       <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
       <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
     </span-->
-    <span>{{cur.velocity().times(options.velocityUnit().mult)|longnum:2}} {{cur.unittype.plural}}</span>
-    per {{options.velocityUnit().label}}.
+    <span>{{cur.velocity().times(options.getVelocityUnit({unit:cur}).mult)|longnum:2}} {{cur.unittype.plural}}</span>
+    per {{options.getVelocityUnit({unit:cur}).label}}.
     <span ng-if="cur.showparent.hasStat('prod', 1)">(&times;{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
     <span ng-if="cur.capValue()">
       At 100%, you'll stop earning {{cur.unittype.label}}.
@@ -49,8 +49,8 @@
   <div ng-if="!cur.showparent && cur.velocity() > 0">
     You earn
     <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
-    <span>{{cur.velocity().times(options.velocityUnit().mult)|longnum:2}} {{cur.unittype.plural}}</span>
-    per {{options.velocityUnit().label}}.
+    <span>{{cur.velocity().times(options.getVelocityUnit({unit:cur}).mult)|longnum:2}} {{cur.unittype.plural}}</span>
+    per {{options.getVelocityUnit({unit:cur}).label}}.
     <span ng-if="cur.capValue()">
       At 100%, you'll stop earning {{cur.unittype.label}}.
     </span>
