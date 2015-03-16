@@ -248,7 +248,8 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
       name: @newSavegame
       created: new Date()
       data: session.exportSave()
-    @fetch fn
+    # fetch is unnecessary: https://github.com/swarmsim/swarm/commit/689d91fea01b4c83ac70c9dee9400f2b9ca8786f#commitcomment-10160101
+    fn()
 
   getAutopushError: ->
     if @fetchedSave() == game.session.exportSave()
