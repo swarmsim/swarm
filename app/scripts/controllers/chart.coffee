@@ -19,6 +19,7 @@ angular.module('swarmApp').controller 'ChartCtrl', ($scope, $log, game, options)
     chartArea:
       backgroundColor: $('body').css 'background-color'
     pieSliceBorderColor: $('body').css 'background-color'
+    pieResidueSliceLabel: 'Other' #by default, this is translated to the browser language - inconsistent with the rest of the game
     legend:
       position: 'labeled'
       textStyle: textStyle
