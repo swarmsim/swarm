@@ -112,7 +112,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
           # if that's not true, it must be a precision error.
           if cost.unit.count().lessThan cost.val
             $log.debug 'maxCostMet corrected its own precision'
-            return max - 1
+            return max.minus 1
       return max
 
   isMaxAffordable: ->
