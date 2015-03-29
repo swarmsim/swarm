@@ -61,7 +61,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED expansions",
+        "description": "Have $REQUIRED expansions at once",
         "label": "vast expanse",
         "longdesc": "",
         "name": "expansion2",
@@ -76,7 +76,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED expansions",
+        "description": "Have $REQUIRED expansions at once",
         "label": "infestation",
         "longdesc": "",
         "name": "expansion3",
@@ -91,7 +91,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED expansions",
+        "description": "Have $REQUIRED expansions at once",
         "label": "creepy",
         "longdesc": "",
         "name": "expansion4",
@@ -106,7 +106,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 20
       },
       {
-        "description": "Create $REQUIRED expansions",
+        "description": "Have $REQUIRED expansions at once",
         "label": "no vacancy",
         "longdesc": "",
         "name": "expansion5",
@@ -121,7 +121,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 50
       },
       {
-        "description": "Create $REQUIRED expansions",
+        "description": "Have $REQUIRED expansions at once",
         "label": "diminishing returns",
         "longdesc": "",
         "name": "expansion6",
@@ -1855,41 +1855,6 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.val": "",
         "description": "-",
         "disabled": "TRUE",
-        "effect.stat": "",
-        "effect.type": "",
-        "effect.unittype": "",
-        "effect.unittype2": "",
-        "effect.val": "",
-        "effect.val2": "",
-        "effect.val3": "",
-        "init": "",
-        "label": "crystal",
-        "lol": "",
-        "name": "crystal",
-        "plural": "crystals",
-        "prod.unittype": "",
-        "prod.val": "",
-        "requires.op": "",
-        "requires.unittype": "nexus",
-        "requires.upgradetype": "",
-        "requires.val": 1,
-        "rowNumber": 9,
-        "showparent": "",
-        "tab": "energy",
-        "tier": "",
-        "unbuyable": "TRUE",
-        "verb": "",
-        "verbone": "",
-        "warnfirst.text": "",
-        "warnfirst.unittype": "",
-        "warnfirst.val": ""
-      },
-      {
-        "column": "",
-        "cost.unittype": "",
-        "cost.val": "",
-        "description": "-",
-        "disabled": "",
         "effect.stat": "",
         "effect.type": "",
         "effect.unittype": "",
