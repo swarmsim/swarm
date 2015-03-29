@@ -15,6 +15,7 @@
 
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q, $rootScope) -> new class KongregateS3Syncer
   constructor: ->
+    jQuery.ajaxSetup cached:false
   isVisible: ->
     env.isKongregateSyncEnabled and kongregate.isKongregate()
   init: (fn=(->), userid, token, force) ->
@@ -96,7 +97,10 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       @fetched = data
       fn data, status, xhr
     xhr.fail (data, status, xhr) ->
-      $log.info 's3 fetch failed (possibly empty)', data, status, xhr
+      if data?.status == 404
+        $log.debug 's3 fetch empty', data, status, xhr
+      else
+        $log.warn 's3 fetch failed', data, status, xhr
 
   fetchedSave: ->
     return @fetched?.encoded
@@ -127,18 +131,19 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
     # https://aws.amazon.com/articles/1434
     # https://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
     $.ajax
-      url: @policy.post.url,
-      data: postbody,
-      cache: false,
-      contentType: false,
-      processData: false,
-      type: 'POST',
+      url: @policy.post.url
+      data: postbody
+      cache: false
+      contentType: false
+      processData: false
+      type: 'POST'
       error: (data, status, xhr) =>
         $log.error 's3 post fail', data?.responseText, data, status, xhr
       success: (data, status, xhr) =>
         $log.debug 'exported to s3', data, status, xhr
         @fetched = pushed
         fn data, status, xhr
+        # @fetch() # nope - S3 is eventually consistent, this might return old data
 
   getAutopushError: ->
     if @fetchedSave() == game.session.exportSave()
@@ -168,6 +173,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         $log.debug 'cleared from s3', data, status, xhr
         delete @fetched
         fn data, status, xhr
+        # @fetch() # nope - S3 is eventually consistent, this might return old data
 
 angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate, $interval, $rootScope) -> new class DropboxSyncer
   constructor: ->
