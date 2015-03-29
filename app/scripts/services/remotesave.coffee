@@ -69,7 +69,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
       @autopushInterval = null
     $(window).off 'unload', 'kongregate.autopush'
     if enabled
-      @autopushInterval = $interval (=>@autopush()), env.autopushIntervalMs
+      @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
       $(window).unload 'kongregate.autopush', =>
         $log.debug 'autopush unload'
         @autopush()
@@ -226,7 +226,7 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
       @autopushInterval = null
     $(window).off 'unload', 'kongregate.autopush'
     if enabled
-      @autopushInterval = $interval (=>@autopush()), env.autopushIntervalMs
+      @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
       $(window).unload 'kongregate.autopush', =>
         $log.debug 'autopush unload'
         @autopush()
