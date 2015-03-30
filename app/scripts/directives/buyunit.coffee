@@ -40,7 +40,7 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
       commands.buyMaxUnit args
     scope.statTwin = -> scope.resource.twinMult()
     scope.isBuyButtonVisible = -> scope.resource.isBuyButtonVisible()
-    scope.verb = 'buy'
+    scope.verb = scope.unit?.type?.verb ? 'buy'
 
 angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
