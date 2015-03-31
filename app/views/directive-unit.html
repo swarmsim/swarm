@@ -76,7 +76,7 @@
     <div class="form-group">
       <p>
         <form class="form-inline" ng-submit="commands.buyUnit({unit:cur, num:buyCount()})">
-          Buy
+          <span class="titlecase">{{cur.unittype.verb}}</span>
           <input type="text" ng-model="form.buyCount" placeholder="1" class="form-control"
 title="'10%' buys 10% of the maximum you can afford.
 '=1000' buys exactly 1,000 after accounting for twins, rounded up.
@@ -90,11 +90,11 @@ Numbers with suffixes work: '23 billion', '23b', or '23e12'.">
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet().greaterThan(0)">
-          Buying your maximum of
+          <span class="titlecase">{{cur.unittype.verb}}</span>ing your maximum of
           {{cur.maxCostMet().times(cur.twinMult())|longnum}} {{cur.maxCostMet().times(cur.twinMult()).equals(1) ? cur.unittype.label : cur.unittype.plural}}
         </span>
         <span ng-if="cur.maxCostMet().lessThanOrEqualTo(0)">
-          Buying your next {{cur.unittype.label}}
+          <span class="titlecase">{{cur.unittype.verb}}</span>ing your next {{cur.unittype.label}}
         </span>
         will cost
         <span ng-repeat="cost in cur.eachCost()">
