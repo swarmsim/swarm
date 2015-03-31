@@ -50,6 +50,7 @@ describe 'Service: parsenumber', ->
     expect(parseNumber('12 billion').toNumber()).toBe 12e9
     expect(parseNumber('12 trillion').toNumber()).toBe 12e12
     expect(parseNumber('12 quadrillion').toNumber()).toBe 12e15
+    expect(parseNumber('12 brazillion')).toBeUndefined()
     expect(parseNumber('12m').toNumber()).toBe 12e6
     expect(parseNumber('12b').toNumber()).toBe 12e9
     expect(parseNumber('12t').toNumber()).toBe 12e12
