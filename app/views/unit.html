@@ -9,10 +9,12 @@
       <ul class="nav nav-pills nav-justified text-nowrap visible-xs">
         <li><a ng-href="#/unit/{{cur.unit.prev.unittype.slug}}" ng-if="cur.unit.prev && cur.unit.prev.isVisible()">
           <span class="glyphicon glyphicon-chevron-left"></span>
-          {{cur.unit.prev.count() | bignum:0}} {{cur.unit.prev.unittype.plural}} {{cur.unit.suffix}}
+          {{cur.unit.prev.count() | bignum:0}} {{cur.unit.prev.unittype.plural}} {{cur.unit.prev.suffix}}
+          <span class="prev-icon-resource icon-{{cur.unit.prev.name}}"></span>
         </a></li>
         <li><a ng-href="#/unit/{{cur.unit.next.unittype.slug}}" ng-if="cur.unit.next && cur.unit.next.isVisible()">
-          {{cur.unit.next.count() | bignum:0}} {{cur.unit.next.unittype.plural}} {{cur.unit.suffix}}
+          <span class="next-icon-resource icon-{{cur.unit.next.name}}"></span>
+          {{cur.unit.next.count() | bignum:0}} {{cur.unit.next.unittype.plural}} {{cur.unit.next.suffix}}
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a></li>
       </ul>
@@ -30,6 +32,7 @@
           <td class="upgrade-indicator"></td>
           <td class="titlecase">
             <a href="#/achievements" class="unit-sidebar">
+              <span class="list-icon-resource icon-achievements"></span>
               <div class="pull-left">achievement points</div>
               <div class="unit-count">{{game.achievementPoints()|bignum:0}}</div>
             </a>
@@ -41,6 +44,7 @@
           </td>
           <td class="titlecase">
             <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.slug}}" class="unit-sidebar">
+              <span class="list-icon-resource icon-{{unit.name}}"></span>
               <div class="pull-left">{{unit.unittype.label}} {{unit.suffix}}</div>
               <div class="unit-count">
                 {{unit.count()|bignum:0}}

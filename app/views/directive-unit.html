@@ -1,4 +1,4 @@
-<div class="desc-icon-resource desc-icon-{{cur.name}} icon-{{cur.name}}"></div>
+<div class="desc-icon-resource desc-icon-{{cur.name}} icon-{{cur.name}}" title="{{cur.unittype.lol}}"></div>
 <unitdesc title="{{cur.unittype.lol}}" unit="cur"></unitdesc>
 <p>
   <ng-pluralize ng-if="!cur.capValue()" count="cur.count().toNumber()"
@@ -55,6 +55,7 @@
       At 100%, you'll stop earning {{cur.unittype.label}}.
     </span>
   </div>
+  <div class="clear-afterdesc"></div>
   <div ng-if="!cur.unbuyable && cur.cost.length && cur.isBuyButtonVisible()">
     <hr>
     <!--div class="form-group">

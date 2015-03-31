@@ -10,7 +10,7 @@
  # (We used to do stupid $compile tricks to allow templating in the spreadsheet, but that caused memory leaks. #177)
 ###
 angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
-  template: '<p ng-if="templateUrl" ng-include="templateUrl"></p><p ng-if="!templateUrl">{{desc}}</p>'
+  template: '<p ng-if="templateUrl" ng-include="templateUrl" class="desc desc-unit desc-template desc-{{unit.name}}"></p><p ng-if="!templateUrl" class="desc desc-unit desc-text desc-{{unit.name}}">{{desc}}</p>'
   scope:
     unit: '='
     game: '=?'
@@ -26,7 +26,7 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
       return ''
 
 angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
-  template: '<p ng-if="templateUrl" ng-include="templateUrl"></p><p ng-if="!templateUrl">{{desc}}</p>'
+  template: '<p ng-if="templateUrl" ng-include="templateUrl" desc desc-upgrade desc-template desc-{{upgrade.name}}"></p><p ng-if="!templateUrl" class="desc desc-upgrade desc-text desc-{{upgrade.name}}">{{desc}}</p>'
   scope:
     upgrade: '='
     game: '=?'

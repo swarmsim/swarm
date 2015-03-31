@@ -6,7 +6,11 @@
       <!-- filthy hack to show achievements on larvae page -->
       <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count().greaterThan(0)">
         <td class="upgrade-indicator"></td>
-        <td class="titlecase"><a href="#/achievements">achievement points</a></td>
+        <td class="titlecase">
+          <a href="#/achievements">
+            <span class="list-icon-resource icon-achievements"></span>
+            achievement points
+          </a></td>
         <td>{{game.achievementPoints()|bignum:0}}</td>
         <td>+{{game.upgrade('achievementbonus').calcStats().prod|percent:{plusOne:true} }} larvae</td>
       </tr>
@@ -15,6 +19,7 @@
           <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
         </td>
         <td ng-click="click(unit)">
+          <span class="list-icon-resource icon-{{unit.name}}"></span>
           <a ng-href="#{{cur.tab.url(unit)}}" class="titlecase">
             {{unit.unittype.label}} {{unit.suffix}}
           </a>
