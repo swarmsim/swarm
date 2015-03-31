@@ -1765,7 +1765,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val3": "",
         "init": "",
         "label": "energy",
-        "lol": "",
+        "lol": "Coffee is consumed to restore energy.",
         "name": "energy",
         "plural": "energy",
         "prod.unittype": "",
