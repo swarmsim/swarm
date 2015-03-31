@@ -33,6 +33,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
     if search.num?
       scope.form.buyCount = search.num
     else if search.twinnum?
+      # legacy format - our code doesn't use `?twinnum=n` anymore, but it used to. some users might still use it.
       scope.form.buyCount = "=#{search.twinnum}"
 
     _buyCount = Decimal.ONE

@@ -19,7 +19,7 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   template: """
   <span ng-repeat="cost in costlist track by cost.unit.name">
     <span ng-if="!$first && $last"> and </span>
-    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?twinnum={{showRemaining(cost)|encodeURIComponent}}">
+    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?num={{'@'+cost.val|encodeURIComponent}}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
     --></a><span ng-if="!isRemainingBuyable(cost)" ng-class="{costNotMet:!isCostMet(cost)}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
@@ -35,12 +35,6 @@ angular.module('swarmApp').directive 'cost', ($log) ->
       cost.unit.count().greaterThanOrEqualTo(scope.totalCostVal(cost))
     scope.countRemaining = (cost) ->
       return scope.totalCostVal(cost).minus(cost.unit.count()).ceil()
-    scope.showRemaining = (cost) ->
-      ret = scope.countRemaining cost
-      if _.contains ret+'', 'e'
-        # force it not to round. `new Decimal(...)` parses both numbers and strings. (Decimal.toJSON() is a string.)
-        ret = ret.toJSON()
-      return ret+''
     scope.isRemainingBuyable = (cost) ->
       remaining = scope.countRemaining cost
       # there is a cost remaining that we can't afford, but the remaining units are buyable. Can't necessarily afford them, even one.
