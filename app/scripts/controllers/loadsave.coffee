@@ -78,6 +78,9 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     # pass
     $log.error e
 
+angular.module('swarmApp').controller 'AprilFoolsCtrl', ($scope, options) ->
+  $scope.options = options
+
 angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game, $location) ->
   interval = null
   $scope.$on 'import', (event, args) ->

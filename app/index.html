@@ -42,7 +42,7 @@ https://github.com/erosson/swarm
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button-->
-            <a class="navbar-brand" href="#">Swarm Simulator</a>
+            <a class="navbar-brand page-title" href="#"><span>Swarm Simulator<span></a>
             <a ng-cloak ng-if="env.isDebugEnabled" class="envalert navbar-brand" ng-href="#/debug"> ({{env.name}})</a>
             <a class="navbar-brand" ng-href="#/changelog"><span class="text-muted small" ng-cloak>v{{version}}</span></a>
           </div>
@@ -108,6 +108,29 @@ https://github.com/erosson/swarm
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div ng-cloak ng-controller="AprilFoolsCtrl">
+        <div id="aprilfools-news" class="alert alert-info alert-dismissable animif" role="alert" ng-if="options.aprilFoolsState() != 'off'">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <div ng-if="options.aprilFoolsState() === 'on'">
+            <span title="Really. Honest. Would I lie to you?" class="small pull-right">2014/04/01</span>
+            <div ng-if="!options.isAprilFoolsTheme()">
+              <p><strong title="Really. Honest. Would I lie to you?">Exciting changes are coming to Swarm Simulator soon!</strong></p>
+              <p>Insects are too icky, so we're changing our name. Also, we'll require graphics to play.</p>
+              <p><a href="javascript:" ng-click="options.isAprilFoolsTheme(true)">Try out the upcoming changes now!</a></p>
+            </div>
+            <div ng-if="options.isAprilFoolsTheme()">
+              <p><strong title="Really. Honest. Would I lie to you?">Swarm Simulator is now Kitten Klicker!</strong></p>
+              <p>Insects were too icky, so we've changed our name. Also, we now require graphics to play. Thanks to <a target="_blank" href="http://placekitten.com/attribution.html">Placekitten</a> for providing graphics. Enjoy the new game!</p>
+              <p><a href="javascript:" ng-click="options.isAprilFoolsTheme(false)">Click here if you hate kittens, you monster.</a></p>
+            </div>
+          </div>
+          <div ng-if="options.aprilFoolsState() === 'after'">
+            <span class="small pull-right">2014/04/02</span>
+            <p>I hope you enjoyed yesterday's April Fools joke!</p>
+            <p><a href="#/cleartheme?themeExtra=@import%20url%28'/static/kittens.css'%29;">Click here to keep the kitten pictures.</a> To remove them later, go to the options screen and click "Clear all extra styling/graphics".</p>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@
  # # options
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Options', ($log, util, env, game) -> class Options
+angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location) -> class Options
   constructor: (@session) ->
     @VELOCITY_UNITS = byName:{}, list:[]
     addvunit = (name, label, plural, mult) =>
@@ -140,7 +140,40 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game) -> class O
       if css.length >= @constructor.THEME_EXTRA_LENGTH
         throw new Error "But it's so big!"
       @set 'themeExtra', css
+    if @isAprilFoolsTheme() and @aprilFoolsState() == 'on'
+      return "@import url('/static/kittens.css');"
     return @get 'themeExtra', null
+
+  # options is a strange place for this, but themeExtra needs it
+  aprilFoolsState: ->
+    # ?forcefools=[on|after|off] to force this state for testing, no clock-changes required
+    if (ret=$location.search().forcefools)?
+      return ret
+
+    now = moment()
+    # test times.
+    # off (before)
+    #now = moment.parseZone '2015-03-31T23:00:00-05:00' # because moment.parseZone('2015-03-31T23:00:00-05:00').isBefore('2015-03-31T21:00:00-08:00')
+    # on
+    #now = moment.parseZone '2015-03-31T21:05:00-08:00'
+    #now = moment.parseZone '2015-04-01T00:01:00-05:00'
+    # after
+    #now = moment.parseZone '2015-04-01T21:00:00-08:00'
+    #now = moment.parseZone '2015-04-03T21:00:00-08:00'
+    # off (after)
+    #now = moment.parseZone '2015-04-04T21:00:00-08:00'
+
+    # use the same timezone for everyone, so it appears at around the same time for everyone and earlier timezones don't spoil it.
+    # this means it starts at the wrong time for non-americans, whom we have lots of. oh well, a consistent start is more important; sorry folks.
+    # start a few hours early, between 3/31 21:00 PST (00:00 EST) and 4/1 00:00 PST
+    if now.isBetween moment.parseZone('2015-03-31T21:00:00-08:00'), moment.parseZone('2015-04-02T00:00:00-08:00')
+      return 'on'
+    if now.isBetween moment.parseZone('2015-04-02T00:00:00-08:00'), moment.parseZone('2015-04-04T00:00:00-08:00')
+      return 'after'
+    return 'off'
+  isAprilFoolsTheme: (enabled) ->
+    @maybeSet 'aprilFoolsTheme', enabled
+    return @get('aprilFoolsTheme') ? false
 
 
 angular.module('swarmApp').factory 'options', (Options, session) ->
