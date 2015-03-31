@@ -51,7 +51,7 @@ angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scop
     if theme.url != themeEl.attr 'href'
       themeEl.attr 'href', theme.url
   $scope.$watch 'options.themeExtra()', (css, oldval) =>
-    if css?
+    if css? or oldval?
       if not $scope.themeExtraEl?
         $scope.themeExtraEl = $('<style type="text/css"></style>')
         $scope.themeExtraEl.appendTo 'body'
