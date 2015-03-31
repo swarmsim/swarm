@@ -19,7 +19,7 @@ angular.module('swarmApp').directive 'cost', ($log) ->
   template: """
   <span ng-repeat="cost in costlist track by cost.unit.name">
     <span ng-if="!$first && $last"> and </span>
-    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?num={{'@'+cost.val|encodeURIComponent}}">
+    <a ng-if="isRemainingBuyable(cost)" ng-href="\#{{cost.unit.url()}}?num={{'@'+totalCostVal(cost)|encodeURIComponent}}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
     --></a><span ng-if="!isRemainingBuyable(cost)" ng-class="{costNotMet:!isCostMet(cost)}">
       {{totalCostVal(cost) | bignum}} {{totalCostVal(cost) == 1 ? cost.unit.unittype.label : cost.unit.unittype.plural}}<!--whitespace
