@@ -75,7 +75,7 @@
     </div>
     <div class="form-group">
       <p>
-        You're buying
+        You're {{cur.unittype.verb}}ing
         <input name="buyN" type="number" min="1" value="{{buyN().toJSON()}}" ng-init="initBuyN()">
         {{buyN().equals(1) ? cur.unittype.label : cur.unittype.plural}}
         <span ng-if="cur.twinMult().greaterThan(1)">(&times;{{cur.twinMult()|bignum}} twins)</span>
