@@ -75,12 +75,18 @@
     </div>
     <div class="form-group">
       <p>
-        You're buying
-        <input name="buyN" type="number" min="1" value="{{buyN().toJSON()}}" ng-init="initBuyN()">
-        {{buyN().equals(1) ? cur.unittype.label : cur.unittype.plural}}
-        <span ng-if="cur.twinMult().greaterThan(1)">(&times;{{cur.twinMult()|bignum}} twins)</span>
-        for
-        <cost costlist="cur.eachCost()" num="buyN()"></cost>
+        <form class="form-inline" ng-submit="commands.buyUnit({unit:cur, num:buyCount()})">
+          Buy
+          <input type="text" ng-model="form.buyCount" placeholder="1" class="form-control"
+title="'10%' buys 10% of the maximum you can afford.
+'=1000' buys exactly 1,000 after accounting for twins, rounded up.
+'@1000' buys the number needed to have a total of 1,000. If you already have 200, this will buy up to 800.
+Numbers with suffixes work: '23 billion', '23b', or '23e12'.">
+          {{buyCount().equals(1) ? cur.unittype.label : cur.unittype.plural}}
+          <span ng-if="cur.twinMult().greaterThan(1)" ng-class="{strikethrough:false && form.buyCount.indexOf('=') >= 0}">(&times;{{cur.twinMult()|bignum}} twins)</span>
+          for
+          <cost costlist="cur.eachCost()" num="buyCount()"></cost>
+        </form>
       </p>
       <p ng-if="options.showAdvancedUnitData()">
         <span ng-if="cur.maxCostMet().greaterThan(0)">
@@ -96,7 +102,7 @@
           <span>{{unitCostAsPercent(cur, cost) | percent:0}} of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
         </span>
       </p>
-      <buyunit unit="cur" num="buyN()"></buyunit>
+      <buyunit unit="cur" num="buyCount()"></buyunit>
     </div>
   </div>
   <div ng-if="(visibleUpgrades = (cur.upgrades.byClass.upgrade | filter:filterVisible)).length > 0">

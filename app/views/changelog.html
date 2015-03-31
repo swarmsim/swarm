@@ -27,6 +27,19 @@
     </div>
     <div id="changelog10x" class="panel-collapse collapse in">
       <div class="panel-body">
+<h4>1.0.39<span>2015/03/30</span></h4>
+<ul>
+  <li>Added a fancier input field for buy-exactly-N units.
+  <ul>
+    <li>Several new features: buy-percentage, buy-this-many-after-twins, and buy-until-this-many. Mouseover the input field for directions.</li>
+    <li>Pressing Enter after typing a number now buys that many units, just like clicking the buy button.</li>
+    <li>Standard-decimal suffixes, like '10 billion' or '10b', now work as input.</li>
+    <li>Fixed a bug that limited how much you could buy at once. Numbers bigger than 1e300 (or 1e38 in Safari) work properly now.</li>
+    <li>Fixed a bug that prevented the coefficient for numbers formatted like '1e10' from being anything other than 1.</li>
+    <li>Fixed a bug that sometimes cleared numbers formatted like '1e10' while you typed them.</li>
+  </ul>
+  </li>
+</ul>
 <h4>1.0.38<span>2015/03/28</span></h4>
 <ul>
   <li>Reworded expansion achievements to clarify that they don't carry over between ascensions - you must have that many expansions all at once.</li>

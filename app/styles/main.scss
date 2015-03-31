@@ -1,3 +1,7 @@
+.strikethrough {
+  text-decoration: line-through;
+}
+
 // modal background's missing in non-default themes without this. Works on the bootswatch site.
 // No idea what's broken, but this fixes it.
 .modal-backdrop {
