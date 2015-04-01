@@ -14,6 +14,24 @@
   font-style:italic;
   content:'Thanks to http://www.placekitten.com for the images!';
 }
+/* https://www.reddit.com/r/swarmsim/comments/310qs2/ascending_on_april_1/ */
+/* relevant classes: .tab-label, .selected-label, .list-label, .unselectedlist-label */
+.label-mutagen .label-label {
+  display:none;
+}
+.label-mutagen .label-suffix:before {
+  content:'mewtagen';
+}
+/* css capitalization fails for mutagen here, but not for premutagen, in chrome only. Works fine in FF, IE without this line. Browser bug? Whatever, fix it by hand. */
+.selected-label.label-mutagen .label-suffix:before {
+  content:'Mewtagen';
+}
+.label-premutagen .label-label {
+  display:none;
+}
+.label-premutagen .label-suffix:before {
+  content:'mewtagen (inactive)';
+}
 
 .desc-icon-resource {
   background-size:200px 200px;

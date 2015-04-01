@@ -3,7 +3,11 @@
     <a ng-href="#{{tab.url()}}" role="tab">
       <div class="tab-icon-resource tab-icon-{{tab.name}} icon-{{tab.name}}"></div>
       <!-- TODO why isnt' pluralize working? -->
-      {{tab.leadunit.count()|bignum:0}} {{tab.leadunit.unittype.plural}}
+      {{tab.leadunit.count()|bignum:0}}
+      <span class="tab-label label-{{tab.leadunit.name}}">
+        <span class="label-label">{{tab.leadunit.unittype.plural}}</span>
+        <span class="label-suffix"></span>
+      </span>
       <span ng-if="tab.leadunit.capValue()">({{tab.leadunit.capPercent()|percent:{floor:true,places:0} }})</span>
       <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
       <!--TODO: ewww, a special case-->

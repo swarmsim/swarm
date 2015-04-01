@@ -20,8 +20,9 @@
         </td>
         <td ng-click="click(unit)">
           <span class="list-icon-resource icon-{{unit.name}}"></span>
-          <a ng-href="#{{cur.tab.url(unit)}}" class="titlecase">
-            {{unit.unittype.label}} {{unit.suffix}}
+          <a ng-href="#{{cur.tab.url(unit)}}" class="titlecase unselectedlist-label label-{{unit.name}}">
+            <span class="label-label">{{unit.unittype.label}}</span>
+            <span class="label-suffix">{{unit.suffix}}</span>
           </a>
         </td>
         <td ng-click="click(unit)">

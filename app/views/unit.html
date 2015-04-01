@@ -19,8 +19,8 @@
         </a></li>
       </ul>
       <a ng-href="#{{cur.tab.url(false)}}" type="button" class="close pull-right btn"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-      <h3><a ng-href="#{{cur.tab.url(false)}}">
-        {{cur.unit.unittype.label}} {{cur.unit.suffix}}
+      <h3><a class="selected-label label-{{cur.unit.name}}" ng-href="#{{cur.tab.url(false)}}">
+        <span class="label-label">{{cur.unit.unittype.label}}</span><span class="label-suffix"> {{cur.unit.suffix}}</span>
       </a></h3>
       <unit cur="cur.unit"></unit>
     </div>
@@ -45,7 +45,10 @@
           <td class="titlecase">
             <a href="#/tab/{{cur.tab.name}}/unit/{{unit.unittype.slug}}" class="unit-sidebar">
               <span class="list-icon-resource icon-{{unit.name}}"></span>
-              <div class="pull-left">{{unit.unittype.label}} {{unit.suffix}}</div>
+              <div class="pull-left list-label label-{{unit.name}}">
+                <span class="label-label">{{unit.unittype.label}}</span>
+                <span class="label-suffix">{{unit.suffix}}</span>
+              </div>
               <div class="unit-count">
                 {{unit.count()|bignum:0}}
                 <span ng-if="unit.capValue()">({{unit.capPercent()|percent:{floor:true} }})</span>
