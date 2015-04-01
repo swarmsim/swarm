@@ -26,6 +26,7 @@
   },
   "scripts": {
     "start": "node app.js",
+    "test": "mocha",
     "debug": "node debug app.js"
   },
   "main": "app.js",
@@ -34,5 +35,8 @@
     "url": "git://github.com/erosson/swarm-server-sails.git"
   },
   "author": "erosson",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "mocha": "~2.2.1"
+  }
 }
