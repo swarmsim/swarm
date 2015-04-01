@@ -141,7 +141,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
         throw new Error "But it's so big!"
       @set 'themeExtra', css
     if @isAprilFoolsTheme() and @aprilFoolsState() == 'on'
-      return "@import url('/static/kittens.css');"
+      return "@import url('/static/kittens.css?1');"
     return @get 'themeExtra', null
 
   # options is a strange place for this, but themeExtra needs it
