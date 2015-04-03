@@ -4,6 +4,14 @@
 .clear-afterdesc {
   clear:both;
 }
+/* http://stackoverflow.com/questions/5406368/can-you-use-css-to-mirror-flip-text */
+.mirror {
+  transform:scale(-1,1);
+  -moz-transform:scale(-1,1);
+  -o-transform:scale(-1,1);
+  -webkit-transform:scale(-1,1);
+  -ms-transform:scale(-1,1);
+}
 
 // modal background's missing in non-default themes without this. Works on the bootswatch site.
 // No idea what's broken, but this fixes it.

@@ -23,3 +23,15 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version, comm
       commands.buyAllUpgrades upgrades:upgrades, percent:costPercent
 
     util.animateController scope, game:game, options:options
+
+    scope.undo = ->
+      if scope.isUndoable()
+        commands.undo()
+    scope.secondsSinceLastAction = ->
+      return (game.now.getTime() - (commands._undo?.date?.getTime?() ? 0)) / 1000
+    scope.undoLimitSeconds = 30
+    scope.isRedo = ->
+      commands._undo?.isRedo
+    scope.isUndoable = ->
+      return scope.secondsSinceLastAction() < scope.undoLimitSeconds and not scope.isRedo()
+      

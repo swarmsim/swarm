@@ -7,8 +7,20 @@
  # # command
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new class Commands
+angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log) -> new class Commands
   constructor: ->
+
+  _setUndo: (opts={}) ->
+    @_undo = _.extend {}, opts,
+      state: game.session.exportSave()
+      date: game.now
+
+  undo: ->
+    if not @_undo?.state
+      throw new Error 'no undostate available'
+    state = @_undo.state
+    @_setUndo isRedo:true
+    game.importSave state, true
 
   _emit: (name, params) ->
     util.assert !params.name?, 'command has a name already?'
@@ -17,6 +29,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
     $rootScope.$emit "command", params
 
   buyUnit: (opts) ->
+    @_setUndo()
     unit = opts.unit
     num = opts.num
     bought = unit.buy num
@@ -32,6 +45,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
       ui:opts.ui
 
   buyMaxUnit: (opts) ->
+    @_setUndo()
     unit = opts.unit
     bought = unit.buyMax opts.percent
     @_emit 'buyMaxUnit',
@@ -45,6 +59,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
       ui:opts.ui
 
   buyUpgrade: (opts) ->
+    @_setUndo()
     upgrade = opts.upgrade
     num = upgrade.buy opts.num
     @_emit 'buyUpgrade',
@@ -56,6 +71,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
       ui:opts.ui
 
   buyMaxUpgrade: (opts) ->
+    @_setUndo()
     upgrade = opts.upgrade
     num = upgrade.buyMax opts.percent
     @_emit 'buyMaxUpgrade',
@@ -68,6 +84,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
       ui:opts.ui
 
   buyAllUpgrades: (opts) ->
+    @_setUndo()
     upgrades = opts.upgrades
     for upgrade in upgrades
       num = upgrade.buyMax opts.percent
@@ -86,6 +103,7 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log) -> new c
         percent:opts.percent
 
   ascend: (opts) ->
+    @_setUndo()
     game = opts.game
     game.ascend()
     @_emit 'ascension',
