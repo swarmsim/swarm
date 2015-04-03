@@ -159,7 +159,6 @@ angular.module('swarmApp').config (env, version) ->
     # set Kongregate referrer manually when using kongregate_shell.html
     try
       if (ref=window?.parent?.document?.referrer)?
-        console.log 'override referrer', ref
         window.ga 'set', 'referrer', ref
     catch e
       # No parent, no worries. Use the original referrer.
