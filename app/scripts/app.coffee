@@ -156,6 +156,13 @@ angular.module('swarmApp').config (env, version) ->
     window.ga 'create', env.gaTrackingID, 'auto'
     # appVersion breaks analytics, presumably because it's mobile-only.
     #window.ga 'set', 'appVersion', version
+    # set Kongregate referrer manually when using kongregate_shell.html
+    try
+      if (ref=window?.parent?.document?.referrer)?
+        console.log 'override referrer', ref
+        window.ga 'set', 'referrer', ref
+    catch e
+      # No parent, no worries. Use the original referrer.
 
 angular.module('swarmApp').run ($rootScope) ->
   $rootScope.floor = (val) -> Math.floor val
