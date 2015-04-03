@@ -116,6 +116,7 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+*.swp
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
