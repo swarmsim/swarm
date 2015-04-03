@@ -7,7 +7,7 @@
  # # FeedbackCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version, $location) ->
+angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version, $location, isKongregate) ->
   $scope.urls = {short:'???',expand:'???'}
   $scope.userAgentGuess = do =>
     # based on http://odyniec.net/blog/2010/09/decrypting-the-user-agent-string-in-javascript/
@@ -30,6 +30,7 @@ angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version,
 
   $scope.subject = ->
     "Swarm Simulator Feedback (#{new Date().toLocaleString()})"
+  source = if isKongregate() then "Kongregate" else "Standalone"
   $scope.message = -> """
 Type your message here.
 
@@ -39,6 +40,7 @@ Bug report information:
 
 * Swarm Simulator version: #{version}
 * Saved game: #{$scope.urls.expand}
+* Source: #{source}
 * Browser: #{$scope.userAgentGuess}#{
 if $location.search().error then "\n* Error message: ```"+$location.search().error+'```' else ''}
 """
