@@ -1,3 +1,0 @@
-test: npm test
-watch: mocha --watch
-serve: sails lift
