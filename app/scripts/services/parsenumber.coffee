@@ -5,6 +5,9 @@ angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, nu
   for suffixes in [numberSuffixesShort, numberSuffixesLong]
     for suffix, index in suffixes
       if suffix
+        # no dupe suffixes, #517
+        if suffixToExp[suffix.toLowerCase()]?
+          throw new Error "duplicate parsenumber suffix: #{suffix}"
         suffixToExp[suffix.toLowerCase()] = {index:index, exp:index*3, replace:"e#{index*3}"}
   (value0, unit) ->
     # stringify
