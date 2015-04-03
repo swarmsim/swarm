@@ -46,4 +46,6 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  ,'post /policies': 'PoliciesController.create'
+
 };

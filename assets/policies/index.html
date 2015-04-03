@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SwarmServer</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h1>Policies#new</h1>
+
+<form action="/policies" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <p>
+    <label for="policy_user_id">User</label><br>
+    <input type="text" name="policy[user_id]" id="policy_user_id" />
+  </p>
+ 
+  <p>
+    <label for="policy_game_auth_token">Game auth token</label><br>
+    <input type="text" name="policy[game_auth_token]" id="policy_game_auth_token" />
+  </p>
+ 
+  <p>
+    <input type="submit" name="commit" value="Save Policy" />
+  </p>
+</form>
+
+<p><a href="/policies?id=21627386&token=1dd85395a2291302abdb80e5eeb2ec3a80f594ddaca92fa7606571e5af69e881">Working example (dev only)</a></p>
+<div id="log"></div>
+
+<script>
+  // this test has five parts: 
+  // * fetch a policy document from this server. Swarmsim will save this in a cookie for a day or so, no need to refresh every session.
+  // * post some json to S3 with a multipart post. sync-export.
+  // * get some json from S3. sync-import.
+  // * delete from S3.
+  // * get again from S3, verify it's a 404
+  var queryList = location.search.replace(/^\?/, '').split('&');
+  var qs = {}
+  for (var i=0; i < queryList.length; i++) {
+    var kv = queryList[i].split('=');
+    qs[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+  }
+  $('#policy_user_id').val(qs.id);
+  $('#policy_game_auth_token').val(qs.token);
+  var id = qs.id; var token = qs.token;
+  console.log(qs, id, token);
+  var logger = {};
+  var verbs = {log:'black', info:'blue', warn:'yellow', error:'red'};
+  for (var verb in verbs) {
+    (function(verb){
+      var color = verbs[verb];
+      logger[verb] = function() {
+        console[verb].apply(console, arguments);
+        var args = [];
+        for (i=0; i < arguments.length; i++) {
+          args[i] = arguments[i];
+        }
+        args = args.join(', ');
+        $('#log').append('<p style="color:'+color+';">'+args+'</p>');
+      }
+    })(verb);
+  }
+  logger.log('id+token', id, token);
+  // fetch a policy document from this server. Swarmsim will save this in a cookie for a day or so, no need to refresh every session.
+  $.post('/policies', {policy:{user_id:id, game_auth_token:token}})
+  .error(function(data, status, xhr) {
+    logger.error('create policy error', data, status, xhr);
+  })
+  .success(function(spec, status, xhr) {
+    logger.log('create policy', spec, status, xhr);
+    if (status != 'success') {
+      return
+    }
+    // post to S3. S3 requires a multipart post, which is not the default and is kind of a huge pain.
+    // worth it overall, though.
+    var postbody = new FormData();
+    for (var prop in spec.post.params) {
+      if (spec.post.params.hasOwnProperty(prop)) {
+        logger.log('form keyval', prop, spec.post.params[prop]);
+        postbody.append(prop, spec.post.params[prop]);
+      }
+    }
+    postbody.append('file', new Blob(['{"thejson":"hello world, file content"}'], {type: 'application/json'}));
+    // https://aws.amazon.com/articles/1434
+    // https://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
+    $.ajax({
+      url: spec.post.url,
+      data: postbody,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'POST',
+      error: function(data, status, xhr){
+        logger.error('s3 post fail', data.responseText, data, status, xhr);
+      },
+      success: function(data, status, xhr){
+        logger.log('s3 post success', data, status, xhr, spec.get);
+        // try the get url to see if the s3 post really worked.
+        $.get(spec.get)
+          .fail(function(data, status, xhr) {;
+            logger.error('s3 get fail', data, status, xhr);
+          })
+          .success(function(data, status, xhr) {
+            logger.log('s3 get success', data, status, xhr);
+            // try deleting, too.
+            $.ajax({
+              type: 'DELETE',
+              url: spec.delete,
+              error: function(data, status, xhr){
+                logger.error('s3 delete fail', data.responseText, data, status, xhr);
+              },
+              success: function(data, status, xhr){
+                logger.log('s3 delete success', data, status, xhr);
+                // get again, to verify the delete worked.
+                $.get(spec.get)
+                  .fail(function(data, status, xhr) {;
+                    if (data.status === 404) {
+                      logger.log('s3 get2 404 after delete', data, status, xhr);
+                      logger.info('Everything works perfectly!');
+                    }
+                    else {
+                      logger.error('s3 get2 fail', data.status, data, status, xhr);
+                    }
+                  })
+                  .success(function(data, status, xhr) {
+                    logger.error('s3 get2 success?! should be 404!', data, status, xhr);
+                  });
+              },
+            });
+          });
+      },
+    });
+  })
+</script>
+
+</body>
+</html>
