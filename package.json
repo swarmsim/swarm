@@ -8,6 +8,7 @@
     "aws-sdk": "^2.1.20",
     "coffee-script": "~1.9.1",
     "ejs": "~0.8.4",
+    "express-validator": "^2.9.0",
     "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.10.1",
