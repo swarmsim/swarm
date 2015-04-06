@@ -8,7 +8,7 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
-achievePublicTest1, kongregateScrolling, pageTheme, remoteSaveInit
+achievePublicTest1, kongregateScrolling, pageTheme, remoteSaveInit, touchTooltipInit
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
@@ -42,6 +42,7 @@ versioncheck, analytics, statistics, achievementslistener, favico
   kongregateScrolling $scope
   pageTheme $scope
   remoteSaveInit $scope
+  touchTooltipInit $scope
 
 angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scope) ->
   $scope.options = options
@@ -116,3 +117,48 @@ angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $locati
         cleanup()
     timeout = $timeout cleanup, 30000
 
+angular.module('swarmApp').factory 'touchTooltipInit', ($log, $location, $timeout) -> return ($scope) ->
+  # Show tooltips for touch-devices where the user's actually using touch.
+  body = $('body')
+  doc = $(window.document)
+  setupEvents = 'touchstart touchmove touchend touchcancel'
+  #runEvents = 'touchstart touchmove touchend'
+  if $location.search().mousetouch
+    setupEvents += ' mousedown mouseup'
+    #runEvents += ' mousedown mouseup'
+
+  setupTouch = ->
+    $log.debug 'touch event detected, setting up tooltip-on-touch'
+    doc.off setupEvents, setupTouch
+    selector = '[title]'
+    body.tooltip
+      selector: selector
+      trigger: 'click'
+      # I give up. Trigger it for clicks too *after* any touch event happens
+      #trigger: 'manual'
+    #openTooltips = []
+    #openTimer = []
+    #body.on runEvents, selector, ->
+    #  el = $(this)
+    #  el.tooltip 'show'
+    #  alreadyOpen = false
+    #  for open in openTooltips
+    #    if open != el
+    #      open.tooltip 'hide'
+    #    else
+    #      alreadyOpen = true
+    #  for timer in openTimer
+    #    $timeout.cancel timer
+    #  if not alreadyOpen
+    #    openTooltips.push el
+    #  openTimer.push $timeout (-> el.tooltip 'hide'), 5000
+  doc.on setupEvents, setupTouch
+  $log.debug 'adding setupTouch hook'
+  #if document.documentElement.onTouchStart? # IE has this even for non-touchscreens. also fails for touch-and-mouse devices where user isn't actually touching
+  #  placement: 'bottom'
+  #container: 'body'
+  #  animation: false # unfortunate, but the fade + reposition below is awkward
+  #.on 'click', selector, (event) ->
+  #  console.log 'tooltipclickevent', event, position:'absolute',left:event.clientX, top:event.clientY, $('.tooltip.top')
+  #  el = $('.tooltip.top')
+  #  el.css left:event.clientX - el.width()/2, top:event.clientY + el.height()
