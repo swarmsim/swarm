@@ -44,6 +44,7 @@ module.exports.http = {
       'methodOverride',
       'poweredBy',
       '$custom',
+      'accessControlAllowOrigin',
       'router',
       'www',
       'favicon',
@@ -61,6 +62,11 @@ module.exports.http = {
     //     console.log("Requested :: ", req.method, req.url);
     //     return next();
     // }
+    accessControlAllowOrigin: function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      next();
+    },
 
 
   /***************************************************************************
