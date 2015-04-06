@@ -2,7 +2,7 @@
 
 ## Reporting an Issue?
 
-If something's broken in-game, use the "send feedback" link in-game, don't file a GitHub issue. It'll attach information that helps debug your problem. Thanks!
+If something's broken in-game, use the "send feedback" link in-game - it'll attach information that helps debug your problem. Thanks!
 
 ## Contributing Code
 
