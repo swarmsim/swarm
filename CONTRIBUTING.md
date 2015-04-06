@@ -10,7 +10,7 @@ If something's broken in-game, use the "send feedback" link in-game - it'll atta
 
 If your PR is accepted, I'll link to your Github user page from the in-game patch notes, and later, an in-game credits page (#347).
 
-Swarmsim is GPLv2-licensed. I'll confirm your changes are also GPLv2-licensed before merging them.
+Swarmsim is GPLv2-licensed. I'll ask you to confirm your changes are also GPLv2-licensed before merging them.
 
 Swarmsim's developed on an Ubuntu Linux machine. I've heard http://c9.io works with some tweaking, too.
 
