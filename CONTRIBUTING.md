@@ -8,7 +8,7 @@ If something's broken in-game, use the "send feedback" link in-game - it'll atta
 
 [Pull requests](https://help.github.com/articles/using-pull-requests/) are awesome. UI enhancements and bug fixes are very likely to be accepted. Gameplay changes (new units/upgrades, balance changes) are very *unlikely* to be accepted. If in doubt, talk to @erosson first.
 
-If your PR is accepted, I'll link to your Github user page from the in-game patch notes, and later, an in-game credits page (#347).
+If your PR is accepted, I'll link to your Github user page from the in-game patch notes, and later, an in-game credits page (#347). I'll use your Github username here by default; let me know if you'd rather I use your full name/Reddit handle/etc.
 
 Swarmsim is GPLv2-licensed. I'll ask you to confirm your changes are also GPLv2-licensed before merging them.
 
