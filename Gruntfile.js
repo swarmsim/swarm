@@ -150,7 +150,7 @@ module.exports = function (grunt) {
             isOffline: false,
             dropboxAppKey: dropboxAppKey('prod'),
             isDropboxEnabled: true,
-            saveServerUrl: 'https://swarm-server.swarmsim.com',
+            saveServerUrl: 'https://api.swarmsim.com',
             isKongregateSyncEnabled: true,
             autopushIntervalMs: 1000 * 60 * 15,
             googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
