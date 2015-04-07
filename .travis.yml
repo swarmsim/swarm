@@ -3,12 +3,13 @@ node_js:
   - '0.10'
 before_install:
   - 'gem install compass'
-  # preprod auto-deploy key. http://docs.travis-ci.com/user/encrypting-files/
-  - 'openssl aes-256-cbc -K $encrypted_9c67d478eacb_key -iv $encrypted_9c67d478eacb_iv -in devkeys/swarmsim-preprod.pem.enc -out devkeys/swarmsim-preprod.pem -d'
-  - 'chmod 600 devkeys/swarmsim-preprod.pem'
+  # preprod auto-deploy key for "real" pushes (not for pull requests). http://docs.travis-ci.com/user/encrypting-files/
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_9c67d478eacb_key -iv $encrypted_9c67d478eacb_iv -in devkeys/swarmsim-preprod.pem.enc -out devkeys/swarmsim-preprod.pem -d'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && chmod 600 devkeys/swarmsim-preprod.pem'
 before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
 after_success:
-  - 'ssh-add devkeys/swarmsim-preprod.pem'
-  - 'grunt deploy-preprod'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && eval `ssh-agent`'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ssh-add devkeys/swarmsim-preprod.pem'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt deploy-preprod'
