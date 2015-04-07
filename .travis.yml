@@ -12,4 +12,7 @@ before_script:
 after_success:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && eval `ssh-agent`'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ssh-add devkeys/swarmsim-preprod.pem'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && git config user.name "Evan Rosson (via travis-ci.org robots)"'
+  # rot13 email, because spam
+  - "[ '${TRAVIS_PULL_REQUEST}' = 'false' ] && git config user.email `echo 'genivf-pv@fjnezfvz.pbz' | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'`"
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt deploy-preprod'
