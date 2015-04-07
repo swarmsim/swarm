@@ -32,6 +32,9 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     theme: options.theme().name
     themeExtra: options.themeExtra()
     isThemeExtraOpen: !!options.themeExtra()
+    iframeMinSize:
+      x: options.iframeMinX()
+      y: options.iframeMinY()
   $scope.setTheme = (name) ->
     $scope.options.theme name
     $scope.form.isCustomTheme = false

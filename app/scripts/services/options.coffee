@@ -83,6 +83,15 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
     @maybeSet 'scrolling', name, {'none':true, 'resize':true, 'lockhover'}
     return @get('scrolling') ? 'none'
 
+  @IFRAME_X_MIN: 800
+  @IFRAME_Y_MIN: 600
+  iframeMinX: (x) ->
+    @maybeSet 'iframeMinX', x
+    return Math.max (@get('iframeMinX') or 0), @constructor.IFRAME_X_MIN
+  iframeMinY: (y) ->
+    @maybeSet 'iframeMinY', y
+    return Math.max (@get('iframeMinY') or 0), @constructor.IFRAME_Y_MIN
+
   autopush: (enabled) ->
     @maybeSet 'autopush', enabled
     return @get('autopush') ? true

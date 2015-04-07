@@ -54,7 +54,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
   onResize: -> #overridden on load
   _onResize: -> #overridden on load
   _resizeGame: (w, h) ->
-    @kongregate.services.resizeGame w, h
+    @kongregate.services.resizeGame Math.max(options.iframeMinX(), w ? 0), Math.max(options.iframeMinY(), h ? 0)
     if @parented
       # kongregate resizes its shell instead of my game. scroll lock demands my game have the scrollbar, not the iframe.
       h = @parented.style.height
