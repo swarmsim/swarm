@@ -80,6 +80,8 @@ angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, kon
     if newval != oldval
       kongregate._resizeGame()
   kongregate.onScrollOptionChange !options.isScrollingChangedSincePageLoad
+  if options.iframeMinY() != options.constructor.IFRAME_Y_MIN or options.iframeMinX() != options.constructor.IFRAME_X_MIN
+    kongregate._resizeGame()
   $scope.onRender = ->
     kongregate.onResize()
 
