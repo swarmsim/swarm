@@ -54,6 +54,13 @@ module.exports = function (grunt) {
         },
         src: ['**']
       },
+      preprod: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-preprod/swarmsim-preprod.github.io.git'
+        },
+        src: ['**']
+      },
       publictest: {
         options: {
           branch: 'master',
@@ -765,6 +772,9 @@ module.exports = function (grunt) {
   grunt.registerTask('stagingCname', 'build staging.swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'staging.swarmsim.com');
   });
+  grunt.registerTask('preprodCname', 'build preprod.swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'preprod.swarmsim.com');
+  });
   grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
     grunt.file.delete('dist/CNAME');
   });
@@ -849,6 +859,10 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy-staging', [
     'build',
     'stagingCname','gh-pages:staging','cleanCname'
+  ]);
+  grunt.registerTask('deploy-preprod', [
+    'build',
+    'preprodCname','gh-pages:preprod','cleanCname'
   ]);
   grunt.registerTask('deploy-publictest', [
     'build',
