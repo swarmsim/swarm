@@ -32,6 +32,20 @@
   //text-shadow: 1px 1px $brand-primary, -1px 1px $brand-primary, 1px -1px $brand-primary, -1px -1px $brand-primary;
   text-shadow: 1px 1px black, -1px 1px black, 1px -1px black, -1px -1px black;
 }
+/*
+  some themes (cosmo, paper, darkly) have tiny progress bar text. enlarge it.
+*/
+.theme-cosmo .progress, .theme-paper .progress, .theme-darkly .progress {
+  height:20px;
+}
+.theme-cosmo .progress .progress-bar, .theme-paper .progress .progress-bar, .theme-darkly .progress .progress-bar {
+  font-size:14px;
+  line-height:20px;
+}
+/* this theme has some texting text in every progress bar. wtf? */
+.theme-paper .progress .progress-bar:last-child:before {
+  content: '';
+}
 /* http://stackoverflow.com/questions/2584138/css3-continuous-rotate-animation-just-like-a-loading-sundial */
 @-webkit-keyframes animrotate {
   from {-webkit-transform: rotate(0deg);}

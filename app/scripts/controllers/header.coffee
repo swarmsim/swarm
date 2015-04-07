@@ -51,6 +51,10 @@ angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scop
     # based on https://stackoverflow.com/questions/19192747/how-to-dynamically-change-themes-after-clicking-a-drop-down-menu-of-themes
     if theme.url != themeEl.attr 'href'
       themeEl.attr 'href', theme.url
+    body = $('body')
+    if oldval?
+      body.removeClass "theme-#{oldval.name}"
+    body.addClass "theme-#{theme.name}"
   $scope.$watch 'options.themeExtra()', (css, oldval) =>
     if css? or oldval?
       if not $scope.themeExtraEl?
