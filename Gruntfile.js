@@ -56,6 +56,10 @@ module.exports = function (grunt) {
       },
       preprod: {
         options: {
+          user: {
+            name: grunt.option('user.name') || null,
+            email: grunt.option('user.email') || null,
+          },
           branch: 'master',
           repo: 'git@github.com:swarmsim-preprod/swarmsim-preprod.github.io.git'
         },
