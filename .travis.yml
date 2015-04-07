@@ -16,4 +16,4 @@ before_script:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt deploy-preprod-building --user.name="Evan Rosson (via travis-ci.org robots)" --user.email=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"`'
   - 'bower install'
 after_success:
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && GIT_AUTHOR_NAME="Evan Rosson (via travis-ci.org robots)" GIT_AUTHOR_EMAIL=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"` grunt deploy-preprod'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt deploy-preprod --user.name="Evan Rosson (via travis-ci.org robots)" --user.email=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"`'
