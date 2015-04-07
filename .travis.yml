@@ -7,10 +7,7 @@ before_install:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && chmod 600 devkeys/swarmsim-preprod.pem'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && eval `ssh-agent`'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ssh-add devkeys/swarmsim-preprod.pem'
-  # --global required because grunt-gh-pages uses a new repo to push
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && git config --global user.name '
   # rot13 email, because spam
-  - "[ '${TRAVIS_PULL_REQUEST}' = 'false' ] && git config --global user.email "
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && GIT_AUTHOR_NAME="Evan Rosson (via travis-ci.org robots)" GIT_AUTHOR_EMAIL=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"` grunt deploy-preprod-building'
   # done with preprod setup
   - 'gem install compass'
