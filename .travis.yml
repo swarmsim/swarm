@@ -7,15 +7,13 @@ before_install:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && chmod 600 devkeys/swarmsim-preprod.pem'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && eval `ssh-agent`'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ssh-add devkeys/swarmsim-preprod.pem'
-  # install takes a long time; just install grunt for the preprod-building page
-  - 'npm install --global grunt-cli'
-  - 'npm install grunt'
-  # rot13 email, because spam
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && GIT_AUTHOR_NAME="Evan Rosson (via travis-ci.org robots)" GIT_AUTHOR_EMAIL=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"` grunt deploy-preprod-building'
   # done with preprod setup
   - 'gem install compass'
 before_script:
+  # rot13 email, because spam
   - 'npm install -g bower grunt-cli'
+  # push a page to preprod that says tests are running
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && GIT_AUTHOR_NAME="Evan Rosson (via travis-ci.org robots)" GIT_AUTHOR_EMAIL=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"` grunt deploy-preprod-building'
   - 'bower install'
 after_success:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && GIT_AUTHOR_NAME="Evan Rosson (via travis-ci.org robots)" GIT_AUTHOR_EMAIL=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"` grunt deploy-preprod'
