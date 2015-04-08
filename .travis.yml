@@ -7,13 +7,12 @@ before_install:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && chmod 600 devkeys/swarmsim-preprod.pem'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && eval `ssh-agent`'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ssh-add devkeys/swarmsim-preprod.pem'
+  # push a page to preprod that says tests are running
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ./.travis/deploy-preprod-building.sh'
   # done with preprod setup
   - 'gem install compass'
 before_script:
-  # rot13 email, because spam
   - 'npm install -g bower grunt-cli'
-  # push a page to preprod that says tests are running
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt deploy-preprod-building --user.name="Evan Rosson (via travis-ci.org robots)" --user.email=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"`'
   - 'bower install'
 after_success:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt deploy-preprod --user.name="Evan Rosson (via travis-ci.org robots)" --user.email=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"`'

@@ -779,12 +779,6 @@ module.exports = function (grunt) {
   grunt.registerTask('preprodCname', 'build preprod.swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'preprod.swarmsim.com');
   });
-  grunt.registerTask('preprod-building-page', 'build preprod.swarmsim.com "building" index.html file', function () {
-    var template = grunt.file.read('.building.html');
-    var data = {date:grunt.template.today('isoUtcDateTime')};
-    var text = grunt.template.process(template, {data:data});
-    grunt.file.write('dist/index.html', text);
-  });
   grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
     grunt.file.delete('dist/CNAME');
   });
@@ -872,10 +866,6 @@ module.exports = function (grunt) {
   ]);
   grunt.registerTask('deploy-preprod', [
     'build',
-    'preprodCname','gh-pages:preprod','cleanCname'
-  ]);
-  grunt.registerTask('deploy-preprod-building', [
-    'preprod-building-page',
     'preprodCname','gh-pages:preprod','cleanCname'
   ]);
   grunt.registerTask('deploy-publictest', [
