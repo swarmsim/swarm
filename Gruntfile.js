@@ -654,6 +654,13 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
         }, {
+          //for font-awesome: http://stackoverflow.com/questions/21310382/fontawesome-is-not-working-when-project-is-built-with-grunt
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/fontawesome',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.dist %>'
+        }, {
           expand: true,
           cwd: '.',
           src: [
