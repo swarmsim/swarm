@@ -20,7 +20,7 @@ angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log) ->
       throw new Error 'no undostate available'
     state = @_undo.state
     @_setUndo isRedo:true
-    game.importSave state, true
+    game.importSave state, false
 
   _emit: (name, params) ->
     util.assert !params.name?, 'command has a name already?'
