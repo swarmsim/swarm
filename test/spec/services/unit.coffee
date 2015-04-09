@@ -447,3 +447,16 @@ describe 'Service: unit', ->
     game.tick new Date(game.now.getTime() + 3000)
     expect(unit.estimateSecsUntilEarned(80000).toNumber()).toEqual 2
     expect(unit._countInSecsFromReified(20).toNumber()).toBe 80000
+
+  it 'ignores fractional unit production', ->
+    game = mkgame {queen:'0.99'}
+    queen = game.unit('queen')
+    drone = game.unit('drone')
+    expect(drone.velocity().toNumber()).toBe 0
+    expect(queen.totalProduction().drone.toNumber()).toBe 0
+    game.unit('queen')._setCount '1.99'
+    expect(drone.velocity().toNumber()).toBe 2
+    expect(queen.totalProduction().drone.toNumber()).toBe 2
+    game.unit('queen')._setCount '2'
+    expect(drone.velocity().toNumber()).toBe 4
+    expect(queen.totalProduction().drone.toNumber()).toBe 4

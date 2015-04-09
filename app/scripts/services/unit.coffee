@@ -23,7 +23,8 @@ angular.module('swarmApp').factory 'ProducerPath', ($log, UNIT_LIMIT) -> class P
         ret = Decimal.min ret, UNIT_LIMIT
       return ret
   coefficient: (count=@first().parent.rawCount()) ->
-    count.times @prodEach()
+    # floor(): no fractional units. #184
+    count.floor().times @prodEach()
   coefficientNow: ->
     @coefficient @first().parent.count()
   count: (secs) ->
@@ -414,7 +415,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   totalProduction: ->
     return @game.cache.totalProduction[@name] ?= do =>
       ret = {}
-      count = @count()
+      count = @count().floor()
       for key, val of @eachProduction()
         ret[key] = val.times count
       return ret
