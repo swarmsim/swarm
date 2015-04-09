@@ -113,3 +113,19 @@ angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log) ->
       num: 1
       twinnum: 1
       elapsed: game.elapsedStartMillis()
+
+  respec: (opts) ->
+    @_setUndo()
+    game = opts.game
+    game.respec()
+    @_emit 'respec',
+      now: game.now
+      elapsed: game.elapsedStartMillis()
+
+  respecFree: (opts) ->
+    @_setUndo()
+    game = opts.game
+    game.respecFree()
+    @_emit 'respec',
+      now: game.now
+      elapsed: game.elapsedStartMillis()
