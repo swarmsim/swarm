@@ -8,3 +8,4 @@ bower_components
 /jsflash/flex
 /jsflash/*.swf
 /devkeys/swarmsim-preprod.pem
+/.travis/tmp

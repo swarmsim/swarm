@@ -1,8 +1,12 @@
 #!/bin/sh -eux
 cd "`dirname "$0"`/.."
 rm -rf .travis/tmp
-remote='git@github.com:swarmsim-preprod/swarmsim-preprod.github.io.git'
+remote=$1;shift
+checkversion=$1;shift
 git clone --depth 1 $remote .travis/tmp/repo
+if [ "$checkversion" != "" ]; then
+  sh -eux ./.travis/checkversion.sh || exit 1
+fi
 
 cd .travis/tmp/repo
 releasedir=releasewatch
@@ -15,5 +19,3 @@ git config user.email `echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-z
 git commit -m "build started. visit /$releasedir/ in a browser to watch for completion."
 git push
 cd -
-
-rm -rf .travis/tmp
