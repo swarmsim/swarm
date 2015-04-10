@@ -1,0 +1,27 @@
+<!doctype html>
+<html onclick="document.location='..';">
+<head>
+  <style>
+    body {
+      background: black;
+      color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+  <h1><a href="..">RELEASE COMPLETED</a></h1>
+  <audio controls loop>
+    <source src="https://s3.amazonaws.com/swarmsim-dev/zadupd02.ogg" type="audio/ogg">
+  </audio>
+  <p>you're not the programmer? then you shouldn't be here. shoo, shoo.</p>
+  <p>this page is replaced with .travis/_releasing/index.html while a release builds, which refreshes regularly to see if the build's done. this page means the build's done.</p>
+</body>
+<script>
+  if (document.location.search.indexOf('quiet') >= 0) {
+    document.location = '..';
+  }
+  else {
+    document.getElementsByTagName('audio')[0].play();
+  }
+</script>
+</html>

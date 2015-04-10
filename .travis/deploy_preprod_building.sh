@@ -1,16 +1,17 @@
 #!/bin/sh -eux
 cd "`dirname "$0"`/.."
 rm -rf .travis/tmp
-git clone --depth 1 git@github.com:swarmsim-preprod/swarmsim-preprod.github.io.git .travis/tmp/preprod
+remote='git@github.com:swarmsim-preprod/swarmsim-preprod.github.io.git'
+git clone --depth 1 $remote .travis/tmp/repo
 
-cd .travis/tmp/preprod
-mv -n index.html old.index.html
-rm -f index.html
-sed "s/<%= date %>/`date`/" ../../building.html > index.html
+cd .travis/tmp/repo
+rm -rf _releasing
+cp -rp ../../_releasing _releasing
+sed -i "s/<%= date %>/`date`/" ../../_releasing/index.html
 git add .
 git config user.name "Evan Rosson (via travis-ci.org robots)"
 git config user.email `echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"`
-git commit -m 'preprod build started'
+git commit -m 'build started. visit /_release/ in a browser to watch for completion.'
 git push
 cd -
 
