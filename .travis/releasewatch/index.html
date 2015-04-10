@@ -12,7 +12,7 @@
   </style>
 </head>
 <body ng-controller="MainController">
-  <p>Preprod build in progress. Started at {{date.format()}}, {{date.fromNow()}}. Autorefreshing every 10 seconds.</p>
+  <p>Release in progress. Started at {{date.format()}}, {{date.fromNow()}}. Autorefreshing every 10 seconds.</p>
   <p>If it's been "in progress" for a long time, it might be broken - check <a target="_blank" href="https://travis-ci.org/swarmsim/swarm">Travis build status</a>.</p>
   <p ng-if="!isquiet()">This page will play loud noises when a release is complete. <a href="javascript:" ng-click="quiet()">?quiet=1</a> will play no noises, and redirect to the game instead.</p>
   <p ng-cloak ng-if="isquiet()">This page will silently redirect when a release is complete. <a href="javascript:" ng-click="noquiet()">Remove ?quiet=1</a> to play noises instead.</p>

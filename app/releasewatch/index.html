@@ -19,12 +19,13 @@
     </audio>
   </div>
   <div ng-cloak ng-if="!progress()">
-    <p>No release currently in progress. Checking back in 60s.</p>
+    <p>No release currently in progress. Refreshing in 60s.</p>
+    <p ng-if="versionData">Last release was {{versionData.version}} at {{versionData.updated.format()}}, {{versionData.updated.fromNow()}}.</p>
   </div>
   <div ng-if="!progress">Loading...</div>
 </body>
 <script>
-angular.module('app', []).controller('MainController', function($scope, $location, $timeout) {
+angular.module('app', []).controller('MainController', function($scope, $location, $timeout, $http) {
   $scope.progress = function() {
     return !!$location.search().progress;
   }
@@ -36,6 +37,11 @@ angular.module('app', []).controller('MainController', function($scope, $locatio
       $scope.nav();
     }
   }
+  $http.get('../version.json').success(function(data, status, xhr) {
+    console.log('versionJson', data);
+    $scope.versionData = data;
+    data.updated = moment(data.updated);
+  });
 
   if ($scope.progress()) {
     if (!!$location.search().quiet) {
