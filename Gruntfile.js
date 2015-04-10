@@ -640,6 +640,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'static/**/*',
+            'releasewatch/**/*',
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
@@ -665,7 +666,6 @@ module.exports = function (grunt) {
           cwd: '.',
           src: [
             'archive/**/*',
-            'releasewatch/**/*',
             'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',
             'bower_components/bootswatch/fonts/*',
             'bower_components/bootswatch/*/bootstrap.min.css',

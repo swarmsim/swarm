@@ -28,19 +28,58 @@ angular.module('app', []).controller('MainController', function($scope, $locatio
   $scope.progress = function() {
     return !!$location.search().progress;
   }
+  $scope.nav = function() {
+    document.location = '..';
+  }
   $scope.docClick = function() {
     if ($scope.progress()) {
-      document.location = '..';
+      $scope.nav();
     }
   }
 
   if ($scope.progress()) {
     if (!!$location.search().quiet) {
-      document.location = '..';
+      $scope.nav();
     }
     else {
       $timeout(function(){$('audio')[0].play();}, 0);
     }
+    // https://developer.mozilla.org/en-US/docs/Web/API/notification
+    function doNotify() {
+      var notification = new Notification("Swarmsim release complete", {body:document.location.hostname});
+      notification.onclick = function() {
+        window.focus();
+        $('audio')[0].pause();
+        $scope.nav();
+      };
+    }
+    $scope.doNotify = doNotify;
+    function checkNotify() {
+      // Let's check if the browser supports notifications
+      if (!("Notification" in window)) {
+        //alert("This browser does not support desktop notification");
+      }
+    
+      // Let's check if the user is okay to get some notification
+      else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        doNotify();
+      }
+    
+      // Otherwise, we need to ask the user for permission
+      else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+          // If the user is okay, let's create a notification
+          if (permission === "granted") {
+            doNotify();
+          }
+        });
+      }
+    
+      // At last, if the user already denied any notification, and you 
+      // want to be respectful there is no need to bother them any more.
+    }
+    checkNotify();
   }
   $timeout(function(){document.location.reload();}, 60 * 1000);
 });
