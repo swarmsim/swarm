@@ -1,7 +1,7 @@
 <!doctype html>
 <html ng-app="app">
 <head>
-  <meta http-equiv="refresh" content="10">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
   <style>
@@ -14,12 +14,27 @@
 <body ng-controller="MainController">
   <p>Preprod build in progress. Started at {{date.format()}}, {{date.fromNow()}}. Autorefreshing every 10 seconds.</p>
   <p>If it's been "in progress" for a long time, it might be broken - check <a target="_blank" href="https://travis-ci.org/swarmsim/swarm">Travis build status</a>.</p>
-  <p>This page will play loud noises when a release is complete. <a href="?quiet=1">?quiet=1</a> will play no noises, and redirect to the game after the release is done.</p>
+  <p ng-if="!isquiet()">This page will play loud noises when a release is complete. <a href="javascript:" ng-click="quiet()">?quiet=1</a> will play no noises, and redirect to the game instead.</p>
+  <p ng-cloak ng-if="isquiet()">This page will silently redirect when a release is complete. <a href="javascript:" ng-click="noquiet()">Remove ?quiet=1</a> to play noises instead.</p>
 </body>
 <script>
-angular.module('app', []).controller('MainController', function($scope) {
+angular.module('app', []).controller('MainController', function($scope, $location, $timeout) {
+  if (!$location.search().progress) {
+    $location.search('progress', 1);
+  }
+  $scope.quiet = function() {
+    $location.search('quiet', 1);
+  }
+  $scope.noquiet = function() {
+    $location.search('quiet', null);
+  }
+  $scope.isquiet = function() {
+    return $location.search().quiet;
+  }
   // grunt replaces this part
   $scope.date = moment('<%= date %>');
+
+  $timeout(function(){document.location.reload();}, 10 * 1000);
 });
 </script>
 </html>
