@@ -8,7 +8,7 @@ cd .travis/tmp/repo
 releasedir=releasewatch
 rm -rf $releasedir
 cp -rp ../../$releasedir $releasedir
-sed -i "s/<%= date %>/`date`/" ../../$releasedir/index.html
+sed -i "s/<%= date %>/`date`/" $releasedir/index.html
 git add .
 git config user.name "Evan Rosson (via travis-ci.org robots)"
 git config user.email `echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"`
