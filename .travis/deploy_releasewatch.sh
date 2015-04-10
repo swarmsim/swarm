@@ -2,7 +2,7 @@
 cd "`dirname "$0"`/.."
 rm -rf .travis/tmp
 remote=$1;shift
-checkversion=$1;shift
+checkversion=${1-''}
 git clone --depth 1 $remote .travis/tmp/repo
 if [ "$checkversion" != "" ]; then
   sh -eux ./.travis/checkversion.sh || exit 1
