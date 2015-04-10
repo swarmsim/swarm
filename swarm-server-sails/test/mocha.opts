@@ -1,2 +1,2 @@
 --compilers coffee:coffee-script/register
-test/**/*.test.{js,coffee}
+--recursive

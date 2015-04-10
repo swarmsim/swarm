@@ -3,6 +3,7 @@ sails = null
 
 # no need to `require assert` in every test!
 global.assert = require 'assert'
+global.sinon = require 'sinon'
 
 before (done) ->
   @timeout 10000

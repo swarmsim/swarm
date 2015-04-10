@@ -47,6 +47,7 @@
     "forever": "^0.14.1",
     "mocha": "~2.2.1",
     "sails-generate-auth": "^0.3.0",
-    "sails-memory": "^0.10.3"
+    "sails-memory": "^0.10.3",
+    "sinon": "^1.14.1"
   }
 }
