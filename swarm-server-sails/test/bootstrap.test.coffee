@@ -1,6 +1,7 @@
 Sails = new require('sails').Sails()
 sails = null
 
+# no need to `require assert` in every test!
 global.assert = require 'assert'
 
 before (done) ->
