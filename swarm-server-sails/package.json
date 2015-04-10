@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha",
+    "test": "PORT=1338 NODE_ENV=test mocha",
     "debug": "node debug app.js"
   },
   "main": "app.js",
@@ -46,6 +46,7 @@
   "devDependencies": {
     "forever": "^0.14.1",
     "mocha": "~2.2.1",
-    "sails-generate-auth": "^0.3.0"
+    "sails-generate-auth": "^0.3.0",
+    "sails-memory": "^0.10.3"
   }
 }

@@ -21,6 +21,9 @@
 
 module.exports.connections = {
 
+  memory: {
+    adapter: 'sails-memory'
+  },
   /***************************************************************************
   *                                                                          *
   * Local disk storage for DEVELOPMENT ONLY                                  *

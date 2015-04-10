@@ -1,6 +1,4 @@
-assert = require 'assert'
-
-describe.only 'hello coffee', ->
+describe 'hello coffee', ->
   it 'runs the test', (done) ->
     done()
   xit 'fails the test', (done) ->
