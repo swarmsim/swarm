@@ -18,6 +18,15 @@ module.exports.passport = {
   local: {
     strategy: require('passport-local').Strategy
   },
+  kongregate: {
+    name: 'Kongregate',
+    strategy: require('../lib/passport-kongregate/strategy'),
+    protocol: 'kongregate',
+    options: {
+      // TODO remove default, it's there for tests
+      apiKey: process.env.KONREGATE_API_KEY || ''
+    }
+  },
 
   //bearer: {
   //  strategy: require('passport-http-bearer').Strategy
