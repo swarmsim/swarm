@@ -34,6 +34,7 @@
   },
   "scripts": {
     "start": "node app.js",
+    "pretest": "npm install",
     "test": "PORT=1338 NODE_ENV=test CLIENT_SESSIONS_SECRET=test_`date` mocha",
     "debug": "node debug app.js"
   },
