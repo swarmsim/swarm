@@ -6,7 +6,7 @@
 #
 # Usage:
 #
-#    curl https://raw.githubusercontent.com/erosson/swarm/master/install.sh | sh
+#    curl https://raw.githubusercontent.com/swarmsim/swarm/master/install.sh | sh
 #
 
 # first, all the sudo stuff.
@@ -14,14 +14,18 @@ sudo apt-get update
 # nodejs-legacy symlinks nodejs -> node, like node built from source in every other non-debian system
 # ruby-dev needed to build compass
 sudo apt-get install -y git nodejs nodejs-legacy npm ruby ruby-dev phantomjs
-sudo npm install -g yo generator-angular grunt-cli
+sudo npm install -g yo generator-angular grunt-cli bower
 sudo gem install compass
 # updates too.
-sudo npm update -g yo generator-angular grunt-cli
+sudo npm update -g yo generator-angular grunt-cli bower
+sudo npm cache clean
 
 # check out the package and install its deps.
-test -d swarm || git clone https://github.com/erosson/swarm.git
-cd swarm
+# assume we're running locally if the current dir is named 'swarm'.
+if [ "`basename $PWD`" != "swarm" ]; then
+  test -d swarm || git clone https://github.com/erosson/swarm.git
+  cd swarm
+fi
 npm install || sudo npm install
 yes | bower install
 
