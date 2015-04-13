@@ -24,6 +24,14 @@ module.exports.http = {
   middleware: {
 
     expressValidator: require('express-validator')(),
+    // https://github.com/mozilla/node-client-sessions
+    cookieSession: require('client-sessions')({
+      cookieName: 'swarmsim-session',
+      requestKey: 'session',
+      secret: process.env.CLIENT_SESSIONS_SECRET,
+      duration: 1000 * 60 * 60 * 24 * 14,
+      activeDuration: 1000 * 60 * 60 * 24 * 13,
+    }),
 
   /***************************************************************************
   *                                                                          *
@@ -35,7 +43,8 @@ module.exports.http = {
     order: [
       'startRequestTimer',
       'cookieParser',
-      'session',
+      'cookieSession',
+      //'session',
       //'myRequestLogger',
       'bodyParser',
       'expressValidator',

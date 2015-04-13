@@ -17,6 +17,7 @@ setTimeout(function sunrise () {
     </div>
     <%= req.user %>
     <%= req.isAuthenticated() %>
+    <%= req.session.view++ %>
     <div class="main container clearfix">
         <!-- <h1>Getting started</h1>
         <p>Don't worry, we've got your back.</p> -->

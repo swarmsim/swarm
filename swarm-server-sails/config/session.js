@@ -13,6 +13,11 @@
  */
 
 module.exports.session = {
+  
+  // NOT USED - encrypted cookie-based sessions configured in config/http.
+  // Our session data is tiny (should just be userid and auth token) so the
+  // bandwidth cost of session cookies is no biggie.
+  // https://github.com/mozilla/node-client-sessions
 
   /***************************************************************************
   *                                                                          *
@@ -21,7 +26,7 @@ module.exports.session = {
   * of your users, forcing them to log in again.                             *
   *                                                                          *
   ***************************************************************************/
-  secret: '17828797ee02d46458686fc6f21144c6',
+  //secret: '17828797ee02d46458686fc6f21144c6',
 
 
   /***************************************************************************
