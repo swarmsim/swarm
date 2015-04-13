@@ -60,6 +60,13 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
         return MAX
       num = Decimal.max 1, unit.maxCostMet()
       Decimal.min MAX, cost.val.times(num).dividedBy(count)
+    
+    scope.unitCostPerSecondAsPercent = (unit, cost) ->
+      MAX = new Decimal 9999.99
+      count = cost.unit.velocity()
+      if count.lessThanOrEqualTo 0
+        return MAX
+      Decimal.min MAX, cost.val.times(unit.maxCostPerSecondMet()).dividedBy(count)
 
     scope.description = (resource, desc=resource.descriptionFn) ->
       # this makes descriptions a potential xss vector. careful to only use numbers.

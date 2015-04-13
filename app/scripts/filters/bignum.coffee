@@ -26,6 +26,8 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
         return num+''
       if num.lessThan floorlimit
         return toPrecision(num, noSigfigs).replace /\.?0+$/, ''
+      if opts.fract and num.lessThan opts.minsuffix
+        return toPrecision(num, noSigfigs)
       num = num.floor()
       if num.lessThan opts.minsuffix
         # sadly, num.toLocaleString() does not work in unittests. node vs browser?
@@ -70,6 +72,9 @@ angular.module('swarmApp').filter 'bignum', (bignumFormatter, numberSuffixesShor
 angular.module('swarmApp').filter 'longnum', (bignumFormatter, numberSuffixesLong) ->
   bignumFormatter numberSuffixesLong, {sigfigs:6, minsuffix:1e6}
 
+angular.module('swarmApp').filter 'longnumfract', (bignumFormatter, numberSuffixesLong) ->
+  bignumFormatter numberSuffixesLong, {sigfigs:6, minsuffix:1e6, fract:true}
+  
 angular.module('swarmApp').filter 'ceil', ->
   (num) -> Math.ceil num
 

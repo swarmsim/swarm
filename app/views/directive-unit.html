@@ -103,6 +103,13 @@ Numbers with suffixes work: '23 billion', '23b', or '23e12'.">
           <span>{{unitCostAsPercent(cur, cost) | percent:0}} of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
         </span>
       </p>
+      <p ng-if="options.showAdvancedUnitData() && cur.maxCostPerSecondMet().greaterThan(0)">
+        You can {{cur.unittype.verb}} {{cur.maxCostPerSecondMet().times(cur.twinMult())|longnumfract}} more {{cur.maxCostPerSecondMet().times(cur.twinMult()).equals(1) ? cur.unittype.label : cur.unittype.plural}} every second, using
+        <span ng-repeat="cost in cur.eachCost()">
+          <span ng-if="!$first && $last"> and </span>
+          <span>{{unitCostPerSecondAsPercent(cur, cost) | percent:0}} of your {{cost.unit.unittype.label}} income</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
+        </span>
+      </p>
       <buyunit unit="cur" num="buyCount()"></buyunit>
     </div>
   </div>
