@@ -32,9 +32,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
+  '/': 'User.homepage', // == UserController.homepage
+  //{
+  //  view: 'homepage' // policies (like user session setup) don't run this way!
+  //},
 
   /***************************************************************************
   *                                                                          *
