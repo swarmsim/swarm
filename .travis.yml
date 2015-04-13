@@ -16,5 +16,7 @@ before_install:
 before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
+script:
+  - 'npm test && npm test --prefix swarm-server-sails'
 after_success:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" -a "${TRAVIS_BRANCH}" = "master" ] && grunt deploy-preprod --user.name="Evan Rosson (via travis-ci.org robots)" --user.email=`echo "genivf-pv@fjnezfvz.pbz" | tr "[A-Za-z]" "[N-ZA-Mn-za-m]"` || true'
