@@ -31,8 +31,11 @@ angular.module('swarmApp').factory 'loginApi', ($http, env, util, $log) -> new c
     .success (data, status, xhr) =>
       @user = data
 
+  @LOGIN_TAILS =
+    kongregate: '/callback'
   login: (strategy, credentials) ->
-    $http.post "#{env.saveServerUrl}/auth/#{strategy}/callback", credentials, {withCredentials: true}
+    tail = @constructor.LOGIN_TAILS[strategy] ? ''
+    $http.post "#{env.saveServerUrl}/auth/#{strategy}#{tail}", credentials, {withCredentials: true}
     .success (data, status, xhr) =>
       @user = data.user
  
