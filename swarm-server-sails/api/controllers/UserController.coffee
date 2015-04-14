@@ -6,3 +6,5 @@
 module.exports =
   homepage: (req, res) ->
     res.view 'homepage'
+  whoami: (req, res) ->
+    res.json req.user ? {}

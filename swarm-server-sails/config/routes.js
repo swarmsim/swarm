@@ -36,6 +36,7 @@ module.exports.routes = {
   //{
   //  view: 'homepage' // policies (like user session setup) don't run this way!
   //},
+  '/whoami': 'User.whoami',
 
   /***************************************************************************
   *                                                                          *
@@ -47,7 +48,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'post /policies': 'PoliciesController.create',
+  'post /policies': 'Policies.create',
 
   // https://github.com/kasperisager/sails-generate-auth
   'get /login': 'AuthController.login',
