@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Directive: login', ->
+xdescribe 'Directive: login', ->
 
   # load the directive's module
   beforeEach module 'swarmApp'

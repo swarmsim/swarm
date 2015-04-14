@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Controller: LoginCtrl', ->
+xdescribe 'Controller: LoginCtrl', ->
 
   # load the controller's module
   beforeEach module 'swarmApp'
