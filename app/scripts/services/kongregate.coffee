@@ -21,7 +21,7 @@ angular.module('swarmApp').factory 'isKongregate', ->
     # - when-framed-assume-kongregate? could work...
     # - hard-querystring (/?kongregate#/tab/meat) seems to work well! can't figure out how to get out of it in 30sec.
 
-angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval, options, $q) -> class Kongregate
+angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval, options, $q, loginApi) -> class Kongregate
   constructor: ->
   isKongregate: ->
     isKongregate()
@@ -125,10 +125,29 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
         $both.scrollTop(0)
         return prevent()
 
+  # Login to swarmsim using Kongregate userid/token as credentials.
+  _swarmApiLogin: ->
+    doLogin = =>
+      $log.debug 'login to swarmsim with kongregate'
+      loginApi.login 'kongregate',
+        user_id: @kongregate.services.getUserId()
+        game_auth_token: @kongregate.services.getGameAuthToken()
+        # not needed for auth, but updates visible username
+        username: @kongregate.services.getUsername()
+      .success (data, status, xhr) ->
+        $log.debug 'login success', data, status, xhr
+      .error (data, status, xhr) ->
+        $log.debug 'login error', data, status, xhr
+    if not @kongregate.services.isGuest()
+      doLogin()
+    @kongregate.services.addEventListener 'login', doLogin
+
   _onLoad: ->
     $log.debug 'kongregate successfully loaded!', @kongregate
     @isLoaded = true
     @reportStats()
+
+    @_swarmApiLogin()
 
     Raven.setUser
       id: @kongregate.services.getUsername()

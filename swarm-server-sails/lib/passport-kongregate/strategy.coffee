@@ -18,26 +18,28 @@ jsonResponse = (res, callback) ->
     callback JSON.parse body
 
 module.exports = class Strategy extends passport.Strategy
-  constructor: (@options, @_verify) ->
+  constructor: (@options, @protocol) ->
     if not @options?.apiKey?
       throw new Error 'options.apikey required'
-    if not @_verify?
-      throw new Error 'verify fn required'
+    if not @protocol?
+      throw new Error 'protocol required'
 
     @name = 'kongregate'
     super()
 
-  authenticate: (req) ->
-    req.checkParams('policy.user_id').notEmpty().isInt()
-    req.checkParams('policy.game_auth_token').notEmpty()
+  authenticate: (req, options={}) ->
+    req.checkBody('user_id').notEmpty().isInt()
+    req.checkBody('game_auth_token').notEmpty()
+    params = req.body
     if (errors=req.validationErrors())
-      res.send JSON.stringify(errors:errors), 400
-      return
-    policy = req.params.policy
-    kong_args = {user_id:policy.user_id, game_auth_token:policy.game_auth_token, api_key:@options.apiKey}
+      @fail {errors:errors}, 400
+    creds = {user_id:params.user_id, game_auth_token:params.game_auth_token}
+    kong_args = _.extend {api_key:@options.apiKey}, creds
+    sails.log.debug 'kongregate auth', kong_args
     kong_url = "https://api.kongregate.com/api/authenticate.json?#{querystring.stringify kong_args}"
 
     verified = (err, user, info) =>
+      sails.log.debug 'kongregate auth connected?', err, user, info
       if err
         return @error err
       if !user
@@ -47,11 +49,12 @@ module.exports = class Strategy extends passport.Strategy
     https = @options.https ? Https
     https.get kong_url, (kongres) =>
       jsonResponse kongres, (kongjson) =>
+        sails.log.debug 'kongregate auth reply', kongjson
         if kongjson.success
-          if @options._passReqToCallback
-            @_verify req, policy.user_id, policy.game_auth_token, verified
-          else
-            @_verify policy.user_id, policy.game_auth_token, verified
+          profile =
+            user_id: params.user_id
+            username: params.username
+          @protocol req, creds, profile, verified
         else
           if 400 <= kongjson.error < 500
             @fail JSON.stringify kongjson

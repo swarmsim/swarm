@@ -32,7 +32,7 @@ angular.module('swarmApp').factory 'loginApi', ($http, env, util, $log) -> new c
       @user = data
 
   login: (strategy, credentials) ->
-    $http.post "#{env.saveServerUrl}/auth/#{strategy}", credentials, {withCredentials: true}
+    $http.post "#{env.saveServerUrl}/auth/#{strategy}/callback", credentials, {withCredentials: true}
     .success (data, status, xhr) =>
       @user = data.user
  
