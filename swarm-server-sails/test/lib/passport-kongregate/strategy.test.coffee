@@ -37,18 +37,17 @@ describe 'kongregate passport', ->
     @https =
       get: sinon.spy (url, cb) =>
         cb mkres {success:true}
-    @login = sinon.spy (id, token, cb) =>
+    @protocol = sinon.spy (req, creds, profile, cb) =>
       cb null, @user
-    @strategy = new Strategy {apiKey: 'thekey', https: @https}, @login
+    @strategy = new Strategy {apiKey: 'thekey', https: @https}, @protocol
     @strategy.fail = @strategy.error = sinon.stub().throws()
     @strategy.success = (user, info) =>
       assert.equal @user, user
       assert @https.get.calledOnce
-      assert @login.calledOnce
+      assert @protocol.calledOnce
       done()
     stubreq (req) =>
-      req.params =
-        policy:
-          user_id: 111
-          game_auth_token: 'token'
+      req.body =
+        user_id: 111
+        game_auth_token: 'token'
       @strategy.authenticate req
