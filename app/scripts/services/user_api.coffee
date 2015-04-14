@@ -7,7 +7,36 @@
  # # userApi
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'userApi', ($resource, env, util) ->
-  util.assert env.saveServerUrl, 'env.saveserverurl required'
-  return $resource "#{env.saveServerUrl}/user/:id", null,
-    whoami: {method: 'GET', url: "#{env.saveServerUrl}/whoami"}
+angular.module('swarmApp').factory 'userApi', ($resource, env) ->
+  $resource "#{env.saveServerUrl}/user/:id"
+
+# shortcut
+angular.module('swarmApp').factory 'user', (loginApi) ->
+  -> loginApi.user
+
+angular.module('swarmApp').config ($httpProvider) ->
+  # http://stackoverflow.com/questions/22100084/angularjs-withcredentials-not-sending?rq=1
+  $httpProvider.defaults.useXDomain = true
+  $httpProvider.defaults.withCredentials = true
+
+angular.module('swarmApp').factory 'loginApi', ($http, env, util, $log) -> new class LoginApi
+  constructor: ->
+    @user = @whoami()
+
+  hasUser: ->
+    return @user.id?
+
+  whoami: ->
+    $http.get "#{env.saveServerUrl}/whoami"
+    .success (data, status, xhr) =>
+      @user = data
+
+  login: (strategy, credentials) ->
+    $http.post "#{env.saveServerUrl}/auth/#{strategy}", credentials, {withCredentials: true}
+    .success (data, status, xhr) =>
+      @user = data.user
+ 
+  logout: ->
+    $http.get "#{env.saveServerUrl}/logout", {}, {withCredentials: true}
+    .success (data, status, xhr) =>
+      @whoami()
