@@ -8,12 +8,10 @@ describe 'Filter: bignum', ->
   # initialize a new instance of the filter before each test
   bignum = {}
   longnum = {}
-  longnumfract = {}
   options = {}
   beforeEach inject ($filter, _options_) ->
     bignum = $filter 'bignum'
     longnum = $filter 'longnum'
-    longnumfract = $filter 'longnumfract'
     options = _options_
 
   it 'should format numbers', ->
@@ -106,33 +104,18 @@ describe 'Filter: bignum', ->
     expect(options.notation()).toBe 'standard-decimal'
     expect(bignum 123456789).toBe '123M'
     expect(longnum 123456789).toBe '123.456 million'
-    expect(longnumfract 123456789).toBe '123.456 million'
     expect(bignum 123456789e30).toBe '123UDc'
     expect(longnum 123456789e30).toBe '123.456 undecillion'
-    expect(longnumfract 123456789e30).toBe '123.456 undecillion'
-    expect(longnumfract 0.0123).toBe '0.0123000'
-    expect(longnumfract 0.012345678).toBe '0.0123456'
-    expect(longnumfract 1e-20).toBe '1.00000e-20'
     options.notation 'scientific-e'
     expect(bignum 123456789).toBe '1.23e8'
     expect(longnum 123456789).toBe '1.23456e8'
-    expect(longnumfract 123456789).toBe '1.23456e8'
     expect(bignum 123456789e30).toBe '1.23e38'
     expect(longnum 123456789e30).toBe '1.23456e38'
-    expect(longnumfract 123456789e30).toBe '1.23456e38'
-    expect(longnumfract 0.0123).toBe '0.0123000'
-    expect(longnumfract 0.0123456).toBe '0.0123456'
-    expect(longnumfract 1e-20).toBe '1.00000e-20'
     options.notation 'hybrid'
     expect(bignum 123456789).toBe '123M'
     expect(longnum 123456789).toBe '123.456 million'
-    expect(longnumfract 123456789).toBe '123.456 million'
     expect(bignum 123456789e30).toBe '1.23e38'
     expect(longnum 123456789e30).toBe '1.23456e38'
-    expect(longnumfract 123456789e30).toBe '1.23456e38'
-    expect(longnumfract 0.0123).toBe '0.0123000'
-    expect(longnumfract 0.0123456).toBe '0.0123456'
-    expect(longnumfract 1e-20).toBe '1.00000e-20'
     options.notation 'engineering'
     expect(bignum 123456789).toBe '123E6'
     expect(bignum 12345678).toBe '12.3E6'
@@ -145,13 +128,6 @@ describe 'Filter: bignum', ->
     expect(longnum 1234567).toBe '1.23456E6'
     expect(bignum 123456789e30).toBe '123E36'
     expect(longnum 123456789e30).toBe '123.456E36'
-    expect(longnumfract 123456789).toBe '123.456E6'
-    expect(longnumfract 12345678).toBe '12.3456E6'
-    expect(longnumfract 1234567).toBe '1.23456E6'
-    expect(longnumfract 123456789e30).toBe '123.456E36'
-    expect(longnumfract 0.0123).toBe '0.0123000'
-    expect(longnumfract 0.0123456).toBe '0.0123456'
-    expect(longnumfract 1e-20).toBe '1.00000e-20'
 
   it 'should support Bignumbers', ->
     expect(bignum math.bignumber('2.3e+500') ).toBe '2.30e500'
