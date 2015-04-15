@@ -118,6 +118,7 @@ nbproject
 .node_history
 *.swp
 /secrets
+/.secrets_key
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
