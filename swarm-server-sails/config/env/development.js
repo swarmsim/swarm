@@ -17,8 +17,12 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
+  //models: {
+  //  connection: 'localDiskDb',
+  //  migrate: 'alter'
+  //}
   models: {
-    connection: 'localDiskDb',
+    connection: process.env.DB_ADAPTER || 'localDiskDb',
     migrate: 'alter'
   }
 

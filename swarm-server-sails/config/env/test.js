@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'memory',
+    connection: process.env.DB_ADAPTER || 'memory',
     migrate: 'alter'
   }
 
