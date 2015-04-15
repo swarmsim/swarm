@@ -13,5 +13,12 @@ module.exports =
       size: 20
       required: true
     state:
-      type: 'string'
+      type: 'json'
       required: true
+    deleted:
+      type: 'boolean'
+      default: false
+    # TODO
+    #commands:
+    #  collection: 'command'
+    #  via: 'character'
