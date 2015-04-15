@@ -17,7 +17,13 @@ module.exports =
       required: true
     deleted:
       type: 'boolean'
-      default: false
+      defaultsTo: false
+    source:
+      type: 'string'
+      enum: ['unspecified', 'connectLegacy']
+      size: 20
+      defaultsTo: 'unspecified'
+      required: true
     # TODO
     #commands:
     #  collection: 'command'

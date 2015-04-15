@@ -170,6 +170,14 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
         @_exportCache = @_saves undefined, false
       @_exportCache
 
+    exportJson: ->
+      # ew.
+      exportCache = @_exportCache
+      delete @_exportCache
+      ret = @jsonSaves()
+      @_exportCache = exportCache
+      return ret
+
     importSave: (encoded, transient=true) ->
       data = @_loads encoded
       @_clear()
