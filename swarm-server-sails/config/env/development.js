@@ -23,7 +23,8 @@ module.exports = {
   //}
   models: {
     connection: process.env.DB_ADAPTER || 'localDiskDb',
-    migrate: 'alter'
+    //migrate: 'alter'
+    migrate: 'safe'
   }
 
 };
