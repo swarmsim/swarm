@@ -8,11 +8,11 @@ module.exports =
     res.view 'homepage'
   whoami: (req, res) ->
     if not req.user?.id?
-      return res.json {}, 404
-    console.log req.user
+      return res.status(404).json {}
+    sails.log.debug req.user
     User.findOne(req.user.id).populate('characters').exec (err, user) ->
       if err
         return res.render {error:true, message:err}, 500
       if not user
-        return res.json {}, 404
+        return res.status(404).json {}
       return res.json user
