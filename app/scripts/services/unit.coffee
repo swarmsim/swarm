@@ -351,10 +351,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     max = new Decimal Infinity
     for cost in @eachCost()
       if cost.val.greaterThan(0)
-        console.log cost,cost.val.toNumber(),cost.unit.velocity().toNumber(),cost.unit.velocity().dividedBy cost.val
         max = Decimal.min max, cost.unit.velocity().dividedBy cost.val
     #util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
-    console.log @name, max.toNumber()
     return max
   
   isVisible: ->
