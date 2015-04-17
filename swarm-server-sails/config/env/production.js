@@ -11,15 +11,24 @@
  */
 
 module.exports = {
+  // Disable all database access in production until the db is ready. #584.
+  // http://stackoverflow.com/questions/26921889/disabling-default-sails-js-routes
+  policies: {
+    User: {
+      '*': false
+    },
+    Character: {
+      '*': false
+    },
+    Auth: {
+      '*': false
+    },
+  },
 
-  /***************************************************************************
-   * Set the default database connection for models in the production        *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
-
-  // models: {
-  //   connection: 'someMysqlServer'
-  // },
+  models: {
+    migrate: 'safe',
+    connection: 'localDiskDb'
+  },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
