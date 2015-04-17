@@ -1,3 +1,0 @@
-#!/bin/sh -eu
-cd "`dirname "$0"`/../.."
-env `cat secrets/preprod/env.sh secrets/local/env_postgres_admin.sh` sails-migrations "$@"
