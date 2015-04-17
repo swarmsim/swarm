@@ -347,6 +347,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     #util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
     return max
 
+  _costMetPercentOfVelocity: ->
+    max = new Decimal Infinity
+    for cost in @eachCost()
+      if cost.val.greaterThan(0)
+        max = Decimal.min max, cost.unit.velocity().dividedBy cost.val
+    #util.assert max.greaterThanOrEqualTo(0), "invalid unit cost max", @name
+    return max
+  
   isVisible: ->
     if @unittype.disabled
       return false
@@ -379,6 +387,13 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   maxCostMet: (percent=1) ->
     return @game.cache.unitMaxCostMet["#{@name}:#{percent}"] ?= do =>
       @_costMetPercent().times(percent).floor()
+      
+  maxCostMetOfVelocity: () ->
+    return @game.cache.unitMaxCostMetOfVelocity["#{@name}"] ?= do =>
+      @_costMetPercentOfVelocity()
+  
+  maxCostMetOfVelocityReciprocal: () ->
+    (new Decimal 1).dividedBy(@maxCostMetOfVelocity())
 
   isCostMet: ->
     @maxCostMet().greaterThan 0

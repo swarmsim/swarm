@@ -32,6 +32,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @totalProduction = {}
     @upgradeMaxCostMet = {}
     @unitMaxCostMet = {}
+    @unitMaxCostMetOfVelocity = {}
     delete @tutorialStep
 
     # clear periodic caches every few seconds
