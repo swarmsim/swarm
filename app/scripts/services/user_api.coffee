@@ -22,11 +22,21 @@ angular.module('swarmApp').config ($httpProvider) ->
   $httpProvider.defaults.useXDomain = true
   $httpProvider.defaults.withCredentials = true
 
-angular.module('swarmApp').factory 'loginApi', ($http, env, util, $log, session, characterApi) -> new class LoginApi
+angular.module('swarmApp').factory 'loginApi', (loginApiEnabled, env) ->
+  if env.isServerBackendEnabled
+    return loginApiEnabled
+  ret = {}
+  for method, fn of loginApiEnabled
+    ret[method] = ->
+      throw new Error 'login backend is disabled'
+  return ret
+
+angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, session, characterApi) -> new class LoginApi
   constructor: ->
-    @user = @whoami().success =>
-      # connect legacy character upon page reload
-      @maybeConnectLegacyCharacter()
+    if env.isServerBackendEnabled
+      @user = @whoami().success =>
+        # connect legacy character upon page reload
+        @maybeConnectLegacyCharacter()
 
   hasUser: ->
     return @user.id?

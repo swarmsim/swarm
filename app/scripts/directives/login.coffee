@@ -7,10 +7,10 @@
  # # login
 ###
 angular.module 'swarmApp'
-  .directive 'login', (loginApi, $log, kongregate) ->
+  .directive 'login', (loginApi, $log, kongregate, env) ->
     restrict: 'EA'
     template: """
-<div>
+<div ng-cloak ng-if="env.isServerFrontendReleased">
   Login directive! user: {{loginApi.user.username}}
   <div ng-if="!loginApi.user.id">
     <a ng-if="isKongregate()" href="javascript:" ng-click="kongregateLogin()">Login</a>
@@ -20,6 +20,7 @@ angular.module 'swarmApp'
 </div>
 """
     link: (scope, element, attrs) ->
+      scope.env = env
       scope.loginApi = loginApi
       scope.isKongregate = -> kongregate.isKongregate()
       scope.kongregateLogin = ->

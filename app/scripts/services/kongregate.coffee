@@ -21,7 +21,7 @@ angular.module('swarmApp').factory 'isKongregate', ->
     # - when-framed-assume-kongregate? could work...
     # - hard-querystring (/?kongregate#/tab/meat) seems to work well! can't figure out how to get out of it in 30sec.
 
-angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval, options, $q, loginApi) -> class Kongregate
+angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location, game, $rootScope, $interval, options, $q, loginApi, env) -> class Kongregate
   constructor: ->
   isKongregate: ->
     isKongregate()
@@ -127,6 +127,8 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 
   # Login to swarmsim using Kongregate userid/token as credentials.
   _swarmApiLogin: ->
+    if not env.isServerBackendEnabled
+      return
     doLogin = =>
       $log.debug 'login to swarmsim with kongregate'
       loginApi.login 'kongregate',

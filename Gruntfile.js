@@ -119,6 +119,8 @@ module.exports = function (grunt) {
             isAppcacheEnabled: true,
             sentryDSN: null,
             sentrySampleRate: 0,
+            isServerBackendEnabled: false,
+            isServerFrontendEnabled: false,
             gaTrackingID: null
           }
         }
@@ -143,6 +145,19 @@ module.exports = function (grunt) {
             isAppcacheEnabled: true,
             sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
             sentrySampleRate: 1,
+            // Everyone's getting server-side accounts.
+            //
+            // Phase 1: import everything silently/invisibly, no change in
+            // behavior, full traffic without inconveniencing players when
+            // the server can't scale. Backend release.
+            //
+            // Phase 2: user accounts now visible. Frontend release.
+            //
+            // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
+            // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
+            isServerBackendEnabled: true,
+            isServerFrontendEnabled: false,
+
             gaTrackingID: 'UA-53523462-3'
           }
         }
@@ -168,6 +183,8 @@ module.exports = function (grunt) {
             isAppcacheEnabled: false,
             sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
             sentrySampleRate: 0.001,
+            isServerBackendEnabled: false,
+            isServerFrontendEnabled: false,
             gaTrackingID: 'UA-53523462-1'
           }
         }
