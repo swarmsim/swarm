@@ -22,4 +22,6 @@ Swarmsim's developed on an Ubuntu Linux machine. I've heard http://c9.io works w
 * Run the server: `grunt serve`
 * Make your changes. Game's running at http://localhost:9000 , and reloads whenever you change something.
 * Run automated tests: `grunt test` , or edit a file in `test/` while `grunt serve` is running. Tests must pass before I merge your PR.
-* Push changes to your fork and send me a pull request. Swarmsim is one man's hobby project, so I may need a few days to respond. Please nag me if it's been a week. Thanks!
+* Push changes to your fork and send me a pull request. Swarmsim is one man's hobby project, so I may need a few days to respond. Please nag me if it's been a week or more. Thanks!
+
+Once I've merged your changes, they'll automatically be released to https://preprod.swarmsim.com within 10 minutes or so. A "real" release to Kongregate and https://swarmsim.github.com will likely take longer - up to a few days, depending what else is being released.
