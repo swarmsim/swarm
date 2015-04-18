@@ -33,6 +33,110 @@ module.exports = function (grunt) {
     return KEYS[key] || key;
   };
 
+  var ngconstant = {
+    options: {
+      dest: '.tmp/scripts/env.js',
+      wrap: '"use strict";\n\n{%= __ngModule %}',
+      name: 'swarmEnv',
+      constants: {
+        version: grunt.file.readJSON('package.json').version
+      },
+      space: '  '
+    },
+    test: {
+      constants: {
+        env: {
+          name: 'test',
+          isDebugEnabled: true,
+          isDebugLogged: false,
+          httpsAllowInsecure: true,
+          showSkipped: false,
+          spreadsheetKey: 'v0.2',
+          saveId: '0',
+          isOffline: false,
+          dropboxAppKey: dropboxAppKey('dev'),
+          isDropboxEnabled: true,
+          saveServerUrl: grunt.option('saveServerUrl'),
+          isKongregateSyncEnabled: true,
+          autopushIntervalMs: 1000 * 60 * 9999,
+          googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
+          isAppcacheEnabled: true,
+          sentryDSN: null,
+          sentrySampleRate: 0,
+          isServerBackendEnabled: false,
+          isServerFrontendEnabled: false,
+          gaTrackingID: null
+        }
+      }
+    },
+    dev: {
+      constants: {
+        env: {
+          name: 'dev',
+          isDebugEnabled: true,
+          isDebugLogged: true,
+          httpsAllowInsecure: true,
+          showSkipped: true,
+          spreadsheetKey: 'v0.2',
+          saveId: 'v0.2',
+          isOffline: false,
+          dropboxAppKey: dropboxAppKey('dev'),
+          isDropboxEnabled: true,
+          saveServerUrl: grunt.option('saveServerUrl'),
+          isKongregateSyncEnabled: true,
+          autopushIntervalMs: 1000 * 15,
+          googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
+          isAppcacheEnabled: true,
+          sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
+          sentrySampleRate: 1,
+          // Everyone's getting server-side accounts.
+          //
+          // Phase 1: import everything silently/invisibly, no change in
+          // behavior, full traffic without inconveniencing players when
+          // the server can't scale. Backend release.
+          //
+          // Phase 2: user accounts now visible. Frontend release.
+          //
+          // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
+          // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
+          isServerBackendEnabled: true,
+          isServerFrontendEnabled: false,
+
+          gaTrackingID: 'UA-53523462-3'
+        }
+      }
+    },
+    prod: {
+      constants: {
+        env: {
+          name: 'prod',
+          isDebugEnabled: false,
+          isDebugLogged: false,
+          httpsAllowInsecure: false,
+          //gaTrackingID: 'UA-53523462-2'
+          showSkipped: false,
+          spreadsheetKey: 'v0.2',
+          saveId: 'v0.2',
+          isOffline: false,
+          dropboxAppKey: dropboxAppKey('prod'),
+          isDropboxEnabled: true,
+          saveServerUrl: 'https://api.swarmsim.com',
+          isKongregateSyncEnabled: true,
+          autopushIntervalMs: 1000 * 60 * 15,
+          googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
+          isAppcacheEnabled: false,
+          sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
+          sentrySampleRate: 0.001,
+          isServerBackendEnabled: false,
+          isServerFrontendEnabled: false,
+          gaTrackingID: 'UA-53523462-1'
+        }
+      }
+    },
+  };
+  ngconstant.preprod = ngconstant.prod;
+  ngconstant.preprod.constants.env.saveServerUrl = 'https://api-preprod.swarmsim.com';
+
   // Define the configuration for all the tasks
   grunt.initConfig({
     // https://www.npmjs.org/package/grunt-gh-pages
@@ -89,107 +193,7 @@ module.exports = function (grunt) {
     },
 
     // http://hounddog.github.io/blog/using-environment-configuration-with-grunt/
-    ngconstant: {
-      options: {
-        dest: '.tmp/scripts/env.js',
-        wrap: '"use strict";\n\n{%= __ngModule %}',
-        name: 'swarmEnv',
-        constants: {
-          version: grunt.file.readJSON('package.json').version
-        },
-        space: '  '
-      },
-      test: {
-        constants: {
-          env: {
-            name: 'test',
-            isDebugEnabled: true,
-            isDebugLogged: false,
-            httpsAllowInsecure: true,
-            showSkipped: false,
-            spreadsheetKey: 'v0.2',
-            saveId: '0',
-            isOffline: false,
-            dropboxAppKey: dropboxAppKey('dev'),
-            isDropboxEnabled: true,
-            saveServerUrl: grunt.option('saveServerUrl'),
-            isKongregateSyncEnabled: true,
-            autopushIntervalMs: 1000 * 60 * 9999,
-            googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
-            isAppcacheEnabled: true,
-            sentryDSN: null,
-            sentrySampleRate: 0,
-            isServerBackendEnabled: false,
-            isServerFrontendEnabled: false,
-            gaTrackingID: null
-          }
-        }
-      },
-      dev: {
-        constants: {
-          env: {
-            name: 'dev',
-            isDebugEnabled: true,
-            isDebugLogged: true,
-            httpsAllowInsecure: true,
-            showSkipped: true,
-            spreadsheetKey: 'v0.2',
-            saveId: 'v0.2',
-            isOffline: false,
-            dropboxAppKey: dropboxAppKey('dev'),
-            isDropboxEnabled: true,
-            saveServerUrl: grunt.option('saveServerUrl'),
-            isKongregateSyncEnabled: true,
-            autopushIntervalMs: 1000 * 15,
-            googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
-            isAppcacheEnabled: true,
-            sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
-            sentrySampleRate: 1,
-            // Everyone's getting server-side accounts.
-            //
-            // Phase 1: import everything silently/invisibly, no change in
-            // behavior, full traffic without inconveniencing players when
-            // the server can't scale. Backend release.
-            //
-            // Phase 2: user accounts now visible. Frontend release.
-            //
-            // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
-            // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
-            isServerBackendEnabled: true,
-            isServerFrontendEnabled: false,
-
-            gaTrackingID: 'UA-53523462-3'
-          }
-        }
-      },
-      prod: {
-        constants: {
-          env: {
-            name: 'prod',
-            isDebugEnabled: false,
-            isDebugLogged: false,
-            httpsAllowInsecure: false,
-            //gaTrackingID: 'UA-53523462-2'
-            showSkipped: false,
-            spreadsheetKey: 'v0.2',
-            saveId: 'v0.2',
-            isOffline: false,
-            dropboxAppKey: dropboxAppKey('prod'),
-            isDropboxEnabled: true,
-            saveServerUrl: 'https://api.swarmsim.com',
-            isKongregateSyncEnabled: true,
-            autopushIntervalMs: 1000 * 60 * 15,
-            googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
-            isAppcacheEnabled: false,
-            sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
-            sentrySampleRate: 0.001,
-            isServerBackendEnabled: false,
-            isServerFrontendEnabled: false,
-            gaTrackingID: 'UA-53523462-1'
-          }
-        }
-      },
-    },
+    ngconstant: ngconstant,
 
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
@@ -858,26 +862,33 @@ module.exports = function (grunt) {
     'karma:integrationCi'
   ]);
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'ngconstant:prod','writeVersionJson',
-    'wiredep',
-    'useminPrepare',
-    'concurrent:dist',
-    'ngtemplates:dist',
-    'autoprefixer',
-    'concat',
-    'ngmin',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'manifest',
-    'usemin',
-    'htmlmin',
-    'mxmlc:prod'
-  ]);
+  grunt.registerTask('build', function(envname) {
+    envname = envname || 'prod';
+    if (envname != 'prod' && envname != 'preprod') {
+      throw new Error('invalid build envname: '+envname);
+    }
+    console.log('building envname '+envname);
+    grunt.task.run([
+      'clean:dist',
+      'ngconstant:'+envname,'writeVersionJson',
+      'wiredep',
+      'useminPrepare',
+      'concurrent:dist',
+      'ngtemplates:dist',
+      'autoprefixer',
+      'concat',
+      'ngmin',
+      'copy:dist',
+      'cdnify',
+      'cssmin',
+      'uglify',
+      'filerev',
+      'manifest',
+      'usemin',
+      'htmlmin',
+      'mxmlc:prod'
+    ]);
+  });
 
   grunt.registerTask('default', [
     'newer:jshint',
@@ -890,7 +901,7 @@ module.exports = function (grunt) {
     'stagingCname','gh-pages:staging','cleanCname'
   ]);
   grunt.registerTask('deploy-preprod', [
-    'build',
+    'build:preprod',
     'preprodCname','gh-pages:preprod','cleanCname'
   ]);
   grunt.registerTask('deploy-publictest', [
