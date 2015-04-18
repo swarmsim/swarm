@@ -108,3 +108,10 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.form.themeExtraError = e?.message
       return
     #$log.debug 'themeExtra updates', themeExtraEl
+
+  $scope.isDefaultMinSize = ->
+    $scope.form.iframeMinSize.x == $scope.options.constructor.IFRAME_X_MIN and
+      $scope.form.iframeMinSize.y == $scope.options.constructor.IFRAME_Y_MIN
+  $scope.resetMinSize = ->
+    $scope.options.iframeMinX $scope.form.iframeMinSize.x = $scope.options.constructor.IFRAME_X_MIN
+    $scope.options.iframeMinY $scope.form.iframeMinSize.y = $scope.options.constructor.IFRAME_Y_MIN

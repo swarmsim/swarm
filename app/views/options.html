@@ -20,6 +20,10 @@
     <p>Minimum size:
       <input ng-model="form.iframeMinSize.x" type="number" min="0" max="99999" ng-change="options.iframeMinX(form.iframeMinSize.y)">&times;
       <input ng-model="form.iframeMinSize.y" type="number" min="0" max="99999" ng-change="options.iframeMinY(form.iframeMinSize.y)">
+      <button class="btn btn-default" ng-class="{disabled:isDefaultMinSize()}" ng-click="resetMinSize()">Reset size</button>
+    </p>
+    <p ng-if="form.scrolling!='resize' && !isDefaultMinSize()">
+      Swarm Simulator can't automatically stretch to fill the width of your screen when a minimum size is set.
     </p>
   </div>
 
