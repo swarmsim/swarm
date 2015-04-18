@@ -134,7 +134,7 @@ module.exports = function (grunt) {
       }
     },
   };
-  ngconstant.preprod = ngconstant.prod;
+  ngconstant.preprod = JSON.parse(JSON.stringify(ngconstant.prod));
   ngconstant.preprod.constants.env.saveServerUrl = 'https://api-preprod.swarmsim.com';
 
   // Define the configuration for all the tasks
