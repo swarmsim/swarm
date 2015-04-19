@@ -130,18 +130,26 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     if not env.isServerBackendEnabled
       return
     doLogin = =>
-      $log.debug 'login to swarmsim with kongregate'
+      $log.debug 'kongregate swarmapi login...'
       loginApi.login 'kongregate',
         user_id: @kongregate.services.getUserId()
         game_auth_token: @kongregate.services.getGameAuthToken()
         # not needed for auth, but updates visible username
         username: @kongregate.services.getUsername()
       .success (data, status, xhr) ->
-        $log.debug 'login success', data, status, xhr
+        $log.debug 'kongregate swarmapi login success', data, status, xhr
       .error (data, status, xhr) ->
-        $log.debug 'login error', data, status, xhr
-    if not @kongregate.services.isGuest()
+        $log.debug 'kongregate swarmapi login error', data, status, xhr
+    if @kongregate.services.isGuest()
+      $log.debug 'kongregate swarmapi guest login...'
+      loginApi.login 'guestuser'
+      .success (data, status, xhr) ->
+        $log.debug 'kongregate swarmapi guest login success', data, status, xhr
+      .error (data, status, xhr) ->
+        $log.debug 'kongregate swarmapi guest login error', data, status, xhr
+    else
       doLogin()
+    # upgrade guest logins later
     @kongregate.services.addEventListener 'login', doLogin
 
   _onLoad: ->
