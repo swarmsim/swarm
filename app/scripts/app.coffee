@@ -112,6 +112,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       else
         templateUrl: 'views/login.html'
         controller: 'LoginCtrl'
+    .when '/debug/api',
+      templateUrl: 'views/debugapi.html'
+      controller: 'DebugApiCtrl'
     .otherwise
       redirectTo: '/'
 
