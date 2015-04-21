@@ -21,13 +21,13 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-      <li ng-if="options.showAdvancedUnitData()" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades())">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades())">
         <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrades
       </a></li>
-      <li ng-if="options.showAdvancedUnitData()" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades(0.25), 0.25)">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades(0.25), 0.25)">
         <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableAutobuyUpgrades(0.25).length | number}} upgrades
       </a></li>
-      <li ng-if="options.showAdvancedUnitData()" role="presentation" class="divider"></li>
+      <li role="presentation" class="divider"></li>
       <li ng-class="{disabled:!isUndoable()}" role="presentation">
         <a role="menuitem" tabindex="-1" href="javascript:" ng-click="undo()">
           <span class="glyphicon glyphicon-share-alt mirror"></span>
