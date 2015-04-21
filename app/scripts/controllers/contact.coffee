@@ -30,6 +30,9 @@ angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version,
 
   $scope.initTopic = if $location.search().error? then 'bug'
     
+  # has an actual error message - `?error=blah`, not just `?error`.
+  # `"an error message" != true`
+  hasErrorMessage = $location.search().error and $location.search().error != true
   topics =
     bug:
       subject: -> "Swarm Simulator Bug Report (#{new Date().toLocaleString()})"
@@ -44,7 +47,7 @@ Bug report information:
 * Saved game: #{$scope.urls.expand}
 * Source: #{if isKongregate() then "Kongregate" else "Standalone"}
 * Browser: #{$scope.userAgentGuess}#{
-if $location.search().error then "\n* Error message: ```"+$location.search().error+'```' else ''}
+if hasErrorMessage then "\n* Error message: ```"+$location.search().error+'```' else ''}
 """
 #* Full user agent: https://www.whatismybrowser.com/developers/custom-parse?useragent=#{encodeURIComponent window?.navigator?.userAgent}
       anonDebug: ->
