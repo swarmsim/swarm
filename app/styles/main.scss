@@ -30,7 +30,9 @@
   white-space: nowrap;
   // outline. http://css-tricks.com/adding-stroke-to-web-text/
   //text-shadow: 1px 1px $brand-primary, -1px 1px $brand-primary, 1px -1px $brand-primary, -1px -1px $brand-primary;
-  text-shadow: 1px 1px black, -1px 1px black, 1px -1px black, -1px -1px black;
+  text-shadow: 1px 1px black, -1px 1px black, 1px -1px black, -1px -1px black, 1px 0px black, 0px 1px black, -1px 0px black, 0px -1px black;
+  //text-stroke: 1px black;
+  //-webkit-text-stroke: 1px black;
 }
 /*
   some themes (cosmo, paper, darkly) have tiny progress bar text. enlarge it.
