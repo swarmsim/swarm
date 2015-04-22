@@ -58,7 +58,7 @@ describe 'Service: parsenumber', ->
     expect(parseNumber('12qa').toNumber()).toBe 12e15
 
   it 'parses cost-percents', ->
-    game = mkgame {larva:9e9999, meat:100}
+    game = mkgame {larva:'9e9999', meat:100}
     unit = game.unit 'drone'
     expect(parseNumber('100%', unit).toNumber()).toBe 10
     expect(parseNumber('50%', unit).toNumber()).toBe 5
@@ -68,7 +68,7 @@ describe 'Service: parsenumber', ->
     expect(parseNumber('9999%', unit).toNumber()).toBe 10 #max
 
   it 'parses twins', ->
-    game = mkgame {larva:9e9999, meat:1e99999}
+    game = mkgame {larva:'9e9999', meat:'1e99999'}
     unit = game.unit 'drone'
     upgrade = game.upgrade 'dronetwin'
     expect(upgrade.count().toNumber()).toBe 0
@@ -92,7 +92,7 @@ describe 'Service: parsenumber', ->
     expect(parseNumber('=1 thousand', unit).toNumber()).toBe 125
 
   it 'parses a target value', ->
-    game = mkgame {drone:0, larva:9e9999, meat:1e99999}
+    game = mkgame {drone:0, larva:'9e9999', meat:'1e99999'}
     unit = game.unit 'drone'
     upgrade = game.upgrade 'dronetwin'
     expect(upgrade.count().toNumber()).toBe 0
@@ -123,3 +123,8 @@ describe 'Service: parsenumber', ->
     expect(parseNumber('@100', unit).toNumber()).toBe 1 # 1 is the minimum, no matter what
     expect(parseNumber('@1000', unit).toNumber()).toBe 100
     expect(parseNumber('@1k', unit).toNumber()).toBe 100
+
+  it 'parses =n%, #617', ->
+    game = mkgame {drone:0, larva:'9e9999', meat:'1e99999'}
+    unit = game.unit 'drone'
+    expect(parseNumber('=50%', unit).toNumber()).toBe 1

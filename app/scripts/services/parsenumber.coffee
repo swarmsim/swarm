@@ -17,7 +17,7 @@ angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, nu
       try
         percent = Decimal.min 100, Decimal.max 0, value.replace '%', ''
       catch e
-        percent = 0
+        percent = new Decimal 0
       value = unit.maxCostMet percent.dividedBy 100
       $log.debug 'parse percent', value0, percent, value+''
     # replace suffixes ('billion')
