@@ -10,7 +10,7 @@ angular.module 'swarmApp'
   .directive 'login', (loginApi, $log, kongregate, env) ->
     restrict: 'EA'
     template: """
-<div ng-cloak ng-if="env.isServerFrontendReleased">
+<div ng-cloak ng-if="env.isServerFrontendEnabled">
   Login directive! user: {{loginApi.user.username}}
   <div ng-if="!loginApi.user.id">
     <a ng-if="isKongregate()" href="javascript:" ng-click="kongregateLogin()">Login</a>

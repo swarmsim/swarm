@@ -107,13 +107,13 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       templateUrl: 'views/cleartheme.html'
       controller: 'ClearthemeCtrl'
     .when '/login',
-      if not env.isServerFrontendReleased
+      if not env.isServerFrontendEnabled
         redirectTo: '/'
       else
         templateUrl: 'views/login.html'
         controller: 'LoginCtrl'
     .when '/debug/api',
-      if not env.isServerBackendReleased
+      if not env.isServerBackendEnabled
         redirectTo: '/'
       else
         templateUrl: 'views/debugapi.html'
