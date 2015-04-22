@@ -104,11 +104,11 @@ Numbers with suffixes work: '23 billion', '23b', or '23e12'.">
         </span>
       </p>
       <p ng-if="options.showAdvancedUnitData() && cur.maxCostMetOfVelocity().greaterThan(0)">
-        <span ng-if="cur.maxCostMetOfVelocity().times(cur.twinMult()).greaterThanOrEqualTo(1)">
-          You can {{cur.unittype.verb}} {{cur.maxCostMetOfVelocity().times(cur.twinMult())|longnum}} more {{cur.maxCostMetOfVelocity().times(cur.twinMult()).equals(1) ? cur.unittype.label : cur.unittype.plural}} every second, using
+        <span ng-if="cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult).greaterThanOrEqualTo(1)">
+          You can {{cur.unittype.verb}} {{cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult)|longnum}} {{cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult).equals(1) ? cur.unittype.label : cur.unittype.plural}} every {{options.getVelocityUnit({unit:cur}).label}}, using
         </span>
-        <span ng-if="cur.maxCostMetOfVelocity().times(cur.twinMult()).lessThan(1)">
-          You can {{cur.unittype.verb}} one {{cur.unittype.label}} every {{cur.maxCostMetOfVelocityReciprocal().dividedBy(cur.twinMult())|longnum}} seconds, using
+        <span ng-if="cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult).lessThan(1)">
+          You can {{cur.unittype.verb}} one {{cur.unittype.label}} every {{cur.maxCostMetOfVelocityReciprocal().dividedBy(cur.twinMult()).dividedBy(options.getVelocityUnit({unit:cur}).mult)|longnum}} {{cur.maxCostMetOfVelocityReciprocal().dividedBy(cur.twinMult()).dividedBy(options.getVelocityUnit({unit:cur}).mult).equals(1) ? options.getVelocityUnit({unit:cur}).label : options.getVelocityUnit({unit:cur}).plural}}, using
         </span>
         
         <span ng-repeat="cost in cur.eachCost()">

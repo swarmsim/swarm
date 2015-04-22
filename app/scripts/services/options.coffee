@@ -25,7 +25,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
     addvunit 'min', 'minute', 'minutes', 60
     addvunit 'hr', 'hour', 'hours', 60 * 60
     addvunit 'day', 'day', 'days', 60 * 60 * 24
-    addvunit 'warp', 'Swarmwarp', 'Swarmwarp', -> game.upgrade('swarmwarp').effect[0].output()
+    addvunit 'warp', 'Swarmwarp', 'Swarmwarps', -> game.upgrade('swarmwarp').effect[0].output()
 
   maybeSet: (field, val, valid) ->
     if val?
