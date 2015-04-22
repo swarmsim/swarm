@@ -137,6 +137,9 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
             throw new Error 'blacklisted save version'
 
     _loads: (encoded) ->
+      # ignore whitespace
+      encoded = encoded.replace /\s+/g, ''
+      $log.debug 'decoding imported game. len', encoded?.length
       #encoded = atob encoded
       [saveversion, encoded] = @_splitVersionHeader encoded
       # don't compare this saveversion for validity! it's only for figuring out changing save formats.
@@ -145,8 +148,10 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       #encoded = sjcl.decrypt KEY, encoded
       #encoded = LZString.decompressFromUTF16 encoded
       encoded = LZString.decompressFromBase64 encoded
+      $log.debug 'decompressed imported game successfully', [encoded]
       ret = JSON.parse encoded, @_reviver
       # special case dates. JSON.stringify replacers and toJSON do not get along.
+      $log.debug 'parsed imported game successfully', ret
       for key, val of ret.date
         ret.date[key] = new Date val
       ret.date.loaded = new Date()
