@@ -13,6 +13,9 @@ angular.module('swarmApp').factory 'userApi', ($resource, env) ->
 angular.module('swarmApp').factory 'characterApi', ($resource, env) ->
   $resource "#{env.saveServerUrl}/character/:id"
 
+angular.module('swarmApp').factory 'commandApi', ($resource, env) ->
+  $resource "#{env.saveServerUrl}/command/:id"
+
 # shortcut
 angular.module('swarmApp').factory 'user', (loginApi) ->
   -> loginApi.user
@@ -31,8 +34,9 @@ angular.module('swarmApp').factory 'loginApi', (loginApiEnabled, env) ->
       throw new Error 'login backend is disabled'
   return ret
 
-angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, session, characterApi, isKongregate) -> new class LoginApi
+angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, session, characterApi, isKongregate, commandApi) -> new class LoginApi
   constructor: ->
+    @characters = {}
     if env.isServerBackendEnabled
       @user = @whoami()
       .success =>
@@ -100,7 +104,31 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
         state: session.exportJson()
         (data, status, xhr) =>
           session.idOnServer = character.id
+          @characters[character.id] = character
           session.save()
           $log.debug 'connectLegacyCharacter connected!', session.serverId
         (data, status, xhr) =>
           $log.warn 'connectLegacyCharacter failed!', data, status, xhr
+
+  saveCommand: (commandBody) ->
+    # Just save the character for now. Later we'll save the command, but just get the traffic flowing to the server to see if we'll scale.
+    if not session.idOnServer?
+      $log.debug 'server saveCommand quitting because character has no id. trying connectlegacycharacter.', commandBody
+      return @maybeConnectLegacyCharacter()
+      # TODO save the first command; focus on server character more
+    character = session.exportJson()
+    commandBody = _.omit commandBody, ['unit', 'upgrade']
+    $log.debug 'server saveCommand start', command
+    command = commandApi.save
+      character: session.idOnServer
+      body: command
+      state: character
+      (data, status, xhr) =>
+        $log.debug 'server saveCommand success', command
+      (data, status, xhr) =>
+        $log.warn 'server saveCommand failed!', data, status, xhr
+        # TODO remove this when truly depending on server characters! this is v1.1 test code.
+        if 400 <= data.status < 500
+          $log.warn 'server saveCommand bad request. trying to recreate character on server.', command
+          delete session.idOnServer
+          @maybeConnectLegacyCharacter()

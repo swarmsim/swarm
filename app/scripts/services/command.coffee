@@ -7,7 +7,7 @@
  # # command
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log) -> new class Commands
+angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log, loginApi) -> new class Commands
   constructor: ->
 
   _setUndo: (opts={}) ->
@@ -27,6 +27,7 @@ angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log) ->
     params.name = name
     #$rootScope.$emit "command:#{name}", params #this isn't actually used
     $rootScope.$emit "command", params
+    loginApi.saveCommand params
 
   buyUnit: (opts) ->
     @_setUndo()
