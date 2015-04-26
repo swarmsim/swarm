@@ -7,11 +7,9 @@ describe 'Filter: moment', ->
 
   # initialize a new instance of the filter before each test
   duration = {}
-  warpDuration = {}
   options = {}
   beforeEach inject ($filter, _options_) ->
     duration = $filter 'duration'
-    warpDuration = $filter 'warpDuration'
     options = _options_
 
   it 'should format short durations', ->
@@ -66,14 +64,3 @@ describe 'Filter: moment', ->
     expect(duration 3599, 'seconds').toBe 'an hour'
     expect(duration 123, 'hours').toBe '5 days'
     expect(duration 123, 'days').toBe '4 months'
-
-  it 'should format warp durations', ->
-    expect(warpDuration 123, 'minutes').toBe '2 hours and 3 minutes'
-    expect(warpDuration 900, 'seconds').toBe '15 minutes'
-    expect(warpDuration new Decimal(900), 'seconds').toBe '15 minutes'
-    expect(warpDuration new Decimal(901), 'seconds').toBe '15 minutes and 1 seconds'
-    expect(warpDuration new Decimal(930), 'seconds').toBe '15 minutes and 30 seconds'
-    expect(warpDuration new Decimal(3599), 'seconds').toBe '59 minutes and 59 seconds'
-    expect(warpDuration 123, 'hours').toBe '5 days 3 hours and 0 minutes'
-    expect(warpDuration new Decimal(123), 'hours').toBe '5 days 3 hours and 0 minutes'
-    expect(warpDuration 123, 'days').toBe '123 days 0 hours and 0 minutes'
