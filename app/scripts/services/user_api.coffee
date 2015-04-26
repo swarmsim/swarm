@@ -121,7 +121,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     $log.debug 'server saveCommand start', command
     command = commandApi.save
       character: session.idOnServer
-      body: command
+      body: commandBody
       state: character
       (data, status, xhr) =>
         $log.debug 'server saveCommand success', command
