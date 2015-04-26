@@ -20,7 +20,9 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version, comm
     scope.filterVisible = (tab) -> tab.isVisible()
 
     scope.buyUpgrades = (upgrades, costPercent=1) ->
-      commands.buyAllUpgrades upgrades:upgrades, percent:costPercent
+      # don't buy zero upgrades, it would invalidate undo. #628
+      if upgrades.length > 0
+        commands.buyAllUpgrades upgrades:upgrades, percent:costPercent
 
     util.animateController scope, game:game, options:options
 
