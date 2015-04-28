@@ -94,7 +94,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
   maybeConnectLegacyCharacter: ->
     # TODO: might import from multiple devices. import if there's any chance we'd overwrite the only save!
     # TODO should we freak out if the character's already connected to a different user?
-    if @user? and not session.idOnServer?
+    if @user? and not session.state.idOnServer?
       $log.debug 'connectLegacyCharacter found a legacy character, connecting...'
       state = session.exportJson()
       character = characterApi.save
@@ -103,16 +103,16 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
         source: 'connectLegacy'
         state: session.exportJson()
         (data, status, xhr) =>
-          session.idOnServer = character.id
+          session.state.idOnServer = character.id
           @characters[character.id] = character
           session.save()
-          $log.debug 'connectLegacyCharacter connected!', session.serverId
+          $log.debug 'connectLegacyCharacter connected!', session.state.serverId
         (data, status, xhr) =>
           $log.warn 'connectLegacyCharacter failed!', data, status, xhr
 
   saveCommand: (commandBody) ->
     # Just save the character for now. Later we'll save the command, but just get the traffic flowing to the server to see if we'll scale.
-    if not session.idOnServer?
+    if not session.state.idOnServer?
       $log.debug 'server saveCommand quitting because character has no id. trying connectlegacycharacter.', commandBody
       return @maybeConnectLegacyCharacter()
       # TODO save the first command; focus on server character more
@@ -120,7 +120,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     commandBody = _.omit commandBody, ['unit', 'upgrade']
     $log.debug 'server saveCommand start', command
     command = commandApi.save
-      character: session.idOnServer
+      character: session.state.idOnServer
       body: commandBody
       state: character
       (data, status, xhr) =>
@@ -130,5 +130,5 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
         # TODO remove this when truly depending on server characters! this is v1.1 test code.
         if 400 <= data.status < 500
           $log.warn 'server saveCommand bad request. trying to recreate character on server.', command
-          delete session.idOnServer
+          delete session.state.idOnServer
           @maybeConnectLegacyCharacter()

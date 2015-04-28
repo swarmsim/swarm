@@ -15,12 +15,12 @@ describe 'Service: session', ->
 
   it 'saves/loads', ->
     # tests are too quick, and I don't wanna bother with DI'ing date right now
-    origsaved = session.date.saved = new Date session.date.saved.getTime() - 1
+    origsaved = session.state.date.saved = new Date session.state.date.saved.getTime() - 1
     state = session._saves()
-    expect(origsaved).not.toEqual session.date.saved
+    expect(origsaved).not.toEqual session.state.date.saved
 
     # session is nonequal because of its class/ctor, so use an object for later compares
-    orig = _.clone session
+    orig = _.clone session.state
     loaded = session._loads state
     expect(orig.date.loaded).not.toEqual loaded.date.loaded
     delete orig.date.loaded
@@ -77,17 +77,17 @@ describe 'Service: session', ->
     expect(-> session._validateSaveVersion '1.0.0-publictest20').toThrow()
 
   it 'validates the save version on import', inject (version) ->
-    session.version.started = '0.0.1'
+    session.state.version.started = '0.0.1'
     encoded = session._saves()
     expect(-> session._loads encoded).toThrow()
-    session.version.started = '1.0.0'
+    session.state.version.started = '1.0.0'
     encoded = session._saves()
     expect(-> session._loads encoded).not.toThrow()
-    session.version.started = version
+    session.state.version.started = version
     encoded = session._saves()
     expect(-> session._loads encoded).not.toThrow()
     # missing version is assumed to be 0.1.0, but we're past 0.2.0 now
-    delete session.version
+    delete session.state.version
     encoded = session._saves()
     expect(-> session._loads encoded).toThrow()
 

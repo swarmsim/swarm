@@ -12,13 +12,13 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, $log, kongregate
     @_init()
 
   _init: ->
-    stats = @session.statistics ?= {}
+    stats = @session.state.statistics ?= {}
     stats.byUnit ?= {}
     stats.byUpgrade ?= {}
     stats.clicks ?= 0
   
   push: (cmd) ->
-    stats = @session.statistics
+    stats = @session.state.statistics
     stats.clicks += 1
     if cmd.unitname?
       ustats = stats.byUnit[cmd.unitname]

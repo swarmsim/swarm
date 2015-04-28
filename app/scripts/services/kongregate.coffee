@@ -193,7 +193,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
 
   reportStats: ->
     try
-      if not @isLoaded or not game.session.kongregate
+      if not @isLoaded or not game.session.state.kongregate
         return
       # don't report more than once per minute
       now = new Date()

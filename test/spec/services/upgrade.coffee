@@ -27,7 +27,7 @@ describe 'Service: upgrade', ->
     Game = _Game_
     unittypes = _unittypes_
   mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified,started:reified,restarted:reified}, save:->}
+    game = new Game {state:{unittypes: unittypes, upgrades:{}, date:{reified:reified,started:reified,restarted:reified}}, save:->}
     game.now = new Date 0
     return game
 
@@ -274,7 +274,7 @@ describe 'Service: upgrade', ->
 
   it 'rolls different mutagen values after ascending; mutagen spawns depend on date', ->
     game = mkgame {invisiblehatchery:1, meat:1e100}
-    expect(game.session.date.restarted.getTime()).toBe 0
+    expect(game.session.state.date.restarted.getTime()).toBe 0
     premutagen = game.unit 'premutagen'
     game.upgrade('hatchery').buy 80
     precount = premutagen.count()
@@ -283,7 +283,7 @@ describe 'Service: upgrade', ->
     # rolls change when date.restarted changes
     game.now = new Date 1
     game.ascend true
-    expect(game.session.date.restarted.getTime()).toBe 1
+    expect(game.session.state.date.restarted.getTime()).toBe 1
     game.unit('meat')._setCount 1e100
     game.upgrade('hatchery').buy 80
     postcount = premutagen.count()
@@ -291,7 +291,7 @@ describe 'Service: upgrade', ->
 
     # but change the date back, and mutagen rolls are identical
     game.ascend true
-    game.session.date.restarted = new Date 0
+    game.session.state.date.restarted = new Date 0
     game.unit('meat')._setCount 1e100
     game.upgrade('hatchery').buy 80
     expect(precount.toNumber()).toBe premutagen.count().toNumber()

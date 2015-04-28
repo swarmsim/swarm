@@ -9,14 +9,14 @@
 ###
 angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $location, $log) ->
   $scope.game = game
-  game.session.achievementsShown ?=
+  game.session.state.achievementsShown ?=
     earned: true
     unearned: true
     masked: true
     order: 'default'
     reverse: false
   $scope.form =
-    show: _.clone game.session.achievementsShown
+    show: _.clone game.session.state.achievementsShown
 
   preds =
     'default': (achievement) -> achievement.earnedAtMillisElapsed()
@@ -26,7 +26,7 @@ angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $locati
   $scope.onChangeVisibility = ->
     $scope.order.pred = preds[$scope.form.show.order]
     game.withUnreifiedSave ->
-      game.session.achievementsShown = _.clone $scope.form.show
+      game.session.state.achievementsShown = _.clone $scope.form.show
 
   $scope.state = (achievement) ->
     if achievement.isEarned()

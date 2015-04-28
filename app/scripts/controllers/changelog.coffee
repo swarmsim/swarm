@@ -7,7 +7,7 @@
  # # ChangelogCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env, version, session) ->
+angular.module('swarmApp').controller 'ChangelogCtrl', ($log, $scope, env, version) ->
   $scope.$emit 'changelog'
   $scope.env = env
   zone = -8

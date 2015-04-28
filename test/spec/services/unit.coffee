@@ -64,7 +64,7 @@ describe 'Service: unit', ->
     unittypes = _unittypes_
     util = _util_
   mkgame = (unittypes, reified=new Date 0) ->
-    game = new Game {unittypes: unittypes, upgrades:{}, date:{reified:reified}, save:->}
+    game = new Game {state:{unittypes: unittypes, upgrades:{}, date:{reified:reified}}, save:->}
     game.now = new Date 0
     return game
 

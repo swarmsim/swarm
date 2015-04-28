@@ -4,7 +4,7 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
   constructor: (@game, @type) ->
     @name = @type.name
   _init: ->
-    @game.session.achievements ?= {}
+    @game.session.state.achievements ?= {}
     @requires = _.map @type.requires, (require) =>
       require = _.clone require
       if require.unittype
@@ -36,22 +36,22 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
     return desc
 
   isEarned: ->
-    @game.session.achievements[@name]?
+    @game.session.state.achievements[@name]?
 
   earn: (elapsed=@game.elapsedStartMillis()) ->
     if not @isEarned()
       @game.withUnreifiedSave =>
-        @game.session.achievements[@name] = elapsed
+        @game.session.state.achievements[@name] = elapsed
       $rootScope.$emit 'achieve', this
 
   earnedAtMillisElapsed: ->
-    @game.session.achievements[@name]
+    @game.session.state.achievements[@name]
 
   earnedAtMoment: ->
     if not @isEarned()?
       return undefined
-    ret = moment @game.session.date.started
-    ret.add @game.session.achievements[@name], 'ms'
+    ret = moment @game.session.state.date.started
+    ret.add @game.session.state.achievements[@name], 'ms'
     return ret
 
   pointsEarned: ->

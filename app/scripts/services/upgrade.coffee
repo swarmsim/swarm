@@ -24,7 +24,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       return new Effect @game, this, effect
   # TODO refactor counting to share with unit
   count: ->
-    ret = @game.session.upgrades[@name] ? 0
+    ret = @game.session.state.upgrades[@name] ? 0
     if _.isNaN ret
       util.error "count is NaN! resetting to zero. #{@name}"
       ret = 0
@@ -33,7 +33,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       ret = Decimal.min @type.maxlevel, ret
     return new Decimal ret
   _setCount: (val) ->
-    @game.session.upgrades[@name] = new Decimal val
+    @game.session.state.upgrades[@name] = new Decimal val
     @game.cache.onUpdate()
   _addCount: (val) ->
     @_setCount @count().plus val
@@ -216,23 +216,23 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return stats
 
   statistics: ->
-    @game.session.statistics?.byUpgrade?[@name] ? {}
+    @game.session.state.statistics?.byUpgrade?[@name] ? {}
 
   _isWatchedDefault: ->
     # watch everything by default - except mutagen
     @unit.tab?.name != 'mutagen'
   isWatched: ->
-    @game.session.watched ?= {}
-    return !!(@game.session.watched[@name] ? @_isWatchedDefault())
+    @game.session.state.watched ?= {}
+    return !!(@game.session.state.watched[@name] ? @_isWatchedDefault())
   watch: (state) ->
     @game.withUnreifiedSave =>
-      @game.session.watched ?= {}
+      @game.session.state.watched ?= {}
       state = !!state
       # make savestates a little smaller
       if state != @_isWatchedDefault()
-        @game.session.watched[@name] = state
+        @game.session.state.watched[@name] = state
       else
-        delete @game.session.watched[@name]
+        delete @game.session.state.watched[@name]
 
 angular.module('swarmApp').factory 'UpgradeType', -> class UpgradeType
   constructor: (data) ->

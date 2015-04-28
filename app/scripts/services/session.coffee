@@ -24,61 +24,42 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
 
   return new class Session
     constructor: ->
-      @_clear()
+      @reset()
       $log.debug 'save id', @id
       util.assert @id, 'no save id defined'
-      @reset()
 
     reset: ->
-      @_clear()
-      @unittypes = {}
       now = new Date()
-      @date =
-        started: now
-        restarted: now
-        saved: now
-        loaded: now
-        reified: now
-        closed: now
-      @options = {}
-      @upgrades = {}
-      @statistics = {}
-      @achievements = {}
-      @watched = {}
-      @skippedMillis = 0
-      @version =
-        started: version
-        saved: version
-      if isKongregate()
-        @kongregate = true
-      else
-        delete @kongregate
-      $log.debug 'reset', @kongregate
-      $rootScope.$broadcast 'reset', {session:this}
-
-    _clear: ->
-      for key, val of this
-        if this.hasOwnProperty key
-          delete this[key]
       @id = saveId
       @heartbeatId = "#{@id}:heartbeat"
-
-    _replacer: (key, val) ->
-      #if _.isDate val
-      #  $log.debug 'replace date', val
-      #  return {__class__:'Date',val:val.toJSON()}
-      return val
-    _reviver: (key, val) ->
-      #if val.__class__=='Date'
-      #  $log.debug 'revive date', val
-      #  return new Date val.val
-      return val
+      @state =
+        unittypes: {}
+        date:
+          started: now
+          restarted: now
+          saved: now
+          loaded: now
+          reified: now
+          closed: now
+        options: {}
+        upgrades: {}
+        statistics: {}
+        achievements: {}
+        watched: {}
+        skippedMillis: 0
+        version:
+          started: version
+          saved: version
+      # undefined if not isKongregate
+      if isKongregate()
+        @state.kongregate = true
+      $rootScope.$broadcast 'reset', {session:this}
 
     # non-encoded json session-state data. Intended for error logging.
-    jsonSaves: (data=this) ->
-      JSON.stringify data, @_replacer
+    jsonSaves: (data=@state) ->
+      JSON.stringify data
 
-    _saves: (data=this, setdates=true) ->
+    _saves: (data=@state, setdates=true) ->
       util.assert (not data._exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
       if setdates
         data.date.saved = new Date()
@@ -149,7 +130,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       #encoded = LZString.decompressFromUTF16 encoded
       encoded = LZString.decompressFromBase64 encoded
       $log.debug 'decompressed imported game successfully', [encoded]
-      ret = JSON.parse encoded, @_reviver
+      ret = JSON.parse encoded
       # special case dates. JSON.stringify replacers and toJSON do not get along.
       $log.debug 'parsed imported game successfully', ret
       for key, val of ret.date
@@ -160,7 +141,6 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       # prevent saves imported from publictest. easy to hack around, but good enough to deter non-cheaters.
       if saveversion
         @_validateFormatVersion atob saveversion
-      ret.id = saveId
       # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
       for obj in [ret.unittypes, ret.upgrades]
         for key, val of obj
@@ -184,9 +164,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       return ret
 
     importSave: (encoded, transient=true) ->
-      data = @_loads encoded
-      @_clear()
-      _.extend this, data
+      @state = @_loads encoded
       @_exportCache = encoded
       if not transient
         @_write()
@@ -252,7 +230,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       closed = 0
       if (not ignoreHeartbeat) and (hb = @_getHeartbeatDate())
         closed = Math.max closed, hb.getTime()
-      for key, date of @date
+      for key, date of @state.date
         if key != 'loaded' and key != 'saved'
           closed = Math.max closed, date.getTime()
       $log.debug 'dateclosed final', closed, key, new Date().getTime()-closed
@@ -266,3 +244,5 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
     durationSinceClosed: (now, ignoreHeartbeat) ->
       ms = @millisSinceClosed now, ignoreHeartbeat
       return moment.duration ms, 'milliseconds'
+
+angular.module('swarmApp').factory 'remoteSession', (storage, $rootScope, $log, util, version, env, saveId, isKongregate) ->

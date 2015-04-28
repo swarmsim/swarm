@@ -154,11 +154,11 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
         return ret
 
   isCountInitialized: ->
-    return @game.session.unittypes[@name]?
+    return @game.session.state.unittypes[@name]?
   rawCount: ->
     return @game.cache.unitRawCount[@name] ?= do =>
       # caching's helpful to avoid re-parsing session strings
-      ret = @game.session.unittypes[@name] ? 0
+      ret = @game.session.state.unittypes[@name] ? 0
       if _.isNaN ret
         util.error 'NaN count. oops.', @name, ret
         ret = 0
@@ -167,7 +167,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
         ret = ret.toPrecision 15
       return new Decimal ret
   _setCount: (val) ->
-    @game.session.unittypes[@name] = new Decimal val
+    @game.session.state.unittypes[@name] = new Decimal val
     @game.cache.onUpdate()
   _addCount: (val) ->
     @_setCount @rawCount().plus(val)
@@ -476,7 +476,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       return stats
 
   statistics: ->
-    @game.session.statistics?.byUnit?[@name] ? {}
+    @game.session.state.statistics?.byUnit?[@name] ? {}
 
   # TODO centralize url handling
   url: ->

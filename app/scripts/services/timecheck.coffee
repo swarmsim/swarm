@@ -16,7 +16,7 @@ angular.module('swarmApp').value 'timecheckerServerFormat', 'ddd, DD MMM YYYY HH
  # don't have to be 100% secure. It's better to reset only when we're sure
  # than to nuke someone innocent.
 ###
-angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, session, game, timecheckerServerFormat, $log) -> class TimeChecker
+angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, game, timecheckerServerFormat, $log) -> class TimeChecker
   constructor: (thresholdHours) ->
     @threshold = moment.duration thresholdHours, 'hours'
 

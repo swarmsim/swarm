@@ -12,7 +12,7 @@
 angular.module('swarmApp').service 'seedrand', (session) -> new class SeedRand
   constructor: ->
   # normal seeding uses session.date.started, but let unittests override it
-  mkseed: (seedstring, baseseed=session.date.started) ->
+  mkseed: (seedstring, baseseed=session.state.date.started) ->
     "#{baseseed}:#{seedstring}"
   rng: (seedstring, baseseed=null) ->
     seed = @mkseed seedstring, baseseed

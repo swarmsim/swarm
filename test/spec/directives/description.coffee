@@ -26,7 +26,7 @@ describe 'Directive: description', ->
 
   xit 'should render upgrade description with template text from spreadsheet', inject ($compile) ->
     scope.upgrade = upgrade = scope.game.upgrade 'clonelarvae'
-    scope.game.now = scope.game.session.date.reified
+    scope.game.now = scope.game.session.state.date.reified
     element = angular.element '<upgradedesc upgrade="upgrade"></upgradedesc>'
     element = $compile(element) scope
     #console.log element.text() # the template; {{template text}} from spreadsheet description

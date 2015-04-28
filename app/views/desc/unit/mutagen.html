@@ -13,7 +13,7 @@
   </div>
 </div>
 <p><button title="" ng-click="commands.ascend({game:game})" class="btn btn-primary" ng-class="{disabled:game.ascendCost().greaterThan(game.unit('energy').count())}">Ascend - activate mutagen and restart</button></p>
-<p><button title="" ng-click="game.session.watched={}" class="btn btn-default">Reset upgrade notifiers <span class="small disabled glyphicon glyphicon-circle-arrow-up"></span></button></p>
+<p><button title="" ng-click="game.session.state.watched={}" class="btn btn-default">Reset upgrade notifiers <span class="small disabled glyphicon glyphicon-circle-arrow-up"></span></button></p>
 
 <div>
 <p>

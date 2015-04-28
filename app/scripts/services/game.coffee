@@ -72,7 +72,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     @skippedMillis = 0
     @gameSpeed = 1
-    @session.skippedMillis ?= 0
+    @session.state.skippedMillis ?= 0
 
     for item in [].concat @_units.list, @_upgrades.list, @_achievements.list
       item._init()
@@ -83,13 +83,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
-    @tick @session?.date?.reified
+    @tick @session?.state?.date?.reified
     @tick()
 
   diffMillis: ->
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
-    ret = @now.getTime() - @session.date.reified.getTime()
+    ret = @now.getTime() - @session.state.date.reified.getTime()
     return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
@@ -97,7 +97,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   skipMillis: (millis) ->
     millis = Math.floor millis
     @skippedMillis += millis
-    @session.skippedMillis += millis
+    @session.state.skippedMillis += millis
   skipDuration: (duration) ->
     @skipMillis duration.asMilliseconds()
   skipTime: (args...) ->
@@ -108,11 +108,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @gameSpeed = speed
 
   totalSkippedMillis: ->
-    @session.skippedMillis
+    @session.state.skippedMillis
   totalSkippedDuration: ->
     moment.duration @totalSkippedMillis()
   dateStarted: ->
-    @session.date.started
+    @session.state.date.started
   momentStarted: ->
     moment @dateStarted()
 
@@ -128,7 +128,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       util.assert diffMillis <= 120 * 1000, "tick tried to go back in time. System clock problem?", @now, now, diffMillis
 
   elapsedStartMillis: ->
-    @now.getTime() - @session.date.started.getTime()
+    @now.getTime() - @session.state.date.started.getTime()
   timestampMillis: ->
     @elapsedStartMillis() + @totalSkippedMillis()
 
@@ -208,10 +208,10 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   reify: (skipSeconds=0) ->
     secs = @diffSeconds()
     counts = @counts secs
-    _.extend @session.unittypes, counts
+    _.extend @session.state.unittypes, counts
     @skippedMillis = 0
-    @session.skippedMillis += @diffMillis() - @_realDiffMillis()
-    @session.date.reified = @now
+    @session.state.skippedMillis += @diffMillis() - @_realDiffMillis()
+    @session.state.date.reified = @now
     @cache.onUpdate()
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
 
@@ -284,7 +284,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       mutagen._addCount premutagen.count()
       premutagen._setCount 0
       ascension._addCount 1
-      @session.date.restarted = @now
+      @session.state.date.restarted = @now
       # grant a free respec every 3 ascensions
       if ascension.count().modulo(3).isZero()
         @unit('freeRespec')._addCount 1

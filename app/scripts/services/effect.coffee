@@ -124,8 +124,8 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
         qtyfactor = effect.val
         baseqty = stat_each.times Decimal.pow qtyfactor, level
         # consistent random seed. No savestate scumming.
-        game.session.date.restarted ?= game.session.date.started
-        seed = "[#{game.session.date.restarted.getTime()}, #{effect.parent.name}, #{level}]"
+        game.session.state.date.restarted ?= game.session.state.date.started
+        seed = "[#{game.session.state.date.restarted.getTime()}, #{effect.parent.name}, #{level}]"
         rng = seedrand.rng seed
         # at exactly minlevel, a free spawn is guaranteed, no random roll
         # guarantee a spawn every 8 levels too, so people don't get long streaks of bad rolls

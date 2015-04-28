@@ -34,12 +34,12 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
         util.assert valid[val], "invalid option for #{field}: #{val}"
       @set field, val
   set: (field, val) ->
-    @session.options[field] = val
+    @session.state.options[field] = val
     @session.save()
   get: (field, default_) ->
-    return @session.options[field] ? default_
+    return @session.state.options[field] ? default_
   reset: (field) ->
-    delete @session.options[field]
+    delete @session.state.options[field]
 
   fps: (val) ->
     @maybeSet 'fps', val

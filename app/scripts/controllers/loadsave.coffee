@@ -97,7 +97,7 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
     # Do all time-checks for the welcome-back screen *before* scheduling heartbeats/onclose.
     $scope.durationSinceClosed = game.session.durationSinceClosed undefined, ignoreHeartbeat
     $scope.showWelcomeBack = $scope.durationSinceClosed.asMinutes() >= 3 or $location.search().forcewelcome
-    reifiedToCloseDiffInSecs = (game.session.dateClosed(ignoreHeartbeat).getTime() - game.session.date.reified.getTime()) / 1000
+    reifiedToCloseDiffInSecs = (game.session.dateClosed(ignoreHeartbeat).getTime() - game.session.state.date.reified.getTime()) / 1000
     $log.debug 'time since game closed', $scope.durationSinceClosed.humanize(),
       millis:game.session.millisSinceClosed undefined, ignoreHeartbeat
       reifiedToCloseDiffInSecs:reifiedToCloseDiffInSecs

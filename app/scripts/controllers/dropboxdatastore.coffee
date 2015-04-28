@@ -8,8 +8,6 @@
  # Controller of the swarmApp
 ###
 
-#angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill) ->
-
 angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log, env, dropboxSyncer) ->
   $scope.env = env
   $scope.syncer = dropboxSyncer
@@ -60,7 +58,7 @@ angular.module('swarmApp').controller 'DropboxdatastoreCtrl', ($scope, $log, env
     return moment datestring
 
 
-angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, session, kongregate, kongregateS3Syncer, $timeout) ->
+angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, kongregate, kongregateS3Syncer, $timeout) ->
   syncer = kongregateS3Syncer
   # http://www.kongregate.com/pages/general-services-api
   $scope.kongregate = kongregate

@@ -10,7 +10,7 @@
 angular.module('swarmApp').controller 'StatisticsCtrl', ($scope, session, statistics, game, options, util) ->
   $scope.listener = statistics
   $scope.session = session
-  $scope.statistics = session.statistics
+  $scope.statistics = session.state.statistics
   $scope.game = game
 
   $scope.unitStats = (unit) ->
