@@ -26,6 +26,8 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       moment.duration(1.2,'year')
   ]
 
+  $scope.formFpsType = ->
+    typeof $scope.form.fps
   $scope.form =
     isCustomTheme: options.theme().isCustom
     customThemeUrl: options.theme().url

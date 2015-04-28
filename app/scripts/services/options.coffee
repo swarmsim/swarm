@@ -43,7 +43,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
 
   fps: (val) ->
     @maybeSet 'fps', val
-    Math.min 60, Math.max 1, @get 'fps', 10
+    Math.min 60, Math.max 0.0001, @get 'fps', 10
 
   fpsSleepMillis: ->
     return 1000 / @fps()
