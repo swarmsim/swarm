@@ -54,9 +54,6 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/changelog',
         templateUrl: 'views/changelog.html'
         controller: 'ChangelogCtrl'
-      .when '/iframe/:call',
-        templateUrl: 'views/iframe.html'
-        controller: 'IframeCtrl'
       .when '/contact',
         templateUrl: 'views/contact.html'
         controller: 'ContactCtrl'
@@ -97,9 +94,6 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/tab/:tab',
       templateUrl: 'views/main.html'
       controller: 'MainCtrl'
-    .when '/iframe/:call',
-      templateUrl: 'views/iframe.html'
-      controller: 'IframeCtrl'
     .when '/contact',
       templateUrl: 'views/contact.html'
       controller: 'ContactCtrl'

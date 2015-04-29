@@ -8,7 +8,7 @@
  # Controller of the swarmApp
 ###
 angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
-achievePublicTest1, kongregateScrolling, pageTheme, remoteSaveInit, touchTooltipInit
+kongregateScrolling, pageTheme, remoteSaveInit, touchTooltipInit
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
 ) ->
@@ -38,7 +38,6 @@ versioncheck, analytics, statistics, achievementslistener, favico
     $scope.$emit 'konami'
     $log.debug 'konami'
 
-  achievePublicTest1 $scope
   kongregateScrolling $scope
   pageTheme $scope
   remoteSaveInit $scope
@@ -105,33 +104,6 @@ angular.module('swarmApp').factory 'remoteSaveInit', ($log, kongregate, kongrega
             if syncer.isInit()
               $log.debug 'autopush setup', syncer.constructor.name
               syncer.initAutopush newval
-
-angular.module('swarmApp').factory 'achievePublicTest1', (version, $log, $location, $timeout, game, isKongregate) -> return ($scope) ->
-  # use an iframe to ask the publictest server if the player's eligible for the achievement
-  framed = window.top and window != window.top
-  alreadyEarned = game.achievement('publictest1').isEarned()
-  isPublicTest = _.contains version, '-publictest'
-  # accidentally pushed this to publictest with isPublicTest broken - seemed to work, though! `framed` stopped any loops.
-  # kongregate doesn't like iframes, and newer kongregate players won't qualify anyway
-  #$scope.loadIframe = (not framed) and (not alreadyEarned) and (not isKongregate()) #and (not isPublicTest)
-  $scope.loadIframe = false
-  $log.debug 'achievePublicTest1: creating iframe:', $scope.loadIframe, framed:framed, alreadyEarned:alreadyEarned, isPublicTest:isPublicTest
-  if $scope.loadIframe
-    # setup a message-handler; cleanup either when the message arrives, or after 30 seconds
-    cleanup = ->
-      onmessage.off()
-      $timeout.cancel timeout
-      $scope.loadIframe = false
-    onmessage = $(window).on 'message', (e) ->
-      try
-        data = e?.originalEvent?.data
-        data = JSON.parse data
-        $log.debug 'achievePublicTest1: iframe response', e, data, data.achieved
-        if data.achieved
-          $scope.$emit 'achieve-publictest1'
-      finally
-        cleanup()
-    timeout = $timeout cleanup, 30000
 
 angular.module('swarmApp').factory 'touchTooltipInit', ($log, $location, $timeout) -> return ($scope) ->
   # Show tooltips for touch-devices where the user's actually using touch.
