@@ -9,7 +9,7 @@
  #
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
-angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, linkPublicTest1, isKongregate, storage, saveId) ->
+angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, isKongregate, storage, saveId) ->
   $scope.form = {}
   $scope.isKongregate = isKongregate
 
@@ -72,11 +72,6 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     $log.info 'loading game from url successful!'
 
   backfill.run game
-  try
-    linkPublicTest1 $scope
-  catch e
-    # pass
-    $log.error e
 
 angular.module('swarmApp').controller 'AprilFoolsCtrl', ($scope, options) ->
   $scope.options = options
@@ -138,15 +133,3 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
         if countDiff.greaterThan 0
           return unit:unit, val:countDiff
     $scope.offlineGains = (g for g in $scope.offlineGains when g)
-
-angular.module('swarmApp').factory 'linkPublicTest1', ($log, $location, game, kongregate) -> return ($scope) ->
-  #console.log LZString.compressToBase64 JSON.stringify date:new Date()
-
-  encoded = $location.search().publictest
-  if encoded
-    args = JSON.parse LZString.decompressFromBase64 encoded
-    datediff = Math.abs new Date().getTime() - new Date(args.date ? 0).getTime()
-    if datediff < 5 * 60 * 1000
-      $scope.$emit 'achieve-publictest1'
-      $log.debug 'linkPublicTest1: achieve-publictest1', datediff
-      $location.search 'publictest', null
