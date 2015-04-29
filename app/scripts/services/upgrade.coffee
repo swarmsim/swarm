@@ -48,9 +48,9 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       return false
     if @type.disabled
       return false
-    if @_visible
+    if @game.cache.upgradeVisible[@name]
       return true
-    return @_visible = @_isVisible()
+    return @game.cache.upgradeVisible[@name] = @_isVisible()
   _isVisible: ->
     if @count().greaterThan 0
       return true

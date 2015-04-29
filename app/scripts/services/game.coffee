@@ -6,6 +6,7 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     @firstSpawn = {}
     # never make a visible unit invisible, except when importing a saved game (which includes undo)
     @unitVisible = {}
+    @upgradeVisible = {}
     @onUpdate()
 
   onPeriodic: ->
