@@ -55,17 +55,12 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
         @state.kongregate = true
       $rootScope.$broadcast 'reset', {session:this}
 
-    # non-encoded json session-state data. Intended for error logging.
-    jsonSaves: (data=@state) ->
-      JSON.stringify data
-
     _saves: (data=@state, setdates=true) ->
-      util.assert (not data._exportCache?), "exportCache is defined while saving: saves will contain saves. Uh-oh."
       if setdates
         data.date.saved = new Date()
         delete data.date.loaded
         data.version?.saved = version
-      ret = @jsonSaves data
+      ret = JSON.stringify data
       ret = LZString.compressToBase64 ret
       #ret = LZString.compressToUTF16 ret
       #ret = sjcl.encrypt KEY, ret
@@ -156,12 +151,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       @_exportCache
 
     exportJson: ->
-      # ew.
-      exportCache = @_exportCache
-      delete @_exportCache
-      ret = @jsonSaves()
-      @_exportCache = exportCache
-      return ret
+      return JSON.stringify @state
 
     importSave: (encoded, transient=true) ->
       @state = @_loads encoded
