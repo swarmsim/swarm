@@ -118,9 +118,13 @@ describe 'Service: game achievements', ->
     expect(mutant2.count().toNumber()).toBe 40001
     expect(mutagen.count().toNumber()).toBe 4376 # upgrades cost 1 + 15625 - 2 free upgrade-units = 15624
     expect(game.respecSpent().toNumber()).toBe 95624
+    expect(mutant.isVisible()).toBe true
+    expect(mutant2.isVisible()).toBe true
     game.respec()
     expect(mutant.count().toNumber()).toBe 0
     expect(mutant2.count().toNumber()).toBe 0
+    expect(mutant.isVisible()).toBe false
+    expect(mutant2.isVisible()).toBe false
     expect(mutagen.count().toNumber()).toBe 100000 # 100% refunded
 
   it 'has sane ascension costs', ->

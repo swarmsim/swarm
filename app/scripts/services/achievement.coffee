@@ -22,7 +22,6 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
         visible.resource = visible.upgrade = util.assert @game.upgrade visible.upgradetype
       util.assert !!visible.unit isnt !!visible.upgrade, "achievement visiblity must have unit xor upgrade", @name
       return visible
-    @_visible = null
 
   description: ->
     # "Why not angular templates?" I don't want to be forced to keep every
@@ -63,11 +62,11 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
     # special case: no requirements specified == forever-masked
     # (if you'd like always-visible, a visibility of meat:0 works)
     if @visible.length == 0
-      return @_visible = false
+      return false
     for visible in @visible
       if visible.resource.count().lessThan(visible.val)
         return false
-    return @_visible = true
+    return true
 
   hasProgress: ->
     for req in @requires

@@ -4,10 +4,8 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   constructor: ->
     # Never cleared; hacky way to pass messages that get cleared on reload
     @firstSpawn = {}
-    # never make a visible unit invisible, except when importing a saved game (which includes undo)
-    @unitVisible = {}
-    @upgradeVisible = {}
     @onUpdate()
+    @onRespec()
 
   onPeriodic: ->
     @_lastPeriodicClear = new Date().getTime()
@@ -41,6 +39,10 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
     # clear periodic caches every few seconds
     if new Date().getTime() - @_lastPeriodicClear >= 3000
       @onPeriodic()
+
+  onRespec: ->
+    @unitVisible = {}
+    @upgradeVisible = {}
 
 ###*
  # @ngdoc service
@@ -346,9 +348,8 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     spent = @respecSpent()
     for resource in mutagen.spentResources()
       resource._setCount 0
-      if resource._visible?
-        resource._visible = false
     mutagen._addCount spent.times(@respecRate()).floor()
+    @cache.onRespec()
     util.assert mutagen.spent().isZero(), "respec didn't refund all mutagen!"
 
 angular.module('swarmApp').factory 'game', (Game, session) ->
