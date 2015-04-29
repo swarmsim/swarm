@@ -4,6 +4,8 @@ angular.module('swarmApp').factory 'Cache', -> class Cache
   constructor: ->
     # Never cleared; hacky way to pass messages that get cleared on reload
     @firstSpawn = {}
+    # never make a visible unit invisible, except when importing a saved game (which includes undo)
+    @unitVisible = {}
     @onUpdate()
 
   onPeriodic: ->

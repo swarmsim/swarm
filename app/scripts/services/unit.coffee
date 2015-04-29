@@ -358,9 +358,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   isVisible: ->
     if @unittype.disabled
       return false
-    if @_visible
+    if @game.cache.unitVisible[@name]
       return true
-    return @_visible = @_isVisible()
+    return @game.cache.unitVisible[@name] = @_isVisible()
 
   _isVisible: ->
     if @count().greaterThan 0
