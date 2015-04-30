@@ -39,8 +39,8 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
 
   earn: (elapsed=@game.elapsedStartMillis()) ->
     if not @isEarned()
-      @game.withUnreifiedSave =>
-        @game.session.state.achievements[@name] = elapsed
+      @game.session.state.achievements[@name] = elapsed
+      @game.session.save()
       $rootScope.$emit 'achieve', this
 
   earnedAtMillisElapsed: ->

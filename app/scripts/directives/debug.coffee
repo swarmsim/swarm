@@ -32,7 +32,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
           </selected>
           <input tabindex="2" type="text" ng-model="form.count" ng-change="setResource()">
           <code>{{form.count|longnum}}</code>
-          <button ng-click="game.save()">save</button>
+          <button ng-click="game.session.save()">save</button>
         </div>
         <div>
           export <input tabindex="3" ng-model="form.export" onclick="this.select()">
@@ -94,15 +94,15 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     scope.selectResource = ->
       scope.form.count = scope.form.resource.count()
     scope.setResource = ->
-      scope.game.withSave ->
-        scope.form.resource._setCount scope.form.count
-        # special case: nexus upgrades
-        if scope.form.resource.name == 'nexus'
-          for upgrade in game.upgradelist()
-            if upgrade.name.substring(0,5) == 'nexus'
-              level = parseInt upgrade.name[5]
-              if scope.form.count >= level
-                upgrade._setCount 1
+      scope.form.resource._setCount scope.form.count
+      # special case: nexus upgrades
+      if scope.form.resource.name == 'nexus'
+        for upgrade in game.upgradelist()
+          if upgrade.name.substring(0,5) == 'nexus'
+            level = parseInt upgrade.name[5]
+            if scope.form.count >= level
+              upgrade._setCount 1
+      scope.game.session.save()
       scope.export()
 
     scope.confirmReset = ->

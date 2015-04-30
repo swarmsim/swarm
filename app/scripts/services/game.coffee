@@ -220,29 +220,19 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @cache.onUpdate()
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
 
-  save: ->
-    @withSave ->
-
   importSave: (encoded, transient) ->
     @session.importSave encoded, transient
     # Force-clear various caches.
     @_init()
 
-  # A common pattern: change something (reifying first), then save the changes.
-  # Use game.withSave(myFunctionThatChangesSomething) to do that.
-  withSave: (fn) ->
+  # A common pattern: reify something before changing it.
+  withReify: (fn) ->
     @reify()
     ret = fn()
     # reify a second time for swarmwarp; https://github.com/erosson/swarm/issues/241
     # Unnecessary for other things, but mostly harmless.
     @reify()
-    @session.save()
     @cache.onUpdate()
-    return ret
-
-  withUnreifiedSave: (fn) ->
-    ret = fn()
-    @session.save()
     return ret
 
   reset: (transient=false) ->
@@ -251,7 +241,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     for unit in @unitlist()
       unit._setCount unit.unittype.init or 0
     if not transient
-      @save()
+      @session.save()
 
   ascendEnergySpent: ->
     energy = @unit 'energy'
@@ -281,7 +271,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascend: (free=false) ->
     if !free and @ascendCostPercent() < 1
       throw new Error "We require more resources (ascension cost)"
-    @withSave =>
+    @withReify =>
       # hardcode ascension bonuses. TODO: spreadsheetify
       premutagen = @unit 'premutagen'
       mutagen = @unit 'mutagen'
@@ -304,6 +294,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       for upgrade in @upgradelist()
         if upgrade.unit.tab?.name != 'mutagen'
           upgrade._setCount 0
+    @session.save()
 
   respecRate: ->
     1.00
@@ -326,7 +317,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     # Upgrades come with a free(ish) unit too, so remove their cost. (Mostly for unit tests, doesn't really matter.)
     return mutagen.spent(ignores).minus(@upgrade('mutatehidden').count())
   respec: ->
-    @withSave =>
+    @withReify =>
       if not @isRespecCostMet()
         throw new Error "We require more resources"
       cost = @respecCost()
@@ -335,13 +326,15 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       spent = @ascendEnergySpent().minus cost
       @unit('respecEnergy')._addCount spent
       @_respec()
+    @session.save()
 
   respecFree: ->
-    @withSave =>
+    @withReify =>
       if not @unit('freeRespec').count().greaterThan(0)
         throw new Error "We require more resources"
       @unit('freeRespec')._subtractCount 1
       @_respec()
+    @session.save()
 
   _respec: ->
     mutagen = @unit 'mutagen'

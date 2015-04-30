@@ -415,12 +415,14 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     if not @isBuyable()
       throw new Error "Cannot buy that unit"
     num = Decimal.min num, @maxCostMet()
-    @game.withSave =>
+    ret = @game.withReify =>
       for cost in @eachCost()
         cost.unit._subtractCount cost.val.times num
       twinnum = num.times @twinMult()
       @_addCount twinnum
       return {num:num, twinnum:twinnum}
+    @game.session.save()
+    return ret
 
   isNewlyUpgradable: ->
     upgrades = @showparent?.upgrades?.list ? @upgrades.list

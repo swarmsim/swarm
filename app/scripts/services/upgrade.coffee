@@ -192,7 +192,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       throw new Error "Cannot buy that upgrade"
     num = Decimal.min num, @maxCostMet()
     $log.debug 'buy', @name, num
-    @game.withSave =>
+    ret = @game.withReify =>
       for cost in @sumCost num
         util.assert cost.unit.count().greaterThanOrEqualTo(cost.val), "tried to buy more than we can afford. upgrade.maxCostMet is broken!", @name, name, cost
         util.assert cost.val.greaterThan(0), "zero cost from sumCost, yet cost was met?", @name, name, cost
@@ -205,6 +205,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
         for effect in @effect
           effect.onBuy count.plus(i + 1)
       return num
+    @game.session.save()
+    return ret
 
   buyMax: (percent) ->
     @buy @maxCostMet percent
@@ -225,14 +227,14 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     @game.session.state.watched ?= {}
     return !!(@game.session.state.watched[@name] ? @_isWatchedDefault())
   watch: (state) ->
-    @game.withUnreifiedSave =>
-      @game.session.state.watched ?= {}
-      state = !!state
-      # make savestates a little smaller
-      if state != @_isWatchedDefault()
-        @game.session.state.watched[@name] = state
-      else
-        delete @game.session.state.watched[@name]
+    @game.session.state.watched ?= {}
+    state = !!state
+    # make savestates a little smaller
+    if state != @_isWatchedDefault()
+      @game.session.state.watched[@name] = state
+    else
+      delete @game.session.state.watched[@name]
+    @game.session.save()
 
 angular.module('swarmApp').factory 'UpgradeType', -> class UpgradeType
   constructor: (data) ->

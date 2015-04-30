@@ -12,7 +12,7 @@ angular.module('swarmApp').controller 'ImportsplashCtrl', ($scope, isKongregate,
   $scope.isKongregate = isKongregate()
 
   $scope.click = ->
-    game.withSave ->
+    game.session.save()
     if $scope.isKongregate
       window.location.href = 'http://www.kongregate.com/games/swarmsim/swarm-simulator'
     else

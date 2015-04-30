@@ -28,6 +28,7 @@ angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log, lo
     #$rootScope.$emit "command:#{name}", params #this isn't actually used
     $rootScope.$emit "command", params
     loginApi.saveCommand params
+    game.session.save()
 
   buyUnit: (opts) ->
     @_setUndo()
