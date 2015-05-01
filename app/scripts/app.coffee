@@ -66,7 +66,26 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .otherwise
         redirectTo: '/'
 
-  $routeProvider
+  routes = $routeProvider
+  if env.isServerFrontendEnabled
+    routes = routes
+      .when '/login',
+        templateUrl: 'views/login.html'
+        controller: 'LoginCtrl'
+      .when '/character/:characterId',
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
+      .when '/user/:user',
+        templateUrl: 'views/user.html'
+        controller: 'UserCtrl'
+
+  if env.isServerBackendEnabled
+    routes = routes
+      .when '/debug/api',
+        templateUrl: 'views/debugapi.html'
+        controller: 'DebugApiCtrl'
+
+  return routes
     .when '/debug',
       templateUrl: 'views/debug.html'
       controller: 'DebugCtrl'
@@ -100,27 +119,8 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/cleartheme',
       templateUrl: 'views/cleartheme.html'
       controller: 'ClearthemeCtrl'
-    .when '/login',
-      if not env.isServerFrontendEnabled
-        redirectTo: '/'
-      else
-        templateUrl: 'views/login.html'
-        controller: 'LoginCtrl'
-    .when '/debug/api',
-      if not env.isServerBackendEnabled
-        redirectTo: '/'
-      else
-        templateUrl: 'views/debugapi.html'
-        controller: 'DebugApiCtrl'
-    .when '/character/:characterId',
-      if not env.isServerFrontendEnabled
-        redirectTo: '/'
-      else
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
     .otherwise
       redirectTo: '/'
-
 
 angular.module('swarmApp').config (env, $logProvider) ->
   $logProvider.debugEnabled env.isDebugLogged

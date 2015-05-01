@@ -1,0 +1,13 @@
+<div ng-if="!user.id">
+  Loading...
+</div>
+<div ng-if="user.id">
+  <h1>{{user.username}}#{{user.id}}<span ng-if="isSelf"> (self)</span></h1>
+  
+  <p>{{user.characters.length|number}} characters</p>
+  <ul>
+    <li ng-repeat="character in user.characters">
+      <a href="#/character/{{character.id}}">{{character.name}}</a>
+    </li>
+  </ul>
+</div>

@@ -38,7 +38,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
   constructor: ->
     @characters = {}
     if env.isServerBackendEnabled
-      @user = @whoami()
+      @userLoading = @whoami()
       .success =>
         # connect legacy character upon page reload
         @maybeConnectLegacyCharacter()
@@ -67,11 +67,12 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     return @user.id?
 
   whoami: ->
+    @user = {}
     $http.get "#{env.saveServerUrl}/whoami"
     .success (data, status, xhr) =>
-      @user = data
+      _.extend @user, data
     .error (data, status, xhr) =>
-      @user = {}
+      $log.warn 'whoami failed'
 
   @LOGIN_TAILS =
     kongregate: '/callback'
@@ -94,7 +95,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
   maybeConnectLegacyCharacter: ->
     # TODO: might import from multiple devices. import if there's any chance we'd overwrite the only save!
     # TODO should we freak out if the character's already connected to a different user?
-    if @user? and not session.state.idOnServer?
+    if @user? and not session.state.idOnServer? and not env.isServerFrontendEnabled
       $log.debug 'connectLegacyCharacter found a legacy character, connecting...'
       state = session.exportJson()
       character = characterApi.save
