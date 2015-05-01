@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filter) -> class Achievement
+angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filter, commands) -> class Achievement
   constructor: (@game, @type) ->
     @name = @type.name
   _init: ->
@@ -39,8 +39,10 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
 
   earn: (elapsed=@game.elapsedStartMillis()) ->
     if not @isEarned()
+      commands.earnAchievement achievement:this, elapsed:elapsed
+  _earn: (elapsed) ->
+    if not @isEarned()
       @game.session.state.achievements[@name] = elapsed
-      @game.session.save()
       $rootScope.$emit 'achieve', this
 
   earnedAtMillisElapsed: ->

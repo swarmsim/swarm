@@ -105,6 +105,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
         (data, status, xhr) =>
           session.state.idOnServer = character.id
           @characters[character.id] = character
+          # We're now avoiding session.save in favor of commands in most places, but this one's purely local and odesn't need to be saved to the server - it's from the server
           session.save()
           $log.debug 'connectLegacyCharacter connected!', session.state.serverId
         (data, status, xhr) =>

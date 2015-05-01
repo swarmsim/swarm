@@ -18,7 +18,7 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
  # @description
  # # debug
 ###
-angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
+angular.module('swarmApp').directive 'debug', (env, game, commands, util, $location) ->
   template: """
   <div ng-cloak ng-if="env.isDebugEnabled" class="container well">
     <p class="small pull-right">{{heights()}}</p>
@@ -32,7 +32,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
           </selected>
           <input tabindex="2" type="text" ng-model="form.count" ng-change="setResource()">
           <code>{{form.count|longnum}}</code>
-          <button ng-click="game.session.save()">save</button>
+          <button ng-click="commands.adminEdit({game:game})">save</button>
         </div>
         <div>
           export <input tabindex="3" ng-model="form.export" onclick="this.select()">
@@ -79,6 +79,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
     scope.env = env
     scope.game = game
     scope.util = util
+    scope.commands = commands
 
     scope.heights = ->
       'htmlheight()': $(document.documentElement).height()
@@ -102,7 +103,7 @@ angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
             level = parseInt upgrade.name[5]
             if scope.form.count >= level
               upgrade._setCount 1
-      scope.game.session.save()
+      scope.commands.adminEdit game:game
       scope.export()
 
     scope.confirmReset = ->

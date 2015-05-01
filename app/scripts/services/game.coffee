@@ -235,13 +235,11 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @cache.onUpdate()
     return ret
 
-  reset: (transient=false) ->
+  reset: ->
     @session.reset()
     @_init()
     for unit in @unitlist()
       unit._setCount unit.unittype.init or 0
-    if not transient
-      @session.save()
 
   ascendEnergySpent: ->
     energy = @unit 'energy'
@@ -294,7 +292,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       for upgrade in @upgradelist()
         if upgrade.unit.tab?.name != 'mutagen'
           upgrade._setCount 0
-    @session.save()
 
   respecRate: ->
     1.00
@@ -326,7 +323,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       spent = @ascendEnergySpent().minus cost
       @unit('respecEnergy')._addCount spent
       @_respec()
-    @session.save()
 
   respecFree: ->
     @withReify =>
@@ -334,7 +330,6 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
         throw new Error "We require more resources"
       @unit('freeRespec')._subtractCount 1
       @_respec()
-    @session.save()
 
   _respec: ->
     mutagen = @unit 'mutagen'

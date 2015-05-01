@@ -52,6 +52,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       scope.watched[upgrade.name] = upgrade.isWatched()
     scope.updateWatched = (upgrade) ->
       upgrade.watch scope.watched[upgrade.name]
+      commands.setPreferences game:game, watched:game.session.state.watched
 
     scope.unitCostAsPercent = (unit, cost) ->
       MAX = new Decimal 9999.99

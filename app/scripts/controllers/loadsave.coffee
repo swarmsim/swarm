@@ -24,7 +24,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     exportedsave = session.getStoredSaveData()
   catch e
     $log.error "couldn't even read localstorage! oh no!", e
-    game.reset true
+    game.reset()
     # show a noisy freakout message at the top of the screen with the exported save
     $scope.form.errored = true
     $scope.form.error = e.message
@@ -41,7 +41,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
     if not exportedsave
       # If this is their first visit to the site, that's normal, no problems
       $log.debug "Empty saved data; probably the user's first visit here. Resetting quietly."
-      game.reset true #but don't save, in case we're waiting for flash recovery
+      game.reset() #but don't save, in case we're waiting for flash recovery
       # listen for flash to load - loading it takes extra time, but we might find a save there.
       storage.flash.onReady.then ->
         encoded = storage.flash.getItem saveId
@@ -56,7 +56,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
       # Couldn't load an actual real save. Shit.
       $log.warn "Failed to load non-empty saved data! Oh no!"
       # reset, but don't save after resetting. Try to keep the bad data around unless the player takes an action.
-      game.reset true
+      game.reset()
       # show a noisy freakout message at the top of the screen with the exported save
       $scope.form.errored = true
       $scope.form.error = e.message

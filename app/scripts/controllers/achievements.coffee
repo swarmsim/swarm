@@ -7,7 +7,7 @@
  # # AchievementsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $location, $log) ->
+angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $location, commands, $log) ->
   $scope.game = game
   game.session.state.achievementsShown ?=
     earned: true
@@ -26,7 +26,7 @@ angular.module('swarmApp').controller 'AchievementsCtrl', ($scope, game, $locati
   $scope.onChangeVisibility = ->
     $scope.order.pred = preds[$scope.form.show.order]
     game.session.state.achievementsShown = _.clone $scope.form.show
-    game.session.save()
+    commands.setPreferences game:game, achievementsShown: game.session.state.achievementsShown
 
   $scope.state = (achievement) ->
     if achievement.isEarned()

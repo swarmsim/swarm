@@ -7,7 +7,7 @@
  # # DebugCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, spreadsheet, env, unittypes, flashqueue, $timeout, $log, util) ->
+angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, commands, spreadsheet, env, unittypes, flashqueue, $timeout, $log, util) ->
   $scope.$emit 'debugPage'
 
   if not env.isDebugEnabled
@@ -45,6 +45,7 @@ angular.module('swarmApp').controller 'DebugCtrl', ($scope, session, game, sprea
     $scope.form.session = JSON.stringify $scope.session._loads($scope.form.sessionExport), undefined, 2
   $scope.game = game
   $scope.env = env
+  $scope.commands = commands
   $scope.confirmReset = ->
     if confirm 'You will lose everything and restart the game. You sure?'
-      game.reset()
+      commands.reset game:game
