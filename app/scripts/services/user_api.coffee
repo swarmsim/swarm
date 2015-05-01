@@ -118,7 +118,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
       return @maybeConnectLegacyCharacter()
       # TODO save the first command; focus on server character more
     character = session.exportJson()
-    commandBody = _.omit commandBody, ['unit', 'upgrade']
+    commandBody = _.omit commandBody, ['unit', 'upgrade', 'achievement']
     $log.debug 'server saveCommand start', command
     command = commandApi.save
       character: session.state.idOnServer

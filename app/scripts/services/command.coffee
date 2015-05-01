@@ -156,12 +156,13 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log, loginApi
     
   earnAchievement: (opts) ->
     achievement = opts.achievement
+    game = achievement.game
     achievement._earn opts.elapsed
     @_emit game, 'setPreferences',
       achievement: achievement
       achievementName: achievement.name
       now: game.now
-      elapsed: game.elapsedStartMillis()
+      elapsed: opts.elapsed ? game.elapsedStartMillis()
 
   reset: (opts) ->
     game = opts.game
