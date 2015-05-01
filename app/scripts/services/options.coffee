@@ -37,7 +37,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, commands, 
     @session.state.options[field] = val
     commands.setPreferences game:game, options: @session.state.options
   get: (field, default_) ->
-    return @session.state.options[field] ? default_
+    return @session.state.options?[field] ? default_
   reset: (field) ->
     delete @session.state.options[field]
 

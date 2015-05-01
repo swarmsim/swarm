@@ -24,7 +24,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
       return new Effect @game, this, effect
   # TODO refactor counting to share with unit
   count: ->
-    ret = @game.session.state.upgrades[@name] ? 0
+    ret = @game.session.state.upgrades?[@name] ? 0
     if _.isNaN ret
       util.error "count is NaN! resetting to zero. #{@name}"
       ret = 0

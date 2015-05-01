@@ -113,17 +113,18 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
 
   saveCommand: (commandBody) ->
     # Just save the character for now. Later we'll save the command, but just get the traffic flowing to the server to see if we'll scale.
-    if not session.state.idOnServer?
+    id = session.character?.id ? session.state.idOnServer
+    if not id?
       $log.debug 'server saveCommand quitting because character has no id. trying connectlegacycharacter.', commandBody
       return @maybeConnectLegacyCharacter()
       # TODO save the first command; focus on server character more
-    character = session.exportJson()
+    state = session.exportJson()
     commandBody = _.omit commandBody, ['unit', 'upgrade', 'achievement']
     $log.debug 'server saveCommand start', command
     command = commandApi.save
       character: session.state.idOnServer
       body: commandBody
-      state: character
+      state: state
       (data, status, xhr) =>
         $log.debug 'server saveCommand success', command
       (data, status, xhr) =>

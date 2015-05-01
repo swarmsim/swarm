@@ -112,6 +112,12 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       else
         templateUrl: 'views/debugapi.html'
         controller: 'DebugApiCtrl'
+    .when '/character/:characterId',
+      if not env.isServerFrontendEnabled
+        redirectTo: '/'
+      else
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
     .otherwise
       redirectTo: '/'
 

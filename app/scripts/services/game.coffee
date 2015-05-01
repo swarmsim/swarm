@@ -2,7 +2,10 @@
 
 angular.module('swarmApp').factory 'Cache', -> class Cache
   constructor: ->
-    # Never cleared; hacky way to pass messages that get cleared on reload
+    @clear()
+  
+  clear: ->
+    # (almost) never cleared; hacky way to pass messages that get cleared on reload
     @firstSpawn = {}
     @onUpdate()
     @onRespec()
@@ -88,13 +91,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
-    @tick @session?.state?.date?.reified
+    @tick @session.state.date?.reified
     @tick()
 
   diffMillis: ->
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
-    ret = @now.getTime() - @session.state.date.reified.getTime()
+    ret = @now.getTime() - (@session.state.date?.reified ? new Date 0).getTime()
     return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
@@ -117,7 +120,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   totalSkippedDuration: ->
     moment.duration @totalSkippedMillis()
   dateStarted: ->
-    @session.state.date.started
+    @session.state.date?.started ? new Date 0
   momentStarted: ->
     moment @dateStarted()
 

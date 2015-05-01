@@ -35,7 +35,7 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
     return desc
 
   isEarned: ->
-    @game.session.state.achievements[@name]?
+    @game.session.state.achievements?[@name]?
 
   earn: (elapsed=@game.elapsedStartMillis()) ->
     if not @isEarned()
