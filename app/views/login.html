@@ -1,4 +1,23 @@
-<!--form role="form" action="{{action}}" method="post"-->
+<div ng-if="user() && user().loading">
+  <p>Loading user...</p>
+</div>
+<div ng-if="user() && user().id">
+  <p>Logged in: <a href="#/user/{{user().id}}">{{user().username}}#{{user().id}}</a></p>
+</div>
+<div ng-if="!user() || !(user().id || user().loading)">
+  <p>Not logged in.</p>
+</div>
+
+<!-- using the blue theme from https://googlewebcomponents.github.io/google-signin/components/google-signin/demo.html - we don't use g+ -->
+<div class="row">
+  <div class="col-sm-4">
+    <!--a class="btn btn-block btn-social btn-google" style="background:#4184F3" target="login_google" href="{{apiUrl}}/auth/google"-->
+    <a class="btn btn-block btn-social btn-google" style="background:#4184F3" href="javascript:" ng-click="loginPopup('google')">
+      <i class="fa fa-google"></i> Sign in with Google
+    </a>
+  </div>
+</div>
+
 <form role="form" ng-submit="submit()" method="post">
   <input type="text" name="identifier" ng-model="form.identifier" placeholder="Username or Email">
   <input type="password" name="password" ng-model="form.password" placeholder="Password">

@@ -68,12 +68,14 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     return @user.id?
 
   whoami: ->
-    @user = {}
+    @user = {loading:true}
     $http.get "#{env.saveServerUrl}/whoami"
     .success (data, status, xhr) =>
       _.extend @user, data
+      delete @user.loading
     .error (data, status, xhr) =>
       $log.warn 'whoami failed'
+      delete @user.loading
 
   @LOGIN_TAILS =
     kongregate: '/callback'
