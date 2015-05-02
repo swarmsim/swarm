@@ -37,6 +37,7 @@ angular.module('swarmApp').factory 'loginApi', (loginApiEnabled, env) ->
 angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, session, characterApi, isKongregate, commandApi) -> new class LoginApi
   constructor: ->
     @characters = {}
+    @commandQueue = []
     if env.isServerBackendEnabled
       @userLoading = @whoami()
       .success =>
@@ -121,17 +122,32 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
       # TODO save the first command; focus on server character more
     state = session.exportJson()
     commandBody = _.omit commandBody, ['unit', 'upgrade', 'achievement']
-    $log.debug 'server saveCommand start', command
-    command = commandApi.save
+    @commandQueue.push
       character: session.state.idOnServer
       body: commandBody
       state: state
+    if @commandQueue.length == 1
+      @_postNextCommand()
+
+  # Queues keep commands in order, so old saves don't overwrite new ones.
+  _postNextCommand: ->
+    if @commandQueue <= 0
+      $log.debug 'server postNextCommand queue empty'
+      return
+    $log.debug 'server postNextCommand start', command
+    # don't shift yet - non-empty queue prevents another request from starting
+    req = @commandQueue[0]
+    command = commandApi.save req,
       (data, status, xhr) =>
-        $log.debug 'server saveCommand success', command
+        $log.debug 'server postNextCommand success', command
+        @commandQueue.shift()
+        @_postNextCommand()
       (data, status, xhr) =>
-        $log.warn 'server saveCommand failed!', data, status, xhr
+        $log.warn 'server postNextCommand failed!', data, status, xhr
         # TODO remove this when truly depending on server characters! this is v1.1 test code.
         if 400 <= data.status < 500
           $log.warn 'server saveCommand bad request. trying to recreate character on server.', command
           delete session.state.idOnServer
           @maybeConnectLegacyCharacter()
+        @commandQueue.shift()
+        @_postNextCommand()
