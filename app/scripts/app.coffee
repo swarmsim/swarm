@@ -20,8 +20,7 @@ angular.module 'swarmApp', [
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
     # https://github.com/chieffancypants/angular-hotkeys/
-    # TODO: hotkeys disabled for now.
-    #'cfp.hotkeys'
+    'cfp.hotkeys'
     'googlechart'
   ]
 
@@ -195,3 +194,40 @@ angular.module('swarmApp').run ($rootScope, env) ->
       appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
     #else
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
+      #
+angular.module('swarmApp').config (hotkeysProvider) ->
+  console.log hotkeysProvider.template
+  # based on default template
+#  hotkeysProvider.template = """
+#<div>hihihi</div>
+#<div class="modal-header">
+#  <button type="button" class="close" aria-label="Close" ng-click="toggleCheatSheet()"><span aria-hidden="true">&times;</span></button>
+#  <h4 class="modal-title">{{title}}</h4>
+#</div>
+#<div class="modal-body">
+#  <ul>
+#    <li ng-repeat="hotkey in hotkeys | filter:{ description: '!$$undefined$$' }">
+#      <span ng-repeat="key in hotkey.format() track by $index">{{ key }}</span>:
+#      {{ hotkey.description }}
+#    </li>
+#  </ul>
+#</div>
+#"""
+#  hotkeysProvider.template = """
+#<div class="cfp-hotkeys-container fade" ng-class="{in: helpVisible}" style="display: none;">
+#  <div class="cfp-hotkeys">
+#    <h4 class="cfp-hotkeys-title">{{ title }}</h4>
+#    <table>
+#      <tbody>
+#        <tr ng-repeat="hotkey in hotkeys | filter:{ description: '!$$undefined$$' }">
+#          <td class="cfp-hotkeys-keys">
+#            <span ng-repeat="key in hotkey.format() track by $index" class="cfp-hotkeys-key">{{ key }}</span>
+#          </td>
+#          <td class="cfp-hotkeys-text">{{ hotkey.description }}</td>
+#        </tr>
+#      </tbody>
+#    </table>
+#    <div class="cfp-hotkeys-close" ng-click="toggleCheatSheet()">×</div>
+#  </div>
+#</div>
+#"""
