@@ -437,6 +437,18 @@ module.exports = function (grunt) {
           },
           'decimal.js': {
             main: 'decimal.js'
+          },
+          // dep of  bootstrap-social. bootstrap.js here conflicts with bootstrap-sass-official's js, but is the same stuff.
+          bootstrap: {
+            main: [
+              //"less/bootstrap.less",
+              //"dist/css/bootstrap.css",
+              //"dist/js/bootstrap.js",
+              //"dist/fonts/glyphicons-halflings-regular.eot",
+              //"dist/fonts/glyphicons-halflings-regular.svg",
+              //"dist/fonts/glyphicons-halflings-regular.ttf",
+              //"dist/fonts/glyphicons-halflings-regular.woff"
+            ],
           }
         },
         ignorePath:  /\.\.\//
