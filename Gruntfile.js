@@ -133,6 +133,9 @@ module.exports = function (grunt) {
   };
   ngconstant.preprod = JSON.parse(JSON.stringify(ngconstant.prod));
   ngconstant.preprod.constants.env.saveServerUrl = 'https://api-preprod.swarmsim.com';
+  ngconstant.staging = JSON.parse(JSON.stringify(ngconstant.prod));
+  ngconstant.staging.constants.env.saveServerUrl = grunt.option('saveServerUrl') || ngconstant.staging.constants.env.saveServerUrl;
+  ngconstant.staging.constants.env.isServerFrontendEnabled = grunt.option('isServerFrontendEnabled') || ngconstant.staging.constants.env.isServerFrontendEnabled;
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -861,7 +864,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', function(envname) {
     envname = envname || 'prod';
-    if (envname != 'prod' && envname != 'preprod') {
+    if (envname != 'prod' && envname != 'preprod' && envname != 'staging') {
       throw new Error('invalid build envname: '+envname);
     }
     console.log('building envname '+envname);
@@ -894,7 +897,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy-staging', [
-    'build',
+    'build:staging',
     'stagingCname','gh-pages:staging','cleanCname'
   ]);
   grunt.registerTask('deploy-preprod', [
