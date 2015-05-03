@@ -10,7 +10,7 @@
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
 angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, isKongregate, storage, saveId, env
-characterApi, $routeParams) ->
+characterApi, loginApi, $routeParams) ->
   $scope.form = {}
   $scope.isKongregate = isKongregate
 
@@ -24,8 +24,8 @@ characterApi, $routeParams) ->
   $scope.loadRemote = ->
     $log.debug 'loadsave: loading remotely'
     
-    do load = ->
-      if (charid=$routeParams.characterId)? and session.character?.id != charid
+    load = (charid) ->
+      if charid? and session.character?.id != charid
         $log.debug 'remote-loading charid', charid
         # this is an async operation - state will be {} for a short while
         character = characterApi.get id:charid, ->
@@ -33,7 +33,15 @@ characterApi, $routeParams) ->
           session.state = session.parseJson character.state
           game.cache.clear()
           $log.debug 'remote-loaded charid', charid, session.state
-    $scope.$on '$routeChangeSuccess', load
+    # load a new character from url `/character/:id/...`
+    $scope.$on '$routeChangeSuccess', => load $routeParams.characterId
+    # ...even when `/character/:id` is the first page load
+    load $routeParams.characterId
+    # load a default character upon page load. server sorts these by most-recently-played first, so this loads the last played character.
+    loginApi.userLoading.success =>
+      if not session.character?.id?
+        $log.debug 'loading default character', loginApi.user?.characters?[0]?.id, loginApi.user?.characters?.length
+        load loginApi.user?.characters?[0]?.id
 
   $scope.loadLocal = ->
     $log.debug 'loadsave: loading locally'

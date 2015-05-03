@@ -7,9 +7,10 @@
  # # LoginCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'LoginCtrl', ($scope, env, loginApi, $log, $interval) ->
+angular.module('swarmApp').controller 'LoginCtrl', ($scope, env, loginApi, session, $log, $interval) ->
   $scope.form = {}
   $scope.user = -> loginApi.user
+  $scope.character = -> session.character
   $scope.apiUrl = env.saveServerUrl
   $scope.loginPopup = (provider) ->
     loginwin = window.open "#{$scope.apiUrl}/auth/#{provider}/", provider, {height:200, width:200}

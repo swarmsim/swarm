@@ -2,10 +2,17 @@
   <p>Loading user...</p>
 </div>
 <div ng-if="user() && user().id">
-  <p>Logged in: <a href="#/user/{{user().id}}">{{user().username}}#{{user().id}}</a></p>
+  <p>Logged in: <a ng-href="#/user/{{user().id}}">{{user().username}}#{{user().id}}</a></p>
 </div>
 <div ng-if="!user() || !(user().id || user().loading)">
   <p>Not logged in.</p>
+</div>
+
+<div ng-if="!character() || !character().id">
+  <p>No character selected.</p>
+</div>
+<div ng-if="character() && character().id">
+  <p>Character: <a ng-href="#/character/{{character().id}}">{{character().name}}</a></p>
 </div>
 
 <!-- using the blue theme from https://googlewebcomponents.github.io/google-signin/components/google-signin/demo.html - we don't use g+ -->
