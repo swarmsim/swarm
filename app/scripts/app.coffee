@@ -196,7 +196,6 @@ angular.module('swarmApp').run ($rootScope, env) ->
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
       #
 angular.module('swarmApp').config (hotkeysProvider) ->
-  console.log hotkeysProvider.template
   # based on default template
 #  hotkeysProvider.template = """
 #<div>hihihi</div>
