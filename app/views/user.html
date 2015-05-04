@@ -3,6 +3,8 @@
 </div>
 <div ng-if="user.id">
   <h1>{{user.username}}#{{user.id}}<small ng-if="isSelf"> (self)</small></h1>
+
+  <a ng-href="#/user/{{userSlug}}/character/new" class="btn btn-default">Create a New Character</a>
   
   <p>{{user.characters.length|number}} characters</p>
   <ul>

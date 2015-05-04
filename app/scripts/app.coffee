@@ -65,6 +65,8 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .otherwise
         redirectTo: '/'
 
+  mkTail = (args, path, search) ->
+    return "#{args.tail}#{if search then '?'}#{jQuery.param search}"
   routes = $routeProvider
   if env.isServerFrontendEnabled
     routes = routes
@@ -74,13 +76,19 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/character/:characterId',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
-      .when '/c/:characterId',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
+      .when '/c/:characterId:tail*',
+        redirectTo: (args, path, search) ->
+          "/character/#{args.characterId}#{mkTail args, path, search}"
       .when '/user/:user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
-      .when '/u/:user',
+      .when '/u/:user:tail*',
+        redirectTo: (args, path, search) ->
+          "/user/#{args.user}#{mkTail args, path, search}"
+      .when '/user/:user/character/new',
+        templateUrl: 'views/character_new.html'
+        controller: 'NewCharacterCtrl'
+      .when '/user/:user/character/:characterId',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
 
