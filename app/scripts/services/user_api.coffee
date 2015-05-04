@@ -39,7 +39,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     @characters = {}
     @commandQueue = []
     if env.isServerBackendEnabled
-      @userLoading = @whoami()
+      @whoami()
       .success =>
         # connect legacy character upon page reload
         @maybeConnectLegacyCharacter()
@@ -61,21 +61,23 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
           @login 'guestuser'
           .success =>
             $log.debug 'created guest user'
-            @maybeConnectLegacyCharacter()
+            # TODO #651
+            #@maybeConnectLegacyCharacter()
           .error =>
             $log.debug 'failed to create guest user'
   hasUser: ->
     return @user.id?
 
   whoami: ->
-    @user = {loading:true}
+    if not @user?.loading
+      @user = {loading:true}
     $http.get "#{env.saveServerUrl}/whoami"
     .success (data, status, xhr) =>
-      _.extend @user, data
-      delete @user.loading
+      @user = data
+      $log.debug 'whoami success, user populated', @user
     .error (data, status, xhr) =>
       $log.warn 'whoami failed'
-      delete @user.loading
+      @user = {}
 
   @LOGIN_TAILS =
     kongregate: '/callback'
@@ -84,11 +86,17 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     tail = @constructor.LOGIN_TAILS[strategy] ? ''
     if not env.saveServerUrl
       $log.error "env.saveServerUrl is blank, expect all swarmapi calls to fail. I hope this isn't the production environment!"
+    @user = {loading:true}
     $http.post "#{env.saveServerUrl}/auth/#{strategy}#{tail}", credentials, {withCredentials: true}
     .success (data, status, xhr) =>
-      @user = data.user
-      # connect legacy character upon login
-      @maybeConnectLegacyCharacter()
+      #@user = data.user
+      # nope - login user data is incomplete, doesn't list characters. should probably fix this on the server side, but for now...
+      $log.debug 'login success, fetching /whoami', data.user
+      @whoami()
+      # connect legacy character upon login. TODO #651
+      #@maybeConnectLegacyCharacter()
+    .error (data, status, xhr) =>
+      $log.warn 'login failed', strategy, data, status, xhr
  
   logout: ->
     $http.get "#{env.saveServerUrl}/logout", {}, {withCredentials: true}
@@ -125,7 +133,7 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     state = session.exportJson()
     commandBody = _.omit commandBody, ['unit', 'upgrade', 'achievement']
     @commandQueue.push
-      character: session.state.idOnServer
+      character: id
       body: commandBody
       state: state
     if @commandQueue.length == 1

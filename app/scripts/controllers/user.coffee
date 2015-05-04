@@ -15,7 +15,9 @@ angular.module('swarmApp').controller 'UserCtrl', ($scope, $routeParams, $log, u
   if userId == 'me'
     $scope.user = loginApi.user
     $log.debug 'userload hook', $scope.user
-    loginApi.userLoading.success =>
+    $scope._loginApi = loginApi
+    $scope.$watch '_loginApi.user', (user, olduser) =>
+      $scope.user = user
       $log.debug 'user loaded', $scope.user
     $scope.isSelf = true
   else

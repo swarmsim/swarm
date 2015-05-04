@@ -166,10 +166,10 @@ angular.module('swarmApp').factory 'commands', (util, $rootScope, $log, loginApi
 
   reset: (opts) ->
     game = opts.game
-    @_setUndo game
+    if opts.undoable ? true
+      @_setUndo game
     # get params *before* resetting
     params =
       now: game.now
-      elapsed: game.elapsedStartMillis()
     game.reset()
     @_emit game, 'reset', params

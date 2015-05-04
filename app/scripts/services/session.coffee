@@ -136,9 +136,11 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       return @parseJson ret
 
     parseJson: (ret) ->
-      for key, val of ret.date
-        ret.date[key] = new Date val
-      ret.date.loaded = new Date()
+      # date may be empty for new, server-created characters
+      if ret.date?
+        for key, val of ret.date
+          ret.date[key] = new Date val
+        ret.date.loaded = new Date()
       # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
       for obj in [ret.unittypes, ret.upgrades]
         for key, val of obj
