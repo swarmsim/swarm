@@ -2,7 +2,7 @@
   Loading...
 </div>
 <div ng-if="user.id">
-  <h1>{{user.username}}#{{user.id}}<span ng-if="isSelf"> (self)</span></h1>
+  <h1>{{user.username}}#{{user.id}}<small ng-if="isSelf"> (self)</small></h1>
   
   <p>{{user.characters.length|number}} characters</p>
   <ul>

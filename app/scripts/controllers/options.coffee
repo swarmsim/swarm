@@ -7,7 +7,10 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback, dropboxSyncer, commands) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback, dropboxSyncer, commands, loginApi) ->
+  # no changing options for other people's characters
+  if !loginApi.isMyCharacter()
+    $location.url '/'
   $scope.options = options
   $scope.game = game
   $scope.session = session

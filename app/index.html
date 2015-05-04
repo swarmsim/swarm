@@ -73,6 +73,12 @@ https://github.com/erosson/swarm
             <a class="navbar-brand page-title" href="#"><span>Swarm Simulator<span></a>
             <a ng-cloak ng-if="env.isDebugEnabled" class="envalert navbar-brand" ng-href="#/debug"> ({{env.name}})</a>
             <a class="navbar-brand" ng-href="#/changelog"><span class="text-muted small" ng-cloak>v{{version}}</span></a>
+            <div ng-if="isCharacterNameVisible" class="small" ng-cloak>
+              <a href="#/user/{{game.session.character.user.id}}">{{game.session.character.user.username}}#{{game.session.character.user.id}}</a> /
+              <a href="#/character/{{game.session.character.id}}">{{game.session.character.name}}#{{game.session.character.id}}</a>
+              <small ng-if="!isMyCharacter()">(read-only)</small>
+            </div>
+
           </div>
           <div class="navbar-right"><login /></div>
       

@@ -74,7 +74,13 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/character/:characterId',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+      .when '/c/:characterId',
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
       .when '/user/:user',
+        templateUrl: 'views/user.html'
+        controller: 'UserCtrl'
+      .when '/u/:user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
 

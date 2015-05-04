@@ -78,7 +78,7 @@
       <p>
         <form class="form-inline" ng-submit="commands.buyUnit({unit:cur, num:buyCount()})">
           <span class="titlecase">{{cur.unittype.verbing}}</span>
-          <input type="text" ng-model="form.buyCount" placeholder="1" class="form-control"
+          <input type="text" ng-disabled="!isMyCharacter()" ng-model="form.buyCount" placeholder="1" class="form-control"
 title="'10%' buys 10% of the maximum you can afford.
 '=1000' buys exactly 1,000 after accounting for twins, rounded up.
 '@1000' buys the number needed to have a total of 1,000. If you already have 200, this will buy up to 800.
@@ -129,7 +129,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e12'.">
           <label class="pull-right" title="Show upgrade notifier when checked">
             <span class="glyphicon glyphicon-circle-arrow-up small" ng-show="watched[upgrade.name]"></span>
             <span class="glyphicon glyphicon-remove-sign small" ng-hide="watched[upgrade.name]"></span>
-            <input type="checkbox" class="checkbox-inline" style="margin:0" ng-model="watched[upgrade.name]" ng-change="updateWatched(upgrade)">
+            <input type="checkbox" class="checkbox-inline" ng-disabled="!isMyCharacter()" style="margin:0" ng-model="watched[upgrade.name]" ng-change="updateWatched(upgrade)">
           </label>
         </h5>
         <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>

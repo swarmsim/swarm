@@ -79,6 +79,12 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
       $log.warn 'whoami failed'
       @user = {}
 
+  isMyCharacter: ->
+    # always true if we're not using remote characters yet
+    if not env.isServerFrontendEnabled
+      return true
+    return @user? and session.character?.user?.id == @user.id
+
   @LOGIN_TAILS =
     kongregate: '/callback'
     guestuser: '/callback'
