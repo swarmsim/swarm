@@ -29,13 +29,17 @@ characterApi, loginApi, $routeParams, commands) ->
         $log.debug 'remote-loading charid', charid
         # this is an async operation - state will be {} for a short while
         character = characterApi.get id:charid, ->
-          session.character = character
-          session.state = session.parseJson character.state
-          game.cache.clear()
-          $log.debug 'remote-loaded charid', charid, session.state, character
-          if character.updatedAt == character.createdAt and jQuery.isEmptyObject character.state
-            $log.debug 'empty character from server! resetting', charid
-            commands.reset game:game, undoable:false
+          if character
+            if not character.deleted
+              session.character = character
+              session.state = session.parseJson character.state
+              game.cache.clear()
+              $log.debug 'remote-loaded charid', charid, session.state, character
+              if character.updatedAt == character.createdAt and jQuery.isEmptyObject character.state
+                $log.debug 'empty character from server! resetting', charid
+                commands.reset game:game, undoable:false
+            else
+              $log.debug 'tried to load deleted character, ignoring', charid, session.state, character
     # load a new character from url `/character/:id/...`
     $scope.$on '$routeChangeSuccess', => load $routeParams.characterId
     # ...even when `/character/:id` is the first page load

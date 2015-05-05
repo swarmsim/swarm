@@ -8,10 +8,12 @@
  # Factory in the swarmApp.
 ###
 angular.module('swarmApp').factory 'userApi', ($resource, env) ->
-  $resource "#{env.saveServerUrl}/user/:id"
+  $resource "#{env.saveServerUrl}/user/:id", null,
+    update: method: 'PUT'
 
 angular.module('swarmApp').factory 'characterApi', ($resource, env) ->
-  $resource "#{env.saveServerUrl}/character/:id"
+  $resource "#{env.saveServerUrl}/character/:id", null,
+    update: method: 'PUT'
 
 angular.module('swarmApp').factory 'commandApi', ($resource, env) ->
   $resource "#{env.saveServerUrl}/command/:id"

@@ -16,7 +16,7 @@
       <input id="character-name" type="text" class="form-control" ng-model="form.name">
     </div>
     <div class="form-group">
-      <div class="radio" ng-repeat="league in leagues.list">
+      <div class="radio" ng-repeat="league in leagues.playableList">
         <label>
           <input type="radio" ng-value="league.name" ng-model="form.league">
           <strong>{{league.label}}</strong>
