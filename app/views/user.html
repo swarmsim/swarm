@@ -20,11 +20,11 @@
         - {{character.league.label}}.
         Last played {{character.updatedAt.fromNow()}}.
         <span ng-if="character.deleted">DELETED</span>
-        <div class="pull-right" ng-if="isSelf">
+        <span class="pull-right" ng-if="isSelf">
           <button ng-if="character.league.name == 'open'" ng-click="onDupe(character)" class="btn btn-default"><span class="fa fa-copy"></span> Duplicate</button>
           <button ng-if="character.league.name == 'open'" class="btn btn-default disabled"><span class="glyphicon glyphicon-export"></span> Export</button>
           <button ng-click="onDelete(character)" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-        </div>
+        </span>
       </p>
       <p>
         <span ng-if="character.state.unittypes.ascension > 0">{{character.state.unittypes.ascension| bignum}} ascensions,</span>
