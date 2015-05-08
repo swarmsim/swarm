@@ -55,7 +55,7 @@ module.exports = function (grunt) {
           saveId: '0',
           dropboxAppKey: dropboxAppKey('dev'),
           isDropboxEnabled: true,
-          saveServerUrl: grunt.option('saveServerUrl'),
+          saveServerUrl:  'http://kormac.swarmsim.com:1337', // this points to an internal ip on @erosson's local machine. should be inaccessible to others.
           isKongregateSyncEnabled: true,
           autopushIntervalMs: 1000 * 60 * 9999,
           googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
           sentryDSN: null,
           sentrySampleRate: 0,
           isServerBackendEnabled: true,
-          isServerFrontendEnabled: grunt.option('isServerFrontendEnabled') || false,
+          isServerFrontendEnabled: true,
           gaTrackingID: null
         }
       }
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
           saveId: 'v0.2',
           dropboxAppKey: dropboxAppKey('dev'),
           isDropboxEnabled: true,
-          saveServerUrl: grunt.option('saveServerUrl'),
+          saveServerUrl: 'http://kormac.swarmsim.com:1337', // this points to an internal ip on @erosson's local machine. should be inaccessible to others.
           isKongregateSyncEnabled: true,
           autopushIntervalMs: 1000 * 15,
           googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
           // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
           // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
           isServerBackendEnabled: true,
-          isServerFrontendEnabled: grunt.option('isServerFrontendEnabled') || false,
+          isServerFrontendEnabled: true,
 
           gaTrackingID: 'UA-53523462-3'
         }
