@@ -29,10 +29,6 @@ describe 'Service: command', ->
     expect(!!commands._undo.isRedo).toBe true
     expect(drone.count().toNumber()).toBe 0
 
-    commands.undo()
-    expect(!!commands._undo.isRedo).toBe true
-    expect(drone.count().toNumber()).toBe 1
-
   it 'undoes visibility. #639', ->
     game.unit('mutagen')._setCount 1e99
     upgrade = game.upgrade('mutatehatchery')
