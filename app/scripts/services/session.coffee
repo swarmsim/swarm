@@ -128,14 +128,19 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       ret = JSON.parse encoded
       # special case dates. JSON.stringify replacers and toJSON do not get along.
       $log.debug 'parsed imported game successfully', ret
-      for key, val of ret.date
-        ret.date[key] = new Date val
-      ret.date.loaded = new Date()
       # check save version for validity
       @_validateSaveVersion ret.version?.started
       # prevent saves imported from publictest. easy to hack around, but good enough to deter non-cheaters.
       if saveversion
         @_validateFormatVersion atob saveversion
+      return @parseJson ret
+
+    parseJson: (ret) ->
+      # date may be empty for new, server-created characters
+      if ret.date?
+        for key, val of ret.date
+          ret.date[key] = new Date val
+        ret.date.loaded = new Date()
       # bigdecimals. toPrecision avoids decimal.js precision errors when converting old saves.
       for obj in [ret.unittypes, ret.upgrades]
         for key, val of obj
@@ -171,9 +176,12 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
         $rootScope.$broadcast 'save:failed', {error:e, session:this}
       if success
         $rootScope.$broadcast 'save', this
+    isLocalSaveEnabled: ->
+      return not env.isServerFrontendEnabled
     save: ->
-      if env.isOffline
-        $log.warn 'cannot save, game is offline'
+      if not @isLocalSaveEnabled()
+        $log.warn 'local saves disabled'
+        return
       # exportCache is necessary because sjcl encryption isn't deterministic,
       # but exportSave() must be ...not necessarily deterministic, but
       # consistent enough to not confuse angular's $apply().
@@ -191,6 +199,9 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       storage.getItem id
 
     load: (id) ->
+      if not @isLocalSaveEnabled()
+        $log.warn 'local saves disabled'
+        return
       @importSave @getStoredSaveData id
 
     onClose: ->

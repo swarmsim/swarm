@@ -7,7 +7,10 @@
  # # OptionsCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback, dropboxSyncer) ->
+angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options, session, game, env, $log, backfill, isKongregate, storage, feedback, dropboxSyncer, commands, loginApi) ->
+  # no changing options for other people's characters
+  if !loginApi.isMyCharacter()
+    $location.url '/'
   $scope.options = options
   $scope.game = game
   $scope.session = session
@@ -42,7 +45,6 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     $scope.form.isCustomTheme = true
     $scope.form.customThemeUrl = ''
   $scope.setCustomTheme = (url) ->
-    console.log 'setcustomtheme', url
     $scope.options.customTheme url
 
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
@@ -85,7 +87,7 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     if confirm 'You will lose everything and restart the game. No reset-bonuses here. You sure?'
       # delete all storage, as advertised
       storage.removeItem session.id
-      $scope.game.reset true
+      commands.reset game:$scope.game
       $location.url '/'
 
   $scope.shorturl = ->

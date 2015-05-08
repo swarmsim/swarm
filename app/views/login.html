@@ -1,6 +1,37 @@
-<!--form role="form" action="{{action}}" method="post"-->
-<form role="form" ng-submit="submit()" method="post">
+<div ng-if="user() && user().loading">
+  <p>Loading user...</p>
+</div>
+<div ng-if="user() && user().id">
+  <p>Logged in: <a ng-href="#/user/{{user().id}}">{{user().username}}#{{user().id}}</a></p>
+</div>
+<div ng-if="!user() || !(user().id || user().loading)">
+  <p>Not logged in.</p>
+</div>
+
+<div ng-if="!character() || !character().id">
+  <p>No character selected.</p>
+</div>
+<div ng-if="character() && character().id">
+  <p>Character: <a ng-href="#/character/{{character().id}}">{{character().name}}</a></p>
+</div>
+
+<!-- using the blue theme from https://googlewebcomponents.github.io/google-signin/components/google-signin/demo.html - we don't use g+ -->
+<div class="row">
+  <div class="col-sm-4">
+    <!--a class="btn btn-block btn-social btn-google" style="background:#4184F3" target="login_google" href="{{apiUrl}}/auth/google"-->
+    <a class="btn btn-block btn-social btn-google" style="background:#4184F3" href="javascript:" ng-click="loginPopup('google')">
+      <i class="fa fa-google"></i> Sign in with Google
+    </a>
+  </div>
+  <div class="col-sm-4">
+    <a class="btn btn-block btn-social btn-dropbox" href="javascript:" ng-click="loginPopup('dropbox-oauth2')">
+      <i class="fa fa-dropbox"></i> Sign in with Dropbox
+    </a>
+  </div>
+</div>
+
+<!--form role="form" ng-submit="submit()" method="post">
   <input type="text" name="identifier" ng-model="form.identifier" placeholder="Username or Email">
   <input type="password" name="password" ng-model="form.password" placeholder="Password">
   <button type="submit">Sign in</button>
-</form>
+</form-->

@@ -7,7 +7,20 @@
  # # LoginCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'LoginCtrl', ($scope, loginApi) ->
+angular.module('swarmApp').controller 'LoginCtrl', ($scope, env, loginApi, session, $log, $interval) ->
   $scope.form = {}
+  $scope.user = -> loginApi.user
+  $scope.character = -> session.character
+  $scope.apiUrl = env.saveServerUrl
+  $scope.loginPopup = (provider) ->
+    loginwin = window.open "#{$scope.apiUrl}/auth/#{provider}/", provider, {height:200, width:200}
+    # poll for window-close.
+    promise = $interval =>
+      $log.debug 'polling for login window close...'
+      if loginwin.closed
+        $log.debug 'login window closed'
+        loginApi.whoami()
+        $interval.cancel promise
+    , 400
   $scope.submit = ->
     loginApi.login 'local', $scope.form

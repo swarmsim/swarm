@@ -6,7 +6,7 @@
  # @description
  # # unit
 ###
-angular.module('swarmApp').directive 'unit', ($log, game, commands, options, util, $location, parseNumber) ->
+angular.module('swarmApp').directive 'unit', ($log, game, commands, options, util, $location, parseNumber, loginApi) ->
   templateUrl: 'views/directive-unit.html'
   restrict: 'E'
   scope:
@@ -15,6 +15,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
     scope.game = game
     scope.commands = commands
     scope.options = options
+    scope.isMyCharacter = -> loginApi.isMyCharacter()
 
     formatDuration = (estimate) ->
     scope.estimateUpgradeSecs = (upgrade) ->
@@ -52,6 +53,7 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       scope.watched[upgrade.name] = upgrade.isWatched()
     scope.updateWatched = (upgrade) ->
       upgrade.watch scope.watched[upgrade.name]
+      commands.setPreferences game:game, watched:game.session.state.watched
 
     scope.unitCostAsPercent = (unit, cost) ->
       MAX = new Decimal 9999.99

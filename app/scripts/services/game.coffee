@@ -2,7 +2,10 @@
 
 angular.module('swarmApp').factory 'Cache', -> class Cache
   constructor: ->
-    # Never cleared; hacky way to pass messages that get cleared on reload
+    @clear()
+  
+  clear: ->
+    # (almost) never cleared; hacky way to pass messages that get cleared on reload
     @firstSpawn = {}
     @onUpdate()
     @onRespec()
@@ -88,13 +91,13 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
 
     # tick to reified-time, then to now. this ensures things explode here, instead of later, if they've gone back in time since saving
     delete @now
-    @tick @session?.state?.date?.reified
+    @tick @session.state.date?.reified
     @tick()
 
   diffMillis: ->
     @_realDiffMillis() * @gameSpeed + @skippedMillis
   _realDiffMillis: ->
-    ret = @now.getTime() - @session.state.date.reified.getTime()
+    ret = @now.getTime() - (@session.state.date?.reified ? new Date 0).getTime()
     return Math.max 0, ret
   diffSeconds: ->
     @diffMillis() / 1000
@@ -117,7 +120,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   totalSkippedDuration: ->
     moment.duration @totalSkippedMillis()
   dateStarted: ->
-    @session.state.date.started
+    @session.state.date?.started ? new Date 0
   momentStarted: ->
     moment @dateStarted()
 
@@ -220,38 +223,26 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @cache.onUpdate()
     util.assert 0 == @diffSeconds(), 'diffseconds != 0 after reify!'
 
-  save: ->
-    @withSave ->
-
   importSave: (encoded, transient) ->
     @session.importSave encoded, transient
     # Force-clear various caches.
     @_init()
 
-  # A common pattern: change something (reifying first), then save the changes.
-  # Use game.withSave(myFunctionThatChangesSomething) to do that.
-  withSave: (fn) ->
+  # A common pattern: reify something before changing it.
+  withReify: (fn) ->
     @reify()
     ret = fn()
     # reify a second time for swarmwarp; https://github.com/erosson/swarm/issues/241
     # Unnecessary for other things, but mostly harmless.
     @reify()
-    @session.save()
     @cache.onUpdate()
     return ret
 
-  withUnreifiedSave: (fn) ->
-    ret = fn()
-    @session.save()
-    return ret
-
-  reset: (transient=false) ->
+  reset: ->
     @session.reset()
     @_init()
     for unit in @unitlist()
       unit._setCount unit.unittype.init or 0
-    if not transient
-      @save()
 
   ascendEnergySpent: ->
     energy = @unit 'energy'
@@ -281,7 +272,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
   ascend: (free=false) ->
     if !free and @ascendCostPercent() < 1
       throw new Error "We require more resources (ascension cost)"
-    @withSave =>
+    @withReify =>
       # hardcode ascension bonuses. TODO: spreadsheetify
       premutagen = @unit 'premutagen'
       mutagen = @unit 'mutagen'
@@ -326,7 +317,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     # Upgrades come with a free(ish) unit too, so remove their cost. (Mostly for unit tests, doesn't really matter.)
     return mutagen.spent(ignores).minus(@upgrade('mutatehidden').count())
   respec: ->
-    @withSave =>
+    @withReify =>
       if not @isRespecCostMet()
         throw new Error "We require more resources"
       cost = @respecCost()
@@ -337,7 +328,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       @_respec()
 
   respecFree: ->
-    @withSave =>
+    @withReify =>
       if not @unit('freeRespec').count().greaterThan(0)
         throw new Error "We require more resources"
       @unit('freeRespec')._subtractCount 1

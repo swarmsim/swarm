@@ -1,3 +1,12 @@
+// override https://github.com/chieffancypants/angular-hotkeys/blob/master/src/hotkeys.css for theming
+.swarmApp .cfp-hotkeys-container, .swarmApp .cfp-hotkeys-title, .swarmApp .cfp-hotkeys-text, .swarmApp .cfp-hotkeys table, .swarmApp .cfp-hotkeys-close, .swarmApp .cfp-hotkeys-key {
+  color:inherit;
+  background-color:inherit;
+  font-size:inherit;
+  font-weight:inherit;
+  border:inherit;
+}
+
 .strikethrough {
   text-decoration: line-through;
 }

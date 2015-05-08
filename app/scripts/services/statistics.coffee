@@ -7,7 +7,7 @@
  # # statistics
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'StatisticsListener', (util, $log, kongregate) -> class StatisticsListener
+angular.module('swarmApp').factory 'StatisticsListener', (util, $log) -> class StatisticsListener
   constructor: (@session, @scope) ->
     @_init()
 
@@ -44,7 +44,6 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, $log, kongregate
       catch e
         $log.warn 'statistics corrupt for upgrade, resetting', cmd.upgradename, ustats, e
         ustats.num = new Decimal cmd.num
-    @session.save() #TODO session is saved twice for every command, kind of lame
     delete cmd.now
     delete cmd.unit
     delete cmd.upgrade
@@ -52,10 +51,7 @@ angular.module('swarmApp').factory 'StatisticsListener', (util, $log, kongregate
   listen: (scope) ->
     scope.$on 'reset', =>
       @_init()
-    scope.$on 'command', (event, cmd) =>
-      $log.debug 'statistics', event, cmd
-      @push cmd
-      kongregate.reportStats()
+    # listening for each command is no longer necessary, this is called directly from command() to ensure it's saved
 
 angular.module('swarmApp').factory 'statistics', (session, StatisticsListener, $rootScope) ->
   stats = new StatisticsListener session, $rootScope
