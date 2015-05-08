@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs" role="tablist">
+<ul ng-if="!isOffline" class="nav nav-tabs" role="tablist">
   <li ng-repeat="tab in tabs.list | filter:filterVisible" class="tab-resource tab-{{name}}" ng-class="{active: cur.name === tab.name}">
     <a ng-href="#{{tab.url()}}" role="tab">
       <div class="tab-icon-resource tab-icon-{{tab.name}} icon-{{tab.name}}"></div>
@@ -21,28 +21,25 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-      <li role="presentation" ng-class="{disabled:!isMyCharacter() || game.availableAutobuyUpgrades() <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades())">
+      <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades() <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades())">
         <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrades
       </a></li>
-      <li role="presentation" ng-class="{disabled:!isMyCharacter() || game.availableAutobuyUpgrades(0.25) <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades(0.25), 0.25)">
+      <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades(0.25) <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyUpgrades(game.availableAutobuyUpgrades(0.25), 0.25)">
         <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableAutobuyUpgrades(0.25).length | number}} upgrades
       </a></li>
       <li role="presentation" class="divider"></li>
-      <li ng-class="{disabled:!isMyCharacter() || !isUndoable()}" role="presentation">
+      <li ng-class="{disabled:!isUndoable()}" role="presentation">
         <a role="menuitem" tabindex="-1" href="javascript:" ng-click="undo()">
           <span class="glyphicon glyphicon-share-alt mirror"></span>
           Undo
           <span ng-if="isUndoable()">({{undoLimitSeconds - secondsSinceLastAction() | number:0}} sec)</span>
         </a>
       </li>
-      <li role="presentation" ng-class="{disabled:!isMyCharacter()}"><a role="menuitem" tabindex="-1" href="#/options">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/options">
         <span class="glyphicon glyphicon-cog"></span> Options
       </a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/achievements">
         <span class="glyphicon glyphicon-ok"></span> Achievements
-      </a></li>
-      <li ng-if="isCharacterNameVisible" role="presentation"><a role="menuitem" tabindex="-1" href="#/user/me">
-        <span class="glyphicon glyphicon-list"></span> My Characters
       </a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/statistics">
         <span class="glyphicon glyphicon-stats"></span> Statistics
@@ -59,9 +56,9 @@
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/contact?error">
         <span class="fa fa-bug"></span> Report Problem
       </a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="showHotkeys()" target="_blank">
-        <span class="fa fa-keyboard-o"></span> Show Keyboard Shortcuts
-      </a></li>
+      <!--li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="hotkeys.toggleCheatSheet()" target="_blank">
+        <span class="glyphicon glyphicon-share-alt"></span> Keyboard Shortcuts
+      </a></li-->
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#/tab/all">
         <span class="glyphicon glyphicon-list-alt"></span> Show all units
       </a></li>

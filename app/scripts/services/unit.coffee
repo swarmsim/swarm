@@ -158,7 +158,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   rawCount: ->
     return @game.cache.unitRawCount[@name] ?= do =>
       # caching's helpful to avoid re-parsing session strings
-      ret = @game.session.state.unittypes?[@name] ? 0
+      ret = @game.session.state.unittypes[@name] ? 0
       if _.isNaN ret
         util.error 'NaN count. oops.', @name, ret
         ret = 0
@@ -415,7 +415,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     if not @isBuyable()
       throw new Error "Cannot buy that unit"
     num = Decimal.min num, @maxCostMet()
-    return @game.withReify =>
+    @game.withSave =>
       for cost in @eachCost()
         cost.unit._subtractCount cost.val.times num
       twinnum = num.times @twinMult()

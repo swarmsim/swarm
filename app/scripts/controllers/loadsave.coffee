@@ -9,8 +9,7 @@
  #
  # Loads a saved game upon refresh. If it fails, complain loudly and give the player a chance to recover their broken save.
 ###
-angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, isKongregate, storage, saveId, env
-characterApi, loginApi, $routeParams, commands) ->
+angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, session, version, $location, backfill, isKongregate, storage, saveId) ->
   $scope.form = {}
   $scope.isKongregate = isKongregate
 
@@ -21,96 +20,58 @@ characterApi, loginApi, $routeParams, commands) ->
   $scope.contactUrl = ->
     "#/contact?#{$.param error:$scope.form.error}"
 
-  $scope.loadRemote = ->
-    $log.debug 'loadsave: loading remotely'
-    
-    load = (charid) ->
-      if charid? and session.character?.id != charid
-        $log.debug 'remote-loading charid', charid
-        # this is an async operation - state will be {} for a short while
-        character = characterApi.get id:charid, ->
-          if character
-            if not character.deleted
-              session.character = character
-              session.state = session.parseJson character.state
-              game.cache.clear()
-              $log.debug 'remote-loaded charid', charid, session.state, character
-              if character.updatedAt == character.createdAt and jQuery.isEmptyObject character.state
-                $log.debug 'empty character from server! resetting', charid
-                commands.reset game:game, undoable:false
-            else
-              $log.debug 'tried to load deleted character, ignoring', charid, session.state, character
-    # load a new character from url `/character/:id/...`
-    $scope.$on '$routeChangeSuccess', => load $routeParams.characterId
-    # ...even when `/character/:id` is the first page load
-    load $routeParams.characterId
-    # load a default character upon page load. server sorts these by most-recently-played first, so this loads the last played character.
-    $scope._loginApi = loginApi
-    $scope.$watch '_loginApi.user', (user, olduser) =>
-      $log.debug 'user loaded', user
-      if user? and not session.character?.id?
-        $log.debug 'loading default character', user?.characters?[0]?.id, user?.characters?.length
-        load user?.characters?[0]?.id
+  try
+    exportedsave = session.getStoredSaveData()
+  catch e
+    $log.error "couldn't even read localstorage! oh no!", e
+    game.reset true
+    # show a noisy freakout message at the top of the screen with the exported save
+    $scope.form.errored = true
+    $scope.form.error = e.message
+    $scope.form.domain = window.location.host
+    # tell analytics
+    $scope.$emit 'loadGameFromStorageFailed', e.message
+    return
 
-  $scope.loadLocal = ->
-    $log.debug 'loadsave: loading locally'
-    try
-      exportedsave = session.getStoredSaveData()
-    catch e
-      $log.error "couldn't even read localstorage! oh no!", e
-      game.reset()
+  try
+    session.load()
+    $log.debug 'Game data loaded successfully.', this
+  catch e
+    # Couldn't load the user's saved data.
+    if not exportedsave
+      # If this is their first visit to the site, that's normal, no problems
+      $log.debug "Empty saved data; probably the user's first visit here. Resetting quietly."
+      game.reset true #but don't save, in case we're waiting for flash recovery
+      # listen for flash to load - loading it takes extra time, but we might find a save there.
+      storage.flash.onReady.then ->
+        encoded = storage.flash.getItem saveId
+        if encoded
+          $log.debug "flash loaded successfully, and found a saved game there that wasn't in cookies/localstorage! importing."
+          # recovered save from flash! tell analytics
+          $scope.$root.$broadcast 'savedGameRecoveredFromFlash', e.message
+          game.importSave encoded, true # don't save when recovering from flash - if this is somehow a mistake, player can take no action
+        else
+          $log.debug 'flash loaded successfully, but no saved game found. this is truly a new visitor.'
+    else
+      # Couldn't load an actual real save. Shit.
+      $log.warn "Failed to load non-empty saved data! Oh no!"
+      # reset, but don't save after resetting. Try to keep the bad data around unless the player takes an action.
+      game.reset true
       # show a noisy freakout message at the top of the screen with the exported save
       $scope.form.errored = true
       $scope.form.error = e.message
-      $scope.form.domain = window.location.host
+      $scope.form.export = exportedsave
       # tell analytics
       $scope.$emit 'loadGameFromStorageFailed', e.message
-      return
 
-    try
-      session.load()
-      $log.debug 'Game data loaded successfully.', this
-    catch e
-      # Couldn't load the user's saved data.
-      if not exportedsave
-        # If this is their first visit to the site, that's normal, no problems
-        $log.debug "Empty saved data; probably the user's first visit here. Resetting quietly."
-        game.reset() #but don't save, in case we're waiting for flash recovery
-        # listen for flash to load - loading it takes extra time, but we might find a save there.
-        storage.flash.onReady.then ->
-          encoded = storage.flash.getItem saveId
-          if encoded
-            $log.debug "flash loaded successfully, and found a saved game there that wasn't in cookies/localstorage! importing."
-            # recovered save from flash! tell analytics
-            $scope.$root.$broadcast 'savedGameRecoveredFromFlash', e.message
-            game.importSave encoded, true # don't save when recovering from flash - if this is somehow a mistake, player can take no action
-          else
-            $log.debug 'flash loaded successfully, but no saved game found. this is truly a new visitor.'
-      else
-        # Couldn't load an actual real save. Shit.
-        $log.warn "Failed to load non-empty saved data! Oh no!"
-        # reset, but don't save after resetting. Try to keep the bad data around unless the player takes an action.
-        game.reset()
-        # show a noisy freakout message at the top of the screen with the exported save
-        $scope.form.errored = true
-        $scope.form.error = e.message
-        $scope.form.export = exportedsave
-        # tell analytics
-        $scope.$emit 'loadGameFromStorageFailed', e.message
+  # try to load a save file from the url.
+  if (savedata = $location.search().savedata)?
+    $log.info 'loading game from url...'
+    # transient=true: don't overwrite the saved data until we buy something
+    game.importSave savedata, true
+    $log.info 'loading game from url successful!'
 
-    # try to load a save file from the url.
-    if (savedata = $location.search().savedata)?
-      $log.info 'loading game from url...'
-      # transient=true: don't overwrite the saved data until we buy something
-      game.importSave savedata, true
-      $log.info 'loading game from url successful!'
-
-    backfill.run game
-
-  if env.isServerFrontendEnabled
-    return $scope.loadRemote()
-  else
-    return $scope.loadLocal()
+  backfill.run game
 
 angular.module('swarmApp').controller 'AprilFoolsCtrl', ($scope, options) ->
   $scope.options = options

@@ -6,7 +6,7 @@
  # @description
  # # buyunit
 ###
-angular.module('swarmApp').directive 'buyunit', ($log, game, commands, loginApi) ->
+angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
   scope:
     num: '=?'
@@ -39,11 +39,10 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands, loginApi)
       delete args.resource
       commands.buyMaxUnit args
     scope.statTwin = -> scope.resource.twinMult()
-    scope.isBuyButtonVisible = ->
-      loginApi.isMyCharacter() and scope.resource.isBuyButtonVisible()
+    scope.isBuyButtonVisible = -> scope.resource.isBuyButtonVisible()
     scope.verb = scope.unit?.type?.verb ? 'buy'
 
-angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands, loginApi) ->
+angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
   templateUrl: 'views/buyunit.html'
   scope:
     num: '=?'
@@ -72,11 +71,10 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands, loginA
       delete args.resource
       commands.buyMaxUpgrade args
     scope.statTwin = -> Decimal.ONE
-    scope.isBuyButtonVisible = ->
-      loginApi.isMyCharacter()
+    scope.isBuyButtonVisible = -> true
     scope.verb = if scope.upgrade.type.class == 'ability' then 'cast' else 'buy'
 
-angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands, loginApi) ->
+angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) ->
   templateUrl: 'views/buyunit-dropdown.html'
   scope:
     num: '=?'
@@ -108,5 +106,4 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands, l
     scope.buyMaxUpgrade = (args) ->
       commands.buyMaxUpgrade args
     scope.statTwin = -> scope.unit.twinMult()
-    scope.isBuyButtonVisible = ->
-      loginApi.isMyCharacter() and scope.unit.isBuyButtonVisible()
+    scope.isBuyButtonVisible = -> scope.unit.isBuyButtonVisible()

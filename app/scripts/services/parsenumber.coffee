@@ -24,9 +24,9 @@ angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, nu
     if (match=/\ ?[a-zA-Z]+/.exec value)?
       if match.length > 0 and (exp=suffixToExp[match[0].toLowerCase()])?
         value = value.replace match[0], exp.replace
-        #$log.debug 'parse suffix', value0, value
-      #else
-      #  $log.debug 'parse suffix (invalid)', value0, value, match
+        $log.debug 'parse suffix', value0, value
+      else
+        $log.debug 'parse suffix (invalid)', value0, value, match
     # exact-value, accounting for twins
     if (notwins=/^\=/.exec value)?
       value = value.replace '=', ''

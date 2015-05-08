@@ -6,7 +6,7 @@
  # @description
  # # tabs
 ###
-angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands, hotkeys, $location, loginApi, env) ->
+angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands) ->
   templateUrl: 'views/tabs.html'
   scope:
     cur: '='
@@ -15,8 +15,6 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version, comm
     scope.tabs = game.tabs
     scope.options = options
     scope.game = game
-    scope.isMyCharacter = -> loginApi.isMyCharacter()
-    scope.isCharacterNameVisible = env.isServerFrontendEnabled
 
     scope.filterVisible = (tab) -> tab.isVisible()
 
@@ -38,22 +36,3 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version, comm
     scope.isUndoable = ->
       return scope.secondsSinceLastAction() < scope.undoLimitSeconds and not scope.isRedo()
       
-    scope.showHotkeys = ->
-      hotkeys.toggleCheatSheet()
-    hotkeys.bindTo(scope).add
-      combo: 'ctrl+z'
-      description: 'Undo (within 30 seconds)'
-      callback: => scope.undo()
-    tabkeys =
-      meat: 'alt+1'
-      larva: 'alt+2'
-      territory: 'alt+3'
-      energy: 'alt+4'
-      mutagen: 'alt+5'
-    for name, combo of tabkeys then do (name, combo) =>
-      tab = scope.tabs.byName[name]
-      if tab?.isVisible()
-        hotkeys.bindTo(scope).add
-          combo: combo
-          description: "Select #{tab.leadunit.unittype.label} tab"
-          callback: => $location.url tab.url()

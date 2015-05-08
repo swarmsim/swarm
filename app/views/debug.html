@@ -4,7 +4,7 @@
 <div ng-cloak ng-if="env.isDebugEnabled">
   <p title="If you edited the html to see this: shame on you, you filthy cheater.">You found the debug page! Looks like this is a dev build, too. Have fun.</p>
   <div>
-    <button ng-click="commands.adminEdit({state:session.state})">Save</button>
+    <button ng-click="session.save()">Save</button>
   </div>
   <div>
     <button ng-click="game.ascend(true)">Ascend</button>

@@ -1,5 +1,5 @@
 <p>
-Each hatchery produces {{upgrade.type.effect[0].val.times(options.velocityUnit().mult) | longnum}} more larvae per {{options.velocityUnit().label}}.
+Each hatchery produces {{upgrade.type.effect[0].val.times(options.velocityUnit().mult) | longnum}} more larva per {{options.velocityUnit().label}}.
 Currently, your hatcheries produce a total of {{upgrade.unit.totalProduction().larva.times(options.velocityUnit().mult) | longnum:0}} larvae per {{options.velocityUnit().label}}.
 With no multipliers, they would produce {{upgrade.unit.prod[0].val.plus(upgrade.effect[0].calcStats().base).times(options.velocityUnit().mult) | longnum:0}} larvae per {{options.velocityUnit().label}}.</p>
 <p ng-if="upgrade.count().greaterThanOrEqualTo(upgrade.unit.stat('random.minlevel.hatchery'))" title="Savescumming won't work, by the way.">

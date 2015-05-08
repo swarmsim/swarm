@@ -7,7 +7,7 @@
  # # options
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Options', ($log, util, env, game, commands, $location) -> class Options
+angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location) -> class Options
   constructor: (@session) ->
     @VELOCITY_UNITS = byName:{}, list:[]
     addvunit = (name, label, plural, mult) =>
@@ -35,9 +35,9 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, commands, 
       @set field, val
   set: (field, val) ->
     @session.state.options[field] = val
-    commands.setPreferences game:game, options: @session.state.options
+    @session.save()
   get: (field, default_) ->
-    return @session.state.options?[field] ? default_
+    return @session.state.options[field] ? default_
   reset: (field) ->
     delete @session.state.options[field]
 

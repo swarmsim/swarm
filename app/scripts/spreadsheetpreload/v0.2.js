@@ -4670,7 +4670,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 30754687500000,
-        "description": "Groups of hungry locusts devour any creature that makes the mistake of standing in their way.",
+        "description": "Groups of hungry locusts devour any creature who makes the mistake of standing in their way.",
         "disabled": "",
         "effect.stat": "",
         "effect.type": "",

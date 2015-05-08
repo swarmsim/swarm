@@ -20,7 +20,8 @@ angular.module 'swarmApp', [
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
     # https://github.com/chieffancypants/angular-hotkeys/
-    'cfp.hotkeys'
+    # TODO: hotkeys disabled for now.
+    #'cfp.hotkeys'
     'googlechart'
   ]
 
@@ -65,40 +66,7 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .otherwise
         redirectTo: '/'
 
-  mkTail = (args, path, search) ->
-    return "#{args.tail}#{if search then '?'}#{jQuery.param search}"
-  routes = $routeProvider
-  if env.isServerFrontendEnabled
-    routes = routes
-      .when '/login',
-        templateUrl: 'views/login.html'
-        controller: 'LoginCtrl'
-      .when '/character/:characterId',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
-      .when '/c/:characterId:tail*',
-        redirectTo: (args, path, search) ->
-          "/character/#{args.characterId}#{mkTail args, path, search}"
-      .when '/user/:user',
-        templateUrl: 'views/user.html'
-        controller: 'UserCtrl'
-      .when '/u/:user:tail*',
-        redirectTo: (args, path, search) ->
-          "/user/#{args.user}#{mkTail args, path, search}"
-      .when '/user/:user/character/new',
-        templateUrl: 'views/character_new.html'
-        controller: 'NewCharacterCtrl'
-      .when '/user/:user/character/:characterId',
-        templateUrl: 'views/user.html'
-        controller: 'UserCtrl'
-
-  if env.isServerBackendEnabled
-    routes = routes
-      .when '/debug/api',
-        templateUrl: 'views/debugapi.html'
-        controller: 'DebugApiCtrl'
-
-  return routes
+  $routeProvider
     .when '/debug',
       templateUrl: 'views/debug.html'
       controller: 'DebugCtrl'
@@ -132,8 +100,21 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/cleartheme',
       templateUrl: 'views/cleartheme.html'
       controller: 'ClearthemeCtrl'
+    .when '/login',
+      if not env.isServerFrontendEnabled
+        redirectTo: '/'
+      else
+        templateUrl: 'views/login.html'
+        controller: 'LoginCtrl'
+    .when '/debug/api',
+      if not env.isServerBackendEnabled
+        redirectTo: '/'
+      else
+        templateUrl: 'views/debugapi.html'
+        controller: 'DebugApiCtrl'
     .otherwise
       redirectTo: '/'
+
 
 angular.module('swarmApp').config (env, $logProvider) ->
   $logProvider.debugEnabled env.isDebugLogged
@@ -208,39 +189,3 @@ angular.module('swarmApp').run ($rootScope, env) ->
       appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
     #else
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
-      #
-angular.module('swarmApp').config (hotkeysProvider) ->
-  # based on default template
-#  hotkeysProvider.template = """
-#<div>hihihi</div>
-#<div class="modal-header">
-#  <button type="button" class="close" aria-label="Close" ng-click="toggleCheatSheet()"><span aria-hidden="true">&times;</span></button>
-#  <h4 class="modal-title">{{title}}</h4>
-#</div>
-#<div class="modal-body">
-#  <ul>
-#    <li ng-repeat="hotkey in hotkeys | filter:{ description: '!$$undefined$$' }">
-#      <span ng-repeat="key in hotkey.format() track by $index">{{ key }}</span>:
-#      {{ hotkey.description }}
-#    </li>
-#  </ul>
-#</div>
-#"""
-#  hotkeysProvider.template = """
-#<div class="cfp-hotkeys-container fade" ng-class="{in: helpVisible}" style="display: none;">
-#  <div class="cfp-hotkeys">
-#    <h4 class="cfp-hotkeys-title">{{ title }}</h4>
-#    <table>
-#      <tbody>
-#        <tr ng-repeat="hotkey in hotkeys | filter:{ description: '!$$undefined$$' }">
-#          <td class="cfp-hotkeys-keys">
-#            <span ng-repeat="key in hotkey.format() track by $index" class="cfp-hotkeys-key">{{ key }}</span>
-#          </td>
-#          <td class="cfp-hotkeys-text">{{ hotkey.description }}</td>
-#        </tr>
-#      </tbody>
-#    </table>
-#    <div class="cfp-hotkeys-close" ng-click="toggleCheatSheet()">×</div>
-#  </div>
-#</div>
-#"""

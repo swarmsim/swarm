@@ -8,7 +8,7 @@ describe 'Service: achievements', ->
   # instantiate service
   achievements = {}
   Achievement = {}
-  game = {session:{save:(->), state:{achievements:{}}}}
+  game = {session:{state:{achievements:{}}}, withUnreifiedSave: (fn) -> fn()}
   beforeEach inject (_achievements_, _Achievement_) ->
     achievements = _achievements_
     Achievement = _Achievement_

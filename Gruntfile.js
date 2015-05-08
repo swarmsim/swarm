@@ -63,7 +63,7 @@ module.exports = function (grunt) {
           sentryDSN: null,
           sentrySampleRate: 0,
           isServerBackendEnabled: true,
-          isServerFrontendEnabled: grunt.option('isServerFrontendEnabled') || false,
+          isServerFrontendEnabled: false,
           gaTrackingID: null
         }
       }
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
           // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
           // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
           isServerBackendEnabled: true,
-          isServerFrontendEnabled: grunt.option('isServerFrontendEnabled') || false,
+          isServerFrontendEnabled: false,
 
           gaTrackingID: 'UA-53523462-3'
         }
@@ -133,9 +133,6 @@ module.exports = function (grunt) {
   };
   ngconstant.preprod = JSON.parse(JSON.stringify(ngconstant.prod));
   ngconstant.preprod.constants.env.saveServerUrl = 'https://api-preprod.swarmsim.com';
-  ngconstant.staging = JSON.parse(JSON.stringify(ngconstant.prod));
-  ngconstant.staging.constants.env.saveServerUrl = grunt.option('saveServerUrl') || ngconstant.staging.constants.env.saveServerUrl;
-  ngconstant.staging.constants.env.isServerFrontendEnabled = grunt.option('isServerFrontendEnabled') || ngconstant.staging.constants.env.isServerFrontendEnabled;
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -437,18 +434,6 @@ module.exports = function (grunt) {
           },
           'decimal.js': {
             main: 'decimal.js'
-          },
-          // dep of  bootstrap-social. bootstrap.js here conflicts with bootstrap-sass-official's js, but is the same stuff.
-          bootstrap: {
-            main: [
-              //"less/bootstrap.less",
-              //"dist/css/bootstrap.css",
-              //"dist/js/bootstrap.js",
-              //"dist/fonts/glyphicons-halflings-regular.eot",
-              //"dist/fonts/glyphicons-halflings-regular.svg",
-              //"dist/fonts/glyphicons-halflings-regular.ttf",
-              //"dist/fonts/glyphicons-halflings-regular.woff"
-            ],
           }
         },
         ignorePath:  /\.\.\//
@@ -876,7 +861,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', function(envname) {
     envname = envname || 'prod';
-    if (envname != 'prod' && envname != 'preprod' && envname != 'staging') {
+    if (envname != 'prod' && envname != 'preprod') {
       throw new Error('invalid build envname: '+envname);
     }
     console.log('building envname '+envname);
@@ -909,7 +894,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy-staging', [
-    'build:staging',
+    'build',
     'stagingCname','gh-pages:staging','cleanCname'
   ]);
   grunt.registerTask('deploy-preprod', [

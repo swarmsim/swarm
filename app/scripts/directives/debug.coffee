@@ -18,7 +18,7 @@ angular.module('swarmApp').directive 'debugdd', (env, game, util) ->
  # @description
  # # debug
 ###
-angular.module('swarmApp').directive 'debug', (env, game, commands, util, $location) ->
+angular.module('swarmApp').directive 'debug', (env, game, util, $location) ->
   template: """
   <div ng-cloak ng-if="env.isDebugEnabled" class="container well">
     <p class="small pull-right">{{heights()}}</p>
@@ -32,7 +32,7 @@ angular.module('swarmApp').directive 'debug', (env, game, commands, util, $locat
           </selected>
           <input tabindex="2" type="text" ng-model="form.count" ng-change="setResource()">
           <code>{{form.count|longnum}}</code>
-          <button ng-click="commands.adminEdit({game:game})">save</button>
+          <button ng-click="game.save()">save</button>
         </div>
         <div>
           export <input tabindex="3" ng-model="form.export" onclick="this.select()">
@@ -79,7 +79,6 @@ angular.module('swarmApp').directive 'debug', (env, game, commands, util, $locat
     scope.env = env
     scope.game = game
     scope.util = util
-    scope.commands = commands
 
     scope.heights = ->
       'htmlheight()': $(document.documentElement).height()
@@ -95,15 +94,15 @@ angular.module('swarmApp').directive 'debug', (env, game, commands, util, $locat
     scope.selectResource = ->
       scope.form.count = scope.form.resource.count()
     scope.setResource = ->
-      scope.form.resource._setCount scope.form.count
-      # special case: nexus upgrades
-      if scope.form.resource.name == 'nexus'
-        for upgrade in game.upgradelist()
-          if upgrade.name.substring(0,5) == 'nexus'
-            level = parseInt upgrade.name[5]
-            if scope.form.count >= level
-              upgrade._setCount 1
-      scope.commands.adminEdit game:game
+      scope.game.withSave ->
+        scope.form.resource._setCount scope.form.count
+        # special case: nexus upgrades
+        if scope.form.resource.name == 'nexus'
+          for upgrade in game.upgradelist()
+            if upgrade.name.substring(0,5) == 'nexus'
+              level = parseInt upgrade.name[5]
+              if scope.form.count >= level
+                upgrade._setCount 1
       scope.export()
 
     scope.confirmReset = ->

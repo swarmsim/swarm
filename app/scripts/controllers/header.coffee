@@ -7,7 +7,7 @@
  # # HeaderCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location, loginApi
+angular.module('swarmApp').controller 'HeaderCtrl', ($scope, $window, env, version, session, timecheck, $http, $interval, $log, $location
 kongregateScrolling, pageTheme, remoteSaveInit, touchTooltipInit
 # analytics/statistics not actually used, just want them to init
 versioncheck, analytics, statistics, achievementslistener, favico
@@ -15,8 +15,6 @@ versioncheck, analytics, statistics, achievementslistener, favico
   $scope.env = env
   $scope.version = version
   $scope.session = session
-  $scope.isMyCharacter = -> loginApi.isMyCharacter()
-  $scope.isCharacterNameVisible = env.isServerFrontendEnabled
 
   do enforce = ->
     timecheck.enforceNetTime().then(
