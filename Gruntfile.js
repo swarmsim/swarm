@@ -55,7 +55,7 @@ module.exports = function (grunt) {
           saveId: '0',
           dropboxAppKey: dropboxAppKey('dev'),
           isDropboxEnabled: true,
-          saveServerUrl:  'http://kormac.swarmsim.com:1337', // this points to an internal ip on @erosson's local machine. should be inaccessible to others.
+          saveServerUrl: grunt.option('saveServerUrl') || 'http://kormac.swarmsim.com:1337', // this points to an internal ip on @erosson's local machine. should be inaccessible to others.
           isKongregateSyncEnabled: true,
           autopushIntervalMs: 1000 * 60 * 9999,
           googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
           saveId: 'v0.2',
           dropboxAppKey: dropboxAppKey('dev'),
           isDropboxEnabled: true,
-          saveServerUrl: 'http://kormac.swarmsim.com:1337', // this points to an internal ip on @erosson's local machine. should be inaccessible to others.
+          saveServerUrl: grunt.option('saveServerUrl') || 'http://kormac.swarmsim.com:1337', // this points to an internal ip on @erosson's local machine. should be inaccessible to others.
           isKongregateSyncEnabled: true,
           autopushIntervalMs: 1000 * 15,
           googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
@@ -136,9 +136,9 @@ module.exports = function (grunt) {
   ngconstant.staging = JSON.parse(JSON.stringify(ngconstant.prod));
   ngconstant.staging.constants.env.saveServerUrl = grunt.option('saveServerUrl') || ngconstant.staging.constants.env.saveServerUrl;
   ngconstant.staging.constants.env.isServerFrontendEnabled = grunt.option('isServerFrontendEnabled') || ngconstant.staging.constants.env.isServerFrontendEnabled;
-  ngconstant.publictest = JSON.parse(JSON.stringify(ngconstant.prod));
-  ngconstant.publictest.constants.env.saveServerUrl = 'https://api-publictest.swarmsim.com';
-  ngconstant.publictest.isServerFrontendEnabled = true;
+  ngconstant.beta = JSON.parse(JSON.stringify(ngconstant.prod));
+  ngconstant.beta.constants.env.saveServerUrl = 'https://api-beta.swarmsim.com';
+  ngconstant.beta.isServerFrontendEnabled = true;
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -172,7 +172,7 @@ module.exports = function (grunt) {
         },
         src: ['**']
       },
-      publictest: {
+      beta: {
         options: {
           branch: 'master',
           repo: 'git@github.com:swarmsim-publictest/swarmsim-publictest.github.io.git'
@@ -823,8 +823,8 @@ module.exports = function (grunt) {
   grunt.registerTask('preprodCname', 'build preprod.swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'preprod.swarmsim.com');
   });
-  grunt.registerTask('publictestCname', 'build publictest.swarmsim.com cname file', function () {
-    grunt.file.write('dist/CNAME', 'publictest.swarmsim.com');
+  grunt.registerTask('betaCname', 'build beta.swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'beta.swarmsim.com');
   });
   grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
     grunt.file.delete('dist/CNAME');
@@ -885,7 +885,7 @@ module.exports = function (grunt) {
     if (envname == 'prod') {
       throw new Error('Cannot create production build in non-production branch. Try the master branch.');
     }
-    if (envname != 'publictest' && envname != 'preprod' && envname != 'staging') {
+    if (envname != 'beta' && envname != 'preprod' && envname != 'staging') {
       throw new Error('invalid build envname: '+envname);
     }
     console.log('building envname '+envname);
@@ -925,9 +925,9 @@ module.exports = function (grunt) {
     'build:preprod',
     'preprodCname','gh-pages:preprod','cleanCname'
   ]);
-  grunt.registerTask('deploy-publictest', [
-    'build:publictest',
-    'publictestCname','gh-pages:publictest','cleanCname'
+  grunt.registerTask('deploy-beta', [
+    'build:beta',
+    'betaCname','gh-pages:beta','cleanCname'
   ]);
   grunt.registerTask('phonegap-staging', [
     'build',
