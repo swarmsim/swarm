@@ -4382,7 +4382,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 750,
-        "description": "Your swarm's smallest and weakest warriors. They use their teeth and claws to attack foes, and can be vicious in large numbers",
+        "description": "Your swarm's smallest and weakest warriors. They use their teeth and claws to attack foes, and can be vicious in large numbers.",
         "disabled": "",
         "effect.stat": "",
         "effect.type": "",
