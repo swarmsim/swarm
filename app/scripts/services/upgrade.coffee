@@ -180,8 +180,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return @watchedAt() > 0
   # default should match the default for maxCostMet
   isNewlyUpgradable: (costPercent=1) ->
-    w = @watchedAt()
-    return w > 0 and @isUpgradable costPercent / w
+    return @watchedAt() > 0 and @isUpgradable costPercent / @watchedDivisor()
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->
@@ -231,6 +230,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     if typeof(watched) == 'boolean'
       return if watched then 1 else 0
     return watched
+  watchedDivisor: ->
+    return Math.max @watchedAt(), 1
   watch: (state) ->
     @game.withUnreifiedSave =>
       @game.session.state.watched ?= {}

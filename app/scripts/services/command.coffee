@@ -88,7 +88,7 @@ angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log, lo
     @_setUndo()
     upgrades = opts.upgrades
     for upgrade in upgrades
-      num = upgrade.buyMax opts.percent
+      num = upgrade.buyMax opts.percent / upgrade.watchedDivisor()
       @_emit 'buyMaxUpgrade',
         upgrade:upgrade
         upgradename:upgrade.name
