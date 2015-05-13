@@ -197,7 +197,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch $REQUIRED queens",
-        "label": "the chessboard is too small",
+        "label": "is this real life?",
         "longdesc": "Queens hatched by nests don't count.",
         "name": "queen2",
         "points": 20,
@@ -212,7 +212,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch $REQUIRED queens",
-        "label": "not enough larvae",
+        "label": "don't stop me now",
         "longdesc": "Queens hatched by nests don't count.",
         "name": "queen3",
         "points": 30,
@@ -2341,7 +2341,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val3": "",
         "init": "",
         "label": "queen",
-        "lol": "Why do bugs always have queens, but never kings? #mensrights",
+        "lol": "I want to ride my bicycle / I want to ride my bike / I want to ride my bicycle / I want to ride it where I like",
         "name": "queen",
         "plural": "queens",
         "prod.unittype": "drone",
