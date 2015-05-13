@@ -177,9 +177,11 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # caching delay, this would reduce it.
     return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] ?= @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
   isAutobuyable: ->
-    return @isWatched()
-  isNewlyUpgradable: (costPercent=undefined) ->
-    @isUpgradable(costPercent) and @isWatched()
+    return @watchedAt() > 0
+  # default should match the default for maxCostMet
+  isNewlyUpgradable: (costPercent=1) ->
+    w = @watchedAt()
+    return w > 0 and @isUpgradable costPercent / w
 
   # TODO maxCostMet, buyMax that account for costFactor
   isBuyable: ->
@@ -218,18 +220,22 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
   statistics: ->
     @game.session.state.statistics?.byUpgrade?[@name] ? {}
 
-  _isWatchedDefault: ->
+  _watchedAtDefault: ->
     # watch everything by default - except mutagen
     @unit.tab?.name != 'mutagen'
-  isWatched: ->
+  isManuallyHidden: ->
+    return @watchedAt() < 0
+  watchedAt: ->
     @game.session.state.watched ?= {}
-    return !!(@game.session.state.watched[@name] ? @_isWatchedDefault())
+    watched = @game.session.state.watched[@name] ? @_watchedAtDefault()
+    if typeof(watched) == 'boolean'
+      return if watched then 1 else 0
+    return watched
   watch: (state) ->
     @game.withUnreifiedSave =>
       @game.session.state.watched ?= {}
-      state = !!state
       # make savestates a little smaller
-      if state != @_isWatchedDefault()
+      if state != @_watchedAtDefault()
         @game.session.state.watched[@name] = state
       else
         delete @game.session.state.watched[@name]

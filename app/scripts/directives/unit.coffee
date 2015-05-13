@@ -49,9 +49,13 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
 
     scope.watched = {}
     for upgrade in scope.cur.upgrades.byClass.upgrade ? []
-      scope.watched[upgrade.name] = upgrade.isWatched()
+      scope.watched[upgrade.name] = upgrade.watchedAt()
+    for upgrade in scope.cur.upgrades.byClass.ability ? []
+      scope.watched[upgrade.name] = not upgrade.isManuallyHidden()
     scope.updateWatched = (upgrade) ->
       upgrade.watch scope.watched[upgrade.name]
+    scope.updateWatchedAbility = (upgrade) ->
+      upgrade.watch if scope.watched[upgrade.name] then 0 else -1
 
     scope.unitCostAsPercent = (unit, cost) ->
       MAX = new Decimal 9999.99
