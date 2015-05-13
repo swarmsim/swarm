@@ -197,7 +197,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Hatch $REQUIRED queens",
-        "label": "is this real life?",
+        "label": "is this the real life?",
         "longdesc": "Queens hatched by nests don't count.",
         "name": "queen2",
         "points": 20,
