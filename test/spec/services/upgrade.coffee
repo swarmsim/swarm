@@ -347,3 +347,22 @@ describe 'Service: upgrade', ->
   it "fetches empty stats", ->
     game = mkgame {}
     expect(-> game.upgrade('nexus1').statistics()).not.toThrow()
+
+  it "buys-all, accounting for watch points", ->
+    game = mkgame {}
+    up = game.upgrade 'expansion'
+    unit = game.unit 'territory'
+    expect(game.availableAutobuyUpgrades().length).toBe 0
+    unit._setCount 10
+    expect(game.availableAutobuyUpgrades().length).toBe 1
+    unit._setCount 9
+    expect(game.availableAutobuyUpgrades().length).toBe 0
+
+    up.watch 2
+    expect(game.availableAutobuyUpgrades().length).toBe 0
+    unit._setCount 10
+    expect(game.availableAutobuyUpgrades().length).toBe 0
+    unit._setCount 20
+    expect(game.availableAutobuyUpgrades().length).toBe 1
+    unit._setCount 19
+    expect(game.availableAutobuyUpgrades().length).toBe 0

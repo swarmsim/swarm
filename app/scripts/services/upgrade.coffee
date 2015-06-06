@@ -161,7 +161,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     max.cacheSafe = cacheSafe
     return max
 
-  isUpgradable: (costPercent=undefined) ->
+  isUpgradable: (costPercent=undefined, useWatchedAt=false) ->
     # results are cached and updated only once every few seconds; may be out of date.
     # This function's used for the upgrade-available arrows, and without caching it'd be called once per
     # frame for every upgrade in the game. cpu profiler found it guilty of taking half our cpu when we
@@ -175,6 +175,8 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     # we could also predict when an update will be available, instead of rechecking every few seconds,
     # using estimateSecs. Complexity's not worth it yet, but if players start complaining about the
     # caching delay, this would reduce it.
+    if useWatchedAt
+      costPercent = new Decimal(costPercent ? 1).dividedBy @watchedDivisor()
     return @game.cache.upgradeIsUpgradable["#{@name}:#{costPercent}"] ?= @type.class == 'upgrade' and @isBuyable() and @maxCostMet(costPercent).greaterThan(0)
   isAutobuyable: ->
     return @watchedAt() > 0
