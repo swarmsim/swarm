@@ -124,7 +124,7 @@ module.exports = function (grunt) {
           isAppcacheEnabled: false,
           sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
           sentrySampleRate: 0.001,
-          isServerBackendEnabled: true,
+          isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
           gaTrackingID: 'UA-53523462-1'
         }

@@ -8,12 +8,18 @@
  # Factory in the swarmApp.
 ###
 angular.module('swarmApp').factory 'userApi', ($resource, env) ->
+  if not env.isServerBackendEnabled
+    return $resource "/DISABLED/user/:id"
   $resource "#{env.saveServerUrl}/user/:id"
 
 angular.module('swarmApp').factory 'characterApi', ($resource, env) ->
+  if not env.isServerBackendEnabled
+    return $resource "/DISABLED/character/:id"
   $resource "#{env.saveServerUrl}/character/:id"
 
 angular.module('swarmApp').factory 'commandApi', ($resource, env) ->
+  if not env.isServerBackendEnabled
+    return $resource "/DISABLED/command/:id"
   $resource "#{env.saveServerUrl}/command/:id"
 
 # shortcut
@@ -67,6 +73,8 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     return @user.id?
 
   whoami: ->
+    if not env.isServerBackendEnabled
+      return
     $http.get "#{env.saveServerUrl}/whoami"
     .success (data, status, xhr) =>
       @user = data
@@ -87,6 +95,8 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
       @maybeConnectLegacyCharacter()
  
   logout: ->
+    if not env.isServerBackendEnabled
+      return
     $http.get "#{env.saveServerUrl}/logout", {}, {withCredentials: true}
     .success (data, status, xhr) =>
       @whoami()
@@ -94,6 +104,8 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
   maybeConnectLegacyCharacter: ->
     # TODO: might import from multiple devices. import if there's any chance we'd overwrite the only save!
     # TODO should we freak out if the character's already connected to a different user?
+    if not env.isServerBackendEnabled
+      return
     if @user? and not session.state.idOnServer?
       $log.debug 'connectLegacyCharacter found a legacy character, connecting...'
       state = session.exportJson()
@@ -111,6 +123,8 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
           $log.warn 'connectLegacyCharacter failed!', data, status, xhr
 
   saveCommand: (commandBody) ->
+    if not env.isServerBackendEnabled
+      return
     # Just save the character for now. Later we'll save the command, but just get the traffic flowing to the server to see if we'll scale.
     if not session.state.idOnServer?
       $log.debug 'server saveCommand quitting because character has no id. trying connectlegacycharacter.', commandBody
