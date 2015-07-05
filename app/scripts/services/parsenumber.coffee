@@ -1,6 +1,8 @@
 'use strict'
 
 angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, numberSuffixesLong) ->
+  DecCeil = Decimal.constructor rounding:Decimal.ROUND_CEIL
+
   suffixToExp = {}
   for suffixes in [numberSuffixesShort, numberSuffixesLong]
     for suffix, index in suffixes
@@ -35,9 +37,11 @@ angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, nu
       notwins = true
       value = value.replace '@', ''
     try
-      ret = Decimal.max 1, value
+      # DecCeil is a Decimal that rounds up, avoidiing precision errors like
+      # #671. `.ceil()` isn't good enough for large numbers here.
+      ret = DecCeil.max 1, value
       if target
-        ret = Decimal.max 1, ret.minus(unit.count()).ceil()
+        ret = DecCeil.max 1, ret.minus(unit.count())
         $log.debug 'parse target', value0, ret+'', '-'+unit.count()
       if notwins
         # twins round up - buy at least as many as requested.
@@ -47,6 +51,8 @@ angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, nu
       else
         # normally, decimal numbers round down
         ret = ret.floor()
+      # return to normal rounding.
+      ret = new Decimal ret
       if ret.isFinite() and not ret.isNaN()
         return ret
     catch e
