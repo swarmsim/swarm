@@ -35,9 +35,13 @@ angular.module('swarmApp').factory 'loginApi', (loginApiEnabled, env) ->
   if env.isServerBackendEnabled
     return loginApiEnabled
   ret = {}
+  noop = {logout:true,saveCommand:true,whoami:true,maybeConnectLegacyCharacter:true}
   for method, fn of loginApiEnabled
-    ret[method] = ->
-      throw new Error 'login backend is disabled'
+    if noop[method]
+      ret[method] = ->
+    else
+      ret[method] = ->
+        throw new Error 'login backend is disabled'
   return ret
 
 angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, session, characterApi, isKongregate, commandApi) -> new class LoginApi
