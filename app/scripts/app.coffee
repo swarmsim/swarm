@@ -112,6 +112,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       else
         templateUrl: 'views/debugapi.html'
         controller: 'DebugApiCtrl'
+    .when '/decimallegend',
+      templateUrl: 'views/decimallegend.html'
+      controller: 'DecimallegendCtrl'
     .otherwise
       redirectTo: '/'
 

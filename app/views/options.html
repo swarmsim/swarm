@@ -37,7 +37,10 @@
 
   <div class="form-group">
     <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Number format</label></div>
-    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="standard-decimal" ng-change="options.notation(form.notation)">Standard decimal</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="standard-decimal" ng-change="options.notation(form.notation)">Standard decimal
+      <!--(<a target="_blank" href="http://home.kpn.nl/vanadovv/BignumbyN.html">legend</a>)-->
+      (<a href="#/decimallegend">legend</a>)
+    </input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="scientific-e" ng-change="options.notation(form.notation)" ng-init="form.notation=options.notation()">Scientific-E</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="hybrid" ng-change="options.notation(form.notation)">Hybrid</input></label>
     <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="engineering" ng-change="options.notation(form.notation)">Engineering</input></label>
