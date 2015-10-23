@@ -2,7 +2,7 @@
 
 <p>To activate mutagen, your swarm must <b>ascend</b> - restart on a new world. Space travel is too harsh for most of your swarm, but mutagen strengthens a few of your swarm's larvae for the trip to their new planet. All the descendents of these larvae - your new swarm - will benefit from mutagen's power.</p>
 
-<p>Ascending will activate {{game.unit('premutagen').count()|longnum}} new mutagen. Your swarm's ancestors have infested {{game.unit('ascension').count()|longnum}} worlds so far.</p>
+<p>Ascending will activate {{game.unit('premutagen').count()|longnum}} new mutagen. Your swarm has infested {{game.unit('ascension').count()|longnum}} new worlds so far.</p>
 <p>Ascending now will cost {{game.ascendCost()|longnum}} energy. Spend energy elsewhere to reduce this cost; you've spent {{game.ascendEnergySpent()|longnum}} energy.</p>
 <div class="progress" style="margin-bottom:0">
   <div ng-if="game.ascendCostCapDiff().greaterThan(0)" class="progress-bar progress-bar-danger pull-right" role="progressbar" aria-valuenow="{{game.ascendCostCapDiff()}}" aria-valuemin="0" aria-valuemax="{{game.ascendCost()}}" ng-style="{width:game.ascendCostCapDiff().dividedBy(game.ascendCost()).times(100)+'%'}">
