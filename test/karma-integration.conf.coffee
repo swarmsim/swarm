@@ -42,7 +42,7 @@ module.exports = (config) ->
       'bower_components/dropbox-datastores-1.0-latest/index.js'
       'bower_components/moment-duration-format/lib/moment-duration-format.js'
       'bower_components/jquery-cookie/jquery.cookie.js'
-      'bower_components/javascript-flash-cookies/dist/swfstore.min.js'
+      'bower_components/flash-cookies/dist/swfstore.min.js'
       'bower_components/appcache-nanny/appcache-nanny.js'
       'bower_components/ravenjs/dist/raven.js'
       'bower_components/angular-google-chart/ng-google-chart.js'

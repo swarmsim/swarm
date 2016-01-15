@@ -9,7 +9,7 @@
  # Filter in the swarmApp.
 ###
 angular.module('swarmApp').filter 'duration', (options, $filter) ->
-  (input, unitOfTime, template, precision) ->
+  ret = (input, unitOfTime, template, precision) ->
     if input is Infinity
       return ''
     if input.toNumber?
@@ -37,6 +37,11 @@ angular.module('swarmApp').filter 'duration', (options, $filter) ->
             else {template:'00:ss', trim:false}
 
     return duration.format(template, precision) + nonexact
+  # http://blog.thoughtram.io/angularjs/2014/11/19/exploring-angular-1.3-stateful-filters.html
+  # TODO: make this stateless, with params, so angular can optimize. For now, $stateful keeps
+  # the old behavior and avoids overcaching.
+  ret.$stateful = true
+  return ret
 
 angular.module('swarmApp').filter 'momentFromNow', ($filter) ->
   (input) ->

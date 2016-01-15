@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Controller: HeaderCtrl', ->
+xdescribe 'Controller: HeaderCtrl', ->
 
   # load the controller's module
   beforeEach module 'swarmApp'

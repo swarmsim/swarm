@@ -17,7 +17,7 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       if noSigfigs
         return num+''
       return num.toPrecision opts.sigfigs, Decimal.ROUND_FLOOR
-    (num, floorlimit=0, noSigfigs=false) ->
+    ret = (num, floorlimit=0, noSigfigs=false) ->
       suffixes = suffixes_
       if !num
         return num
@@ -63,6 +63,11 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       # turns out it's very distracting to have the number length change, so keep trailing zeros.
       # always round down to fix #245
       return "#{toPrecision(num, noSigfigs)}#{suffix}"
+    # http://blog.thoughtram.io/angularjs/2014/11/19/exploring-angular-1.3-stateful-filters.html
+    # TODO: make this stateless, with params, so angular can optimize. For now, $stateful keeps
+    # the old behavior and avoids overcaching.
+    ret.$stateful = true
+    return ret
 
 angular.module('swarmApp').filter 'bignum', (bignumFormatter, numberSuffixesShort) ->
   bignumFormatter numberSuffixesShort
