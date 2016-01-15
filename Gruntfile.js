@@ -685,6 +685,7 @@ module.exports = function (grunt) {
           src: [
             'archive/**/*',
             'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
+            'bower_components/font-awesome/fonts/*',
             'bower_components/bootswatch/fonts/*',
             'bower_components/bootswatch/*/bootstrap.min.css',
             'bower_components/bootswatch/*/bootstrap.min.css',
