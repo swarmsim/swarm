@@ -130,7 +130,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
           <label class="form-inline pull-right" style="white-space:nowrap" title="Show upgrade notifier?">
             <span class="glyphicon glyphicon-circle-arrow-up" ng-class="{'text-muted':!upgrade.isNewlyUpgradable()}"></span>
             <!--input type="checkbox" class="checkbox-inline" style="margin:0" ng-model="watched[upgrade.name]" ng-change="updateWatched(upgrade)"-->
-            <select ng-model="watched[upgrade.name]" ng-change="updateWatched(upgrade)" class="form-control input-sm" style="display:inline">
+            <select ng-model="watched[upgrade.name]" convert-to-number ng-change="updateWatched(upgrade)" class="form-control input-sm" style="display:inline">
               <option value="-1">Hide upgrade</option>
               <option value="0">Never notify</option>
               <option value="1">Notify when buyable</option>
