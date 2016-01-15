@@ -41,6 +41,7 @@
     "grunt-svgmin": "^2.0.1",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "jasmine-core": "^2.4.1",
     "jshint-stylish": "^1.0.2",
     "json-stable-stringify": "^1.0.0",
     "karma": "^0.12.37",
