@@ -676,7 +676,7 @@ module.exports = function (grunt) {
           //for font-awesome: http://stackoverflow.com/questions/21310382/fontawesome-is-not-working-when-project-is-built-with-grunt
           expand: true,
           dot: true,
-          cwd: 'bower_components/fontawesome',
+          cwd: 'bower_components/font-awesome',
           src: ['fonts/*.*'],
           dest: '<%= yeoman.dist %>'
         }, {
