@@ -34,8 +34,8 @@
     "swarm-shared": "git://github.com/swarmsim/swarm-shared.git#master",
     "flash-cookies": "~2.2.1",
     "bootstrap-sass": "~3.3.6",
-    "font-awesome": "fontawesome#~4.5.0",
-    "raven-js": "ravenjs#~2.0.5",
+    "font-awesome": "~4.5.0",
+    "raven-js": "~2.0.5",
     "angulartics-google-analytics": "~0.1.4",
     "lodash-compat": "~3.10.1"
   },
