@@ -19,7 +19,7 @@
     "mathjs": "~2.6.0",
     "lz-string": "*",
     "numeral": "~1.5.3",
-    "konami-js": "*",
+    "konami-js": "~1.4.2",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.3",
     "favico.js": "~0.3.5",
     "seedrandom": "~2.4.2",
