@@ -16,7 +16,7 @@
     "tabletop": "~1.4.2",
     "angulartics": "~1.0.3",
     "sjcl": "~1.0.0",
-    "mathjs": "~0.26.0",
+    "mathjs": "~2.6.0",
     "lz-string": "*",
     "numeral": "~1.5.3",
     "konami-js": "*",

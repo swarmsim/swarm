@@ -17,6 +17,7 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
+      'node_modules/phantomjs-polyfill/bind-polyfill.js' # phantomjs is missing .bind(). this must go first!
       'bower_components/angular/angular.js'
       'bower_components/angular-mocks/angular-mocks.js'
       'bower_components/angular-animate/angular-animate.js'
@@ -31,7 +32,7 @@ module.exports = (config) ->
       'bower_components/angulartics/src/angulartics.js'
       'bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
       'bower_components/sjcl/sjcl.js'
-      'bower_components/mathjs/dist/math.min.js'
+      'bower_components/mathjs/dist/math.js'
       'bower_components/lz-string/libs/lz-string.min.js'
       'bower_components/numeral/numeral.js'
       'bower_components/konami-js/konami.js'
@@ -45,7 +46,7 @@ module.exports = (config) ->
       'bower_components/jquery-cookie/jquery.cookie.js'
       'bower_components/flash-cookies/dist/swfstore.min.js'
       'bower_components/appcache-nanny/appcache-nanny.js'
-      'bower_components/ravenjs/dist/raven.js'
+      'bower_components/raven-js/dist/raven.js'
       'bower_components/angular-google-chart/ng-google-chart.js'
       'bower_components/swarm-shared/browser.js'
       'app/scripts/**/*.coffee'

@@ -17,17 +17,6 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
     return val
   error: (message...) ->
     $rootScope.$emit 'error', message
-  walk: (obj, fn, path="", rets=[]) ->
-    ret = fn obj, path
-    if ret?
-      rets.push ret
-    if _.isArray obj
-      for elem, index in obj
-        @walk elem, fn, "#{path}[#{index}]", rets
-    else if _.isObject obj
-      for key, prop of obj
-        @walk prop, fn, "#{path}.#{key}", rets
-    return rets
 
   animateController: ($scope, opts={}) ->
     game = opts.game ? $scope.game
