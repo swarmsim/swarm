@@ -432,6 +432,10 @@ module.exports = function (grunt) {
           'konami-js': {
             main: 'konami.js'
           },
+          'mathjs': {
+            // default math.min.js breaks uglify? https://github.com/gruntjs/grunt-contrib-uglify/issues/233
+            main: 'dist/math.js'
+          },
           'decimal.js': {
             main: 'decimal.js'
           }
