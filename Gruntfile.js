@@ -353,7 +353,7 @@ module.exports = function (grunt) {
             return [
               serveStatic('.tmp'),
               serveStatic('test'),
-              connect.use(
+              connect().use(
                 '/bower_components',
                 serveStatic('./bower_components')
               ),
