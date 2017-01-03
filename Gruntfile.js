@@ -761,7 +761,17 @@ module.exports = function (grunt) {
         configFile: 'test/karma-integration.conf.coffee',
         singleRun: true
       }
-    }
+    },
+    githash: {
+      main: {
+        options: {},
+      }
+    },
+    writeVersionJson: {
+      options: {
+        githash: '<%= githash.main.hash %>',
+      },
+    },
   });
 
   // One of few swarmapp-specific tasks
@@ -811,10 +821,15 @@ module.exports = function (grunt) {
   });
   grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
-    var data = {version:version, updated:new Date()};
+    var data = {
+      version: version,
+      updated: new Date(),
+      githash: grunt.option('githash'),
+    };
     var text = JSON.stringify(data, undefined, 2);
     grunt.file.write('.tmp/version.json', text);
     grunt.file.write('dist/version.json', text);
+    grunt.task.run(['preloadSpreadsheet']);
   });
   grunt.registerTask('buildCname', 'build swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'www.swarmsim.com');
