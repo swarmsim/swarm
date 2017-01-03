@@ -20,7 +20,7 @@ angular.module('swarmApp').factory 'userResource', ($log, $location, $routeParam
         isPlayable: true
         desc: 'x3 larva production or something. I dunno, TBD before the publictest release. Characters join open league after a month or so.'
       }]
-    @leagues.byName = _.indexBy @leagues.list, 'name'
+    @leagues.byName = _.keyBy @leagues.list, 'name'
     # because I can't get ng-repeat filters working
     @leagues.playableList = _.filter @leagues.list, 'isPlayable'
     

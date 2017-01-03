@@ -119,7 +119,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return @type.maxlevel? and @maxCostMet().greaterThanOrEqualTo(@type.maxlevel)
 
   costMetPercent: ->
-    costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
+    costOfMet = _.keyBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     max = new Decimal Infinity
     if @isMaxAffordable()
       return Decimal.ONE
@@ -148,7 +148,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) -> class Upgr
     return ret
     
   _estimateSecsUntilBuyable: ->
-    costOfMet = _.indexBy @sumCost(@maxCostMet()), (c) -> c.unit.name
+    costOfMet = _.keyBy @sumCost(@maxCostMet()), (c) -> c.unit.name
     cacheSafe = true
     max = {rawVal:new Decimal(0), unit:null}
     if @type.maxlevel? and @maxCostMet().plus(1).greaterThan(@type.maxlevel)

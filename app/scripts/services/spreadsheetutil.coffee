@@ -57,7 +57,7 @@ angular.module('swarmApp').factory 'spreadsheetUtil', (util) -> new class Spread
         group = groups[keyval]
         ret.push mainrow = _.clone group[0]
         for listProp in listProps
-          listvals = _.pluck group, listProp
+          listvals = _.map group, listProp
           mainrow[listProp] = _.filter listvals, filterFn
     return ret
 

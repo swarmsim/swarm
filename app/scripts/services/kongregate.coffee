@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'isKongregate', ->
   return ->
     # use the non-# querystring to avoid losing it when the url changes. $location.search() won't work.
     # a simple string-contains is hacky, but good enough as long as we're not using the querystring for anything else.
-    _.contains window.location.search, 'kongregate'
+    _.includes window.location.search, 'kongregate'
     # alternatives:
     # - #-querystring is overwritten on reload.
     # - url is hard to test, and flaky with proxies.

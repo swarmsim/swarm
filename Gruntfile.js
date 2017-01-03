@@ -867,7 +867,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'mxmlc:dev',
+      //'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
       'manifest:dev',
       'wiredep',

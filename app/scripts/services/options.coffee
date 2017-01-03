@@ -118,7 +118,7 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
         #url: "//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/#{name}/bootstrap.min.css" # why do people block the cdn srsly
         url: "bower_components/bootswatch/#{name}/bootstrap.min.css"
         credit: "http://bootswatch.com/#{name}/"
-    ret.byName = _.indexBy ret.list, 'name'
+    ret.byName = _.keyBy ret.list, 'name'
     return ret
 
   theme: (name) ->

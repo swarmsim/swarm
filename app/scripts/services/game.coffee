@@ -58,18 +58,18 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
     @_units =
       list: _.map unittypes.list, (unittype) =>
         new Unit this, unittype
-    @_units.byName = _.indexBy @_units.list, 'name'
-    @_units.bySlug = _.indexBy @_units.list, (u) -> u.unittype.slug
+    @_units.byName = _.keyBy @_units.list, 'name'
+    @_units.bySlug = _.keyBy @_units.list, (u) -> u.unittype.slug
 
     @_upgrades =
       list: _.map upgradetypes.list, (upgradetype) =>
         new Upgrade this, upgradetype
-    @_upgrades.byName = _.indexBy @_upgrades.list, 'name'
+    @_upgrades.byName = _.keyBy @_upgrades.list, 'name'
 
     @_achievements =
       list: _.map achievements.list, (achievementtype) =>
         new Achievement this, achievementtype
-    @_achievements.byName = _.indexBy @_achievements.list, 'name'
+    @_achievements.byName = _.keyBy @_achievements.list, 'name'
     @achievementPointsPossible = achievements.pointsPossible()
     $log.debug 'possiblepoints: ', @achievementPointsPossible
 

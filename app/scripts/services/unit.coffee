@@ -103,13 +103,13 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       ret.unit = @game.unit prod.unittype
       ret.val = new Decimal ret.val
       return ret
-    @prodByName = _.indexBy @prod, (prod) -> prod.unit.name
+    @prodByName = _.keyBy @prod, (prod) -> prod.unit.name
     @cost = _.map @unittype.cost, (cost) =>
       ret = _.clone cost
       ret.unit = @game.unit cost.unittype
       ret.val = new Decimal ret.val
       return ret
-    @costByName = _.indexBy @cost, (cost) -> cost.unit.name
+    @costByName = _.keyBy @cost, (cost) -> cost.unit.name
     @warnfirst = _.map @unittype.warnfirst, (warnfirst) =>
       ret = _.clone warnfirst
       ret.unit = @game.unit warnfirst.unittype
@@ -117,7 +117,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     @showparent = @game.unit @unittype.showparent
     @upgrades =
       list: (upgrade for upgrade in @game.upgradelist() when @unittype == upgrade.type.unittype or @showparent?.unittype == upgrade.type.unittype)
-    @upgrades.byName = _.indexBy @upgrades.list, 'name'
+    @upgrades.byName = _.keyBy @upgrades.list, 'name'
     @upgrades.byClass = _.groupBy @upgrades.list, (u) -> u.type.class
 
     @requires = _.map @unittype.requires, (require) =>
@@ -499,7 +499,7 @@ angular.module('swarmApp').factory 'UnitType', -> class Unit
   producerNames: ->
     _.mapValues @producerPath, (paths) ->
       _.map paths, (path) ->
-        _.pluck path, 'name'
+        _.map path, 'name'
 
 angular.module('swarmApp').factory 'UnitTypes', (spreadsheetUtil, UnitType, util, $log) -> class UnitTypes
   constructor: (unittypes=[]) ->
