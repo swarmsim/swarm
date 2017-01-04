@@ -318,7 +318,3 @@ body {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-
-// fontawesome
-$fa-font-path: "../bower_components/font-awesome/fonts";
-@import "font-awesome/scss/font-awesome.scss";
