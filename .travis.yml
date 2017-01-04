@@ -4,7 +4,7 @@ cache:
     - node_modules
 language: node_js
 node_js:
-  - 0.10
+  - 6.9.2
 before_install:
   # for debugging travis, just in case
   - 'env'
