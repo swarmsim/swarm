@@ -192,3 +192,9 @@ angular.module('swarmApp').run ($rootScope, env) ->
       appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
     #else
       #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
+
+# not sure why dropdowns don't work on their own anymore, but this fixes it
+angular.module('swarmApp').run () ->
+  $(document).on 'mousedown', '.dropdown-toggle', () ->
+    console.log 'dropdown'
+    $(this).dropdown()
