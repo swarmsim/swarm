@@ -88,13 +88,6 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
       $scope.game.reset true
       $location.url '/'
 
-  $scope.shorturl = ->
-    feedback.createTinyurl($scope.form.export)
-    .done (data, status, xhr) ->
-      $scope.form.export = data.id
-    .fail (data, status, error) ->
-      $scope.imported.error = true
-
   $scope.clearThemeExtra = ->
     $scope.form.themeExtraSuccess = null
     $scope.form.themeExtraError = null

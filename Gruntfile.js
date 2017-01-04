@@ -90,6 +90,8 @@ module.exports = function (grunt) {
           isAppcacheEnabled: true,
           sentryDSN: 'https://c133b1e19aec40ea8e7641eb94f57004@app.getsentry.com/39317',
           sentrySampleRate: 1,
+          // https://developer.playfab.com/en-us/F810/dashboard
+          playfabTitleId: 'F810',
           // Everyone's getting server-side accounts.
           //
           // Phase 1: import everything silently/invisibly, no change in

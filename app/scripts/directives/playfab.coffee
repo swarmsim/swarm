@@ -6,12 +6,12 @@
  # @description
  # # playfab
 ###
-angular.module('swarmApp').directive 'playfab', ->
+angular.module('swarmApp').directive 'playfab', (playfab) ->
   template: """
 <div ng-include="'views/playfab/title.html'"></div>
-<playfabauth ng-if="!isAuthed"></playfabauth>
-<playfaboptions ng-if="isAuthed"></playfaboptions>
+<playfabauth ng-if="!isAuthed()"></playfabauth>
+<playfaboptions ng-if="isAuthed()"></playfaboptions>
 """
   restrict: 'EA'
   link: (scope, element, attrs) ->
-    scope.isAuthed = false
+    scope.isAuthed = -> playfab.isAuthed()

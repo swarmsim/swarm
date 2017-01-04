@@ -3,12 +3,12 @@
 
 <div><button class="btn btn-primary" ng-click="push()">Export online saved data</button></div>
 <div><button class="btn btn-default" ng-click="fetch()">Check for new online saved data</button></div>
-<p ng-if="!fetched">No online saved data yet.</p>
-<div ng-if="fetched">
+<p ng-if="!(fetched && fetched.state)">No online saved data yet.</p>
+<div ng-if="fetched && fetched.state">
   <div><button class="btn btn-primary" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
-  <div><button class="btn btn-default" ng-click="clear()">Delete online saved data from Dropbox</button></div>
+  <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
   <div><button class="btn btn-default" ng-click="logout()">Logout</button></div>
-  <p>Last exported: {{fetched.encoded.length|number}} chars {{fetched.date.fromNow()}}.
+  <p>Last exported: {{fetched.state.length|number}} chars {{fetched.lastUpdated.fromNow()}}.
     <span ng-if="autopushError()">Will not auto-export online<span
       ng-if="autopushError()=='nochanges'"> because nothing's changed since the last export</span><span
       ng-if="autopushError()=='newgame'"> because this is a new game</span><span

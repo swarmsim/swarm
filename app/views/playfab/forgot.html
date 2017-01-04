@@ -1,5 +1,8 @@
 <div class="form-group">
   <label for="playfab-email">Email</label>
-  <input type="text" name="playfab-email" ng-model="form.email" class="form-control"></label>
+  <input type="text" name="playfab-email" ng-model="form.email" class="form-control">
+  <div>{{error.email}}</div>
 </div>
+<div ng-if="forgotSuccess">Recovery email sent.</div>
+<div>{{error.main}}</div>
 <button type="submit" class="btn btn-info form-control" ng-click="runForgot()">Send recovery email</button>
