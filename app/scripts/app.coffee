@@ -196,5 +196,4 @@ angular.module('swarmApp').run ($rootScope, env) ->
 # not sure why dropdowns don't work on their own anymore, but this fixes it
 angular.module('swarmApp').run () ->
   $(document).on 'mousedown', '.dropdown-toggle', () ->
-    console.log 'dropdown'
     $(this).dropdown()
