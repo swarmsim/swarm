@@ -854,7 +854,7 @@ module.exports = function (grunt) {
     if (target === 'prod') {
       grunt.task.run([
         'clean:server',
-        'mxmlc:prod',
+        //'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'manifest:prod',
         'wiredep', 
@@ -918,7 +918,7 @@ module.exports = function (grunt) {
       'manifest',
       'usemin',
       'htmlmin',
-      'mxmlc:prod'
+      //'mxmlc:prod'
     ]);
   });
 

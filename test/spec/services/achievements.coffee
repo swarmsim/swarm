@@ -31,4 +31,4 @@ describe 'Service: achievements', ->
     for achievement in achievements.list
       a = new Achievement game, achievement
       expect(-> a.description()).not.toThrow()
-      expect(_.contains a.description(), '$REQUIRE').toBe false
+      expect(_.includes a.description(), '$REQUIRE').toBe false

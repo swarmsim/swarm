@@ -296,7 +296,7 @@ describe 'Service: unit', ->
     expect(ling.count().toNumber()).toBe 0
 
     lingmax = ling.maxCostMet()
-    cost1 = _.indexBy ling.eachCost(), (c) -> c.unit.name
+    cost1 = _.keyBy ling.eachCost(), (c) -> c.unit.name
     ling.buy(10)
     expect(ling.count().toNumber()).toBe 10
     expect(meat.count().toNumber()).not.toBeLessThan meatcount - 750000000
@@ -308,7 +308,7 @@ describe 'Service: unit', ->
     expect(ling.suffix).toBe 'II' # empowering sets a suffix
     expect(ling.count().toNumber()).toBe 0  # empowering destroys all units
     # empowering increases cost
-    cost2 = _.indexBy ling.eachCost(), (c) -> c.unit.name
+    cost2 = _.keyBy ling.eachCost(), (c) -> c.unit.name
     expect(cost1.meat.val.toNumber()).toBeLessThan cost2.meat.val.toNumber()
     expect(cost1.larva.val.toNumber()).toEqual cost2.larva.val.toNumber()
     expect(ling.maxCostMet().toNumber()).toBeLessThan lingmax
