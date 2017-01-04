@@ -1,16 +1,17 @@
-<div><label><input type="checkbox" ng-init="form.autopush=options.autopush()" ng-model="form.autopush" ng-change="options.autopush(form.autopush)" class="">Auto-export every 15 minutes and before closing</label></div>
+<p ng-show="!!name">Hi, {{name}}!</p>
+<div><label><input type="checkbox" ng-model="form.autopush" ng-change="setAutopush(form.autopush)" class="">Auto-export every 15 minutes and before closing</label></div>
 
-<div><button class="btn btn-primary" ng-click="addSavegame()">Export saved data to Dropbox</button></div>
+<div><button class="btn btn-primary" ng-click="push()">Export online saved data</button></div>
 <div><button class="btn btn-default" ng-click="fetch()">Check for new online saved data</button></div>
-<p ng-if="!syncer.savedgame">No online saved data yet.</p>
-<div ng-if="syncer.savedgame">
-  <div><button class="btn btn-primary" ng-click="importSavegame()">Import online saved data (replaces your current game)</button></div>
-  <div><button class="btn btn-default" ng-click="clearSavegame()">Delete online saved data from Dropbox</button></div>
-  <div><button class="btn btn-default" id="dropboxlogout" ng-click="droplogout()">Logout</button></div>
-  <p>Last exported: {{size|number}} chars {{moment(lastExportDate).fromNow()}}.
-    <span ng-if="syncer.getAutopushError()">Will not auto-export online<span
-      ng-if="syncer.getAutopushError()=='nochanges'"> because nothing's changed since the last export</span><span
-      ng-if="syncer.getAutopushError()=='newgame'"> because this is a new game</span><span
-      ng-if="syncer.getAutopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
+<p ng-if="!fetched">No online saved data yet.</p>
+<div ng-if="fetched">
+  <div><button class="btn btn-primary" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
+  <div><button class="btn btn-default" ng-click="clear()">Delete online saved data from Dropbox</button></div>
+  <div><button class="btn btn-default" ng-click="logout()">Logout</button></div>
+  <p>Last exported: {{fetched.encoded.length|number}} chars {{fetched.date.fromNow()}}.
+    <span ng-if="autopushError()">Will not auto-export online<span
+      ng-if="autopushError()=='nochanges'"> because nothing's changed since the last export</span><span
+      ng-if="autopushError()=='newgame'"> because this is a new game</span><span
+      ng-if="autopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
   </p>
 </div>
