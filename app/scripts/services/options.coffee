@@ -177,9 +177,12 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
     # this means it starts at the wrong time for non-americans, whom we have lots of. oh well, a consistent start is more important; sorry folks.
     # start a few hours early, between 3/31 21:00 PST (00:00 EST) and 4/1 00:00 PST
     # -07:00 (not -08:00) because daylight savings
-    if now.isBetween moment.parseZone('2015-03-31T21:00:00-07:00'), moment.parseZone('2015-04-02T00:00:00-07:00')
+    #year = 2015
+    # Sadly, I won't be writing april fools events every year after all. Just make this one run every year.
+    year = new Date().getFullYear()
+    if now.isBetween moment.parseZone(year+'-03-31T21:00:00-07:00'), moment.parseZone(year+'-04-02T00:00:00-07:00')
       return 'on'
-    if now.isBetween moment.parseZone('2015-04-02T00:00:00-07:00'), moment.parseZone('2015-04-04T00:00:00-07:00')
+    if now.isBetween moment.parseZone(year+'-04-02T00:00:00-07:00'), moment.parseZone(year+'-04-04T00:00:00-07:00')
       return 'after'
     return 'off'
   isAprilFoolsTheme: (enabled) ->

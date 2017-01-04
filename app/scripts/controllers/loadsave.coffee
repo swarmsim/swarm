@@ -75,6 +75,7 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
 
 angular.module('swarmApp').controller 'AprilFoolsCtrl', ($scope, options) ->
   $scope.options = options
+  $scope.year = new Date().getFullYear()
 
 angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interval, game, $location) ->
   interval = null
