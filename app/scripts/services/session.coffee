@@ -12,11 +12,6 @@ angular.module('swarmApp').factory 'saveId', (env, isKongregate) ->
  # Factory in the swarmApp.
 ###
 angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, version, env, saveId, isKongregate) ->
-  # TODO separate file, outside of source control?
-  # Client-side encryption is inherently insecure anyway, probably not worth it.
-  # All we can do is prevent the most casual of savestate hacking.
-  #KEY = "jSmP4RnN994f58yR3UZRKhmK"
-  # LZW is obfuscated enough. No more encryption.
   PREFIX = btoa "Cheater :(\n\n"
   # The encoded string starts with an encoded version number. Older savestates
   # might not, so if this is missing, no biggie.
@@ -158,7 +153,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       @_exportCache = encoded
       if not transient
         @_write()
-    
+
     _write: ->
       # write the game in @_exportCache without building a new one. usually
       # you'll want @save() instead, but @importSave() uses this to save the
@@ -234,5 +229,3 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
     durationSinceClosed: (now, ignoreHeartbeat) ->
       ms = @millisSinceClosed now, ignoreHeartbeat
       return moment.duration ms, 'milliseconds'
-
-angular.module('swarmApp').factory 'remoteSession', (storage, $rootScope, $log, util, version, env, saveId, isKongregate) ->

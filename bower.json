@@ -30,7 +30,6 @@
     "jquery-cookie": "~1.4.1",
     "appcache-nanny": "~1.0.0",
     "angular-google-chart": "~0.1.0",
-    "swarm-shared": "git://github.com/swarmsim/swarm-shared.git#master",
     "flash-cookies": "~2.2.1",
     "bootstrap-sass": "~3.3.6",
     "font-awesome": "~4.5.0",
