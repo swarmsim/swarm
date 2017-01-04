@@ -47,6 +47,7 @@ module.exports = (config) ->
       'bower_components/appcache-nanny/appcache-nanny.js'
       'bower_components/raven-js/dist/raven.js'
       'bower_components/angular-google-chart/ng-google-chart.js'
+      'bower_components/playfab-sdk/PlayFabSDK/PlayFabClientApi.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
