@@ -261,7 +261,7 @@ module.exports = function (grunt) {
         },
         cwd: '<%= yeoman.app %>',
         // '**' not grabbing subdirs for some reason, do it manually
-        src: ['views/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
+        src: ['views/**.html', 'views/playfab/**.html', 'views/desc/unit/**.html', 'views/desc/upgrade/**.html'],
         dest: '.tmp/scripts/templateCache.js'
       },
       // no templates for dev, so they reload properly when changed

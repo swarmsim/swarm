@@ -104,36 +104,8 @@
       </div>
     </div>
   </div>
-  <div class="form-group" ng-if="isDropbox">
-    <!-- glyphicons are normally 14x14, but dropbox logo comes with some extra padding -->
-    <div><label class="control-label"><img src="images/dropbox-logos_dropbox-glyph-blue.png" style="height:18px;width:18px;">Sync saved data with other devices <span class="envalert">(beta)</span></label></div>
-    <div ng-cloak ng-controller="DropboxdatastoreCtrl">
-      <input ng-if="!isAuth()" type="image" class="btn btn-default" ng-click="droplogin()" alt="Log in with Dropbox" title="Log in with Dropbox" src="images/dropbox-logos_dropbox-logotype-blue.png" style="height:30%;width:30%;">
-      <!--button ng-if="!isAuth()" class="btn btn-default" ng-click="droplogin()">
-        <img alt="Log in with Dropbox" title="Log in with Dropbox" src="images/dropbox-logos_dropbox-logotype-blue.png" style="height:30%;width:30%;display:inline">
-      </button-->
-      <div ng-if="isAuth()">
-        <img src="images/dropbox-logos_dropbox-vertical-blue.png" style="float:left">
-        <div><label><input type="checkbox" ng-init="form.autopush=options.autopush()" ng-model="form.autopush" ng-change="options.autopush(form.autopush)" class="">Auto-export every 15 minutes and before closing</label></div>
-        
-        <div><button class="btn btn-primary" ng-click="addSavegame()">Export saved data to Dropbox</button></div>
-        <div><button class="btn btn-default" ng-click="fetch()">Check for new online saved data</button></div>
-        <p ng-if="!syncer.savedgame">Nothing exported to Dropbox yet.</p>
-        <div ng-if="syncer.savedgame">
-          <div><button class="btn btn-primary" ng-click="importSavegame()">Import saved data (replaces your current game)</button></div>
-          <div><button class="btn btn-default" ng-click="clearSavegame()">Delete saved data from Dropbox</button></div>
-          <div><button class="btn btn-default" id="dropboxlogout" ng-click="droplogout()">Logout</button></div>
-          <p>Last exported: {{syncer.savedgame.get('data').length|number}} chars {{moment(syncer.savedgame.get('created')).fromNow()}}.
-            <span ng-if="syncer.getAutopushError()">Will not auto-export online<span
-              ng-if="syncer.getAutopushError()=='nochanges'"> because nothing's changed since the last export</span><span
-              ng-if="syncer.getAutopushError()=='newgame'"> because this is a new game</span><span
-              ng-if="syncer.getAutopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
-          </p>
-        </div>
-        <div style="clear:left"></div>
-      </div>
-    </div>
-  </div>
+  <!-- Wow, can't believe I didn't split this up into more files back when I built it. -->
+  <playfab></playfab>
   <div ng-cloak ng-controller="KongregateS3Ctrl">
     <div ng-if="isVisible">
       <div><label class="control-label"><img src="/images/badge16x16K.gif" width="16" height="16" alt="Kongregate logo"> Sync saved data with other devices <span class="envalert">(beta)</span></label></div>

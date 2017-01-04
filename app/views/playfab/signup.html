@@ -1,0 +1,12 @@
+<div class="form-group">
+  <label for="playfab-email">Email</label>
+  <input type="text" name="playfab-email" ng-model="form.email" class="form-control"></label>
+  <div>We'll only send you account recovery/lost password emails.</div>
+</div>
+<div class="form-group">
+  <label for="playfab-password">Password</label>
+  <input type="password" name="playfab-password" ng-model="form.password" class="form-control"></label>
+  <input type="password" name="playfab-password2" ng-model="form.password2" class="form-control"></label>
+  <div ng-if="form.password != form.password2">Passwords do not match.</div>
+</div>
+<button type="submit" ng-class="{disabled: form.password != form.password2}" class="btn btn-info form-control" ng-click="runSignup()">Sign up</button>
