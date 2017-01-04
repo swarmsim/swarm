@@ -124,7 +124,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
     <h4>Upgrades</h4>
     <ul class="list-unstyled">
       <li ng-repeat="upgrade in visibleUpgrades">
-        <h5 ng-class="{'text-muted':upgrade.isManuallyHidden()}">
+        <h5 ng-show="options.showAdvancedUnitData()" ng-class="{'text-muted':upgrade.isManuallyHidden()}">
           {{upgrade.type.label}}
           <span ng-if="upgrade.type.maxlevel != 1">({{upgrade.count()+""|number}})</span>
           <label class="form-inline pull-right" style="white-space:nowrap" title="Show upgrade notifier?">
