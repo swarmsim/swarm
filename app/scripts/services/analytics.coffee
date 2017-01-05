@@ -92,12 +92,6 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
     logThrottledEvent message, message, 'captureMessage'
   logThrottledEvent = (message, logged, key) ->
     errorCount += 1
-    if errorCount <= ERROR_THROTTLE_THRESHOLD
-      Raven[key] logged
-      $log.debug 'logging error to sentry', logged
-      if errorCount == ERROR_THROTTLE_THRESHOLD
-        $log.warn 'error threshold reached, no more errors will be reported to sentry'
-        #Raven.captureMessage 'error threshold reached, no more errors will be reported to sentry'
 
   $rootScope.$on 'unhandledException', (event, args) ->
     try
@@ -106,7 +100,6 @@ angular.module('swarmApp').factory 'analytics', ($rootScope, $analytics, env, ga
       # no infinite loops plz
       try
         $log.warn 'unhandled exception error logging loop', e
-        Raven.captureError e
       catch e2
         $log.warn 'exception logging failed, giving up', e2
 

@@ -25,26 +25,6 @@ angular.module 'swarmApp', [
     'googlechart'
   ]
 
-angular.module('swarmApp').config (version, env) ->
-  # run this first to log other init errors.
-  # tests don't have a dsn, don't setup raven at all
-  # skip multiple runs of setup for dev - happens when unittesting, clutters output - but prod must always run this
-  if env.sentryDSN and ((not env.isDebugEnabled) or (not Raven.isSetup()))
-    filters = [
-      # https://app.getsentry.com/swarm-simulator/swarmsim/group/57518714/
-      /Permission denied to access property ['\"]toString/
-    ]
-    Raven.config(env.sentryDSN,
-      # http://raven-js.readthedocs.org/en/latest/config/
-      release: version
-      maxMessageLength: 200
-      shouldSendCallback: (data) ->
-        for filter in filters
-          if filter.test data.message
-            return
-        return Math.random() < env.sentrySampleRate
-    ).install()
-
 angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline
     return $routeProvider
