@@ -48,31 +48,34 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
   constructor: ->
     @characters = {}
     if env.isServerBackendEnabled
-      @user = @whoami()
-      .success =>
-        # connect legacy character upon page reload
-        @maybeConnectLegacyCharacter()
-        #if env.isServerFrontendEnabled
-        #  # TODO import most recently used character from server. need to know when connectLegacyCharacter above is done, though
-        $log.debug 'user already logged in', @user
-      .error =>
-        # not logged in.
-        # TODO guest login, with some caveats:
-        # * no guest login if isKongregate(), kong might still be loading
-        #   * kong has guest users too, though! what if their guest isn't logged in?
-        # * yes guest login if there's a saved character, which proves this isn't a new visitor - it's a legacy character.
-        #   * import the legacy character right away, and don't create a new character for the guest.
-        # * no guest login YET if there's no saved character - this is a fresh visitor, and they might already have an account they're about to log in to.
-        #   * guest login comes later, once they take an action like buying a drone.
-        #     * how to handle creating their character, though? new characters shouldn't start as legacy imports, and we can't just allow infinitely backdated character creation!
-        # OR, maybe just guest-login now in every case, and delete the guest later if it's not needed? creating an empty user/character in the db isn't very expensive. pollutes the db though. eh... do it anyway.
-        if not isKongregate()
-          @login 'guestuser'
-          .success =>
-            $log.debug 'created guest user'
-            @maybeConnectLegacyCharacter()
-          .error =>
-            $log.debug 'failed to create guest user'
+      @user = @whoami().then(
+        =>
+          # connect legacy character upon page reload
+          @maybeConnectLegacyCharacter()
+          #if env.isServerFrontendEnabled
+          #  # TODO import most recently used character from server. need to know when connectLegacyCharacter above is done, though
+          $log.debug 'user already logged in', @user
+        =>
+          # not logged in.
+          # TODO guest login, with some caveats:
+          # * no guest login if isKongregate(), kong might still be loading
+          #   * kong has guest users too, though! what if their guest isn't logged in?
+          # * yes guest login if there's a saved character, which proves this isn't a new visitor - it's a legacy character.
+          #   * import the legacy character right away, and don't create a new character for the guest.
+          # * no guest login YET if there's no saved character - this is a fresh visitor, and they might already have an account they're about to log in to.
+          #   * guest login comes later, once they take an action like buying a drone.
+          #     * how to handle creating their character, though? new characters shouldn't start as legacy imports, and we can't just allow infinitely backdated character creation!
+          # OR, maybe just guest-login now in every case, and delete the guest later if it's not needed? creating an empty user/character in the db isn't very expensive. pollutes the db though. eh... do it anyway.
+          if not isKongregate()
+            @login 'guestuser'
+            .then(
+              =>
+                $log.debug 'created guest user'
+                @maybeConnectLegacyCharacter()
+              =>
+                $log.debug 'failed to create guest user'
+            )
+      )
   hasUser: ->
     return @user.id?
 
@@ -80,10 +83,12 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     if not env.isServerBackendEnabled
       return
     $http.get "#{env.saveServerUrl}/whoami"
-    .success (data, status, xhr) =>
-      @user = data
-    .error (data, status, xhr) =>
-      @user = {}
+    .then(
+      (data, status, xhr) =>
+        @user = data
+      (data, status, xhr) =>
+        @user = {}
+    )
 
   @LOGIN_TAILS =
     kongregate: '/callback'
@@ -93,17 +98,21 @@ angular.module('swarmApp').factory 'loginApiEnabled', ($http, env, util, $log, s
     if not env.saveServerUrl
       $log.error "env.saveServerUrl is blank, expect all swarmapi calls to fail. I hope this isn't the production environment!"
     $http.post "#{env.saveServerUrl}/auth/#{strategy}#{tail}", credentials, {withCredentials: true}
-    .success (data, status, xhr) =>
-      @user = data.user
-      # connect legacy character upon login
-      @maybeConnectLegacyCharacter()
+    .then(
+      (data, status, xhr) =>
+        @user = data.user
+        # connect legacy character upon login
+        @maybeConnectLegacyCharacter()
+    )
  
   logout: ->
     if not env.isServerBackendEnabled
       return
     $http.get "#{env.saveServerUrl}/logout", {}, {withCredentials: true}
-    .success (data, status, xhr) =>
-      @whoami()
+    .then(
+      (data, status, xhr) =>
+        @whoami()
+    )
 
   maybeConnectLegacyCharacter: ->
     # TODO: might import from multiple devices. import if there's any chance we'd overwrite the only save!

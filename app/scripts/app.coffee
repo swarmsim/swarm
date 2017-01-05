@@ -22,6 +22,11 @@ angular.module 'swarmApp', [
     'googlechart'
   ]
 
+# Angular 1.6 makes urls start with '#!' instead of '#', but swarmsim predates that and has lots of non-#! urls out there already.
+# https://docs.angularjs.org/guide/migration#migrating-from-1-4-to-1-5
+angular.module('swarmApp').config ($locationProvider) ->
+  $locationProvider.hashPrefix ''
+
 angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline
     return $routeProvider

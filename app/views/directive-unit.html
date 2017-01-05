@@ -139,6 +139,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
             </select>
           </label>
         </h5>
+        <h5 ng-show="!options.showAdvancedUnitData()">{{upgrade.type.label}}</h5>
         <div ng-hide="upgrade.isManuallyHidden()">
           <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>
           <p>
