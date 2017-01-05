@@ -14,18 +14,17 @@ angular.module('swarmApp').directive 'playfaboptions', (playfab, options, sessio
       autopush: options.autopush()
     scope.name = playfab.auth.email
     #scope.fetched = {state: 'abcde', lastUpdated: moment(999)}
-    handleFetched = (auth) =>
-      scope.fetched =
-        state: auth.state
-        lastUpdated: moment(auth.lastUpdated)
-    handleFetched(playfab.auth)
+    scope.fetched =
+      state: -> playfab.auth?.state
+      lastUpdated: -> moment(playfab.auth.lastUpdated)
+    scope.isFetched = -> !!scope.fetched.state()
 
     playfabSyncer.initAutopush(options.autopush())
     scope.setAutopush = (val) ->
       options.autopush(val)
       playfabSyncer.initAutopush(val)
 
-    scope.push = -> playfab.push(session.exportSave()).then(handleFetched)
+    scope.push = -> playfab.push(session.exportSave())
     scope.fetch = -> playfab.fetch().then(handleFetched)
     scope.pull = -> playfab.fetch().then(
       (auth) =>

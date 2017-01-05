@@ -1,14 +1,14 @@
-<p ng-show="!!name">Hi, {{name}}!</p>
+<p ng-show="!!name">Hello {{name}}!</p>
 <div><label><input type="checkbox" ng-model="form.autopush" ng-change="setAutopush(form.autopush)" class="">Auto-export every 15 minutes and before closing</label></div>
 
 <div><button class="btn btn-primary" ng-click="push()">Export online saved data</button></div>
 <div><button class="btn btn-default" ng-click="fetch()">Check for new online saved data</button></div>
-<p ng-if="!(fetched && fetched.state)">No online saved data yet.</p>
-<div ng-if="fetched && fetched.state">
+<p ng-if="!isFetched()">No online saved data yet.</p>
+<div ng-if="isFetched()">
   <div><button class="btn btn-primary" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
   <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
   <div><button class="btn btn-default" ng-click="logout()">Logout</button></div>
-  <p>Last exported: {{fetched.state.length|number}} chars {{fetched.lastUpdated.fromNow()}}.
+  <p>Last exported: {{fetched.state().length|number}} chars {{fetched.lastUpdated().fromNow()}}.
     <span ng-if="autopushError()">Will not auto-export online<span
       ng-if="autopushError()=='nochanges'"> because nothing's changed since the last export</span><span
       ng-if="autopushError()=='newgame'"> because this is a new game</span><span
