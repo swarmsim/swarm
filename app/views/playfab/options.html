@@ -7,7 +7,6 @@
 <div ng-if="isFetched()">
   <div><button class="btn btn-primary" ng-click="pull()">Import online saved data (replaces your current game)</button></div>
   <div><button class="btn btn-default" ng-click="clear()">Delete online saved data</button></div>
-  <div><button class="btn btn-default" ng-click="logout()">Logout</button></div>
   <p>Last exported: {{fetched.state().length|number}} chars {{fetched.lastUpdated().fromNow()}}.
     <span ng-if="autopushError()">Will not auto-export online<span
       ng-if="autopushError()=='nochanges'"> because nothing's changed since the last export</span><span
@@ -15,3 +14,4 @@
       ng-if="autopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
   </p>
 </div>
+<div><button class="btn btn-default" ng-click="logout()">Logout</button></div>
