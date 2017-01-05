@@ -232,7 +232,7 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
         @autopush()
 
   fetch: (fn=(->)) ->
-    $log.debug 'dropbox is fetching (lulz)'
+    $log.debug 'dropbox fetching'
     taskTable = @_getTable()
     @savedgames = taskTable.query name:@newSavegame
     @savedgame = @savedgames[0]
@@ -286,3 +286,72 @@ angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $
     for savegame in @savedgames
       $log.debug 'do delete of:'+ savegame
       @_getTable().get(savegame.getId()).deleteRecord()
+
+# This is a bit of a mess... redundant with playfab in another file. Can't be arsed to fix it right now.
+angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location, isKongregate, $interval, $rootScope, playfab) -> new class PlayfabSyncer
+  isVisible: ->
+    # A dropbox key must be supplied, no exceptions.
+    # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
+    # ?dropbox in the URL overrides these things.
+    return env.playfabTitleId and not isKongregate()
+
+  isAuth: ->
+    return playfab.isAuthed()
+
+  isInit: ->
+    return @isAuth()
+
+  init: (fn) ->
+    # no-op. TODO: autologin here
+    fn()
+
+  # TODO share code with kongregate autosync
+  initAutopush: (enabled=true) ->
+    if @autopushInterval
+      $interval.cancel @autopushInterval
+      @autopushInterval = null
+    $(window).off 'unload', 'playfab.autopush'
+    if enabled
+      $log.debug 'playfab autopush enabled'
+      @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
+      $(window).unload 'playfab.autopush', =>
+        $log.debug 'autopush unload'
+        @autopush()
+
+  fetch: (fn=(->)) ->
+    playfab.fetch().then(fn)
+
+  fetchedSave: ->
+    return playfab.auth?.state
+
+  fetchedDate: ->
+    return new Date(playfab.auth?.lastUpdated)
+
+  push: (fn=(->)) ->
+    playfab.push(game.session.exportSave()).then(fn)
+
+  getAutopushError: ->
+    if @fetchedSave() == game.session.exportSave()
+      return 'nochanges'
+    # you'd think 'Date == Date' would work since >/</>=/<= work, but no, it's reference equality.
+    if game.session.state.date.reified.getTime() == game.session.state.date.started.getTime()
+      return 'newgame'
+
+  # TODO share code with kong autosync
+  autopush: ->
+    if @isInit() and @autopushInterval
+      if not @getAutopushError()
+        $log.debug 'autopushing (with changes, for real)'
+        @push()
+      else
+        $log.debug 'autopush triggered with no changes, ignoring'
+
+  pull: ->
+    save = @fetchedSave()
+    if not save
+      throw new Error 'nothing to pull'
+    game.importSave save
+    $rootScope.$broadcast 'import', {source:'dropboxSyncer', success:true}
+
+  clear: (fn=(->)) ->
+    playfab.clear().then(fn)

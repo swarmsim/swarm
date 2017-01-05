@@ -88,9 +88,9 @@ angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, kon
   $scope.onRender = ->
     kongregate.onResize()
 
-angular.module('swarmApp').factory 'remoteSaveInit', ($log, kongregate, kongregateS3Syncer, dropboxSyncer, options) -> return ($scope) ->
+angular.module('swarmApp').factory 'remoteSaveInit', ($log, kongregate, kongregateS3Syncer, dropboxSyncer, playfabSyncer, options) -> return ($scope) ->
   $scope.$watch 'options.autopush()', (newval, oldval) =>
-    for syncer in [kongregateS3Syncer, dropboxSyncer] then do (syncer) =>
+    for syncer in [kongregateS3Syncer, dropboxSyncer, playfabSyncer] then do (syncer) =>
       $log.debug 'autopush trying to setup', syncer.constructor.name
       if syncer.isVisible()
         $log.debug 'autopush visible', syncer.constructor.name
