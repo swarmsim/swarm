@@ -771,14 +771,7 @@ module.exports = function (grunt) {
       }
     },
     githash: {
-      main: {
-        options: {},
-      }
-    },
-    writeVersionJson: {
-      options: {
-        githash: '<%= githash.main.hash %>',
-      },
+      main: {}
     },
   });
 
@@ -827,17 +820,17 @@ module.exports = function (grunt) {
       }
     });
   });
-  grunt.registerTask('writeVersionJson', 'write version info to a json file', function() {
+  grunt.registerTask('writeVersionJson', 'write version info to a json file', ['githash', '_writeVersionJson', 'preloadSpreadsheet']);
+  grunt.registerTask('_writeVersionJson', 'write version info to a json file', function() {
     var version = grunt.file.readJSON('package.json').version;
     var data = {
       version: version,
       updated: new Date(),
-      githash: grunt.option('githash'),
+      githash: grunt.config('githash.main'),
     };
     var text = JSON.stringify(data, undefined, 2);
     grunt.file.write('.tmp/version.json', text);
     grunt.file.write('dist/version.json', text);
-    grunt.task.run(['preloadSpreadsheet']);
   });
   grunt.registerTask('buildCname', 'build swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'www.swarmsim.com');
