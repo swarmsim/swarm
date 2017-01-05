@@ -84,7 +84,7 @@ angular.module('swarmApp').factory 'VersionChecker', (env, util, $log) -> class 
     # max version in any one chunk
     @_MAX = 100000
   check: (remote) ->
-    if (env.isAppcacheEnabled and window.appCacheNanny.hasUpdate()) or @compare(@version, remote) < 0 #local < remote
+    if @compare(@version, remote) < 0 #local < remote
       $log.debug 'newer version found on server! reloading.', {local:@version, remote:remote}
       window.location.reload()
   compare: (a, b) ->

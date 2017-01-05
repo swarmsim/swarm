@@ -166,15 +166,6 @@ angular.module('swarmApp').run ($rootScope) ->
 
 angular.module('swarmApp').value 'UNIT_LIMIT', '1e100000'
 
-angular.module('swarmApp').run ($rootScope, env) ->
-  #Decimal.config errors:false
-  if env.isAppcacheEnabled
-    appCacheNanny.set('loaderPath', '/views/appcache-loader.html')
-    if env.isDebugEnabled
-      appCacheNanny.start({checkInterval: 60 * 1000})  #60 seconds on debug
-    #else
-      #appCacheNanny.start({checkInterval: 30000}) #30 seconds is default
-
 # not sure why dropdowns don't work on their own anymore, but this fixes it
 angular.module('swarmApp').run () ->
   $(document).on 'mousedown', '.dropdown-toggle', () ->
