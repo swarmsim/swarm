@@ -27,7 +27,7 @@ angular.module('swarmApp').factory 'playfabCredentialStore', ($log) -> new class
         $log.warning e
         return undefined
   clear: ->
-    window.localstorage.removeItem @key
+    window.localStorage.removeItem @key
 
 ###*
  # @ngdoc service
