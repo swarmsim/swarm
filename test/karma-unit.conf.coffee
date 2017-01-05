@@ -35,7 +35,6 @@ module.exports = (config) ->
       'bower_components/lz-string/libs/lz-string.min.js'
       'bower_components/numeral/numeral.js'
       'bower_components/konami-js/konami.js'
-      'bower_components/angular-hotkeys/build/hotkeys.min.js'
       'bower_components/jquery/dist/jquery.js'
       'bower_components/favico.js/favico.js'
       'bower_components/seedrandom/seedrandom.js'

@@ -19,9 +19,6 @@ angular.module 'swarmApp', [
     'swarmEnv', 'swarmSpreadsheetPreload'
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
-    # https://github.com/chieffancypants/angular-hotkeys/
-    # TODO: hotkeys disabled for now.
-    #'cfp.hotkeys'
     'googlechart'
   ]
 

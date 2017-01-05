@@ -47,17 +47,3 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
     if tab.isVisible()
       return tab
     return findtab index, step
-  # No keyboard shortcuts for now. TODO: make more, decent keyboard shortcuts; game should be playable without mouse.
-  #binds = hotkeys.bindTo $scope
-  #binds.add
-  #  combo: 'left'
-  #  description: 'Go to previous tab'
-  #  callback: ->
-  #    if tab = findtab $scope.cur.tab.index, -1
-  #      $location.url "/tab/#{tab.name}"
-  #binds.add
-  #  combo: 'right'
-  #  description: 'Go to next tab'
-  #  callback: ->
-  #    if tab = findtab $scope.cur.tab.index, +1
-  #      $location.url "/tab/#{tab.name}"
