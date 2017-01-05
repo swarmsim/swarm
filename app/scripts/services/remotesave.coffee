@@ -70,7 +70,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
     $(window).off 'unload', 'kongregate.autopush'
     if enabled
       @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
-      $(window).unload 'kongregate.autopush', =>
+      $(window).on 'unload', 'kongregate.autopush', =>
         $log.debug 'autopush unload'
         @autopush()
 
@@ -198,7 +198,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     if enabled
       $log.debug 'playfab autopush enabled'
       @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
-      $(window).unload 'playfab.autopush', =>
+      $(window).on 'unload', 'playfab.autopush', =>
         $log.debug 'autopush unload'
         @autopush()
 

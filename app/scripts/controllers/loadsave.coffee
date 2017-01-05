@@ -101,7 +101,7 @@ angular.module('swarmApp').controller 'WelcomeBackCtrl', ($scope, $log, $interva
     # Store when the game was closed. Try to use the browser's onclose (onunload); that's most precise.
     # It's unreliable though (crashes fail, cross-browser's icky, ...) so use a heartbeat too.
     # Wait until showWelcomeBack is set before doing these, or it'll never show
-    $(window).unload -> game.session.onClose()
+    $(window).on 'unload', -> game.session.onClose()
     interval ?= $interval (-> game.session.onHeartbeat()), 60000
     game.session.onHeartbeat() # game.session time checks after this point will be wrong
 

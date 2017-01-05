@@ -4,43 +4,40 @@
   "dependencies": {
     "angular": "~1.4.8",
     "json3": "~3.3.1",
-    "es5-shim": "~4.4.1",
-    "jquery": "~2.2.0",
+    "es5-shim": "4.5.9",
+    "jquery": "3.1.1",
     "angular-resource": "~1.4.8",
     "angular-cookies": "~1.4.8",
     "angular-sanitize": "~1.4.8",
     "angular-animate": "~1.4.8",
     "angular-touch": "~1.4.8",
     "angular-route": "~1.4.8",
-    "moment": "~2.11.1",
-    "angulartics": "~1.0.3",
+    "moment": "2.17.1",
+    "angulartics": "1.3.0",
     "sjcl": "~1.0.0",
-    "mathjs": "~2.6.0",
+    "mathjs": "3.8.1",
     "lz-string": "*",
-    "numeral": "~1.5.3",
+    "numeral": "2.0.4",
     "konami-js": "~1.4.2",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.3",
     "favico.js": "~0.3.5",
     "seedrandom": "~2.4.2",
-    "decimal.js": "git://github.com/MikeMcl/decimal.js.git#~4.0.1",
+    "decimal.js": "git://github.com/MikeMcl/decimal.js.git#4.0.4",
     "moment-duration-format": "~1.3.0",
     "bootswatch": "~3.3.6",
     "jquery-cookie": "~1.4.1",
     "appcache-nanny": "~1.0.0",
     "angular-google-chart": "~0.1.0",
     "flash-cookies": "~2.2.1",
-    "bootstrap-sass": "~3.3.6",
-    "font-awesome": "~4.5.0",
-    "angulartics-google-analytics": "~0.1.4",
-    "lodash": "^4.17.4",
-    "playfab-sdk": "PlayFab/JavaScriptSDK#^0.35.170102"
+    "bootstrap-sass": "3.3.7",
+    "font-awesome": "4.7.0",
+    "angulartics-google-analytics": "0.4.0",
+    "lodash": "4.17.4",
+    "playfab-sdk": "PlayFab/JavaScriptSDK#0.35.170102"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.8",
     "angular-scenario": "~1.4.8"
   },
-  "appPath": "app",
-  "resolutions": {
-    "angular": "~1.4.8"
-  }
+  "appPath": "app"
 }
