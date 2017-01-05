@@ -175,124 +175,9 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         fn data, status, xhr
         # @fetch() # nope - S3 is eventually consistent, this might return old data
 
-angular.module('swarmApp').factory 'dropboxSyncer', ($log, env, session, game, $location, isKongregate, $interval, $rootScope) -> new class DropboxSyncer
-  constructor: ->
-    @_datastore = null
-    @_recschanged = null
-    @savedgames = []
-    @newSavegame = 'game'
-    @appKey = env.dropboxAppKey
-    $log.debug 'env.dropboxAppKey:', @appKey
-    @dsc =  new Dropbox.Client({key: @appKey})
-    # First check if we're already authenticated.
-    @dsc.authenticate({interactive : false})
-
-  isVisible: ->
-    # A dropbox key must be supplied, no exceptions.
-    # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
-    # ?dropbox in the URL overrides these things.
-    return env.dropboxAppKey and ($location.search().dropbox ?
-      (env.isDropboxEnabled and not isKongregate()))
-  isAuth: ->
-    return @dsc.isAuthenticated()
-
-  _getTable: ->
-    return @_datastore.getTable 'saveddata'
-
-  init: (fn) ->
-    if @isAuth()
-      $log.debug "initializing dropbox"
-
-      datastoreManager = new Dropbox.Datastore.DatastoreManager(@dsc)
-      datastoreManager.openDefaultDatastore (err,datastore) =>
-        $log.debug "dropbox opendef err: "+err if err
-        $log.debug "dropbox opendef datastore: "+datastore
-
-        @_datastore = datastore
-        @_recordChangedListener = => @fetch()
-        @_datastore.recordsChanged.addListener @_recordChangedListener
-        $log.debug 'dropbox done initing, now fetching'
-        @fetch fn
-    else
-      $log.debug 'not logged in to dropbox, not initializing'
-
-  isInit: ->
-    return @_datastore?
-
-  # TODO share code with kongregate autosync
-  initAutopush: (enabled=true) ->
-    if @autopushInterval
-      $interval.cancel @autopushInterval
-      @autopushInterval = null
-    $(window).off 'unload', 'kongregate.autopush'
-    if enabled
-      @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
-      $(window).unload 'kongregate.autopush', =>
-        $log.debug 'autopush unload'
-        @autopush()
-
-  fetch: (fn=(->)) ->
-    $log.debug 'dropbox fetching'
-    taskTable = @_getTable()
-    @savedgames = taskTable.query name:@newSavegame
-    @savedgame = @savedgames[0]
-    $log.debug 'fetched from dropbox: '+@savedgame
-    fn()
-
-  fetchedSave: ->
-    return @savedgame?.get?('data')
-  fetchedDate: ->
-    if @savedgame?.get?('created')
-      return new Date @savedgame?.get?('created')
-
-  push: (fn=(->)) ->
-    @clear()
-    $log.debug 'saving to dropbox'
-    taskTable = @_getTable()
-
-    firstTask = taskTable.insert
-      name: @newSavegame
-      created: new Date()
-      data: session.exportSave()
-    # fetch is unnecessary: https://github.com/swarmsim/swarm/commit/689d91fea01b4c83ac70c9dee9400f2b9ca8786f#commitcomment-10160101
-    fn()
-
-  getAutopushError: ->
-    if @fetchedSave() == game.session.exportSave()
-      return 'nochanges'
-    if (@fetchedDate() ? new Date 0) > game.session.state.date.reified
-      return 'remotenewer'
-    # you'd think 'Date == Date' would work since >/</>=/<= work, but no, it's reference equality.
-    if game.session.state.date.reified.getTime() == game.session.state.date.started.getTime()
-      return 'newgame'
-
-  # TODO share code with kong autosync
-  autopush: ->
-    if @isInit() and @autopushInterval
-      if not @getAutopushError()
-        $log.debug 'autopushing (with changes, for real)'
-        @push()
-      else
-        $log.debug 'autopush triggered with no changes, ignoring'
-
-  pull: ->
-    save = @fetchedSave()
-    if not save
-      throw new Error 'nothing to pull'
-    game.importSave save
-    $rootScope.$broadcast 'import', {source:'dropboxSyncer', success:true}
-
-  clear: (fn=(->)) ->
-    for savegame in @savedgames
-      $log.debug 'do delete of:'+ savegame
-      @_getTable().get(savegame.getId()).deleteRecord()
-
 # This is a bit of a mess... redundant with playfab in another file. Can't be arsed to fix it right now.
 angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location, isKongregate, $interval, $rootScope, playfab) -> new class PlayfabSyncer
   isVisible: ->
-    # A dropbox key must be supplied, no exceptions.
-    # Dropbox can be disabled per-environment in the gruntfile. It's disabled on Kongregate per their (lame) rules.
-    # ?dropbox in the URL overrides these things.
     return env.playfabTitleId and not isKongregate()
 
   isAuth: ->
@@ -350,7 +235,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     if not save
       throw new Error 'nothing to pull'
     game.importSave save
-    $rootScope.$broadcast 'import', {source:'dropboxSyncer', success:true}
+    $rootScope.$broadcast 'import', {source:'playfabSyncer', success:true}
 
   clear: (fn=(->)) ->
     playfab.clear().then(fn)
