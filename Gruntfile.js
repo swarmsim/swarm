@@ -63,6 +63,7 @@ module.exports = function (grunt) {
           autopushIntervalMs: 1000 * 60 * 9999,
           googleApiKey: 'AIzaSyArP8wzscVTyD4wBWZrhPnGWwj7W7ROaSI',
           isAppcacheEnabled: true,
+          playfabTitleId: 'F810',
           sentryDSN: null,
           sentrySampleRate: 0,
           isServerBackendEnabled: true,
@@ -126,6 +127,8 @@ module.exports = function (grunt) {
           isKongregateSyncEnabled: true,
           autopushIntervalMs: 1000 * 60 * 15,
           googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
+          // https://developer.playfab.com/en-us/7487/dashboard
+          playfabTitleId: '7487',
           isAppcacheEnabled: false,
           sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
           sentrySampleRate: 0.001,
