@@ -16,8 +16,8 @@ angular.module('swarmApp').directive 'playfabauth', (playfab) ->
       scope.active = active
       return false
     scope.setActive 'login'
-    #scope.form = {}
-    scope.form = {email: 'test@erosson.org', password: 'testtest', password2: 'testtest'}
+    scope.form = {}
+    #scope.form = {email: 'test@erosson.org', password: 'testtest', password2: 'testtest'}
     handleError = (error) ->
       scope.error =
         main: error?.errorMessage
