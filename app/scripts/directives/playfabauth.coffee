@@ -27,13 +27,13 @@ angular.module('swarmApp').directive 'playfabauth', (playfab) ->
 
     scope.runSignup = () ->
       scope.error = null
-      playfab.signup(scope.form.email, scope.form.password).then(
+      playfab.signup(scope.form.email, scope.form.password, scope.form.remember).then(
         (data) ->
           console.log 'success', data
         handleError)
     scope.runLogin = () ->
       scope.error = null
-      playfab.login(scope.form.email, scope.form.password).then(
+      playfab.login(scope.form.email, scope.form.password, scope.form.remember).then(
         (data) ->
           console.log 'success', data
         handleError)

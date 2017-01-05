@@ -302,8 +302,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     return @isAuth()
 
   init: (fn) ->
-    # no-op. TODO: autologin here
-    fn()
+    playfab.autologin().then(fn)
 
   # TODO share code with kongregate autosync
   initAutopush: (enabled=true) ->

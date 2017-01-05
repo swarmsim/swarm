@@ -2,6 +2,33 @@
 
 # https://github.com/PlayFab/JavaScriptSDK
 
+angular.module('swarmApp').factory 'playfabCredentialStore', ($log) -> new class PlayfabCredentialStore
+  constructor: (@key="playfabCredentials") ->
+  write: (email, password) ->
+    # Storing a password this way is terribly insecure.
+    # But... playfab doesn't have its own remember-me option, the
+    # convenience is more important than the security for my little game,
+    # other games/sites do this, and I can't be bothered to set up
+    # something with playfab customids right now.
+    window.localStorage.setItem @key, JSON.stringify
+      email: email
+      #password: password
+      # This is still insecure, but if I'm going to take shortcuts here,
+      # the least we can do is obfuscate it slightly
+      password: window.btoa password
+  read: ->
+    ret = window.localStorage.getItem @key
+    if ret
+      try
+        ret = JSON.parse ret
+        ret.password = window.atob ret.password
+        return ret
+      catch e
+        $log.warning e
+        return undefined
+  clear: ->
+    window.localstorage.removeItem @key
+
 ###*
  # @ngdoc service
  # @name swarmApp.playfab
@@ -9,10 +36,12 @@
  # # playfab
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Playfab', ($q) -> class Playfab
+angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore) -> class Playfab
   constructor: ->
   isAuthed: -> !!@auth
-  logout: -> @auth = null
+  logout: ->
+    @auth = null
+    playfabCredentialStore.clear()
 
   login: (email, password, remember) -> $q (resolve, reject) =>
     PlayFabClientSDK.LoginWithEmailAddress
@@ -24,6 +53,8 @@ angular.module('swarmApp').factory 'Playfab', ($q) -> class Playfab
       (response, error) =>
         if response && response.code == 200
           console.log('login success', response)
+          if remember
+            playfabCredentialStore.write(email, password)
           @auth =
             raw: response.data
             rawType: 'login'
@@ -33,24 +64,14 @@ angular.module('swarmApp').factory 'Playfab', ($q) -> class Playfab
         else
           reject(error)
 
-  # TODO: make this work; support guest logins?
-  autologin: (customId) -> $q (resolve, reject) =>
-    PlayFabClientSDK.LoginWithCustomId
-      CustomId: customId
-      InfoRequestParameters:
-        GetUserAccountInfo: true
-        GetUserData: true
-      (response, error) =>
-        if response && response.code == 200
-          console.log('autologin success', response)
-          @auth =
-            raw: response.data
-            rawType: 'autologin'
-            email: email
-          @_loadUserData(response.data.InfoResultPayload.UserData)
-          resolve(response.data)
-        else
-          reject(error)
+  autologin: ->
+    creds = playfabCredentialStore.read()
+    if creds?.email && creds?.password
+      $log.debug 'found playfab autologin creds'
+      return @login creds.email, creds.password, false
+    else
+      $log.debug 'playfab autologin failed, no creds stored'
+      return $q (resolve, reject) -> reject()
 
   signup: (email, password) -> $q (resolve, reject) =>
     PlayFabClientSDK.RegisterPlayFabUser
