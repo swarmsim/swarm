@@ -1,4 +1,4 @@
-<p ng-show="!!name">Hello {{name}}!</p>
+<p ng-show="!!name">Hello {{name}}! <button class="btn btn-default" ng-click="logout()">Logout</button></p>
 <div><label><input type="checkbox" ng-model="form.autopush" ng-change="setAutopush(form.autopush)" class="">Auto-export every 15 minutes and before closing</label></div>
 
 <div><button class="btn btn-primary" ng-click="push()">Export online saved data</button></div>
@@ -14,4 +14,3 @@
       ng-if="autopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
   </p>
 </div>
-<div><button class="btn btn-default" ng-click="logout()">Logout</button></div>
