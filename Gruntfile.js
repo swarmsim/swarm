@@ -203,21 +203,6 @@ module.exports = function (grunt) {
     preloadSpreadsheet: {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
     },
-    //mxmlc: {
-    //  options: {
-    //    // Task-specific options go here.
-    //  },
-    //  dev: {
-    //    files:{
-    //      './.tmp/storage.swf' : ['./jsflash/dev/Storage.as']
-    //    }
-    //  },
-    //  prod: {
-    //    files:{
-    //      './dist/storage.swf' : ['./jsflash/prod/Storage.as']
-    //    },
-    //  },
-    //},
 
     manifest: {
       options: {
@@ -681,10 +666,7 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',//'views/desc/unit/{,*/}*.html','views/desc/upgrade/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*',
-            // mxmlc stopped working at some point, but I can't be bothered to fix it properly.
-            // The compiled version is now saved in git, so we'll just use that and remove all
-            // flash deps from the build.
-            'jsflash/storage.swf',
+            'storage.swf',
           ]
         }, {
           expand: true,
@@ -923,6 +905,9 @@ module.exports = function (grunt) {
       'manifest',
       'usemin',
       'htmlmin',
+      // mxmlc stopped working at some point, but I can't be bothered to fix it properly.
+      // The compiled version is now saved in git, so we'll just use that and remove all
+      // flash deps from the build.
       //'mxmlc:prod'
     ]);
   });
