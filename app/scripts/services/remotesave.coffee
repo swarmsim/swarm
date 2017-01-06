@@ -23,7 +23,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
     defer = $q.defer()
     ret = defer.promise
     # TODO refactor to use promises, remove callback
-    ret.then fn
+    ret.then fn, console.warn
     kongregate.onLoad.then =>
       @policy = null
       if force
@@ -187,7 +187,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     return @isAuth()
 
   init: (fn) ->
-    playfab.autologin().then(fn)
+    playfab.autologin().then(fn, console.warn)
 
   # TODO share code with kongregate autosync
   initAutopush: (enabled=true) ->
@@ -203,7 +203,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
         @autopush()
 
   fetch: (fn=(->)) ->
-    playfab.fetch().then(fn)
+    playfab.fetch().then(fn, console.warn)
 
   fetchedSave: ->
     return playfab.auth?.state
@@ -212,7 +212,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     return new Date(playfab.auth?.lastUpdated)
 
   push: (fn=(->)) ->
-    playfab.push(game.session.exportSave()).then(fn)
+    playfab.push(game.session.exportSave()).then(fn, console.warn)
 
   getAutopushError: ->
     if @fetchedSave() == game.session.exportSave()
@@ -238,4 +238,4 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     $rootScope.$broadcast 'import', {source:'playfabSyncer', success:true}
 
   clear: (fn=(->)) ->
-    playfab.clear().then(fn)
+    playfab.clear().then(fn, console.warn)

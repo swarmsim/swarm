@@ -29,7 +29,7 @@ angular.module('swarmApp').factory 'Kongregate', (isKongregate, $log, $location,
     $log.debug 'loading kongregate script...'
     onLoad = $q.defer()
     @onLoad = onLoad.promise
-    @onLoad.then => @_onLoad()
+    @onLoad.then((=> @_onLoad()), console.warn)
     try
       @kongregate = window.parent.kongregate
       @parented = window.parent.document.getElementsByTagName('iframe')[0]

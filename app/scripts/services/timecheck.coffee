@@ -62,12 +62,15 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
     return Math.abs(diff) > @threshold.as 'hours'
 
   enforceNetTime: ->
-    @isNetTimeInvalid().then (invalid) =>
-      if invalid
-        # they're cheating, no errors
-        $rootScope.$emit 'timecheckFailed'
-        #game.reset() # not confident enough to do this yet, but we can disable the ui until analytics tells us more.
-      return invalid
+    @isNetTimeInvalid().then(
+      (invalid) =>
+        if invalid
+          # they're cheating, no errors
+          $rootScope.$emit 'timecheckFailed'
+          #game.reset() # not confident enough to do this yet, but we can disable the ui until analytics tells us more.
+        return invalid
+      =>
+    )
   
 #angular.module('swarmApp').value 'timecheckUrl', 'http://json-time.appspot.com/time.json?callback=JSON_CALLBACK'
 #angular.module('swarmApp').value 'timecheckUrl', '/'

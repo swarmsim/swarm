@@ -28,7 +28,8 @@ angular.module('swarmApp').directive 'playfaboptions', (playfab, options, sessio
     scope.fetch = -> playfab.fetch()
     scope.pull = -> playfab.fetch().then(
       (auth) => game.importSave(auth.state)
+      console.warn
     )
-    scope.clear = -> playfab.clear().then(handleFetched)
+    scope.clear = -> playfab.clear().then(handleFetched, console.warn)
     scope.logout = -> playfab.logout()
     scope.autopushError = -> playfabSyncer.getAutopushError()
