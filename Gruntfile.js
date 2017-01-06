@@ -103,7 +103,7 @@ module.exports = function (grunt) {
           //
           // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
           // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
-          isServerBackendEnabled: true,
+          isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
 
           gaTrackingID: 'UA-53523462-3'
