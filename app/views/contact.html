@@ -1,69 +1,7 @@
 <tabs></tabs>
 
-<h2 class="contact-title"><span>Contact the Swarm Simulator developer</span></h2>
+<h2 class="contact-title"><span><a target="_blank" href="https://www.reddit.com/r/swarmsim">Contact the Swarm Simulator developer</a></span></h2>
 
-<p><a target="_blank" href="https://www.reddit.com/r/swarmsim/comments/3a924d/wheres_the_next_big_content_update_or_why_havent/"><span class="glyphicon glyphicon-warning-sign"></span> (2015/07) Replies from the developer may take a little while.</a></p>
+<p><a target="_blank" href="https://www.reddit.com/r/swarmsim/submit?selftext=true">Posting</a> on the <a target="_blank" href="https://www.reddit.com/r/swarmsim">Swarm Simulator subreddit</a> is the best way to reach the developer! I read everything written there, even if I don't always reply.</p>
 
-<div id="contact-tabs" class="panel-group" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <button id="contact-bug-head" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-parent="#contact-tabs" data-target="#contact-bug-body" aria-controls="contact-bug-body" title="Don't report your drones, silly.">
-      <span class="fa fa-bug"></span>
-      Report a Bug or Problem
-    </button>
-    <div id="contact-bug-body" class="panel-collapse collapse" ng-class="{in:initTopic=='bug'}" role="tabpanel" aria-labelledby="contact-bug-head">
-      <div class="panel-body">
-        <p>Something broken? These links send a private message to the developer, and automatically include some information used to investigate your bug report.</p>
-        <p>
-          Before reporting a bug, <a target="_blank" href="https://www.reddit.com/r/swarmsim/wiki/faq">please read the FAQ</a>.
-          <a target="_blank" href="https://www.reddit.com/r/swarmsim/wiki/faq#wiki_my_swarm_stopped_producing_stuff.21">Is your larvae/energy production stuck?</a>
-          <a target="_blank" href="https://www.reddit.com/r/swarmsim/wiki/faq#wiki_i_lost_my_saved_game.21">Lost your saved game?</a>
-          <a target="_blank" href="https://www.reddit.com/r/swarmsim/wiki/faq#wiki_i_spent_mutagen.2C_and_my_larva_production_dropped.21">Larva production dropped after spending mutagen?</a>
-        </p>
-        <ul>
-          <li><a target="_blank" ng-href="{{mailtoUrl('bug')}}">E-mail {{emailTo()}}</a></li>
-          <li><a target="_blank" ng-href="{{redditUrl('bug')}}">Reddit private message /u/kawaritai</a></li>
-          <li><a target="_blank" ng-href="{{anonForm('bug')}}">Report bug anonymously (no reply)</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <button id="contact-idea-head" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-parent="#contact-tabs" data-target="#contact-idea-body" aria-controls="contact-idea-body">
-      <span class="fa fa-lightbulb-o"></span>
-      Offer an Idea or Suggestion
-    </button>
-    <div id="contact-idea-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="contact-idea-head">
-      <div class="panel-body">
-        <p>Your idea's most likely to make it into the game if other players like it too! The <a target="_blank" href="https://www.reddit.com/r/swarmsim">Swarm Simulator subreddit</a> or <a target="_blank" href="https://www.kongregate.com/forums/4545-swarm-simulator">Swarm Simulator Kongregate forums</a> are the best places to post your suggestions and ideas. The developer reads everything, though I can't always reply.</p>
-        <p>If you prefer, you can also <a target="_blank" ng-href="{{anonForm('idea')}}">message the developer privately with your idea</a>. I can't reply to suggestions submitted privately, but I read them all.</p>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <button id="contact-gameplay-head" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-parent="#contact-tabs" data-target="#contact-gameplay-body" aria-controls="contact-gameplay-body">
-      <span class="glyphicon glyphicon-question-sign"></span>
-      Ask a Gameplay Question
-    </button>
-    <div id="contact-gameplay-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="contact-gameplay-head">
-      <div class="panel-body">
-        <p>Other players can probably help! The <a target="_blank" href="https://www.reddit.com/r/swarmsim">Swarm Simulator subreddit</a> or <a target="_blank" href="https://www.kongregate.com/forums/4545-swarm-simulator">Swarm Simulator Kongregate forums</a> are the fastest ways to get help from others.</p>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <button id="contact-other-head" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-parent="#contact-tabs" data-target="#contact-other-body" aria-controls="contact-other-body">
-      <span class="fa fa-comment"></span>
-      Any Other Feedback
-    </button>
-    <div id="contact-other-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="contact-other-head">
-      <div class="panel-body">
-        <p>Compliments, complaints, or any other comments - I'd like to hear from you!</p>
-        <ul>
-          <li><a target="_blank" ng-href="{{mailtoUrl()}}">E-mail {{emailTo()}}</a></li>
-          <li><a target="_blank" ng-href="{{redditUrl()}}">Reddit private message /u/kawaritai</a></li>
-          <li><a target="_blank" ng-href="{{anonForm()}}">Send feedback anonymously (no reply)</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p><small>Email is okay too - <a target="_blank" ng-href="{{mailtoUrl()}}">{{emailTo()}}</a></small></p>
