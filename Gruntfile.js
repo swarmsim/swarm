@@ -827,6 +827,9 @@ module.exports = function (grunt) {
   grunt.registerTask('preprodCname', 'build preprod.swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'preprod.swarmsim.com');
   });
+  grunt.registerTask('publictestCname', 'build beta.swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'beta.swarmsim.com');
+  });
   grunt.registerTask('cleanCname', 'build swarmsim.com cname file', function () {
     grunt.file.delete('dist/CNAME');
   });
@@ -928,7 +931,7 @@ module.exports = function (grunt) {
   ]);
   grunt.registerTask('deploy-publictest', [
     'build',
-    'cleanCname','gh-pages:publictest'
+    'publictestCname','gh-pages:publictest','cleanCname'
   ]);
   grunt.registerTask('phonegap-staging', [
     'build',
