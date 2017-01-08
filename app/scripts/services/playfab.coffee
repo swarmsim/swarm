@@ -31,10 +31,7 @@ angular.module('swarmApp').factory 'playfabCredentialStore', ($log) -> new class
 
 # https://developer.playfab.com/en-us/F810/limits
 # Playfab has a size limit of 10k bytes per key. Swarmsim's passed that before. We can update 10 keys per push for a limit of 100k, which is enough.
-angular.module('swarmApp').factory 'playfabStateChunker', ($log) -> new class PlayfabStateChunker
-  constructor: (@chunkSize=10000, @maxChunks=10) ->
-  encode: (state) -> {state: state}
-  decode: (data) -> data.state?.Value
+angular.module('swarmApp').factory 'playfabStateChunker', -> window.persist.chunker
 
 ###*
  # @ngdoc service
