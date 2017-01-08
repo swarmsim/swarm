@@ -29,6 +29,13 @@ angular.module('swarmApp').factory 'playfabCredentialStore', ($log) -> new class
   clear: ->
     window.localStorage.removeItem @key
 
+# https://developer.playfab.com/en-us/F810/limits
+# Playfab has a size limit of 10k bytes per key. Swarmsim's passed that before. We can update 10 keys per push for a limit of 100k, which is enough.
+angular.module('swarmApp').factory 'playfabStateChunker', ($log) -> new class PlayfabStateChunker
+  constructor: (@chunkSize=10000, @maxChunks=10) ->
+  encode: (state) -> {state: state}
+  decode: (data) -> data.state?.Value
+
 ###*
  # @ngdoc service
  # @name swarmApp.playfab
@@ -36,7 +43,7 @@ angular.module('swarmApp').factory 'playfabCredentialStore', ($log) -> new class
  # # playfab
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore) -> class Playfab
+angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore, playfabStateChunker) -> class Playfab
   constructor: ->
   isAuthed: -> !!@auth
   logout: ->
@@ -127,8 +134,7 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore)
     # TODO: chunking.
     # https://developer.playfab.com/en-us/F810/limits
     PlayFabClientSDK.UpdateUserData
-      Data:
-        state: state
+      Data: playfabStateChunker.encode(state)
       (response, error) =>
         if response && response.code == 200
           console.log('push success', response)
@@ -140,7 +146,7 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore)
 
   clear: -> $q (resolve, reject) =>
     PlayFabClientSDK.UpdateUserData
-      KeysToRemove: ['state']
+      KeysToRemove: playfabStateChunker.clearKeys()
       (response, error) =>
         if response && response.code == 200
           console.log('clear success', response)
@@ -151,7 +157,7 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore)
           reject(error)
 
   _loadUserData: (data) ->
-    @auth.state = data.state?.Value
+    @auth.state = playfabStateChunker.decode(data)
     @auth.lastUpdated = new Date(data.state?.LastUpdated).getTime()
   fetch: -> $q (resolve, reject) =>
     PlayFabClientSDK.GetUserData {},
