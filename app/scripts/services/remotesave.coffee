@@ -175,8 +175,7 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         fn data, status, xhr
         # @fetch() # nope - S3 is eventually consistent, this might return old data
 
-# This is a bit of a mess... redundant with playfab in another file. Can't be arsed to fix it right now.
-angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location, isKongregate, $interval, $rootScope, playfab) -> new class PlayfabSyncer
+angular.module('swarmApp').factory 'wwwPlayfabSyncer', ($log, env, game, $location, isKongregate, $interval, $rootScope, playfab) -> new class PlayfabSyncer
   isVisible: ->
     return env.playfabTitleId and not isKongregate()
 
@@ -235,7 +234,7 @@ angular.module('swarmApp').factory 'playfabSyncer', ($log, env, game, $location,
     if not save
       throw new Error 'nothing to pull'
     game.importSave save
-    $rootScope.$broadcast 'import', {source:'playfabSyncer', success:true}
+    $rootScope.$broadcast 'import', {source:'wwwPlayfabSyncer', success:true}
 
   clear: (fn=(->)) ->
     playfab.clear().then(fn, console.warn)

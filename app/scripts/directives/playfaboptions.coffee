@@ -6,7 +6,7 @@
  # @description
  # # playfab
 ###
-angular.module('swarmApp').directive 'playfaboptions', (playfab, options, session, game, playfabSyncer) ->
+angular.module('swarmApp').directive 'playfaboptions', (playfab, options, session, game, wwwPlayfabSyncer) ->
   templateUrl: 'views/playfab/options.html'
   restrict: 'EA'
   link: (scope, element, attrs) ->
@@ -19,10 +19,10 @@ angular.module('swarmApp').directive 'playfaboptions', (playfab, options, sessio
       lastUpdated: -> moment(playfab.auth.lastUpdated)
     scope.isFetched = -> !!scope.fetched.state()
 
-    playfabSyncer.initAutopush(options.autopush())
+    wwwPlayfabSyncer.initAutopush(options.autopush())
     scope.setAutopush = (val) ->
       options.autopush(val)
-      playfabSyncer.initAutopush(val)
+      wwwPlayfabSyncer.initAutopush(val)
 
     scope.push = -> playfab.push(session.exportSave())
     scope.fetch = -> playfab.fetch()
@@ -32,4 +32,4 @@ angular.module('swarmApp').directive 'playfaboptions', (playfab, options, sessio
     )
     scope.clear = -> playfab.clear().then(handleFetched, console.warn)
     scope.logout = -> playfab.logout()
-    scope.autopushError = -> playfabSyncer.getAutopushError()
+    scope.autopushError = -> wwwPlayfabSyncer.getAutopushError()
