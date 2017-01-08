@@ -9,6 +9,7 @@
 angular.module('swarmApp').directive 'playfaboptions', (playfab, options, session, game, wwwPlayfabSyncer) ->
   templateUrl: 'views/playfab/options.html'
   restrict: 'EA'
+  scope: {}
   link: (scope, element, attrs) ->
     scope.form =
       autopush: options.autopush()

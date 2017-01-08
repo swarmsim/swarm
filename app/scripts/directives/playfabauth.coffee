@@ -9,6 +9,7 @@
 angular.module('swarmApp').directive 'playfabauth', (playfab) ->
   templateUrl: 'views/playfab/auth.html'
   restrict: 'EA'
+  scope: {}
   link: (scope, element, attrs) ->
     scope.setActive = (active) ->
       scope.forgotSuccess = null

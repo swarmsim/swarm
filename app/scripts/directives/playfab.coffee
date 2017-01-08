@@ -15,6 +15,7 @@ angular.module('swarmApp').directive 'playfab', (playfab, wwwPlayfabSyncer) ->
 </div>
 """
   restrict: 'EA'
+  scope: {}
   link: (scope, element, attrs) ->
     scope.isVisible = -> wwwPlayfabSyncer.isVisible()
     scope.isAuthed = -> playfab.isAuthed()
