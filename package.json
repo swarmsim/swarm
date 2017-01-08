@@ -63,6 +63,7 @@
     "prestart": "npm install",
     "start": "grunt serve",
     "pretest": "npm install",
+    "preversion": "npm test",
     "test": "grunt test",
     "test-single-run": "grunt test"
   }
