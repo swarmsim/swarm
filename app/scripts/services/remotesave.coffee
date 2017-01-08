@@ -175,7 +175,88 @@ angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, stor
         fn data, status, xhr
         # @fetch() # nope - S3 is eventually consistent, this might return old data
 
-angular.module('swarmApp').factory 'wwwPlayfabSyncer', ($log, env, game, $location, isKongregate, $interval, $rootScope, playfab) -> new class PlayfabSyncer
+
+angular.module('swarmApp').factory 'syncerUtil', ($log, env, game, isKongregate, $interval, $rootScope, playfab) -> new class SyncerUtil
+  initAutopush: (name, enabled=true) ->
+    if @autopushInterval
+      $interval.cancel @autopushInterval
+      @autopushInterval = null
+    $(window).off 'unload', "#{name}.autopush"
+    if enabled
+      $log.debug "#{name} autopush enabled"
+      @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
+      $(window).on 'unload', "#{name}.autopush", =>
+        $log.debug "#{name} autopush unload"
+        @autopush()
+
+
+# the syncer for kongregate (currently silent, will eventually replace s3)
+angular.module('swarmApp').factory 'kongregatePlayfabSyncer', ($log, env, game, kongregate, $interval, $rootScope, playfab, syncerUtil) -> new class KongregatePlayfabSyncer
+  isVisible: ->
+    # return env.playfabTitleId and env.isKongregateSyncEnabled and kongregate.isKongregate()
+    return false
+
+  isActive: ->
+    return env.playfabTitleId and env.isKongregateSyncEnabled and kongregate.isKongregate()
+
+  isAuth: ->
+    return playfab.isAuthed()
+
+  isInit: ->
+    return @isAuth()
+
+  init: (fn) ->
+    kongregate.onLoad.then(
+      =>
+        userid = window.parent.kongregate.services.getUserId()
+        token = window.parent.kongregate.services.getGameAuthToken()
+        return playfab.kongregateLogin(userid, token).then(fn, console.warn)
+      console.warn)
+
+  initAutopush: (enabled) ->
+    return syncerUtil.initAutopush.call(this, 'kongregatePlayfab', enabled)
+
+  fetch: (fn=(->)) ->
+    playfab.fetch().then(fn, console.warn)
+
+  fetchedSave: ->
+    return playfab.auth?.state
+
+  fetchedDate: ->
+    return new Date(playfab.auth?.lastUpdated)
+
+  push: (fn=(->)) ->
+    playfab.push(game.session.exportSave()).then(fn, console.warn)
+
+  getAutopushError: ->
+    if @fetchedSave() == game.session.exportSave()
+      return 'nochanges'
+    # you'd think 'Date == Date' would work since >/</>=/<= work, but no, it's reference equality.
+    if game.session.state.date.reified.getTime() == game.session.state.date.started.getTime()
+      return 'newgame'
+
+  # TODO share code with kong autosync
+  autopush: ->
+    if @isInit() and @autopushInterval
+      if not @getAutopushError()
+        $log.debug 'autopushing (with changes, for real)'
+        @push()
+      else
+        $log.debug 'autopush triggered with no changes, ignoring'
+
+  pull: ->
+    save = @fetchedSave()
+    if not save
+      throw new Error 'nothing to pull'
+    game.importSave save
+    $rootScope.$broadcast 'import', {source:'kongregatePlayfabSyncer', success:true}
+
+  clear: (fn=(->)) ->
+    playfab.clear().then(fn, console.warn)
+
+
+# the syncer for swarmsim.github.io
+angular.module('swarmApp').factory 'wwwPlayfabSyncer', ($log, env, game, $location, isKongregate, $interval, $rootScope, playfab, syncerUtil) -> new class PlayfabSyncer
   isVisible: ->
     return env.playfabTitleId and not isKongregate()
 
@@ -188,18 +269,8 @@ angular.module('swarmApp').factory 'wwwPlayfabSyncer', ($log, env, game, $locati
   init: (fn) ->
     playfab.autologin().then(fn, console.warn)
 
-  # TODO share code with kongregate autosync
   initAutopush: (enabled=true) ->
-    if @autopushInterval
-      $interval.cancel @autopushInterval
-      @autopushInterval = null
-    $(window).off 'unload', 'playfab.autopush'
-    if enabled
-      $log.debug 'playfab autopush enabled'
-      @autopushInterval = $interval (=> @autopush()), env.autopushIntervalMs
-      $(window).on 'unload', 'playfab.autopush', =>
-        $log.debug 'autopush unload'
-        @autopush()
+    return syncerUtil.initAutopush.call(this, 'wwwPlayfab', enabled)
 
   fetch: (fn=(->)) ->
     playfab.fetch().then(fn, console.warn)

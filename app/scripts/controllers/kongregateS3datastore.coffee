@@ -1,7 +1,9 @@
 'use strict'
 
-angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, kongregate, kongregateS3Syncer, $timeout) ->
+angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, kongregate, kongregateS3Syncer, kongregatePlayfabSyncer, $timeout) ->
   syncer = kongregateS3Syncer
+  # S3 is our primary save-store right now, but we're silently saving to playfab too, in preparation for a switchover. Write to syncer2, but don't read.
+  syncer2 = kongregatePlayfabSyncer
   # http://www.kongregate.com/pages/general-services-api
   $scope.kongregate = kongregate
   $scope.env = env
@@ -43,6 +45,7 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, ko
   $scope.init = (force) ->
     $scope.policyError = null
     cooldown.set 'init'
+    syncer2.init()
     q = syncer.init ((data, status, xhr) ->
       $log.debug 'kong syncer inited', data, status
       cooldown.clear 'init'
@@ -70,6 +73,7 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, ko
   $scope.push = ->
     try
       cooldown.set 'push'
+      syncer2.push()
       xhr = syncer.push ->
         cooldown.clear 'push'
         $scope.$apply()
@@ -87,6 +91,7 @@ angular.module('swarmApp').controller 'KongregateS3Ctrl', ($scope, $log, env, ko
 
   $scope.clear = ->
     cooldown.set 'clear'
+    syncer2.clear()
     xhr = syncer.clear (data, status, xhr) ->
       cooldown.clear 'clear'
       $scope.$apply()

@@ -73,6 +73,26 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore)
       $log.debug 'playfab autologin failed, no creds stored'
       return $q (resolve, reject) -> reject()
 
+  # https://api.playfab.com/Documentation/Client/method/LoginWithKongregate
+  kongregateLogin: (userId, authToken) -> $q (resolve, reject) =>
+    PlayFabClientSDK.LoginWithKongregate
+      KongregateId: userId
+      AuthTicket: authToken
+      CreateAccount: true
+      InfoRequestParameters:
+        GetUserAccountInfo: true
+        GetUserData: true
+      (response, error) =>
+        if response && response.code == 200
+          console.log('login success', response)
+          @auth =
+            raw: response.data
+            rawType: 'login'
+          @_loadUserData(response.data.InfoResultPayload.UserData)
+          resolve(response.data)
+        else
+          reject(error)
+
   signup: (email, password) -> $q (resolve, reject) =>
     PlayFabClientSDK.RegisterPlayFabUser
       RequireBothUsernameAndEmail: false # email's enough, no need for usernames
