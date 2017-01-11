@@ -99,7 +99,7 @@ describe 'Filter: bignum', ->
     #expect(bignum 1111111111111111111111111111111111111).toBe '1.11e36'
     #expect(bignum 1e37).toBe '1.00e37'
     #expect(bignum 11111111111111111111111111111111111111).toBe '1.11e37'
-    
+
   it 'should use other number formats', ->
     expect(options.notation()).toBe 'standard-decimal'
     expect(bignum 123456789).toBe '123M'
@@ -117,26 +117,26 @@ describe 'Filter: bignum', ->
     expect(bignum 123456789e30).toBe '1.23e38'
     expect(longnum 123456789e30).toBe '1.23456e38'
     options.notation 'engineering'
-    expect(bignum 123456789).toBe '123E6'
-    expect(bignum 12345678).toBe '12.3E6'
-    expect(bignum 1234567).toBe '1.23E6'
-    expect(bignum 100000000).toBe '100E6'
-    expect(bignum 10000000).toBe '10.0E6'
-    expect(bignum 1000000).toBe '1.00E6'
-    expect(longnum 123456789).toBe '123.456E6'
-    expect(longnum 12345678).toBe '12.3456E6'
-    expect(longnum 1234567).toBe '1.23456E6'
-    expect(bignum 123456789e30).toBe '123E36'
-    expect(longnum 123456789e30).toBe '123.456E36'
+    expect(bignum 123456789).toBe '123ᴇ6'
+    expect(bignum 12345678).toBe '12.3ᴇ6'
+    expect(bignum 1234567).toBe '1.23ᴇ6'
+    expect(bignum 100000000).toBe '100ᴇ6'
+    expect(bignum 10000000).toBe '10.0ᴇ6'
+    expect(bignum 1000000).toBe '1.00ᴇ6'
+    expect(longnum 123456789).toBe '123.456ᴇ6'
+    expect(longnum 12345678).toBe '12.3456ᴇ6'
+    expect(longnum 1234567).toBe '1.23456ᴇ6'
+    expect(bignum 123456789e30).toBe '123ᴇ36'
+    expect(longnum 123456789e30).toBe '123.456ᴇ36'
 
   it 'should support Bignumbers', ->
     expect(bignum math.bignumber('2.3e+500') ).toBe '2.30e500'
     expect(bignum math.bignumber('2.3e+1234') ).toBe '2.30e1234'
     expect(bignum math.bignumber('1e+100000') ).toBe '1.00e100000'
     options.notation 'engineering'
-    expect(bignum math.bignumber('2.3e+500') ).toBe '230E498'
-    expect(bignum math.bignumber('2.3e+1234') ).toBe '23.0E1233'
-    expect(bignum math.bignumber('1e+100000') ).toBe '10.0E99999'
+    expect(bignum math.bignumber('2.3e+500') ).toBe '230ᴇ498'
+    expect(bignum math.bignumber('2.3e+1234') ).toBe '23.0ᴇ1233'
+    expect(bignum math.bignumber('1e+100000') ).toBe '10.0ᴇ99999'
 
 
   it 'rounds down, preventing things like "1.00e+3M", bug #245', ->
