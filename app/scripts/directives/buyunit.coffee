@@ -25,7 +25,7 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands) ->
       num = scope.num ? 1
       num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num+'').floor()
       if num.isNaN()
-        num = Decimal.ONE
+        num = new Decimal(1)
       return num
 
     scope.unit = scope.resource = game.unit scope.unit
@@ -57,7 +57,7 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
       num = scope.num ? 1
       num = Decimal.max 1, Decimal.min scope.resource.maxCostMet(), new Decimal(num+'').floor()
       if num.isNaN()
-        num = Decimal.ONE
+        num = new Decimal(1)
       return num
 
     scope.upgrade = scope.resource = game.upgrade scope.upgrade
@@ -70,7 +70,7 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands) ->
       args.upgrade = args.resource
       delete args.resource
       commands.buyMaxUpgrade args
-    scope.statTwin = -> Decimal.ONE
+    scope.statTwin = -> new Decimal(1)
     scope.isBuyButtonVisible = -> true
     scope.verb = if scope.upgrade.type.class == 'ability' then 'cast' else 'buy'
 
@@ -90,7 +90,7 @@ angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) -
       num = scope.num ? 1
       num = Decimal.max 1, Decimal.min scope.unit.maxCostMet(), new Decimal(num+'').floor()
       if num.isNaN()
-        num = Decimal.ONE
+        num = new Decimal(1)
       return num
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()

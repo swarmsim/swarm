@@ -245,9 +245,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
           if @constructor.ESTIMATE_BISECTION
             # Bisection method - slower/more complex, but more precise
             # if we couldn't pick a starting point, pretend a second's passed and try again, possibly quitting if we finished in a second or less. This basically only happens in unit tests.
-            maxSec = linear ? remaining.dividedBy @_countInSecsFromNow(Decimal.ONE).minus(count)
+            maxSec = linear ? remaining.dividedBy @_countInSecsFromNow(new Decimal(1)).minus(count)
             if not maxSec.greaterThan(0)
-              ret = Decimal.ONE
+              ret = new Decimal(1)
             else
               ret = @estimateSecsUntilEarnedBisection num, maxSec
           else
@@ -260,7 +260,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
               if not coeff.isZero()
                 #loop starts iterating from 0, not 3. no need to recalculate first few degrees, we did more precise math for them earlier.
                 deg += 3
-                ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(Decimal.ONE.dividedBy deg)
+                ret = Decimal.min ret, remaining.dividedBy(coeff).times(math.factorial deg).pow(new Decimal(1).dividedBy deg)
                 #$log.debug 'single-degree estimate', deg, ret+''
     #$log.debug 'done estimating', ret.toNumber()
     return ret

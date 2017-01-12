@@ -36,9 +36,9 @@ angular.module('swarmApp').directive 'unit', ($log, game, commands, options, uti
       # legacy format - our code doesn't use `?twinnum=n` anymore, but it used to. some users might still use it.
       scope.form.buyCount = "=#{search.twinnum}"
 
-    _buyCount = Decimal.ONE
+    _buyCount = new Decimal(1)
     scope.buyCount = ->
-      parsed = parseNumber(scope.form.buyCount or '1', scope.cur) ? Decimal.ONE
+      parsed = parseNumber(scope.form.buyCount or '1', scope.cur) ? new Decimal(1)
       # caching required for angular
       if not parsed.equals _buyCount
         _buyCount = parsed

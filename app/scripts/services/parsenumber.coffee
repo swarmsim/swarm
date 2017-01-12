@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('swarmApp').factory 'parseNumber', ($log, numberSuffixesShort, numberSuffixesLong) ->
-  DecCeil = Decimal.constructor rounding:Decimal.ROUND_CEIL
+  DecCeil = Decimal.clone rounding: Decimal.ROUND_CEIL
 
   suffixToExp = {}
   for suffixes in [numberSuffixesShort, numberSuffixesLong]
