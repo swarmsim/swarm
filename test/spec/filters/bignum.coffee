@@ -9,10 +9,18 @@ describe 'Filter: bignum', ->
   bignum = {}
   longnum = {}
   options = {}
+  toLocaleString = Number.prototype.toLocaleString
   beforeEach inject ($filter, _options_) ->
     bignum = $filter 'bignum'
     longnum = $filter 'longnum'
     options = _options_
+    # hack to make phantomJS work
+    # https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+    Number.prototype.toLocaleString = ->
+      return this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
+  afterEach ->
+    Number.prototype.toLocaleString = toLocaleString
 
   it 'should format numbers', ->
     expect(bignum 1).toBe '1'
@@ -130,13 +138,13 @@ describe 'Filter: bignum', ->
     expect(longnum 123456789e30).toBe '123.456E36'
 
   it 'should support Bignumbers', ->
-    expect(bignum math.bignumber('2.3e+500') ).toBe '2.30e500'
-    expect(bignum math.bignumber('2.3e+1234') ).toBe '2.30e1234'
-    expect(bignum math.bignumber('1e+100000') ).toBe '1.00e100000'
+    expect(bignum new Decimal('2.3e+500') ).toBe '2.30e500'
+    expect(bignum new Decimal('2.3e+1234') ).toBe '2.30e1234'
+    expect(bignum new Decimal('1e+100000') ).toBe '1.00e100000'
     options.notation 'engineering'
-    expect(bignum math.bignumber('2.3e+500') ).toBe '230E498'
-    expect(bignum math.bignumber('2.3e+1234') ).toBe '23.0E1233'
-    expect(bignum math.bignumber('1e+100000') ).toBe '10.0E99999'
+    expect(bignum new Decimal('2.3e+500') ).toBe '230E498'
+    expect(bignum new Decimal('2.3e+1234') ).toBe '23.0E1233'
+    expect(bignum new Decimal('1e+100000') ).toBe '10.0E99999'
 
 
   it 'rounds down, preventing things like "1.00e+3M", bug #245', ->

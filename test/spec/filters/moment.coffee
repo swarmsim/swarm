@@ -8,9 +8,17 @@ describe 'Filter: moment', ->
   # initialize a new instance of the filter before each test
   duration = {}
   options = {}
+  toLocaleString = Number.prototype.toLocaleString
   beforeEach inject ($filter, _options_) ->
     duration = $filter 'duration'
     options = _options_
+    # hack to make phantomJS work
+    # https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+    Number.prototype.toLocaleString = ->
+      return this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
+  afterEach ->
+    Number.prototype.toLocaleString = toLocaleString
 
   it 'should format short durations', ->
     template = 'd[d] h:mm:ss'

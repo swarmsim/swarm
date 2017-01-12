@@ -46,6 +46,7 @@ module.exports = (config) ->
       'bower_components/angular-google-chart/ng-google-chart.js'
       'bower_components/playfab-sdk/PlayFabSDK/PlayFabClientApi.js'
       'bower_components/swarm-persist/dist/swarm-persist.js'
+      'bower_components/swarm-numberformat/dist/swarm-numberformat.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
