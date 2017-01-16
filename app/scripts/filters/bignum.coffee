@@ -19,6 +19,11 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       'scientific-e': numberformat.Formats.scientific,
   (opts={}) ->
     ret = (num) ->
+      # not sure where we're getting undefined inputs from, but the stack trace
+      # is useless and I can't be bothered to hunt them down in a game I'm not
+      # actively working on anymore
+      if (num == undefined) then return ''
+      # actual formatting - just use swarm-numberformat
       opts.format = options.notation()
       ret = f.format(num, opts)
       return ret
