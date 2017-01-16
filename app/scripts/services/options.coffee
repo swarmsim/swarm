@@ -41,6 +41,12 @@ angular.module('swarmApp').factory 'Options', ($log, util, env, game, $location)
   reset: (field) ->
     delete @session.state.options[field]
 
+  fpsAuto: (enabled) ->
+    @maybeSet 'fpsAuto', enabled
+    # fpsAuto defaults to true if neither fps or fpsAuto are explicitly set
+    # fpsAuto is false if fps-only is explicitly set
+    @get 'fpsAuto', !(@get('fps')?)
+
   fps: (val) ->
     @maybeSet 'fps', val
     Math.min 60, Math.max 0.0001, @get 'fps', 10

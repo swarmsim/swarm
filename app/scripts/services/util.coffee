@@ -7,7 +7,7 @@
  # # util
  # Service in the swarmApp.
 ###
-angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new class Util
+angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout, $animate) -> new class Util
   sum: (ns) -> _.reduce ns, ((a,b) -> a+b), 0
   assert: (val, message...) ->
     if not val
@@ -18,18 +18,32 @@ angular.module('swarmApp').factory 'util', ($log, $rootScope, $timeout) -> new c
   error: (message...) ->
     $rootScope.$emit 'error', message
 
+  requestAnimationFrame: (fn) ->
+    return window.requestAnimationFrame ->
+      fn()
+      $rootScope.$digest()
   animateController: ($scope, opts={}) ->
     game = opts.game ? $scope.game
     options = opts.options ? $scope.options
-    animatePromise = null
-    do animateFn = ->
+    timeout = null
+    raf = null
+    do animateFn = =>
       # timeouts instead of intervals is less precise, but it automatically adjusts to options menu fps changes
       # intervals could work if we watched for options changes, but why bother?
-      animatePromise = $timeout animateFn, options.fpsSleepMillis()
+      # actually, rAF is almost always better, but don't drop support for manually-setting fps because it's what people are used to
+      if options.fpsAuto() && !!window.requestAnimationFrame
+        #$log.debug 'rAF'
+        raf = @requestAnimationFrame animateFn
+        timeout = null
+      else
+        #$log.debug 'timeout', options.fpsSleepMillis()
+        timeout = $timeout animateFn, options.fpsSleepMillis()
+        raf = null
       game.tick()
       $rootScope.$emit 'tick', game
     $scope.$on '$destroy', ->
-      $timeout.cancel animatePromise
+      $timeout.cancel timeout
+      window.cancelAnimationFrame raf
 
   isWindowFocused: (default_=true) ->
     # true if browser tab focused, false if tab unfocused. NOT 100% RELIABLE! If we can't tell, default == focused (true).
