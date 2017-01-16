@@ -18,13 +18,15 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       'standard-decimal': numberformat.Formats.standard,
       'scientific-e': numberformat.Formats.scientific,
   (opts={}) ->
-    ret = (num) ->
+    ret = (num, maxSmall=0) ->
       # not sure where we're getting undefined inputs from, but the stack trace
       # is useless and I can't be bothered to hunt them down in a game I'm not
       # actively working on anymore
       if (num == undefined) then return ''
       # actual formatting - just use swarm-numberformat
       opts.format = options.notation()
+      # maxSmall is for places where we need small decimals, like energy
+      opts.maxSmall = maxSmall
       ret = f.format(num, opts)
       return ret
     # http://blog.thoughtram.io/angularjs/2014/11/19/exploring-angular-1.3-stateful-filters.html
