@@ -1,6 +1,6 @@
 {
   "name": "swarm",
-  "version": "1.0.63",
+  "version": "1.0.64",
   "description": "Swarm Simulator - an incremental/idle game. Starting with only a few larvae and a small pile of meat, build a merciless swarm of giant alien bugs.",
   "repository": {
     "url": "http://github.com/erosson/swarm.git",
