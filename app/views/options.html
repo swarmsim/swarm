@@ -30,9 +30,9 @@
   <div class="form-group">
     <label class="control-label" for="fps"><span class="glyphicon glyphicon-film"></span> Maximum frames per second</label>
     <div><label><input type="checkbox" ng-init="form.fpsAuto=options.fpsAuto()" ng-model="form.fpsAuto" ng-change="options.fpsAuto(form.fpsAuto)"> Automatic</label></div>
-    <input type="range" class="form-control" ng-disabled="!!form.fpsAuto" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="options.fps(form.fps);form.fpsNum=options.fps()">
+    <input type="range" class="form-control" ng-disabled="!!form.fpsAuto" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="setFpsSlider(form.fps)">
     <!--button ng-click="options.reset('fps');form.fps=options.fps()">Reset</button-->
-    <p>About <input type="number" min="0" ng-disabled="!!form.fpsAuto" ng-init="form.fpsNum=options.fps()" ng-model="form.fpsNum" ng-change="options.fps(form.fpsNum);form.fps=options.fps()"> fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
+    <p>About <input type="number" min="0" ng-disabled="!!form.fpsAuto" ng-init="form.fpsNum=options.fps()" ng-model="form.fpsNum" ng-change="options.fps(form.fpsNum)"> fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
     <p>Reduce this setting if the game is slowing down your computer. This doesn't affect gameplay; your units won't produce resources any faster or slower.</p>
   </div>
 

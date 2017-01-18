@@ -34,6 +34,11 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
     iframeMinSize:
       x: options.iframeMinX()
       y: options.iframeMinY()
+  $scope.setFpsSlider = (fps) ->
+    # slider rounding shouldn't overwrite decimals from fpsNum
+    if Math.abs(options.fps() - fps) >= 1
+      options.fps(fps)
+      $scope.form.fpsNum = options.fps()
   $scope.setTheme = (name) ->
     $scope.options.theme name
     $scope.form.isCustomTheme = false
