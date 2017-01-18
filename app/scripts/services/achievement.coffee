@@ -31,7 +31,7 @@ angular.module('swarmApp').factory 'Achievement', (util, $log, $rootScope, $filt
     desc = @type.description
     if @type.requires.length > 0 and (@type.requires[0].unittype or @type.requires[0].upgradetype)
       # don't apply significant figures, achievement numbers are okay as-is
-      desc = desc.replace '$REQUIRED', $filter('longnum')(@type.requires[0].val, undefined, true)
+      desc = desc.replace '$REQUIRED', $filter('longnum')(@type.requires[0].val, undefined, {sigfigs: undefined})
     return desc
 
   isEarned: ->

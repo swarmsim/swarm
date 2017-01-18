@@ -18,7 +18,8 @@ angular.module('swarmApp').factory 'bignumFormatter', (options) ->
       'standard-decimal': numberformat.Formats.standard,
       'scientific-e': numberformat.Formats.scientific,
   (opts={}) ->
-    ret = (num, maxSmall=0) ->
+    ret = (num, maxSmall=0, opts2={}) ->
+      opts = _.extend(opts, opts2)
       # not sure where we're getting undefined inputs from, but the stack trace
       # is useless and I can't be bothered to hunt them down in a game I'm not
       # actively working on anymore
