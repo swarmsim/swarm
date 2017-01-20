@@ -12,6 +12,7 @@ Built with love by Evan Rosson using
 [Coffeescript](http://coffeescript.org),
 [AngularJS](https://angularjs.org),
 [Yeoman](http://yeoman.io)'s [generator-angular](https://github.com/yeoman/generator-angular),
+Evan's own [swarm-numberformat](https://github.com/erosson/swarm-numberformat),
 and [other libraries](https://github.com/swarmsim/swarm/blob/master/bower.json)
 packaged by [Bower](http://bower.io/).
 Inspired by [the best Starcraft race](http://us.battle.net/sc2/en/game/race/zerg/ "I haven't violated copyright I think, please don't sue me Blizz").
