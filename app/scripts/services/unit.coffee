@@ -84,7 +84,7 @@ angular.module('swarmApp').factory 'ProducerPaths', ($log, ProducerPath) -> clas
     return @_getCoefficients true
   
   count: (secs) ->
-    # Horner's method should be faster here: 
+    # Horner's method should be faster here:
     # https://en.wikipedia.org/wiki/Horner's_method
     # http://jsbin.com/doqudoxopo/edit?html,output
     # ...but I tried it and it wasn't.
