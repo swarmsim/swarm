@@ -5540,7 +5540,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.type": "asympStat",
         "effect.unittype": "invisiblehatchery",
         "effect.unittype2": "",
-        "effect.val": 3,
+        "effect.val": 5,
         "effect.val2": 0.001,
         "effect.val3": 5,
         "init": "",
