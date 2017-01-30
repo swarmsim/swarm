@@ -1,0 +1,7 @@
+<div title="Begun, the clone war has">
+<div ng-repeat="effect in upgrade.effect track by effect.unit.name">
+<span ng-if="effect.output().greaterThan(0)">
+Clone {{ effect.output() | longnum }} {{effect.unit.type.plural}}.
+</span>
+</div>
+</div>
