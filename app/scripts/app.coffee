@@ -20,6 +20,8 @@ angular.module 'swarmApp', [
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
     'googlechart'
+    # https://github.com/chieffancypants/angular-hotkeys/
+    'cfp.hotkeys'
   ]
 
 # Angular 1.6 makes urls start with '#!' instead of '#', but swarmsim predates that and has lots of non-#! urls out there already.
@@ -165,6 +167,26 @@ angular.module('swarmApp').run ($rootScope) ->
     delete window.module.exports
 
 angular.module('swarmApp').value 'UNIT_LIMIT', '1e100000'
+
+# global keyboard shortcuts
+angular.module('swarmApp').run (hotkeys, $location) ->
+  locationKeys = [
+    ['m', '/tab/meat', 'Open the meat tab']
+    ['l', '/tab/larva', 'Open the larva tab']
+    ['t', '/tab/territory', 'Open the territory tab']
+    ['e', '/tab/energy', 'Open the energy tab']
+    ['u', '/tab/mutagen', 'Open the mutagen tab']
+    ['a', '/tab/all', 'Open the all-units tab']
+    ['o', '/options', 'Open the options screen']
+    ['y', '/achievements', 'Open the achievements screen']
+    ['s', '/statistics', 'Open the statistics screen']
+    ['n', '/changelog', 'Open the patch notes screen']
+  ]
+  for [combo, path, desc] in locationKeys then do (combo, path, desc) ->
+    hotkeys.add
+      combo: combo
+      description: desc
+      callback: () -> $location.path path
 
 # not sure why dropdowns don't work on their own anymore, but this fixes it
 angular.module('swarmApp').run () ->

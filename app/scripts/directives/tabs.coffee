@@ -6,7 +6,7 @@
  # @description
  # # tabs
 ###
-angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands) ->
+angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands, hotkeys) ->
   templateUrl: 'views/tabs.html'
   scope:
     cur: '='
@@ -35,4 +35,23 @@ angular.module('swarmApp').directive 'tabs', (game, util, options, version, comm
       commands._undo?.isRedo
     scope.isUndoable = ->
       return scope.secondsSinceLastAction() < scope.undoLimitSeconds and not scope.isRedo()
+
+    scope.buyAllUpgrades = ->
+      scope.buyUpgrades(game.availableAutobuyUpgrades())
+    scope.buyCheapestUpgrades = ->
+      scope.buyUpgrades(game.availableAutobuyUpgrades(0.25), 0.25)
+
+    hotkeys.bindTo(scope)
+    .add
+      combo: 'z'
+      description: 'Undo the last action'
+      callback: () -> scope.undo()
+    .add
+      combo: 'alt+a'
+      description: 'Buy all available upgrades'
+      callback: () -> scope.buyAllUpgrades()
+    .add
+      combo: 'alt+c'
+      description: 'Buy cheapest available upgrades'
+      callback: () -> scope.buyCheapestUpgrades()
       
