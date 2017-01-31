@@ -78,7 +78,7 @@
       <p>
         <form class="form-inline" ng-submit="commands.buyUnit({unit:cur, num:buyCount()})">
           <span class="titlecase">{{cur.unittype.verbing}}</span>
-          <input type="text" ng-model="form.buyCount" placeholder="1" class="form-control"
+          <input focus-input type="text" ng-model="form.buyCount" placeholder="1" class="form-control"
 title="'10%' buys 10% of the maximum you can afford.
 '=1000' buys exactly 1,000 after accounting for twins, rounded up.
 '@1000' buys the number needed to have a total of 1,000. If you already have 200, this will buy up to 800.
@@ -154,7 +154,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
               {{upgrade.costMetPercent()|percent:{floor:true} }} {{estimateUpgradeSecs(upgrade)|duration}}
             </div>
           </div>
-          <buyupgrade upgrade="upgrade"></buyupgrade>
+          <buyupgrade upgrade="upgrade" index="$index"></buyupgrade>
         </div>
         <div style="clear:right"></div>
       </li>
@@ -185,7 +185,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
               {{abil.costMetPercent()|percent:{floor:true} }} {{estimateUpgradeSecs(abil)|duration}}
             </div>
           </div>
-          <buyupgrade upgrade="abil"></buyupgrade>
+          <buyupgrade upgrade="abil" index="$index"></buyupgrade>
         </div>
       </li>
     </ul>

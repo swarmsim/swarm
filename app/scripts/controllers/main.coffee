@@ -7,7 +7,7 @@
  # # Main2Ctrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options) ->
+angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options, hotkeys) ->
   $scope.game = game
   $scope.options = options
   
@@ -47,3 +47,17 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
     if tab.isVisible()
       return tab
     return findtab index, step
+
+  hk = hotkeys.bindTo($scope)
+  keys = '1234567890'
+  # shift+<n> for 11-20
+  keys = keys.split('').concat(keys.split('').map((k) -> 'shift+'+k))
+  for unit, i in _.reverse(_.filter($scope.cur.tab.sortUnits(), $scope.filterVisible))
+    do (unit, i) ->
+      if keys[i]?
+        hk.add
+          combo: keys[i]
+          # clutters the screen
+          #description: 'Select '+unit.type.plural
+          callback: () ->
+            $location.path '/unit/'+unit.type.slug
