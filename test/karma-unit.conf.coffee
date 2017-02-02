@@ -19,6 +19,7 @@ module.exports = (config) ->
     files: [
       'node_modules/phantomjs-polyfill/bind-polyfill.js' # phantomjs is missing .bind(). this must go first!
       'bower_components/angular/angular.js'
+      'bower_components/angular-hotkeys/build/hotkeys.js' # order matters here, though hell if I know why
       'bower_components/angular-mocks/angular-mocks.js'
       'bower_components/angular-animate/angular-animate.js'
       'bower_components/angular-cookies/angular-cookies.js'
