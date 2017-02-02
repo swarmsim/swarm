@@ -1,8 +1,7 @@
 <tabs cur="cur.tab"></tabs>
 
 <div class="tab-content">
-  <!-- without this, dropdown creates vertical scrollbar due to table-responsive. we want horiz scrollbars on small screens, not vert on big screens! -->
-  <div class="tab-pane active table-responsive" style="padding-bottom: 250px">
+  <div class="tab-pane active table-responsive">
     <table class="table unit-table table-hover" style="width:auto; float:left">
       <!-- filthy hack to show achievements on larvae page -->
       <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count().greaterThan(0)">
@@ -41,6 +40,8 @@
         </td>
       </tr>
     </table>
+    <!-- without this, dropdown creates vertical scrollbar due to table-responsive. we want horiz scrollbars on small screens, not vert on big screens! -->
+    <p style="padding-bottom:200px"></p>
   </div>
 </div>
 
