@@ -64,11 +64,13 @@ angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timech
   enforceNetTime: ->
     @isNetTimeInvalid().then(
       (invalid) =>
-        if invalid
-          # they're cheating, no errors
-          $rootScope.$emit 'timecheckFailed'
-          #game.reset() # not confident enough to do this yet, but we can disable the ui until analytics tells us more.
-        return invalid
+        # Anti-cheat code causes more trouble than it's worth these days - disabled.
+        return false
+        #if invalid
+        #  # they're cheating, no errors
+        #  $rootScope.$emit 'timecheckFailed'
+        #  #game.reset() # not confident enough to do this yet, but we can disable the ui until analytics tells us more.
+        #return invalid
       =>
     )
   
