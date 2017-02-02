@@ -129,6 +129,48 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
+        "description": "Have $REQUIRED expansions at once",
+        "label": "we have become as a vapor",
+        "longdesc": "",
+        "name": "expansion7",
+        "points": 70,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "expansion",
+        "requires.val": 1000,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 200
+      },
+      {
+        "description": "Have $REQUIRED expansions at once",
+        "label": "imperialus conceptus",
+        "longdesc": "",
+        "name": "expansion8",
+        "points": 80,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "expansion",
+        "requires.val": 2000,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 500
+      },
+      {
+        "description": "Have $REQUIRED expansions at once",
+        "label": "manifest destiny",
+        "longdesc": "",
+        "name": "expansion9",
+        "points": 90,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "expansion",
+        "requires.val": 5000,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 1000
+      },
+      {
         "description": "Hatch your first drone",
         "label": "a good start",
         "longdesc": "",
@@ -213,7 +255,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Create your first nest",
+        "description": "Build your first nest",
         "label": "I wanna be the very nest",
         "longdesc": "",
         "name": "nest1",
@@ -227,7 +269,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED nests",
+        "description": "Build $REQUIRED nests",
         "label": "to hatch them is my real test",
         "longdesc": "",
         "name": "nest2",
@@ -241,7 +283,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED  nests",
+        "description": "Build $REQUIRED nests",
         "label": "final nesting place",
         "longdesc": "",
         "name": "nest3",
@@ -423,7 +465,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first neuroprophet",
+        "description": "Grow your first neuroprophet",
         "label": "1. collect larvae",
         "longdesc": "",
         "name": "prophet1",
@@ -465,7 +507,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first hive neuron",
+        "description": "Grow your first hive neuron",
         "label": "neurogenesis",
         "longdesc": "",
         "name": "goddess1",
@@ -479,7 +521,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED hive neurons",
+        "description": "Grow $REQUIRED hive neurons",
         "label": "new neurons",
         "longdesc": "",
         "name": "goddess2",
@@ -493,7 +535,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED hive neurons",
+        "description": "Grow $REQUIRED hive neurons",
         "label": "neuronerd",
         "longdesc": "",
         "name": "goddess3",
@@ -507,7 +549,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first neural cluster",
+        "description": "Grow your first neural cluster",
         "label": "nucleus",
         "longdesc": "",
         "name": "pantheon1",
@@ -521,7 +563,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED neural clusters",
+        "description": "Grow $REQUIRED neural clusters",
         "label": "ganglion",
         "longdesc": "",
         "name": "pantheon2",
@@ -535,7 +577,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED neural clusters",
+        "description": "Grow $REQUIRED neural clusters",
         "label": "cluster-something",
         "longdesc": "",
         "name": "pantheon3",
@@ -549,7 +591,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first hive network",
+        "description": "Grow your first hive network",
         "label": "arpanet",
         "longdesc": "",
         "name": "pantheon21",
@@ -563,7 +605,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED hive networks",
+        "description": "Grow $REQUIRED hive networks",
         "label": "backpropagation",
         "longdesc": "",
         "name": "pantheon22",
@@ -577,7 +619,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED hive networks",
+        "description": "Grow $REQUIRED hive networks",
         "label": "nydus",
         "longdesc": "",
         "name": "pantheon23",
@@ -591,7 +633,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first lesser hive mind",
+        "description": "Grow your first lesser hive mind",
         "label": "do you mind?",
         "longdesc": "",
         "name": "pantheon31",
@@ -605,7 +647,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED lesser hive minds",
+        "description": "Grow $REQUIRED lesser hive minds",
         "label": "lesser is morer",
         "longdesc": "",
         "name": "pantheon32",
@@ -619,7 +661,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED lesser hive minds",
+        "description": "Grow $REQUIRED lesser hive minds",
         "label": "lord have mercy",
         "longdesc": "",
         "name": "pantheon33",
@@ -633,7 +675,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first hive mind",
+        "description": "Grow your first hive mind",
         "label": "one of us",
         "longdesc": "",
         "name": "pantheon41",
@@ -647,7 +689,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED hive minds",
+        "description": "Grow $REQUIRED hive minds",
         "label": "groupthink",
         "longdesc": "",
         "name": "pantheon42",
@@ -661,7 +703,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED hive minds",
+        "description": "Grow $REQUIRED hive minds",
         "label": "swarm intelligence",
         "longdesc": "",
         "name": "pantheon43",
@@ -675,7 +717,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first arch-mind",
+        "description": "Grow your first arch-mind",
         "label": "ante meridiem",
         "longdesc": "",
         "name": "pantheon51",
@@ -689,7 +731,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED arch-minds",
+        "description": "Grow $REQUIRED arch-minds",
         "label": "archery",
         "longdesc": "",
         "name": "pantheon52",
@@ -703,7 +745,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED arch-minds",
+        "description": "Grow $REQUIRED arch-minds",
         "label": "cerebration time",
         "longdesc": "",
         "name": "pantheon53",
@@ -717,7 +759,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first overmind",
+        "description": "Grow your first overmind",
         "label": "awaken, my child",
         "longdesc": "",
         "name": "overmind1",
@@ -731,7 +773,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED overminds",
+        "description": "Grow $REQUIRED overminds",
         "label": "how ya like my groove?",
         "longdesc": "",
         "name": "overmind2",
@@ -745,7 +787,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED overminds",
+        "description": "Grow $REQUIRED overminds",
         "label": "well done!",
         "longdesc": "",
         "name": "overmind3",
@@ -755,6 +797,216 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.upgradetype": "",
         "requires.val": 1e+32,
         "visible.unittype": "overmind",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind II",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind2_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind2",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind2_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind2",
+        "requires.upgradetype": "",
+        "requires.val": 10000000000000000000,
+        "visible.unittype": "overmind2",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind2_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind2",
+        "requires.upgradetype": "",
+        "requires.val": 1e+38,
+        "visible.unittype": "overmind2",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind III",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind3_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind3",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind2",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind3_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind3",
+        "requires.upgradetype": "",
+        "requires.val": 1e+22,
+        "visible.unittype": "overmind3",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind3_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind3",
+        "requires.upgradetype": "",
+        "requires.val": 1e+44,
+        "visible.unittype": "overmind3",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind IV",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind4_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind4",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind3",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind IVs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind4_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind4",
+        "requires.upgradetype": "",
+        "requires.val": 1e+25,
+        "visible.unittype": "overmind4",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind IVs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind4_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind4",
+        "requires.upgradetype": "",
+        "requires.val": 1e+50,
+        "visible.unittype": "overmind4",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind V",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind5_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind5",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind4",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind Vs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind5_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind5",
+        "requires.upgradetype": "",
+        "requires.val": 1e+28,
+        "visible.unittype": "overmind5",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind Vs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind5_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind5",
+        "requires.upgradetype": "",
+        "requires.val": 1e+56,
+        "visible.unittype": "overmind5",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind VI",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind6_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind6",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind5",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind VIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind6_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind6",
+        "requires.upgradetype": "",
+        "requires.val": 1e+31,
+        "visible.unittype": "overmind6",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind VIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind6_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind6",
+        "requires.upgradetype": "",
+        "requires.val": 1e+62,
+        "visible.unittype": "overmind6",
         "visible.upgradetype": "",
         "visible.val": 1
       },
@@ -774,10 +1026,24 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Ascend $REQUIRED times",
+        "label": "third time's the charm",
+        "longdesc": "",
+        "name": "ascension11",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "ascension",
+        "requires.upgradetype": "",
+        "requires.val": 3,
+        "visible.unittype": "ascension",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Ascend $REQUIRED times",
         "label": "interplanetary infestation",
         "longdesc": "",
         "name": "ascension2",
-        "points": 20,
+        "points": 30,
         "requires.event": "",
         "requires.unittype": "ascension",
         "requires.upgradetype": "",
@@ -788,10 +1054,24 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Ascend $REQUIRED times",
+        "label": "reseterrific",
+        "longdesc": "",
+        "name": "ascension21",
+        "points": 40,
+        "requires.event": "",
+        "requires.unittype": "ascension",
+        "requires.upgradetype": "",
+        "requires.val": 10,
+        "visible.unittype": "ascension",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Ascend $REQUIRED times",
         "label": "prestigious",
         "longdesc": "",
         "name": "ascension3",
-        "points": 30,
+        "points": 50,
         "requires.event": "",
         "requires.unittype": "ascension",
         "requires.upgradetype": "",
@@ -1423,6 +1703,20 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "name": "publictest1",
         "points": 0,
         "requires.event": "achieve-publictest1",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
+      },
+      {
+        "description": "Ask the right question",
+        "label": "signs point to yes",
+        "longdesc": "",
+        "name": "therightquestion",
+        "points": 0,
+        "requires.event": "therightquestion",
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",

@@ -179,7 +179,7 @@ angular.module('swarmApp').run (hotkeys, $location) ->
     ['a', '/tab/all', 'Open the all-units tab']
     ['o', '/options', 'Open the options screen']
     ['y', '/achievements', 'Open the achievements screen']
-    ['s', '/statistics', 'Open the statistics screen']
+    ['shift+y', '/statistics', 'Open the statistics screen']
     ['n', '/changelog', 'Open the patch notes screen']
   ]
   for [combo, path, desc] in locationKeys then do (combo, path, desc) ->
@@ -187,6 +187,15 @@ angular.module('swarmApp').run (hotkeys, $location) ->
       combo: combo
       description: desc
       callback: () -> $location.path path
+angular.module('swarmApp').run (hotkeys, $rootScope) ->
+  # obfuscate a little, just to make things interesting
+  reverse = (str) ->
+    str = str.split ''
+    str.reverse()
+    return str.join ''
+  hotkeys.add
+    combo: reverse 'l e u q e s'
+    callback: () -> $rootScope.$emit reverse 'noitseuqthgireht'
 
 # not sure why dropdowns don't work on their own anymore, but this fixes it
 angular.module('swarmApp').run () ->
