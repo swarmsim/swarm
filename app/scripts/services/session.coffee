@@ -90,8 +90,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
       #if sM > gM or (sM == gM and (sm > gm or (sm == gm and sp > gp)))
       #  throw new Error "save version newer than game version: #{saveversion} > #{gameversion}"
 
-      # coffeescript: two-dot range is inclusive
-      blacklisted = [/^1\.0\.0-publictest/]
+      blacklisted = [/^1\.0\.0-publictest/, /^1\.1\.0-beta/]
       # never blacklist the current version; also makes tests pass before we do `npm version 1.0.0`
       if saveversion != gameversion
         for b in blacklisted
@@ -99,8 +98,7 @@ angular.module('swarmApp').factory 'session', (storage, $rootScope, $log, util, 
             throw new Error 'blacklisted save version'
 
     _validateFormatVersion: (formatversion, gameversion=version) ->
-      # coffeescript: two-dot range is inclusive
-      blacklisted = [/^1\.0\.0-publictest/]
+      blacklisted = [/^1\.0\.0-publictest/, /^1\.1\.0-beta/]
       # never blacklist the current version; also makes tests pass before we do `npm version 1.0.0`
       if formatversion != gameversion
         for b in blacklisted
