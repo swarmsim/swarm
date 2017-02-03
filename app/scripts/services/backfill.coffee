@@ -8,7 +8,7 @@
  #
  # fix up old/broken save data at load time
 ###
-angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
+angular.module('swarmApp').factory 'Backfill', ($log, achievementslistener) -> class Backfill
   run: (game) ->
     # grant mutagen for old saves, created before mutagen existed
     do ->
@@ -43,6 +43,9 @@ angular.module('swarmApp').factory 'Backfill', ($log) -> class Backfill
       if new Decimal(stats?.num ? 0).greaterThan(ascension.count()) and ascension.count().isZero()
         $log.info 'backfill lost ascension tally', ascension.count()+'', stats.num
         ascension._setCount stats.num
+    
+    # apply new ascension achievements. https://github.com/swarmsim/swarm/issues/701
+    achievementslistener.achieveUnit 'ascension', true
 
     $log.debug 'backfill success'
 

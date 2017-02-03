@@ -142,7 +142,7 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
               # statistics are added before achievement-check, fortunately
               count = require.unit.statistics().twinnum ? 0
               count = new Decimal count
-            $log.debug 'achievement check: unitcount after command', require.unit.name, count, count? && count >= require.val
+            $log.debug 'achievement check: unitcount after command', require.unit.name, count+'', count? && count >= require.val
             if count? && count.greaterThanOrEqualTo(require.val)
               $log.debug 'earned', achieve.name, achieve
               # requirements are 'or'ed
