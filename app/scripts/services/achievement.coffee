@@ -128,25 +128,24 @@ angular.module('swarmApp').factory 'AchievementsListener', (util, $log) -> class
     @_listen @scope
 
   achieveUnit: (unitname, rawcount=false) ->
-    # TODO index these better, check on only the current unit
+    # actually checks all units
     for achieve in @game.achievementlist()
       for require in achieve.requires
         # unit count achievement
         if not require.event and require.unit and require.val
-          if require.unit.name == unitname
-            if rawcount
-              # exceptional case, count all units, ignoring statistics
-              count = require.unit.count()
-            else
-              # usually we want to ignore generators, so use statistics-count
-              # statistics are added before achievement-check, fortunately
-              count = require.unit.statistics().twinnum ? 0
-              count = new Decimal count
-            $log.debug 'achievement check: unitcount after command', require.unit.name, count+'', count? && count >= require.val
-            if count? && count.greaterThanOrEqualTo(require.val)
-              $log.debug 'earned', achieve.name, achieve
-              # requirements are 'or'ed
-              achieve.earn()
+          if rawcount
+            # exceptional case, count all units, ignoring statistics
+            count = require.unit.count()
+          else
+            # usually we want to ignore generators, so use statistics-count
+            # statistics are added before achievement-check, fortunately
+            count = require.unit.statistics().twinnum ? 0
+            count = new Decimal count
+          $log.debug 'achievement check: unitcount after command', require.unit.name, count+'', count? && count >= require.val
+          if count? && count.greaterThanOrEqualTo(require.val)
+            $log.debug 'earned', achieve.name, achieve
+            # requirements are 'or'ed
+            achieve.earn()
   achieveUpgrade: (upgradename) ->
     # actually checks all upgrades
     for achieve in @game.achievementlist()
