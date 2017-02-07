@@ -187,6 +187,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       if @hasStat 'capBase'
         ret = @stat 'capBase'
         ret = ret.times @stat 'capMult', 1
+        ret = ret.plus @stat 'capFlat', 0
         return ret
   capValue: (val) ->
     cap = @_getCap()

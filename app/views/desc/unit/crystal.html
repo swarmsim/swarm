@@ -1,19 +1,32 @@
 <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending. Each hatchery or expansion you build comes with 1 crystal.</p>
 
-<p><i>Swarm Simulator's developer appreciates your support - thank you!</i></p>
+<p>Crystals have permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>
 
-<div ng-if="mtxPacks">
-  <div ng-repeat="pack in mtxPacks">
-    <button class="btn btn-default" ng-click="clickBuyPack(pack)">Buy {{pack['pack.val'] | longnum:null:{minSuffix:1e300} }} crystals for <img src="/images/kred_single.png" style="width:16px;height:16px"> {{pack.price_kreds | longnum:null:{minSuffix:1e300} }}</button>
+<div ng-controller="MtxDesc">
+  <div ng-if="packs">
+    <div ng-repeat="pack in packs">
+      <button class="btn btn-default" ng-click="clickBuyPack(pack)">
+        Buy {{pack['pack.val'] | longnum:null:{minSuffix:1e300} }} crystals for
+        <img src="/images/kred_single.png" style="width:16px;height:16px">
+        {{pack.price_kreds | longnum:null:{minSuffix:1e300} }}
+      </button>
+    </div>
+    <p><i>Swarm Simulator's developer appreciates your support - thank you!</i></p>
+
   </div>
+  <div class="alert alert-danger" ng-if="!packs && packsError">
+    {{packsError}}
+  </div>
+  <div ng-if="!packs && !packsError">
+    <img src="images/ajax-loader.gif">
+  </div>
+  <div class="alert alert-info" ng-if="buyMessage">
+    {{buyMessage}}
+  </div>
+  <br>
+  <div ng-repeat="convert in mtx.toEnergy">
+    <button class="btn btn-default" ng-click="clickConvert(convert)">Convert {{convert.crystal | longnum:null:{minSuffix:1e300} }} crystals into {{convert.energy | longnum:null:{minSuffix:1e300} }} energy and max energy</button>
+  </div>
+  <br>
+  <button class="btn btn-default">Quick ascend: {{100000 | longnum:null:{minSuffix:1e300} }} crystals</button>
 </div>
-<div ng-if="!mtxPacks">
-  Loading...
-</div>
-<br>
-<div ng-repeat="convert in mtx.toEnergy">
-  <button class="btn btn-default" ng-click="clickConvert(convert)">Convert {{convert.crystal | longnum:null:{minSuffix:1e300} }} crystals into {{convert.energy | longnum:null:{minSuffix:1e300} }} energy</button>
-</div>
-<br>
-<pre>{{mtx.buyPacks|json}}</pre>
-<button class="btn btn-default">Quick ascend: {{100000 | longnum:null:{minSuffix:1e300} }} crystals</button>

@@ -24,15 +24,33 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options, mtx) 
       if scope.desc == '-' or not scope.desc
         return "views/desc/unit/#{scope.unit.name}.html"
       return ''
-    # crystal/mtx specific
-    scope.mtx = mtx
-    mtx.pull()
-    mtx.packs().then (mtxPacks) ->
-      scope.mtxPacks = mtxPacks
-    scope.clickBuyPack = (pack) ->
-      scope.mtx.buy(pack.name)
-    scope.clickConvert = (conversion) ->
-      scope.mtx.convert(conversion)
+
+angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx) ->
+  $scope.mtx = mtx
+  $scope.mtx.pull().then(
+    () ->
+      $scope.pullError = null
+    (error) ->
+      $scope.pullError = error
+  )
+  $scope.mtx.packs().then(
+    (mtxPacks) ->
+      $scope.packs = mtxPacks
+      $scope.packsError = null
+    (error) ->
+      $scope.packs = null
+      $scope.packsError = error
+  )
+  $scope.clickBuyPack = (pack) ->
+    $scope.buyMessage = null
+    $scope.mtx.buy(pack.name).then(
+      (res) ->
+        $scope.buyMessage = "Thank you for supporting Swarm Simulator!"
+      (error) ->
+        $scope.buyMessage = "Thanks for looking!"
+    )
+  $scope.clickConvert = (conversion) ->
+    $scope.mtx.convert(conversion)
 
 angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl" desc desc-upgrade desc-template desc-{{upgrade.name}}"></p><p ng-if="!templateUrl" class="desc desc-upgrade desc-text desc-{{upgrade.name}}">{{desc}}</p>'
