@@ -777,7 +777,7 @@ module.exports = function (grunt) {
       parseNumbers: true,
       debug: true,
       callback: function (data) {
-        data = _.pick(data, ['unittypes', 'upgrades', 'achievements', 'tutorial']);
+        data = _.pick(data, ['unittypes', 'upgrades', 'achievements', 'tutorial', 'mtx', 'mtxToEnergy']);
         data = _.mapValues(data, function(sheet) {
           return _.omit(sheet, ['raw']);
         });

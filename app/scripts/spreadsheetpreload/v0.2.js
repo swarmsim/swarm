@@ -1727,6 +1727,94 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
     ],
     "name": "achievements"
   },
+  "mtx": {
+    "column_names": [
+      "name",
+      "label",
+      "description",
+      "pricekreds",
+      "uses",
+      "pack.unittype",
+      "pack.val"
+    ],
+    "elements": [
+      {
+        "description": "55,000 crystals",
+        "label": "55,000 crystals",
+        "name": "crystal001",
+        "pack.unittype": "crystal",
+        "pack.val": 55000,
+        "price_kreds": 50,
+        "uses": 1
+      },
+      {
+        "description": "120,000 crystals",
+        "label": "120,000 crystals",
+        "name": "crystal002",
+        "pack.unittype": "crystal",
+        "pack.val": 120000,
+        "price_kreds": 100,
+        "uses": 1
+      },
+      {
+        "description": "250,000 crystals",
+        "label": "250,000 crystals",
+        "name": "crystal003",
+        "pack.unittype": "crystal",
+        "pack.val": 250000,
+        "price_kreds": 200,
+        "uses": 1
+      },
+      {
+        "description": "666,000 crystals",
+        "label": "666,000 crystals",
+        "name": "crystal004",
+        "pack.unittype": "crystal",
+        "pack.val": 666000,
+        "price_kreds": 500,
+        "uses": 1
+      },
+      {
+        "description": "1,333,333 crystals",
+        "label": "1,333,333 crystals",
+        "name": "crystal005",
+        "pack.unittype": "crystal",
+        "pack.val": 1333333,
+        "price_kreds": 1000,
+        "uses": 1
+      }
+    ],
+    "name": "mtx"
+  },
+  "mtxToEnergy": {
+    "column_names": [
+      "crystal",
+      "energy"
+    ],
+    "elements": [
+      {
+        "crystal": 600,
+        "energy": 300
+      },
+      {
+        "crystal": 3600,
+        "energy": 3600
+      },
+      {
+        "crystal": 10800,
+        "energy": 21600
+      },
+      {
+        "crystal": 31200,
+        "energy": 86400
+      },
+      {
+        "crystal": 120000,
+        "energy": 604800
+      }
+    ],
+    "name": "mtxToEnergy"
+  },
   "unittypes": {
     "column_names": [
       "name",
@@ -2049,7 +2137,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "cost.unittype": "",
         "cost.val": "",
         "description": "-",
-        "disabled": "TRUE",
+        "disabled": "",
         "effect.stat": "",
         "effect.type": "",
         "effect.unittype": "",
@@ -7153,6 +7241,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "unittype": ""
       },
       {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "addUnit",
+        "effect.unittype": "crystal",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 1,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "hatchery",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
         "class": "upgrade",
         "cost.factor": 2.45,
         "cost.unittype": "territory",
@@ -7185,6 +7294,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.unittype2": "",
         "effect.upgradetype": "",
         "effect.val": 1.12,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "expansion",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "addUnit",
+        "effect.unittype": "crystal",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 1,
         "effect.val2": "",
         "label": "",
         "lol": "",
