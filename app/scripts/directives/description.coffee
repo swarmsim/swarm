@@ -25,7 +25,7 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options, mtx) 
         return "views/desc/unit/#{scope.unit.name}.html"
       return ''
 
-angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx) ->
+angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx, commands) ->
   $scope.mtx = mtx
   $scope.mtx.pull().then(
     () ->
@@ -50,7 +50,11 @@ angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx) ->
         $scope.buyMessage = "Thanks for looking!"
     )
   $scope.clickConvert = (conversion) ->
-    $scope.mtx.convert(conversion)
+    $scope.convertError = null
+    try
+      commands.convertCrystal({conversion: conversion})
+    catch e
+      $scope.convertError = e
 
 angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl" desc desc-upgrade desc-template desc-{{upgrade.name}}"></p><p ng-if="!templateUrl" class="desc desc-upgrade desc-text desc-{{upgrade.name}}">{{desc}}</p>'

@@ -74,6 +74,8 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
       crystal._subtractCount conversion.crystal
       mtxEnergy._addCount conversion.energy
       energy._addCount conversion.energy
+    else
+      throw new Error 'Not enough crystal.'
 
 ###*
  # @ngdoc service

@@ -23,9 +23,11 @@
   <div class="alert alert-info" ng-if="buyMessage">
     {{buyMessage}}
   </div>
-  <br>
   <div ng-repeat="convert in mtx.toEnergy">
-    <button class="btn btn-default" ng-click="clickConvert(convert)">Convert {{convert.crystal | longnum:null:{minSuffix:1e300} }} crystals into {{convert.energy | longnum:null:{minSuffix:1e300} }} energy and max energy</button>
+    <button ng-disabled="game.unit('crystal').count().lessThan(convert.crystal)" class="btn btn-default" ng-click="clickConvert(convert)">Convert {{convert.crystal | longnum:null:{minSuffix:1e300} }} crystals into {{convert.energy | longnum:null:{minSuffix:1e300} }} energy and max energy</button>
+  </div>
+  <div class="alert alert-danger" ng-if="convertError">
+    {{convertError}}
   </div>
   <br>
   <button class="btn btn-default">Quick ascend: {{100000 | longnum:null:{minSuffix:1e300} }} crystals</button>
