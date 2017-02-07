@@ -44,8 +44,9 @@ angular.module('swarmApp').factory 'Backfill', ($log, achievementslistener) -> c
         $log.info 'backfill lost ascension tally', ascension.count()+'', stats.num
         ascension._setCount stats.num
     
-    # apply new ascension achievements. https://github.com/swarmsim/swarm/issues/701
-    achievementslistener.achieveUnit 'ascension', true
+    # apply all new achievements. https://github.com/swarmsim/swarm/issues/701
+    # On second thought, wait for them to buy a unit so achievement popups appear
+    #achievementslistener.achieveUnit()
 
     $log.debug 'backfill success'
 
