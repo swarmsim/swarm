@@ -70,33 +70,36 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
       PlayFabClientSDK.ConfirmPurchase
         OrderId: game.session.state.mtx.paypal.pendingOrderId
         wrapPlayfab reject, 'ConfirmPurchase', (result) =>
-          if !result.data.Status != 'Succeeded'
+          if !result.data.Items?.length
             return reject result
           game.session.state.mtx.paypal.pendingOrderId = null
           return resolve result
     else
       return resolve null
   pull: -> $q (resolve, reject) =>
-    @_confirm().then =>
+    pullFn = =>
       PlayFabClientSDK.GetUserInventory {},
         wrapPlayfab reject, 'GetUserInventory', (result) =>
           changed = false
           for item in result.data.Inventory
-            if !game.session.state.mtx.paypal[item.ItemInstanceId]
+            if !game.session.state.mtx?.paypal?.items?[item.ItemInstanceId]?
               # TODO use playfab's item list
-              pack = @buyPacksByName[purchase.identifier]
+              pack = @buyPacksByName[item.ItemId]
               if pack?
+                console.debug 'applying pulled crystal pack', item.ItemInstanceId, pack
                 game.unit('crystal')._addCount pack['pack.val']
                 game.session.state.mtx ?= {}
-                game.session.state.mtx.kongregate ?= {}
-                game.session.state.mtx.kongregate[purchase.id] = true
+                game.session.state.mtx.paypal ?= {}
+                game.session.state.mtx.paypal.items ?= {}
+                game.session.state.mtx.paypal.items[item.ItemInstanceId] = true
                 changed = true
           resolve({changed: changed})
+    @_confirm().then pullFn, pullFn
   buy: (name) -> $q (resolve, reject) =>
     PlayFabClientSDK.StartPurchase
       CatalogVersion: 'scratch',
       Items: [{
-        ItemId: "One"
+        ItemId: name
         Quantity: 1
       }]
       wrapPlayfab reject, 'StartPurchase', (result) =>
@@ -109,6 +112,11 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
             game.session.state.mtx.paypal ?= {}
             game.session.state.mtx.paypal.pendingOrderId = result.data.OrderId
             game.save()
+            if !result.data?.PurchaseConfirmationPageURL
+              # This can happen in development with free items. Just re-pull.
+              console.error 'No PurchaseConfirmationPageURL', result.data?.PurchaseConfirmationPageURL
+              @pull()
+              return reject 'No PurchaseConfirmationPageURL'
             document.location = result.data.PurchaseConfirmationPageURL
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
