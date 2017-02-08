@@ -200,6 +200,19 @@ angular.module('swarmApp').run (hotkeys, $rootScope) ->
     combo: reverse 'l e u q e s'
     callback: () -> $rootScope.$emit reverse 'noitseuqthgireht'
 
+#angular.module('swarmApp').run (isKongregate, env) ->
+#  # https://github.com/xsolla/paystation-embed
+#  console.log 'xsolla?'
+#  if !isKongregate()
+#    console.log 'xsolla loading'
+#    # lazy load the non-kongregate payment processor
+#    $.getScript 'https://static.xsolla.com/embed/paystation/1.0.7/widget.min.js', (data, status, xhr) ->
+#      console.log 'xsolla loaded'
+#      XPayStationWidget.init
+#        access_token: env.xsollaAccessToken
+#  else
+#    console.log 'xsolla ignored'
+
 # not sure why dropdowns don't work on their own anymore, but this fixes it
 angular.module('swarmApp').run () ->
   $(document).on 'mousedown', '.dropdown-toggle', () ->

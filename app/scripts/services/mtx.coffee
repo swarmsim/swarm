@@ -1,5 +1,7 @@
 'use strict'
 
+###*
+###
 angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> class KongregateMtx
   constructor: (@buyPacks) ->
     @buyPacksByName = _.keyBy @buyPacks, 'name'
@@ -42,6 +44,73 @@ angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> cl
         else
           reject(success)
 
+# Playfab error checking within a promise.
+# usage: PlayFabClientAPI.blah {}, wrapPlayfab reject, 'blah', (result) =>
+wrapPlayfab = (reject, name, fn) => (result) =>
+  try
+    console.debug 'PlayFabClientSDK.'+name, result
+    if !result? or result.status != 'OK'
+      return reject result
+    return fn result
+  catch e
+    console.error e
+    reject e
+ 
+# https://community.playfab.com/questions/638/208252737-PlayFab-and-PayPal-integration-problem.html
+angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
+  # Playfab uses Paypal as its backend here
+  constructor: (@buyPacks) ->
+    @buyPacksByName = _.keyBy @buyPacks, 'name'
+  packs: -> $q (resolve, reject) =>
+    # TODO use playfab's item list
+    return resolve(@buyPacks)
+  _confirm: -> $q (resolve, reject) =>
+    if game.session.state.mtx?.paypal?.pendingOrderId?
+      console.debug 'paypal pendingorderid', game.session.state.mtx.paypal.pendingOrderId
+      PlayFabClientSDK.ConfirmPurchase
+        OrderId: game.session.state.mtx.paypal.pendingOrderId
+        wrapPlayfab reject, 'ConfirmPurchase', (result) =>
+          if !result.data.Status != 'Succeeded'
+            return reject result
+          game.session.state.mtx.paypal.pendingOrderId = null
+          return resolve result
+    else
+      return resolve null
+  pull: -> $q (resolve, reject) =>
+    @_confirm().then =>
+      PlayFabClientSDK.GetUserInventory {},
+        wrapPlayfab reject, 'GetUserInventory', (result) =>
+          changed = false
+          for item in result.data.Inventory
+            if !game.session.state.mtx.paypal[item.ItemInstanceId]
+              # TODO use playfab's item list
+              pack = @buyPacksByName[purchase.identifier]
+              if pack?
+                game.unit('crystal')._addCount pack['pack.val']
+                game.session.state.mtx ?= {}
+                game.session.state.mtx.kongregate ?= {}
+                game.session.state.mtx.kongregate[purchase.id] = true
+                changed = true
+          resolve({changed: changed})
+  buy: (name) -> $q (resolve, reject) =>
+    PlayFabClientSDK.StartPurchase
+      CatalogVersion: 'scratch',
+      Items: [{
+        ItemId: "One"
+        Quantity: 1
+      }]
+      wrapPlayfab reject, 'StartPurchase', (result) =>
+        PlayFabClientSDK.PayForPurchase
+          OrderId: result.data.OrderId
+          ProviderName: "PayPal"
+          Currency: "RM"
+          wrapPlayfab reject, 'PayForPurchase', (result) =>
+            game.session.state.mtx ?= {}
+            game.session.state.mtx.paypal ?= {}
+            game.session.state.mtx.paypal.pendingOrderId = result.data.OrderId
+            game.save()
+            document.location = result.data.PurchaseConfirmationPageURL
+
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
   fail: -> $q (resolve, reject) =>
     reject 'Payments are unavailable right now. Please try again later.'
@@ -49,13 +118,13 @@ angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class Kongregate
   pull: -> @fail()
   buy: -> @fail()
 
-angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, DisabledMtx) -> class Mtx
+angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, PaypalMtx) -> class Mtx
   constructor: (buyPacks, @toEnergy) ->
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      # TODO mtx with paypal? playfab?
-      @backend = new DisabledMtx()
+      #@backend = new DisabledMtx()
+      @backend = new PaypalMtx buyPacks
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->
