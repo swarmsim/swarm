@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Directive: newsModal', ->
+xdescribe 'Directive: newsModal', ->
 
   # load the directive's module
   beforeEach module 'swarmApp'
