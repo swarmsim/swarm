@@ -12,11 +12,10 @@ angular.module('swarmApp').directive 'newsModal', (game, playfab, $location) ->
   link: ($scope, element, attrs) ->
     $scope.state = 'loading'
     threshold = moment($location.search().lastnews or game.session.state.date.lastNews or game.session.state.date.started)
-    console.log threshold, game.session.state.date
+    #console.log threshold, game.session.state.date
 
     modalElem = $(element).children()
     modalElem.on 'hidden.bs.modal', (e) =>
-      console.log 'modal hidden'
       game.session.state.date.lastNews = new Date()
       game.save()
     $scope.close = =>
