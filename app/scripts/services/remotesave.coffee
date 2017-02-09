@@ -16,7 +16,8 @@
 angular.module('swarmApp').factory 'kongregateS3Syncer', ($log, kongregate, storage, game, env, $interval, $q, $rootScope) -> new class KongregateS3Syncer
   constructor: ->
     jQuery.ajaxSetup cached:false
-  isVisible: ->
+  isVisible: -> false
+  isActive: ->
     env.isKongregateSyncEnabled and kongregate.isKongregate()
   init: (fn=(->), userid, token, force) ->
     # Fetch an S3 policy from our server. This allows S3 access without ever again calling our custom server.
@@ -193,10 +194,6 @@ angular.module('swarmApp').factory 'syncerUtil', ($log, env, game, isKongregate,
 # the syncer for kongregate (currently silent, will eventually replace s3)
 angular.module('swarmApp').factory 'kongregatePlayfabSyncer', ($log, env, game, kongregate, $interval, $rootScope, playfab, syncerUtil) -> new class KongregatePlayfabSyncer
   isVisible: ->
-    # return env.playfabTitleId and env.isKongregateSyncEnabled and kongregate.isKongregate()
-    return false
-
-  isActive: ->
     return env.playfabTitleId and env.isKongregateSyncEnabled and kongregate.isKongregate()
 
   isAuth: ->
@@ -216,7 +213,7 @@ angular.module('swarmApp').factory 'kongregatePlayfabSyncer', ($log, env, game, 
   initAutopush: (enabled) ->
     return syncerUtil.initAutopush.call(this, 'kongregatePlayfab', enabled)
 
-  fetch: (fn=(->)) ->
+  fetch: (fn=(res) -> res) ->
     playfab.fetch().then(fn, console.warn)
 
   fetchedSave: ->

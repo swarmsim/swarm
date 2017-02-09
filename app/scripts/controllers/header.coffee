@@ -62,7 +62,7 @@ angular.module('swarmApp').factory 'pageTheme', ($log, options) -> return ($scop
       $scope.themeExtraEl.html css
       $log.debug 'extratheming', $scope.themeExtraEl, css
 
-angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, kongregateS3Syncer, options) -> return ($scope) ->
+angular.module('swarmApp').factory 'kongregateScrolling', ($log, kongregate, options) -> return ($scope) ->
   $scope.options = options
   if !kongregate.isKongregate()
     return

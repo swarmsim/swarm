@@ -143,7 +143,7 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
 
   clear: -> $q (resolve, reject) =>
     PlayFabClientSDK.UpdateUserData
-      KeysToRemove: playfabStateChunker.clearKeys()
+      KeysToRemove: playfabStateChunker.keys()
       (response, error) =>
         if response && response.code == 200
           console.log('clear success', response)
