@@ -22,7 +22,6 @@ angular.module('swarmApp').controller 'NewsArchiveCtrl', ($scope, playfab) ->
           date: new moment(item.Timestamp)
           title: item.Title
           id: item.NewsId
-      console.log 'success', $scope.news
     (error) =>
       $scope.state = 'error'
       $scope.error = error
