@@ -1,0 +1,17 @@
+<tabs></tabs>
+
+<div ng-if="state === 'loading'">
+  <img src="images/ajax-loader.gif">
+</div>
+<div ng-if="state === 'error'" class="alert alert-danger">
+  {{error.message || error}}
+</div>
+<div ng-if="state === 'success'">
+  <ul ng-if="news.length" class="list-unstyled">
+    <li ng-repeat="news in news track by news.NewsId" class="well">
+      <h3>{{news.title}} <small>{{news.date.format('LLLL')}}</small></h3>
+      <div>{{news.text}}</div>
+    </li>
+  </ul>
+  <div ng-if="!news.length">No recent news!</div>
+</div>

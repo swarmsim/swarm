@@ -99,6 +99,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/decimallegend',
       templateUrl: 'views/decimallegend.html'
       controller: 'DecimallegendCtrl'
+    .when '/news-archive',
+      templateUrl: 'views/news-archive.html'
+      controller: 'NewsArchiveCtrl'
     .otherwise
       redirectTo: '/'
 
