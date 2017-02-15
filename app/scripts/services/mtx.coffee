@@ -127,7 +127,7 @@ angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class Kongregate
   buy: -> @fail()
 
 angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, PaypalMtx) -> class Mtx
-  constructor: (buyPacks, @toEnergy) ->
+  constructor: (buyPacks) ->
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
@@ -141,19 +141,6 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
       return res
   buy: (name) -> @backend.buy(name)
 
-  convert: (conversion) ->
-    crystal = game.unit('crystal')
-    mtxEnergy = game.unit('mtxEnergy')
-    energy = game.unit('energy')
-    # no need to check if energy will be below max - mtxEnergy increases the max
-    # so I (and players) don't have to think about that
-    if (crystal.count()).greaterThan(conversion.crystal)
-      crystal._subtractCount conversion.crystal
-      mtxEnergy._addCount conversion.energy
-      energy._addCount conversion.energy
-    else
-      throw new Error 'Not enough crystal.'
-
 ###*
  # @ngdoc service
  # @name swarmApp.mtx
@@ -162,4 +149,4 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
  # Factory in the swarmApp.
 ###
 angular.module('swarmApp').factory 'mtx', (Mtx, spreadsheet) ->
-  new Mtx spreadsheet.data.mtx.elements, spreadsheet.data.mtxToEnergy.elements
+  new Mtx spreadsheet.data.mtx.elements

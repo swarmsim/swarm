@@ -1,7 +1,5 @@
 <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending. Each hatchery or expansion you build comes with 1 crystal.</p>
 
-<p>Crystals have permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>
-
 <div ng-controller="MtxDesc">
   <div ng-if="packs">
     <div ng-repeat="pack in packs">
@@ -23,12 +21,12 @@
   <div class="alert alert-info" ng-if="buyMessage">
     {{buyMessage}}
   </div>
-  <div ng-repeat="convert in mtx.toEnergy">
-    <button ng-disabled="game.unit('crystal').count().lessThan(convert.crystal)" class="btn btn-default" ng-click="clickConvert(convert)">Convert {{convert.crystal | longnum:null:{minSuffix:1e300} }} crystals into {{convert.energy | longnum:null:{minSuffix:1e300} }} energy and max energy</button>
-  </div>
   <div class="alert alert-danger" ng-if="convertError">
     {{convertError}}
   </div>
   <br>
-  <button class="btn btn-default">Quick ascend: {{100000 | longnum:null:{minSuffix:1e300} }} crystals</button>
+  <p>Crystals have permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>
+  <buyunit-input unit="game.unit('mtxEnergy')"></buyunit-input>
+
+  <button class="btn btn-default btn-disabled" disabled>Quick ascend (coming soon!)</button>
 </div>

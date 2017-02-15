@@ -1733,6 +1733,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       "label",
       "description",
       "pricekreds",
+      "priceusdpaypal",
       "uses",
       "pack.unittype",
       "pack.val"
@@ -1745,6 +1746,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "pack.unittype": "crystal",
         "pack.val": 55000,
         "price_kreds": 50,
+        "price_usd_paypal": 499,
         "uses": 1
       },
       {
@@ -1754,6 +1756,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "pack.unittype": "crystal",
         "pack.val": 120000,
         "price_kreds": 100,
+        "price_usd_paypal": 999,
         "uses": 1
       },
       {
@@ -1763,6 +1766,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "pack.unittype": "crystal",
         "pack.val": 250000,
         "price_kreds": 200,
+        "price_usd_paypal": 1999,
         "uses": 1
       },
       {
@@ -1772,6 +1776,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "pack.unittype": "crystal",
         "pack.val": 666000,
         "price_kreds": 500,
+        "price_usd_paypal": 4999,
         "uses": 1
       },
       {
@@ -1781,39 +1786,11 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "pack.unittype": "crystal",
         "pack.val": 1333333,
         "price_kreds": 1000,
+        "price_usd_paypal": 9999,
         "uses": 1
       }
     ],
     "name": "mtx"
-  },
-  "mtxToEnergy": {
-    "column_names": [
-      "crystal",
-      "energy"
-    ],
-    "elements": [
-      {
-        "crystal": 600,
-        "energy": 300
-      },
-      {
-        "crystal": 3600,
-        "energy": 3600
-      },
-      {
-        "crystal": 10800,
-        "energy": 21600
-      },
-      {
-        "crystal": 31200,
-        "energy": 86400
-      },
-      {
-        "crystal": 120000,
-        "energy": 604800
-      }
-    ],
-    "name": "mtxToEnergy"
   },
   "unittypes": {
     "column_names": [
@@ -2108,8 +2085,8 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "ascendPreserve": "TRUE",
         "column": "",
-        "cost.unittype": "",
-        "cost.val": "",
+        "cost.unittype": "crystal",
+        "cost.val": 1,
         "description": "energy bought with microtransactions also permanently increases max energy. Don't wanna worry about hitting the cap.",
         "disabled": "TRUE",
         "effect.stat": "capFlat",
@@ -2120,7 +2097,43 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val2": "",
         "effect.val3": "",
         "init": "",
-        "label": "mtxEnergy",
+        "label": "energy and max energy",
+        "lol": "",
+        "name": "mtxEnergy",
+        "plural": "energy and max energy",
+        "prod.unittype": "",
+        "prod.val": "",
+        "requires.op": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "showparent": "",
+        "tab": "energy",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "convert",
+        "verbing": "converting",
+        "verbone": "converts",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
+      },
+      {
+        "ascendPreserve": "",
+        "column": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "disabled": "",
+        "effect.stat": "",
+        "effect.type": "addUnit",
+        "effect.unittype": "energy",
+        "effect.unittype2": "",
+        "effect.val": 1,
+        "effect.val2": "",
+        "effect.val3": "",
+        "init": "",
+        "label": "",
         "lol": "",
         "name": "mtxEnergy",
         "plural": "",
@@ -2131,9 +2144,9 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.upgradetype": "",
         "requires.val": "",
         "showparent": "",
-        "tab": "energy",
+        "tab": "",
         "tier": "",
-        "unbuyable": "TRUE",
+        "unbuyable": "",
         "verb": "",
         "verbing": "",
         "verbone": "",
@@ -2199,9 +2212,9 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "prod.unittype": "",
         "prod.val": "",
         "requires.op": "",
-        "requires.unittype": "nexus",
+        "requires.unittype": "meat",
         "requires.upgradetype": "",
-        "requires.val": 1,
+        "requires.val": 0,
         "showparent": "",
         "tab": "energy",
         "tier": "",

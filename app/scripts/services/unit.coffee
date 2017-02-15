@@ -404,7 +404,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     @maxCostMet().greaterThan 0
 
   isBuyable: (ignoreCost=false) ->
-    return (@isCostMet() or ignoreCost) and @isVisible() and not @unittype.unbuyable
+    return (@isCostMet() or ignoreCost) and @isBuyButtonVisible() and not @unittype.unbuyable
 
   buyMax: (percent) ->
     @buy @maxCostMet percent
@@ -425,6 +425,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
         cost.unit._subtractCount cost.val.times num
       twinnum = num.times @twinMult()
       @_addCount twinnum
+      for effect in @effect
+        effect.onBuyUnit twinnum
       return {num:num, twinnum:twinnum}
 
   isNewlyUpgradable: ->

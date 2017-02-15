@@ -21,6 +21,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
 
   onBuy: (level) ->
     @type.onBuy? this, @game, @parent, level
+  onBuyUnit: (twinnum) ->
+    @type.onBuyUnit? this, @game, @parent, twinnum
 
   calcStats: (stats={}, schema={}, level=@parent.count()) ->
     @type.calcStats? this, stats, schema, level
@@ -96,8 +98,10 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'addUnit'
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
-    output: (effect, game) ->
-      effect.power().times effect.val
+    onBuyUnit: (effect, game, boughtUnit, num) ->
+      effect.unit._addCount @output effect, game, num
+    output: (effect, game, num=1) ->
+      effect.power().times(effect.val).times(num)
   effecttypes.register
     name: 'addUnitByVelocity'
     onBuy: (effect, game) ->
