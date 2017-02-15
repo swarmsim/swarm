@@ -1736,30 +1736,34 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       "priceusdpaypal",
       "uses",
       "pack.unittype",
+      "bulkbonus",
       "pack.val"
     ],
     "elements": [
       {
-        "description": "55,000 crystals",
-        "label": "55,000 crystals",
+        "bulkbonus": 1,
+        "description": "50,000 crystals",
+        "label": "50,000 crystals",
         "name": "crystal001",
         "pack.unittype": "crystal",
-        "pack.val": 55000,
+        "pack.val": 50000,
         "price_kreds": 50,
         "price_usd_paypal": 499,
         "uses": 1
       },
       {
-        "description": "120,000 crystals",
-        "label": "120,000 crystals",
+        "bulkbonus": 1.1,
+        "description": "110,000 crystals",
+        "label": "110,000 crystals",
         "name": "crystal002",
         "pack.unittype": "crystal",
-        "pack.val": 120000,
+        "pack.val": 110000,
         "price_kreds": 100,
         "price_usd_paypal": 999,
         "uses": 1
       },
       {
+        "bulkbonus": 1.25,
         "description": "250,000 crystals",
         "label": "250,000 crystals",
         "name": "crystal003",
@@ -1770,21 +1774,23 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "uses": 1
       },
       {
-        "description": "666,000 crystals",
-        "label": "666,000 crystals",
+        "bulkbonus": 1.4,
+        "description": "700,000 crystals",
+        "label": "700,000 crystals",
         "name": "crystal004",
         "pack.unittype": "crystal",
-        "pack.val": 666000,
+        "pack.val": 700000,
         "price_kreds": 500,
         "price_usd_paypal": 4999,
         "uses": 1
       },
       {
-        "description": "1,333,333 crystals",
-        "label": "1,333,333 crystals",
+        "bulkbonus": 1.5,
+        "description": "1,500,000 crystals",
+        "label": "1,500,000 crystals",
         "name": "crystal005",
         "pack.unittype": "crystal",
-        "pack.val": 1333333,
+        "pack.val": 1500000,
         "price_kreds": 1000,
         "price_usd_paypal": 9999,
         "uses": 1
