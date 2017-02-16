@@ -105,6 +105,7 @@ module.exports = function (grunt) {
           // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
           isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
+          paypalCatalogVersion: 'free',
 
           gaTrackingID: 'UA-53523462-3'
         }
@@ -134,6 +135,7 @@ module.exports = function (grunt) {
           sentrySampleRate: 0.001,
           isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
+          paypalCatalogVersion: 'main',
           gaTrackingID: 'UA-53523462-1'
         }
       }
@@ -800,7 +802,7 @@ module.exports = function (grunt) {
 
         // special case playfab uploads. Two files: main and free (zero-cost, for testing)
         var playfab = {
-          CatalogVersion: 'beta',
+          CatalogVersion: 'main',
           Catalog: data['mtx.playfabUpload'].elements,
         };
         delete data['mtx.playfabUpload']
@@ -811,7 +813,7 @@ module.exports = function (grunt) {
           row.VirtualCurrencyPrices = {RM: row['VirtualCurrencyPrices.RM']}
           delete row['VirtualCurrencyPrices.RM']
         }
-        var playfabFile = directory + key + '.playfabUpload.beta.js';
+        var playfabFile = directory + key + '.playfabUpload.main.js';
         grunt.file.write(playfabFile, stringify(playfab, {space:'  '}));
         console.log('Wrote '+playfabFile);
 

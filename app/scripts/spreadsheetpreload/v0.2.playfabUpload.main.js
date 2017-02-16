@@ -41,5 +41,5 @@
       }
     }
   ],
-  "CatalogVersion": "beta"
+  "CatalogVersion": "main"
 }

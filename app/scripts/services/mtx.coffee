@@ -57,7 +57,7 @@ wrapPlayfab = (reject, name, fn) => (result) =>
     reject e
  
 # https://community.playfab.com/questions/638/208252737-PlayFab-and-PayPal-integration-problem.html
-angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
+angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class PaypalMtx
   # Playfab uses Paypal as its backend here
   constructor: (@buyPacks) ->
     @currency = 'usd_paypal'
@@ -96,8 +96,9 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
           resolve({changed: changed})
     @_confirm().then pullFn, pullFn
   buy: (name) -> $q (resolve, reject) =>
+    $log.debug 'paypalCatalogVersion: ', env.paypalCatalogVersion
     PlayFabClientSDK.StartPurchase
-      CatalogVersion: 'free',
+      CatalogVersion: env.paypalCatalogVersion,
       Items: [{
         ItemId: name
         Quantity: 1
