@@ -23,7 +23,6 @@ angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> cl
           for purchase in res.data
             if !game.session.state.mtx?.kongregate?[purchase.id]
               #session.state.mtx.kongregate[purchase.id] = true
-              # TODO use kongregate's item list
               pack = @buyPacksByName[purchase.identifier]
               if pack?
                 game.unit('crystal')._addCount pack['pack.val']
@@ -85,7 +84,6 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
           changed = false
           for item in result.data.Inventory
             if !game.session.state.mtx?.paypal?.items?[item.ItemInstanceId]?
-              # TODO use playfab's item list
               pack = @buyPacksByName[item.ItemId]
               if pack?
                 console.debug 'applying pulled crystal pack', item.ItemInstanceId, pack
@@ -99,7 +97,7 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
     @_confirm().then pullFn, pullFn
   buy: (name) -> $q (resolve, reject) =>
     PlayFabClientSDK.StartPurchase
-      CatalogVersion: 'scratch',
+      CatalogVersion: 'free',
       Items: [{
         ItemId: name
         Quantity: 1
@@ -116,9 +114,9 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
             game.save()
             if !result.data?.PurchaseConfirmationPageURL
               # This can happen in development with free items. Just re-pull.
-              console.error 'No PurchaseConfirmationPageURL', result.data?.PurchaseConfirmationPageURL
+              console.warn 'No PurchaseConfirmationPageURL', result.data?.PurchaseConfirmationPageURL
               @pull()
-              return reject 'No PurchaseConfirmationPageURL'
+              return resolve()
             document.location = result.data.PurchaseConfirmationPageURL
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
@@ -133,8 +131,8 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      @backend = new DisabledMtx()
-      #@backend = new PaypalMtx buyPacks
+      #@backend = new DisabledMtx()
+      @backend = new PaypalMtx buyPacks
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->

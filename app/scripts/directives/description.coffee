@@ -42,12 +42,14 @@ angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx, commands) ->
       $scope.packsError = error
   )
   $scope.clickBuyPack = (pack) ->
-    $scope.buyMessage = null
+    $scope.buyMessage = $scope.buyError = null
     $scope.mtx.buy(pack.name).then(
       (res) ->
         $scope.buyMessage = "Thank you for supporting Swarm Simulator!"
+        $scope.buyError = null
       (error) ->
-        $scope.buyMessage = "Thanks for looking!"
+        $scope.buyMessage = null
+        $scope.buyError = error
     )
 
 angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
