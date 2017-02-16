@@ -489,6 +489,20 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   url: ->
     @tab.url this
 
+  # for the addUnitTimed effect
+  addUnitTimer: ->
+    key = "addUnitTimed-#{@name}"
+    return @game.session.state.date[key] ? new Date 0
+  addUnitTimerElapsedMillis: (now=@game.now) ->
+    return now.getTime() - @addUnitTimer().getTime()
+  addUnitTimerRemainingMillis: (durationMillis, now=@game.now) ->
+    return Math.max 0, durationMillis - @addUnitTimerElapsedMillis(now)
+  isAddUnitTimerReady: (durationMillis, now=@game.now) ->
+    return @addUnitTimerRemainingMillis(durationMillis) == 0
+  setAddUnitTimer: (now=@game.now) ->
+    key = "addUnitTimed-#{@name}"
+    @game.session.state.date[key] = now
+    util.assert @addUnitTimerElapsedMillis(now) == 0
 
 ###*
  # @ngdoc service

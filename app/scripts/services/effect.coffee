@@ -109,6 +109,14 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     output: (effect, game) ->
       effect.unit.velocity().times(effect.val).times(effect.power())
   effecttypes.register
+    name: 'addUnitTimed'
+    onBuy: (effect, game, parent, level) ->
+      thresholdMillis = effect.val2 * 1000
+      if effect.unit.isAddUnitTimerReady thresholdMillis
+        # TODO this should be @output
+        effect.unit._addCount effect.val
+        effect.unit.setAddUnitTimer()
+  effecttypes.register
     name: 'addUnitRand'
     onBuy: (effect, game, parent, level) ->
       out = @output effect, game, parent, level

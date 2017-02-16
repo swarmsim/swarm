@@ -1,6 +1,7 @@
-<p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending. Each hatchery or expansion you build comes with 1 crystal.</p>
-
 <div ng-controller="MtxDesc">
+  <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending.</p>
+
+  <crystal-timer></crystal-timer>
   <div ng-if="packs" ng-switch="mtx.backend.currency">
     <div ng-switch-when="kreds">
       <div ng-repeat="pack in packs">
