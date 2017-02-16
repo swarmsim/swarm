@@ -123,18 +123,18 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
   fail: -> $q (resolve, reject) =>
-    reject 'Payments are unavailable right now. Please try again later.'
+    reject 'PayPal crystal packs are coming soon.'
   packs: -> @fail()
   pull: -> @fail()
   buy: -> @fail()
 
-angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, PaypalMtx) -> class Mtx
+angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, PaypalMtx, DisabledMtx) -> class Mtx
   constructor: (buyPacks) ->
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      #@backend = new DisabledMtx()
-      @backend = new PaypalMtx buyPacks
+      @backend = new DisabledMtx()
+      #@backend = new PaypalMtx buyPacks
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->
