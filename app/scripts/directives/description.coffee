@@ -9,7 +9,7 @@
  # Spreadsheet descriptions of '' or '-' indicate that we should try to use a template.
  # (We used to do stupid $compile tricks to allow templating in the spreadsheet, but that caused memory leaks. #177)
 ###
-angular.module('swarmApp').directive 'unitdesc', (game, commands, options, mtx) ->
+angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl" class="desc desc-unit desc-template desc-{{unit.name}}"></p><p ng-if="!templateUrl" class="desc desc-unit desc-text desc-{{unit.name}}">{{desc}}</p>'
   scope:
     unit: '='

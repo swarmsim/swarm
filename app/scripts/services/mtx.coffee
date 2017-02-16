@@ -4,11 +4,12 @@
 ###
 angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> class KongregateMtx
   constructor: (@buyPacks) ->
+    @currency = 'kreds'
     @buyPacksByName = _.keyBy @buyPacks, 'name'
   packs: -> $q (resolve, reject) =>
     #kongregate.kongregate.mtx.requestItemList [], (res) =>
     #  resolve(res)
-    # TODO use kongregate's item list
+    # Can't store enough metadata with kong, screw it, use the spreadsheet
     return resolve(@buyPacks)
   pull: -> $q (resolve, reject) =>
     kongregate.onLoad.then =>
@@ -60,6 +61,7 @@ wrapPlayfab = (reject, name, fn) => (result) =>
 angular.module('swarmApp').factory 'PaypalMtx', ($q, game) -> class PaypalMtx
   # Playfab uses Paypal as its backend here
   constructor: (@buyPacks) ->
+    @currency = 'usd_paypal'
     @buyPacksByName = _.keyBy @buyPacks, 'name'
   packs: -> $q (resolve, reject) =>
     # TODO use playfab's item list
