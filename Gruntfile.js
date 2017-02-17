@@ -435,7 +435,7 @@ module.exports = function (grunt) {
             main: 'decimal.js'
           },
           'playfab-sdk': {
-            main: 'PlayFabSDK/PlayFabClientApi.js'
+            main: 'PlayFabSdk/src/PlayFab/PlayFabClientApi.js'
           },
         },
         ignorePath:  /\.\.\//
