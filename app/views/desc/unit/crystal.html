@@ -28,7 +28,7 @@
   <div class="alert alert-danger" ng-if="!packs && packsError">
     {{packsError}}
   </div>
-  <div ng-if="!packs && !packsError">
+  <div ng-if="(!packs && !packsError) || buyLoading">
     <img src="images/ajax-loader.gif">
   </div>
   <div class="alert alert-info" ng-if="buyMessage">

@@ -117,8 +117,12 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
                 changed = true
           resolve({changed: changed})
     @_confirm().then pullFn, pullFn
-  buy: (name) -> $q (resolve, reject) =>
-    $log.debug 'paypalCatalogVersion: ', env.paypalCatalogVersion
+  buy: (name) -> return p = $q (resolve, reject) =>
+    #popup = window.open()
+    #p.catch (error) ->
+    #  popup.close()
+    #  return error
+    #$log.debug 'paypalCatalogVersion: ', env.paypalCatalogVersion
     PlayFabClientSDK.StartPurchase
       CatalogVersion: env.paypalCatalogVersion,
       Items: [{
@@ -130,18 +134,21 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
           OrderId: result.data.OrderId
           ProviderName: "PayPal"
           Currency: "RM"
-          wrapPlayfab reject, 'PayForPurchase', (result) =>
+          wrapPlayfab reject, 'PayForPurchase', (result2) =>
             game.session.state.mtx ?= {}
             game.session.state.mtx.paypal ?= {}
             game.session.state.mtx.paypal.pendingOrderIds = {}
-            game.session.state.mtx.paypal.pendingOrderIds[result.data.OrderId] = {created: Date.now(), success: false}
+            game.session.state.mtx.paypal.pendingOrderIds[result2.data.OrderId] = {created: Date.now(), success: false}
             game.save()
-            if !result.data?.PurchaseConfirmationPageURL
+            if !result2.data?.PurchaseConfirmationPageURL
               # This can happen in development with free items. Just re-pull.
-              $log.warn 'No PurchaseConfirmationPageURL', result.data?.PurchaseConfirmationPageURL
+              $log.warn 'No PurchaseConfirmationPageURL', result2.data?.PurchaseConfirmationPageURL
               @pull()
+              #popup.close()
               return resolve()
-            document.location = result.data.PurchaseConfirmationPageURL
+            document.location = result2.data.PurchaseConfirmationPageURL
+            #popup.location = result2.data.PurchaseConfirmationPageURL
+            return resolve()
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
   fail: -> $q (resolve, reject) =>
