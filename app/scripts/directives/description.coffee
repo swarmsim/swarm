@@ -25,7 +25,7 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
         return "views/desc/unit/#{scope.unit.name}.html"
       return ''
 
-angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx, commands) ->
+angular.module('swarmApp').controller 'MtxDesc', ($scope, $log, mtx, commands) ->
   $scope.mtx = mtx
   $scope.mtx.pull().then(
     () ->
@@ -51,6 +51,7 @@ angular.module('swarmApp').controller 'MtxDesc', ($scope, mtx, commands) ->
         $scope.buyError = null
         $scope.buyLoading = false
       (error) ->
+        $log.error 'buyerror', error
         $scope.buyMessage = null
         $scope.buyError = error
         $scope.buyLoading = false

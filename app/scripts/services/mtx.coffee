@@ -57,7 +57,7 @@ wrapPlayfab = (reject, name, fn) => (result) =>
     reject e
  
 # https://community.playfab.com/questions/638/208252737-PlayFab-and-PayPal-integration-problem.html
-angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class PaypalMtx
+angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env, playfab) -> class PaypalMtx
   # Playfab uses Paypal as its backend here
   constructor: (@buyPacks) ->
     @currency = 'usd_paypal'
@@ -116,39 +116,47 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
                 game.session.state.mtx.paypal.items[item.ItemInstanceId] = true
                 changed = true
           resolve({changed: changed})
-    @_confirm().then pullFn, pullFn
+    playfab.authRequest.then(
+      (result) =>
+        @_confirm().then pullFn, pullFn
+        return result
+      (error) => reject(error); return error)
   buy: (name) -> return p = $q (resolve, reject) =>
     #popup = window.open()
     #p.catch (error) ->
     #  popup.close()
     #  return error
     #$log.debug 'paypalCatalogVersion: ', env.paypalCatalogVersion
-    PlayFabClientSDK.StartPurchase
-      CatalogVersion: env.paypalCatalogVersion,
-      Items: [{
-        ItemId: name
-        Quantity: 1
-      }]
-      wrapPlayfab reject, 'StartPurchase', (result) =>
-        PlayFabClientSDK.PayForPurchase
-          OrderId: result.data.OrderId
-          ProviderName: "PayPal"
-          Currency: "RM"
-          wrapPlayfab reject, 'PayForPurchase', (result2) =>
-            game.session.state.mtx ?= {}
-            game.session.state.mtx.paypal ?= {}
-            game.session.state.mtx.paypal.pendingOrderIds = {}
-            game.session.state.mtx.paypal.pendingOrderIds[result2.data.OrderId] = {created: Date.now(), success: false}
-            game.save()
-            if !result2.data?.PurchaseConfirmationPageURL
-              # This can happen in development with free items. Just re-pull.
-              $log.warn 'No PurchaseConfirmationPageURL', result2.data?.PurchaseConfirmationPageURL
-              @pull()
-              #popup.close()
-              return resolve()
-            document.location = result2.data.PurchaseConfirmationPageURL
-            #popup.location = result2.data.PurchaseConfirmationPageURL
-            return resolve()
+    playfab.authRequest.then(
+      (result) =>
+        PlayFabClientSDK.StartPurchase
+          CatalogVersion: env.paypalCatalogVersion,
+          Items: [{
+            ItemId: name
+            Quantity: 1
+          }]
+          wrapPlayfab reject, 'StartPurchase', (result) =>
+            PlayFabClientSDK.PayForPurchase
+              OrderId: result.data.OrderId
+              ProviderName: "PayPal"
+              Currency: "RM"
+              wrapPlayfab reject, 'PayForPurchase', (result2) =>
+                game.session.state.mtx ?= {}
+                game.session.state.mtx.paypal ?= {}
+                game.session.state.mtx.paypal.pendingOrderIds = {}
+                game.session.state.mtx.paypal.pendingOrderIds[result2.data.OrderId] = {created: Date.now(), success: false}
+                game.save()
+                if !result2.data?.PurchaseConfirmationPageURL
+                  # This can happen in development with free items. Just re-pull.
+                  $log.warn 'No PurchaseConfirmationPageURL', result2.data?.PurchaseConfirmationPageURL
+                  @pull()
+                  #popup.close()
+                  return resolve()
+                document.location = result2.data.PurchaseConfirmationPageURL
+                #popup.location = result2.data.PurchaseConfirmationPageURL
+                return resolve()
+        return result
+      (error) => reject(error); return error)
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
   fail: -> $q (resolve, reject) =>
