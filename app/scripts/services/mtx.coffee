@@ -67,29 +67,31 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
     return resolve(@buyPacks)
   _confirm: ->
     orderIds = Object.keys game.session.state.mtx?.paypal?.pendingOrderIds ? {}
-    console.debug 'playfab/paypal pendingorderids', orderIds
+    $log.debug 'playfab/paypal pendingorderids', orderIds, game.session.state.mtx?.paypal?.pendingOrderIds
     return $q.all orderIds.map (orderId) -> $q (resolve, reject) ->
       # true is successful past orders, don't retry
-      if game.session.state.mtx.paypal.pendingOrderIds[orderId]
+      if game.session.state.mtx.paypal.pendingOrderIds[orderId].success
         return resolve()
       PlayFabClientSDK.ConfirmPurchase
         OrderId: orderId
-        (result) =>
-          console.debug 'PlayFabClientSDK.ConfirmPurchase', result
+        (result, error) =>
+          $log.debug 'PlayFabClientSDK.ConfirmPurchase', result, error
           # https://api.playfab.com/docs/non-receipt-purchasing > transaction states
-          switch result.data?.Status?
+          switch result?.data?.Status ? error?.error
             # succeed and don't retry, we're done
             when "Succeeded"
-              console.log 'confirmed order', orderId, result.data.Items
-              game.session.state.mtx.paypal.pendingOrderIds[orderId] = true
+              $log.info 'confirmed order', orderId, result.data.Items
+              game.session.state.mtx.paypal.pendingOrderIds[orderId].success = true
+              game.save()
               resolve result
             # incomplete, keep retrying
             when "CreateCart", "Init", "Approved"
               resolve result
             # fail and don't retry, give up
-            when "FailedByProvider"
-              console.log 'permanently rejejcted order', orderId
+            when "FailedByProvider", "FailedByPaymentProvider"
+              $log.info 'permanently rejejcted order', orderId
               delete game.session.state.mtx.paypal.pendingOrderIds[orderId]
+              game.save()
               reject result
             # fail but keep retrying
             when "DisputePending", "RefundPending", "Refunded", "RefundFailed", "ChargedBack", "FailedByPlayfab"
@@ -106,7 +108,7 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
             if !game.session.state.mtx?.paypal?.items?[item.ItemInstanceId]?
               pack = @buyPacksByName[item.ItemId]
               if pack?
-                console.debug 'applying pulled crystal pack', item.ItemInstanceId, pack
+                $log.debug 'applying pulled crystal pack', item.ItemInstanceId, pack
                 game.unit('crystal')._addCount pack['pack.val']
                 game.session.state.mtx ?= {}
                 game.session.state.mtx.paypal ?= {}
@@ -132,11 +134,11 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
             game.session.state.mtx ?= {}
             game.session.state.mtx.paypal ?= {}
             game.session.state.mtx.paypal.pendingOrderIds = {}
-            game.session.state.mtx.paypal.pendingOrderIds[result.data.OrderId] = true
+            game.session.state.mtx.paypal.pendingOrderIds[result.data.OrderId] = {created: Date.now(), success: false}
             game.save()
             if !result.data?.PurchaseConfirmationPageURL
               # This can happen in development with free items. Just re-pull.
-              console.warn 'No PurchaseConfirmationPageURL', result.data?.PurchaseConfirmationPageURL
+              $log.warn 'No PurchaseConfirmationPageURL', result.data?.PurchaseConfirmationPageURL
               @pull()
               return resolve()
             document.location = result.data.PurchaseConfirmationPageURL

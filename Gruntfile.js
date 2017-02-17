@@ -105,7 +105,7 @@ module.exports = function (grunt) {
           // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
           isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
-          paypalCatalogVersion: 'free',
+          paypalCatalogVersion: 'main',
 
           gaTrackingID: 'UA-53523462-3'
         }
