@@ -65,18 +65,38 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
   packs: -> $q (resolve, reject) =>
     # TODO use playfab's item list
     return resolve(@buyPacks)
-  _confirm: -> $q (resolve, reject) =>
-    if game.session.state.mtx?.paypal?.pendingOrderId?
-      console.debug 'paypal pendingorderid', game.session.state.mtx.paypal.pendingOrderId
+  _confirm: ->
+    orderIds = Object.keys game.session.state.mtx?.paypal?.pendingOrderIds ? {}
+    console.debug 'playfab/paypal pendingorderids', orderIds
+    return $q.all orderIds.map (orderId) -> $q (resolve, reject) ->
+      # true is successful past orders, don't retry
+      if game.session.state.mtx.paypal.pendingOrderIds[orderId]
+        return resolve()
       PlayFabClientSDK.ConfirmPurchase
-        OrderId: game.session.state.mtx.paypal.pendingOrderId
-        wrapPlayfab reject, 'ConfirmPurchase', (result) =>
-          if !result.data.Items?.length
-            return reject result
-          game.session.state.mtx.paypal.pendingOrderId = null
-          return resolve result
-    else
-      return resolve null
+        OrderId: orderId
+        (result) =>
+          console.debug 'PlayFabClientSDK.ConfirmPurchase', result
+          # https://api.playfab.com/docs/non-receipt-purchasing > transaction states
+          switch result.data?.Status?
+            # succeed and don't retry, we're done
+            when "Succeeded"
+              console.log 'confirmed order', orderId, result.data.Items
+              game.session.state.mtx.paypal.pendingOrderIds[orderId] = true
+              resolve result
+            # incomplete, keep retrying
+            when "CreateCart", "Init", "Approved"
+              resolve result
+            # fail and don't retry, give up
+            when "FailedByProvider"
+              console.log 'permanently rejejcted order', orderId
+              delete game.session.state.mtx.paypal.pendingOrderIds[orderId]
+              reject result
+            # fail but keep retrying
+            when "DisputePending", "RefundPending", "Refunded", "RefundFailed", "ChargedBack", "FailedByPlayfab"
+              reject result
+            else
+              reject result
+    
   pull: -> $q (resolve, reject) =>
     pullFn = =>
       PlayFabClientSDK.GetUserInventory {},
@@ -111,7 +131,8 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env) -> class P
           wrapPlayfab reject, 'PayForPurchase', (result) =>
             game.session.state.mtx ?= {}
             game.session.state.mtx.paypal ?= {}
-            game.session.state.mtx.paypal.pendingOrderId = result.data.OrderId
+            game.session.state.mtx.paypal.pendingOrderIds = {}
+            game.session.state.mtx.paypal.pendingOrderIds[result.data.OrderId] = true
             game.save()
             if !result.data?.PurchaseConfirmationPageURL
               # This can happen in development with free items. Just re-pull.
