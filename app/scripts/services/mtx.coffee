@@ -75,7 +75,7 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env, playfab) -
       PlayFabClientSDK.ConfirmPurchase
         OrderId: orderId
         (result, error) =>
-          $log.debug 'PlayFabClientSDK.ConfirmPurchase', result, error
+          $log.debug 'PlayFabClientSDK.ConfirmPurchase', result, error, JSON.stringify(result ? error)
           # https://api.playfab.com/docs/non-receipt-purchasing > transaction states
           switch result?.data?.Status ? error?.error
             # succeed and don't retry, we're done
