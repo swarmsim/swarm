@@ -170,8 +170,8 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      #@backend = new DisabledMtx()
-      @backend = new PaypalMtx buyPacks
+      @backend = new DisabledMtx()
+      #@backend = new PaypalMtx buyPacks
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->
