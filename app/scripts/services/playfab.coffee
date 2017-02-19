@@ -69,6 +69,10 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
         else
           reject(error)
 
+  waitForAuth: ->
+    if !@authRequest
+      @autologin()
+    return @authRequest
   autologin: ->
     creds = playfabCredentialStore.read()
     if creds?.email && creds?.password
@@ -171,7 +175,7 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
   _call: (name, params={}) =>
     errorData = {name: name, params: params}
     p = $q (resolve, reject) =>
-      @authRequest.then(
+      @waitForAuth().then(
         =>
           window.PlayFabClientSDK[name] params, (res) =>
             errorData.result = res

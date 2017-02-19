@@ -116,7 +116,7 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env, playfab) -
                 game.session.state.mtx.paypal.items[item.ItemInstanceId] = true
                 changed = true
           resolve({changed: changed})
-    playfab.authRequest.then(
+    playfab.waitForAuth().then(
       (result) =>
         @_confirm().then pullFn, pullFn
         return result
@@ -127,7 +127,7 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env, playfab) -
     #  popup.close()
     #  return error
     #$log.debug 'paypalCatalogVersion: ', env.paypalCatalogVersion
-    playfab.authRequest.then(
+    playfab.waitForAuth().then(
       (result) =>
         PlayFabClientSDK.StartPurchase
           CatalogVersion: env.paypalCatalogVersion,
