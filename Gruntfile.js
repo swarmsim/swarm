@@ -813,7 +813,7 @@ module.exports = function (grunt) {
           row.VirtualCurrencyPrices = {RM: row['VirtualCurrencyPrices.RM']}
           delete row['VirtualCurrencyPrices.RM']
         }
-        var playfabFile = directory + key + '.playfabUpload.main.js';
+        var playfabFile = directory + key + '.playfabUpload.main.json';
         grunt.file.write(playfabFile, stringify(playfab, {space:'  '}));
         console.log('Wrote '+playfabFile);
 
@@ -822,7 +822,7 @@ module.exports = function (grunt) {
           playfab.Catalog[i].DisplayName += ' (free)'
           playfab.Catalog[i].VirtualCurrencyPrices.RM = 0;
         }
-        playfabFile = directory + key + '.playfabUpload.free.js';
+        playfabFile = directory + key + '.playfabUpload.free.json';
         grunt.file.write(playfabFile, stringify(playfab, {space:'  '}));
         console.log('Wrote '+playfabFile);
 
