@@ -6,7 +6,7 @@
  # @description
  # # newsModal
 ###
-angular.module('swarmApp').directive 'newsModal', (game, playfab, $location) ->
+angular.module('swarmApp').directive 'newsModal', (game, playfab, $location, $sce) ->
   restrict: 'EA'
   templateUrl: 'views/news-modal.html'
   link: ($scope, element, attrs) ->
@@ -25,7 +25,10 @@ angular.module('swarmApp').directive 'newsModal', (game, playfab, $location) ->
       try
         return JSON.parse item.Body
       catch e
-        return {text: item.Body}
+        return {
+          # this comes from Playfab's UI. Trusting HTML outside the app is dangerous, but I trust playfab staff not to mess with my game.
+          trustedHtml: $sce.trustAsHtml(item.Body)
+        }
     playfab.getTitleNews().then(
       (res) =>
         $scope.state = 'success'

@@ -10,7 +10,7 @@
   <ul ng-if="news.length" class="list-unstyled">
     <li ng-repeat="news in news track by news.NewsId" class="well">
       <h3>{{news.title}} <small>{{news.date.format('LLLL')}}</small></h3>
-      <div>{{news.text}}</div>
+      <div ng-bind-html="news.trustedHtml"></div>
     </li>
   </ul>
   <div ng-if="!news.length">No recent news!</div>
