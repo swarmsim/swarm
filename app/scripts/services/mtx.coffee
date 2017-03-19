@@ -56,8 +56,9 @@ wrapPlayfab = (reject, name, fn) => (result) =>
     console.error e
     reject e
  
-# https://community.playfab.com/questions/638/208252737-PlayFab-and-PayPal-integration-problem.html
-angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env, playfab) -> class PaypalMtx
+# Oh fuck this. New problems every time I try to get this working with playfab. Playfab, I love you, but you're not letting me give you money :(
+# Dropping playfab for braintree or pure-paypal instead.
+angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, playfab) -> class PaypalPlayfabMtx
   # Playfab uses Paypal as its backend here
   constructor: (@buyPacks) ->
     @currency = 'usd_paypal'
@@ -158,6 +159,14 @@ angular.module('swarmApp').factory 'PaypalMtx', ($q, $log, game, env, playfab) -
         return result
       (error) => reject(error); return error)
 
+angular.module('swarmApp').factory 'PaypalExpressCheckoutMtx', ($q, $log, game) -> class PaypalExpressCheckoutMtx
+  constructor: (@buyPacks) ->
+    @buyPacksByName = _.keyBy @buyPacks, 'name'
+  packs: -> $q (resolve, reject) =>
+    return resolve(@buyPacks)
+  pull: -> $q (resolve, reject) =>
+  buy: (name) -> return p = $q (resolve, reject) =>
+
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
   fail: -> $q (resolve, reject) =>
     reject 'PayPal crystal packs are coming soon.'
@@ -171,7 +180,8 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
       @backend = new KongregateMtx buyPacks
     else
       @backend = new DisabledMtx()
-      #@backend = new PaypalMtx buyPacks
+      #@backend = new PaypalPlayfabMtx buyPacks
+      #@backend = new PaypalExpressCheckoutMtx buyPacks
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->
