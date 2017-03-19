@@ -1167,7 +1167,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED swarmlings",
         "label": "adrenal glands",
-        "longdesc": "",
+        "longdesc": "Swarmlings hatched by nexus abilities don't count.",
         "name": "swarmling3",
         "points": 10,
         "requires.event": "",
@@ -1209,7 +1209,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED stingers",
         "label": "waxing poetic",
-        "longdesc": "",
+        "longdesc": "Stingers hatched by nexus abilities don't count.",
         "name": "stinger3",
         "points": 10,
         "requires.event": "",
@@ -1251,7 +1251,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED arachnomorphs",
         "label": "how do i shot web",
-        "longdesc": "",
+        "longdesc": "Arachnomorphs hatched by nexus abilities don't count.",
         "name": "spider3",
         "points": 10,
         "requires.event": "",
@@ -1293,7 +1293,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED culicimorphs",
         "label": "this achievement sucks",
-        "longdesc": "",
+        "longdesc": "Culicimorphs hatched by nexus abilities don't count.",
         "name": "mosquito3",
         "points": 10,
         "requires.event": "",
@@ -1335,7 +1335,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED locusts",
         "label": "trypophobia",
-        "longdesc": "",
+        "longdesc": "Locusts hatched by nexus abilities don't count.",
         "name": "locust3",
         "points": 10,
         "requires.event": "",
@@ -1377,7 +1377,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED roaches",
         "label": "papa",
-        "longdesc": "",
+        "longdesc": "Roaches hatched by nexus abilities don't count.",
         "name": "roach3",
         "points": 10,
         "requires.event": "",
@@ -1419,7 +1419,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED giant arachnomorphs",
         "label": "and I'm just sitting here",
-        "longdesc": "",
+        "longdesc": "Giant Arachnomorphs hatched by nexus abilities don't count.",
         "name": "giantspider3",
         "points": 10,
         "requires.event": "",
@@ -1461,7 +1461,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED chilopodomorphs",
         "label": "missile command",
-        "longdesc": "",
+        "longdesc": "Chilopodomorphs hatched by nexus abilities don't count.",
         "name": "centipede3",
         "points": 10,
         "requires.event": "",
@@ -1503,7 +1503,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED wasps",
         "label": "kill",
-        "longdesc": "",
+        "longdesc": "Wasps hatched by nexus abilities don't count.",
         "name": "wasp3",
         "points": 10,
         "requires.event": "",
@@ -1545,7 +1545,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED devourers",
         "label": "sometimes they drain energy",
-        "longdesc": "",
+        "longdesc": "Devourers hatched by nexus abilities don't count.",
         "name": "devourer3",
         "points": 10,
         "requires.event": "",
@@ -1587,7 +1587,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED goons",
         "label": "all hallows'",
-        "longdesc": "",
+        "longdesc": "Goons hatched by nexus abilities don't count.",
         "name": "goon3",
         "points": 10,
         "requires.event": "",
