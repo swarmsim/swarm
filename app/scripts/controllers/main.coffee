@@ -10,6 +10,11 @@
 angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options, hotkeys) ->
   $scope.game = game
   $scope.options = options
+
+  # special case: buy-energy links redirect to crystals
+  if $routeParams.unit == 'energy' and $routeParams.tab == 'energy' and $location.search().num?
+    console.log 'hellohello', $location.search().num
+    $location.path '/tab/energy/unit/crystal'
   
   $scope.cur = {}
   $scope.cur.unit = $scope.game.unitBySlug $routeParams.unit
