@@ -2,7 +2,7 @@
   <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending.</p>
 
   <crystal-timer></crystal-timer>
-  <div ng-if="mtx.isPaypalUI()">
+  <div ng-if="mtx.uiStyle() == 'paypal'">
 
 
 <form method=post action="https://www.sandbox.paypal.com/cgi-bin/webscr">
@@ -31,7 +31,7 @@
 </form>
 
   </div>
-<div ng-if="!mtx.isPaypalUI()">
+<div ng-if="mtx.uiStyle() == 'normal'">
   <div ng-if="packs" ng-switch="mtx.backend.currency">
     <div ng-switch-when="kreds">
       <div ng-repeat="pack in packs">
@@ -70,6 +70,8 @@
   <div class="alert alert-danger" ng-if="convertError">
     {{convertError}}
   </div>
+</div>
+<div ng-if="mtx.uiStyle() == 'disabled'">
 </div>
   <br>
   <p>Converting crystals has permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>

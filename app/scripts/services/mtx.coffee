@@ -164,7 +164,7 @@ angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, pla
 angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http) -> class PaypalHostedButtonMtx
   constructor: (@buyPacks) ->
     @buyPacksByName = _.keyBy @buyPacks, 'name'
-    @isPaypalUI = true
+    @uiStyle = 'paypal'
   packs: -> $q (resolve, reject) =>
     return resolve(@buyPacks)
   pull: -> $q (resolve, reject) =>
@@ -183,6 +183,8 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
         # CORS errors? omfg Paypal, I can understand Playfab not wanting my money, but you? It's not worth building a backend just for this.
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class DisabledMtx
+  constructor: ->
+    @uiStyle = 'disabled'
   fail: -> $q (resolve, reject) =>
     reject 'PayPal crystal packs are coming soon.'
   packs: -> @fail()
@@ -197,7 +199,7 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
       @backend = new DisabledMtx()
       #@backend = new PaypalPlayfabMtx buyPacks
       #@backend = new PaypalHostedButtonMtx buyPacks
-  isPaypalUI: -> @backend.isPaypalUI
+  uiStyle: -> @backend.uiStyle || 'normal'
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->
