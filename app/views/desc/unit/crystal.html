@@ -2,6 +2,36 @@
   <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending.</p>
 
   <crystal-timer></crystal-timer>
+  <div ng-if="mtx.isPaypalUI()">
+
+
+<form method=post action="https://www.sandbox.paypal.com/cgi-bin/webscr">
+  <input type="text" name="cmd" value="_notify-synch">
+  <input type="text" name="tx" value="0D206095EX199794G">
+  <input type="text" name="at" value="Uvq0_yncSuISt6FIS2fR1rZB1IylvPxuidWHUF6ynRXjqGvlM8xGqUgUCKu">
+  <input type="submit" value="PDT">
+</form>
+
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="NGP9RG5E3NJCN">
+<table>
+<tr><td><input type="hidden" name="on0" value="Quantity">Quantity</td></tr><tr><td><select name="os0">
+	<option value="10,000 crystals">10,000 crystals $0.99 USD</option>
+	<option value="55,000 crystals">55,000 crystals $4.99 USD</option>
+	<option value="120,000 crystals">120,000 crystals $9.99 USD</option>
+	<option value="260,000 crystals">260,000 crystals $19.99 USD</option>
+	<option value="560,000 crystals">560,000 crystals $39.99 USD</option>
+	<option value="1,500,000 crystals">1,500,000 crystals $99.99 USD</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="USD">
+<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+  </div>
+<div ng-if="!mtx.isPaypalUI()">
   <div ng-if="packs" ng-switch="mtx.backend.currency">
     <div ng-switch-when="kreds">
       <div ng-repeat="pack in packs">
@@ -40,6 +70,7 @@
   <div class="alert alert-danger" ng-if="convertError">
     {{convertError}}
   </div>
+</div>
   <br>
   <p>Converting crystals has permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>
   <buyunit-input unit="game.unit('mtxEnergy')"></buyunit-input>

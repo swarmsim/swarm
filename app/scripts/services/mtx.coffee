@@ -48,7 +48,6 @@ angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> cl
 # usage: PlayFabClientAPI.blah {}, wrapPlayfab reject, 'blah', (result) =>
 wrapPlayfab = (reject, name, fn) => (result) =>
   try
-    console.debug 'PlayFabClientSDK.'+name, result
     if !result? or result.status != 'OK'
       return reject result
     return fn result
@@ -159,29 +158,46 @@ angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, pla
         return result
       (error) => reject(error); return error)
 
-angular.module('swarmApp').factory 'PaypalExpressCheckoutMtx', ($q, $log, game) -> class PaypalExpressCheckoutMtx
+# https://www.sandbox.paypal.com/us/cgi-bin/customerprofileweb?cmd=_button-management
+# https://www.paypal.com/us/cgi-bin/customerprofileweb?cmd=_button-management
+#
+angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http) -> class PaypalHostedButtonMtx
   constructor: (@buyPacks) ->
     @buyPacksByName = _.keyBy @buyPacks, 'name'
+    @isPaypalUI = true
   packs: -> $q (resolve, reject) =>
     return resolve(@buyPacks)
   pull: -> $q (resolve, reject) =>
-  buy: (name) -> return p = $q (resolve, reject) =>
+    # Return-from-paypal URLs have a transaction id for us to verify.
+    tx = $location.search().tx
+    if tx
+      # https://developer.paypal.com/docs/classic/products/payment-data-transfer/
+      # https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/paymentdatatransfer/
+      #$http.post 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+      $.post 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+        cmd: '_notify-sync'
+        tx: tx
+        at: 'Uvq0_yncSuISt6FIS2fR1rZB1IylvPxuidWHUF6ynRXjqGvlM8xGqUgUCKu'
+        (res) -> console.log('paypalmtx pull success', res)
+        'text'
+        # CORS errors? omfg Paypal, I can understand Playfab not wanting my money, but you? It's not worth building a backend just for this.
 
-angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class KongregateMtx
+angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class DisabledMtx
   fail: -> $q (resolve, reject) =>
     reject 'PayPal crystal packs are coming soon.'
   packs: -> @fail()
   pull: -> @fail()
   buy: -> @fail()
 
-angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, PaypalMtx, DisabledMtx) -> class Mtx
+angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, DisabledMtx, PaypalHostedButtonMtx) -> class Mtx
   constructor: (buyPacks) ->
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
       @backend = new DisabledMtx()
       #@backend = new PaypalPlayfabMtx buyPacks
-      #@backend = new PaypalExpressCheckoutMtx buyPacks
+      #@backend = new PaypalHostedButtonMtx buyPacks
+  isPaypalUI: -> @backend.isPaypalUI
   packs: -> @backend.packs()
   pull: ->
     @backend.pull().then (res) ->
