@@ -4,14 +4,6 @@
   <crystal-timer></crystal-timer>
   <div ng-if="mtx.uiStyle() == 'paypal'">
 
-
-<form method=post action="https://www.sandbox.paypal.com/cgi-bin/webscr">
-  <input type="text" name="cmd" value="_notify-synch">
-  <input type="text" name="tx" value="0D206095EX199794G">
-  <input type="text" name="at" value="Uvq0_yncSuISt6FIS2fR1rZB1IylvPxuidWHUF6ynRXjqGvlM8xGqUgUCKu">
-  <input type="submit" value="PDT">
-</form>
-
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="NGP9RG5E3NJCN">

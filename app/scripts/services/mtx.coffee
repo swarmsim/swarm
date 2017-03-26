@@ -161,7 +161,10 @@ angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, pla
 # https://www.sandbox.paypal.com/us/cgi-bin/customerprofileweb?cmd=_button-management
 # https://www.paypal.com/us/cgi-bin/customerprofileweb?cmd=_button-management
 #
-angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http) -> class PaypalHostedButtonMtx
+# Paypal with minimal Playfab interaction. We use playfab cloudscript to call
+# Paypal from a server to verify Paypal success (CORS errors and
+# secret-id-exposure trying to do it from the client), but otherwise, no playfab.
+angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http, playfab) -> class PaypalHostedButtonMtx
   constructor: (@buyPacks) ->
     @buyPacksByName = _.keyBy @buyPacks, 'name'
     @uiStyle = 'paypal'
@@ -169,18 +172,17 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     return resolve(@buyPacks)
   pull: -> $q (resolve, reject) =>
     # Return-from-paypal URLs have a transaction id for us to verify.
+    # https://developer.paypal.com/docs/classic/products/payment-data-transfer/
+    # https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/paymentdatatransfer/
     tx = $location.search().tx
     if tx
-      # https://developer.paypal.com/docs/classic/products/payment-data-transfer/
-      # https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/paymentdatatransfer/
-      #$http.post 'https://www.sandbox.paypal.com/cgi-bin/webscr',
-      $.post 'https://www.sandbox.paypal.com/cgi-bin/webscr',
-        cmd: '_notify-sync'
-        tx: tx
-        at: 'Uvq0_yncSuISt6FIS2fR1rZB1IylvPxuidWHUF6ynRXjqGvlM8xGqUgUCKu'
-        (res) -> console.log('paypalmtx pull success', res)
-        'text'
-        # CORS errors? omfg Paypal, I can understand Playfab not wanting my money, but you? It's not worth building a backend just for this.
+      playfab.waitForAuth().then (result) =>
+        PlayFabClientSDK.ExecuteCloudScript
+          FunctionName: 'paypalNotify'
+          FunctionParameter: {tx: tx}
+          wrapPlayfab reject, 'ExecuteCloudScript(paypalNotify)', (res) ->
+            console.log('paypalnotify response', res.data)
+            window.paypalres = res.data
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class DisabledMtx
   constructor: ->
@@ -196,9 +198,9 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      @backend = new DisabledMtx()
+      #@backend = new DisabledMtx()
       #@backend = new PaypalPlayfabMtx buyPacks
-      #@backend = new PaypalHostedButtonMtx buyPacks
+      @backend = new PaypalHostedButtonMtx buyPacks
   uiStyle: -> @backend.uiStyle || 'normal'
   packs: -> @backend.packs()
   pull: ->
