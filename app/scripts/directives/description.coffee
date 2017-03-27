@@ -25,7 +25,7 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
         return "views/desc/unit/#{scope.unit.name}.html"
       return ''
 
-angular.module('swarmApp').controller 'MtxDesc', ($scope, $log, mtx, commands) ->
+angular.module('swarmApp').controller 'MtxDesc', ($scope, $log, mtx, commands, $location) ->
   $scope.mtx = mtx
   $scope.mtx.pull().then(
     () ->
@@ -56,6 +56,9 @@ angular.module('swarmApp').controller 'MtxDesc', ($scope, $log, mtx, commands) -
         $scope.buyError = error
         $scope.buyLoading = false
     )
+  # for paypal txns
+  if ($location.search().tx)
+    $scope.buyMessage = "Thank you for supporting Swarm Simulator! Your payment is complete and a receipt has been emailed to you. Paypal transaction ID: "+$location.search().tx+""
 
 angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl" desc desc-upgrade desc-template desc-{{upgrade.name}}"></p><p ng-if="!templateUrl" class="desc desc-upgrade desc-text desc-{{upgrade.name}}">{{desc}}</p>'

@@ -4,7 +4,6 @@
 ###
 angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> class KongregateMtx
   constructor: (@buyPacks) ->
-    @currency = 'kreds'
     @buyPacksByName = _.keyBy @buyPacks, 'name'
   packs: -> $q (resolve, reject) =>
     #kongregate.kongregate.mtx.requestItemList [], (res) =>
@@ -60,7 +59,6 @@ wrapPlayfab = (reject, name, fn) => (result) =>
 angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, playfab) -> class PaypalPlayfabMtx
   # Playfab uses Paypal as its backend here
   constructor: (@buyPacks) ->
-    @currency = 'usd_paypal'
     @buyPacksByName = _.keyBy @buyPacks, 'name'
   packs: -> $q (resolve, reject) =>
     # TODO use playfab's item list
@@ -166,23 +164,56 @@ angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, pla
 # secret-id-exposure trying to do it from the client), but otherwise, no playfab.
 angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http, playfab) -> class PaypalHostedButtonMtx
   constructor: (@buyPacks) ->
+    # overwrite production urls in dev
+    if env.isPaypalSandbox
+      for pack in @buyPacks
+        pack.paypalUrl = pack.paypalSandboxUrl
     @buyPacksByName = _.keyBy @buyPacks, 'name'
     @uiStyle = 'paypal'
   packs: -> $q (resolve, reject) =>
     return resolve(@buyPacks)
-  pull: -> $q (resolve, reject) =>
-    # Return-from-paypal URLs have a transaction id for us to verify.
-    # https://developer.paypal.com/docs/classic/products/payment-data-transfer/
-    # https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/paymentdatatransfer/
-    tx = $location.search().tx
-    if tx
-      playfab.waitForAuth().then (result) =>
+  _pullInventory: -> $q (resolve, reject) =>
+    playfab.waitForAuth().then =>
+      PlayFabClientSDK.GetUserInventory {},
+        wrapPlayfab reject, 'GetUserInventory', (result) =>
+          changed = false
+          for item in result.data.Inventory
+            if !game.session.state.mtx?.playfab?.items?[item.ItemInstanceId]?
+              pack = @buyPacksByName[item.ItemId]
+              if pack?
+                $log.debug 'applying pulled crystal pack', item.ItemInstanceId, pack
+                game.unit('crystal')._addCount pack['pack.val']
+                game.session.state.mtx ?= {}
+                game.session.state.mtx.playfab?= {}
+                game.session.state.mtx.playfab.items ?= {}
+                game.session.state.mtx.playfab.items[item.ItemInstanceId] = true
+                changed = true
+          resolve({changed: changed})
+  _pullTransactionId: (tx) -> $q (resolve, reject) =>
+    if !tx
+      return resolve()
+    else
+      playfab.waitForAuth().then =>
         PlayFabClientSDK.ExecuteCloudScript
           FunctionName: 'paypalNotify'
           FunctionParameter: {tx: tx}
           wrapPlayfab reject, 'ExecuteCloudScript(paypalNotify)', (res) ->
-            console.log('paypalnotify response', res.data)
-            window.paypalres = res.data
+            console.log('paypalnotify raw response', res.data)
+            if (res.data.Error)
+              console.error('paypalnotify response', res.data.Error)
+            else
+              console.info('paypalnotify response', res.data.FunctionResult)
+            window.paypalres = res.data # TODO remove
+            resolve()
+      
+  pull: -> $q (resolve, reject) =>
+    # Return-from-paypal URLs have a transaction id for us to verify.
+    # https://developer.paypal.com/docs/classic/products/payment-data-transfer/
+    # https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/paymentdatatransfer/
+    pullInventory = => @_pullInventory()
+    @_pullTransactionId($location.search().tx).then(pullInventory, pullInventory)
+
+  # no buy() - paypal is an html form submit
 
 angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class DisabledMtx
   constructor: ->
@@ -198,9 +229,9 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      #@backend = new DisabledMtx()
-      #@backend = new PaypalPlayfabMtx buyPacks
-      @backend = new PaypalHostedButtonMtx buyPacks
+      # TODO re-enable paypal before prod. disabled for beta
+      @backend = new DisabledMtx()
+      #@backend = new PaypalHostedButtonMtx buyPacks
   uiStyle: -> @backend.uiStyle || 'normal'
   packs: -> @backend.packs()
   pull: ->

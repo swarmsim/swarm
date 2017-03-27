@@ -68,6 +68,7 @@ module.exports = function (grunt) {
           sentrySampleRate: 0,
           isServerBackendEnabled: true,
           isServerFrontendEnabled: false,
+          isPaypalSandbox: true,
           gaTrackingID: null
         }
       }
@@ -105,8 +106,7 @@ module.exports = function (grunt) {
           // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
           isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
-          paypalCatalogVersion: 'main',
-
+          isPaypalSandbox: true,
           gaTrackingID: 'UA-53523462-3'
         }
       }
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
           sentrySampleRate: 0.001,
           isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
-          paypalCatalogVersion: 'main',
+          isPaypalSandbox: false,
           gaTrackingID: 'UA-53523462-1'
         }
       }
