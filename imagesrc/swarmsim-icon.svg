@@ -14,8 +14,11 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="swarmsim-icon.svg"
+   inkscape:export-filename="/home/evan/code/swarm1/imagesrc/swarmsim-icon.svg.png"
+   inkscape:export-xdpi="76.293854"
+   inkscape:export-ydpi="76.293854">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,15 +29,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="390.72442"
-     inkscape:cy="540.26315"
+     inkscape:cx="442.83601"
+     inkscape:cy="459.45095"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="988"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1839"
+     inkscape:window-height="1050"
+     inkscape:window-x="81"
+     inkscape:window-y="30"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -44,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -53,6 +56,104 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
+       id="g4368" />
+    <use
+       id="use4039-8"
+       transform="translate(188.304,464.80885)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+    <use
+       id="use4041-2"
+       transform="translate(215.77641,512.39245)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+    <use
+       id="use4053-4"
+       transform="translate(215.77641,417.22524)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+    <use
+       id="use4055-5"
+       transform="translate(243.24882,464.80885)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       style="fill:#ff0000"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+    <use
+       id="use4057-5"
+       transform="translate(270.72122,512.39245)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+    <use
+       id="use4069-1"
+       transform="translate(270.72122,417.22524)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+    <use
+       id="use4071-7"
+       transform="translate(298.19363,464.80885)"
+       xlink:href="#path2991"
+       inkscape:tiled-clone-of="#path2991"
+       y="0"
+       x="0"
+       width="1"
+       height="1"
+       inkscape:export-xdpi="76.293854"
+       inkscape:export-ydpi="76.293854" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="scratch"
+     style="display:none">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact"
+       x="155.56349"
+       y="16.955824"
+       id="text4113"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="155.56349"
+         y="16.955824"
+         id="tspan4117">http://wiki.hive13.org/index.php/Inkscape_Honeycomb_Tiles</tspan></text>
+    <g
+       style=""
        id="g4127">
       <path
          inkscape:tile-y0="89.645531"
@@ -524,82 +625,5 @@
          y="0"
          x="0" />
     </g>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact"
-       x="155.56349"
-       y="16.955824"
-       id="text4113"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         x="155.56349"
-         y="16.955824"
-         id="tspan4117">http://wiki.hive13.org/index.php/Inkscape_Honeycomb_Tiles</tspan></text>
-    <g
-       id="g4368" />
-    <use
-       id="use4039-8"
-       transform="translate(188.304,464.80885)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1" />
-    <use
-       id="use4041-2"
-       transform="translate(215.77641,512.39245)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1" />
-    <use
-       id="use4053-4"
-       transform="translate(215.77641,417.22524)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1" />
-    <use
-       id="use4055-5"
-       transform="translate(243.24882,464.80885)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1"
-       style="fill:#ff0000" />
-    <use
-       id="use4057-5"
-       transform="translate(270.72122,512.39245)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1" />
-    <use
-       id="use4069-1"
-       transform="translate(270.72122,417.22524)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1" />
-    <use
-       id="use4071-7"
-       transform="translate(298.19363,464.80885)"
-       xlink:href="#path2991"
-       inkscape:tiled-clone-of="#path2991"
-       y="0"
-       x="0"
-       width="1"
-       height="1" />
   </g>
 </svg>
