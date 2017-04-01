@@ -29,14 +29,6 @@ angular.module 'swarmApp', [
 angular.module('swarmApp').config ($locationProvider) ->
   $locationProvider.hashPrefix ''
 
-angular.module('swarmApp').config ($qProvider) ->
-  # this is hideous, but we're broken in safari, don't have a mac to fix it with, and kong staff insists on this
-  # http://odyniec.net/blog/2010/09/decrypting-the-user-agent-string-in-javascript/
-  ua = window?.navigator?.userAgent
-  isSafari = ua.match /Version\/(\S+).*?Safari\//
-  if isSafari
-    jQuery('.safarisupport').style({'display':'initial'})
-
 angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline
     return $routeProvider
