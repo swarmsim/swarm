@@ -1796,15 +1796,15 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "bulkbonus": 1.4,
-        "description": "560,000 crystals",
-        "label": "560,000 crystals",
+        "description": "700,000 crystals",
+        "label": "700,000 crystals",
         "name": "crystal004",
         "pack.unittype": "crystal",
-        "pack.val": 560000,
+        "pack.val": 700000,
         "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QB5KNYZCCEHD4",
         "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YYFCE3PQ4KY8Y",
-        "price_kreds": 400,
-        "price_usd_paypal": 3999,
+        "price_kreds": 500,
+        "price_usd_paypal": 4999,
         "uses": 1
       },
       {
