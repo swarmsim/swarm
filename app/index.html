@@ -16,6 +16,7 @@ https://github.com/erosson/swarm
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-hotkeys/build/hotkeys.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -56,6 +57,7 @@ https://github.com/erosson/swarm
     <![endif]-->
 
     <div class="container">
+      <p class="browsehappy safarisupport" style="display:none">Swarm Simulator does not support the Safari browser. If you have trouble, <a href="http://browsehappy.com/">please try Chrome or Firefox</a>.</p>
       <div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -109,6 +111,7 @@ https://github.com/erosson/swarm
           <p>The error message was: <code>{{form.error}}</code></p>
         </div>
       </div>
+      <news-modal></news-modal>
       <div ng-cloak ng-controller="WelcomeBackCtrl">
         <div id="welcomeback" class="alert alert-info alert-dismissible animif" role="alert" ng-if="showWelcomeBack">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -222,11 +225,12 @@ https://github.com/erosson/swarm
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/moment-duration-format/lib/moment-duration-format.js"></script>
     <script src="bower_components/numeral/numeral.js"></script>
-    <script src="bower_components/playfab-sdk/PlayFabSDK/PlayFabClientApi.js"></script>
+    <script src="bower_components/playfab-sdk/PlayFabSdk/src/PlayFab/PlayFabClientApi.js"></script>
     <script src="bower_components/seedrandom/seedrandom.js"></script>
     <script src="bower_components/sjcl/sjcl.js"></script>
     <script src="bower_components/swarm-persist/dist/swarm-persist.js"></script>
     <script src="bower_components/swarm-numberformat/dist/swarm-numberformat.js"></script>
+    <script src="bower_components/angular-hotkeys/build/hotkeys.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -293,8 +297,21 @@ https://github.com/erosson/swarm
         <script src="scripts/directives/playfabauth.js"></script>
         <script src="scripts/directives/playfaboptions.js"></script>
         <script src="scripts/services/playfab.js"></script>
+        <script src="scripts/controllers/news-archive.js"></script>
+        <script src="scripts/directives/news-modal.js"></script>
+        <script src="scripts/services/mtx.js"></script>
+        <script src="scripts/directives/buyunit-input.js"></script>
+        <script src="scripts/directives/crystaltimer.js"></script>
         <!-- endbuild -->
 </body>
+<script>
+// this is hideous, but we're broken in safari, don't have a mac to fix it with, and kong staff insists on this
+var ua = window?.navigator?.userAgent
+var isSafari = ua.match /Version\/(\S+).*?Safari\//
+if (isSafari) {
+  jQuery('.safarisupport').style({'display':'initial'});
+}
+</script>
 </html>
 
 <!-- MEOW -->

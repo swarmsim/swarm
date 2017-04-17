@@ -129,6 +129,48 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 100
       },
       {
+        "description": "Have $REQUIRED expansions at once",
+        "label": "we have become as a vapor",
+        "longdesc": "",
+        "name": "expansion7",
+        "points": 70,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "expansion",
+        "requires.val": 1000,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 200
+      },
+      {
+        "description": "Have $REQUIRED expansions at once",
+        "label": "imperialus conceptus",
+        "longdesc": "",
+        "name": "expansion8",
+        "points": 80,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "expansion",
+        "requires.val": 2000,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 500
+      },
+      {
+        "description": "Have $REQUIRED expansions at once",
+        "label": "manifest destiny",
+        "longdesc": "",
+        "name": "expansion9",
+        "points": 90,
+        "requires.event": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "expansion",
+        "requires.val": 5000,
+        "visible.unittype": "",
+        "visible.upgradetype": "expansion",
+        "visible.val": 1000
+      },
+      {
         "description": "Hatch your first drone",
         "label": "a good start",
         "longdesc": "",
@@ -213,7 +255,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 0
       },
       {
-        "description": "Create your first nest",
+        "description": "Build your first nest",
         "label": "I wanna be the very nest",
         "longdesc": "",
         "name": "nest1",
@@ -227,7 +269,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED nests",
+        "description": "Build $REQUIRED nests",
         "label": "to hatch them is my real test",
         "longdesc": "",
         "name": "nest2",
@@ -241,7 +283,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED  nests",
+        "description": "Build $REQUIRED nests",
         "label": "final nesting place",
         "longdesc": "",
         "name": "nest3",
@@ -423,7 +465,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first neuroprophet",
+        "description": "Grow your first neuroprophet",
         "label": "1. collect larvae",
         "longdesc": "",
         "name": "prophet1",
@@ -465,7 +507,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first hive neuron",
+        "description": "Grow your first hive neuron",
         "label": "neurogenesis",
         "longdesc": "",
         "name": "goddess1",
@@ -479,7 +521,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED hive neurons",
+        "description": "Grow $REQUIRED hive neurons",
         "label": "new neurons",
         "longdesc": "",
         "name": "goddess2",
@@ -493,7 +535,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED hive neurons",
+        "description": "Grow $REQUIRED hive neurons",
         "label": "neuronerd",
         "longdesc": "",
         "name": "goddess3",
@@ -507,7 +549,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first neural cluster",
+        "description": "Grow your first neural cluster",
         "label": "nucleus",
         "longdesc": "",
         "name": "pantheon1",
@@ -521,7 +563,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED neural clusters",
+        "description": "Grow $REQUIRED neural clusters",
         "label": "ganglion",
         "longdesc": "",
         "name": "pantheon2",
@@ -535,7 +577,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED neural clusters",
+        "description": "Grow $REQUIRED neural clusters",
         "label": "cluster-something",
         "longdesc": "",
         "name": "pantheon3",
@@ -549,7 +591,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first hive network",
+        "description": "Grow your first hive network",
         "label": "arpanet",
         "longdesc": "",
         "name": "pantheon21",
@@ -563,7 +605,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED hive networks",
+        "description": "Grow $REQUIRED hive networks",
         "label": "backpropagation",
         "longdesc": "",
         "name": "pantheon22",
@@ -577,7 +619,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED hive networks",
+        "description": "Grow $REQUIRED hive networks",
         "label": "nydus",
         "longdesc": "",
         "name": "pantheon23",
@@ -591,7 +633,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first lesser hive mind",
+        "description": "Grow your first lesser hive mind",
         "label": "do you mind?",
         "longdesc": "",
         "name": "pantheon31",
@@ -605,7 +647,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED lesser hive minds",
+        "description": "Grow $REQUIRED lesser hive minds",
         "label": "lesser is morer",
         "longdesc": "",
         "name": "pantheon32",
@@ -619,7 +661,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED lesser hive minds",
+        "description": "Grow $REQUIRED lesser hive minds",
         "label": "lord have mercy",
         "longdesc": "",
         "name": "pantheon33",
@@ -633,7 +675,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first hive mind",
+        "description": "Grow your first hive mind",
         "label": "one of us",
         "longdesc": "",
         "name": "pantheon41",
@@ -647,7 +689,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED hive minds",
+        "description": "Grow $REQUIRED hive minds",
         "label": "groupthink",
         "longdesc": "",
         "name": "pantheon42",
@@ -661,7 +703,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED hive minds",
+        "description": "Grow $REQUIRED hive minds",
         "label": "swarm intelligence",
         "longdesc": "",
         "name": "pantheon43",
@@ -675,7 +717,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first arch-mind",
+        "description": "Grow your first arch-mind",
         "label": "ante meridiem",
         "longdesc": "",
         "name": "pantheon51",
@@ -689,7 +731,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED arch-minds",
+        "description": "Grow $REQUIRED arch-minds",
         "label": "archery",
         "longdesc": "",
         "name": "pantheon52",
@@ -703,7 +745,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED arch-minds",
+        "description": "Grow $REQUIRED arch-minds",
         "label": "cerebration time",
         "longdesc": "",
         "name": "pantheon53",
@@ -717,7 +759,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create your first overmind",
+        "description": "Grow your first overmind",
         "label": "awaken, my child",
         "longdesc": "",
         "name": "overmind1",
@@ -731,7 +773,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 5
       },
       {
-        "description": "Create $REQUIRED overminds",
+        "description": "Grow $REQUIRED overminds",
         "label": "how ya like my groove?",
         "longdesc": "",
         "name": "overmind2",
@@ -745,7 +787,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.val": 1
       },
       {
-        "description": "Create $REQUIRED overminds",
+        "description": "Grow $REQUIRED overminds",
         "label": "well done!",
         "longdesc": "",
         "name": "overmind3",
@@ -755,6 +797,216 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.upgradetype": "",
         "requires.val": 1e+32,
         "visible.unittype": "overmind",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind II",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind2_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind2",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind2_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind2",
+        "requires.upgradetype": "",
+        "requires.val": 10000000000000000000,
+        "visible.unittype": "overmind2",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind2_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind2",
+        "requires.upgradetype": "",
+        "requires.val": 1e+38,
+        "visible.unittype": "overmind2",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind III",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind3_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind3",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind2",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind3_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind3",
+        "requires.upgradetype": "",
+        "requires.val": 1e+22,
+        "visible.unittype": "overmind3",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind IIIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind3_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind3",
+        "requires.upgradetype": "",
+        "requires.val": 1e+44,
+        "visible.unittype": "overmind3",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind IV",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind4_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind4",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind3",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind IVs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind4_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind4",
+        "requires.upgradetype": "",
+        "requires.val": 1e+25,
+        "visible.unittype": "overmind4",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind IVs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind4_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind4",
+        "requires.upgradetype": "",
+        "requires.val": 1e+50,
+        "visible.unittype": "overmind4",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind V",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind5_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind5",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind4",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind Vs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind5_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind5",
+        "requires.upgradetype": "",
+        "requires.val": 1e+28,
+        "visible.unittype": "overmind5",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind Vs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind5_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind5",
+        "requires.upgradetype": "",
+        "requires.val": 1e+56,
+        "visible.unittype": "overmind5",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow your first overmind VI",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind6_1",
+        "points": 10,
+        "requires.event": "",
+        "requires.unittype": "overmind6",
+        "requires.upgradetype": "",
+        "requires.val": 1,
+        "visible.unittype": "overmind5",
+        "visible.upgradetype": "",
+        "visible.val": 5
+      },
+      {
+        "description": "Grow $REQUIRED overmind VIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind6_2",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "overmind6",
+        "requires.upgradetype": "",
+        "requires.val": 1e+31,
+        "visible.unittype": "overmind6",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Grow $REQUIRED overmind VIs",
+        "label": "transcendent thought",
+        "longdesc": "",
+        "name": "overmind6_3",
+        "points": 30,
+        "requires.event": "",
+        "requires.unittype": "overmind6",
+        "requires.upgradetype": "",
+        "requires.val": 1e+62,
+        "visible.unittype": "overmind6",
         "visible.upgradetype": "",
         "visible.val": 1
       },
@@ -774,10 +1026,24 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Ascend $REQUIRED times",
+        "label": "third time's the charm",
+        "longdesc": "",
+        "name": "ascension11",
+        "points": 20,
+        "requires.event": "",
+        "requires.unittype": "ascension",
+        "requires.upgradetype": "",
+        "requires.val": 3,
+        "visible.unittype": "ascension",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Ascend $REQUIRED times",
         "label": "interplanetary infestation",
         "longdesc": "",
         "name": "ascension2",
-        "points": 20,
+        "points": 30,
         "requires.event": "",
         "requires.unittype": "ascension",
         "requires.upgradetype": "",
@@ -788,10 +1054,24 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       },
       {
         "description": "Ascend $REQUIRED times",
+        "label": "reseterrific",
+        "longdesc": "",
+        "name": "ascension21",
+        "points": 40,
+        "requires.event": "",
+        "requires.unittype": "ascension",
+        "requires.upgradetype": "",
+        "requires.val": 10,
+        "visible.unittype": "ascension",
+        "visible.upgradetype": "",
+        "visible.val": 1
+      },
+      {
+        "description": "Ascend $REQUIRED times",
         "label": "prestigious",
         "longdesc": "",
         "name": "ascension3",
-        "points": 30,
+        "points": 50,
         "requires.event": "",
         "requires.unittype": "ascension",
         "requires.upgradetype": "",
@@ -887,7 +1167,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED swarmlings",
         "label": "adrenal glands",
-        "longdesc": "",
+        "longdesc": "Swarmlings hatched by nexus abilities don't count.",
         "name": "swarmling3",
         "points": 10,
         "requires.event": "",
@@ -929,7 +1209,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED stingers",
         "label": "waxing poetic",
-        "longdesc": "",
+        "longdesc": "Stingers hatched by nexus abilities don't count.",
         "name": "stinger3",
         "points": 10,
         "requires.event": "",
@@ -971,7 +1251,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED arachnomorphs",
         "label": "how do i shot web",
-        "longdesc": "",
+        "longdesc": "Arachnomorphs hatched by nexus abilities don't count.",
         "name": "spider3",
         "points": 10,
         "requires.event": "",
@@ -1013,7 +1293,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED culicimorphs",
         "label": "this achievement sucks",
-        "longdesc": "",
+        "longdesc": "Culicimorphs hatched by nexus abilities don't count.",
         "name": "mosquito3",
         "points": 10,
         "requires.event": "",
@@ -1055,7 +1335,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED locusts",
         "label": "trypophobia",
-        "longdesc": "",
+        "longdesc": "Locusts hatched by nexus abilities don't count.",
         "name": "locust3",
         "points": 10,
         "requires.event": "",
@@ -1097,7 +1377,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED roaches",
         "label": "papa",
-        "longdesc": "",
+        "longdesc": "Roaches hatched by nexus abilities don't count.",
         "name": "roach3",
         "points": 10,
         "requires.event": "",
@@ -1139,7 +1419,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED giant arachnomorphs",
         "label": "and I'm just sitting here",
-        "longdesc": "",
+        "longdesc": "Giant Arachnomorphs hatched by nexus abilities don't count.",
         "name": "giantspider3",
         "points": 10,
         "requires.event": "",
@@ -1181,7 +1461,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED chilopodomorphs",
         "label": "missile command",
-        "longdesc": "",
+        "longdesc": "Chilopodomorphs hatched by nexus abilities don't count.",
         "name": "centipede3",
         "points": 10,
         "requires.event": "",
@@ -1223,7 +1503,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED wasps",
         "label": "kill",
-        "longdesc": "",
+        "longdesc": "Wasps hatched by nexus abilities don't count.",
         "name": "wasp3",
         "points": 10,
         "requires.event": "",
@@ -1265,7 +1545,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED devourers",
         "label": "sometimes they drain energy",
-        "longdesc": "",
+        "longdesc": "Devourers hatched by nexus abilities don't count.",
         "name": "devourer3",
         "points": 10,
         "requires.event": "",
@@ -1307,7 +1587,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Hatch $REQUIRED goons",
         "label": "all hallows'",
-        "longdesc": "",
+        "longdesc": "Goons hatched by nexus abilities don't count.",
         "name": "goon3",
         "points": 10,
         "requires.event": "",
@@ -1429,9 +1709,119 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "visible.unittype": "",
         "visible.upgradetype": "",
         "visible.val": ""
+      },
+      {
+        "description": "Ask the right question",
+        "label": "signs point to yes",
+        "longdesc": "",
+        "name": "therightquestion",
+        "points": 0,
+        "requires.event": "therightquestion",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "visible.unittype": "",
+        "visible.upgradetype": "",
+        "visible.val": ""
       }
     ],
     "name": "achievements"
+  },
+  "mtx": {
+    "column_names": [
+      "name",
+      "label",
+      "description",
+      "pricekreds",
+      "priceusdpaypal",
+      "uses",
+      "pack.unittype",
+      "bulkbonus",
+      "pack.val",
+      "paypalurl",
+      "paypalsandboxurl"
+    ],
+    "elements": [
+      {
+        "bulkbonus": 1,
+        "description": "10,000 crystals",
+        "label": "10,000 crystals",
+        "name": "crystal000",
+        "pack.unittype": "crystal",
+        "pack.val": 10000,
+        "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A4DNJ5VY8MWV8",
+        "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VTLR9A5SGD88U",
+        "price_kreds": 10,
+        "price_usd_paypal": 99,
+        "uses": 1
+      },
+      {
+        "bulkbonus": 1.1,
+        "description": "55,000 crystals",
+        "label": "55,000 crystals",
+        "name": "crystal001",
+        "pack.unittype": "crystal",
+        "pack.val": 55000,
+        "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H982J7ACEWUUC",
+        "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UQYE7GYCB93M4",
+        "price_kreds": 50,
+        "price_usd_paypal": 499,
+        "uses": 1
+      },
+      {
+        "bulkbonus": 1.2,
+        "description": "120,000 crystals",
+        "label": "120,000 crystals",
+        "name": "crystal002",
+        "pack.unittype": "crystal",
+        "pack.val": 120000,
+        "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBAEKDS5JDBKS",
+        "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BFP63KZ2SAVWE",
+        "price_kreds": 100,
+        "price_usd_paypal": 999,
+        "uses": 1
+      },
+      {
+        "bulkbonus": 1.3,
+        "description": "260,000 crystals",
+        "label": "260,000 crystals",
+        "name": "crystal003",
+        "pack.unittype": "crystal",
+        "pack.val": 260000,
+        "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YP45TQT6UM2P8",
+        "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3VLJDNEYEHJ9Y",
+        "price_kreds": 200,
+        "price_usd_paypal": 1999,
+        "uses": 1
+      },
+      {
+        "bulkbonus": 1.4,
+        "description": "700,000 crystals",
+        "label": "700,000 crystals",
+        "name": "crystal004",
+        "pack.unittype": "crystal",
+        "pack.val": 700000,
+        "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QB5KNYZCCEHD4",
+        "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YYFCE3PQ4KY8Y",
+        "price_kreds": 500,
+        "price_usd_paypal": 4999,
+        "uses": 1
+      },
+      {
+        "bulkbonus": 1.5,
+        "description": "1,500,000 crystals",
+        "label": "1,500,000 crystals",
+        "name": "crystal005",
+        "pack.unittype": "crystal",
+        "pack.val": 1500000,
+        "paypalSandboxUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2G5NLN7SE4L5U",
+        "paypalUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RYA3WRJJRK6LC",
+        "price_kreds": 1000,
+        "price_usd_paypal": 9999,
+        "uses": 1
+      }
+    ],
+    "name": "mtx"
   },
   "unittypes": {
     "column_names": [
@@ -1444,6 +1834,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       "column",
       "tab",
       "init",
+      "ascendpreserve",
       "description",
       "lol",
       "disabled",
@@ -1471,6 +1862,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
     ],
     "elements": [
       {
+        "ascendPreserve": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1506,6 +1898,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1541,6 +1934,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 0,
         "cost.unittype": "cocoon",
         "cost.val": 1,
@@ -1576,6 +1970,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 0,
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -1611,6 +2006,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
@@ -1646,10 +2042,11 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 0,
         "cost.unittype": "",
         "cost.val": "",
-        "description": "Energy is consumed to use special abilities.",
+        "description": "-",
         "disabled": "",
         "effect.stat": "",
         "effect.type": "",
@@ -1660,7 +2057,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val3": "",
         "init": "",
         "label": "energy",
-        "lol": "Coffee is consumed to restore energy.",
+        "lol": "",
         "name": "energy",
         "plural": "energy",
         "prod.unittype": "",
@@ -1681,6 +2078,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "energy",
         "cost.val": -1,
@@ -1694,7 +2092,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val2": "",
         "effect.val3": "",
         "init": "",
-        "label": "",
+        "label": "respecEnergy",
         "lol": "",
         "name": "respecEnergy",
         "plural": "",
@@ -1716,6 +2114,79 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
+        "column": "",
+        "cost.unittype": "crystal",
+        "cost.val": 1,
+        "description": "energy bought with microtransactions also permanently increases max energy. Don't wanna worry about hitting the cap.",
+        "disabled": "TRUE",
+        "effect.stat": "capFlat",
+        "effect.type": "addStat",
+        "effect.unittype": "energy",
+        "effect.unittype2": "",
+        "effect.val": 1,
+        "effect.val2": "",
+        "effect.val3": "",
+        "init": "",
+        "label": "energy and max energy",
+        "lol": "",
+        "name": "mtxEnergy",
+        "plural": "energy and max energy",
+        "prod.unittype": "",
+        "prod.val": "",
+        "requires.op": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "showparent": "",
+        "tab": "energy",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "convert",
+        "verbing": "converting",
+        "verbone": "converts",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
+      },
+      {
+        "ascendPreserve": "",
+        "column": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "disabled": "",
+        "effect.stat": "",
+        "effect.type": "addUnit",
+        "effect.unittype": "energy",
+        "effect.unittype2": "",
+        "effect.val": 1,
+        "effect.val2": "",
+        "effect.val3": "",
+        "init": "",
+        "label": "",
+        "lol": "",
+        "name": "mtxEnergy",
+        "plural": "",
+        "prod.unittype": "",
+        "prod.val": "",
+        "requires.op": "",
+        "requires.unittype": "",
+        "requires.upgradetype": "",
+        "requires.val": "",
+        "showparent": "",
+        "tab": "",
+        "tier": "",
+        "unbuyable": "",
+        "verb": "",
+        "verbing": "",
+        "verbone": "",
+        "warnfirst.text": "",
+        "warnfirst.unittype": "",
+        "warnfirst.val": ""
+      },
+      {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1751,11 +2222,12 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "-",
-        "disabled": "TRUE",
+        "disabled": "",
         "effect.stat": "",
         "effect.type": "",
         "effect.unittype": "",
@@ -1771,9 +2243,9 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "prod.unittype": "",
         "prod.val": "",
         "requires.op": "",
-        "requires.unittype": "nexus",
+        "requires.unittype": "meat",
         "requires.upgradetype": "",
-        "requires.val": 1,
+        "requires.val": 0,
         "showparent": "",
         "tab": "energy",
         "tier": "",
@@ -1786,6 +2258,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1821,6 +2294,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1856,6 +2330,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1891,6 +2366,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1926,6 +2402,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1961,6 +2438,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -1996,6 +2474,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -2031,6 +2510,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -2066,6 +2546,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -2101,6 +2582,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -2136,6 +2618,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 10,
@@ -2171,6 +2654,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2206,6 +2690,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 810,
@@ -2241,6 +2726,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "drone",
         "cost.val": 100,
@@ -2276,6 +2762,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2311,6 +2798,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 72900,
@@ -2346,6 +2834,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 2000
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "queen",
         "cost.val": 1000,
@@ -2381,6 +2870,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2416,6 +2906,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 6561000,
@@ -2451,6 +2942,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 40000
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "nest",
         "cost.val": 10000,
@@ -2486,6 +2978,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2521,6 +3014,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 590490000,
@@ -2556,6 +3050,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 800000
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "greaterqueen",
         "cost.val": 100000,
@@ -2591,6 +3086,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2626,6 +3122,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 53144100000,
@@ -2661,6 +3158,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": 4000000
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "hive",
         "cost.val": 1000000,
@@ -2696,6 +3194,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2731,6 +3230,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 4782969000000,
@@ -2766,6 +3266,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "hivequeen",
         "cost.val": 10000000,
@@ -2801,6 +3302,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2836,6 +3338,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 430467210000000,
@@ -2871,6 +3374,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "empress",
         "cost.val": 100000000,
@@ -2906,6 +3410,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -2941,6 +3446,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 38742000000000000,
@@ -2976,6 +3482,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "prophet",
         "cost.val": 1000000000,
@@ -3011,6 +3518,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3046,6 +3554,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 3486780000000000000,
@@ -3081,6 +3590,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "goddess",
         "cost.val": 10000000000,
@@ -3116,6 +3626,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3151,6 +3662,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 313811000000000000000,
@@ -3186,6 +3698,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "pantheon",
         "cost.val": 1000000000000,
@@ -3221,6 +3734,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3256,6 +3770,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 2.8243e+22,
@@ -3291,6 +3806,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "pantheon2",
         "cost.val": 100000000000000,
@@ -3326,6 +3842,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3361,6 +3878,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 2.54187e+24,
@@ -3396,6 +3914,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "pantheon3",
         "cost.val": 10000000000000000,
@@ -3431,6 +3950,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3466,6 +3986,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 2.28768e+26,
@@ -3501,6 +4022,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "pantheon4",
         "cost.val": 10000000000000000000,
@@ -3536,6 +4058,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3571,6 +4094,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 2.05891e+28,
@@ -3606,6 +4130,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "pantheon5",
         "cost.val": 1e+23,
@@ -3641,6 +4166,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3676,6 +4202,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 1.85302e+30,
@@ -3711,6 +4238,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "overmind",
         "cost.val": 1e+28,
@@ -3746,6 +4274,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3781,6 +4310,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 1.66772e+32,
@@ -3816,6 +4346,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "overmind2",
         "cost.val": 1e+34,
@@ -3851,6 +4382,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3886,6 +4418,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 1.50095e+34,
@@ -3921,6 +4454,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "overmind3",
         "cost.val": 1e+41,
@@ -3956,6 +4490,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -3991,6 +4526,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 1.35085e+36,
@@ -4026,6 +4562,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "overmind4",
         "cost.val": 1e+49,
@@ -4061,6 +4598,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4096,6 +4634,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 1,
         "cost.unittype": "meat",
         "cost.val": 1.21577e+38,
@@ -4131,6 +4670,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "overmind5",
         "cost.val": 1e+58,
@@ -4166,6 +4706,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4201,6 +4742,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 750,
@@ -4236,6 +4778,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4271,6 +4814,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 337500,
@@ -4306,6 +4850,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4341,6 +4886,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 151875000,
@@ -4376,6 +4922,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4411,6 +4958,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 68343750000,
@@ -4446,6 +4994,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4481,6 +5030,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 30754687500000,
@@ -4516,6 +5066,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4551,6 +5102,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 13839600000000000,
@@ -4586,6 +5138,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4621,6 +5174,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 6227820000000000000,
@@ -4656,6 +5210,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4691,6 +5246,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 2.80252e+21,
@@ -4726,6 +5282,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4761,6 +5318,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 1.26113e+24,
@@ -4796,6 +5354,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4831,6 +5390,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 5.6751e+26,
@@ -4866,6 +5426,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4901,6 +5462,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": 2,
         "cost.unittype": "meat",
         "cost.val": 2.5538e+29,
@@ -4936,6 +5498,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -4971,6 +5534,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "energy",
         "cost.val": 10,
@@ -5006,6 +5570,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -5041,6 +5606,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "energy",
         "cost.val": 10,
@@ -5076,6 +5642,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -5111,6 +5678,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "energy",
         "cost.val": 100,
@@ -5146,6 +5714,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "larva",
         "cost.val": 1,
@@ -5181,6 +5750,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5216,6 +5786,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5251,6 +5822,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5262,7 +5834,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.unittype2": "",
         "effect.val": 1,
         "effect.val2": 10,
-        "effect.val3": 1.5,
+        "effect.val3": 1.8,
         "init": "",
         "label": "clone mutation",
         "lol": "",
@@ -5286,6 +5858,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5321,6 +5894,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5356,6 +5930,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5391,6 +5966,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5426,6 +6002,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5461,6 +6038,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5496,6 +6074,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5531,6 +6110,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5540,7 +6120,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.type": "asympStat",
         "effect.unittype": "invisiblehatchery",
         "effect.unittype2": "",
-        "effect.val": 3,
+        "effect.val": 5,
         "effect.val2": 0.001,
         "effect.val3": 5,
         "init": "",
@@ -5566,6 +6146,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5601,6 +6182,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -5636,6 +6218,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5671,6 +6254,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -5706,18 +6290,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
         "description": "-",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "swarmling",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "territory mutation",
         "lol": "",
@@ -5741,18 +6326,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "stinger",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5776,18 +6362,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "spider",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5811,18 +6398,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "mosquito",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5846,18 +6434,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "locust",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5881,18 +6470,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "roach",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5916,18 +6506,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "giantspider",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5951,18 +6542,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "centipede",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -5986,18 +6578,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "wasp",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -6021,18 +6614,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "devourer",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -6056,18 +6650,19 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
         "description": "",
         "disabled": "",
         "effect.stat": "prod",
-        "effect.type": "logStat",
+        "effect.type": "expStat",
         "effect.unittype": "goon",
         "effect.unittype2": "",
-        "effect.val": 1,
-        "effect.val2": 10,
-        "effect.val3": 5,
+        "effect.val": 0.2,
+        "effect.val2": 0.001,
+        "effect.val3": "",
         "init": "",
         "label": "",
         "lol": "",
@@ -6091,6 +6686,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "TRUE",
         "column": "",
         "cost.unittype": "mutagen",
         "cost.val": 1,
@@ -6126,6 +6722,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6161,6 +6758,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6196,6 +6794,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6231,6 +6830,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6266,6 +6866,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6301,6 +6902,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6336,6 +6938,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6371,6 +6974,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6406,6 +7010,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6441,6 +7046,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6476,6 +7082,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6511,6 +7118,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6546,6 +7154,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6581,6 +7190,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6616,6 +7226,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6651,6 +7262,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6686,6 +7298,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6721,6 +7334,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6756,6 +7370,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "warnfirst.val": ""
       },
       {
+        "ascendPreserve": "",
         "column": "",
         "cost.unittype": "",
         "cost.val": "",
@@ -6859,6 +7474,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "unittype": ""
       },
       {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "addUnitTimed",
+        "effect.unittype": "crystal",
+        "effect.unittype2": "energy",
+        "effect.upgradetype": "",
+        "effect.val": 500,
+        "effect.val2": 1800,
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "hatchery",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
         "class": "upgrade",
         "cost.factor": 2.45,
         "cost.unittype": "territory",
@@ -6892,6 +7528,27 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.upgradetype": "",
         "effect.val": 1.12,
         "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "expansion",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "addUnitTimed",
+        "effect.unittype": "crystal",
+        "effect.unittype2": "energy",
+        "effect.upgradetype": "",
+        "effect.val": 500,
+        "effect.val2": 1800,
         "label": "",
         "lol": "",
         "maxlevel": "",
@@ -8867,7 +9524,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val": 0,
         "effect.val2": "",
         "label": "empower chilopodomorphs",
-        "lol": "",
+        "lol": "The US presidency isn't enough power for you?",
         "maxlevel": "",
         "name": "centipedeempower",
         "requires.unittype": "meat",
@@ -10298,6 +10955,237 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "lol": "",
         "maxlevel": "",
         "name": "mutatemeat",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "ability",
+        "cost.factor": 1,
+        "cost.unittype": "energy",
+        "cost.val": 2500,
+        "description": "-",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "swarmling",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "house of mirrors",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "nexus",
+        "requires.val": 5,
+        "unittype": "energy"
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "stinger",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "spider",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "mosquito",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "locust",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "roach",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "giantspider",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "centipede",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "wasp",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "devourer",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
+        "requires.unittype": "",
+        "requires.val": "",
+        "unittype": ""
+      },
+      {
+        "class": "",
+        "cost.factor": "",
+        "cost.unittype": "",
+        "cost.val": "",
+        "description": "",
+        "effect.stat": "",
+        "effect.type": "compoundUnit",
+        "effect.unittype": "goon",
+        "effect.unittype2": "",
+        "effect.upgradetype": "",
+        "effect.val": 2,
+        "effect.val2": "",
+        "label": "",
+        "lol": "",
+        "maxlevel": "",
+        "name": "clonearmy",
         "requires.unittype": "",
         "requires.val": "",
         "unittype": ""

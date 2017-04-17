@@ -45,9 +45,10 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
   isAuthed: -> !!@auth
   logout: ->
     @auth = null
+    @authRequest = null
     playfabCredentialStore.clear()
 
-  login: (email, password, remember) -> $q (resolve, reject) =>
+  login: (email, password, remember) -> @authRequest = $q (resolve, reject) =>
     PlayFabClientSDK.LoginWithEmailAddress
       Email: email
       Password: password
@@ -68,6 +69,10 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
         else
           reject(error)
 
+  waitForAuth: ->
+    if !@authRequest
+      @autologin()
+    return @authRequest
   autologin: ->
     creds = playfabCredentialStore.read()
     if creds?.email && creds?.password
@@ -75,10 +80,10 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
       return @login creds.email, creds.password, false
     else
       $log.debug 'playfab autologin failed, no creds stored'
-      return $q (resolve, reject) -> reject()
+      return @authRequest = $q (resolve, reject) -> reject()
 
   # https://api.playfab.com/Documentation/Client/method/LoginWithKongregate
-  kongregateLogin: (userId, authToken) -> $q (resolve, reject) =>
+  kongregateLogin: (userId, authToken) -> @authRequest = $q (resolve, reject) =>
     PlayFabClientSDK.LoginWithKongregate
       KongregateId: userId
       AuthTicket: authToken
@@ -97,7 +102,7 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
         else
           reject(error)
 
-  signup: (email, password) -> $q (resolve, reject) =>
+  signup: (email, password) -> @authRequest $q (resolve, reject) =>
     PlayFabClientSDK.RegisterPlayFabUser
       RequireBothUsernameAndEmail: false # email's enough, no need for usernames
       Email: email
@@ -166,6 +171,29 @@ angular.module('swarmApp').factory 'Playfab', ($q, $log, playfabCredentialStore,
         else
           reject(error)
 
+  # "why isn't this used above?" it was added later. The above would be better if this were used, just haven't bothered yet.
+  _call: (name, params={}) =>
+    errorData = {name: name, params: params}
+    p = $q (resolve, reject) =>
+      @waitForAuth().then(
+        =>
+          window.PlayFabClientSDK[name] params, (res) =>
+            errorData.result = res
+            if res.status != 'OK'
+              errorData.message = "PlayFabClientAPI.#{name} returned status #{res.status}"
+              return reject errorData
+            $log.debug "PlayFabClientAPI.#{name}", res.status, res
+            return resolve res
+        (error) =>
+          errorData.message = error
+          return reject errorData
+      )
+    return p
+  getTitleNews: -> @_call 'GetTitleNews'
+
 angular.module('swarmApp').factory 'playfab', (Playfab, env) ->
   window.PlayFab.settings.titleId = env.playfabTitleId
   return new Playfab()
+
+angular.module('swarmApp').factory 'playfabCall', ($q, $log) ->
+

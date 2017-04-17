@@ -187,6 +187,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       if @hasStat 'capBase'
         ret = @stat 'capBase'
         ret = ret.times @stat 'capMult', 1
+        ret = ret.plus @stat 'capFlat', 0
         return ret
   capValue: (val) ->
     cap = @_getCap()
@@ -403,7 +404,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
     @maxCostMet().greaterThan 0
 
   isBuyable: (ignoreCost=false) ->
-    return (@isCostMet() or ignoreCost) and @isVisible() and not @unittype.unbuyable
+    return (@isCostMet() or ignoreCost) and @isBuyButtonVisible() and not @unittype.unbuyable
 
   buyMax: (percent) ->
     @buy @maxCostMet percent
@@ -424,6 +425,8 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
         cost.unit._subtractCount cost.val.times num
       twinnum = num.times @twinMult()
       @_addCount twinnum
+      for effect in @effect
+        effect.onBuyUnit twinnum
       return {num:num, twinnum:twinnum}
 
   isNewlyUpgradable: ->
@@ -486,6 +489,20 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
   url: ->
     @tab.url this
 
+  # for the addUnitTimed effect
+  addUnitTimer: ->
+    key = "addUnitTimed-#{@name}"
+    return @game.session.state.date[key] ? new Date 0
+  addUnitTimerElapsedMillis: (now=@game.now) ->
+    return now.getTime() - @addUnitTimer().getTime()
+  addUnitTimerRemainingMillis: (durationMillis, now=@game.now) ->
+    return Math.max 0, durationMillis - @addUnitTimerElapsedMillis(now)
+  isAddUnitTimerReady: (durationMillis, now=@game.now) ->
+    return @addUnitTimerRemainingMillis(durationMillis) == 0
+  setAddUnitTimer: (now=@game.now) ->
+    key = "addUnitTimed-#{@name}"
+    @game.session.state.date[key] = now
+    util.assert @addUnitTimerElapsedMillis(now) == 0
 
 ###*
  # @ngdoc service

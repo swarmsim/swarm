@@ -1,0 +1,2 @@
+convert kongregate-171x137-pre.png -resize 171x137 -gravity center -extent 171x137 -background transparent -fuzz 50% -transparent white kongregate-171x137.png 
+convert kongregate-66x66-pre.png -resize 66x66 -gravity center -extent 66x66 -background transparent -fuzz 50% -transparent white kongregate-66x66.png 

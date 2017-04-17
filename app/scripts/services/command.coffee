@@ -7,7 +7,7 @@
  # # command
  # Factory in the swarmApp.
 ###
-angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log, loginApi) -> new class Commands
+angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log, loginApi, mtx) -> new class Commands
   constructor: ->
 
   _setUndo: (opts={}) ->
@@ -130,3 +130,12 @@ angular.module('swarmApp').factory 'commands', (util, game, $rootScope, $log, lo
     @_emit 'respec',
       now: game.now
       elapsed: game.elapsedStartMillis()
+
+  convertCrystal: (opts) ->
+    @_setUndo()
+    conversion = opts.conversion
+    mtx.convert(conversion)
+    @_emit 'convertEnergy',
+      now: game.now
+      crystal:conversion.crystal
+      energy:conversion.energy

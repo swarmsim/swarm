@@ -6,3 +6,4 @@ Your next expansion has a {{upgrade.unit.stat('random.freq')|percent:0}} chance 
 <p ng-if="!upgrade.count().greaterThanOrEqualTo(upgrade.unit.stat('random.minlevel.expansion')) && game.unit('mutagen').isVisible()">
 Build {{upgrade.unit.stat('random.minlevel.expansion')|longnum}} expansions to begin earning mutagen.
 </p>
+<crystal-timer unittext="'expansion'"></crystal-timer>

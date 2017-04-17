@@ -21,6 +21,8 @@ angular.module('swarmApp').factory 'Effect', (util) -> class Effect
 
   onBuy: (level) ->
     @type.onBuy? this, @game, @parent, level
+  onBuyUnit: (twinnum) ->
+    @type.onBuyUnit? this, @game, @parent, twinnum
 
   calcStats: (stats={}, schema={}, level=@parent.count()) ->
     @type.calcStats? this, stats, schema, level
@@ -96,14 +98,25 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
     name: 'addUnit'
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
-    output: (effect, game) ->
-      effect.power().times effect.val
+    onBuyUnit: (effect, game, boughtUnit, num) ->
+      effect.unit._addCount @output effect, game, num
+    output: (effect, game, num=1) ->
+      effect.power().times(effect.val).times(num)
   effecttypes.register
     name: 'addUnitByVelocity'
     onBuy: (effect, game) ->
       effect.unit._addCount @output effect, game
     output: (effect, game) ->
       effect.unit.velocity().times(effect.val).times(effect.power())
+  effecttypes.register
+    name: 'addUnitTimed'
+    onBuy: (effect, game, parent, level) ->
+      thresholdMillis = effect.val2 * 1000
+      if !effect.unit2? or effect.unit2.isVisible()
+        if effect.unit.isAddUnitTimerReady thresholdMillis
+          # TODO this should be @output
+          effect.unit._addCount effect.val
+          effect.unit.setAddUnitTimer()
   effecttypes.register
     name: 'addUnitRand'
     onBuy: (effect, game, parent, level) ->

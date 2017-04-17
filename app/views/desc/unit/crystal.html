@@ -1,0 +1,48 @@
+<div ng-controller="MtxDesc">
+  <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending.</p>
+
+  <crystal-timer></crystal-timer>
+<div ng-if="mtx.uiStyle() == 'paypal'">
+  <div ng-repeat="pack in packs">
+    <a href="{{pack.paypalUrl}}" class="btn btn-default">
+      Buy {{pack['pack.val'] | longnum:null:{minSuffix:1e300} }} crystals for
+      {{pack.price_usd_paypal/100 | currency }}
+    </a>
+  </div>
+</div>
+<div ng-if="mtx.uiStyle() == 'normal'">
+  <div ng-repeat="pack in packs">
+    <button class="btn btn-default" ng-click="clickBuyPack(pack)">
+      Buy {{pack['pack.val'] | longnum:null:{minSuffix:1e300} }} crystals for
+      <img src="/images/kred_single.png" style="width:16px;height:16px">
+      {{pack.price_kreds | longnum:null:{minSuffix:1e300} }}
+    </button>
+  </div>
+</div>
+
+<div ng-if="mtx.uiStyle() != 'disabled'">
+  <p><i>Swarm Simulator's developer appreciates your support - thank you!</i></p>
+  <div class="alert alert-danger" ng-if="!packs && packsError">
+    {{packsError}}
+  </div>
+  <div ng-if="(!packs && !packsError) || buyLoading">
+    <img src="images/ajax-loader.gif">
+  </div>
+  <div class="alert alert-info" ng-if="buyMessage">
+    {{buyMessage}}
+  </div>
+  <div class="alert alert-danger" ng-if="buyError">
+    {{buyError}}
+  </div>
+  <div class="alert alert-danger" ng-if="convertError">
+    {{convertError}}
+  </div>
+</div>
+<div ng-if="mtx.uiStyle() == 'disabled'">
+</div>
+  <br>
+  <p>Converting crystals has permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>
+  <buyunit-input unit="game.unit('mtxEnergy')"></buyunit-input>
+
+  <!--button class="btn btn-default btn-disabled" disabled>Quick ascend (coming soon!)</button-->
+</div>

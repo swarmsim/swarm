@@ -6,14 +6,6 @@
            'one':'You own 1 {{cur.unittype.label}}.',
            'other':'You own {{cur.count()|longnum}} {{cur.unittype.plural}}.'}">
   </ng-pluralize>
-  <div ng-if="cur.capValue()">
-    <div class="progress" style="margin-bottom:0">
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{cur.count()}}" aria-valuemin="0" aria-valuemax="{{cur.capValue()}}" ng-style="{width:cur.capPercent().times(100)+'%'}">
-        {{cur.capPercent()|percent:{floor:true} }}, {{cur.capDurationMoment()|duration}}
-      </div>
-    </div>
-    <p>{{cur.count()|longnum:0}} / {{cur.capValue()|longnum:0}} {{cur.unittype.label}}</p>
-  </div>
   <div ng-if="cur.prod.length">
     <p>
       Each produces
@@ -58,66 +50,7 @@
   <div class="clear-afterdesc"></div>
   <div ng-if="!cur.unbuyable && cur.cost.length && cur.isBuyButtonVisible()">
     <hr>
-    <!--div class="form-group">
-      <label for="buyone">Buy one</label>
-      <button id="buyone" ng-click="cur.buy(1)" class="form-control unit-buy" ng-disabled="!cur.isCostMet()">
-        <span ng-repeat="cost in cur.cost">
-          <span ng-class="{costNotMet:cost.val > cost.unit.count()}">{{cost.val|bignum}} {{cost.unit.unittype.plural}}</span><span ng-if="!$last">, </span>
-        </span>
-      </button>
-    </div-->
-    <div ng-if="cur.count().isZero() && cur.isCostMet()" ng-repeat="warn in (cur.warnfirst | filter:isWarningVisible)">
-      <!-- nested div to get the animation right: disappear instantly when switching units, fade when closing manually -->
-      <!-- TODO: too bad the "fade when closing manually" part doesn't want to work -->
-      <div class="alert alert-warning alert-dismissable animif" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <p>{{warn.text}}</p>
-      </div>
-    </div>
-    <div class="form-group">
-      <p>
-        <form class="form-inline" ng-submit="commands.buyUnit({unit:cur, num:buyCount()})">
-          <span class="titlecase">{{cur.unittype.verbing}}</span>
-          <input type="text" ng-model="form.buyCount" placeholder="1" class="form-control"
-title="'10%' buys 10% of the maximum you can afford.
-'=1000' buys exactly 1,000 after accounting for twins, rounded up.
-'@1000' buys the number needed to have a total of 1,000. If you already have 200, this will buy up to 800.
-Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
-          {{buyCount().equals(1) ? cur.unittype.label : cur.unittype.plural}}
-          <span ng-if="cur.twinMult().greaterThan(1)" ng-class="{strikethrough:false && form.buyCount.indexOf('=') >= 0}">(&times;{{cur.twinMult()|bignum}} twins)</span>
-          will cost
-          <cost costlist="cur.eachCost()" num="buyCount()"></cost>
-        </form>
-      </p>
-      <p ng-if="options.showAdvancedUnitData()">
-        <span ng-if="cur.maxCostMet().greaterThan(0)">
-          <span class="titlecase">{{cur.unittype.verbing}}</span> your maximum of
-          {{cur.maxCostMet().times(cur.twinMult())|longnum}} {{cur.maxCostMet().times(cur.twinMult()).equals(1) ? cur.unittype.label : cur.unittype.plural}}
-        </span>
-        <span ng-if="cur.maxCostMet().lessThanOrEqualTo(0)">
-          <span class="titlecase">{{cur.unittype.verbing}}</span> your next {{cur.unittype.label}}
-        </span>
-        will cost
-        <span ng-repeat="cost in cur.eachCost()">
-          <span ng-if="!$first && $last"> and </span>
-          <span>{{unitCostAsPercent(cur, cost) | percent:0}} of your {{cost.unit.unittype.plural}}</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
-        </span>
-      </p>
-      <p ng-if="options.showAdvancedUnitData() && cur.maxCostMetOfVelocity().greaterThan(0)">
-        <span ng-if="cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult).greaterThanOrEqualTo(1)">
-          You can {{cur.unittype.verb}} {{cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult)|longnum}} {{cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult).equals(1) ? cur.unittype.label : cur.unittype.plural}} every {{options.getVelocityUnit({unit:cur}).label}}, using
-        </span>
-        <span ng-if="cur.maxCostMetOfVelocity().times(cur.twinMult()).times(options.getVelocityUnit({unit:cur}).mult).lessThan(1)">
-          You can {{cur.unittype.verb}} one {{cur.unittype.label}} every {{cur.maxCostMetOfVelocityReciprocal().dividedBy(cur.twinMult()).dividedBy(options.getVelocityUnit({unit:cur}).mult)|longnum}} {{cur.maxCostMetOfVelocityReciprocal().dividedBy(cur.twinMult()).dividedBy(options.getVelocityUnit({unit:cur}).mult).equals(1) ? options.getVelocityUnit({unit:cur}).label : options.getVelocityUnit({unit:cur}).plural}}, using
-        </span>
-        
-        <span ng-repeat="cost in cur.eachCost()">
-          <span ng-if="!$first && $last"> and </span>
-          <span>{{unitCostAsPercentOfVelocity(cur, cost) | percent:0}} of your {{cost.unit.unittype.label}} income</span><span ng-if="$last">.</span><span ng-if="!$last && cur.eachCost().length > 2">, </span>
-        </span>
-      </p>
-      <buyunit unit="cur" num="buyCount()"></buyunit>
-    </div>
+    <buyunit-input unit="cur"></buyunit-input>
   </div>
   <div ng-if="(visibleUpgrades = (cur.upgrades.byClass.upgrade | filter:filterVisible)).length > 0">
     <hr>
@@ -154,7 +87,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
               {{upgrade.costMetPercent()|percent:{floor:true} }} {{estimateUpgradeSecs(upgrade)|duration}}
             </div>
           </div>
-          <buyupgrade upgrade="upgrade"></buyupgrade>
+          <buyupgrade upgrade="upgrade" index="$index"></buyupgrade>
         </div>
         <div style="clear:right"></div>
       </li>
@@ -185,7 +118,7 @@ Numbers with suffixes work: '23 billion', '23b', or '23e9'.">
               {{abil.costMetPercent()|percent:{floor:true} }} {{estimateUpgradeSecs(abil)|duration}}
             </div>
           </div>
-          <buyupgrade upgrade="abil"></buyupgrade>
+          <buyupgrade upgrade="abil" index="$index"></buyupgrade>
         </div>
       </li>
     </ul>

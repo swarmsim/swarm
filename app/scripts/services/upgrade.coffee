@@ -25,6 +25,7 @@ angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) ->
         return ret
       @effect = _.map @type.effect, (effect) =>
         return new Effect @game, this, effect
+      @effectByType = _.groupBy @effect, 'type.name'
     # TODO refactor counting to share with unit
     count: ->
       ret = @game.session.state.upgrades[@name] ? 0

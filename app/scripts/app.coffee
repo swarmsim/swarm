@@ -20,6 +20,8 @@ angular.module 'swarmApp', [
     # http://luisfarzati.github.io/angulartics/
     'angulartics', 'angulartics.google.analytics'
     'googlechart'
+    # https://github.com/chieffancypants/angular-hotkeys/
+    'cfp.hotkeys'
   ]
 
 # Angular 1.6 makes urls start with '#!' instead of '#', but swarmsim predates that and has lots of non-#! urls out there already.
@@ -97,6 +99,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/decimallegend',
       templateUrl: 'views/decimallegend.html'
       controller: 'DecimallegendCtrl'
+    .when '/news-archive',
+      templateUrl: 'views/news-archive.html'
+      controller: 'NewsArchiveCtrl'
     .otherwise
       redirectTo: '/'
 
@@ -166,7 +171,50 @@ angular.module('swarmApp').run ($rootScope) ->
 
 angular.module('swarmApp').value 'UNIT_LIMIT', '1e100000'
 
+# global keyboard shortcuts
+angular.module('swarmApp').run (hotkeys, $location) ->
+  locationKeys = [
+    ['m', '/tab/meat', 'Open the meat tab']
+    ['l', '/tab/larva', 'Open the larva tab']
+    ['t', '/tab/territory', 'Open the territory tab']
+    ['e', '/tab/energy', 'Open the energy tab']
+    ['u', '/tab/mutagen', 'Open the mutagen tab']
+    ['a', '/tab/all', 'Open the all-units tab']
+    ['o', '/options', 'Open the options screen']
+    ['y', '/achievements', 'Open the achievements screen']
+    ['shift+y', '/statistics', 'Open the statistics screen']
+    ['n', '/changelog', 'Open the patch notes screen']
+  ]
+  for [combo, path, desc] in locationKeys then do (combo, path, desc) ->
+    hotkeys.add
+      combo: combo
+      description: desc
+      callback: () -> $location.path path
+angular.module('swarmApp').run (hotkeys, $rootScope) ->
+  # obfuscate a little, just to make things interesting
+  reverse = (str) ->
+    str = str.split ''
+    str.reverse()
+    return str.join ''
+  hotkeys.add
+    combo: reverse 'l e u q e s'
+    callback: () -> $rootScope.$emit reverse 'noitseuqthgireht'
+
+#angular.module('swarmApp').run (isKongregate, env) ->
+#  # https://github.com/xsolla/paystation-embed
+#  console.log 'xsolla?'
+#  if !isKongregate()
+#    console.log 'xsolla loading'
+#    # lazy load the non-kongregate payment processor
+#    $.getScript 'https://static.xsolla.com/embed/paystation/1.0.7/widget.min.js', (data, status, xhr) ->
+#      console.log 'xsolla loaded'
+#      XPayStationWidget.init
+#        access_token: env.xsollaAccessToken
+#  else
+#    console.log 'xsolla ignored'
+
 # not sure why dropdowns don't work on their own anymore, but this fixes it
 angular.module('swarmApp').run () ->
   $(document).on 'mousedown', '.dropdown-toggle', () ->
     $(this).dropdown()
+

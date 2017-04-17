@@ -297,7 +297,7 @@ angular.module('swarmApp').factory 'Game', (unittypes, upgradetypes, achievement
       if ascension.count().equals(1)
         @cache.firstSpawn.ascension = true
       for unit in @unitlist()
-        if unit.tab?.name != 'mutagen'
+        if !unit.unittype.ascendPreserve
           unit._setCount unit.unittype.init or 0
       for upgrade in @upgradelist()
         if upgrade.unit.tab?.name != 'mutagen'
