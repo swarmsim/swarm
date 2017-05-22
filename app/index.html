@@ -307,7 +307,7 @@ https://github.com/erosson/swarm
 <script>
 // this is hideous, but we're broken in safari, don't have a mac to fix it with, and kong staff insists on this
 var ua = window && window.navigator && window.navigator.userAgent
-var isSafari = ua.match /Version\/(\S+).*?Safari\//
+var isSafari = ua.match(/Version\/(\S+).*?Safari\//);
 if (isSafari) {
   jQuery('.safarisupport').style({'display':'initial'});
 }
