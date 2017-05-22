@@ -29,7 +29,7 @@ angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version,
     $scope.urls.expand = data.id + '+'
 
   $scope.initTopic = if $location.search().error? then 'bug'
-    
+
   # has an actual error message - `?error=blah`, not just `?error`.
   # `"an error message" != true`
   hasErrorMessage = $location.search().error and $location.search().error != true
@@ -44,7 +44,6 @@ Describe the bug here. Step-by-step instructions saying how to make the bug reoc
 Bug report information:
 
 * Swarm Simulator version: #{version}
-* Saved game: #{$scope.urls.expand}
 * Source: #{if isKongregate() then "Kongregate" else "Standalone"}
 * Browser: #{$scope.userAgentGuess}#{
 if hasErrorMessage then "\n* Error message: ```"+$location.search().error+'```' else ''}
@@ -79,4 +78,3 @@ if hasErrorMessage then "\n* Error message: ```"+$location.search().error+'```' 
     if url.length > LIMIT
       url = url.substring(0,LIMIT) + encodeURIComponent "...TRUNCATED..."
     return url
-
