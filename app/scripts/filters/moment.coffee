@@ -12,6 +12,8 @@ angular.module('swarmApp').filter 'duration', (options, $filter) ->
   ret = (input, unitOfTime, template, precision) ->
     if input is Infinity
       return ''
+    if _.isNaN(input)
+      return 'almost forever'
     if input.toNumber?
       input = input.toNumber()
     return '' if not input

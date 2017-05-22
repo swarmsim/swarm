@@ -49,13 +49,25 @@ angular.module('swarmApp').directive 'unit', ($log, game, options, util, $locati
     scope.estimateUpgradeSecs = (upgrade) ->
       estimate = upgrade.estimateSecsUntilBuyable()
       val = estimate.val.toNumber()
-      if isFinite val
-        secs = moment.duration(val, 'seconds')
-        #add nonexact annotation for use by filter
-        secs.nonexact = not (estimate.unit?.isEstimateExact?() ? true)
-        return secs
-      # infinite estimate, but moment doesn't like infinite durations.
-      return Infinity
+      # There are a few reasons this estimate could be infinite:
+      # - (1) The estimte is really infinite; one of the producers has a
+      #   velocity of zero. Ex. You'll never have enough for an upgrade priced
+      #   in drones if you have no queens. Division by zero.
+      # - (2) The estimate is larger than 1e308, but smaller than decimal.js's
+      #   max. moment.js takes native JS numbers, so these fail.
+      # - (3) There's a bug somewhere that returned NaN. Shouldn't happen, but
+      #   this code's old and hairy enough that I'm not going to go hunting for
+      #   it.
+      if !isFinite val
+        if estimate.val.isFinite() || estimate.val.isNaN()
+          # (2) and (3); the moment filter displays this as 'almost forever'
+          return NaN
+        # (1); the moment filter displays this as ''
+        return Infinity
+      secs = moment.duration(val, 'seconds')
+      #add nonexact annotation for use by filter
+      secs.nonexact = not (estimate.unit?.isEstimateExact?() ? true)
+      return secs
 
     scope.filterVisible = (upgrade) ->
       upgrade.isVisible()
