@@ -7,7 +7,7 @@
  # # FeedbackCtrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version, $location, isKongregate, $log) ->
+angular.module('swarmApp').controller 'ContactCtrl', ($scope, feedback, version, $location, isKongregate, $log, $sce) ->
   $scope.urls = {short:'???',expand:'???'}
   $scope.userAgentGuess = do =>
     # based on http://odyniec.net/blog/2010/09/decrypting-the-user-agent-string-in-javascript/
@@ -70,7 +70,10 @@ if hasErrorMessage then "\n* Error message: ```"+$location.search().error+'```' 
   $scope.redditUrl = (topic) ->
     "https://www.reddit.com/message/compose/?to=kawaritai&subject=#{encodeURIComponent subject topic}&message=#{encodeURIComponent message topic}"
   $scope.mailtoUrl = (topic) ->
-    "mailto:#{emailTo topic}?subject=#{encodeURIComponent subject topic}&body=#{encodeURIComponent message topic}"
+    qs = window.Qs.stringify
+      subject: subject topic
+      body: message topic
+    return "mailto:#{emailTo topic}?#{qs}"
   $scope.anonForm = (topic) ->
     url = "https://docs.google.com/a/swarmsim.com/forms/d/18ywqkqMlviAgKACVZUI6XkaGte2piKN3LGbii8Qwvmw/viewform?entry.1461412788=#{encodeURIComponent anonDebug topic}"
     # starts throwing bad requests for length around this point. Send whatever we can.
