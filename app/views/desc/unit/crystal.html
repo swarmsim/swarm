@@ -1,5 +1,5 @@
 <div ng-controller="MtxDesc">
-  <p>Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending.</p>
+  <p title="What should I name this new currency? It's a Golden opportunity to get Kredit for Coining a real Gem. Another Point, though - if I choose badly, they'll say &quot;what a RubeHe is.&quot; I'm sure the answer will be Crystal clear soon enough.">Energy frozen into a solid form. Crystals can be thawed and used as energy at any time. Unlike energy, crystals have no maximum, and are kept when ascending.</p>
 
   <crystal-timer></crystal-timer>
 <div ng-if="mtx.uiStyle() == 'paypal'">
@@ -42,7 +42,7 @@
 </div>
   <br>
   <p>Converting crystals has permanently increased your maximum energy by {{game.unit('mtxEnergy').count() | longnum}}.</p>
-  <buyunit-input unit="game.unit('mtxEnergy')"></buyunit-input>
+  <buyunit-input unit="game.unit('energy')"></buyunit-input>
 
   <!--button class="btn btn-default btn-disabled" disabled>Quick ascend (coming soon!)</button-->
 </div>

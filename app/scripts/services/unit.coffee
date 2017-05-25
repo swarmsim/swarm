@@ -427,6 +427,9 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       @_addCount twinnum
       for effect in @effect
         effect.onBuyUnit twinnum
+      # This is a hideous hack that really should be an addUnits effect, but it starts an infinite loop (energy -> mtxEnergy -> energy-cap -> energy...) that I really can't be arsed to debug this late into swarmsim's life.
+      if @name == 'energy'
+        @game.unit('mtxEnergy')._addCount twinnum
       return {num:num, twinnum:twinnum}
 
   isNewlyUpgradable: ->

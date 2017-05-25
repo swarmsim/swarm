@@ -48,7 +48,7 @@
     </span>
   </div>
   <div class="clear-afterdesc"></div>
-  <div ng-if="!cur.unbuyable && cur.cost.length && cur.isBuyButtonVisible()">
+  <div ng-if="!cur.type.unbuyable && !cur.type.isBuyHidden && cur.cost.length && cur.isBuyButtonVisible()">
     <hr>
     <buyunit-input unit="cur"></buyunit-input>
   </div>
