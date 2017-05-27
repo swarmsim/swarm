@@ -13,7 +13,7 @@ angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> cl
   pull: -> $q (resolve, reject) =>
     kongregate.onLoad.then =>
       if kongregate.kongregate.services.isGuest()
-        reject 'Please log in to buy crystals.'
+        return reject 'Please log in to buy crystals.'
       kongregate.kongregate.mtx.requestUserItemList null, (res, error) =>
         try
           if !res.success
@@ -35,7 +35,7 @@ angular.module('swarmApp').factory 'KongregateMtx', ($q, game, kongregate) -> cl
   buy: (name) -> $q (resolve, reject) =>
     kongregate.onLoad.then =>
       if kongregate.kongregate.services.isGuest()
-        reject 'Please log in to buy crystals.'
+        return reject 'Please log in to buy crystals.'
       kongregate.kongregate.mtx.purchaseItems [name], (success) =>
         if success
           @pull()
@@ -53,7 +53,7 @@ wrapPlayfab = (reject, name, fn) => (result) =>
   catch e
     console.error e
     reject e
- 
+
 # Oh fuck this. New problems every time I try to get this working with playfab. Playfab, I love you, but you're not letting me give you money :(
 # Dropping playfab for braintree or pure-paypal instead.
 angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, playfab) -> class PaypalPlayfabMtx
@@ -96,7 +96,7 @@ angular.module('swarmApp').factory 'PaypalPlayfabMtx', ($q, $log, game, env, pla
               reject result
             else
               reject result
-    
+
   pull: -> $q (resolve, reject) =>
     pullFn = =>
       PlayFabClientSDK.GetUserInventory {},
@@ -171,8 +171,13 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     @buyPacksByName = _.keyBy @buyPacks, 'name'
     @uiStyle = 'paypal'
   packs: -> $q (resolve, reject) =>
-    return resolve(@buyPacks)
+    if !playfab.isAuthed()
+      return reject 'Please log in to buy crystals: More... > Options'
+    playfab.waitForAuth().then =>
+      return resolve(@buyPacks)
   _pullInventory: -> $q (resolve, reject) =>
+    if !playfab.isAuthed()
+      return reject 'Please log in to buy crystals: More... > Options'
     playfab.waitForAuth().then =>
       PlayFabClientSDK.GetUserInventory {},
         wrapPlayfab reject, 'GetUserInventory', (result) =>
@@ -193,6 +198,8 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     if !tx
       return resolve()
     else
+      if !playfab.isAuthed()
+        return reject 'Please log in to buy crystals: More... > Options'
       playfab.waitForAuth().then =>
         PlayFabClientSDK.ExecuteCloudScript
           FunctionName: 'paypalNotify'
@@ -205,7 +212,7 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
               console.info('paypalnotify response', res.data.FunctionResult)
             window.paypalres = res.data # TODO remove
             resolve()
-      
+
   pull: -> $q (resolve, reject) =>
     # Return-from-paypal URLs have a transaction id for us to verify.
     # https://developer.paypal.com/docs/classic/products/payment-data-transfer/
