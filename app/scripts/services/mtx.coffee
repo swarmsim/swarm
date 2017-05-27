@@ -229,9 +229,8 @@ angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx
     if isKongregate()
       @backend = new KongregateMtx buyPacks
     else
-      # TODO re-enable paypal before prod. disabled for beta
-      @backend = new DisabledMtx()
-      #@backend = new PaypalHostedButtonMtx buyPacks
+      #@backend = new DisabledMtx()
+      @backend = new PaypalHostedButtonMtx buyPacks
   uiStyle: -> @backend.uiStyle || 'normal'
   packs: -> @backend.packs()
   pull: ->
