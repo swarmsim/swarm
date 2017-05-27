@@ -176,9 +176,9 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     playfab.waitForAuth().then =>
       return resolve(@buyPacks)
   _pullInventory: -> $q (resolve, reject) =>
-    if !playfab.isAuthed()
-      return reject 'Please log in to buy crystals: More... > Options'
     playfab.waitForAuth().then =>
+      if !playfab.isAuthed()
+        return reject 'Please log in to buy crystals: More... > Options'
       PlayFabClientSDK.GetUserInventory {},
         wrapPlayfab reject, 'GetUserInventory', (result) =>
           changed = false
@@ -198,9 +198,9 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     if !tx
       return resolve()
     else
-      if !playfab.isAuthed()
-        return reject 'Please log in to buy crystals: More... > Options'
       playfab.waitForAuth().then =>
+        if !playfab.isAuthed()
+          return reject 'Please log in to buy crystals: More... > Options'
         PlayFabClientSDK.ExecuteCloudScript
           FunctionName: 'paypalNotify'
           FunctionParameter: {tx: tx}
