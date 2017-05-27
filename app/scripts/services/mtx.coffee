@@ -171,14 +171,15 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     @buyPacksByName = _.keyBy @buyPacks, 'name'
     @uiStyle = 'paypal'
   packs: -> $q (resolve, reject) =>
-    if !playfab.isAuthed()
-      return reject 'Please log in to buy crystals: More... > Options'
-    playfab.waitForAuth().then =>
-      return resolve(@buyPacks)
-  _pullInventory: -> $q (resolve, reject) =>
     playfab.waitForAuth().then =>
       if !playfab.isAuthed()
         return reject 'Please log in to buy crystals: More... > Options'
+      return resolve(@buyPacks)
+    .catch =>
+      if !playfab.isAuthed()
+        return reject 'Please log in to buy crystals: More... > Options'
+  _pullInventory: -> $q (resolve, reject) =>
+    playfab.waitForAuth().then =>
       PlayFabClientSDK.GetUserInventory {},
         wrapPlayfab reject, 'GetUserInventory', (result) =>
           changed = false
@@ -194,6 +195,9 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
                 game.session.state.mtx.playfab.items[item.ItemInstanceId] = true
                 changed = true
           resolve({changed: changed})
+    .catch =>
+      if !playfab.isAuthed()
+        return reject 'Please log in to buy crystals: More... > Options'
   _pullTransactionId: (tx) -> $q (resolve, reject) =>
     if !tx
       return resolve()
@@ -212,6 +216,9 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
               console.info('paypalnotify response', res.data.FunctionResult)
             window.paypalres = res.data # TODO remove
             resolve()
+      .catch =>
+        if !playfab.isAuthed()
+          return reject 'Please log in to buy crystals: More... > Options'
 
   pull: -> $q (resolve, reject) =>
     # Return-from-paypal URLs have a transaction id for us to verify.
