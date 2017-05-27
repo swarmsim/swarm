@@ -33,6 +33,16 @@
   content:'mewtagen (inactive)';
 }
 
+.label-crystal .label-label {
+  display:none;
+}
+.label-crystal .label-suffix:before {
+  content:'catnip';
+}
+.selected-label.label-crystal .label-suffix:before {
+  content:'Catnip';
+}
+
 .desc-icon-resource {
   background-size:200px 200px;
   height:200px;width:200px;
@@ -234,4 +244,7 @@
 }
 .icon-bat {
   background-image: url("../static/kittens/200x200-3.jpg");
+}
+.icon-crystal {
+  background-image: url("../static/kittens/200x200-7.jpg");
 }
