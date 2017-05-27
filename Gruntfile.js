@@ -94,18 +94,10 @@ module.exports = function (grunt) {
           sentrySampleRate: 1,
           // https://developer.playfab.com/en-us/F810/dashboard
           playfabTitleId: 'F810',
-          // Everyone's getting server-side accounts.
-          //
-          // Phase 1: import everything silently/invisibly, no change in
-          // behavior, full traffic without inconveniencing players when
-          // the server can't scale. Backend release.
-          //
-          // Phase 2: user accounts now visible. Frontend release.
-          //
-          // relevant issues: https://github.com/swarmsim/swarm/milestones/pre-1.1
-          // enable backend-only (silent release) in prod (phase 1): https://github.com/swarmsim/swarm/issues/586
+          // Abandoned server-side account variables.
           isServerBackendEnabled: false,
           isServerFrontendEnabled: false,
+
           isPaypalSandbox: true,
           gaTrackingID: 'UA-53523462-3'
         }
