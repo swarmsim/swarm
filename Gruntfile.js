@@ -203,8 +203,13 @@ module.exports = function (grunt) {
 
     // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js
     swPrecache: {
-      dev: {
-        handleFetch: false,
+      //dev: {
+      //  handleFetch: false,
+      //  src: '<%= yeoman.app %>',
+      //  dist: '<%= yeoman.dist %>',
+      //},
+      prod: {
+        handleFetch: true,
         src: '<%= yeoman.app %>',
         dist: '<%= yeoman.dist %>',
       }
