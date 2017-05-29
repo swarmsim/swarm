@@ -38,18 +38,6 @@
     "src":"apple-touch-icon-76x76-precomposed.png",
     "type": "png",
     "sizes": "76x76"
-  }, {
-    "src":"metro_tile-150x150.png",
-    "type": "png",
-    "sizes": "150x150"
-  }, {
-    "src":"metro_tile-310x310.png",
-    "type": "png",
-    "sizes": "310x310"
-  }, {
-    "src":"metro_tile-70x70.png",
-    "type": "png",
-    "sizes": "70x70"
   }],
   "lang": "en-US",
   "dir":"ltr",
