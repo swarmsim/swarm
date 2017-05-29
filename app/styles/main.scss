@@ -318,3 +318,8 @@ body {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+/* opacity:0 doesn't appear, but it controls what tbody background:inherit gets */
+.cfp-hotkeys table {
+  background-color: rgba(255,255,255,0);
+}
