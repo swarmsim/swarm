@@ -203,18 +203,18 @@ module.exports = function (grunt) {
 
     // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js
     swPrecache: {
+      dist: {
+        handleFetch: true,
+        //src: '<%= yeoman.app %>',
+        src: '<%= yeoman.dist %>',
+        dist: '<%= yeoman.dist %>',
+      },
       dev: {
         handleFetch: false,
         //src: '<%= yeoman.app %>',
         src: '.tmp',
         dist: '.tmp',
       },
-      prod: {
-        handleFetch: true,
-        //src: '<%= yeoman.app %>',
-        src: '<%= yeoman.dist %>',
-        dist: '<%= yeoman.dist %>',
-      }
     },
     manifest: {
       options: {
@@ -891,7 +891,7 @@ module.exports = function (grunt) {
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
         'wiredep', 
         'concurrent:server',
-        'swPrecache:prod',
+        'swPrecache:dist',
         //'manifest:prod',
         'autoprefixer',
         'connect:livereload',
@@ -952,7 +952,7 @@ module.exports = function (grunt) {
       'filerev',
       // no need for both manifest.appcache and service-worker caching - similar result, but service-workers are newer
       //'manifest',
-      'swPrecache:'+envname,
+      'swPrecache:dist',
       'usemin',
       'htmlmin',
       // mxmlc stopped working at some point, but I can't be bothered to fix it properly.
