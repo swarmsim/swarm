@@ -23,9 +23,9 @@ versioncheck, analytics, statistics, achievementslistener, favico
       $interval (-> registration.update()), intervalMillis
       registration.addEventListener 'onupdatefound', ->
         $log.debug 'sw: update found'
-        const installer = registration.installing
+        installer = registration.installing
         installer.addEventListener 'onstatechange', ->
-          if installer.state === 'installed'
+          if installer.state == 'installed'
             $log.debug 'sw: update installed'
             window.location.reload()
   else
@@ -35,15 +35,15 @@ versioncheck, analytics, statistics, achievementslistener, favico
         (invalid) ->
           $log.debug 'net time check successful', invalid
           $scope.netTimeInvalid = invalid
-          if invalid
-            # We're no longer enforcing this.
-            #$log.debug 'cheater', invalid
-            ## Replacing ng-view (via .viewwrap) disables navigation to other pages.
-            ## This is hideous technique and you, reader, should not copy it.
-            #$('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'
-            #$('.viewwrap').css({display:'none'})
-            #$('.footer').css({display:'none'})
-            #$interval.cancel enforceInterval
+          # We're no longer enforcing this.
+          #if invalid
+          #  $log.debug 'cheater', invalid
+          #  # Replacing ng-view (via .viewwrap) disables navigation to other pages.
+          #  # This is hideous technique and you, reader, should not copy it.
+          #  $('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'
+          #  $('.viewwrap').css({display:'none'})
+          #  $('.footer').css({display:'none'})
+          #  $interval.cancel enforceInterval
         ->
           $log.warn 'failed to check net time'
         )
