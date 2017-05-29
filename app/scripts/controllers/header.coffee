@@ -20,7 +20,6 @@ versioncheck, analytics, statistics, achievementslistener, favico
   if 'serviceWorker' in navigator
     $log.debug 'service workers supported, using them for update-checks'
     navigator.servceWorker.ready.then registration ->
-      $interval (-> registration.update()), intervalMillis
       registration.addEventListener 'onupdatefound', ->
         $log.debug 'sw: update found'
         installer = registration.installing
@@ -28,6 +27,8 @@ versioncheck, analytics, statistics, achievementslistener, favico
           if installer.state == 'installed'
             $log.debug 'sw: update installed'
             window.location.reload()
+      $interval (-> registration.update()), intervalMillis
+      registration.update()
   else
     # This isn't anti-cheat anymore. Instead, it's legacy version-updates.
     do enforce = ->
