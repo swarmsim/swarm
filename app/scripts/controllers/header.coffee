@@ -16,23 +16,38 @@ versioncheck, analytics, statistics, achievementslistener, favico
   $scope.version = version
   $scope.session = session
 
-  do enforce = ->
-    timecheck.enforceNetTime().then(
-      (invalid) ->
-        $log.debug 'net time check successful', invalid
-        $scope.netTimeInvalid = invalid
-        if invalid
-          $log.debug 'cheater', invalid
-          # Replacing ng-view (via .viewwrap) disables navigation to other pages.
-          # This is hideous technique and you, reader, should not copy it.
-          $('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'
-          $('.viewwrap').css({display:'none'})
-          $('.footer').css({display:'none'})
-          $interval.cancel enforceInterval
-      ->
-        $log.warn 'failed to check net time'
-      )
-  enforceInterval = $interval enforce, 1000 * 60 * 30
+  intervalMillis = 1000 * 60 * 30
+  if 'serviceWorker' in navigator
+    $log.debug 'service workers supported, using them for update-checks'
+    navigator.servceWorker.ready.then registration ->
+      $interval (-> registration.update()), intervalMillis
+      registration.addEventListener 'onupdatefound', ->
+        $log.debug 'sw: update found'
+        const installer = registration.installing
+        installer.addEventListener 'onstatechange', ->
+          if installer.state === 'installed'
+            $log.debug 'sw: update installed'
+            window.location.reload()
+  else
+    # This isn't anti-cheat anymore. Instead, it's legacy version-updates.
+    do enforce = ->
+      timecheck.enforceNetTime().then(
+        (invalid) ->
+          $log.debug 'net time check successful', invalid
+          $scope.netTimeInvalid = invalid
+          if invalid
+            # We're no longer enforcing this.
+            #$log.debug 'cheater', invalid
+            ## Replacing ng-view (via .viewwrap) disables navigation to other pages.
+            ## This is hideous technique and you, reader, should not copy it.
+            #$('.viewwrap').before '<div><p class="cheater">There is a problem with your system clock.</p><p>If you don\'t know why you\'re seeing this, <a target="_blank" href=\"http://www.reddit.com/r/swarmsim\">ask about it here</a>.</p></div>'
+            #$('.viewwrap').css({display:'none'})
+            #$('.footer').css({display:'none'})
+            #$interval.cancel enforceInterval
+        ->
+          $log.warn 'failed to check net time'
+        )
+    enforceInterval = $interval enforce, intervalMillis
 
   $scope.konami = new Konami ->
     $scope.$emit 'konami'

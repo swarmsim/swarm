@@ -17,6 +17,9 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+  
+  var path = require('path');
+  var swPrecache = require('sw-precache');
 
   // Configurable paths for the application
   var appConfig = {
@@ -198,6 +201,14 @@ module.exports = function (grunt) {
       'v0.2': 'https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml',
     },
 
+    // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js
+    swPrecache: {
+      dev: {
+        handleFetch: false,
+        src: '<%= yeoman.app %>',
+        dist: '<%= yeoman.dist %>',
+      }
+    },
     manifest: {
       options: {
         basePath: '<%= yeoman.dist %>',
@@ -291,7 +302,7 @@ module.exports = function (grunt) {
       },
       manifest: {
         files: [ '<%= yeoman.app %>/{,*/}*.html',],
-        tasks: [ 'manifest' ]
+        tasks: [ 'manifest', 'swPrecache' ]
       },
       livereload: {
         options: {
@@ -539,6 +550,7 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       manifest: ['<%= yeoman.dist %>/manifest.appcache'],
+      swPrecache: ['<%= yeoman.dist %>/service-worker.js'],
       js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
@@ -869,7 +881,8 @@ module.exports = function (grunt) {
         'clean:server',
         //'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
-        'manifest:prod',
+        'swPrecache:prod',
+        //'manifest:prod',
         'wiredep', 
         'concurrent:server',
         'autoprefixer',
@@ -882,7 +895,8 @@ module.exports = function (grunt) {
       'clean:server',
       //'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
-      'manifest:dev',
+      'swPrecache:dev',
+      //'manifest:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -928,7 +942,9 @@ module.exports = function (grunt) {
       'cssmin',
       'uglify',
       'filerev',
-      'manifest',
+      // no need for both manifest.appcache and service-worker caching - similar result, but service-workers are newer
+      //'manifest',
+      'swPrecache',
       'usemin',
       'htmlmin',
       // mxmlc stopped working at some point, but I can't be bothered to fix it properly.
@@ -974,4 +990,45 @@ module.exports = function (grunt) {
     'cleanCname','gh-pages:prodGithubio',
     'buildCname','gh-pages:prodDotcom','cleanCname'
   ]);
+  // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js
+  function writeServiceWorkerFile(src, dist, handleFetch, callback) {
+    var config = {
+      cacheId: grunt.file.readJSON('package.json').name,
+      dynamicUrlToDependencies: {},
+      // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
+      // the service worker will precache resources but won't actually serve them.
+      // This allows you to test precaching behavior without worry about the cache preventing your
+      // local changes from being picked up during the development cycle.
+      handleFetch: handleFetch,
+      logger: grunt.log.writeln,
+      staticFileGlobs: [
+        src + '/css/**.css',
+        src + '/**.html',
+        src + '/images/**.*',
+        src + '/static/**.*',
+        src + '/styles/**.*',
+        src + '/**.swf',
+        src + '/**.ico',
+        src + '/**.png',
+        src + '/scripts/**.js'
+      ],
+      stripPrefix: src + '/',
+      // verbose defaults to false, but for the purposes of this demo, log more.
+      verbose: true,
+    };
+
+    swPrecache.write(path.join(dist, 'service-worker.js'), config, callback);
+  }
+  grunt.registerMultiTask('swPrecache', function() {
+    var done = this.async();
+    var src = this.data.dist;
+    var dist = this.data.dist;
+    var handleFetch = this.data.handleFetch;
+    writeServiceWorkerFile(src, dist, handleFetch, function(error) {
+      if (error) {
+        grunt.fail.warn(error);
+      }
+      done();
+    });
+  });
 };
