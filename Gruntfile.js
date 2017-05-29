@@ -674,6 +674,7 @@ module.exports = function (grunt) {
             'fonts/*',
             'storage.swf',
             'service-worker.js',
+            'manifest.json',
           ]
         }, {
           expand: true,
