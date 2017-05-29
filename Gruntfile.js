@@ -203,14 +203,16 @@ module.exports = function (grunt) {
 
     // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js
     swPrecache: {
-      //dev: {
-      //  handleFetch: false,
-      //  src: '<%= yeoman.app %>',
-      //  dist: '<%= yeoman.dist %>',
-      //},
+      dev: {
+        handleFetch: false,
+        //src: '<%= yeoman.app %>',
+        src: '.tmp',
+        dist: '.tmp',
+      },
       prod: {
         handleFetch: true,
-        src: '<%= yeoman.app %>',
+        //src: '<%= yeoman.app %>',
+        src: '<%= yeoman.dist %>',
         dist: '<%= yeoman.dist %>',
       }
     },
@@ -887,10 +889,10 @@ module.exports = function (grunt) {
         'clean:server',
         //'mxmlc:prod',
         'ngconstant:prod','writeVersionJson', 'ngtemplates:dist',
-        'swPrecache:prod',
-        //'manifest:prod',
         'wiredep', 
         'concurrent:server',
+        'swPrecache:prod',
+        //'manifest:prod',
         'autoprefixer',
         'connect:livereload',
         'watch'
@@ -901,10 +903,10 @@ module.exports = function (grunt) {
       'clean:server',
       //'mxmlc:dev',
       'ngconstant:dev','writeVersionJson', 'ngtemplates:dev',
-      'swPrecache:dev',
-      //'manifest:dev',
       'wiredep',
       'concurrent:server',
+      'swPrecache:dev',
+      //'manifest:dev',
       'autoprefixer',
       'connect:livereload',
       'watch'
@@ -950,7 +952,7 @@ module.exports = function (grunt) {
       'filerev',
       // no need for both manifest.appcache and service-worker caching - similar result, but service-workers are newer
       //'manifest',
-      'swPrecache',
+      'swPrecache:'+envname,
       'usemin',
       'htmlmin',
       // mxmlc stopped working at some point, but I can't be bothered to fix it properly.
@@ -1016,7 +1018,7 @@ module.exports = function (grunt) {
         src + '/**.swf',
         src + '/**.ico',
         src + '/**.png',
-        src + '/scripts/**.js'
+        src + '/scripts/**/*.js',
       ],
       stripPrefix: src + '/',
       // verbose defaults to false, but for the purposes of this demo, log more.
@@ -1027,7 +1029,7 @@ module.exports = function (grunt) {
   }
   grunt.registerMultiTask('swPrecache', function() {
     var done = this.async();
-    var src = this.data.dist;
+    var src = this.data.src;
     var dist = this.data.dist;
     var handleFetch = this.data.handleFetch;
     writeServiceWorkerFile(src, dist, handleFetch, function(error) {
