@@ -661,6 +661,7 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'fonts/*',
             'storage.swf',
+            'service-worker.js',
           ]
         }, {
           expand: true,
