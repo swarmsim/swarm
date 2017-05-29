@@ -317,6 +317,16 @@ if (isSafari) {
   jQuery('.safarisupport').style({'display':'initial'});
 }
 </script>
+<script>
+// https://codelabs.developers.google.com/codelabs/add-to-home-screen/#5
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').then(function(reg){
+    console.log("service worker registered");
+  }).catch(function(err) {
+    console.warn("service worker registration failed", err)
+  });
+}
+</script>
 </html>
 
 <!-- MEOW -->

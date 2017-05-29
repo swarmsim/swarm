@@ -1,19 +1,20 @@
 {
-  "display":"standalone",
-    
   "name": "Swarm Simulator",
-  "short_name": "Swarm Sim",
+  "short_name": "Swarmsim",
   "description":"An incremental game. Starting with just a few larvae and a small pile of meat, grow a massive swarm of giant bugs.",
-    
+  "display":"standalone",
   "icons": [{
     "src":"favicon.ico",
     "type": "ico"
+  }, {
+    "src":"touch-icon-192x192.png",
+    "type": "png",
+    "sizes": "192x192"
   }],
-    
   "lang": "en-US",
   "dir":"ltr",
-  
+  "start_url": "/?utm_source=homescreen/#/",
   "theme_color": "#800080",
-  "background_color":"#FFF"
+  "background_color":"#000000"
 }  
 
