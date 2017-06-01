@@ -177,7 +177,13 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
     playfab.waitForAuth().then =>
       if !playfab.isAuthed()
         return reject 'Please log in to buy crystals: More... > Options'
-      return resolve(@buyPacks)
+      playfabId = playfab.auth.raw.PlayFabId
+      if !playfabId
+        return reject 'Please try logging in again. (playfab.auth.raw.PlayFabId missing)'
+      packs = _.map(@buyPacks, (pack) -> _.assign({}, pack, {
+        paypalUrl: pack.paypalUrl+'&custom='+encodeURIComponent(JSON.stringify({playfabId: playfabId})),
+      }))
+      return resolve(packs)
     .catch (e) =>
       if !playfab.isAuthed()
         return reject 'Please log in to buy crystals: More... > Options'
@@ -204,6 +210,7 @@ angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location
         return reject 'Please log in to buy crystals: More... > Options'
       return reject e
   _pullTransactionId: (tx) -> $q (resolve, reject) => rejectErrors reject, '_pullTransactionId', =>
+    #return resolve() # uncommenting this disables PDT. Useful for testing IPN.
     if !tx
       return resolve()
     else
