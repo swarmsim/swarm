@@ -25,11 +25,22 @@
   <div class="alert alert-danger" ng-if="!packs && packsError">
     {{packsError}}
   </div>
-  <div ng-if="(!packs && !packsError) || buyLoading">
+  <div class="alert alert-info" ng-if="pullSuccess && pullTx">
+    <p>Your crystals have been applied, your payment is complete, and a receipt has been emailed to you.</p>
+    <p>Paypal transaction ID: {{pullTx}}</p>
+    <p>Thank you for supporting Swarm Simulator!</p>
+  </div>
+  <div class="alert alert-danger" ng-if="pullError">
+    <p>We're sorry, there was a problem applying your crystals. If this continues, please <a href="#/contact">email the developer</a> for help, and I'll get back to you as soon as I possibly can. Include this entire error message in your email.</p>
+    <p ng-if="pullErrorTx">Paypal transaction id: {{pullErrorTx}}</p>
+    <code>{{pullError}}</code>
+  </div>
+  <div ng-if="(!packs && !packsError) || buyLoading || pullLoading">
     <img src="images/ajax-loader.gif">
   </div>
-  <div class="alert alert-info" ng-if="buyMessage">
-    {{buyMessage}}
+  <div class="alert alert-info" ng-if="buySuccess">
+    <p>Your crystals have been applied.</p>
+    <p>Thank you for supporting Swarm Simulator!</p>
   </div>
   <div class="alert alert-danger" ng-if="buyError">
     {{buyError}}

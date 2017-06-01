@@ -27,38 +27,45 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
 
 angular.module('swarmApp').controller 'MtxDesc', ($scope, $log, mtx, commands, $location) ->
   $scope.mtx = mtx
-  $scope.mtx.pull().then(
-    () ->
+
+  pull = ->
+    $scope.pullLoading = true
+    $scope.mtx.pull()
+    .then ->
+      $scope.pullLoading = false
+      $scope.pullSuccess = true
+      $scope.pullTx = $location.search().tx
       $scope.pullError = null
-    (error) ->
+    .catch (error) ->
+      $scope.pullLoading = false
+      $scope.pullSuccess = false
+      $scope.pullTx = $location.search().tx
       $scope.pullError = error
-  )
-  $scope.mtx.packs().then(
-    (mtxPacks) ->
-      $scope.packs = mtxPacks
-      $scope.packsError = null
-    (error) ->
-      $scope.packs = null
-      $scope.packsError = error
-  )
+
+  $scope.mtx.packs()
+  .then (mtxPacks) ->
+    $scope.packs = mtxPacks
+    $scope.packsError = null
+    pull()
+  .catch (error) ->
+    $scope.packs = null
+    $scope.packsError = error
+    # don't even bother trying to pull purchases if buy-buttons failed
+
   $scope.buyLoading = false
   $scope.clickBuyPack = (pack) ->
-    $scope.buyMessage = $scope.buyError = null
+    $scope.buySuccess = $scope.buyError = null
     $scope.buyLoading = true
-    $scope.mtx.buy(pack.name).then(
-      (res) ->
-        $scope.buyMessage = "Thank you for supporting Swarm Simulator!"
-        $scope.buyError = null
-        $scope.buyLoading = false
-      (error) ->
-        $log.error 'buyerror', error
-        $scope.buyMessage = null
-        $scope.buyError = error
-        $scope.buyLoading = false
-    )
-  # for paypal txns
-  if ($location.search().tx)
-    $scope.buyMessage = "Thank you for supporting Swarm Simulator! Your payment is complete and a receipt has been emailed to you. Paypal transaction ID: "+$location.search().tx+""
+    $scope.mtx.buy(pack.name)
+    .then (res) ->
+      $scope.buySuccess = true
+      $scope.buyError = null
+      $scope.buyLoading = false
+    .catch (error) ->
+      $log.error 'buyerror', error
+      $scope.buySuccess = false
+      $scope.buyError = error
+      $scope.buyLoading = false
 
 angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
   template: '<p ng-if="templateUrl" ng-include="templateUrl" desc desc-upgrade desc-template desc-{{upgrade.name}}"></p><p ng-if="!templateUrl" class="desc desc-upgrade desc-text desc-{{upgrade.name}}">{{desc}}</p>'
