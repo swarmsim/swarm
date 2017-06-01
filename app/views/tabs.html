@@ -22,10 +22,10 @@
     </a>
     <ul class="dropdown-menu" role="menu">
       <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades() <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyAllUpgrades()">
-        <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrades
+        <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrade<span ng-if="game.availableAutobuyUpgrades().length !== 1">s</span>
       </a></li>
       <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades(0.25) <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyCheapestUpgrades()">
-        <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableAutobuyUpgrades(0.25).length | number}} upgrades
+        <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableAutobuyUpgrades(0.25).length | number}} upgrade<span ng-if="game.availableAutobuyUpgrades(0.25).length !== 1">s</span>
       </a></li>
       <li role="presentation" class="divider"></li>
       <li ng-class="{disabled:!isUndoable()}" role="presentation">
