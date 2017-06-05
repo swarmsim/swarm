@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<body>
+  <p>If your Swarm Simulator page was reloading endlessly, it should stop now.</p>
+  <p>This was a bug introduced in v1.1.1. For some players, it wasn't possible to fix this bug through the normal update process. This page fixes it. Sorry for the trouble.</p>
+  <p id="result">Loading page...<br><br>This should be pretty fast. If it's taking long enough for you to read this, try restarting your browser.</p>
+<script>
+var result = document.getElementById('result')
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+	  result.innerHTML = "Fix not yet applied. Loading...<br><br>This should be pretty fast. If it's taking long enough for you to read this, try restarting your browser.";
+    navigator.serviceWorker.register('/service-worker.js').then(function(reg){
+      window.setTimeout(function(){document.location = '/'}, 5000);
+      result.innerHTML = 'Endless-reload fix applied. Sorry for the trouble. <a href="/">Returning to your game</a>...';
+    }).catch(function(err) {
+      result.innerHTML = "Oh no, the fix didn't work! Try a hard reload - ctrl+shift+R or ctrl+f5? "+err;
+    });
+  });
+}
+else {
+  result.innerHTML("Your browser was not affected by the endless-reload bug.");
+}
+</script>
+</body>
+</html>
