@@ -13,7 +13,9 @@ angular.module('swarmApp').filter 'duration', (options, $filter) ->
     if input is Infinity
       return ''
     if _.isNaN(input)
-      return 'almost forever'
+      #return 'almost forever'
+      # https://www.reddit.com/r/swarmsim/comments/6e11pz/bug_faster_overmind_iv_progress_bar_says_almost/?st=j3q8s9vi&sh=617fdcef
+      return ''
     if input.toNumber?
       input = input.toNumber()
     return '' if not input
