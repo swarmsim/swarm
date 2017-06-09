@@ -20,7 +20,7 @@
       More...
       <span class="caret"></span>
     </a>
-    <ul class="dropdown-menu" role="menu">
+    <ul class="dropdown-menu" dropdown-menu-auto-direction role="menu">
       <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades() <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyAllUpgrades()">
         <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrade<span ng-if="game.availableAutobuyUpgrades().length !== 1">s</span>
       </a></li>
