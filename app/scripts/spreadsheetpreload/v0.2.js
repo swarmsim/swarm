@@ -1720,9 +1720,9 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "requires.unittype": "",
         "requires.upgradetype": "",
         "requires.val": "",
-        "visible.unittype": "",
+        "visible.unittype": "ascension",
         "visible.upgradetype": "",
-        "visible.val": ""
+        "visible.val": 20
       }
     ],
     "name": "achievements"
