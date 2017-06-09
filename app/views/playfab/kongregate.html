@@ -14,7 +14,6 @@
           ng-if="getAutopushError()=='nochanges'"> because nothing's changed since the last export</span><span
           ng-if="getAutopushError()=='newgame'"> because this is a new game</span><span
           ng-if="getAutopushError()=='remotenewer'"> because the online save is newer than the one you're playing</span>.</span>
-        <a class="" data-toggle="collapse" data-target="#kongregateS3Details" href="javascript:" aria-expanded="false" aria-controls="kongregateS3Details">How do online saves work?</a>
       </p>
     </div>
     <p ng-if="policyError" class="text-danger">{{policyError}}</p>

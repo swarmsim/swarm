@@ -21,7 +21,7 @@ angular.module('swarmApp').directive 'wwwPlayfab', (playfab, wwwPlayfabSyncer) -
     scope.isAuthed = -> playfab.isAuthed()
 
 # this is pretty ugly. Mostly copied/modified from the old KongregateS3Ctrl
-angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate, kongregateS3Syncer, kongregatePlayfabSyncer, $timeout) ->
+angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate, kongregateS3Syncer, kongregatePlayfabSyncer, options, $timeout) ->
   template: """
 <div ng-if="isVisible">
   <div ng-include="'views/playfab/kongregate.html'"></div>
@@ -31,11 +31,11 @@ angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate
   scope: {}
   link: (scope, element, attrs) ->
     # This switches Kongregate's online-save backend from S3 to Playfab. Compare with kongregateS3Ctrl. Soon, we'll kill the S3 backend.
-    syncer2 = kongregateS3Syncer
     syncer = kongregatePlayfabSyncer
     # http://www.kongregate.com/pages/general-services-api
     scope.kongregate = kongregate
     scope.env = env
+    scope.options = options
     if !env.isKongregateSyncEnabled or !kongregate.isKongregate()
       return
     clear = scope.$watch 'kongregate.kongregate', (newval, oldval) ->
@@ -72,15 +72,6 @@ angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate
       scope.policyError = null
       cooldown.set 'init'
       syncer.init()
-      q = syncer2.init ((data, status, xhr) ->
-        $log.debug 'kong syncer inited', data, status
-        cooldown.clear 'init'
-        return undefined
-      ), scope.api.getUserId(), scope.api.getGameAuthToken(), force
-      #), '21627386', '1dd85395a2291302abdb80e5eeb2ec3a80f594ddaca92fa7606571e5af69e881', force
-      q.catch (data, status, xhr) ->
-        scope.policyError = "Failed to fetch sync permissions: #{data?.status}, #{data?.statusText}, #{data?.responseText}"
-        cooldown.clear 'init'
 
     scope.fetch = ->
       cooldown.set 'fetch'
@@ -108,16 +99,6 @@ angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate
           scope.policyError = "Error pushing remote saved game: #{error}"
           #scope.$apply()
       )
-      try
-        xhr = syncer2.push ->
-          cooldown.clear 'push'
-          return xhr
-        xhr.error (data, status, xhr) ->
-          cooldown.clear 'push'
-          $log.warn "kongs3: Failed to push remote saved game: #{data?.status}, #{data?.statusText}, #{data?.responseText}"
-      catch e
-        cooldown.clear 'push'
-        $log.warn "kongs3: error pushing saved game", e
 
     scope.pull = ->
       syncer.pull()
@@ -133,10 +114,3 @@ angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate
           scope.policyError = "Error clearing remote saved game: #{error}"
           #scope.$apply()
       )
-      xhr = syncer2.clear (data, status, xhr) ->
-        cooldown.clear 'clear'
-        scope.$apply()
-        return xhr
-      xhr.error (data, status, xhr) ->
-        cooldown.clear 'clear'
-        $log.warn "kongs3: Failed to clear remote saved game: #{data?.status}, #{data?.statusText}, #{data?.responseText}"
