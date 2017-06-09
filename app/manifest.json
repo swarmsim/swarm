@@ -38,6 +38,14 @@
     "src":"apple-touch-icon-76x76-precomposed.png",
     "type": "png",
     "sizes": "76x76"
+  }, {
+    "src":"256x256.png",
+    "type": "png",
+    "sizes": "256x256"
+  }, {
+    "src":"512x512.png",
+    "type": "png",
+    "sizes": "512x512"
   }],
   "lang": "en-US",
   "dir":"ltr",

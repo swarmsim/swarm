@@ -681,7 +681,7 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'fonts/*',
             'storage.swf',
-            'service-worker.js',
+            //'service-worker.js', // this is the failsafe clear-cache-and-quit service worker. swPrecache works now, so no need for this.
             'manifest.json',
           ]
         }, {
@@ -1000,45 +1000,44 @@ module.exports = function (grunt) {
     'buildCname','gh-pages:prodDotcom','cleanCname'
   ]);
   // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js
-  //function writeServiceWorkerFile(src, dist, handleFetch, callback) {
-  //  var config = {
-  //    cacheId: grunt.file.readJSON('package.json').name,
-  //    dynamicUrlToDependencies: {},
-  //    // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
-  //    // the service worker will precache resources but won't actually serve them.
-  //    // This allows you to test precaching behavior without worry about the cache preventing your
-  //    // local changes from being picked up during the development cycle.
-  //    handleFetch: handleFetch,
-  //    logger: grunt.log.writeln,
-  //    staticFileGlobs: [
-  //      src + '/css/**.css',
-  //      src + '/**.html',
-  //      src + '/images/**.*',
-  //      src + '/static/**.*',
-  //      src + '/styles/**.*',
-  //      src + '/**.swf',
-  //      src + '/**.ico',
-  //      src + '/**.png',
-  //      src + '/scripts/**/*.js',
-  //    ],
-  //    stripPrefix: src + '/',
-  //    // verbose defaults to false, but for the purposes of this demo, log more.
-  //    verbose: true,
-  //  };
+  function writeServiceWorkerFile(src, dist, handleFetch, callback) {
+    var config = {
+      cacheId: grunt.file.readJSON('package.json').name,
+      dynamicUrlToDependencies: {},
+      // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
+      // the service worker will precache resources but won't actually serve them.
+      // This allows you to test precaching behavior without worry about the cache preventing your
+      // local changes from being picked up during the development cycle.
+      handleFetch: handleFetch,
+      logger: grunt.log.writeln,
+      staticFileGlobs: [
+        src + '/css/**.css',
+        src + '/**.html',
+        src + '/images/**.*',
+        src + '/static/**.*',
+        src + '/styles/**.*',
+        src + '/**.swf',
+        src + '/**.ico',
+        src + '/**.png',
+        src + '/scripts/**/*.js',
+      ],
+      stripPrefix: src + '/',
+      // verbose defaults to false, but for the purposes of this demo, log more.
+      verbose: true,
+    };
 
-  //  swPrecache.write(path.join(dist, 'service-worker.js'), config, callback);
-  //}
+    swPrecache.write(path.join(dist, 'service-worker.js'), config, callback);
+  }
   grunt.registerMultiTask('swPrecache', function() {
-    // This is broken - infinite refresh on update. disabled.
-    //var done = this.async();
-    //var src = this.data.src;
-    //var dist = this.data.dist;
-    //var handleFetch = this.data.handleFetch;
-    //writeServiceWorkerFile(src, dist, handleFetch, function(error) {
-    //  if (error) {
-    //    grunt.fail.warn(error);
-    //  }
-    //  done();
-    //});
+    var done = this.async();
+    var src = this.data.src;
+    var dist = this.data.dist;
+    var handleFetch = this.data.handleFetch;
+    writeServiceWorkerFile(src, dist, handleFetch, function(error) {
+      if (error) {
+        grunt.fail.warn(error);
+      }
+      done();
+    });
   });
 };
