@@ -9,4 +9,4 @@ angular.module('swarmApp').directive 'dropdownMenuAutoDirection', ($compile, $lo
       screenWidth = $(window).width()
       rightLeft = if screenWidth < rightEdge then 'right' else 'left'
       return 'dropdown-menu-'+rightLeft
-    attrs.$set 'class', 'dropdown-menu '+scope.dropdownMenuClassName()
+    attrs.$set 'class', 'dropdown-menu '+dropdownMenuClassName()
