@@ -1713,7 +1713,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
       {
         "description": "Ask the right question",
         "label": "signs point to yes",
-        "longdesc": "",
+        "longdesc": "I have a prize for the first person to tell /r/swarmsim how to earn this achievement.",
         "name": "therightquestion",
         "points": 0,
         "requires.event": "therightquestion",
