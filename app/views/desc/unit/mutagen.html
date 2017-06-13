@@ -23,8 +23,8 @@ but resets all mutagen units and upgrades to 0, and resets your next ascension's
 
 <p>Respeccing now will cost {{game.respecCost()|longnum}} energy ({{game.respecCostRate|percent}} of your next ascension's cost).</p>
 
-<p><button title="" ng-click="commands.respec({game:game})" ng-class="{disabled:game.respecSpent().isZero() || !game.isRespecCostMet()}" class="btn btn-default">Respec - refund mutagen, but reset ascension cost</button></p>
+<p><button title="" ng-click="commands.respec({game:game})" ng-disabled="game.respecSpent().isZero() || !game.isRespecCostMet()" class="btn btn-default">Respec - refund mutagen, but reset ascension cost</button></p>
 
 <p>One free respec is available every three ascensions. You have {{game.unit('freeRespec').count()|longnum}} free respecs remaining.</p>
-<p><button title="" ng-click="commands.respecFree({game:game})" ng-class="{disabled:game.respecSpent().isZero() || game.unit('freeRespec').count().lessThanOrEqualTo(0)}" class="btn btn-default">Respec (free)</button></p>
+<p><button title="" ng-click="commands.respecFree({game:game})" ng-disabled="game.respecSpent().isZero() || game.unit('freeRespec').count().lessThanOrEqualTo(0)" class="btn btn-default">Respec (free)</button></p>
 </div>
