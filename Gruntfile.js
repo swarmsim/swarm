@@ -681,7 +681,7 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'fonts/*',
             'storage.swf',
-            //'service-worker.js', // this is the failsafe clear-cache-and-quit service worker. swPrecache works now, so no need for this.
+            'service-worker.js', // this is the failsafe clear-cache-and-quit service worker. swPrecache works now, so no need for this. OH WAIT yes there is because it's still broken, ugh.
             'manifest.json',
           ]
         }, {
@@ -1029,15 +1029,16 @@ module.exports = function (grunt) {
     swPrecache.write(path.join(dist, 'service-worker.js'), config, callback);
   }
   grunt.registerMultiTask('swPrecache', function() {
-    var done = this.async();
-    var src = this.data.src;
-    var dist = this.data.dist;
-    var handleFetch = this.data.handleFetch;
-    writeServiceWorkerFile(src, dist, handleFetch, function(error) {
-      if (error) {
-        grunt.fail.warn(error);
-      }
-      done();
-    });
+    //// This is broken again? I give up, not worth it.
+    //var done = this.async();
+    //var src = this.data.src;
+    //var dist = this.data.dist;
+    //var handleFetch = this.data.handleFetch;
+    //writeServiceWorkerFile(src, dist, handleFetch, function(error) {
+    //  if (error) {
+    //    grunt.fail.warn(error);
+    //  }
+    //  done();
+    //});
   });
 };
