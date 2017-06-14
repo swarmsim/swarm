@@ -89,7 +89,10 @@ angular.module('swarmApp').factory 'VersionChecker', (env, util, $log) -> class 
   check: (remote) ->
     if @compare(@version, remote) < 0 #local < remote
       $log.debug 'newer version found on server! reloading.', {local:@version, remote:remote}
-      window.location.reload()
+      # 30 second wait before reload. Extra failsafe against the
+      # almost-disastrous reload-before-updating-service-worker bug of
+      # v1.1.1.
+      window.setTimeout((-> window.location.reload()), 30 * 1000)
   compare: (a, b) ->
     return @normalize(a) - @normalize(b)
   normalize: (version) ->

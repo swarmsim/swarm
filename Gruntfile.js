@@ -858,6 +858,10 @@ module.exports = function (grunt) {
       updated: new Date(),
       githash: grunt.config('githash.main'),
     };
+    // Workaround for screwy service-worker update issues. The old updater detects a version change and is now refreshing before service-worker reloads and clears the cache, reviving our old friend the infinite-refresh bug. Workaround: fake out the version so we don't detect an update right away.
+    if (version === '1.1.5') {
+      data.version = '1.1.4';
+    }
     var text = JSON.stringify(data, undefined, 2);
     grunt.file.write('.tmp/version.json', text);
     grunt.file.write('dist/version.json', text);
