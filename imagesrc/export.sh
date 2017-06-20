@@ -9,6 +9,7 @@ exportIcon() {
 exportIcon 32 32
 exportIcon 48 48
 exportIcon 64 64
+exportIcon 72 72
 exportIcon 96 96
 exportIcon 128 128
 exportIcon 144 144

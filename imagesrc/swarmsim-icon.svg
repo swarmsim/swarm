@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="167.83444"
+   height="161.61197"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="245.35119"
-     inkscape:cy="459.45095"
+     inkscape:cx="-92.722815"
+     inkscape:cy="74.071531"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -38,7 +38,11 @@
      inkscape:window-height="1050"
      inkscape:window-x="81"
      inkscape:window-y="30"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -47,14 +51,15 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-239.3316,-505.37079)">
     <g
        id="g4368" />
     <g
@@ -144,7 +149,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="scratch"
-     style="display:none">
+     style="display:none"
+     transform="translate(-239.3316,-505.37079)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:Impact;-inkscape-font-specification:Impact;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -157,7 +163,6 @@
          id="tspan4117"
          style="font-size:40px;line-height:1.25">http://wiki.hive13.org/index.php/Inkscape_Honeycomb_Tiles</tspan></text>
     <g
-       style=""
        id="g4127">
       <path
          inkscape:tile-y0="89.645531"
@@ -179,455 +184,583 @@
          sodipodi:cx="151.42857"
          sodipodi:sides="6"
          id="path2991"
-         style="fill:#800080;fill-rule:nonzero;stroke:#550000;stroke-width:10.76065646000000000;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:#800080;fill-rule:nonzero;stroke:#550000;stroke-width:10.76065636;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
          sodipodi:type="star" />
       <use
          id="use3985"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3987"
          transform="translate(27.472406,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3989"
          transform="translate(54.944812,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3991"
          transform="translate(82.417218,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3993"
          transform="translate(109.88962,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3995"
          transform="translate(137.36203,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3997"
          transform="translate(164.83444,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use3999"
          transform="translate(192.30684,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4001"
-         transform="translate(54.944812,0)"
+         transform="translate(54.944812)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4003"
          transform="translate(82.417218,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4005"
          transform="translate(109.88962,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4007"
          transform="translate(137.36203,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4009"
          transform="translate(164.83444,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4011"
          transform="translate(192.30684,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4013"
          transform="translate(219.77925,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4015"
          transform="translate(247.25165,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4017"
-         transform="translate(109.88962,0)"
+         transform="translate(109.88962)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4019"
          transform="translate(137.36203,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4021"
          transform="translate(164.83444,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4023"
          transform="translate(192.30684,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4025"
          transform="translate(219.77925,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4027"
          transform="translate(247.25165,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4029"
          transform="translate(274.72406,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4031"
          transform="translate(302.19647,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4033"
-         transform="translate(164.83444,0)"
+         transform="translate(164.83444)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4035"
          transform="translate(192.30684,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4037"
          transform="translate(219.77925,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4039"
          transform="translate(247.25165,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4041"
          transform="translate(274.72406,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4043"
          transform="translate(302.19647,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4045"
          transform="translate(329.66887,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4047"
          transform="translate(357.14128,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4049"
-         transform="translate(219.77925,0)"
+         transform="translate(219.77925)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4051"
          transform="translate(247.25165,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4053"
          transform="translate(274.72406,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4055"
          transform="translate(302.19647,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4057"
          transform="translate(329.66887,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4059"
          transform="translate(357.14128,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4061"
          transform="translate(384.61368,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4063"
          transform="translate(412.08609,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4065"
-         transform="translate(274.72406,0)"
+         transform="translate(274.72406)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4067"
          transform="translate(302.19647,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4069"
          transform="translate(329.66887,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4071"
          transform="translate(357.14128,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4073"
          transform="translate(384.61368,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4075"
          transform="translate(412.08609,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4077"
          transform="translate(439.5585,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4079"
          transform="translate(467.0309,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4081"
-         transform="translate(329.66887,0)"
+         transform="translate(329.66887)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4083"
          transform="translate(357.14128,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4085"
          transform="translate(384.61368,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4087"
          transform="translate(412.08609,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4089"
          transform="translate(439.5585,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4091"
          transform="translate(467.0309,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4093"
          transform="translate(494.50331,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4095"
          transform="translate(521.97571,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4097"
-         transform="translate(384.61368,0)"
+         transform="translate(384.61368)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4099"
          transform="translate(412.08609,47.583602)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4101"
          transform="translate(439.5585,95.167204)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4103"
          transform="translate(467.0309,142.75081)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4105"
          transform="translate(494.50331,190.33441)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4107"
          transform="translate(521.97571,237.91801)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4109"
          transform="translate(549.44812,285.50161)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
       <use
          id="use4111"
          transform="translate(576.92053,333.08522)"
          xlink:href="#path2991"
          inkscape:tiled-clone-of="#path2991"
          y="0"
-         x="0" />
+         x="0"
+         width="100%"
+         height="100%" />
     </g>
   </g>
 </svg>

@@ -1,6 +1,6 @@
 {
   "name": "Swarm Simulator",
-  "short_name": "Swarmsim",
+  "short_name": "Swarm Simulator",
   "description":"An incremental game. Starting with just a few larvae and a small pile of meat, grow a massive swarm of giant bugs.",
   "display":"standalone",
   "icons": [{
@@ -8,75 +8,79 @@
     "type": "ico"
   }, {
     "src":"touch-icon-192x192.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "192x192"
   }, {
     "src":"apple-touch-icon-114x114-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "114x114"
   }, {
     "src":"apple-touch-icon-120x120-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "120x120"
   }, {
     "src":"apple-touch-icon-144x144-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "144x144"
   }, {
     "src":"apple-touch-icon-152x152-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "152x152"
   }, {
     "src":"apple-touch-icon-180x180-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "180x180"
   }, {
     "src":"apple-touch-icon-72x72-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "72x72"
   }, {
     "src":"apple-touch-icon-76x76-precomposed.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "76x76"
   }, {
     "src":"icon-32x32.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "32x32"
   }, {
     "src":"icon-48x48.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "48x48"
   }, {
     "src":"icon-64x64.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "64x64"
   }, {
+    "src":"icon-72x72.png",
+    "type": "image/png",
+    "sizes": "72x72"
+  }, {
     "src":"icon-96x96.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "96x96"
   }, {
     "src":"icon-128x128.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "128x128"
   }, {
     "src":"icon-144x144.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "144x144"
   }, {
     "src":"icon-152x152.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "152x152"
   }, {
     "src":"icon-192x192.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "192x192"
   }, {
     "src":"icon-256x256.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "256x256"
   }, {
     "src":"icon-512x512.png",
-    "type": "png",
+    "type": "image/png",
     "sizes": "512x512"
   }],
   "lang": "en-US",
