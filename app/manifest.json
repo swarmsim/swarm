@@ -39,11 +39,43 @@
     "type": "png",
     "sizes": "76x76"
   }, {
-    "src":"256x256.png",
+    "src":"icon-32x32.png",
+    "type": "png",
+    "sizes": "32x32"
+  }, {
+    "src":"icon-48x48.png",
+    "type": "png",
+    "sizes": "48x48"
+  }, {
+    "src":"icon-64x64.png",
+    "type": "png",
+    "sizes": "64x64"
+  }, {
+    "src":"icon-96x96.png",
+    "type": "png",
+    "sizes": "96x96"
+  }, {
+    "src":"icon-128x128.png",
+    "type": "png",
+    "sizes": "128x128"
+  }, {
+    "src":"icon-144x144.png",
+    "type": "png",
+    "sizes": "144x144"
+  }, {
+    "src":"icon-152x152.png",
+    "type": "png",
+    "sizes": "152x152"
+  }, {
+    "src":"icon-192x192.png",
+    "type": "png",
+    "sizes": "192x192"
+  }, {
+    "src":"icon-256x256.png",
     "type": "png",
     "sizes": "256x256"
   }, {
-    "src":"512x512.png",
+    "src":"icon-512x512.png",
     "type": "png",
     "sizes": "512x512"
   }],
