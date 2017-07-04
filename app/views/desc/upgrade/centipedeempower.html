@@ -1,1 +1,2 @@
-<p>Dramatically increase both your chilopodomorphs' meat cost and territory captured.</p><p>This will destroy all {{ game.unit('centipede').count() | longnum }} of your chilopodomorphs.</p>
+<p>Dramatically increase both your {{upgrade.unit.type.plural}}' meat cost and territory captured.</p>
+<p>This will destroy <span ng-show="!upgrade.effect[0].output().eq(0)">almost</span> all of your {{upgrade.unit.type.plural}}. {{ upgrade.unit.count().plus(upgrade.effect[0].output()) | longnum }} will survive the process.</p>
