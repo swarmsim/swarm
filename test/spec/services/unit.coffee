@@ -306,7 +306,9 @@ describe 'Service: unit', ->
     meat._setCount(meatcount)
     ling.stats() # kick stats so the suffix works
     expect(ling.suffix).toBe 'II' # empowering sets a suffix
-    expect(ling.count().toNumber()).toBe 0  # empowering destroys all units
+    # empowering destroys all units
+    # (well, at small numbers. almost all above 1e18; see the test below)
+    expect(ling.count().toNumber()).toBe 0
     # empowering increases cost
     cost2 = _.keyBy ling.eachCost(), (c) -> c.unit.name
     expect(cost1.meat.val.toNumber()).toBeLessThan cost2.meat.val.toNumber()
@@ -315,6 +317,16 @@ describe 'Service: unit', ->
     ling.buy(10)
     expect(ling.count().toNumber()).toBe 10
     expect(meat.count().toNumber()).toBeLessThan meatcount - 750000000 # really does cost more than unempowered
+
+  it "doesn't destroy every empowered unit, once there's enough of them", ->
+    game = mkgame {meat:1e60, larva: 1e40, queen:5}
+    ling = game.unit 'swarmling'
+    empower = game.upgrade 'swarmlingempower'
+    # empowering destroys almost all units, given lots of units
+    ling.buy(1e30)
+    expect(ling.count().toNumber()).toBe 1e30
+    empower.buy()
+    expect(ling.count().toNumber()).toBe 6.5e11
 
   it 'calculates stats from unit-effects', ->
     game = mkgame {energy:0, nexus: 1, nightbug:0}

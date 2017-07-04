@@ -173,7 +173,7 @@ angular.module('swarmApp').factory 'effecttypes', (EffectType, EffectTypes, util
       return velocity.times(effect.val2).times(effect.power())
     output: (effect, game) ->
       base = @bank effect, game
-      ret = base.times(Decimal(effect.val).minus(1))
+      ret = base.times(Decimal(effect.val).minus(1)).floor()
       if (cap = @cap effect, game)?
         ret = Decimal.min ret, cap
       return ret
