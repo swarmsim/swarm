@@ -31,6 +31,6 @@ angular.module('swarmApp').directive 'playfaboptions', (playfab, options, sessio
       (auth) => game.importSave(auth.state)
       console.warn
     )
-    scope.clear = -> playfab.clear().then(handleFetched, console.warn)
+    scope.clear = -> confirm("Once online data's deleted, there's no undo. Are you sure?") && playfab.clear().catch(console.warn)
     scope.logout = -> playfab.logout()
     scope.autopushError = -> wwwPlayfabSyncer.getAutopushError()

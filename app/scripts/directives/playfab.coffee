@@ -104,6 +104,7 @@ angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate
       syncer.pull()
 
     scope.clear = ->
+      if (!confirm("Once online data's deleted, there's no undo. Are you sure?")) then return
       cooldown.set 'clear'
       syncer.clear().then(
         (res) ->
