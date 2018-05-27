@@ -20,7 +20,7 @@ sudo npm install -g yo generator-angular grunt-cli bower
 sudo gem install compass
 # updates too.
 sudo npm update -g yo generator-angular grunt-cli bower
-sudo npm cache clean
+sudo npm cache verify
 
 # check out the package and install its deps.
 # assume we're running locally if the current dir is named 'swarm'.

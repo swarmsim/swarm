@@ -153,6 +153,7 @@ angular.module('swarmApp').config (env, version) ->
     # appVersion breaks analytics, presumably because it's mobile-only.
     #window.ga 'set', 'appVersion', version
     # set Kongregate referrer manually when using kongregate_shell.html
+    window.ga 'set', 'anonymizeIp', true
     try
       if window.parent != window and (ref=window?.parent?.document?.referrer)?
         window.ga 'set', 'referrer', ref
@@ -217,4 +218,3 @@ angular.module('swarmApp').run (hotkeys, $rootScope) ->
 angular.module('swarmApp').run () ->
   $(document).on 'mousedown', '.dropdown-toggle', () ->
     $(this).dropdown()
-

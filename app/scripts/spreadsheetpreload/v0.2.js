@@ -9642,7 +9642,7 @@ angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', {
         "effect.val": 0,
         "effect.val2": "",
         "label": "empower chilopodomorphs",
-        "lol": "The US presidency isn't enough power for you?",
+        "lol": "",
         "maxlevel": "",
         "name": "centipedeempower",
         "requires.unittype": "meat",
