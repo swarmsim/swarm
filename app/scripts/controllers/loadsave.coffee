@@ -67,13 +67,16 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
   # try to load a save file from the url.
   if (savedata = $location.search().savedata)?
     ts = $location.search().ts && new Date(parseInt($location.search().ts))
-    if (!ts || ts > session.state.date.reified)
+    # If there is no timestamp, import the game. If there is one, verify that we're probably not nuking the same game-in-progress.
+    # If the current game was updated *before* the imported game was updated, accept the import - import is newer.
+    # If the current game was started *after* the imported game was updated, accept the import - it's probably deliberate, or it's a new game.
+    if (!ts || session.state.date.reified < ts || session.state.date.started > ts)
       $log.info 'loading game from url...'
       # transient=true: don't overwrite the saved data until we buy something
       game.importSave savedata, true
       $log.info 'loading game from url successful!'
     else
-      $log.info 'ignoring game in url, timestamp is older than current game', ts, session.state.date.reified
+      $log.info "ignoring game in url, imported timestamp shouldn't overwrite current game", ts, session.state.date
 
   backfill.run game
 
