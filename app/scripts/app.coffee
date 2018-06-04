@@ -131,25 +131,61 @@ angular.module('swarmApp').run (env, $location, $log) ->
     window.location.protocol = 'https'
     $log.debug "window.location.protocol = 'https:'"
 
-# swarmsim.github.io is the place to play swarmsim standalone, for legacy
-# reasons. It'll eventually move to swarmsim.com, but that migration's a long
-# process that's not done (or started) yet.
+# originally, [www.]swarmsim.com redirected to swarmsim.github.io, like so:
+#  if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com')
+#    window.location.host = 'swarmsim.github.io'
+# It started there, and I didn't want to move cookies after buying the domain.
+# Then, MS bought github and I got spooked. Time to move everyone to the dot-com.
 #
 # Kongregate uses swarmsim.com - it was implemented later and has no legacy
 # savestates to worry about.
 #
 # I don't want people playing in two standalone locations, juggling savestates.
-# There's "Kongregate" and there's "standalone"; no more urls. So, redirect
-# standalone visitors from swarmsim.com to swarmsim.github.io until the
-# migration's done. One exception: ?noredirect=1, for debugging/power-users.
+# There's "Kongregate" and there's "standalone"; no more urls. Redirect all
+# standalone users to the canonical standalone url.
+# One exception: ?noredirect=1, for debugging/power-users.
 #
-# Github automatically redirects the .github.io address behind swarmsim.com to
-# swarmsim.com itself.
+# Github automatically redirects swarmsim-dotcom.github.io - the backend for
+# swarmsim.com - to swarmsim.com itself.
 #
 # Github automatically redirects the naked-domain to www.
-angular.module('swarmApp').run ($location, isKongregate) ->
-  if (window.location.host == 'swarmsim.com' || window.location.host == 'www.swarmsim.com') and not ($location.search().noredirect or isKongregate())
-    window.location.host = 'swarmsim.github.io'
+angular.module('swarmApp').factory 'domain', ($location) ->
+  return $location.search().mockdomain || window.location.host
+
+angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domain) ->
+  if (isKongregate())
+    return 'kongregate'
+  if ($location.search().noredirect)
+    return 'other'
+  if (domain == 'swarmsim.github.io')
+    return 'oldwww'
+  if (domain == 'www.swarmsim.com' || 'swarmsim.com')
+    return 'www'
+  return 'other'
+
+angular.module('swarmApp').factory '', ($location, isKongregate, domain) ->
+  if ($location.search().noredirect or isKongregate())
+    return false
+  return domain == 'swarmsim.github.io'
+
+angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainType) ->
+  # Phase 1: allow players on both: No redirect, yet!
+  # Phase 2: github redirects to www.
+  redirectDate = new Date('2018-07-15T00:00:00.000Z')
+  redirectDiff = new Date().getTime() - redirectDate.getTime()
+  redirectEnabled = redirectDiff >= 0
+  console.log('oldDomain?', redirectEnabled, redirectDiff)
+
+  # more readable than one line with all the conditions
+  if ($location.search().wwwredirect)
+    return true
+  return (domainType == 'oldwww') and redirectEnabled
+
+angular.module('swarmApp').run ($location, isRedirectingOldDomain) ->
+  if (isRedirectingOldDomain and $location.path() != '/export')
+    # $location.path('/export')
+    window.location.host = 'www.swarmsim.com'
+
 
 # Google analytics setup. Run this only after redirects are done.
 angular.module('swarmApp').config (env, version) ->
