@@ -47,6 +47,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       .when '/importsplash',
         templateUrl: 'views/importsplash.html'
         controller: 'ImportsplashCtrl'
+      .when '/export',
+        templateUrl: 'views/export.html'
+        controller: 'ExportCtrl'
       .otherwise
         redirectTo: '/'
 
@@ -84,6 +87,9 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/cleartheme',
       templateUrl: 'views/cleartheme.html'
       controller: 'ClearthemeCtrl'
+    .when '/export',
+      templateUrl: 'views/export.html'
+      controller: 'ExportCtrl'
     .when '/login',
       if not env.isServerFrontendEnabled
         redirectTo: '/'
