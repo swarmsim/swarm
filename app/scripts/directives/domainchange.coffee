@@ -13,5 +13,8 @@ angular.module('swarmApp').directive 'domainchange', (domainType, wwwRedirectDat
       scope.moveNowUrl = "https://www.swarmsim.com/#/importsplash?ts=#{encodeURIComponent ts}&referrer=github&savedata=#{encodeURIComponent session.exportSave()}"
     else if (domainType == 'www')
       scope.url = "views/domainchange-new.html"
+      scope.hiddenNag = session.state.domainchangeClosed
+      scope.closeNew = () ->
+        scope.hiddenNag = session.state.domainchangeClosed = true
     else
       scope.url = null
