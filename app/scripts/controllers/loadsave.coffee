@@ -66,10 +66,14 @@ angular.module('swarmApp').controller 'LoadSaveCtrl', ($scope, $log, game, sessi
 
   # try to load a save file from the url.
   if (savedata = $location.search().savedata)?
-    $log.info 'loading game from url...'
-    # transient=true: don't overwrite the saved data until we buy something
-    game.importSave savedata, true
-    $log.info 'loading game from url successful!'
+    ts = $location.search().ts && new Date(parseInt($location.search().ts))
+    if (!ts || ts > session.state.date.reified)
+      $log.info 'loading game from url...'
+      # transient=true: don't overwrite the saved data until we buy something
+      game.importSave savedata, true
+      $log.info 'loading game from url successful!'
+    else
+      $log.info 'ignoring game in url, timestamp is older than current game', ts, session.state.date.reified
 
   backfill.run game
 

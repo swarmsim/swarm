@@ -159,7 +159,7 @@ angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domai
     return 'other'
   if (domain == 'swarmsim.github.io')
     return 'oldwww'
-  if (domain == 'www.swarmsim.com' || 'swarmsim.com')
+  if (domain == 'www.swarmsim.com' || domain == 'swarmsim.com')
     return 'www'
   return 'other'
 
@@ -168,11 +168,12 @@ angular.module('swarmApp').factory '', ($location, isKongregate, domain) ->
     return false
   return domain == 'swarmsim.github.io'
 
-angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainType) ->
+angular.module('swarmApp').value 'wwwRedirectDate', new Date('2018-07-15T00:00:00.000Z')
+
+angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainType, wwwRedirectDate) ->
   # Phase 1: allow players on both: No redirect, yet!
   # Phase 2: github redirects to www.
-  redirectDate = new Date('2018-07-15T00:00:00.000Z')
-  redirectDiff = new Date().getTime() - redirectDate.getTime()
+  redirectDiff = new Date().getTime() - wwwRedirectDate.getTime()
   redirectEnabled = redirectDiff >= 0
   console.log('oldDomain?', redirectEnabled, redirectDiff)
 
@@ -184,7 +185,7 @@ angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainT
 angular.module('swarmApp').run ($location, isRedirectingOldDomain) ->
   if (isRedirectingOldDomain and $location.path() != '/export')
     # $location.path('/export')
-    window.location.host = 'www.swarmsim.com'
+    window.location = 'https://www.swarmsim.com/#/referrer=github'
 
 
 # Google analytics setup. Run this only after redirects are done.
