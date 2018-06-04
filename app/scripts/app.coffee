@@ -163,11 +163,6 @@ angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domai
     return 'www'
   return 'other'
 
-angular.module('swarmApp').factory '', ($location, isKongregate, domain) ->
-  if ($location.search().noredirect or isKongregate())
-    return false
-  return domain == 'swarmsim.github.io'
-
 angular.module('swarmApp').value 'wwwRedirectDate', new Date('2018-07-15T00:00:00.000Z')
 
 angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainType, wwwRedirectDate) ->
@@ -175,7 +170,6 @@ angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainT
   # Phase 2: github redirects to www.
   redirectDiff = new Date().getTime() - wwwRedirectDate.getTime()
   redirectEnabled = redirectDiff >= 0
-  console.log('oldDomain?', redirectEnabled, redirectDiff)
 
   # more readable than one line with all the conditions
   if ($location.search().wwwredirect)
