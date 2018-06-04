@@ -150,20 +150,20 @@ angular.module('swarmApp').run (env, $location, $log) ->
 #
 # Github automatically redirects the naked-domain to www.
 angular.module('swarmApp').factory 'domain', ($location) ->
-  #return $location.search().mockdomain || window.location.host
-  # Disable the migration alerts in prod for a few days, until users' browser
-  # caches clear and www.swarmsim.com stops redirecting. Mocks still work.
-  return $location.search().mockdomain || 'real-domain-temporarily-ignored'
+  return $location.search().mockdomain || window.location.host
 
 angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domain) ->
   if (isKongregate())
     return 'kongregate'
   if ($location.search().noredirect)
     return 'other'
-  if (domain == 'swarmsim.github.io')
-    return 'oldwww'
   if (domain == 'www.swarmsim.com' || domain == 'swarmsim.com')
     return 'www'
+  # Disable the migration alerts in prod for a few days, until users' browser
+  # caches clear and www.swarmsim.com stops redirecting. Mocks still work.
+  #if (domain == 'swarmsim.github.io')
+  if ($location.search().mockdomain == 'swarmsim.github.io')
+    return 'oldwww'
   return 'other'
 
 angular.module('swarmApp').value 'wwwRedirectDate', new Date('2018-07-15T00:00:00.000Z')
