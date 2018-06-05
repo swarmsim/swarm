@@ -152,7 +152,20 @@ angular.module('swarmApp').run (env, $location, $log) ->
 angular.module('swarmApp').factory 'domain', ($location) ->
   return $location.search().mockdomain || window.location.host
 
-angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domain) ->
+angular.module('swarmApp').factory 'enableAfter', ($log) ->
+  return (enableDate, loggedName) -> () ->
+    diff = Date.now() - enableDate.getTime()
+    enabled = diff >= 0
+    if (loggedName?)
+      $log.info('enableAfter', loggedName, enabled, diff)
+    return enabled
+
+angular.module('swarmApp').value 'wwwNagDate', new Date('2018-06-07T00:00:00.000Z')
+angular.module('swarmApp').factory 'wwwNagTimer', (enableAfter, wwwNagDate) -> enableAfter(wwwNagDate, 'wwwNag')
+angular.module('swarmApp').value 'wwwRedirectDate', new Date('2018-07-15T00:00:00.000Z')
+angular.module('swarmApp').factory 'wwwRedirectTimer', (enableAfter, wwwRedirectDate) -> enableAfter(wwwRedirectDate, 'wwwRedirect')
+
+angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domain, wwwNagTimer) ->
   if (isKongregate())
     return 'kongregate'
   if ($location.search().noredirect)
@@ -162,22 +175,17 @@ angular.module('swarmApp').factory 'domainType', ($location, isKongregate, domai
   # Disable the migration alerts in prod for a few days, until users' browser
   # caches clear and www.swarmsim.com stops redirecting. Mocks still work.
   #if (domain == 'swarmsim.github.io')
-  if ($location.search().mockdomain == 'swarmsim.github.io')
+  if ((if wwwNagTimer() then domain else $location.search().mockdomain) == 'swarmsim.github.io')
     return 'oldwww'
   return 'other'
 
-angular.module('swarmApp').value 'wwwRedirectDate', new Date('2018-07-15T00:00:00.000Z')
-
-angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainType, wwwRedirectDate) ->
+angular.module('swarmApp').factory 'isRedirectingOldDomain', ($location, domainType, wwwRedirectTimer) ->
   # Phase 1: allow players on both: No redirect, yet!
   # Phase 2: github redirects to www.
-  redirectDiff = new Date().getTime() - wwwRedirectDate.getTime()
-  redirectEnabled = redirectDiff >= 0
-
-  # more readable than one line with all the conditions
   if ($location.search().wwwredirect)
+    # more readable than one line with all the conditions
     return true
-  return (domainType == 'oldwww') and redirectEnabled
+  return (domainType == 'oldwww') and wwwRedirectTimer()
 
 angular.module('swarmApp').run ($location, isRedirectingOldDomain) ->
   if (isRedirectingOldDomain and $location.path() != '/export')
