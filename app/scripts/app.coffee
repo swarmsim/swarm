@@ -160,7 +160,7 @@ angular.module('swarmApp').factory 'enableAfter', ($log) ->
       $log.info('enableAfter', loggedName, enabled, diff)
     return enabled
 
-angular.module('swarmApp').value 'wwwNagDate', new Date('2018-06-07T00:00:00.000Z')
+angular.module('swarmApp').value 'wwwNagDate', new Date('2018-06-08T00:00:00.000Z')
 angular.module('swarmApp').factory 'wwwNagTimer', (enableAfter, wwwNagDate) -> enableAfter(wwwNagDate, 'wwwNag')
 angular.module('swarmApp').value 'wwwRedirectDate', new Date('2018-07-15T00:00:00.000Z')
 angular.module('swarmApp').factory 'wwwRedirectTimer', (enableAfter, wwwRedirectDate) -> enableAfter(wwwRedirectDate, 'wwwRedirect')
