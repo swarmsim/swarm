@@ -101,7 +101,7 @@
         <h5 ng-class="{'text-muted':abil.isManuallyHidden()}">
           {{abil.type.label}}
           <div class="pull-right">
-            <input type="checkbox" class="checkbox-inline" style="margin:0" ng-model="watched[abil.name]" ng-change="updateWatchedAbility(abil)">
+            <input type="checkbox" class="checkbox-inline" title="show/hide this ability" aria-label="show/hide this ability" style="margin:0" ng-model="watched[abil.name]" ng-change="updateWatchedAbility(abil)">
           </div>
           <div style="clear:right"></div>
         </h5>
