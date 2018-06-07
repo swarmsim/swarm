@@ -165,14 +165,23 @@ wrapPlayfab = (reject, name, fn) => (result) =>
 # Paypal with minimal Playfab interaction. We use playfab cloudscript to call
 # Paypal from a server to verify Paypal success (CORS errors and
 # secret-id-exposure trying to do it from the client), but otherwise, no playfab.
-angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http, playfab) -> class PaypalHostedButtonMtx
+angular.module('swarmApp').factory 'PaypalHostedButtonMtx', ($q, $log, $location, game, env, $http, playfab, domainType) -> class PaypalHostedButtonMtx
   constructor: (@buyPacks) ->
-    # overwrite production urls in dev
-    if env.isPaypalSandbox
-      for pack in @buyPacks
-        pack.paypalUrl = pack.paypalSandboxUrl
+    for pack in @buyPacks
+      pack.paypalUrl = @_packUrl(pack)
     @buyPacksByName = _.keyBy @buyPacks, 'name'
     @uiStyle = 'paypal'
+  _packUrl: (pack) ->
+    # overwrite production urls in dev
+    if env.isPaypalSandbox
+      return pack.paypalSandboxUrl
+    # in prod, different return urls for different domains. Sadly, we can't override
+    # a paypal hosted button's return url, have to use a whole different button:
+    # https://stackoverflow.com/questions/45258956/paypal-is-not-overriding-the-return-url
+    if domainType == 'oldwww'
+      return pack.paypalLegacyGithubUrl
+    return pack.paypalSwarmsimDotComUrl
+
   packs: -> $q (resolve, reject) =>
     playfab.waitForAuth().then =>
       if !playfab.isAuthed()
