@@ -53,6 +53,7 @@
     "serve-static": "1.12.1",
     "sw-precache": "^5.1.1",
     "tabletop": "1.5.1",
+    "terraform-npm": "0.2.6",
     "time-grunt": "1.4.0"
   },
   "dependencies": {},
@@ -61,6 +62,9 @@
   },
   "scripts": {
     "postinstall": "bower install",
+    "tf:init": "terraform init",
+    "tf:plan": "set -a && . ~/.cloudflare.env && set +a && terraform plan",
+    "tf:apply": "set -a && . ~/.cloudflare.env && set +a && terraform apply -auto-approve",
     "start": "grunt serve",
     "pretest": "npm install",
     "preversion": "npm test",

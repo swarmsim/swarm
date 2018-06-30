@@ -10,3 +10,4 @@
 /devkeys/swarmsim-preprod.pem
 /.travis/tmp
 /swarm-playfab-cloudscript
+/.terraform
