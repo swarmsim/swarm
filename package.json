@@ -61,6 +61,7 @@
     "node": ">=8"
   },
   "scripts": {
+    "preinstall": "mkdir -p ./node_modules/terraform-npm/tools",
     "postinstall": "bower install",
     "tf:init": "terraform init",
     "tf:plan": "set -a && . ~/.cloudflare.env && set +a && terraform plan",
