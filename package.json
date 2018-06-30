@@ -7,6 +7,10 @@
     "type": "git"
   },
   "license": "GPL-2.0",
+  "//optionalDependencies": "because travis fails to install me, but doesn't actually need me",
+  "optionalDependencies": {
+    "terraform-npm": "0.2.6"
+  },
   "devDependencies": {
     "bower": "1.8.0",
     "coffee-script": "1.12.4",
@@ -53,7 +57,6 @@
     "serve-static": "1.12.1",
     "sw-precache": "^5.1.1",
     "tabletop": "1.5.1",
-    "terraform-npm": "0.2.6",
     "time-grunt": "1.4.0"
   },
   "dependencies": {},
@@ -61,7 +64,6 @@
     "node": ">=8"
   },
   "scripts": {
-    "preinstall": "mkdir -p ./node_modules/terraform-npm/tools",
     "postinstall": "bower install",
     "tf:init": "terraform init",
     "tf:plan": "set -a && . ~/.cloudflare.env && set +a && terraform plan",
