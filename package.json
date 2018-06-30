@@ -58,7 +58,7 @@
   },
   "dependencies": {},
   "engines": {
-    "node": ">=6.9.2"
+    "node": ">=8"
   },
   "scripts": {
     "postinstall": "bower install",
