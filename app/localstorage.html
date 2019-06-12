@@ -21,9 +21,11 @@ JS, to ease copying.
     'https://elm.swarmsim.com',
     // Always the coffeescript codebase. Legacy opt-out play.
     'https://coffee.swarmsim.com',
+    // Testing all this with a real server.
+    'https://staging.swarmsim.com',
     // Elm dev server.
     'http://localhost:3000',
-    // Coffeescript dev server
+    // Coffeescript dev server.
     'http://localhost:9000',
   ]
 
@@ -49,10 +51,13 @@ JS, to ease copying.
         type: 'get',
         key: event.data.key,
         value: localStorage.getItem(event.data.key),
-      })
+      }, event.origin)
     }
   }
   window.addEventListener("message", onMessage, false)
-  window.parent.postMessage({type: 'ready'})
+  log('localstorage.html: ready', window.location.origin, window.parent.location)
+  // It's safe to let a parent-frame from any origin know we're ready.
+  // Security's much stricter in onMessage().
+  window.parent.postMessage({type: 'ready'}, '*')
 </script>
 </html>

@@ -69,6 +69,7 @@
     "tf:plan": "set -a && . ~/.cloudflare.env && set +a && terraform plan",
     "tf:apply": "set -a && . ~/.cloudflare.env && set +a && terraform apply -auto-approve",
     "start": "grunt serve",
+    "start:prod": "grunt serve:dist",
     "pretest": "npm install",
     "preversion": "npm test",
     "test": "grunt test",
