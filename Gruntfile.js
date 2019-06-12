@@ -185,6 +185,13 @@ module.exports = function (grunt) {
         },
         src: ['**']
       },
+      prodCoffee: {
+        options: {
+          branch: 'master',
+          repo: 'git@github.com:swarmsim-coffee/swarmsim-coffee.github.io.git'
+        },
+        src: ['**']
+      },
       prodGithubio: {
         options: {
           branch: 'master',
@@ -869,6 +876,9 @@ module.exports = function (grunt) {
   grunt.registerTask('buildCname', 'build swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'www.swarmsim.com');
   });
+  grunt.registerTask('coffeeCname', 'build coffee.swarmsim.com cname file', function () {
+    grunt.file.write('dist/CNAME', 'coffee.swarmsim.com');
+  });
   grunt.registerTask('stagingCname', 'build staging.swarmsim.com cname file', function () {
     grunt.file.write('dist/CNAME', 'staging.swarmsim.com');
   });
@@ -1001,6 +1011,7 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy-prod', [
     'build',
     'cleanCname','gh-pages:prodGithubio',
+    'coffeeCname','gh-pages:prodCoffee','cleanCname',
     'buildCname','gh-pages:prodDotcom','cleanCname'
   ]);
   // https://github.com/GoogleChrome/sw-precache/blob/master/demo/Gruntfile.js

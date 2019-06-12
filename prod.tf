@@ -28,6 +28,14 @@ resource "cloudflare_record" "www_swarmsim_com" {
   proxied = true
 }
 
+resource "cloudflare_record" "coffee_swarmsim_com" {
+  domain  = "swarmsim.com"
+  name    = "coffee"
+  type    = "CNAME"
+  value   = "swarmsim-coffee.github.io"
+  proxied = true
+}
+
 resource "cloudflare_record" "preprod_swarmsim_com" {
   domain  = "swarmsim.com"
   name    = "preprod"
