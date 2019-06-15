@@ -12,15 +12,17 @@ angular.module 'swarmApp'
     template: """
     <div ng-if="status == 'beta'" class="alert alert-info" role="alert">
       <button ng-click="close()" class="close pull-right btn"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <p>Swarm Simulator's next big update will be ready soon. <a href="https://elm.swarmsim.com{{query}}">Want to try it out today?</a></p>
+      <p>Swarm Simulator's next big update will be ready soon. <a href="{{host}}{{query}}">Want to try it out today?</a></p>
     </div>
     <div ng-if="status == 'legacy'" class="alert alert-danger" role="alert">
       <button ng-click="close()" class="close pull-right btn"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <p>Swarm Simulator's been updated, and you're playing an old version. <a href="https://www.swarmsim.com{{query}}">You should play the latest Swarm Simulator!</a></p>
+      <p>Swarm Simulator's been updated, and you're playing an old version. <a href="{{host}}{{query}}">You should play the latest Swarm Simulator!</a></p>
       <p>Is something broken? Hate the new version? Please <a href="#/contact">contact the developer</a>.</p>
     </div>
     """
     link: (scope, element, attrs) ->
+      # scope.host = "https://localhost:3001"
+      scope.host = "https://elm.swarmsim.com"
       # preserve kongregate's querystring, among other things
       scope.query = document.location.search
       # valid statuses:

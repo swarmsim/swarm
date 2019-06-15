@@ -70,6 +70,7 @@
     "tf:apply": "set -a && . ~/.cloudflare.env && set +a && terraform apply -auto-approve",
     "start": "grunt serve",
     "start:prod": "grunt serve:dist",
+    "start:https": "mitmproxy -p 9001 --mode reverse:http://localhost:9000",
     "pretest": "npm install",
     "preversion": "npm test",
     "test": "grunt test",
