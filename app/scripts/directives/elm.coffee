@@ -25,6 +25,24 @@ angular.module 'swarmApp'
       scope.host = "https://elm.swarmsim.com"
       # preserve kongregate's querystring, among other things
       scope.query = document.location.search
+
+      # A crude localstorage-based gradual-rollout framework.
+      # I'll store a random number at this localstorage key, and `enablePct`
+      # percent of users will see it active. 0 <= enablePct <= 1.
+      # "0.1" returns true for 10% of users; "0" no users; "1" all users.
+      # To roll out to more users, increase `enablePct` - code release required.
+      rollout = (key, enablePct) ->
+        storage = localStorage.getItem(key)
+        if storage?
+          roll = parseFloat(storage)
+        else
+          roll = Math.random()
+          localStorage.setItem key, roll
+        val = roll >= (1 - enablePct)
+        #if !storage?
+        #  console.log 'rollout init', key, roll, val
+        return val
+
       # valid statuses:
       # * hidden: nothing is shown. Message was manually closed, or the elm
       #   opt-in isn't publically visible yet.
@@ -32,13 +50,7 @@ angular.module 'swarmApp'
       #   running on www.swarmsim.com.
       # * legacy: opt-out message/link are shown. Use this once coffeescript's
       #   *not* running on www.swarmsim.com, only on coffee.swarmsim.com.
-      scope.status =
-        # We're not yet ready to show the link to most people. The only way to
-        # test Kongregate within its frame is to have a visible link, though, and
-        # Kongregate can't do custom querystrings. So, we have a secret cookie to
-        # force link visibility before the general public sees it, similar to how
-        # we'd normally feature-switch with the querystring.
-        if localStorage.getItem 'elm' then 'beta' else 'hidden'
+      scope.status = if rollout('rollout:elm', 0) then 'beta' else 'hidden'
         # next phase:
         # 'beta'
         # final phase:
