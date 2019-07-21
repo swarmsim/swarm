@@ -52,6 +52,12 @@ angular.module('swarmApp').controller 'OptionsCtrl', ($scope, $location, options
   # http://stackoverflow.com/questions/14995884/select-text-on-input-focus-in-angular-js
   $scope.select = ($event) ->
     $event.target.select()
+  $scope.copy = ($event) ->
+    document.execCommand('copy')
+    ex = document.getElementById('export')
+    ex.focus()
+    ex.select()
+    document.execCommand('copy')
 
   savedDataDetails = (store) ->
     try
