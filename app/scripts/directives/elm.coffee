@@ -12,7 +12,8 @@ angular.module 'swarmApp'
     template: """
     <div ng-if="status == 'beta'" class="alert alert-info" role="alert">
       <button ng-click="close()" class="close pull-right btn"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <p>Swarm Simulator's next big update will be ready soon. <a href="{{host}}{{query}}">Want to try it out today?</a></p>
+      <p>Swarm Simulator's next big update, v1.2.0, will be ready soon. <a href="{{host}}{{query}}">You can try it out today</a>.</p>
+      <p><i>You will keep your saved progress once v1.2.0 is released.</i></p>
     </div>
     <div ng-if="status == 'legacy'" class="alert alert-danger" role="alert">
       <button ng-click="close()" class="close pull-right btn"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -50,7 +51,7 @@ angular.module 'swarmApp'
       #   running on www.swarmsim.com.
       # * legacy: opt-out message/link are shown. Use this once coffeescript's
       #   *not* running on www.swarmsim.com, only on coffee.swarmsim.com.
-      scope.status = if rollout('rollout:elm', 0) then 'beta' else 'hidden'
+      scope.status = if rollout('rollout:elm', 0.01) then 'beta' else 'hidden'
         # next phase:
         # 'beta'
         # final phase:
