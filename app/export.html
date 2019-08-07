@@ -1,0 +1,10 @@
+<html>
+<body>
+  <h1>Swarmsim save exporter</h1>
+  <p>If you can't export your saved game from within Swarmsim itself for some reason, this page might be able to help!</p>
+  <div><input id="textarea" readonly /></div>
+</body>
+<script>
+  document.getElementById('textarea').value = localStorage.getItem('v0.2') || localStorage.getItem('v0.2-kongregate')
+</script>
+</html>
