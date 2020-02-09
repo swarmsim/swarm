@@ -1,5 +1,5 @@
 #!/bin/sh -eux
-# Install swarmsim on a new ubuntu machine. Tested on ubuntu 17.10.
+# Install swarmsim on a new ubuntu machine. Most recently tested on ubuntu 19.10.
 # For ec2, first open port 9000 in the 3c2 firewall:
 # - directions: http://stackoverflow.com/questions/17161345/how-to-open-a-web-server-port-on-ec2-instance
 # - security group: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups:sort=groupId
@@ -13,7 +13,7 @@
 sudo apt-get update
 # node uses a separate repository.
 # https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 # ruby-dev needed to build compass
 sudo apt-get install -y git nodejs ruby ruby-dev phantomjs
 sudo npm install -g yo generator-angular grunt-cli bower
@@ -28,8 +28,8 @@ if [ "`basename $PWD`" != "swarm" ]; then
   test -d swarm || git clone https://github.com/erosson/swarm.git
   cd swarm
 fi
-npm install || sudo npm install
-yes | bower install
+npm install
+yes | bower install --allow-root
 
 # everything's installed! test it.
 grunt
