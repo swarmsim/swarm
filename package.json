@@ -52,7 +52,7 @@
     "karma-jasmine": "1.1.0",
     "karma-phantomjs-launcher": "1.0.4",
     "load-grunt-tasks": "3.5.2",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "phantomjs-polyfill": "0.0.2",
     "serve-static": "1.12.1",
     "sw-precache": "^5.1.1",
