@@ -1,8 +1,9 @@
 tasks:
   - init: |
-      gem install compass
       npm install
-    command: npm run start
+    command: |
+      gem install compass  # this doesn't seem to stick if done in init
+      npm start
 
 ports:
   - port: 9000
