@@ -3,3 +3,7 @@ tasks:
       gem install compass
       npm install
     command: npm run start
+
+ports:
+  - port: 9000
+    onOpen: open-browser
