@@ -6,15 +6,19 @@ If something's broken in-game, use the "send feedback" link in-game - it'll atta
 
 ## Contributing Code
 
-[Pull requests](https://help.github.com/articles/using-pull-requests/) are awesome. UI enhancements and bug fixes are very likely to be accepted. Gameplay changes (new units/upgrades, balance changes) are very *unlikely* to be accepted. If in doubt, talk to @erosson first.
+This is an old and lightly-maintained project. I appreciate the thought behind [pull requests](https://help.github.com/articles/using-pull-requests/), but don't expect much. That said - UI enhancements and bug fixes are more likely to be accepted. Gameplay changes (new units/upgrades, balance changes) are very *unlikely* to be accepted. If in doubt, talk to @erosson first.
 
 If your PR is accepted, I'll link to your Github user page from the in-game patch notes, and later, an in-game credits page (#347). I'll use your Github username here by default; let me know if you'd rather I use your full name/Reddit handle/etc.
 
 Swarmsim is GPLv2-licensed. I'll ask you to confirm your changes are also GPLv2-licensed before merging them.
 
-Swarmsim's developed on an Ubuntu Linux machine. I've heard http://c9.io works with some tweaking, too.
-
 ## Running Swarmsim and Making Changes
+
+https://www.gitpod.io/ is the easiest way to run and develop Swarmsim. Click below:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/swarmsim/swarm)
+
+Or, you can run the website on your machine:
 
 * [Fork](https://help.github.com/articles/fork-a-repo/) and clone the repository: `git clone git@github.com:your-username/swarm.git`
 * Install dependencies: `./install.sh`
