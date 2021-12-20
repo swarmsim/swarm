@@ -7,4 +7,4 @@ tasks:
 
 ports:
   - port: 9000
-    onOpen: open-browser
+    onOpen: open-preview
