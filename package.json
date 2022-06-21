@@ -60,6 +60,9 @@
     "time-grunt": "1.4.0"
   },
   "dependencies": {
+    "cdnify": "^0.1.4",
+    "grunt-cdnify": "^1.0.2",
+    "grunt-google-cdn2": "^0.6.0",
     "konami": "^1.6.3"
   },
   "engines": {
