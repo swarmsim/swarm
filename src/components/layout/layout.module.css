@@ -1,0 +1,38 @@
+.nav {
+    background-color: #f8f8f8 !important;
+    margin-bottom: 20px !important;
+}
+.tutorial {
+    background-color: #d9edf7!important;
+    border-color: #bce8f1!important;
+    color: #31708f;
+    margin-bottom: 20px;
+}
+.viewwrap {
+    display: flex;
+    flex-direction: row !important;
+    background-color: #dff0d8!important;
+    border-color: #d6e9c6!important;
+    color: #3c763d;
+    margin-bottom: 20px;
+}
+.close_btn {
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #3f6250;
+    opacity: .5;
+}
+.close_btn:hover {
+    color: #000;
+}
+.old_site {
+    font-size: 17px!important;
+    padding: 0!important;
+    color: #337ab7!important;
+}
+.old_site:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: #286192!important;
+}

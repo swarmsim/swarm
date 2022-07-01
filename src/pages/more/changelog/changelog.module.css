@@ -1,0 +1,35 @@
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.seeCode {
+    color: #337ab7;
+    text-decoration: none;
+    margin: 0 5px;
+}
+.seeCode:hover {
+    color: #337ab7;
+    text-decoration: underline;
+}
+.body {
+    margin-bottom: 50px;
+}
+.headText {
+    color: inherit!important;
+    text-decoration: none;
+    background: none!important;
+    border: none!important;
+    outline: none;
+}
+.headText:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+.dateText {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    font-size: 85%;
+    color: #999;
+}

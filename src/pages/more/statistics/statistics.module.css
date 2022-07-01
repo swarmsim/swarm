@@ -1,0 +1,25 @@
+.divider1 {
+    border-bottom: 1px solid rgb(228, 228, 228);
+    width: 100%;
+}
+.divider2 {
+    border-bottom: 2px solid rgb(219, 216, 216);
+}
+.flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 50px 70px;
+}
+.flexCol1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 10px;
+}
+.flexCol2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 10px;
+} 

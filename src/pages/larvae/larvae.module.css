@@ -1,0 +1,58 @@
+.height {
+    height: 350px;
+}
+.larva {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 280px;
+    padding: 9px 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.larva:hover {
+    background-color:#f5f5f5;
+}
+.larva_name {
+    font-size: 17px;
+    color: #337ab7;
+    text-decoration: none;
+}
+.larva_name:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: #23659e;
+}
+.larva_value {
+    color: #333;
+    font-size: 17px;
+}
+.arvaDetails {
+    position: relative;;
+}
+.top_btn {
+    font-size: 28px;
+    font-weight: 500;
+    color: #337ab7;
+    margin-top: 20px;
+    text-decoration: none;
+}
+.top_btn:hover {
+    color: #337ab7;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.disable_btn {
+    background-color: none!important;
+    border: 1px solid rgb(186, 186, 186);
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.close_btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

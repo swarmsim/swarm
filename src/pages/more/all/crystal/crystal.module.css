@@ -1,0 +1,40 @@
+.crystalDetails {
+  position: relative;
+  padding: 20px 0;
+}
+.top_btn {
+  font-size: 28px;
+  font-weight: 500;
+  color: #337ab7;
+  margin-top: 30px;
+  text-decoration: none;
+}
+.top_btn:hover {
+  color: #337ab7;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.errCard {
+  background-color: #f2dede !important;
+  color: #a94442;
+  margin-bottom: 30px;
+}
+.hatch_btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.hatch_btn:hover {
+  background-color: #dce2e8;
+  color: black;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.close_btn {
+  font-size: 12px;
+  font-weight: bold;
+  color: #5d7488;
+  cursor: pointer;
+}

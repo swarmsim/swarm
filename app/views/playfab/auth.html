@@ -1,8 +1,0 @@
-<ul class="nav nav-tabs">
-  <li role="presentation" ng-class="{active:active==='login'}"><a href="javascript:" ng-click="setActive('login')">Log in</a></li>
-  <li role="presentation" ng-class="{active:active==='signup'}"><a href="javascript:" ng-click="setActive('signup')">Sign up</a></li>
-  <li role="presentation" ng-class="{active:active==='forgot'}"><a href="javascript:" ng-click="setActive('forgot')">Forgot password</a></li>
-</ul>
-<div ng-show="active==='login'" ng-include="'views/playfab/login.html'"></div>
-<div ng-show="active==='signup'" ng-include="'views/playfab/signup.html'"></div>
-<div ng-show="active==='forgot'" ng-include="'views/playfab/forgot.html'"></div>

@@ -1,0 +1,16 @@
+.flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+}
+.flex1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cardItem {
+    background-color:#fcf8e3 !important;
+    margin: 20px 0;   
+}
+

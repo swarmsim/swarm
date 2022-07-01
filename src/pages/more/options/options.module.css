@@ -1,0 +1,74 @@
+.flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.inputNumber {
+    width: 50px!important;
+    height: 25px!important;
+    margin: 0 5px;
+}
+.toggle_btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: none !important;
+    border-color: rgba(0,0,0,0.1) !important;
+    color: #3f3e3e;
+    outline: none;
+    outline-color: #555555;
+}
+.toggle_btn:hover {
+    background-color: #e6e6e6!important;
+    border-color: rgba(0,0,0,0.1);
+    color: #555555 !important;
+    outline: none;
+    outline-color: #555555;
+}
+.cerulean {
+    color: #2fa4e7;
+}
+.cerulean:hover {
+    text-decoration: underline;
+}
+.copy_btn {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 3px;
+    border: none;
+    background-color: #dfe1e8;
+}
+.dataSave {
+    color: #157ab5;
+    cursor: pointer;
+}
+.dataSave:hover {
+    text-decoration: underline;
+}
+.dataSaveInfo {
+    background-color: #f5f5f5!important;
+    margin: 10px 0;
+}
+.dataClear_btn {
+    display: flex !important;
+    align-items: center !important;
+    background-color: #dfe1e8 !important;
+    color: red !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    width: 305px;
+    margin-top: 20px;
+}
+.dataClear_btn:hover {
+    background-color: #ccd0de !important;
+    color: red;
+}
+.googleUse {
+    color:  #23527c;
+    text-decoration: none;
+    padding-bottom: 50px;
+}
+.googleUse:hover {
+    color:  #1d4d77;
+    text-decoration: underline;
+}

@@ -1,9 +1,0 @@
-<p>Each cocoon is a larva encased within a protective shell. Larvae can freely enter and leave their cocoons, but cannot be transformed into other units while cocooned.</p>
-<p>Clone Larvae clones cocoons as if they were normal larvae. Cocoon your larvae intended for cloning to avoid accidentally spending them.</p>
-
-<p>You produce {{ game.unit('larva').velocity().times(options.velocityUnit().mult) | longnum }} larvae per {{options.velocityUnit().label}}, allowing you to clone up to
-<span ng-if="game.unit('cocoon').isVisible() && game.unit('cocoon').count().greaterThanOrEqualTo(game.upgrade('clonelarvae').effect[0].cap())">{{ game.upgrade('clonelarvae').effect[0].cap() | longnum }} larvae.</span>
-<span ng-if="!(game.unit('cocoon').isVisible() && game.unit('cocoon').count().greaterThanOrEqualTo(game.upgrade('clonelarvae').effect[0].cap()))">
-  <a ng-href="#{{game.unit('cocoon').url()}}?num={{'@'+game.upgrade('clonelarvae').effect[0].cap()|encodeURIComponent}}">{{ game.upgrade('clonelarvae').effect[0].cap() | longnum }} larvae</a>.
-</span>
-</p>

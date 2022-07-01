@@ -1,3 +1,0 @@
-We don't compile these as part of the build anymore - mxmlc was the single most
-unstable part of the build. `storage.swf` is now pre-compiled in source control,
-committed in `/app`. Use the files in here to recompie it by hand.
