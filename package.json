@@ -47,7 +47,7 @@
     "jasmine-core": "2.5.2",
     "jshint-stylish": "2.2.1",
     "json-stable-stringify": "1.0.1",
-    "karma": "1.5.0",
+    "karma": "6.4.1",
     "karma-coffee-preprocessor": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-phantomjs-launcher": "1.0.4",
