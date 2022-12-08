@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
+    app: 'app',
     dist: 'dist'
   };
 
@@ -291,7 +291,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
-        files: ['bower.json'],
+        files: ['package.json'],
         tasks: ['wiredep']
       },
       coffee: {
@@ -369,6 +369,10 @@ module.exports = function (grunt) {
               connect().use(
                 '/bower_components',
                 serveStatic('./bower_components')
+              ),
+              connect().use(
+                '/node_modules',
+                serveStatic('./node_modules')
               ),
               serveStatic(appConfig.app)
             ];

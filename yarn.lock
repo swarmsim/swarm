@@ -2,6 +2,167 @@
 # yarn lockfile v1
 
 
+"@bower_components/SHA-1@linkgod/SHA-1#*":
+  version "1.0.0"
+  resolved "https://codeload.github.com/linkgod/SHA-1/tar.gz/b51b81ce8f0629a11557c37e91a891a6a8625e19"
+
+"@bower_components/angular-animate@angular/bower-angular-animate#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-animate/tar.gz/49a93460f1960dc3936173f1f2d026f89bfef90c"
+
+"@bower_components/angular-cookies@angular/bower-angular-cookies#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-cookies/tar.gz/7abd6b5182e5a477799bd731f5dcf74ec713e855"
+
+"@bower_components/angular-google-chart@angular-google-chart/angular-google-chart#0.1.0":
+  version "0.1.0"
+  resolved "https://codeload.github.com/angular-google-chart/angular-google-chart/tar.gz/fa139db5bfb1c6c6686756cd66a565b2d013fae0"
+  dependencies:
+    angular ">1.2.9"
+
+"@bower_components/angular-hotkeys@chieffancypants/angular-hotkeys#1.7.0":
+  version "1.7.0"
+  resolved "https://codeload.github.com/chieffancypants/angular-hotkeys/tar.gz/07251370c2f772acff204387d4b7d74831f1d777"
+
+"@bower_components/angular-mocks@angular/bower-angular-mocks#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-mocks/tar.gz/d8ac5a2016c9714b7c87284d21a34648036e8eea"
+
+"@bower_components/angular-resource@angular/bower-angular-resource#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-resource/tar.gz/d203a7dae4943f2ef39693b5e4b456be6369ec53"
+
+"@bower_components/angular-route@angular/bower-angular-route#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-route/tar.gz/409c45cfc589d66457f7cbb11aa1fc47f8dbbf78"
+
+"@bower_components/angular-sanitize@angular/bower-angular-sanitize#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-sanitize/tar.gz/4ca638073916d43ad3737eb9d84b9021e5bb5efb"
+
+"@bower_components/angular-scenario@angular/bower-angular-scenario#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-scenario/tar.gz/21d00b69569c26ba3e95adce990fc0fe8c144e2a"
+
+"@bower_components/angular-touch@angular/bower-angular-touch#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular-touch/tar.gz/85eb12433ad77f9d09044c620a701a0e06e88995"
+
+"@bower_components/angular@angular/bower-angular#1.6.1":
+  version "1.6.1"
+  resolved "https://codeload.github.com/angular/bower-angular/tar.gz/3828060389c83384b0a162eea82b21f183aa060c"
+
+"@bower_components/angulartics-google-analytics@angulartics/angulartics-google-analytics#0.4.0":
+  version "0.4.0"
+  resolved "https://codeload.github.com/angulartics/angulartics-google-analytics/tar.gz/080eb7c83951f21db8104647dc94683fe8d3e525"
+
+"@bower_components/angulartics@angulartics/angulartics#1.3.0":
+  version "1.3.0"
+  resolved "https://codeload.github.com/angulartics/angulartics/tar.gz/10d5be2f9157e83cf6653184118f8f544fdd1c1a"
+
+"@bower_components/bootstrap-sass@twbs/bootstrap-sass#3.3.7":
+  version "3.3.7"
+  resolved "https://codeload.github.com/twbs/bootstrap-sass/tar.gz/5d6b2ebba0c2a5885ce2f0e01e9218db3d3b5e47"
+
+"@bower_components/bootstrap@twbs/bootstrap#~3.3.7":
+  version "3.3.7"
+  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/0b9c4a4007c44201dce9a6cc1a38407005c26c86"
+
+"@bower_components/bootswatch@thomaspark/bootswatch#3.3.7":
+  version "3.3.7"
+  resolved "https://codeload.github.com/thomaspark/bootswatch/tar.gz/4b0d3762f309326a6d66fa4ea18945a7fc11f8ef"
+
+"@bower_components/decimal.js@MikeMcl/decimal.js#7.1.1":
+  version "7.1.1"
+  resolved "https://codeload.github.com/MikeMcl/decimal.js/tar.gz/45eec0b8631758e0fc709c3a8ecfe5775e984e2c"
+
+"@bower_components/es5-shim@es-shims/es5-shim#4.5.9":
+  version "4.5.9"
+  resolved "https://codeload.github.com/es-shims/es5-shim/tar.gz/30ebdda82ed0d8f42b05785debf1e7ee066c3507"
+
+"@bower_components/favico.js@ejci/favico.js#0.3.10":
+  version "0.3.10"
+  resolved "https://codeload.github.com/ejci/favico.js/tar.gz/f612afcbbdf54d62de3eb303fc190b3ef3b5848c"
+
+"@bower_components/flash-cookies@nfriedly/Javascript-Flash-Cookies#2.2.3":
+  version "2.2.3"
+  resolved "https://codeload.github.com/nfriedly/Javascript-Flash-Cookies/tar.gz/07c3a6e272bc0e4b5356657ac10dae63dd159557"
+
+"@bower_components/font-awesome@FortAwesome/Font-Awesome#4.7.0":
+  version "4.7.0"
+  resolved "https://codeload.github.com/FortAwesome/Font-Awesome/tar.gz/a8386aae19e200ddb0f6845b5feeee5eb7013687"
+
+"@bower_components/jquery-cookie@carhartl/jquery-cookie#1.4.1":
+  version "1.4.1"
+  resolved "https://codeload.github.com/carhartl/jquery-cookie/tar.gz/7f88a4e631aba8a8c688fd8999ce6b9bcfd50718"
+
+"@bower_components/jquery@jquery/jquery-dist#3.1.1":
+  version "3.1.1"
+  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/1b30f3ad466ebf2714d47eda34dbd7fdf6849fe3"
+
+"@bower_components/json3@bestiejs/json3#3.3.2":
+  version "3.3.2"
+  resolved "https://codeload.github.com/bestiejs/json3/tar.gz/dec5c2a5dc723ff867caa32a81ed93ab814f7426"
+
+"@bower_components/lodash@lodash/lodash#4.17.10":
+  version "4.17.10"
+  resolved "https://codeload.github.com/lodash/lodash/tar.gz/67389a8c78975d97505fa15aa79bec6397749807"
+
+"@bower_components/lz-string@pieroxy/lz-string#1.4.4":
+  version "1.4.4"
+  resolved "https://codeload.github.com/pieroxy/lz-string/tar.gz/cf06e9a0e61daa8b120a474bbc80666f959ff7d4"
+
+"@bower_components/mathjs@josdejong/mathjs#3.8.1":
+  version "3.8.1"
+  resolved "https://codeload.github.com/josdejong/mathjs/tar.gz/29da2b0418204d4d17c3dda0484ef46fac474aa7"
+  dependencies:
+    complex.js "2.0.1"
+    decimal.js "5.0.8"
+    fraction.js "3.3.1"
+    tiny-emitter "1.0.2"
+    typed-function "0.10.5"
+
+"@bower_components/moment-duration-format@jsmreese/moment-duration-format#1.3.0":
+  version "1.3.0"
+  resolved "https://codeload.github.com/jsmreese/moment-duration-format/tar.gz/8d0bf29a1eab180cb83d0f13f93f6974faedeafd"
+
+"@bower_components/moment@moment/moment#2.17.1":
+  version "2.17.1"
+  resolved "https://codeload.github.com/moment/moment/tar.gz/b8a297c1f99b3918f44dd9e3d7bd59379a876ba6"
+
+"@bower_components/numeral@adamwdraper/Numeral-js#2.0.4":
+  version "2.0.4"
+  resolved "https://codeload.github.com/adamwdraper/Numeral-js/tar.gz/a7a2dedde724ee6c74cf3370b958c06d19c54659"
+
+"@bower_components/playfab-sdk@PlayFab/JavaScriptSDK#1.0.170130":
+  version "0.0.0"
+  resolved "https://codeload.github.com/PlayFab/JavaScriptSDK/tar.gz/236b18be738acc2c37e8b076cd58dd020d4f6eb4"
+
+"@bower_components/qs@hapijs/qs#^6.4.0":
+  version "6.11.0"
+  resolved "https://codeload.github.com/hapijs/qs/tar.gz/56763c12ec4fbf723333cbb32371cbd386c33cbb"
+  dependencies:
+    side-channel "^1.0.4"
+
+"@bower_components/seedrandom@davidbau/seedrandom#2.4.2":
+  version "2.4.2"
+  resolved "https://codeload.github.com/davidbau/seedrandom/tar.gz/1b530945501d4bc4fb467b7d865cbadd0374cc31"
+
+"@bower_components/sjcl@bitwiseshiftleft/sjcl#1.0.6":
+  version "1.0.6"
+  resolved "https://codeload.github.com/bitwiseshiftleft/sjcl/tar.gz/51ae8f8c920dd25b601091dd01b294709838d88c"
+
+"@bower_components/swarm-numberformat@erosson/swarm-numberformat#0.2.1":
+  version "0.2.1"
+  resolved "https://codeload.github.com/erosson/swarm-numberformat/tar.gz/038998d883d96d5b2f66aa3d3780733a3f6de4dd"
+
+"@bower_components/swarm-persist@erosson/swarm-persist#0.0.3":
+  version "0.0.3"
+  resolved "https://codeload.github.com/erosson/swarm-persist/tar.gz/b7a3f85982c822888b4e2090145be3e866b11862"
+  dependencies:
+    lodash "^4.17.4"
+    playfab-sdk-browser "github:erosson/playfab-sdk-browser"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -56,6 +217,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha512-S2Hw0TtNkMJhIabBwIojKL9YHO5T0n5eNqWJ7Lrlel/zDbftQpxpapi8tZs3X1HWa+u+QeydGmzzNU0m09+Rcg==
+
+angular@>1.2.9:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.8.3.tgz#851ad75d5163c105a7e329555ef70c90aa706894"
+  integrity sha512-5qjkWIQQVsHj4Sb5TcEs4WZWpFeVFHXwxEBHUhrny41D8UrBAd6T/6nPPAsLngJCReIOqi95W3mxdveveutpZw==
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -804,6 +970,14 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
+call-bind@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/call-bind/-/call-bind-1.0.2.tgz#b1d4e89e688119c3c9a903ad30abb2f6a919be3c"
+  integrity sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==
+  dependencies:
+    function-bind "^1.1.1"
+    get-intrinsic "^1.0.2"
+
 callsite@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/callsite/-/callsite-1.0.0.tgz#280398e5d664bd74038b6f0905153e6e8af1bc20"
@@ -1240,6 +1414,11 @@ commander@~1.1.1:
   dependencies:
     keypress "0.1.x"
 
+complex.js@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/complex.js/-/complex.js-2.0.1.tgz#ea90c7a05aeceaf3a376d2c0f6a78421727d6879"
+  integrity sha512-zu2kFxCi8x66budGAEfHcLk0+dcT4EdtiwJ9oIFrvDq8ARJ4T4F3hC0qXc5tn+FzIOYaEOZfO6ew6t6wmGfwpg==
+
 component-bind@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/component-bind/-/component-bind-1.0.0.tgz#00c608ab7dcd93897c0009651b1d3a8e1e73bbd1"
@@ -1558,6 +1737,11 @@ decamelize@^1.0.0, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
   integrity sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==
+
+decimal.js@5.0.8:
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-5.0.8.tgz#b48c3fb7d73a2d4d4940e0b38f1cd21db5b367ce"
+  integrity sha512-AgxkymD2GaBeif9DrYv2kOGvVmWKWuQr1/TQz235oM4Gic2vo+QfQl/cH4pMBMcpmrU1lyS+fjHvjNdV5MaABg==
 
 decode-uri-component@^0.2.0:
   version "0.2.0"
@@ -2406,6 +2590,11 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
+fraction.js@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-3.3.1.tgz#5d6a31ff07707294f204ccbb6b53791607771083"
+  integrity sha512-37tFTeCLiWfS31fBebu1JPOdnt0CBZuZLoWXzakL8+60z+gDD8DuYuOAeM8NY97F0oafvf9OCcvkPf7+wzZMOw==
+
 fragment-cache@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/fragment-cache/-/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
@@ -2508,6 +2697,15 @@ gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
+get-intrinsic@^1.0.2:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.1.3.tgz#063c84329ad93e83893c7f4f243ef63ffa351385"
+  integrity sha512-QJVz1Tj7MS099PevUG5jvnt9tSkXN8K14dxQlikJuPt4uD9hHAHjLyLBiLR5zELelBdD9QNRAXZzsJx0WaDL9A==
+  dependencies:
+    function-bind "^1.1.1"
+    has "^1.0.3"
+    has-symbols "^1.0.3"
+
 get-proxy@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/get-proxy/-/get-proxy-1.1.0.tgz#894854491bc591b0f147d7ae570f5c678b7256eb"
@@ -2604,7 +2802,19 @@ glob@^5.0.3, glob@~5.0.0:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.3, glob@^7.0.6, glob@^7.1.1, glob@^7.1.3, glob@~7.1.1:
+glob@^7.0.3:
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.2.3.tgz#b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b"
+  integrity sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.1.1"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@^7.0.6, glob@^7.1.1, glob@^7.1.3, glob@~7.1.1:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.4.tgz#aa608a2f6c577ad357e1ae5a5c26d9a8d1969255"
   integrity sha512-hkLPepehmnKk41pUGm3sYxoFs/umurYfYJCerbXEyFIWcAzvpipAgVkBqqT9RBKMGjnq6kMuyYwha6csxbiM1A==
@@ -3048,12 +3258,11 @@ grunt-usemin@3.1.1:
     lodash "^3.6.0"
     path-exists "^1.0.0"
 
-grunt-wiredep@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/grunt-wiredep/-/grunt-wiredep-3.0.1.tgz#77e75fa70e9cf8ec6a4679d7d79af443a3202f55"
-  integrity sha512-iI7TjUYyN1s7NY7JDbmF+y8Fa9dYje1xP2kzQYVqL1d24N4+jod6xntM+GQfBOEPF027gahxvhQt1ii3tCaPUw==
+grunt-wiredep-away@gscavalcante/grunt-wiredep-away:
+  version "0.0.1"
+  resolved "https://codeload.github.com/gscavalcante/grunt-wiredep-away/tar.gz/6b010f5d053804c6583ddf2d9f23bc74ca265b9f"
   dependencies:
-    wiredep "^4.0.0"
+    wiredep-away "^0.1.3"
 
 grunt@1.0.1:
   version "1.0.1"
@@ -3215,6 +3424,11 @@ has-symbols@^1.0.0:
   resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
   integrity sha512-QfcgWpH8qn5qhNMg3wfXf2FD/rSA4TwNiDDthKqXe7v6oBW0YKWcnfwMAApgWq9Lh+Yu+fQWVhHPohlD/S6uoQ==
 
+has-symbols@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.3.tgz#bb7b2c4349251dce87b125f7bdf874aa7c8b39f8"
+  integrity sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==
+
 has-unicode@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/has-unicode/-/has-unicode-2.0.1.tgz#e0e6fe6a28cf51138855e086d1691e771de2a8b9"
@@ -3250,6 +3464,13 @@ has-values@^1.0.0:
   dependencies:
     is-number "^3.0.0"
     kind-of "^4.0.0"
+
+has@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
+  integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
+  dependencies:
+    function-bind "^1.1.1"
 
 hasha@^2.2.0:
   version "2.2.0"
@@ -4408,7 +4629,7 @@ lodash@^3.10.1, lodash@^3.6.0, lodash@^3.8.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha512-9mDDwqVIma6OZX79ZlDACZl8sBm0TEnkf99zV3iMA4GzkIT/9hiqP5mY0HoT1iNLCrKc/R1HByV+yJfRWVJryQ==
 
-lodash@^4.0.1, lodash@^4.17.10, lodash@^4.17.12, lodash@^4.5.0, lodash@^4.5.1, lodash@^4.6.1, lodash@^4.8.0, lodash@~4.17.10, lodash@~4.17.5:
+lodash@^4.0.1, lodash@^4.17.10, lodash@^4.17.12, lodash@^4.17.4, lodash@^4.5.0, lodash@^4.5.1, lodash@^4.6.1, lodash@^4.8.0, lodash@~4.17.10, lodash@~4.17.5:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -4697,6 +4918,13 @@ minimatch@^1.0.0:
   dependencies:
     lru-cache "2"
     sigmund "~1.0.0"
+
+minimatch@^3.1.1:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
+  integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
+  dependencies:
+    brace-expansion "^1.1.7"
 
 minimist@0.0.8:
   version "0.0.8"
@@ -5091,6 +5319,11 @@ object-copy@^0.1.0:
     copy-descriptor "^0.1.0"
     define-property "^0.2.5"
     kind-of "^3.0.3"
+
+object-inspect@^1.9.0:
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.12.2.tgz#c0641f26394532f28ab8d796ab954e43c009a8ea"
+  integrity sha512-z+cPxW0QGUp0mcqcsgQyLVRDoXFQbXOwBaqyF7VIgI4TWNQsDHrBpUQslRmIfAoYWdYzs6UlKJtB2XJpTaNSpQ==
 
 object-keys@^1.0.11, object-keys@^1.0.12:
   version "1.1.1"
@@ -5505,6 +5738,10 @@ pkg-up@^1.0.0:
   integrity sha512-L+d849d9lz20hnRpUnWBRXOh+mAvygQpK7UuXiw+6QbPwL55RVgl+G+V936wCzs/6J7fj0pvgLY9OknZ+FqaNA==
   dependencies:
     find-up "^1.0.0"
+
+"playfab-sdk-browser@github:erosson/playfab-sdk-browser":
+  version "0.0.0"
+  resolved "https://codeload.github.com/erosson/playfab-sdk-browser/tar.gz/d20778f5e19dd9031c11e1a58f82a17baf572866"
 
 plur@^1.0.0:
   version "1.0.0"
@@ -6394,6 +6631,15 @@ shelljs@0.3.x:
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.3.0.tgz#3596e6307a781544f591f37da618360f31db57b1"
   integrity sha512-Ny0KN4dyT8ZSCE0frtcbAJGoM/HTArpyPkeli1/00aYfm0sbD/Gk/4x7N2DP9QKGpBsiQH7n6rpm1L79RtviEQ==
 
+side-channel@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/side-channel/-/side-channel-1.0.4.tgz#efce5c8fdc104ee751b25c58d4290011fa5ea2cf"
+  integrity sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==
+  dependencies:
+    call-bind "^1.0.0"
+    get-intrinsic "^1.0.2"
+    object-inspect "^1.9.0"
+
 sigmund@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
@@ -7041,6 +7287,11 @@ timers-ext@0.1:
     es5-ext "~0.10.46"
     next-tick "1"
 
+tiny-emitter@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-1.0.2.tgz#8e49470d3f55f89e247210368a6bb9fb51aa1601"
+  integrity sha512-y87VH5ncX+MzK2rqEF6v7Ad8gOdQDV1jiFT5bXUrWGBTFN9EFLrvufpWryNipgFDCzQ4fTOTPUCZGLYoQ2D9UA==
+
 tiny-lr@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/tiny-lr/-/tiny-lr-0.2.1.tgz#b3fdba802e5d56a33c2f6f10794b32e477ac729d"
@@ -7204,6 +7455,11 @@ type-is@~1.6.10, type-is@~1.6.17:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.24"
+
+typed-function@0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-0.10.5.tgz#2e0f18abd065219fab694a446a65c6d1981832c0"
+  integrity sha512-5BI8zKF/aZhsXJJKcRvcOuDCzBVY4R08Ok8ilRWHpQ5Np+LwzWeGzaIUNUw++d19Vvv8iqzvaN9/h5WDdY8cmg==
 
 typedarray@^0.0.6:
   version "0.0.6"
@@ -7599,26 +7855,16 @@ window-size@0.1.0:
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
   integrity sha512-1pTPQDKTdd61ozlKGNCjhNRd+KPmgLSGa3mZTHoOliaGcESD8G1PXhh7c1fgiPjVbNVfgy2Faw4BI8/m0cC8Mg==
 
-wiredep-cli@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/wiredep-cli/-/wiredep-cli-0.1.0.tgz#64272bfca29461fbd07443158b1e056526f6c739"
-  integrity sha512-Gayaqg8UXk5qPH0MuVP35m7h9GvvCE8XJd1AeXOFgjHxxowhjyfeKSd4BNBsbPAy5kRQ1c5A4tJKcNV8LiE6jw==
-  dependencies:
-    chalk "^1.1.1"
-    minimist "^1.1.0"
-    wiredep "*"
-
-wiredep@*, wiredep@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/wiredep/-/wiredep-4.0.0.tgz#ee9548a9504dfe7e85401a435dbed2c9b4ea2e44"
-  integrity sha512-w4QDvO5bgcpOBHFBCEH4oKKcMBTeG2pMEzkLSAhjKZ0X6+yb1dAS3vUEtjjz6Rg1M3ox3PG6BSCFZJEQh+TF8w==
+wiredep-away@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/wiredep-away/-/wiredep-away-0.1.3.tgz#9548f36171d1d47a90dc003a3179ee4f2832c542"
+  integrity sha512-Q+eS3T8e8FVCKegxTu9XpI8KNhxLXjjm+xVHn/F96EtJ3f9YGBTx+X0PGjXAOFTgsiLtIitJ3LLXR5wv0jfEHg==
   dependencies:
     bower-config "^1.3.0"
     glob "^7.0.3"
     lodash "^4.6.1"
     propprop "^0.3.0"
     through2 "^2.0.1"
-    wiredep-cli "^0.1.0"
 
 wordwrap@0.0.2:
   version "0.0.2"
