@@ -1,9 +1,9 @@
 tasks:
   - init: |
-      npm install
+      yarn
     command: |
       gem install compass  # this doesn't seem to stick if done in init
-      npm start
+      yarn start
 
 ports:
   - port: 9000
