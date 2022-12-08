@@ -112,8 +112,9 @@
     "start:prod": "grunt serve:dist",
     "start:https": "mitmproxy -p 9001 --mode reverse:http://localhost:9000",
     "preversion": "yarn test",
+    "_pretest": "grunt pretest",
     "test:unit": "karma start test/karma-unit.conf.coffee --singleRun",
     "test:integration": "karma start test/karma-integration.conf.coffee --singleRun",
-    "test": "yarn test:unit && yarn test:integration"
+    "test": "yarn _pretest && yarn test:unit && yarn test:integration"
   }
 }

@@ -296,16 +296,7 @@ module.exports = function (grunt) {
       },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        //tasks: ['newer:coffee:dist', 'newer:coffee:test', 'karma:unit']
         tasks: ['coffeelint','newer:coffee:dist']
-      },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['coffeelint','newer:coffee:test', 'karma:unit']
-      },
-      integrationTest: {
-        files: ['test/integration/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['coffeelint','newer:coffee:integrationTest', 'karma:integration']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -766,27 +757,6 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
-
-    // Test settings
-    karma: {
-      // singleRun is needed or else livereload stops working. boo.
-      unit: {
-        configFile: 'test/karma-unit.conf.coffee',
-        singleRun: true
-      },
-      integration: {
-        configFile: 'test/karma-integration.conf.coffee',
-        singleRun: true
-      },
-      unitCi: {
-        configFile: 'test/karma-unit.conf.coffee',
-        singleRun: true
-      },
-      integrationCi: {
-        configFile: 'test/karma-integration.conf.coffee',
-        singleRun: true
-      }
-    },
     githash: {
       main: {}
     },
@@ -876,15 +846,13 @@ module.exports = function (grunt) {
     grunt.task.run(['serve:' + target]);
   });
 
-  grunt.registerTask('test', [
+  grunt.registerTask('pretest', [
     'clean:server',
     'ngconstant:test','writeVersionJson', 'ngtemplates:dev',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
     'coffeelint',
-    'karma:unitCi',
-    'karma:integrationCi'
   ]);
 
   grunt.registerTask('build', function(envname) {
