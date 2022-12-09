@@ -1,8 +1,8 @@
-# [Swarm Simulator](https://swarmsim.github.io/)
+# [Swarm Simulator](https://www.swarmsim.com)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/98a6d6c6-0c3d-4113-b2fc-5ff063dfe631/deploy-status?branch=production)](https://app.netlify.com/sites/swarmsimulator/deploys)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/98a6d6c6-0c3d-4113-b2fc-5ff063dfe631/deploy-status)](https://app.netlify.com/sites/swarmsimulator/deploys)
-[![Build Status](https://travis-ci.org/swarmsim/swarm.svg?branch=master)](https://travis-ci.org/swarmsim/swarm)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/70438cbc-039c-4d05-9f5b-f1a7fc26d0fc/deploy-status)](https://app.netlify.com/sites/swarmsim-www/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/98a6d6c6-0c3d-4113-b2fc-5ff063dfe631/deploy-status)](https://app.netlify.com/sites/swarmsim-preprod/deploys)
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/swarmsim/swarm)
 
 <!-- [![Dependency Status](https://david-dm.org/swarmsim/swarm.svg)](https://david-dm.org/swarmsim/swarm) -->

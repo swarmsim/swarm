@@ -1,6 +1,6 @@
-# Netlify deploys all changes made to the `master` and `production` branches
+# This doesn't deploy anything. Netlify deploys all changes made to the `master` and `production` branches
 
-name: continuous integration (for PRs)
+name: continuous integration
 
 on:
   push:
