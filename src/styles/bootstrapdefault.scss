@@ -1,8 +1,8 @@
 // This is the default white theme.
-$icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 // fontawesome
-$fa-font-path: "../bower_components/font-awesome/fonts";
+$fa-font-path: "../../node_modules/font-awesome/fonts";
 // bower:scss
-@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
-@import "font-awesome/scss/font-awesome.scss";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../../node_modules/font-awesome/scss/font-awesome.scss";
 // endbower

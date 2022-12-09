@@ -2,7 +2,7 @@
 import {Decimal} from '@bower_components/decimal.js'
 # import * as moment from '@bower_components/moment'
 import '@bower_components/moment-duration-format'
-# console.log('moment', {moment})
+import LZString from '@bower_components/lz-string'
 
 angular.module('swarmApp').factory 'saveId', (env, isKongregate) ->
   suffix = if isKongregate() then '-kongregate' else ''

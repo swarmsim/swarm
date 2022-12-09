@@ -1,4 +1,5 @@
 'use strict'
+# import _ from 'lodash'
 
 ###*
  # @ngdoc function
@@ -13,7 +14,7 @@ angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routePar
 
   # special case: buy-energy links redirect to crystals
   if $routeParams.unit == 'energy' and $routeParams.tab == 'energy' and $location.search().num?
-    console.log 'hellohello', $location.search().num
+    # console.log 'hellohello', $location.search().num
     $location.path '/tab/energy/unit/crystal'
   
   $scope.cur = {}

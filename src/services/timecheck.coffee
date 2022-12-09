@@ -1,6 +1,6 @@
 'use strict'
 import $ from 'jquery'
-import moment from '@bower_components/moment'
+import moment from 'moment'
 import _ from 'lodash'
 
 # Thu, 02 Oct 2014 07:34:29 GMT

@@ -1,4 +1,5 @@
 'use strict'
+import _ from 'lodash'
 
 angular.module('swarmApp').factory 'Tab', -> class Tab
   constructor: (@leadunit, @index, @name) ->
