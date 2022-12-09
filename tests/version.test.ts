@@ -1,8 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import '../src/app'
-import _ from 'lodash'
+import '../src/main'
 
 test('runs', () => {
     expect(true).toBeTruthy()
