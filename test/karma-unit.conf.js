@@ -1,0 +1,74 @@
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+// Karma configuration
+// http://karma-runner.github.io/0.12/config/configuration-file.html
+// Generated on 2014-08-02 using
+// generator-karma 0.8.3
+
+module.exports = config => config.set({
+  // If a unit test needs extra time, make it an integration test!
+  // TODO comment this out again; #359
+  browserNoActivityTimeout: 30000,
+
+  // base path, that will be used to resolve files and exclude
+  basePath: '../',
+
+  // testing framework to use (jasmine/mocha/qunit/...)
+  frameworks: ['jasmine'],
+
+  // list of files / patterns to load in the browser. Mostly matches `index.html`
+  files: [
+    'node_modules/phantomjs-polyfill/bind-polyfill.js', // phantomjs is missing .bind(). this must go first!
+    'node_modules/moment/moment.js',
+    'node_modules/playfab-web-sdk/src/PlayFab/PlayFabClientApi.js',
+    '.tmp/main.js'
+  ],
+
+  // list of files / patterns to exclude
+  exclude: [],
+
+  // web server port
+  port: 8080,
+
+  // level of logging
+  // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
+  logLevel: config.LOG_INFO,
+
+  // Start these browsers, currently available:
+  // - Chrome
+  // - ChromeCanary
+  // - Firefox
+  // - Opera
+  // - Safari (only Mac)
+  // - PhantomJS
+  // - IE (only Windows)
+  browsers: [
+    'PhantomJS'
+  ],
+
+  // Which plugins to enable
+  plugins: [
+    'karma-phantomjs-launcher',
+    'karma-jasmine',
+    'karma-coffee-preprocessor'
+  ],
+
+  // enable / disable watching file and executing tests whenever any file changes
+  autoWatch: true,
+
+  // Continuous Integration mode
+  // if true, it capture browsers, run tests and exit
+  singleRun: false,
+
+  colors: true,
+
+  preprocessors: { '**/*.coffee': ['coffee']
+}});
+
+    // Uncomment the following lines if you are using grunt's server to run the tests
+    // proxies: '/': 'http://localhost:9000/'
+    // URL root prevent conflicts with the site root
+    // urlRoot: '_karma_'

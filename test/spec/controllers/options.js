@@ -1,0 +1,24 @@
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+'use strict';
+
+describe('Controller: OptionsCtrl', function() {
+
+  // load the controller's module
+  beforeEach(module('swarmApp'));
+
+  let OptionsCtrl = {};
+  let scope = {};
+
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function($controller, $rootScope) {
+    scope = $rootScope.$new();
+    return OptionsCtrl = $controller('OptionsCtrl', {
+      $scope: scope
+    });}));
+
+  return it('should attach options to the scope', () => expect(!!scope.options).toBe(true));
+});
