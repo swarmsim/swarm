@@ -1,4 +1,5 @@
 'use strict'
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -8,7 +9,7 @@
 ###
 angular.module('swarmApp').directive 'newsModal', (game, playfab, $location, $sce) ->
   restrict: 'EA'
-  templateUrl: 'views/news-modal.html'
+  template: views.newsModal
   link: ($scope, element, attrs) ->
     $scope.state = 'loading'
     threshold = moment($location.search().lastnews or game.session.state.date.lastNews or game.session.state.date.started)

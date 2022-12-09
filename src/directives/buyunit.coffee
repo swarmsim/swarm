@@ -1,5 +1,6 @@
 'use strict'
 import {Decimal} from '@bower_components/decimal.js'
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -8,7 +9,7 @@ import {Decimal} from '@bower_components/decimal.js'
  # # buyunit
 ###
 angular.module('swarmApp').directive 'buyunit', ($log, game, commands, hotkeys) ->
-  templateUrl: 'views/buyunit.html'
+  template: views.buyunit
   scope:
     num: '=?'
     fixednum: '=?'
@@ -66,7 +67,7 @@ angular.module('swarmApp').directive 'buyunit', ($log, game, commands, hotkeys) 
 
 
 angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands, hotkeys) ->
-  templateUrl: 'views/buyunit.html'
+  template: views.buyunit
   scope:
     num: '=?'
     upgrade: '='
@@ -111,7 +112,7 @@ angular.module('swarmApp').directive 'buyupgrade', ($log, game, commands, hotkey
             scope.buyResource {resource: scope.resource, num: scope.fullnum()}
 
 angular.module('swarmApp').directive 'buyunitdropdown', ($log, game, commands) ->
-  templateUrl: 'views/buyunit-dropdown.html'
+  template: views.buyunitDropdown
   scope:
     num: '=?'
     unit: '='

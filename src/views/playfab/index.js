@@ -1,0 +1,7 @@
+export {default as auth} from './auth.html'
+export {default as forgot} from './forgot.html'
+export {default as kongregate} from './kongregate.html'
+export {default as login} from './login.html'
+export {default as options} from './options.html'
+export {default as signup} from './signup.html'
+export {default as title} from './title.html'

@@ -88,80 +88,77 @@ angular.module('swarmApp').config ($routeProvider, env) ->
         template: views.debug
         controller: 'DebugCtrl'
       .when '/changelog',
-        templateUrl: 'views/changelog.html'
+        template: views.changelog
         controller: 'ChangelogCtrl'
       .when '/contact',
         template: views.contact
         controller: 'ContactCtrl'
       .when '/cleartheme',
-        templateUrl: 'views/cleartheme.html'
+        template: views.cleartheme
         controller: 'ClearthemeCtrl'
       .when '/importsplash',
-        templateUrl: 'views/importsplash.html'
+        template: views.importsplash
         controller: 'ImportsplashCtrl'
       .when '/export',
-        templateUrl: 'views/export.html'
+        template: views.export_
         controller: 'ExportCtrl'
       .otherwise
         redirectTo: '/'
 
   $routeProvider
-    .when '/test',
-      template: '<div>help</div>'
-      controller: 'DebugCtrl'
     .when '/debug',
       template: views.debug
       controller: 'DebugCtrl'
     .when '/options',
-      templateUrl: 'views/options.html'
+      template: views.options
       controller: 'OptionsCtrl'
     .when '/changelog',
-      templateUrl: 'views/changelog.html'
+      template: views.changelog
       controller: 'ChangelogCtrl'
     .when '/statistics',
-      templateUrl: 'views/statistics.html'
+      template: views.statistics
       controller: 'StatisticsCtrl'
     .when '/achievements',
-      templateUrl: 'views/achievements.html'
+      template: views.achievements
       controller: 'AchievementsCtrl'
-     .when '/',
-      templateUrl: 'views/main.html'
+    .when '/',
+      template: views.main
       controller: 'MainCtrl'
     .when '/tab/:tab/unit/:unit',
-      templateUrl: 'views/unit.html'
+      template: views.unit
       controller: 'MainCtrl'
     .when '/unit/:unit',
-      templateUrl: 'views/unit.html'
+      template: views.unit
       controller: 'MainCtrl'
     .when '/tab/:tab',
-      templateUrl: 'views/main.html'
+      template: views.main
       controller: 'MainCtrl'
     .when '/contact',
       template: views.contact
       controller: 'ContactCtrl'
     .when '/cleartheme',
-      templateUrl: 'views/cleartheme.html'
+      template: views.cleartheme
       controller: 'ClearthemeCtrl'
     .when '/export',
-      templateUrl: 'views/export.html'
+      template: views.export
       controller: 'ExportCtrl'
     .when '/login',
       if not env.isServerFrontendEnabled
         redirectTo: '/'
       else
-        templateUrl: 'views/login.html'
+        template: views.login
         controller: 'LoginCtrl'
     .when '/debug/api',
       if not env.isServerBackendEnabled
         redirectTo: '/'
       else
-        templateUrl: 'views/debugapi.html'
+        template: views.debugapi
         controller: 'DebugApiCtrl'
     .when '/decimallegend',
-      templateUrl: 'views/decimallegend.html'
+      template: views.decimallegend
       controller: 'DecimallegendCtrl'
     #.when '/news-archive',
-    #  templateUrl: 'views/news-archive.html'
+    #  template: views.news-archive
     #  controller: 'NewsArchiveCtrl'
     .otherwise
       redirectTo: '/'

@@ -1,5 +1,6 @@
 'use strict'
 import {Decimal} from '@bower_components/decimal.js'
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -8,7 +9,7 @@ import {Decimal} from '@bower_components/decimal.js'
  # # buyunitInput
 ###
 angular.module('swarmApp').directive 'buyunitInput', ($log, commands, options, $location, parseNumber) ->
-  templateUrl: 'views/buyunit-input.html'
+  template: views.buyunitInput
   restrict: 'E'
   scope:
     unit: '='

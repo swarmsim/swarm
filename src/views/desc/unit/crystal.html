@@ -4,7 +4,8 @@
   <crystal-timer></crystal-timer>
 <div ng-if="mtx.uiStyle() == 'paypal'">
   <div ng-repeat="pack in packs">
-    <a href="{{pack.paypalUrl}}" class="btn btn-default">
+    <!-- TODO -->
+    <!-- <a href="{{pack.paypalUrl}}" class="btn btn-default"> -->
       Buy {{pack['pack.val'] | longnum:null:{minSuffix:1e300} }} crystals for
       {{pack.price_usd_paypal/100 | currency }}
     </a>
@@ -14,7 +15,7 @@
   <div ng-repeat="pack in packs">
     <button class="btn btn-default" ng-click="clickBuyPack(pack)">
       Buy {{pack['pack.val'] | longnum:null:{minSuffix:1e300} }} crystals for
-      <img src="/images/kred_single.png" style="width:16px;height:16px">
+      <img src="../../../images/kred_single.png" style="width:16px;height:16px">
       {{pack.price_kreds | longnum:null:{minSuffix:1e300} }}
     </button>
   </div>
@@ -36,7 +37,7 @@
     <code>{{pullError}}</code>
   </div>
   <div ng-if="(!packs && !packsError) || buyLoading || pullLoading">
-    <img src="images/ajax-loader.gif">
+    <img src="../../../images/ajax-loader.gif">
   </div>
   <div class="alert alert-info" ng-if="buySuccess">
     <p>Your crystals have been applied.</p>

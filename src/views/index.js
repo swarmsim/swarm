@@ -1,3 +1,6 @@
+export * as playfab from './playfab'
+export * as desc from './desc'
+
 export {default as achievements} from 'bundle-text:./achievements.html'
 export {default as buyunitDropdown} from 'bundle-text:./buyunit-dropdown.html'
 export {default as buyunitInput} from 'bundle-text:./buyunit-input.html'

@@ -9,8 +9,7 @@ import _ from 'lodash'
  # # Main2Ctrl
  # Controller of the swarmApp
 ###
-# angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options, hotkeys) ->
-angular.module('swarmApp').controller 'MainCtrl', () ->
+angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options, hotkeys) ->
   $scope.game = game
   $scope.options = options
 
