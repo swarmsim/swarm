@@ -10,7 +10,10 @@ async function main() {
       data.version = '1.1.4';
     }
     var text = JSON.stringify(data, undefined, 2);
-    await fs.mkdir(Path.join(__dirname, '../.tmp'), {recursive: true})
+    await Promise.all([
+        await fs.mkdir(Path.join(__dirname, '../.tmp'), {recursive: true})
+        await fs.mkdir(Path.join(__dirname, '../dist'), {recursive: true})
+    ])
     await Promise.all([
         fs.writeFile(Path.join(__dirname, '../.tmp/version.json'), text),
         fs.writeFile(Path.join(__dirname, '../dist/version.json'), text),
