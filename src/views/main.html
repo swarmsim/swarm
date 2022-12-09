@@ -1,0 +1,48 @@
+<domainchange></domainchange>
+<elm></elm>
+
+<tabs cur="cur.tab"></tabs>
+
+<div class="tab-content">
+  <!-- without this, dropdown creates vertical scrollbar due to table-responsive. we want horiz scrollbars on small screens, not vert on big screens! -->
+  <div class="tab-pane active table-responsive" style="padding-bottom: 250px">
+    <table class="table unit-table table-hover" style="width:auto; float:left">
+      <!-- filthy hack to show achievements on larvae page -->
+      <tr ng-if="cur.tab.name == 'larva' && game.upgrade('achievementbonus').count().greaterThan(0)">
+        <td class="upgrade-indicator"></td>
+        <td class="titlecase">
+          <a href="#/achievements">
+            <span class="list-icon-resource icon-achievements"></span>
+            achievement points
+          </a></td>
+        <td>{{game.achievementPoints()|bignum:0}}</td>
+        <td>+{{game.upgrade('achievementbonus').calcStats().prod|percent:{plusOne:true} }} larvae</td>
+      </tr>
+      <tr ng-repeat="unit in cur.tab.sortUnits() | filter:filterVisible track by unit.name">
+        <td class="upgrade-indicator" ng-click="click(unit)">
+          <span ng-if="unit.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
+        </td>
+        <td ng-click="click(unit)">
+          <span class="list-icon-resource icon-{{unit.name}}"></span>
+          <a ng-href="#{{cur.tab.url(unit)}}" class="titlecase unselectedlist-label label-{{unit.name}}">
+            <span class="label-label">{{unit.unittype.label}}</span>
+            <span class="label-suffix">{{unit.suffix}}</span>
+          </a>
+        </td>
+        <td ng-click="click(unit)">
+          {{unit.count()|bignum:0}}
+        </td>
+        <td ng-click="click(unit)">
+          <span ng-if="!unit.velocity().isZero()">
+          +{{unit.velocity().times(options.getVelocityUnit({unit:unit}).mult)|bignum:2}}/{{options.getVelocityUnit({unit:unit}).name}}
+          </span>
+          <span ng-if="unit.velocity().isZero() && cur.tab.name == 'territory' && !val.isZero()" ng-repeat="(name, val) in unit.totalProduction()">
+            +{{val.times(options.getVelocityUnit({unit:name}).mult)|bignum:2}}/{{options.getVelocityUnit({unit:name}).name}}</span>
+        </td>
+        <td ng-if="options.showAdvancedUnitData()">
+          <buyunitdropdown unit="unit" num="1"></buyunitdropdown>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

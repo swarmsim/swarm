@@ -1,0 +1,8 @@
+<div title="Bloody Mary, Bloody Mary, Bloody Mary">
+<p>Summon a mirrored copy of your army. Unlike Clone Larvae, this ability has no cap.</p>
+<div ng-repeat="effect in upgrade.effect track by effect.unit.name">
+<span ng-if="effect.output().greaterThan(0)">
+Create {{ effect.output() | longnum }} {{effect.unit.type.plural}}.
+</span>
+</div>
+</div>

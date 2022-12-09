@@ -1,0 +1,126 @@
+<div class="desc-icon-resource desc-icon-{{cur.name}} icon-{{cur.name}}" title="{{cur.unittype.lol}}"></div>
+<unitdesc title="{{cur.unittype.lol}}" unit="cur"></unitdesc>
+<p>
+  <ng-pluralize ng-if="!cur.capValue()" count="cur.count().toNumber()"
+    when="{'0':'You own no {{cur.unittype.plural}}.',
+           'one':'You own 1 {{cur.unittype.label}}.',
+           'other':'You own {{cur.count()|longnum}} {{cur.unittype.plural}}.'}">
+  </ng-pluralize>
+  <div ng-if="cur.prod.length">
+    <p>
+      Each produces
+      <span ng-repeat="(name, val) in cur.eachProduction()">
+        <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+        <span>{{val.times(options.getVelocityUnit({prod:cur}).mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+      </span>
+      per {{options.getVelocityUnit({prod:cur}).label}}.
+      <span ng-if="cur.hasStat('prod', 1)">(&times;{{cur.stat('prod')|bignum:10}} bonus)</span>
+    </p>
+    <p ng-if="cur.count().greaterThan(0)">
+      In total, they produce
+      <span ng-repeat="(name, val) in cur.totalProduction()">
+        <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+        <span>{{val.times(options.getVelocityUnit({prod:cur}).mult)|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+      </span>
+      per {{options.getVelocityUnit({prod:cur}).label}}.
+    </p>
+  </div>
+  <div ng-if="cur.showparent && cur.showparent.prod.length">
+    You earn
+    <!--span ng-repeat="(name, val) in cur.showparent.totalProduction()">
+      <span ng-if="!$first && !$last">, </span><span ng-if="!$first && $last"> and </span>
+      <span>{{val|longnum:2}} <ng-pluralize count="val" when="{'one':game.unit(name).unittype.label, 'other':game.unit(name).unittype.plural}"></ng-pluralize></span>
+    </span-->
+    <span>{{cur.velocity().times(options.getVelocityUnit({unit:cur}).mult)|longnum:2}} {{cur.unittype.plural}}</span>
+    per {{options.getVelocityUnit({unit:cur}).label}}.
+    <span ng-if="cur.showparent.hasStat('prod', 1)">(&times;{{cur.showparent.stat('prod')|bignum:10}} bonus)</span>
+    <span ng-if="cur.capValue()">
+      At 100%, you'll stop earning {{cur.unittype.label}}.
+    </span>
+  </div>
+  <div ng-if="!cur.showparent && cur.velocity() > 0">
+    You earn
+    <!-- TODO why isn't ng-pluralize working here? Switching units keeps the same label. -->
+    <span>{{cur.velocity().times(options.getVelocityUnit({unit:cur}).mult)|longnum:2}} {{cur.unittype.plural}}</span>
+    per {{options.getVelocityUnit({unit:cur}).label}}.
+    <span ng-if="cur.capValue()">
+      At 100%, you'll stop earning {{cur.unittype.label}}.
+    </span>
+  </div>
+  <div class="clear-afterdesc"></div>
+  <div ng-if="!cur.type.unbuyable && !cur.type.isBuyHidden && cur.cost.length && cur.isBuyButtonVisible()">
+    <hr>
+    <buyunit-input unit="cur"></buyunit-input>
+  </div>
+  <div ng-if="(visibleUpgrades = (cur.upgrades.byClass.upgrade | filter:filterVisible)).length > 0">
+    <hr>
+    <h4>Upgrades</h4>
+    <ul class="list-unstyled">
+      <li ng-repeat="upgrade in visibleUpgrades">
+        <h5 ng-class="{'text-muted':upgrade.isManuallyHidden()}">
+          {{upgrade.type.label}}
+          <span ng-if="upgrade.type.maxlevel != 1">({{upgrade.count()+""|number}})</span>
+          <label ng-show="options.showAdvancedUnitData() || upgrade.isManuallyHidden()" class="form-inline pull-right" style="white-space:nowrap" title="Show upgrade notifier?">
+            <span class="glyphicon glyphicon-circle-arrow-up" ng-class="{'text-muted':!upgrade.isNewlyUpgradable()}"></span>
+            <!--input type="checkbox" class="checkbox-inline" style="margin:0" ng-model="watched[upgrade.name]" ng-change="updateWatched(upgrade)"-->
+            <select ng-model="watched[upgrade.name]" convert-to-number ng-change="updateWatched(upgrade)" class="form-control input-sm" style="display:inline">
+              <option value="-1">Hide upgrade</option>
+              <option value="0">Never notify</option>
+              <option value="1">Notify when buyable</option>
+              <option value="2">Notify at 2&times; cost</option>
+              <option value="4">Notify at 4&times; cost</option>
+            </select>
+          </label>
+        </h5>
+        <div ng-hide="upgrade.isManuallyHidden()">
+          <upgradedesc title="{{upgrade.type.lol}}" upgrade="upgrade"></upgradedesc>
+          <p>
+            <span ng-if="upgrade.type.maxlevel == 1">This</span>
+            <span ng-if="upgrade.type.maxlevel != 1">Next</span>
+            upgrade costs
+            <!-- special-case: show buybuttons only for twin upgrades. a bit hacky, but for other upgrades it's a bad idea. TODO: move to spreadsheet. -->
+            <cost costlist="upgrade.totalCost()" buybuttons="upgrade.name.indexOf('twin') >= 0"></cost>
+          </p>
+
+          <div class="progress" style="margin-bottom:0">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{upgrade.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" ng-style="{width:upgrade.costMetPercent().times(100)+'%'}">
+              {{upgrade.costMetPercent()|percent:{floor:true} }} {{estimateUpgradeSecs(upgrade)|duration}}
+            </div>
+          </div>
+          <buyupgrade upgrade="upgrade" index="$index"></buyupgrade>
+        </div>
+        <div style="clear:right"></div>
+      </li>
+    </ul>
+  </div>
+  <div ng-if="(visibleAbilities = (cur.upgrades.byClass.ability | filter:filterVisible)).length > 0">
+    <hr>
+    <h4>Abilities</h4>
+    <ul class="list-unstyled">
+      <li ng-repeat="abil in visibleAbilities">
+        <h5 ng-class="{'text-muted':abil.isManuallyHidden()}">
+          {{abil.type.label}}
+          <div class="pull-right">
+            <input type="checkbox" class="checkbox-inline" title="show/hide this ability" aria-label="show/hide this ability" style="margin:0" ng-model="watched[abil.name]" ng-change="updateWatchedAbility(abil)">
+          </div>
+          <div style="clear:right"></div>
+        </h5>
+        <div ng-hide="abil.isManuallyHidden()">
+          <upgradedesc title="{{abil.type.lol}}" upgrade="abil"></upgradedesc>
+          <p>
+            This ability costs
+            <cost costlist="abil.totalCost()" noperiod="true"></cost>
+            per use.
+          </p>
+
+          <div class="progress" style="margin-bottom:0">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{abil.costMetPercent().times(1000)}}" aria-valuemin="0" aria-valuemax="1000" ng-style="{width:abil.costMetPercent().times(100)+'%'}">
+              {{abil.costMetPercent()|percent:{floor:true} }} {{estimateUpgradeSecs(abil)|duration}}
+            </div>
+          </div>
+          <buyupgrade upgrade="abil" index="$index"></buyupgrade>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

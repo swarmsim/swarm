@@ -1,0 +1,31 @@
+<div ng-if="!user.id">
+  Loading...
+</div>
+<div ng-if="user.id">
+  <h1>{{user.username}}#{{user.id}}<small ng-if="isSelf"> (self)</small> - New Character</h1>
+  
+  <!--p>{{user.characters.length|number}} characters</p>
+  <ul>
+    <li ng-repeat="character in user.characters">
+      <a href="#/character/{{character.id}}">{{character.name}}</a>
+    </li>
+  </ul-->
+  <form ng-submit="onSubmit()">
+    <div class="form-group">
+      <label for="character-name">Character Name</label> <span>(You may change this later)</span>
+      <input id="character-name" type="text" class="form-control" ng-model="form.name">
+    </div>
+    <div class="form-group">
+      <div class="radio" ng-repeat="league in leagues.playableList">
+        <label>
+          <input type="radio" ng-value="league.name" ng-model="form.league">
+          <strong>{{league.label}}</strong>
+          <p>{{league.desc}}</p>
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Character</button>
+    <a ng-href="#/user/{{userSlug}}" class="btn-link btn">Back</a>
+  </form>
+
+</div>

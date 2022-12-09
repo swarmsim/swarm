@@ -1,0 +1,250 @@
+.page-title span {
+  display:none;
+}
+.page-title:after {
+  content:'Kitten Klicker';
+}
+.contact-title span {
+  display:none;
+}
+.contact-title:after {
+  content:'Contact the Kitten Klicker Developer';
+}
+.footer:after {
+  font-style:italic;
+  content:'Thanks to http://www.placekitten.com for the images!';
+}
+/* https://www.reddit.com/r/swarmsim/comments/310qs2/ascending_on_april_1/ */
+/* relevant classes: .tab-label, .selected-label, .list-label, .unselectedlist-label */
+.label-mutagen .label-label {
+  display:none;
+}
+.label-mutagen .label-suffix:before {
+  content:'mewtagen';
+}
+/* css capitalization fails for mutagen here, but not for premutagen, in chrome only. Works fine in FF, IE without this line. Browser bug? Whatever, fix it by hand. */
+.selected-label.label-mutagen .label-suffix:before {
+  content:'Mewtagen';
+}
+.label-premutagen .label-label {
+  display:none;
+}
+.label-premutagen .label-suffix:before {
+  content:'mewtagen (inactive)';
+}
+
+.label-crystal .label-label {
+  display:none;
+}
+.label-crystal .label-suffix:before {
+  content:'catnip';
+}
+.selected-label.label-crystal .label-suffix:before {
+  content:'Catnip';
+}
+
+.desc-icon-resource {
+  background-size:200px 200px;
+  height:200px;width:200px;
+  border-radius: 12px;
+}
+.tab-icon-resource {
+  background-size:40px 40px;
+  height:40px;width:40px;
+  margin-left:-10px;margin-top:-10px;
+  border-radius: 5px;
+}
+.list-icon-resource {
+  background-size:20px 20px;
+  height:20px;width:20px;
+  border-radius: 4px;
+}
+.list-icon-resource, .tab-icon-resource, .desc-icon-resource {
+  background-repeat:no-repeat;
+  float:left;
+  margin-right:0.5em;
+}
+.prev-icon-resource, .next-icon-resource {
+  background-repeat:no-repeat;
+  background-size:20px 20px;
+  height:20px;width:20px;
+  display:inline-block;
+  border-radius: 5px;
+}
+.desc-meat:after {
+  /* http://stackoverflow.com/questions/17047694/add-line-break-to-before-or-after-pseudo-element-content */
+  white-space:pre-line;
+  content: "\AThis meat comes from mice the kittens catch. Kittens are not for eating. Please do not eat kitten meat."
+}
+.icon-meat {
+  background-image: url("../static/kittens/200x200-1.jpg");
+}
+.icon-larva {
+  background-image: url("../static/kittens/200x200-7.jpg");
+}
+.icon-territory {
+  background-image: url("../static/kittens/200x200-9.jpg");
+}
+.icon-energy {
+  background-image: url("../static/kittens/200x200-15.jpg");
+}
+.icon-mutagen {
+  background-image: url("../static/kittens/200x200-12.jpg");
+}
+/* special case: territory chart obscures float:left'ed image, so give it its own line */
+.desc-icon-resource.icon-territory {
+  float:none;
+  display:inline-block;
+}
+
+.icon-drone {
+  background-image: url("../static/kittens/200x200-2.jpg");
+}
+.icon-queen {
+  background-image: url("../static/kittens/200x200-3.jpg");
+}
+.icon-nest {
+  background-image: url("../static/kittens/200x200-4.jpg");
+}
+.icon-greaterqueen {
+  background-image: url("../static/kittens/200x200-5.jpg");
+}
+.icon-hive {
+  background-image: url("../static/kittens/200x200-6.jpg");
+}
+.icon-hivequeen {
+  background-image: url("../static/kittens/200x200-8.jpg");
+}
+.icon-empress {
+  background-image: url("../static/kittens/200x200-10.jpg");
+}
+.icon-prophet {
+  background-image: url("../static/kittens/200x200-11.jpg");
+}
+.icon-goddess { /* hive neuron */
+  background-image: url("../static/kittens/200x200-13.jpg");
+}
+.icon-pantheon { /* neural cluster */
+  background-image: url("../static/kittens/200x200-14.jpg");
+}
+.icon-pantheon2 { /* hive network */
+  background-image: url("../static/kittens/200x200-16.jpg");
+}
+.icon-pantheon3 { /* lesser hive mind */ /* placekitten's out of images! begin dupes. */
+  background-image: url("../static/kittens/200x200-2.jpg");
+}
+.icon-pantheon4 { /* hive mind */
+  background-image: url("../static/kittens/200x200-3.jpg");
+}
+.icon-pantheon5 { /* arch-mind */
+  background-image: url("../static/kittens/200x200-4.jpg");
+}
+.icon-overmind {
+  background-image: url("../static/kittens/200x200-5.jpg");
+}
+.icon-overmind2 {
+  background-image: url("../static/kittens/200x200-6.jpg");
+}
+.icon-overmind3 {
+  background-image: url("../static/kittens/200x200-8.jpg");
+}
+.icon-overmind4 {
+  background-image: url("../static/kittens/200x200-10.jpg");
+}
+.icon-overmind5 {
+  background-image: url("../static/kittens/200x200-11.jpg");
+}
+.icon-overmind6 {
+  background-image: url("../static/kittens/200x200-13.jpg");
+}
+
+.icon-cocoon {
+  background-image: url("../static/kittens/200x200-2.jpg");
+}
+.icon-achievements {
+  background-image: url("../static/kittens/200x200-3.jpg");
+}
+
+.icon-swarmling {
+  background-image: url("../static/kittens/200x200-2.jpg");
+}
+.icon-stinger {
+  background-image: url("../static/kittens/200x200-3.jpg");
+}
+.icon-spider {
+  background-image: url("../static/kittens/200x200-4.jpg");
+}
+.icon-mosquito {
+  background-image: url("../static/kittens/200x200-5.jpg");
+}
+.icon-locust {
+  background-image: url("../static/kittens/200x200-6.jpg");
+}
+.icon-roach {
+  background-image: url("../static/kittens/200x200-8.jpg");
+}
+.icon-giantspider {
+  background-image: url("../static/kittens/200x200-10.jpg");
+}
+.icon-centipede {
+  background-image: url("../static/kittens/200x200-11.jpg");
+}
+.icon-wasp {
+  background-image: url("../static/kittens/200x200-13.jpg");
+}
+.icon-devourer {
+  background-image: url("../static/kittens/200x200-14.jpg");
+}
+.icon-goon {
+  background-image: url("../static/kittens/200x200-16.jpg");
+}
+
+.icon-mutanthatchery {
+  background-image: url("../static/kittens/200x200-7.jpg");
+}
+.icon-mutantbat {
+  background-image: url("../static/kittens/200x200-3.jpg");
+}
+.icon-mutantclone {
+  background-image: url("../static/kittens/200x200-14.jpg");
+}
+.icon-mutantswarmwarp {
+  background-image: url("../static/kittens/200x200-5.jpg");
+}
+.icon-mutanteach { /* meta-mutation */
+  background-image: url("../static/kittens/200x200-6.jpg");
+}
+.icon-mutantfreq {
+  background-image: url("../static/kittens/200x200-8.jpg");
+}
+.icon-mutantnexus { /* lepidoptera mutation */
+  background-image: url("../static/kittens/200x200-10.jpg");
+}
+.icon-mutantarmy { /* territory mutation */
+  background-image: url("../static/kittens/200x200-9.jpg");
+}
+.icon-mutantmeat {
+  background-image: url("../static/kittens/200x200-1.jpg");
+}
+.icon-mutantrush {
+  background-image: url("../static/kittens/200x200-16.jpg");
+}
+.icon-premutagen { /* inactive mutagen */
+  background-image: url("../static/kittens/200x200-14.jpg");
+}
+
+.icon-nexus {
+  background-image: url("../static/kittens/200x200-16.jpg");
+}
+.icon-nightbug {
+  background-image: url("../static/kittens/200x200-2.jpg");
+}
+.icon-moth {
+  background-image: url("../static/kittens/200x200-10.jpg");
+}
+.icon-bat {
+  background-image: url("../static/kittens/200x200-3.jpg");
+}
+.icon-crystal {
+  background-image: url("../static/kittens/200x200-7.jpg");
+}

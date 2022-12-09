@@ -1,0 +1,21 @@
+<span ng-if="isBuyButtonVisible()">
+  <span ng-if="fixednum">
+    <a ng-if="resource.isCostMet()" role="button" class="btn btn-default titlecase" ng-class="{disabled:unit.maxCostMet().lessThan(fullnum())}" ng-click="buyResource({resource:resource, num:fullnum()})">
+      {{verb}} {{fullnum().times(statTwin())|bignum}} {{unit.unittype.plural}}
+    </a>
+  </span>
+  <div ng-if="!fixednum" class="btn-group btn-group-justified">
+    <a ng-if="!resource.isCostMet()" role="button" class="btn btn-default disabled">
+      Can't {{verb}}
+    </a>
+    <a ng-if="resource.isCostMet()" role="button" class="btn btn-default titlecase" ng-click="buyResource({resource:resource, num:fullnum()})">
+      {{verb}} {{fullnum().times(statTwin())|bignum}}
+    </a>
+    <a ng-if="is25Visible()" role="button" class="btn btn-default titlecase" ng-click="buyMaxResource({resource:resource, percent:0.25})">
+      {{verb}} {{resource.maxCostMet(0.25).times(statTwin())|bignum}}
+    </a>
+    <a ng-if="resource.maxCostMet().greaterThan(1)" role="button" class="btn btn-default titlecase" ng-click="buyMaxResource({resource:resource, percent:1})">
+      {{verb}} {{resource.maxCostMet().times(statTwin())|bignum}}
+    </a>
+  </div>
+</span>

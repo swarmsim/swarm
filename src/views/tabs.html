@@ -1,0 +1,67 @@
+<ul ng-if="!isOffline" class="nav nav-tabs" role="tablist">
+  <li ng-repeat="tab in tabs.list | filter:filterVisible" class="tab-resource tab-{{name}}" ng-class="{active: cur.name === tab.name}">
+    <a ng-href="#{{tab.url()}}" role="tab">
+      <div class="tab-icon-resource tab-icon-{{tab.name}} icon-{{tab.name}}"></div>
+      <!-- TODO why isnt' pluralize working? -->
+      {{tab.leadunit.count()|bignum:0}}
+      <span class="tab-label label-{{tab.leadunit.name}}">
+        <span class="label-label">{{tab.leadunit.unittype.plural}}</span>
+        <span class="label-suffix"></span>
+      </span>
+      <span ng-if="tab.leadunit.capValue()">({{tab.leadunit.capPercent()|percent:{floor:true,places:0} }})</span>
+      <!--br>{{tab.unit.velocity()|bignum:0}}/sec-->
+      <!--TODO: ewww, a special case-->
+      <span ng-if="tab.name=='mutagen'">(+{{game.unit('premutagen').count()|bignum:0}})</span>
+      <span ng-if="tab.isNewlyUpgradable()" title="New upgrade available" class="animif glyphicon glyphicon-circle-arrow-up"></span>
+    </a>
+  </li>
+  <li role="tab" class="dropdown" ng-class="{active: !cur}">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:">
+      More...
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" dropdown-menu-auto-direction role="menu">
+      <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades() <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyAllUpgrades()">
+        <span class="glyphicon glyphicon-circle-arrow-up"></span> Buy all {{game.availableAutobuyUpgrades().length | number}} upgrade<span ng-if="game.availableAutobuyUpgrades().length !== 1">s</span>
+      </a></li>
+      <li role="presentation" ng-class="{disabled:game.availableAutobuyUpgrades(0.25) <= 0}"><a role="menuitem" tabindex="-1" href="javascript:" ng-click="buyCheapestUpgrades()">
+        <span class="glyphicon glyphicon-upload"></span> Buy cheapest {{game.availableAutobuyUpgrades(0.25).length | number}} upgrade<span ng-if="game.availableAutobuyUpgrades(0.25).length !== 1">s</span>
+      </a></li>
+      <li role="presentation" class="divider"></li>
+      <li ng-class="{disabled:!isUndoable()}" role="presentation">
+        <a role="menuitem" tabindex="-1" href="javascript:" ng-click="undo()">
+          <span class="glyphicon glyphicon-share-alt mirror"></span>
+          Undo
+          <span ng-if="isUndoable()">({{undoLimitSeconds - secondsSinceLastAction() | number:0}} sec)</span>
+        </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/options">
+        <span class="glyphicon glyphicon-cog"></span> Options
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/achievements">
+        <span class="glyphicon glyphicon-ok"></span> Achievements
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/statistics">
+        <span class="glyphicon glyphicon-stats"></span> Statistics
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/changelog">
+        <span class="glyphicon glyphicon-book"></span> Patch Notes
+      </a></li>
+      <!--li role="presentation"><a role="menuitem" tabindex="-1" href="#/news-archive">
+        <span class="glyphicon glyphicon-bullhorn"></span> News
+      </a></li-->
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://reddit.com/r/swarmsim" target="_blank">
+        <span class="glyphicon glyphicon-user"></span> Community
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/contact">
+        <span class="fa fa-comment"></span> Send Feedback
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/contact?error">
+        <span class="fa fa-bug"></span> Report Problem
+      </a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#/tab/all">
+        <span class="glyphicon glyphicon-list-alt"></span> Show all units
+      </a></li>
+    </ul>
+  </li>
+</ul>

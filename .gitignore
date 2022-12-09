@@ -7,7 +7,10 @@
 .grunt/
 /jsflash/flex
 /jsflash/*.swf
-/devkeys/swarmsim-preprod.pem
 /.travis/tmp
 /swarm-playfab-cloudscript
 /.terraform
+
+/*.log
+/.cache
+/.parcel-cache

@@ -1,0 +1,149 @@
+<tabs></tabs>
+
+<div class="container">
+  <h1>Options</h1>
+  <div class="form-group">
+    <label class="control-label">
+      <span class="glyphicon glyphicon-eye-open"></span> Show advanced unit data
+      <input type="checkbox" ng-init="form.showadvancedunitdata=options.showAdvancedUnitData()" ng-model="form.showadvancedunitdata" ng-change="options.showAdvancedUnitData(form.showadvancedunitdata)">
+    </label>
+    <p>Show more detailed numbers for each of your units, and allow customizing when each upgrade notifier appears.</p>
+  </div>
+
+  <div class="form-group" ng-if="isKongregate()">
+    <div><label class="control-label"><span class="glyphicon glyphicon-resize-vertical"></span> Kongregate scrolling style</label></div>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="none" ng-change="options.scrolling(form.scrolling)" ng-init="form.scrolling=options.scrolling()">Browser default</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="resize" ng-change="options.scrolling(form.scrolling)">Resize automatically, no inner scrollbar</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.scrolling" value="lockhover" ng-change="options.scrolling(form.scrolling)"><span class="envalert">(beta)</span> Lock mousewheel scrolling</input></label>
+    <p ng-if="form.scrolling=='lockhover'">This makes mousewheel scrolling only affect Swarm Simulator's scrollbar, instead of the whole Kongregate page, while your mouse is over the game. We're still testing this option - if it's broken for you, <a href="#/contact">please report it</a>!</p>
+    <p ng-if="options.isScrollingChangedFromResizeSincePageLoad && form.scrolling!='resize'">The game will widen to fill your screen when you refresh the page.</p>
+    <p>Minimum size:
+      <input ng-model="form.iframeMinSize.x" type="number" min="0" max="99999" ng-change="options.iframeMinX(form.iframeMinSize.y)">&times;
+      <input ng-model="form.iframeMinSize.y" type="number" min="0" max="99999" ng-change="options.iframeMinY(form.iframeMinSize.y)">
+      <button class="btn btn-default" ng-class="{disabled:isDefaultMinSize()}" ng-click="resetMinSize()">Reset size</button>
+    </p>
+    <p ng-if="form.scrolling!='resize' && !isDefaultMinSize()">
+      Swarm Simulator can't automatically stretch to fill the width of your screen when a minimum size is set.
+    </p>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label" for="fps"><span class="glyphicon glyphicon-film"></span> Maximum frames per second</label>
+    <div><label><input type="checkbox" ng-init="form.fpsAuto=options.fpsAuto()" ng-model="form.fpsAuto" ng-change="options.fpsAuto(form.fpsAuto)"> Automatic</label></div>
+    <input type="range" class="form-control" ng-disabled="!!form.fpsAuto" id="fps" min="1" max="60" step="1" ng-init="form.fps=options.fps()" ng-model="form.fps" ng-change="setFpsSlider(form.fps)">
+    <!--button ng-click="options.reset('fps');form.fps=options.fps()">Reset</button-->
+    <p>About <input type="number" min="0" ng-disabled="!!form.fpsAuto" ng-init="form.fpsNum=options.fps()" ng-model="form.fpsNum" ng-change="options.fps(form.fpsNum)"> fps. Time between frames: {{options.fpsSleepMillis()|number:0}}ms</p>
+    <p>Reduce this setting if the game is slowing down your computer. This doesn't affect gameplay; your units won't produce resources any faster or slower.</p>
+  </div>
+
+  <div class="form-group">
+    <div><label class="control-label"><span class="glyphicon glyphicon-barcode"></span> Number format</label></div>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="standard-decimal" ng-change="options.notation(form.notation)">Standard decimal
+      <!--(<a target="_blank" href="http://home.kpn.nl/vanadovv/BignumbyN.html">legend</a>)-->
+      (<a href="#/decimallegend">legend</a>)
+    </input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="scientific-e" ng-change="options.notation(form.notation)" ng-init="form.notation=options.notation()">Scientific-E</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="hybrid" ng-change="options.notation(form.notation)">Hybrid</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.notation" value="engineering" ng-change="options.notation(form.notation)">Engineering</input></label>
+    <p>Examples: {{123456789|longnum}}, {{123456789|bignum}}, {{123456789e+30|longnum}}, {{123456789e+30|bignum}}</p>
+  </div>
+
+  <div class="form-group">
+    <div><label class="control-label"><span class="glyphicon glyphicon-dashboard" ng-init="form.velocityUnit=options.velocityUnit().name"></span> Velocity format</label></div>
+    <label ng-repeat="vu in options.VELOCITY_UNITS.list" style="font-weight:normal" class="titlecase">
+      <input type="radio" ng-model="form.velocityUnit" value="{{vu.name}}" ng-change="options.velocityUnit(form.velocityUnit)">{{vu.plural}}</input>
+    </label>
+    <p>Example: {{10 * options.velocityUnit().mult|longnum}} meat/{{options.velocityUnit().name}}</p>
+  </div>
+
+  <div class="form-group">
+    <div><label class="control-label"><span class="glyphicon glyphicon-time"></span> Duration format</label></div>
+    <label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="abbreviated" ng-change="options.durationFormat(form.durationFormat)">Exact</input></label>
+    <label style="font-weight:normal"><input type="radio" ng-init="form.durationFormat=options.durationFormat()" ng-model="form.durationFormat" value="human" ng-change="options.durationFormat(form.durationFormat)">Approximate</input></label>
+    <!--label style="font-weight:normal"><input type="radio" ng-model="form.durationFormat" value="full" ng-change="options.durationFormat(form.durationFormat)" ng-init="form.notation=options.notation()">Full</input></label-->
+    <p>Examples:
+      <span ng-repeat="sample_duration in duration_examples">{{sample_duration |duration}}<span ng-if="!$last">, </span></span>
+    </p>
+  </div>
+
+  <div class="form-group">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <span class="glyphicon glyphicon-picture"></span> Theme <span class="envalert">(beta)</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="themeMenu">
+        <li ng-repeat="theme in options.constructor.THEMES.list" role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="setTheme(theme.name)" href="javascript:">{{theme.label}}</a>
+        </li>
+        <li role="presentation" class="divider" style="list-style-type:none"></li>
+        <li role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" class="titlecase" ng-click="selectCustomTheme()" href="javascript:">Custom style</a>
+        </li>
+        <li role="presentation" style="list-style-type:none">
+          <a role="menuitem" tabindex="-1" href="javascript:" aria-expanded="false" aria-controls="themeExtra" ng-click="form.isThemeExtraOpen=true">Additional styling (advanced)</a>
+        </li>
+      </ul>
+    </div>
+    <p ng-if="!form.isCustomTheme">Current theme: <a ng-href="{{options.theme().credit}}" target="_blank" class="titlecase">{{options.theme().label}}</a></p>
+    <div ng-if="form.isCustomTheme">
+      <p>CSS file URL: (<a href="#/cleartheme">Reset</a>)</p>
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="form.customThemeUrl">
+        <span class="input-group-btn"><button class="btn btn-default" ng-click="setCustomTheme(form.customThemeUrl)">Set theme</button></span>
+      </div>
+    </div>
+    <div>
+      <div class="collapse" ng-class="{in:form.isThemeExtraOpen}" id="themeExtra">
+        <div class="well" ng-class="{'has-success':!!form.themeExtraSuccess,'has-error':!!form.themeExtraError,'has-feedback':!!form.themeExtraSuccess || !!form.themeExtraError}">
+          <button class="form-control btn btn-danger" ng-click="form.themeExtra = ''; themeExtra(form.themeExtra)">Clear all extra styling/graphics</button>
+          <p>Enter some additional CSS. {{form.themeExtra.length|number}}/1,000 chars. Use <code>@import</code> to save space.</p>
+          <textarea class="form-control" ng-model="form.themeExtra" ng-change="clearThemeExtra()"></textarea>
+          <button class="form-control btn btn-primary" ng-click="themeExtra(form.themeExtra)">Apply</button>
+          <p ng-show="form.themeExtraError" class="text-danger">{{form.themeExtraError}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <www-playfab></www-playfab>
+  <kongregate-playfab></kongregate-playfab>
+
+  <div ng-class="{'form-group':true,'has-success':!!imported.success,'has-error':!!imported.error,'has-feedback':!!imported.success || !!imported.error}">
+    <label class="control-label" for="export"><span class="glyphicon glyphicon-download-alt"></span> Import/export saved data</label>
+    <input type="text" class="form-control" id="export"  ng-init="form.export=session.exportSave()" ng-model="form.export" ng-change="importSave(form.export)" ng-click="select($event)">
+    <span ng-show="!!imported.success" class="glyphicon glyphicon-ok form-control-feedback"></span>
+    <span ng-show="!!imported.error" class="glyphicon glyphicon-remove form-control-feedback"></span>
+    <div class="alert alert-warning" ng-cloak ng-if="isKongregate() && !game.session.state.kongregate">
+      This saved data was imported from outside Kongregate. You can still play it on Kongregate, but you won't appear on Kongregate's leaderboards. Start a new game on Kongregate to be eligible for the leaderboards.
+    </div>
+    <p>To export, click the text above and <button class="btn" ng-click="copy($event)">copy</button> (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.</p>
+    <p>It's normal for imported saves to have more units than you exported with. Your swarm continues its work even after saved data is exported/before it's imported.</p>
+  </div>
+  <div>
+    <p><a class="" data-toggle="collapse" data-target="#saveDetails" href="javascript:" aria-expanded="false" aria-controls="saveDetails">
+      Where is Swarm Simulator's data saved?
+    </a></p>
+    <div class="collapse" id="saveDetails">
+      <div class="well">
+        <p>Swarm Simulator saves your progress in your browser's localstorage, cookies, and Flash (SWF) storage. Your saved game will be loaded if it's found in any one of these sources. This is done to avoid accidentally losing your saved data; it's not intended to track you or otherwise invade your privacy. The 'wipe all saved data' button below will clear all three storage locations.</p>
+        <p ng-repeat="detail in savedDataDetails">
+          <span class="titlecase">{{detail.name}}</span> storage:
+          <span ng-if="detail.exists">{{detail.size}} chars</span>
+          <span ng-if="!detail.exists">empty</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="resetalert" ng-click="confirmReset()">
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      Wipe all saved data and start over
+    </button>
+    <p title="{{game.dateStarted().toString()}}">You started playing {{game.momentStarted().fromNow()}}<span ng-if="env.showSkipped && game.totalSkippedMillis() > 0"> (skipped an extra {{game.totalSkippedDuration().humanize()}})</span>.</p>
+  </div>
+  <div class="form-group">
+    <label class="control-label"><span class="glyphicon glyphicon-cloud-upload"></span> Analytics</label>
+    <p>Swarm Simulator, like many websites, uses Google Analytics to track actions you take while playing. We use this data to improve the game. Feel free to <a target="_blank" href="https://tools.google.com/dlpage/gaoptout" title="I thought about asking Analytics to track how many people click this link, but decided not to.">opt out of Google Analytics</a>.</p>
+    <p><a target="_blank" href="http://www.google.com/policies/privacy/partners/">How Google uses data when you use our partners' sites or apps</a></p>
+  </div>
+</div>
