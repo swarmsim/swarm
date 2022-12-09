@@ -111,7 +111,7 @@
     "start": "grunt serve",
     "start:prod": "grunt serve:dist",
     "start:https": "mitmproxy -p 9001 --mode reverse:http://localhost:9000",
-    "build": "grunt build",
+    "build": "yarn test && grunt build",
     "preversion": "yarn test",
     "_pretest": "grunt pretest",
     "test:unit": "karma start test/karma-unit.conf.coffee --singleRun",

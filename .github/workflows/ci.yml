@@ -1,8 +1,12 @@
+# Netlify deploys all changes made to the `master` and `production` branches
+
 name: continuous integration (for PRs)
 
 on:
+  push:
+    branches: [ "master", "production" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "production" ]
 
 jobs:
   build:
