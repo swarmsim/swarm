@@ -12,6 +12,8 @@ import '@bower_components/angulartics-google-analytics'
 import '@bower_components/angular-hotkeys'
 import $ from 'jquery'
 
+import * as views from './views'
+
 import * as version from '../.tmp/version.json'
 import './spreadsheetpreload/v0.2'
 import './spreadsheetpreload/v0.2.playfabUpload.free'
@@ -83,13 +85,13 @@ angular.module('swarmApp').config ($routeProvider, env) ->
   if env.isOffline
     return $routeProvider
       .when '/debug',
-        templateUrl: 'views/debug.html'
+        template: views.debug
         controller: 'DebugCtrl'
       .when '/changelog',
         templateUrl: 'views/changelog.html'
         controller: 'ChangelogCtrl'
       .when '/contact',
-        templateUrl: 'views/contact.html'
+        template: views.contact
         controller: 'ContactCtrl'
       .when '/cleartheme',
         templateUrl: 'views/cleartheme.html'
@@ -104,8 +106,11 @@ angular.module('swarmApp').config ($routeProvider, env) ->
         redirectTo: '/'
 
   $routeProvider
+    .when '/test',
+      template: '<div>help</div>'
+      controller: 'DebugCtrl'
     .when '/debug',
-      templateUrl: 'views/debug.html'
+      template: views.debug
       controller: 'DebugCtrl'
     .when '/options',
       templateUrl: 'views/options.html'
@@ -119,7 +124,7 @@ angular.module('swarmApp').config ($routeProvider, env) ->
     .when '/achievements',
       templateUrl: 'views/achievements.html'
       controller: 'AchievementsCtrl'
-    .when '/',
+     .when '/',
       templateUrl: 'views/main.html'
       controller: 'MainCtrl'
     .when '/tab/:tab/unit/:unit',
@@ -132,7 +137,7 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       templateUrl: 'views/main.html'
       controller: 'MainCtrl'
     .when '/contact',
-      templateUrl: 'views/contact.html'
+      template: views.contact
       controller: 'ContactCtrl'
     .when '/cleartheme',
       templateUrl: 'views/cleartheme.html'

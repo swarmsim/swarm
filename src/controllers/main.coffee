@@ -1,5 +1,6 @@
 'use strict'
-# import _ from 'lodash'
+# TODO this breaks ...something
+import _ from 'lodash'
 
 ###*
  # @ngdoc function
@@ -8,7 +9,8 @@
  # # Main2Ctrl
  # Controller of the swarmApp
 ###
-angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options, hotkeys) ->
+# angular.module('swarmApp').controller 'MainCtrl', ($scope, $log, game, $routeParams, $location, version, options, hotkeys) ->
+angular.module('swarmApp').controller 'MainCtrl', () ->
   $scope.game = game
   $scope.options = options
 
