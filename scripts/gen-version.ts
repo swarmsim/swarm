@@ -11,8 +11,8 @@ async function main() {
     }
     var text = JSON.stringify(data, undefined, 2);
     await Promise.all([
-        await fs.mkdir(Path.join(__dirname, '../.tmp'), {recursive: true})
-        await fs.mkdir(Path.join(__dirname, '../dist'), {recursive: true})
+        await fs.mkdir(Path.join(__dirname, '../.tmp'), {recursive: true}),
+        await fs.mkdir(Path.join(__dirname, '../dist'), {recursive: true}),
     ])
     await Promise.all([
         fs.writeFile(Path.join(__dirname, '../.tmp/version.json'), text),
