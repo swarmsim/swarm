@@ -1,4 +1,5 @@
 'use strict'
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -20,10 +21,11 @@ angular.module('swarmApp').directive 'unitdesc', (game, commands, options) ->
     scope.commands = commands
     scope.options = options
     scope.desc = scope.unit.unittype.description
-    scope.templateUrl = do ->
-      if scope.desc == '-' or not scope.desc
-        return "views/desc/unit/#{scope.unit.name}.html"
-      return ''
+    # TODO
+    #scope.templateUrl = do ->
+    #  if scope.desc == '-' or not scope.desc
+    #    return "views/desc/unit/#{scope.unit.name}.html"
+    #  return ''
 
 angular.module('swarmApp').controller 'MtxDesc', ($scope, $log, mtx, commands, $location) ->
   $scope.mtx = mtx
@@ -78,7 +80,8 @@ angular.module('swarmApp').directive 'upgradedesc', (game, commands, options) ->
     scope.commands = commands
     scope.options = options
     scope.desc = scope.upgrade.type.description
-    scope.templateUrl = do ->
-      if scope.desc == '-' or not scope.desc
-        return "views/desc/upgrade/#{scope.upgrade.name}.html"
-      return ''
+    # TODO
+    #scope.templateUrl = do ->
+    #  if scope.desc == '-' or not scope.desc
+    #    return "views/desc/upgrade/#{scope.upgrade.name}.html"
+    #  return ''

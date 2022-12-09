@@ -1,4 +1,5 @@
 'use strict'
+import jQuery from 'jquery'
 
 # remotesave iface:
 # * isVisible()

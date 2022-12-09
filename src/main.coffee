@@ -1,5 +1,7 @@
 'use strict'
 
+import './setup'
+
 import './app.coffee'
 
 import './controllers/achievements'

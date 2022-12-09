@@ -1,8 +1,7 @@
 'use strict'
 import _ from 'lodash'
-import {Decimal} from '@bower_components/decimal.js'
+import {Decimal} from 'decimal.js'
 # import * as moment from '@bower_components/moment'
-import '@bower_components/moment-duration-format'
 import LZString from '@bower_components/lz-string'
 
 angular.module('swarmApp').factory 'saveId', (env, isKongregate) ->

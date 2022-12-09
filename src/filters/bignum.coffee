@@ -1,6 +1,6 @@
 'use strict'
 import _ from 'lodash'
-import {Decimal} from '@bower_components/decimal.js'
+import {Decimal} from 'decimal.js'
 import * as numberformat from '@bower_components/swarm-numberformat'
 
 ###*

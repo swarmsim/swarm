@@ -1,5 +1,5 @@
 'use strict'
-import {Decimal} from '@bower_components/decimal.js'
+import {Decimal} from 'decimal.js'
 import _ from 'lodash'
 
 angular.module('swarmApp').factory 'Upgrade', (util, Effect, $log) ->

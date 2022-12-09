@@ -1,4 +1,5 @@
 'use strict'
+import $ from 'jquery'
 
 angular.module('swarmApp').directive 'dropdownMenuAutoDirection', ($compile, $log) ->
   restrict: 'A'

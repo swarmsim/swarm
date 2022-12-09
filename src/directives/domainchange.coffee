@@ -1,4 +1,6 @@
 'use strict'
+import * as views from '../views'
+import moment from 'moment'
 
 angular.module('swarmApp').directive 'domainchange', (domainType, wwwRedirectDate, $location, session) ->
   restrict: 'E'
@@ -8,11 +10,12 @@ angular.module('swarmApp').directive 'domainchange', (domainType, wwwRedirectDat
     scope.redirectDuration = moment.duration(wwwRedirectDate.getTime() - Date.now()).format("d [days]")
 
     if (domainType == 'oldwww')
-      scope.url = "views/domainchange-old.html"
+      # TODO
+      # scope.url = "views/domainchange-old.html"
       ts = session.state.date.reified.getTime()
       scope.moveNowUrl = "https://www.swarmsim.com/#/importsplash?ts=#{encodeURIComponent ts}&referrer=github&savedata=#{encodeURIComponent session.exportSave()}"
     else if (domainType == 'www')
-      scope.url = "views/domainchange-new.html"
+      # scope.url = "views/domainchange-new.html"
       scope.hiddenNag = session.state.domainchangeClosed
       scope.closeNew = () ->
         scope.hiddenNag = session.state.domainchangeClosed = true

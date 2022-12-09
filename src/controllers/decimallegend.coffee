@@ -1,5 +1,5 @@
 'use strict'
-import {Decimal} from '@bower_components/decimal.js'
+import {Decimal} from 'decimal.js'
 
 ###*
  # @ngdoc function

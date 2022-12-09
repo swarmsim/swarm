@@ -1,5 +1,6 @@
 'use strict'
-import {Decimal} from '@bower_components/decimal.js'
+import _ from 'lodash'
+import {Decimal} from 'decimal.js'
 import * as views from '../views'
 
 ###*

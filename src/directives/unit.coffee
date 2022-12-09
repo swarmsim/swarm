@@ -1,4 +1,5 @@
 'use strict'
+import * as views from '../views'
 
 angular.module('swarmApp').directive 'focusInput', ($timeout, hotkeys) ->
   restrict: 'A'
@@ -21,7 +22,7 @@ angular.module('swarmApp').directive 'focusInput', ($timeout, hotkeys) ->
  # # unit
 ###
 angular.module('swarmApp').directive 'unit', ($log, game, options, util, $location, hotkeys) ->
-  templateUrl: 'views/directive-unit.html'
+  template: views.directiveUnit
   restrict: 'E'
   scope:
     cur: '='

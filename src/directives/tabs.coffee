@@ -1,4 +1,5 @@
 'use strict'
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -7,7 +8,7 @@
  # # tabs
 ###
 angular.module('swarmApp').directive 'tabs', (game, util, options, version, commands, hotkeys) ->
-  templateUrl: 'views/tabs.html'
+  template: views.tabs
   scope:
     cur: '='
   restrict: 'E'

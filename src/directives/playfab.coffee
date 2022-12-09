@@ -1,4 +1,6 @@
 'use strict'
+# TODO
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -7,9 +9,9 @@
  # # playfab
 ###
 angular.module('swarmApp').directive 'wwwPlayfab', (playfab, wwwPlayfabSyncer) ->
+  # <div ng-include="'views/playfab/title.html'"></div>
   template: """
 <div ng-if="isVisible()">
-  <div ng-include="'views/playfab/title.html'"></div>
   <playfabauth ng-if="!isAuthed()"></playfabauth>
   <playfaboptions ng-if="isAuthed()"></playfaboptions>
 </div>
@@ -22,9 +24,9 @@ angular.module('swarmApp').directive 'wwwPlayfab', (playfab, wwwPlayfabSyncer) -
 
 # this is pretty ugly. Mostly copied/modified from the old KongregateS3Ctrl
 angular.module('swarmApp').directive 'kongregatePlayfab', ($log, env, kongregate, kongregateS3Syncer, kongregatePlayfabSyncer, options, $timeout) ->
+  # <div ng-include="'views/playfab/kongregate.html'"></div>
   template: """
 <div ng-if="isVisible">
-  <div ng-include="'views/playfab/kongregate.html'"></div>
 </div>
 """
   restrict: 'EA'

@@ -1,4 +1,5 @@
 'use strict'
+import * as views from '../views'
 
 ###*
  # @ngdoc directive
@@ -7,7 +8,8 @@
  # # playfab
 ###
 angular.module('swarmApp').directive 'playfaboptions', (playfab, options, session, game, wwwPlayfabSyncer) ->
-  templateUrl: 'views/playfab/options.html'
+  # templateUrl: 'views/playfab/options.html'
+  template: views.playfab.options
   restrict: 'EA'
   scope: {}
   link: (scope, element, attrs) ->
