@@ -239,7 +239,7 @@ angular.module('swarmApp').factory 'Unit', (util, $log, Effect, ProducerPaths, U
       if degree > 1
         # quadratic formula: (-b +/- (b^2 - 4ac)^0.5) / 2a
         # TODO this is exact, don't clear the cache periodically
-        [_, b, a] = coeffs
+        [__, b, a] = coeffs
         if not a.isZero()
           c = remaining.negated()
           a = a.dividedBy 2 # for the "/2!" in "c * t^2/2!"

@@ -140,7 +140,7 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       template: views.cleartheme
       controller: 'ClearthemeCtrl'
     .when '/export',
-      template: views.export
+      template: views.export_
       controller: 'ExportCtrl'
     .when '/login',
       if not env.isServerFrontendEnabled
