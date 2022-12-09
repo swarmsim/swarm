@@ -15,7 +15,7 @@
     "bower": "^1.8.8",
     "coffee-script": "1.12.4",
     "coffeelint": "1.16.0",
-    "grunt": "1.0.1",
+    "grunt": "1.5.3",
     "grunt-angular-templates": "1.1.0",
     "grunt-autoprefixer": "3.0.4",
     "grunt-coffeelint": "0.0.16",
