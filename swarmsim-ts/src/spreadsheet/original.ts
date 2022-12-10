@@ -3,9 +3,29 @@ import * as IO from "io-ts";
  * The original spreadsheet schema. The old swarmsim code expects these fields
  */
 
-const string = IO.string;
-const number = IO.union([IO.literal(""), IO.number]);
-const boolean = IO.union([IO.literal(""), IO.literal("TRUE")]);
+export const string = IO.string;
+const number_ = IO.union([IO.literal(""), IO.number]);
+export const number = number_.pipe(
+  new IO.Type("Spreadsheet.number", number_.is, number_.validate, (output) =>
+    output === 0 ? "" : output
+  )
+);
+const boolean_ = IO.union([IO.literal(""), IO.literal("TRUE")]);
+export const boolean = new IO.Type<boolean, "" | "TRUE">(
+  "Spreadsheet.boolean",
+  (b): b is boolean => typeof b === "boolean",
+  (input, c) => {
+    switch (input) {
+      case "TRUE":
+        return IO.success(true);
+      case "":
+        return IO.success(true);
+      default:
+        return IO.failure(input, c, "unknown boolean value");
+    }
+  },
+  (output) => (output ? "TRUE" : "")
+);
 
 export const Achievement = IO.type({
   name: string,
