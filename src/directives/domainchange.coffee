@@ -1,13 +1,13 @@
 'use strict'
 import * as views from '../views'
-import moment from 'moment'
+# import moment from 'moment'
 
 angular.module('swarmApp').directive 'domainchange', (domainType, wwwRedirectDate, $location, session) ->
   restrict: 'E'
   template: """<div ng-if="!!url" ng-include="url"></div>"""
   link: (scope, element, attrs) ->
     scope.redirectDate = wwwRedirectDate
-    scope.redirectDuration = moment.duration(wwwRedirectDate.getTime() - Date.now()).format("d [days]")
+    scope.redirectDuration = window.moment.duration(wwwRedirectDate.getTime() - Date.now()).format("d [days]")
 
     if (domainType == 'oldwww')
       # TODO

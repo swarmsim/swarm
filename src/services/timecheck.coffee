@@ -1,6 +1,6 @@
 'use strict'
 import $ from 'jquery'
-import moment from 'moment'
+# import moment from 'moment'
 import _ from 'lodash'
 
 # Thu, 02 Oct 2014 07:34:29 GMT
@@ -21,7 +21,7 @@ angular.module('swarmApp').value 'timecheckerServerFormat', 'ddd, DD MMM YYYY HH
 ###
 angular.module('swarmApp').factory 'TimeChecker', ($rootScope, $http, $q, timecheckUrl, game, timecheckerServerFormat, $log) -> class TimeChecker
   constructor: (thresholdHours) ->
-    @threshold = moment.duration thresholdHours, 'hours'
+    @threshold = window.moment.duration thresholdHours, 'hours'
 
   fetchNetTime: ->
     # returns a promise
