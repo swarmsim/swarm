@@ -51,7 +51,8 @@ angular.module 'swarmApp'
       #   running on www.swarmsim.com.
       # * legacy: opt-out message/link are shown. Use this once coffeescript's
       #   *not* running on www.swarmsim.com, only on coffee.swarmsim.com.
-      scope.status = if rollout('rollout:elm', 0.01) then 'beta' else 'hidden'
+      # scope.status = if rollout('rollout:elm', 0.01) then 'beta' else 'hidden'
+      scope.status = 'hidden'
         # next phase:
         # 'beta'
         # final phase:
