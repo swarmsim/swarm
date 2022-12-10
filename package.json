@@ -21,9 +21,10 @@
     "preversion": "yarn test"
   },
   "engines": {
-    "node": ">=8",
+    "node": ">=16",
     "yarn": ">= 1.0.0"
   },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "//optionalDependencies": "because travis fails to install me, but doesn't actually need me",
   "optionalDependencies": {
     "terraform-npm": "0.2.6"
