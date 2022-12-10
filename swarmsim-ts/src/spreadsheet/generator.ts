@@ -1,3 +1,5 @@
+import originalData from "./original-data.json";
+
 function generate(json: object): string {
   const jsons = JSON.stringify(json, null, 2);
   return `// This is an automatically generated file! Do not edit!
@@ -7,13 +9,13 @@ function generate(json: object): string {
 'use strict';
 
 try {
-  angular.module('swarmSpreadsheetPreload');
-  //console.log('secondv0.2');
+  angular.module('swarmSpreadsheetPreload2');
 }
 catch (e) {
   // module not yet initialized by some other module, we're the first
-  angular.module('swarmSpreadsheetPreload', []);
-  //console.log('firstv0.2');
+  angular.module('swarmSpreadsheetPreload2', []);
 }
-angular.module('swarmSpreadsheetPreload').value('spreadsheetPreload-v0.2', ${jsons})`;
+angular.module('swarmSpreadsheetPreload2').value('spreadsheetPreload-v0.2', ${jsons})`;
 }
+
+console.log(generate(originalData));
