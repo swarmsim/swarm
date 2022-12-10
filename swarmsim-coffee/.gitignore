@@ -11,3 +11,4 @@
 /.travis/tmp
 /swarm-playfab-cloudscript
 /.terraform
+/*.log

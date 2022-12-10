@@ -97,6 +97,7 @@
     "@bower_components/sjcl": "bitwiseshiftleft/sjcl#1.0.6",
     "@bower_components/swarm-numberformat": "erosson/swarm-numberformat#0.2.1",
     "@bower_components/swarm-persist": "erosson/swarm-persist#0.0.3",
+    "@swarmsim/ts": "file:../swarmsim-ts",
     "konami": "^1.6.3"
   },
   "engines": {
