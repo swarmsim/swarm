@@ -3,7 +3,7 @@
         "install:link": "(cd swarmsim-ts && yarn link) && (cd swarmsim-coffee && yarn link @swarmsim/ts)",
         "install": "yarn run install:link && (cd swarmsim-ts && yarn install && yarn build) && (cd swarmsim-coffee && yarn install)",
         "start": "cd swarmsim-coffee && yarn start",
-        "build": "(cd swarmsim-ts && yarn build) && (cd swarmsim-coffee && yarn build) && cp -rp dist ..",
+        "build": "(cd swarmsim-ts && yarn build) && (cd swarmsim-coffee && yarn build && cp -rp dist ..)",
         "start:dist": "serve dist",
         "test": "cd swarmsim-coffee && yarn test"
     },
