@@ -1,6 +1,6 @@
-import * as S from "./spreadsheet";
+import * as S from "./original";
 // data copied from swarmsim-coffee/app/scripts/spreadsheetpreload/v0.2.js
-import json from "./original-spreadsheet-data.json";
+import json from "./original-data.json";
 import { PathReporter } from "io-ts/lib/PathReporter";
 
 test("spreadsheet typings match real spreadsheet: achievements", () => {
