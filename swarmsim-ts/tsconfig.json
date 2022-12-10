@@ -2,6 +2,7 @@
     "compilerOptions": {
         "esModuleInterop": true,
         "moduleResolution": "node",
+        "resolveJsonModule": true,
         "outDir": "dist",
         "target": "ES6",
         "noImplicitAny": true,
