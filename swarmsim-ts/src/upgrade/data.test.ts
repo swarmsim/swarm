@@ -12,6 +12,8 @@ test("data matches original-data, when it exists", () => {
     expect(td).toEqual(od);
   }
 });
-test.skip("data matches original-data, and all of it exists", () => {
-  fail("todo");
+test("data matches original-data, and all of it exists", () => {
+  expect(list.flatMap(C.FromSpreadsheet.encode)).toEqual(
+    originalData.upgrades.elements
+  );
 });

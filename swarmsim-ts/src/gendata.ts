@@ -1,5 +1,6 @@
 import * as Un from "./unittype/codec";
 import * as Up from "./upgrade/codec";
+import * as A from "./achievement/codec";
 import * as Mtx from "./mtx/codec";
 import originalData from "./spreadsheet/original-data.json";
 import fs from "fs/promises";
@@ -10,6 +11,7 @@ async function main() {
   await Promise.all([
     fs.writeFile(filename("unittype"), genUnittype()),
     fs.writeFile(filename("upgrade"), genUpgrade()),
+    fs.writeFile(filename("achievement"), genAchievement()),
     fs.writeFile(filename("mtx"), genMtx()),
   ]);
 }
@@ -30,6 +32,15 @@ main().catch((err) => {
   process.exit(1);
 });
 
+function genAchievement(): string {
+  const data = orThrow(A.sheetDecode(originalData.achievements));
+  return `\
+import * as C from "./codec";
+
+const list: C.Achievement[] = ${JSON.stringify(data, null, 2)};
+export default list;
+`;
+}
 function genUpgrade(): string {
   const data = orThrow(Up.sheetDecode(originalData.upgrades));
   return `\

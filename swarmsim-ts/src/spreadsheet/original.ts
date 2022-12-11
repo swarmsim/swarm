@@ -36,10 +36,10 @@ export const Achievement = IO.type({
   "requires.unittype": string,
   "requires.upgradetype": string,
   "requires.val": IO.union([IO.number, IO.string]),
-  points: number,
+  points: number_,
   "visible.unittype": string,
   "visible.upgradetype": string,
-  "visible.val": number,
+  "visible.val": number_,
 });
 export type Achievement = IO.TypeOf<typeof Achievement>;
 

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import * as Router from "react-router-dom";
 import * as Unittype from "./unittype/view";
 import * as Upgrade from "./upgrade/view";
+import * as Achievement from "./achievement/view";
 import * as Mtx from "./mtx/view";
 import Home from "./home";
 
@@ -20,6 +21,9 @@ const router = Router.createBrowserRouter([
   { path: "/upgrade/effect", element: <Upgrade.ViewEffect /> },
   { path: "/upgrade/requires", element: <Upgrade.ViewRequires /> },
   { path: "/upgrade/cost", element: <Upgrade.ViewCost /> },
+  { path: "/achievement", element: <Achievement.View /> },
+  { path: "/achievement/requires", element: <Achievement.ViewRequires /> },
+  { path: "/achievement/visible", element: <Achievement.ViewVisible /> },
   { path: "/mtx", element: <Mtx.View /> },
 ]);
 root.render(
