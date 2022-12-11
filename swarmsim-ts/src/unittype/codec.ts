@@ -87,6 +87,38 @@ export const Unittype = IO.intersection([
 ]);
 export type Unittype = IO.TypeOf<typeof Unittype>;
 
+export const NEffect = IO.type({ name: IO.string, effect: Effect });
+export type NEffect = IO.TypeOf<typeof NEffect>;
+export function normalizeEffect(us: Unittype[]): NEffect[] {
+  return us.flatMap((u) =>
+    (u.effect || []).map((effect) => ({ name: u.name, effect }))
+  );
+}
+
+export const NRequire = IO.type({ name: IO.string, requires: Require });
+export type NRequire = IO.TypeOf<typeof NRequire>;
+export function normalizeRequire(us: Unittype[]): NRequire[] {
+  return us.flatMap((u) =>
+    (u.requires || []).map((requires) => ({ name: u.name, requires }))
+  );
+}
+
+export const NCost = IO.type({ name: IO.string, cost: Cost });
+export type NCost = IO.TypeOf<typeof NCost>;
+export function normalizeCost(us: Unittype[]): NCost[] {
+  return us.flatMap((u) =>
+    (u.cost || []).map((cost) => ({ name: u.name, cost }))
+  );
+}
+
+export const NProd = IO.type({ name: IO.string, prod: Prod });
+export type NProd = IO.TypeOf<typeof NProd>;
+export function normalizeProd(us: Unittype[]): NProd[] {
+  return us.flatMap((u) =>
+    (u.prod || []).map((prod) => ({ name: u.name, prod }))
+  );
+}
+
 const empty: S.Unittype = {
   name: "",
   description: "",
