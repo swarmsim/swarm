@@ -16,6 +16,9 @@ const router = Router.createBrowserRouter([
   { path: "/unittype/cost", element: <Unittype.ViewCost /> },
   { path: "/unittype/prod", element: <Unittype.ViewProd /> },
   { path: "/upgrade", element: <Upgrade.View /> },
+  { path: "/upgrade/effect", element: <Upgrade.ViewEffect /> },
+  { path: "/upgrade/requires", element: <Upgrade.ViewRequires /> },
+  { path: "/upgrade/cost", element: <Upgrade.ViewCost /> },
 ]);
 root.render(
   <React.StrictMode>

@@ -53,6 +53,29 @@ export const Upgrade = IO.intersection([
 ]);
 export type Upgrade = IO.TypeOf<typeof Upgrade>;
 
+export const NEffect = IO.type({ name: IO.string, effect: Effect });
+export type NEffect = IO.TypeOf<typeof NEffect>;
+export function normalizeEffect(us: Upgrade[]): NEffect[] {
+  return us.flatMap((u) =>
+    (u.effect || []).map((effect) => ({ name: u.name, effect }))
+  );
+}
+
+export const NRequire = IO.type({ name: IO.string, requires: Require });
+export type NRequire = IO.TypeOf<typeof NRequire>;
+export function normalizeRequire(us: Upgrade[]): NRequire[] {
+  return us.flatMap((u) =>
+    (u.requires || []).map((requires) => ({ name: u.name, requires }))
+  );
+}
+
+export const NCost = IO.type({ name: IO.string, cost: Cost });
+export type NCost = IO.TypeOf<typeof NCost>;
+export function normalizeCost(us: Upgrade[]): NCost[] {
+  return us.flatMap((u) =>
+    (u.cost || []).map((cost) => ({ name: u.name, cost }))
+  );
+}
 const empty: S.Upgrade = {
   name: "",
   description: "",

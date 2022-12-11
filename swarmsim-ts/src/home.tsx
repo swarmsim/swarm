@@ -11,6 +11,9 @@ export default function Home(props: {
     "/unittype/cost",
     "/unittype/prod",
     "/upgrade",
+    "/upgrade/effect",
+    "/upgrade/requires",
+    "/upgrade/cost",
     "/achievements",
     "/mtx",
   ];

@@ -31,7 +31,7 @@ export class Field {
       case "NumberType":
         return <span title={JSON.stringify(value)}>{value}</span>;
       case "BooleanType":
-        return <span title={JSON.stringify(value)}>{value}</span>;
+        return <span title={JSON.stringify(value)}><input type="checkbox" readOnly={true} checked={value} /></span>;
     }
     return <div>{JSON.stringify(value)}</div>;
   }
