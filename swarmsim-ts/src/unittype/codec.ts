@@ -1,6 +1,10 @@
-import { orLeft } from "fp-ts/lib/EitherT";
 import * as IO from "io-ts";
 import * as S from "../spreadsheet/original";
+import * as E from "fp-ts/lib/Either";
+import { prefixKeys, replaceKey } from "../util";
+import { pipe } from "fp-ts/lib/function";
+import * as A from "fp-ts/lib/Array";
+import { PathReporter } from "io-ts/lib/PathReporter";
 
 export const Cost = IO.type({
   unittype: IO.string,
@@ -120,19 +124,6 @@ const empty: S.Unittype = {
   "effect.val2": "",
   "effect.val3": "",
 };
-function prefixKeys(prefix: string, o: any): any {
-  return Object.fromEntries(
-    Object.entries(o).map(([k, v]) => [`${prefix}${k}`, v])
-  );
-}
-function replaceKey(oldkey: string, newkey: string, o: any): any {
-  if (oldkey in o) {
-    o = { ...o };
-    o[newkey] = o[oldkey];
-    delete o[oldkey];
-  }
-  return o;
-}
 export const FromSpreadsheet = IO.array(S.Unittype).pipe(
   new IO.Type(
     "Unittype.FromSpreadsheet",
@@ -261,3 +252,36 @@ export const FromSpreadsheet = IO.array(S.Unittype).pipe(
     }
   )
 );
+
+export function sheetByName(
+  sheet: S.Sheet<{ name: string }>
+): E.Either<IO.Errors, { [s: string]: S.Unittype[] }> {
+  return pipe(
+    sheet,
+    S.Sheet(S.Unittype).decode,
+    E.map((s) =>
+      s.elements.reduce((accum, d) => {
+        accum[d.name] = (accum[d.name] ?? []).concat([d]);
+        return accum;
+      }, {} as { [s: string]: S.Unittype[] })
+    )
+  );
+}
+function decodes(byName: {
+  [s: string]: S.Unittype[];
+}): E.Either<IO.Errors, Unittype[]> {
+  return pipe(
+    byName,
+    Object.values,
+    // (vs) => vs.map((v) => FromSpreadsheet.decode(v)),
+    A.map(FromSpreadsheet.decode),
+    // E.Either<x, Upgrade>[] => E.Either<x, Unittype[]>
+    A.sequence(E.Applicative)
+  );
+}
+
+export function sheetDecode(
+  sheet: S.Sheet<{ name: string }>
+): E.Either<IO.Errors, Unittype[]> {
+  return pipe(sheet, sheetByName, E.chain(decodes));
+}
