@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import * as Router from "react-router-dom";
 import * as Unittype from "./unittype/view";
 import * as Upgrade from "./upgrade/view";
+import * as Mtx from "./mtx/view";
 import Home from "./home";
 
 const rootEl = document.getElementById("root");
@@ -19,6 +20,7 @@ const router = Router.createBrowserRouter([
   { path: "/upgrade/effect", element: <Upgrade.ViewEffect /> },
   { path: "/upgrade/requires", element: <Upgrade.ViewRequires /> },
   { path: "/upgrade/cost", element: <Upgrade.ViewCost /> },
+  { path: "/mtx", element: <Mtx.View /> },
 ]);
 root.render(
   <React.StrictMode>

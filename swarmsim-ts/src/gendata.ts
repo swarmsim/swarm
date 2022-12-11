@@ -1,5 +1,6 @@
 import * as Un from "./unittype/codec";
 import * as Up from "./upgrade/codec";
+import * as Mtx from "./mtx/codec";
 import originalData from "./spreadsheet/original-data.json";
 import fs from "fs/promises";
 import path from "path";
@@ -9,11 +10,26 @@ async function main() {
   await Promise.all([
     fs.writeFile(filename("unittype"), genUnittype()),
     fs.writeFile(filename("upgrade"), genUpgrade()),
+    fs.writeFile(filename("mtx"), genMtx()),
   ]);
 }
 function filename(dir: string): string {
   return path.join(__dirname, dir, "data.ts");
 }
+function genMtx(): string {
+  const data = originalData.mtx.elements;
+  return `\
+import * as C from "./codec";
+
+const list: C.Mtx[] = ${JSON.stringify(data, null, 2)};
+export default list;
+`;
+}
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
+
 function genUpgrade(): string {
   const data = orThrow(Up.sheetDecode(originalData.upgrades));
   return `\

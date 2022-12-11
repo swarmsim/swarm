@@ -6,6 +6,7 @@
     "scripts": {
         "start": "parcel src/server.html",
         "build": "mkdir -p dist && ts-node src/spreadsheet/generator.ts > dist/index.js",
+        "gen": "ts-node src/gendata.ts",
         "test": "jest"
     },
     "targets": {
