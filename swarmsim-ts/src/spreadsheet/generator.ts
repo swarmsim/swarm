@@ -15,7 +15,7 @@ catch (e) {
   // module not yet initialized by some other module, we're the first
   angular.module('swarmSpreadsheetPreload2', []);
 }
-angular.module('swarmSpreadsheetPreload2').value('spreadsheetPreload-v0.2', ${jsons})`;
+angular.module('swarmSpreadsheetPreload2').value('spreadsheetPreload-v0.2', ${jsons});`;
 }
 
 console.log(generate(originalData));
