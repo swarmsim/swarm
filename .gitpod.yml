@@ -1,8 +1,8 @@
 
 tasks:
-  - init: |
-      yarn
+  - init: yarn
     command: |
+      yarn
       gem install compass  # this doesn't seem to stick if done in init
       yarn start
 
