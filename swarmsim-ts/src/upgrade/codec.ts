@@ -223,3 +223,31 @@ export function sheetDecode(
 ): E.Either<IO.Errors, Upgrade[]> {
   return pipe(sheet, sheetByName, E.chain(decodes));
 }
+
+export function sheet(elements: Upgrade[]): S.Sheet<S.Upgrade> {
+  return {
+    elements: elements.flatMap(FromSpreadsheet.encode),
+    name: "upgrades",
+    column_names: [
+      "name",
+      "label",
+      "description",
+      "lol",
+      "maxlevel",
+      "class",
+      "unittype",
+      "requires.unittype",
+      "requires.val",
+      "cost.unittype",
+      "cost.val",
+      "cost.factor",
+      "effect.type",
+      "effect.unittype",
+      "effect.upgradetype",
+      "effect.val",
+      "effect.stat",
+      "effect.val2",
+      "effect.unittype2",
+    ],
+  };
+}

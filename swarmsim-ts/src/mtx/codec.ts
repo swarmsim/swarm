@@ -17,3 +17,24 @@ export function sheetByName(
     E.map(Object.fromEntries)
   );
 }
+
+export function sheet(elements: Mtx[]): S.Sheet<Mtx> {
+  return {
+    elements,
+    name: "mtx",
+    column_names: [
+      "name",
+      "label",
+      "description",
+      "pricekreds",
+      "priceusdpaypal",
+      "uses",
+      "pack.unittype",
+      "bulkbonus",
+      "pack.val",
+      "paypalsandboxurl",
+      "paypallegacygithuburl",
+      "paypalswarmsimdotcomurl",
+    ],
+  };
+}

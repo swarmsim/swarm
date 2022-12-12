@@ -141,5 +141,3 @@ export const Schema = IO.type({
   upgrades: Sheet(Upgrade),
 });
 export type Schema = IO.TypeOf<typeof Schema>;
-
-export const sheet_names = ["achievements", "mtx", "unittypes", "upgrades"];

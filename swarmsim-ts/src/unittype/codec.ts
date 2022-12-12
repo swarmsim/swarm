@@ -317,3 +317,47 @@ export function sheetDecode(
 ): E.Either<IO.Errors, Unittype[]> {
   return pipe(sheet, sheetByName, E.chain(decodes));
 }
+
+export function sheet(elements: Unittype[]): S.Sheet<S.Unittype> {
+  return {
+    elements: elements.flatMap(FromSpreadsheet.encode),
+    name: "unittypes",
+    column_names: [
+      "name",
+      "label",
+      "plural",
+      "verb",
+      "verbone",
+      "verbing",
+      "column",
+      "tab",
+      "init",
+      "ascendpreserve",
+      "description",
+      "lol",
+      "disabled",
+      "unbuyable",
+      "isbuyhidden",
+      "tier",
+      "cost.unittype",
+      "cost.val",
+      "prod.unittype",
+      "prod.val",
+      "showparent",
+      "warnfirst.unittype",
+      "warnfirst.val",
+      "warnfirst.text",
+      "requires.unittype",
+      "requires.upgradetype",
+      "requires.val",
+      "requires.op",
+      "effect.type",
+      "effect.unittype",
+      "effect.val",
+      "effect.stat",
+      "effect.val2",
+      "effect.unittype2",
+      "effect.val3",
+    ],
+  };
+}

@@ -205,3 +205,24 @@ export function sheetDecode(
 ): E.Either<IO.Errors, Achievement[]> {
   return pipe(sheet, sheetByName, E.chain(decodes));
 }
+
+export function sheet(elements: Achievement[]): S.Sheet<S.Achievement> {
+  return {
+    elements: elements.flatMap(FromSpreadsheet.encode),
+    name: "achievements",
+    column_names: [
+      "name",
+      "label",
+      "description",
+      "longdesc",
+      "requires.event",
+      "requires.unittype",
+      "requires.upgradetype",
+      "requires.val",
+      "points",
+      "visible.unittype",
+      "visible.upgradetype",
+      "visible.val",
+    ],
+  };
+}

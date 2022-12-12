@@ -1,4 +1,5 @@
 import originalData from "./original-data.json";
+import data from "./data";
 
 function generate(json: object): string {
   const jsons = JSON.stringify(json, null, 2);
@@ -18,4 +19,5 @@ catch (e) {
 angular.module('swarmSpreadsheetPreload2').value('spreadsheetPreload-v0.2', ${jsons});`;
 }
 
-console.log(generate(originalData));
+// console.log(generate(originalData));
+console.log(generate(data()));
