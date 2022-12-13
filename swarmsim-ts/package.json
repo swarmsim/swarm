@@ -16,11 +16,15 @@
   },
   "devDependencies": {
     "@swarmsim/tables": "file:../tables",
+    "@types/jest": "^29.2.4",
     "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
+    "jest": "^29.3.1",
     "parcel": "^2.8.1",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "fp-ts": "^2.13.1",
