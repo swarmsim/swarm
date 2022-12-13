@@ -2,15 +2,22 @@
   "name": "@swarmsim/ts",
   "version": "1.0.0",
   "license": "GPL-3.0",
-  "source": "src/index.html",
-  "dest": "dest/index.html",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel serve --target standalone-dev",
     "build": "parcel build",
+    "watch": "parcel watch",
     "test": "jest"
   },
   "targets": {
-    "main": {
+    "standalone-dev": {
+      "source": "src/index.html",
+      "distDir": "dist/standalone-dev/",
+      "includeNodeModules": true
+    },
+    "coffee-embed": {
+      "source": "src/index.html",
+      "distDir": "dist/coffee-embed/",
+      "publicUrl": "/swarmsim-ts",
       "includeNodeModules": true
     }
   },

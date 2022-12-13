@@ -104,6 +104,8 @@ angular.module('swarmApp').config ($routeProvider, env) ->
       else
         templateUrl: 'views/debugapi.html'
         controller: 'DebugApiCtrl'
+    .when '/debug/tables',
+      template: '<iframe id="debug-tables" class="ts-embed" src="/swarmsim-ts?embed=debug-tables"></iframe>'
     .when '/decimallegend',
       templateUrl: 'views/decimallegend.html'
       controller: 'DecimallegendCtrl'

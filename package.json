@@ -3,12 +3,13 @@
     "scripts": {
         "install:link": "(cd tables && yarn link) && (cd swarmsim-ts && yarn link && yarn link @swarmsim/tables) && (cd swarmsim-coffee && yarn link @swarmsim/tables && yarn link @swarmsim/ts)",
         "install": "yarn run install:link && (cd tables && yarn install && yarn build) && (cd swarmsim-ts && yarn install && yarn build) && (cd swarmsim-coffee && yarn install)",
-        "start": "cd swarmsim-coffee && yarn start",
+        "start": "concurrently -k 'cd swarmsim-coffee && yarn start' 'cd swarmsim-ts && yarn watch'",
         "build": "(cd tables && yarn build) && (cd swarmsim-ts && yarn build) && (cd swarmsim-coffee && yarn build && cp -rp dist ..)",
         "start:dist": "serve dist",
         "test": "(cd tables && yarn test) && (cd swarmsim-ts && yarn test) && (cd swarmsim-coffee && yarn test)"
     },
     "devDependencies": {
+        "concurrently": "^7.6.0",
         "serve": "^14.1.2"
     }
 }
