@@ -47,7 +47,7 @@ module.exports = (config) ->
       'bower_components/playfab-sdk/PlayFabSdk/src/PlayFab/PlayFabClientApi.js'
       'bower_components/swarm-persist/dist/swarm-persist.js'
       'bower_components/swarm-numberformat/dist/swarm-numberformat.js'
-      'node_modules/@swarmsim/ts/dist/index.js'
+      'node_modules/@swarmsim/tables/dist/index.js'
       'app/scripts/**/*.coffee'
       'app/scripts/**/*.js'
       '.tmp/scripts/env.js'
