@@ -1,11 +1,12 @@
 {
+    "license": "GPL-3.0",
     "scripts": {
-        "install:link": "(cd swarmsim-ts && yarn link) && (cd swarmsim-coffee && yarn link @swarmsim/ts)",
-        "install": "yarn run install:link && (cd swarmsim-ts && yarn install && yarn build) && (cd swarmsim-coffee && yarn install)",
+        "install:link": "(cd tables && yarn link) && (cd swarmsim-ts && yarn link && yarn link @swarmsim/tables) && (cd swarmsim-coffee && yarn link @swarmsim/tables && yarn link @swarmsim/ts)",
+        "install": "yarn run install:link && (cd tables && yarn install && yarn build) && (cd swarmsim-ts && yarn install && yarn build) && (cd swarmsim-coffee && yarn install)",
         "start": "cd swarmsim-coffee && yarn start",
-        "build": "(cd swarmsim-ts && yarn build) && (cd swarmsim-coffee && yarn build && cp -rp dist ..)",
+        "build": "(cd tables && yarn build) && (cd swarmsim-ts && yarn build) && (cd swarmsim-coffee && yarn build && cp -rp dist ..)",
         "start:dist": "serve dist",
-        "test": "cd swarmsim-coffee && yarn test"
+        "test": "(cd tables && yarn test) && (cd swarmsim-ts && yarn test) && (cd swarmsim-coffee && yarn test)"
     },
     "devDependencies": {
         "serve": "^14.1.2"

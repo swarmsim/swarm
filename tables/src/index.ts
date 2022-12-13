@@ -1,5 +1,5 @@
-import originalData from "./original-data.json";
-import data from "./data";
+import originalData from "./spreadsheet/original-data.json";
+import data from "./spreadsheet/data";
 
 function generate(json: object): string {
   const jsons = JSON.stringify(json, null, 2);

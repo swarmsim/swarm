@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import * as Router from "react-router-dom";
-import * as Unittype from "./unittype/view";
-import * as Upgrade from "./upgrade/view";
-import * as Achievement from "./achievement/view";
-import * as Mtx from "./mtx/view";
+import * as Unittype from "./unittype";
+import * as Upgrade from "./upgrade";
+import * as Achievement from "./achievement";
+import * as Mtx from "./mtx";
 import Home from "./home";
 
 const rootEl = document.getElementById("root");

@@ -14,7 +14,9 @@ export default function Home(props: {
     "/upgrade/effect",
     "/upgrade/requires",
     "/upgrade/cost",
-    "/achievements",
+    "/achievement",
+    "/achievement/requires",
+    "/achievement/visible",
     "/mtx",
   ];
   return (

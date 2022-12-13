@@ -163,7 +163,7 @@
     lodash "^4.17.4"
     playfab-sdk-browser "github:erosson/playfab-sdk-browser"
 
-"@swarmsim/ts@file:../swarmsim-ts":
+"@swarmsim/tables@file:../tables":
   version "1.0.0"
 
 abbrev@1:
