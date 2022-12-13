@@ -4,8 +4,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "start": "parcel serve --target standalone-dev",
-    "build": "parcel build",
-    "watch": "parcel watch",
+    "build": "parcel build --target coffee-embed",
+    "watch": "parcel watch --target coffee-embed",
     "test": "jest"
   },
   "targets": {
