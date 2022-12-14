@@ -4,13 +4,15 @@
     { "dec": "abc", "b64": "YWJj", "lz": "IYIwxkA=" },
     { "dec": "abcd", "b64": "YWJjZA==", "lz": "IYIwxgJkA===" }
   ],
-  "codec": [
+  "format": [
     {
       "export_": "MS4xLjE0|Q2hlYXRlciA6KAoKHYVwNmQ=",
       "body": "null",
       "version": "1.1.14",
       "name": "null"
-    },
+    }
+  ],
+  "exports": [
     {
       "export_": "MS4xLjE0|Q2hlYXRlciA6KAoKN4IgrgdglgLjCeAHApgZxALlFCA3KqUARgDbIAWAhjAMbnIBO8mIAjCADQgC2y1LAZgCsnECUoNclFqwAMomgHsliiC3lcYjBrEVN1o5BEYBzZhhAaQDNChoBRYwzMGu3GAA9Hp85dHGPMHQLKxomVBhKElceMEiTIxjEG244ygS1ENFKVBojQlUYgDMbZAAlW2QaFgAWUQATBlVkGIBHMGRErK5jCJiTG2pGds7Mvy5yKFwW7pBJ6ZGu8ZBkbmS0YOXkxUR6GH7FevqNpMoIGHpC2cQzi+RVACZT88uIAWe71Trr29eRWcU0wY3Bw9RigMYIIg9SeAKBUPq7zhkNB32WEOBoP+6PhoIAbDFUAB3CTcEg4EyEmAUxiExBQY4MGLcRSodq6GIkZRBfazJqUOj9KC3VD0xkxPLnKAoY4xEmimLHXCKMA2JmzEyKK7LaAmcgwIhgSmzFkXGJEfgmtIvah0Ri+KypSLnC285ZO240LnGZnWmDE0kkhiIX3OmAMILkUO3PiCq1hkrIVrR84BIIpyLAh2iD3nXiWvwAXy49SGmFAEQkWjBFgesgeDwAtKwm6wBAAVOsYB4AdgwsiEADo8QIHgAtUQ2SsMassOsN5utjtd3v9ocj8eiVCUaY1kDz1tLzuyDACAAcp7xg4eQiEE64NigRSgyD3B8XzeXJ9XA+Ho/vIBeqyr5zvWh6fse3Z9r+G4TsWIA7NSqjBMA8FgIgAyUMcKHwZW1IRFANAoSARDwAAqtAvKoVwpFkRhDBYTM1GAeSNAANbBLI8ECpMyDTLw5zEcchrGniACcsh4rIXFcCStD0DWzGoGx0oygAslAJDkpxXBAgUmQVpms4WKwg6mawdRcNuu4yGZZl1IWhZAA",
       "body": "{\"unittypes\":{\"invisiblehatchery\":\"1\",\"meat\":\"35\",\"larva\":\"10\",\"cocoon\":\"0\",\"territory\":\"0\",\"energy\":\"0\",\"respecEnergy\":\"0\",\"mtxEnergy\":\"0\",\"nexus\":\"0\",\"crystal\":\"0\",\"mutagen\":\"0\",\"premutagen\":\"0\",\"ascension\":\"0\",\"freeRespec\":\"4\",\"drone\":\"0\",\"queen\":\"0\",\"nest\":\"0\",\"greaterqueen\":\"0\",\"hive\":\"0\",\"hivequeen\":\"0\",\"empress\":\"0\",\"prophet\":\"0\",\"goddess\":\"0\",\"pantheon\":\"0\",\"pantheon2\":\"0\",\"pantheon3\":\"0\",\"pantheon4\":\"0\",\"pantheon5\":\"0\",\"overmind\":\"0\",\"overmind2\":\"0\",\"overmind3\":\"0\",\"overmind4\":\"0\",\"overmind5\":\"0\",\"overmind6\":\"0\",\"swarmling\":\"0\",\"stinger\":\"0\",\"spider\":\"0\",\"mosquito\":\"0\",\"locust\":\"0\",\"roach\":\"0\",\"giantspider\":\"0\",\"centipede\":\"0\",\"wasp\":\"0\",\"devourer\":\"0\",\"goon\":\"0\",\"nightbug\":\"0\",\"moth\":\"0\",\"bat\":\"0\",\"mutanthatchery\":\"0\",\"mutantbat\":\"0\",\"mutantclone\":\"0\",\"mutantswarmwarp\":\"0\",\"mutantrush\":\"0\",\"mutanteach\":\"0\",\"mutantfreq\":\"0\",\"mutantnexus\":\"0\",\"mutantarmy\":\"0\",\"mutantmeat\":\"0\"},\"date\":{\"started\":\"2022-12-13T20:27:05.632Z\",\"restarted\":\"2022-12-13T20:27:05.632Z\",\"saved\":\"2022-12-13T20:38:36.255Z\",\"reified\":\"2022-12-13T20:27:05.632Z\",\"closed\":\"2022-12-13T20:27:05.632Z\"},\"options\":{},\"upgrades\":{},\"statistics\":{\"byUnit\":{},\"byUpgrade\":{},\"clicks\":0},\"achievements\":{\"debug\":690600},\"watched\":{},\"skippedMillis\":0,\"version\":{\"started\":\"1.1.14\",\"saved\":\"1.1.14\"}}",

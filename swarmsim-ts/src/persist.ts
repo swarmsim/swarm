@@ -10,7 +10,6 @@ import * as IOT from "io-ts-types";
 import * as O from "fp-ts/Option";
 import { pipe } from "fp-ts/lib/function";
 import { iso, Newtype } from "newtype-ts";
-import { string } from "fp-ts";
 
 export interface Base64
   extends Newtype<{ readonly Base64: unique symbol }, string> {}
@@ -98,3 +97,101 @@ export const FromSwarmHeaders = IO.string.pipe(
         .join("")
   )
 );
+
+const DecimalString = IO.string;
+const DateISO = IO.string;
+const ElapsedMs = IO.number;
+function typeAndPartial<T extends IO.Props, P extends IO.Props>(
+  required: T,
+  optional: P,
+  name?: string
+): IO.IntersectionC<[IO.TypeC<T>, IO.PartialC<P>]> {
+  return IO.intersection([IO.type(required), IO.partial(optional)], name);
+}
+// https://gitlab.com/erosson/swarm-elm/-/blob/master/packages/www/src/Game.elm#L1154
+export const Legacy = typeAndPartial(
+  {
+    date: typeAndPartial(
+      {
+        started: DateISO,
+        reified: DateISO,
+        restarted: DateISO,
+        saved: DateISO,
+        closed: DateISO,
+      },
+      {
+        loaded: DateISO,
+        // cooldowns. this is the ony one we ever used, isn't it?
+        // set to `now` when buying a hatchery/expansion
+        "addUnitTimed-crystal": DateISO,
+      }
+    ),
+    unittypes: IO.record(IO.string, DecimalString),
+    options: IO.partial({
+      isCustomTheme: IO.boolean,
+      theme: IO.string,
+      showAdvancedUnitData: IO.boolean,
+      notation: IO.union([
+        IO.literal("standard-decimal"),
+        IO.literal("scientific-e"),
+        IO.literal("hybrid"),
+        IO.literal("engineering"),
+      ]),
+      velocityUnit: IO.union([
+        IO.literal("sec"),
+        IO.literal("min"),
+        IO.literal("hr"),
+        IO.literal("day"),
+        IO.literal("warp"),
+      ]),
+      durationFormat: IO.union([
+        IO.literal("abbreviated"), // "exact"
+        IO.literal("human"), // "approximate"
+        IO.literal("full"), // no longer used
+      ]),
+      fpsAuto: IO.boolean,
+      fps: IO.number,
+    }),
+    upgrades: IO.record(IO.string, DecimalString),
+    statistics: IO.partial({
+      byUnit: IO.record(
+        IO.string,
+        IO.type({
+          clicks: IO.number,
+          num: DecimalString,
+          twinnum: DecimalString,
+          elapsedFirst: ElapsedMs,
+        })
+      ),
+      byUpgrade: IO.record(
+        IO.string,
+        IO.type({
+          clicks: IO.number,
+          num: DecimalString,
+          elapsedFirst: ElapsedMs,
+        })
+      ),
+      clicks: IO.number,
+    }),
+    achievements: IO.record(IO.string, ElapsedMs),
+    watched: IO.record(IO.string, IO.union([IO.boolean, IO.number])),
+    skippedMillis: IO.number,
+    version: IO.type({ started: IO.string, saved: IO.string }),
+  },
+  {
+    achievementsShown: IO.type({
+      earned: IO.boolean,
+      unearned: IO.boolean,
+      masked: IO.boolean,
+      order: IO.union([IO.literal("default"), IO.literal("percentComplete")]),
+      reverse: IO.boolean,
+    }),
+    // I'm pretty sure this is only true or missing, never false - but not completely sure
+    kongregate: IO.boolean,
+    mtx: IO.partial({
+      playfab: IO.type({ items: IO.record(IO.string, IO.literal(true)) }),
+      kongregate: IO.record(IO.string, IO.literal(true)),
+    }),
+  }
+);
+export type Legacy = IO.TypeOf<typeof Legacy>;

@@ -3,6 +3,9 @@ import LZ from "lz-string";
 import * as P from "./persist";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/Option";
+import * as IO from "io-ts";
+import { PathReporter } from "io-ts/lib/PathReporter";
+import { pipe } from "fp-ts/lib/function";
 
 test.each(json.simple)("persist base64: $dec", (data) => {
   const { dec } = data;
@@ -36,13 +39,28 @@ test.each(json.simple)("persist lz-string: $dec", (data) => {
 // test.each(json.codec.filter((d) => d.name === "null"))(
 // "persist codec: $name",
 // (d) => {
-test.each(json.codec)("persist codec: $name", (d) => {
+test.each(json.format.concat(json.exports))(
+  "persist swarmheaders: $name",
+  (d) => {
+    const body = JSON.parse(d.body);
+    const version = O.some(d.version);
+    const headers = { body, version };
+    expect(P.FromSwarmHeaders.decode(d.export_)).toEqual(E.right(headers));
+    expect(P.FromSwarmHeaders.encode(headers)).toBe(d.export_);
+    expect(
+      P.FromSwarmHeaders.decode(P.FromSwarmHeaders.encode(headers))
+    ).toEqual(E.right(headers));
+  }
+);
+// test.each([json.exports[0]])("persist legacy: $name", (d) => {
+test.each(json.exports)("persist legacy: $name", (d) => {
   const body = JSON.parse(d.body);
-  const version = O.some(d.version);
-  const headers = { body, version };
-  expect(P.FromSwarmHeaders.decode(d.export_)).toEqual(E.right(headers));
-  expect(P.FromSwarmHeaders.encode(headers)).toBe(d.export_);
-  expect(P.FromSwarmHeaders.decode(P.FromSwarmHeaders.encode(headers))).toEqual(
-    E.right(headers)
+  // validates input, but makes no changes
+  // typechecks
+  const dec: IO.Validation<P.Legacy> = P.Legacy.decode(body);
+  expect(PathReporter.report(dec)).toEqual(["No errors!"]);
+  expect(dec).toEqual(E.right(body));
+  expect(pipe(body, P.Legacy.decode, E.map(P.Legacy.encode))).toEqual(
+    E.right(body)
   );
 });
