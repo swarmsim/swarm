@@ -9,22 +9,32 @@ import * as A from "fp-ts/Apply";
 import * as IOT from "io-ts-types";
 import * as O from "fp-ts/Option";
 import { pipe } from "fp-ts/lib/function";
+import { iso, Newtype } from "newtype-ts";
+import { string } from "fp-ts";
 
-export const Base64 = IO.string.pipe(
-  new IO.Type(
-    "Base64",
-    IO.string.is,
-    (input: string, c) => {
-      const out = Buffer.from(input, "base64").toString("utf8");
+export interface Base64
+  extends Newtype<{ readonly Base64: unique symbol }, string> {}
+const _Base64 = iso<Base64>();
+
+export const Base64: IO.Type<string, Base64> = new IO.Type(
+  "Base64",
+  IO.string.is,
+  (input, c) => {
+    return pipe(
+      IO.string.validate(input, c),
+      // _Base64.unwrap
+      E.map((o) => Buffer.from(o, "base64").toString("utf8")),
       // Buffer ignores invalid characters or bogus encoding, instead of
       // throwing an error, so detect errors by comparing to the original
-      if (Base64.encode(out) !== input) {
-        return IO.failure("Invalid base64 encoding", c);
-      }
-      return IO.success(out);
-    },
-    (output: string) => Buffer.from(output, "utf8").toString("base64")
-  )
+      E.chain((o) =>
+        Base64.encode(o) !== input
+          ? IO.failure("Invalid base64 encoding", c)
+          : IO.success(o)
+      )
+    );
+  },
+  (output: string): Base64 =>
+    _Base64.wrap(Buffer.from(output, "utf8").toString("base64"))
 );
 
 export const LZString = IO.string.pipe(
@@ -43,7 +53,7 @@ export const LZString = IO.string.pipe(
   )
 );
 
-const encPrefix = Base64.encode("Cheater :(\n\n");
+const encPrefix: Base64 = Base64.encode("Cheater :(\n\n");
 const versionDelim = "|";
 
 const SwarmBody = LZString.pipe(IOT.JsonFromString, "SwarmBody");
@@ -70,10 +80,13 @@ export const FromSwarmHeaders = IO.string.pipe(
         encBody = enc;
         version = E.right(O.none);
       }
-      if (!encBody.startsWith(encPrefix)) {
+      if (!encBody.startsWith(_Base64.unwrap(encPrefix))) {
         return IO.failure("body prefix missing", c);
       }
-      const body = SwarmBody.validate(encBody.slice(encPrefix.length), c);
+      const body = SwarmBody.validate(
+        encBody.slice(_Base64.unwrap(encPrefix).length),
+        c
+      );
       return A.sequenceS(E.Apply)({ version, body });
     },
     (dec: SwarmHeaders): string =>
