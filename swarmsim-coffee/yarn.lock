@@ -174,12 +174,22 @@
 "@swarmsim/ts@file:../swarmsim-ts":
   version "1.0.0"
   dependencies:
+    "@types/lz-string" "^1.3.34"
     fp-ts "^2.13.1"
     io-ts "^2.2.20"
+    io-ts-types "^0.5.19"
     lodash "^4.17.21"
+    lz-string "^1.4.4"
+    monocle-ts "^2.3.13"
+    newtype-ts "^0.3.5"
     react "^18.2.0"
     react-dom "^18.2.0"
     react-router-dom "^6.4.5"
+
+"@types/lz-string@^1.3.34":
+  version "1.3.34"
+  resolved "https://registry.yarnpkg.com/@types/lz-string/-/lz-string-1.3.34.tgz#69bfadde419314b4a374bf2c8e58659c035ed0a5"
+  integrity sha512-j6G1e8DULJx3ONf6NdR5JiR2ZY3K3PaaqiEuKYkLQO0Czfi1AzrtjfnfCROyWGeDd5IVMKCwsgSmMip9OWijow==
 
 "@zeit/schemas@2.21.0":
   version "2.21.0"
@@ -4038,6 +4048,11 @@ intersect@~0.0.3:
   resolved "https://registry.yarnpkg.com/intersect/-/intersect-0.0.3.tgz#c1a4a5e5eac6ede4af7504cc07e0ada7bc9f4920"
   integrity sha512-Bp/mSG9dsq/eOMk2Q7DyjKxY62TTU2RvNvycjXHhi5TjrA72H+I3c5+1nAOAqtENcrQvCb5NDlsoPWJ4Bh01SA==
 
+io-ts-types@^0.5.19:
+  version "0.5.19"
+  resolved "https://registry.yarnpkg.com/io-ts-types/-/io-ts-types-0.5.19.tgz#9c04fa73f15992436605218a5686b610efa7a5d3"
+  integrity sha512-kQOYYDZG5vKre+INIDZbLeDJe+oM+4zLpUkjXyTMyUfoCpjJNyi29ZLkuEAwcPufaYo3yu/BsemZtbdD+NtRfQ==
+
 io-ts@^2.2.20:
   version "2.2.20"
   resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.20.tgz#be42b75f6668a2c44f706f72ee6e4c906777c7f5"
@@ -5032,6 +5047,11 @@ lru-queue@0.1:
   dependencies:
     es5-ext "~0.10.2"
 
+lz-string@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
+  integrity sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==
+
 make-dir@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.3.0.tgz#79c1033b80515bd6d24ec9933e860ca75ee27f0c"
@@ -5322,6 +5342,11 @@ mkpath@~0.1.0:
   resolved "https://registry.yarnpkg.com/mkpath/-/mkpath-0.1.0.tgz#7554a6f8d871834cc97b5462b122c4c124d6de91"
   integrity sha512-bauHShmaxVQiEvlrAPWxSPn8spSL8gDVRl11r8vLT4r/KdnknLqtqwQbToZ2Oa8sJkExYY1z6/d+X7pNiqo4yg==
 
+monocle-ts@^2.3.13:
+  version "2.3.13"
+  resolved "https://registry.yarnpkg.com/monocle-ts/-/monocle-ts-2.3.13.tgz#7c8af489613cd5175df2ea3c02c57c6151995e5d"
+  integrity sha512-D5Ygd3oulEoAm3KuGO0eeJIrhFf1jlQIoEVV2DYsZUMz42j4tGxgct97Aq68+F8w4w4geEnwFa8HayTS/7lpKQ==
+
 morgan@^1.6.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -5442,6 +5467,11 @@ negotiator@0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
+
+newtype-ts@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/newtype-ts/-/newtype-ts-0.3.5.tgz#5c113d34a04938d9e90061437638260ea965c490"
+  integrity sha512-v83UEQMlVR75yf1OUdoSFssjitxzjZlqBAjiGQ4WJaML8Jdc68LJ+BaSAXUmKY4bNzp7hygkKLYTsDi14PxI2g==
 
 next-tick@1, next-tick@^1.0.0:
   version "1.0.0"
