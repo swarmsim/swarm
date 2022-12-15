@@ -28,10 +28,10 @@ const list: C.Unittype[] = [
     "name": "meat",
     "tab": "meat",
     "l": {
-      "description": "Meat is delicious. All of your swarm's creatures eat meat.",
+      "description": "All of your swarm's creatures eat meat.",
       "label": "meat",
       "plural": "meat",
-      "lol": "Some kingdoms use meat to craft paste or cars. Meat, meat, it can't be beat~",
+      "lol": "These days, the most enlightened and best-looking swarms prefer meat substitutes. Which swarms are those, you ask? Don’t worry, they’ll tell you.",
       "verb": "gather",
       "verbing": "gathering",
       "verbone": "gathers"
