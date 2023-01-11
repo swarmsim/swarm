@@ -35,6 +35,7 @@ export type Visible = IO.TypeOf<typeof Visible>;
 
 export const Achievement = IO.type({
   name: IO.string,
+  protoId: IO.number,
   l: IO.type({
     label: IO.string,
     description: IO.string,
@@ -141,6 +142,7 @@ export const FromSpreadsheet = IO.array(S.Achievement).pipe(
         .flat();
       const r = rows[0];
       const o: Achievement = {
+        protoId: 0, // legacy data has no protoIds
         name: r.name,
         l: {
           description: r.description,
@@ -197,7 +199,8 @@ function decodes(byName: {
     A.map(FromSpreadsheet.decode),
     // E.Either<x, Achievement>[] => E.Either<x, Achievement[]>
     A.sequence(E.Applicative)
-  );
+    // without the cast, `swarmsim-ts` gets upset about this type when importing. Not sure why.
+  ) as E.Either<IO.Errors, Achievement[]>;
 }
 
 export function sheetDecode(

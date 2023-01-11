@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "GPL-3.0",
   "scripts": {
+    "gen": "mkdir -p src/generated && protoc --ts_out src/generated --proto_path protos protos/persist.proto",
     "start": "parcel serve --target standalone-dev",
     "build": "parcel build --target coffee-embed",
     "watch": "parcel watch --target coffee-embed",
@@ -22,6 +23,7 @@
     }
   },
   "devDependencies": {
+    "@protobuf-ts/plugin": "^2.8.2",
     "@swarmsim/tables": "file:../tables",
     "@types/jest": "^29.2.4",
     "@types/lodash": "^4.14.191",
@@ -35,6 +37,7 @@
   },
   "dependencies": {
     "@types/lz-string": "^1.3.34",
+    "decimal.js": "^10.4.3",
     "fp-ts": "^2.13.1",
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",

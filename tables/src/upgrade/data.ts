@@ -3,6 +3,7 @@ import * as C from "./codec";
 const list: C.Upgrade[] = [
   {
     "name": "hatchery",
+    "protoId": 1,
     "l": {
       "description": "-",
       "label": "hatchery",
@@ -40,6 +41,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "expansion",
+    "protoId": 2,
     "l": {
       "description": "-",
       "label": "expansion",
@@ -77,6 +79,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "achievementbonus",
+    "protoId": 3,
     "l": {
       "description": "-",
       "label": "accomplished ancestry",
@@ -114,6 +117,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "cocooning",
+    "protoId": 4,
     "l": {
       "description": "Allows your larvae to encase themselves within cocoons. Cocooned larvae cannot mutate into other units, and can still be cloned by Clone Larvae. You may cocoon and uncocoon your larvae whenever you wish.",
       "label": "cocooning",
@@ -138,6 +142,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "droneprod",
+    "protoId": 5,
     "l": {
       "description": "Drones gather more meat.",
       "label": "faster drones",
@@ -169,6 +174,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "queenprod",
+    "protoId": 6,
     "l": {
       "description": "Queens produce more drones.",
       "label": "faster queens",
@@ -200,6 +206,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nestprod",
+    "protoId": 7,
     "l": {
       "description": "Nests produce more queens.",
       "label": "faster nests",
@@ -231,6 +238,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "greaterqueenprod",
+    "protoId": 8,
     "l": {
       "description": "Greater queens produce more nests.",
       "label": "faster greater queens",
@@ -262,6 +270,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "hiveprod",
+    "protoId": 9,
     "l": {
       "description": "Hives produce more greater queens.",
       "label": "faster hives",
@@ -293,6 +302,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "hivequeenprod",
+    "protoId": 10,
     "l": {
       "description": "Hive queens produce more hives.",
       "label": "faster hive queens",
@@ -324,6 +334,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "empressprod",
+    "protoId": 11,
     "l": {
       "description": "Hive empresses produce more hive queens.",
       "label": "faster hive empresses",
@@ -355,6 +366,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "prophetprod",
+    "protoId": 12,
     "l": {
       "description": "Neuroprophets produce more hive empresses.",
       "label": "faster neuroprophets",
@@ -386,6 +398,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "goddessprod",
+    "protoId": 13,
     "l": {
       "description": "Hive neurons produce more neuroprophets.",
       "label": "faster hive neurons",
@@ -417,6 +430,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheonprod",
+    "protoId": 14,
     "l": {
       "description": "Neural clusters produce more hive neurons.",
       "label": "faster neural clusters",
@@ -448,6 +462,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon2prod",
+    "protoId": 15,
     "l": {
       "description": "Hive networks produce more neural clusters.",
       "label": "faster hive networks",
@@ -479,6 +494,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon3prod",
+    "protoId": 16,
     "l": {
       "description": "Lesser hive minds produce more hive networks.",
       "label": "faster lesser hive minds",
@@ -510,6 +526,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon4prod",
+    "protoId": 17,
     "l": {
       "description": "Hive minds produce more lesser hive minds.",
       "label": "faster hive minds",
@@ -541,6 +558,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon5prod",
+    "protoId": 18,
     "l": {
       "description": "Arch-minds produce more hive minds.",
       "label": "faster arch-minds",
@@ -572,6 +590,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmindprod",
+    "protoId": 19,
     "l": {
       "description": "Overminds produce more arch-minds.",
       "label": "faster overminds",
@@ -603,6 +622,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind2prod",
+    "protoId": 20,
     "l": {
       "description": "Overmind IIs produce more overminds.",
       "label": "faster overmind IIs",
@@ -634,6 +654,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind3prod",
+    "protoId": 21,
     "l": {
       "description": "Overmind IIIs produce more overmind IIs.",
       "label": "faster overmind IIIs",
@@ -665,6 +686,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind4prod",
+    "protoId": 22,
     "l": {
       "description": "Overmind IVs produce more overmind IIIs.",
       "label": "faster overmind IVs",
@@ -696,6 +718,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind5prod",
+    "protoId": 23,
     "l": {
       "description": "Overmind Vs produce more overmind IVs.",
       "label": "faster overmind Vs",
@@ -727,6 +750,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind6prod",
+    "protoId": 24,
     "l": {
       "description": "Overmind VIs produce more overmind Vs.",
       "label": "faster overmind VIs",
@@ -758,6 +782,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "dronetwin",
+    "protoId": 25,
     "l": {
       "description": "Multiple drones hatch from each larva. (This does not affect queen production.)",
       "label": "twin drones",
@@ -789,6 +814,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "queentwin",
+    "protoId": 26,
     "l": {
       "description": "Multiple queens hatch from each larva. (This does not affect nest production.)",
       "label": "twin queens",
@@ -820,6 +846,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nesttwin",
+    "protoId": 27,
     "l": {
       "description": "Multiple nests are constructed from each larva. (This does not affect greater queen production.)",
       "label": "twin nests",
@@ -851,6 +878,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "greaterqueentwin",
+    "protoId": 28,
     "l": {
       "description": "Multiple greater queens hatch from each larva. (This does not affect hive production.)",
       "label": "twin greater queens",
@@ -882,6 +910,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "hivetwin",
+    "protoId": 29,
     "l": {
       "description": "Multiple hives are constructed from each larva. (This does not affect hive queen production.)",
       "label": "twin hives",
@@ -913,6 +942,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "hivequeentwin",
+    "protoId": 30,
     "l": {
       "description": "Multiple hive queens hatch from each larva. (This does not affect hive empress production.)",
       "label": "twin hive queens",
@@ -944,6 +974,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "empresstwin",
+    "protoId": 31,
     "l": {
       "description": "Multiple hive empresses hatch from each larva. (This does not affect neuroprophet production.)",
       "label": "twin hive empresses",
@@ -975,6 +1006,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "prophettwin",
+    "protoId": 32,
     "l": {
       "description": "Multiple neuroprophets hatch from each larva. (This does not affect hive neuron production.)",
       "label": "twin neuroprophets",
@@ -1006,6 +1038,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "goddesstwin",
+    "protoId": 33,
     "l": {
       "description": "Multiple hive neurons are created from each larva. (This does not affect neural cluster production.)",
       "label": "twin hive neurons",
@@ -1037,6 +1070,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheontwin",
+    "protoId": 34,
     "l": {
       "description": "Multiple neural clusters are created from each larva. (This does not affect hive network production.)",
       "label": "twin neural clusters",
@@ -1068,6 +1102,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon2twin",
+    "protoId": 35,
     "l": {
       "description": "Multiple hive networks are created from each larva. (This does not affect lesser hive mind production.)",
       "label": "twin hive networks",
@@ -1099,6 +1134,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon3twin",
+    "protoId": 36,
     "l": {
       "description": "Multiple lesser hive minds are created from each larva. (This does not affect hive mind production.)",
       "label": "twin lesser hive minds",
@@ -1130,6 +1166,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon4twin",
+    "protoId": 37,
     "l": {
       "description": "Multiple hive minds are created from each larva. (This does not affect arch-mind production.)",
       "label": "twin hive minds",
@@ -1161,6 +1198,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "pantheon5twin",
+    "protoId": 38,
     "l": {
       "description": "Multiple arch-minds are created from each larva. (This does not affect overmind production.)",
       "label": "twin arch-minds",
@@ -1192,6 +1230,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmindtwin",
+    "protoId": 39,
     "l": {
       "description": "Multiple overminds are created from each larva. (This does not affect overmind II production.)",
       "label": "twin overminds",
@@ -1223,6 +1262,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind2twin",
+    "protoId": 40,
     "l": {
       "description": "Multiple overmind IIs are created from each larva. (This does not affect overmind III production.)",
       "label": "twin overmind IIs",
@@ -1254,6 +1294,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind3twin",
+    "protoId": 41,
     "l": {
       "description": "Multiple overmind IIIs are created from each larva. (This does not affect overmind IV production.)",
       "label": "twin overmind IIIs",
@@ -1285,6 +1326,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind4twin",
+    "protoId": 42,
     "l": {
       "description": "Multiple overmind IVs are created from each larva. (This does not affect overmind V production.)",
       "label": "twin overmind IVs",
@@ -1316,6 +1358,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind5twin",
+    "protoId": 43,
     "l": {
       "description": "Multiple overmind Vs are created from each larva. (This does not affect overmind VI production.)",
       "label": "twin overmind Vs",
@@ -1347,6 +1390,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "overmind6twin",
+    "protoId": 44,
     "l": {
       "description": "Multiple overmind VIs are created from each larva.",
       "label": "twin overmind VIs",
@@ -1363,6 +1407,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "swarmlingtwin",
+    "protoId": 45,
     "l": {
       "description": "Multiple swarmlings hatch from each larva.",
       "label": "twin swarmlings",
@@ -1393,6 +1438,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "stingertwin",
+    "protoId": 46,
     "l": {
       "description": "Multiple stingers hatch from each larva.",
       "label": "twin stingers",
@@ -1423,6 +1469,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "spidertwin",
+    "protoId": 47,
     "l": {
       "description": "Multiple arachnomorphs hatch from each larva.",
       "label": "twin arachnomorphs",
@@ -1453,6 +1500,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mosquitotwin",
+    "protoId": 48,
     "l": {
       "description": "Multiple culicimorphs hatch from each larva.",
       "label": "twin culicimorphs",
@@ -1483,6 +1531,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "locusttwin",
+    "protoId": 49,
     "l": {
       "description": "Multiple locusts hatch from each larva.",
       "label": "twin locusts",
@@ -1513,6 +1562,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "roachtwin",
+    "protoId": 50,
     "l": {
       "description": "Multiple roaches hatch from each larva.",
       "label": "twin roaches",
@@ -1543,6 +1593,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "giantspidertwin",
+    "protoId": 51,
     "l": {
       "description": "Multiple giant arachnomorphs hatch from each larva.",
       "label": "twin giant arachnomorphs",
@@ -1573,6 +1624,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "centipedetwin",
+    "protoId": 52,
     "l": {
       "description": "Multiple chilopodomorphs hatch from each larva.",
       "label": "twin chilopodomorphs",
@@ -1603,6 +1655,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "wasptwin",
+    "protoId": 53,
     "l": {
       "description": "Multiple wasps hatch from each larva.",
       "label": "twin wasps",
@@ -1633,6 +1686,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "devourertwin",
+    "protoId": 54,
     "l": {
       "description": "Multiple devourers hatch from each larva.",
       "label": "twin devourers",
@@ -1663,6 +1717,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "goontwin",
+    "protoId": 55,
     "l": {
       "description": "Multiple goons hatch from each larva.",
       "label": "twin goons",
@@ -1693,6 +1748,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "swarmlingempower",
+    "protoId": 56,
     "l": {
       "description": "-",
       "label": "empower swarmlings",
@@ -1739,6 +1795,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "stingerempower",
+    "protoId": 57,
     "l": {
       "description": "-",
       "label": "empower stingers",
@@ -1785,6 +1842,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "spiderempower",
+    "protoId": 58,
     "l": {
       "description": "-",
       "label": "empower arachnomorphs",
@@ -1831,6 +1889,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mosquitoempower",
+    "protoId": 59,
     "l": {
       "description": "-",
       "label": "empower culicimorphs",
@@ -1877,6 +1936,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "locustempower",
+    "protoId": 60,
     "l": {
       "description": "-",
       "label": "empower locusts",
@@ -1923,6 +1983,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "roachempower",
+    "protoId": 61,
     "l": {
       "description": "-",
       "label": "empower roaches",
@@ -1969,6 +2030,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "giantspiderempower",
+    "protoId": 62,
     "l": {
       "description": "-",
       "label": "empower giant arachnomorphs",
@@ -2015,6 +2077,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "centipedeempower",
+    "protoId": 63,
     "l": {
       "description": "-",
       "label": "empower chilopodomorphs",
@@ -2061,6 +2124,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "waspempower",
+    "protoId": 64,
     "l": {
       "description": "-",
       "label": "empower wasps",
@@ -2107,6 +2171,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "devourerempower",
+    "protoId": 65,
     "l": {
       "description": "-",
       "label": "empower devourers",
@@ -2153,6 +2218,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "goonempower",
+    "protoId": 66,
     "l": {
       "description": "-",
       "label": "empower goons",
@@ -2199,6 +2265,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nexus1",
+    "protoId": 67,
     "l": {
       "description": "Build your first nexus, which generates energy and allows you to cast basic spells.",
       "label": "construct nexus",
@@ -2235,6 +2302,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nexus2",
+    "protoId": 68,
     "l": {
       "description": "Build your second nexus, which generates more energy and unlocks several more special abilities.",
       "label": "construct nexus",
@@ -2280,6 +2348,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nexus3",
+    "protoId": 69,
     "l": {
       "description": "Build your third nexus, generating even more energy and unlocking more advanced spells.",
       "label": "construct nexus",
@@ -2330,6 +2399,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nexus4",
+    "protoId": 70,
     "l": {
       "description": "Build your fourth nexus, generating even more energy and unlocking some of the most advanced spells available to your swarm.",
       "label": "construct nexus",
@@ -2380,6 +2450,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "nexus5",
+    "protoId": 71,
     "l": {
       "description": "Build your fifth and final nexus. All spells and abilities are unlocked. Your spellcasters cannot channel energy from more than five nexus; this is the limit of their power.",
       "label": "construct nexus",
@@ -2430,6 +2501,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "larvarush",
+    "protoId": 72,
     "l": {
       "description": "-",
       "label": "larva rush",
@@ -2465,6 +2537,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "swarmwarp",
+    "protoId": 73,
     "l": {
       "description": "-",
       "label": "swarmwarp",
@@ -2500,6 +2573,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "meatrush",
+    "protoId": 74,
     "l": {
       "description": "-",
       "label": "meat rush",
@@ -2535,6 +2609,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "territoryrush",
+    "protoId": 75,
     "l": {
       "description": "-",
       "label": "territory rush",
@@ -2570,6 +2645,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "clonelarvae",
+    "protoId": 76,
     "l": {
       "description": "-",
       "label": "clone larvae",
@@ -2602,6 +2678,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatehidden",
+    "protoId": 77,
     "l": {
       "description": "",
       "label": "hidden mutation cost tracker",
@@ -2625,6 +2702,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatehatchery",
+    "protoId": 78,
     "l": {
       "description": "",
       "label": "mutate hatcheries",
@@ -2668,6 +2746,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatebat",
+    "protoId": 79,
     "l": {
       "description": "",
       "label": "mutate bats",
@@ -2711,6 +2790,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutateclone",
+    "protoId": 80,
     "l": {
       "description": "",
       "label": "mutate clones",
@@ -2754,6 +2834,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutateswarmwarp",
+    "protoId": 81,
     "l": {
       "description": "",
       "label": "mutate swarmwarps",
@@ -2797,6 +2878,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutaterush",
+    "protoId": 82,
     "l": {
       "description": "",
       "label": "mutate rushes",
@@ -2840,6 +2922,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutateeach",
+    "protoId": 83,
     "l": {
       "description": "",
       "label": "meta-mutation",
@@ -2883,6 +2966,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatefreq",
+    "protoId": 84,
     "l": {
       "description": "",
       "label": "mutate frequency",
@@ -2926,6 +3010,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatenexus",
+    "protoId": 85,
     "l": {
       "description": "",
       "label": "mutate lepidoptera",
@@ -2969,6 +3054,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatearmy",
+    "protoId": 86,
     "l": {
       "description": "",
       "label": "mutate territory",
@@ -3012,6 +3098,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "mutatemeat",
+    "protoId": 87,
     "l": {
       "description": "",
       "label": "mutate meat",
@@ -3055,6 +3142,7 @@ const list: C.Upgrade[] = [
   },
   {
     "name": "clonearmy",
+    "protoId": 88,
     "l": {
       "description": "-",
       "label": "house of mirrors",

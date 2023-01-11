@@ -1,6 +1,6 @@
 import json from "./persist.test.json";
 import LZ from "lz-string";
-import * as P from "./persist";
+import * as P from "./legacy";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/Option";
 import * as IO from "io-ts";

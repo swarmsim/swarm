@@ -1,0 +1,88 @@
+syntax = "proto3";
+package swarmsim.persist;
+import "google/protobuf/timestamp.proto";
+
+message Persist {
+  // TODO there's probably a better way to encode decimals, and these maps...
+  /**
+   * Map of {unittype.protoId: count-as-Decimal.js}
+   */
+  map<uint32, Decimal> units = 1;
+  /**
+   * Map of {upgrade.protoId: count-as-Decimal.js}
+   */
+  map<uint32, Decimal> upgrades = 2;
+  /**
+   * Map of {achievement.protoId: elapsed-ms}
+   */
+  map<uint32, double> achievements = 3;
+  /**
+   * Map of {upgrade.protoId: [-1,0,1,2,4]}
+   */
+  map<uint32, int32> watched = 4;
+  Statistics statistics = 5;
+  Options options = 6;
+  optional AchievementsUI achievementsUI = 7;
+
+  Version version = 20;
+  google.protobuf.Timestamp started = 21;
+  google.protobuf.Timestamp closed = 22;
+  google.protobuf.Timestamp reified = 23;
+  google.protobuf.Timestamp restarted = 24;
+  optional google.protobuf.Timestamp saved = 25;
+  optional google.protobuf.Timestamp crystalCooldownDoneAt = 26;
+  double skippedMillis = 27;
+}
+
+message Version {
+  string saved = 1;
+  string started = 2;
+}
+
+message Statistics {
+  map<uint32, UnitStatistics> byUnit = 1;
+  map<uint32, UpgradeStatistics> byUpgrade = 2;
+  optional uint32 clicks = 3;
+}
+message UnitStatistics {
+  uint32 clicks = 1;
+  double elapsedFirst = 2;
+  Decimal num = 3;
+  Decimal twinnum = 4;
+}
+message UpgradeStatistics {
+  uint32 clicks = 1;
+  double elapsedFirst = 2;
+  Decimal num = 3;
+}
+
+message Options {
+  optional bool isCustomTheme = 1;
+  optional string theme = 2;
+  optional bool showAdvancedUnitData = 3;
+  // enum, but this is simpler serialization
+  optional string notation = 4;
+  // enum, but this is simpler serialization
+  optional string velocityUnit = 5;
+  // enum, but this is simpler serialization
+  optional string durationFormat = 6;
+
+  optional bool fpsAuto = 7;
+  optional int32 fps = 8;
+}
+
+message AchievementsUI {
+  bool earned = 1;
+  bool unearned = 2;
+  bool masked = 3;
+  string order = 4;
+  bool reverse = 5;
+}
+
+message Decimal {
+  oneof value {
+    float tiny = 1;
+    double small = 2;
+    string big = 3;
+  }
+}

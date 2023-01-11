@@ -36,6 +36,7 @@ export type Effect = IO.TypeOf<typeof Effect>;
 export const Upgrade = IO.intersection([
   IO.type({
     name: IO.string,
+    protoId: IO.number,
     l: IO.type({
       label: IO.string,
       description: IO.string,
@@ -149,6 +150,7 @@ export const FromSpreadsheet = IO.array(S.Upgrade).pipe(
       if (r.class !== "ability" && r.class !== "upgrade")
         throw new Error("r.class");
       const o: Upgrade = {
+        protoId: 0, // legacy data has no protoIds
         name: r.name,
         l: {
           description: r.description,
@@ -215,7 +217,8 @@ function decodes(byName: {
     A.map(FromSpreadsheet.decode),
     // E.Either<x, Upgrade>[] => E.Either<x, Upgrade[]>
     A.sequence(E.Applicative)
-  );
+    // without the cast, `swarmsim-ts` gets upset about this type when importing. Not sure why.
+  ) as E.Either<IO.Errors, Upgrade[]>;
 }
 
 export function sheetDecode(

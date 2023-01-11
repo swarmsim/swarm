@@ -3,6 +3,7 @@ import * as C from "./codec";
 const list: C.Achievement[] = [
   {
     "name": "tutorial",
+    "protoId": 1,
     "l": {
       "description": "Finish the tutorial",
       "label": "tutorial complete",
@@ -24,6 +25,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion1",
+    "protoId": 2,
     "l": {
       "description": "Create your first expansion",
       "label": "two base play",
@@ -45,6 +47,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion2",
+    "protoId": 3,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "vast expanse",
@@ -66,6 +69,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion3",
+    "protoId": 4,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "infestation",
@@ -87,6 +91,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion4",
+    "protoId": 5,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "creepy",
@@ -108,6 +113,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion5",
+    "protoId": 6,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "no vacancy",
@@ -129,6 +135,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion6",
+    "protoId": 7,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "diminishing returns",
@@ -150,6 +157,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion7",
+    "protoId": 8,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "we have become as a vapor",
@@ -171,6 +179,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion8",
+    "protoId": 9,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "imperialus conceptus",
@@ -192,6 +201,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "expansion9",
+    "protoId": 10,
     "l": {
       "description": "Have $REQUIRED expansions at once",
       "label": "manifest destiny",
@@ -213,6 +223,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "drone1",
+    "protoId": 11,
     "l": {
       "description": "Hatch your first drone",
       "label": "a good start",
@@ -234,6 +245,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "drone2",
+    "protoId": 12,
     "l": {
       "description": "Hatch $REQUIRED drones",
       "label": "supply limit exceeded",
@@ -255,6 +267,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "drone3",
+    "protoId": 13,
     "l": {
       "description": "Hatch $REQUIRED drones",
       "label": "\"exponential\" growth",
@@ -276,6 +289,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "queen1",
+    "protoId": 14,
     "l": {
       "description": "Hatch your first queen",
       "label": "queen me",
@@ -297,6 +311,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "queen2",
+    "protoId": 15,
     "l": {
       "description": "Hatch $REQUIRED queens",
       "label": "is this the real life?",
@@ -318,6 +333,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "queen3",
+    "protoId": 16,
     "l": {
       "description": "Hatch $REQUIRED queens",
       "label": "don't stop me now",
@@ -339,6 +355,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "nest1",
+    "protoId": 17,
     "l": {
       "description": "Build your first nest",
       "label": "I wanna be the very nest",
@@ -360,6 +377,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "nest2",
+    "protoId": 18,
     "l": {
       "description": "Build $REQUIRED nests",
       "label": "to hatch them is my real test",
@@ -381,6 +399,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "nest3",
+    "protoId": 19,
     "l": {
       "description": "Build $REQUIRED nests",
       "label": "final nesting place",
@@ -402,6 +421,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "greaterqueen1",
+    "protoId": 20,
     "l": {
       "description": "Hatch your first greater queen",
       "label": "some are born great",
@@ -423,6 +443,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "greaterqueen2",
+    "protoId": 21,
     "l": {
       "description": "Hatch $REQUIRED greater queens",
       "label": "catherine",
@@ -444,6 +465,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "greaterqueen3",
+    "protoId": 22,
     "l": {
       "description": "Hatch $REQUIRED greater queens",
       "label": "greater and greater",
@@ -465,6 +487,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "hive1",
+    "protoId": 23,
     "l": {
       "description": "Build your first hive",
       "label": "we'll do it hive",
@@ -486,6 +509,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "hive2",
+    "protoId": 24,
     "l": {
       "description": "Build $REQUIRED hives",
       "label": "breaking out",
@@ -507,6 +531,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "hive3",
+    "protoId": 25,
     "l": {
       "description": "Build $REQUIRED hives",
       "label": "hive mind",
@@ -528,6 +553,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "hivequeen1",
+    "protoId": 26,
     "l": {
       "description": "Hatch your first hive queen",
       "label": "too many kinds of queens",
@@ -549,6 +575,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "hivequeen2",
+    "protoId": 27,
     "l": {
       "description": "Hatch $REQUIRED hive queens",
       "label": "or just too many queens",
@@ -570,6 +597,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "hivequeen3",
+    "protoId": 28,
     "l": {
       "description": "Hatch $REQUIRED hive queens",
       "label": "no more queens, honest",
@@ -591,6 +619,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "empress1",
+    "protoId": 29,
     "l": {
       "description": "Grow your first hive empress",
       "label": "queen of queens",
@@ -612,6 +641,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "empress2",
+    "protoId": 30,
     "l": {
       "description": "Grow $REQUIRED hive empresses",
       "label": "wu zetian",
@@ -633,6 +663,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "empress3",
+    "protoId": 31,
     "l": {
       "description": "Grow $REQUIRED hive empresses",
       "label": "matriarchy",
@@ -654,6 +685,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "prophet1",
+    "protoId": 32,
     "l": {
       "description": "Grow your first neuroprophet",
       "label": "1. collect larvae",
@@ -675,6 +707,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "prophet2",
+    "protoId": 33,
     "l": {
       "description": "Grow $REQUIRED neuroprophets",
       "label": "2. ?",
@@ -696,6 +729,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "prophet3",
+    "protoId": 34,
     "l": {
       "description": "Grow $REQUIRED neuroprophets",
       "label": "3. prophet",
@@ -717,6 +751,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "goddess1",
+    "protoId": 35,
     "l": {
       "description": "Grow your first hive neuron",
       "label": "neurogenesis",
@@ -738,6 +773,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "goddess2",
+    "protoId": 36,
     "l": {
       "description": "Grow $REQUIRED hive neurons",
       "label": "new neurons",
@@ -759,6 +795,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "goddess3",
+    "protoId": 37,
     "l": {
       "description": "Grow $REQUIRED hive neurons",
       "label": "neuronerd",
@@ -780,6 +817,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon1",
+    "protoId": 38,
     "l": {
       "description": "Grow your first neural cluster",
       "label": "nucleus",
@@ -801,6 +839,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon2",
+    "protoId": 39,
     "l": {
       "description": "Grow $REQUIRED neural clusters",
       "label": "ganglion",
@@ -822,6 +861,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon3",
+    "protoId": 40,
     "l": {
       "description": "Grow $REQUIRED neural clusters",
       "label": "cluster-something",
@@ -843,6 +883,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon21",
+    "protoId": 41,
     "l": {
       "description": "Grow your first hive network",
       "label": "arpanet",
@@ -864,6 +905,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon22",
+    "protoId": 42,
     "l": {
       "description": "Grow $REQUIRED hive networks",
       "label": "backpropagation",
@@ -885,6 +927,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon23",
+    "protoId": 43,
     "l": {
       "description": "Grow $REQUIRED hive networks",
       "label": "nydus",
@@ -906,6 +949,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon31",
+    "protoId": 44,
     "l": {
       "description": "Grow your first lesser hive mind",
       "label": "do you mind?",
@@ -927,6 +971,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon32",
+    "protoId": 45,
     "l": {
       "description": "Grow $REQUIRED lesser hive minds",
       "label": "lesser is morer",
@@ -948,6 +993,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon33",
+    "protoId": 46,
     "l": {
       "description": "Grow $REQUIRED lesser hive minds",
       "label": "lord have mercy",
@@ -969,6 +1015,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon41",
+    "protoId": 47,
     "l": {
       "description": "Grow your first hive mind",
       "label": "one of us",
@@ -990,6 +1037,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon42",
+    "protoId": 48,
     "l": {
       "description": "Grow $REQUIRED hive minds",
       "label": "groupthink",
@@ -1011,6 +1059,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon43",
+    "protoId": 49,
     "l": {
       "description": "Grow $REQUIRED hive minds",
       "label": "swarm intelligence",
@@ -1032,6 +1081,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon51",
+    "protoId": 50,
     "l": {
       "description": "Grow your first arch-mind",
       "label": "ante meridiem",
@@ -1053,6 +1103,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon52",
+    "protoId": 51,
     "l": {
       "description": "Grow $REQUIRED arch-minds",
       "label": "archery",
@@ -1074,6 +1125,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "pantheon53",
+    "protoId": 52,
     "l": {
       "description": "Grow $REQUIRED arch-minds",
       "label": "cerebration time",
@@ -1095,6 +1147,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind1",
+    "protoId": 53,
     "l": {
       "description": "Grow your first overmind",
       "label": "awaken, my child",
@@ -1116,6 +1169,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind2",
+    "protoId": 54,
     "l": {
       "description": "Grow $REQUIRED overminds",
       "label": "how ya like my groove?",
@@ -1137,6 +1191,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind3",
+    "protoId": 55,
     "l": {
       "description": "Grow $REQUIRED overminds",
       "label": "well done!",
@@ -1158,6 +1213,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind2_1",
+    "protoId": 56,
     "l": {
       "description": "Grow your first overmind II",
       "label": "transcendent thought",
@@ -1179,6 +1235,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind2_2",
+    "protoId": 57,
     "l": {
       "description": "Grow $REQUIRED overmind IIs",
       "label": "transcendent thought",
@@ -1200,6 +1257,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind2_3",
+    "protoId": 58,
     "l": {
       "description": "Grow $REQUIRED overmind IIs",
       "label": "transcendent thought",
@@ -1221,6 +1279,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind3_1",
+    "protoId": 59,
     "l": {
       "description": "Grow your first overmind III",
       "label": "transcendent thought",
@@ -1242,6 +1301,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind3_2",
+    "protoId": 60,
     "l": {
       "description": "Grow $REQUIRED overmind IIIs",
       "label": "transcendent thought",
@@ -1263,6 +1323,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind3_3",
+    "protoId": 61,
     "l": {
       "description": "Grow $REQUIRED overmind IIIs",
       "label": "transcendent thought",
@@ -1284,6 +1345,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind4_1",
+    "protoId": 62,
     "l": {
       "description": "Grow your first overmind IV",
       "label": "transcendent thought",
@@ -1305,6 +1367,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind4_2",
+    "protoId": 63,
     "l": {
       "description": "Grow $REQUIRED overmind IVs",
       "label": "transcendent thought",
@@ -1326,6 +1389,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind4_3",
+    "protoId": 64,
     "l": {
       "description": "Grow $REQUIRED overmind IVs",
       "label": "transcendent thought",
@@ -1347,6 +1411,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind5_1",
+    "protoId": 65,
     "l": {
       "description": "Grow your first overmind V",
       "label": "transcendent thought",
@@ -1368,6 +1433,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind5_2",
+    "protoId": 66,
     "l": {
       "description": "Grow $REQUIRED overmind Vs",
       "label": "transcendent thought",
@@ -1389,6 +1455,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind5_3",
+    "protoId": 67,
     "l": {
       "description": "Grow $REQUIRED overmind Vs",
       "label": "transcendent thought",
@@ -1410,6 +1477,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind6_1",
+    "protoId": 68,
     "l": {
       "description": "Grow your first overmind VI",
       "label": "transcendent thought",
@@ -1431,6 +1499,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind6_2",
+    "protoId": 69,
     "l": {
       "description": "Grow $REQUIRED overmind VIs",
       "label": "transcendent thought",
@@ -1452,6 +1521,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "overmind6_3",
+    "protoId": 70,
     "l": {
       "description": "Grow $REQUIRED overmind VIs",
       "label": "transcendent thought",
@@ -1473,6 +1543,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "ascension1",
+    "protoId": 71,
     "l": {
       "description": "Ascend once",
       "label": "betcha can't beat just one",
@@ -1494,6 +1565,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "ascension11",
+    "protoId": 72,
     "l": {
       "description": "Ascend $REQUIRED times",
       "label": "third time's the charm",
@@ -1515,6 +1587,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "ascension2",
+    "protoId": 73,
     "l": {
       "description": "Ascend $REQUIRED times",
       "label": "interplanetary infestation",
@@ -1536,6 +1609,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "ascension21",
+    "protoId": 74,
     "l": {
       "description": "Ascend $REQUIRED times",
       "label": "reseterrific",
@@ -1557,6 +1631,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "ascension3",
+    "protoId": 75,
     "l": {
       "description": "Ascend $REQUIRED times",
       "label": "prestigious",
@@ -1578,6 +1653,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mutation1",
+    "protoId": 76,
     "l": {
       "description": "Unlock your first mutation",
       "label": "cowabunga!",
@@ -1599,6 +1675,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mutation2",
+    "protoId": 77,
     "l": {
       "description": "Unlock $REQUIRED mutations",
       "label": "intelligent design",
@@ -1620,6 +1697,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mutation3",
+    "protoId": 78,
     "l": {
       "description": "Unlock $REQUIRED mutations",
       "label": "unnatural selection",
@@ -1641,6 +1719,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mutation4",
+    "protoId": 79,
     "l": {
       "description": "Unlock $REQUIRED mutations",
       "label": "a bath, ur",
@@ -1662,6 +1741,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "swarmling1",
+    "protoId": 80,
     "l": {
       "description": "Hatch $REQUIRED swarmlings",
       "label": "rush",
@@ -1683,6 +1763,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "swarmling2",
+    "protoId": 81,
     "l": {
       "description": "Hatch $REQUIRED swarmlings",
       "label": "metabolic boost",
@@ -1704,6 +1785,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "swarmling3",
+    "protoId": 82,
     "l": {
       "description": "Hatch $REQUIRED swarmlings",
       "label": "adrenal glands",
@@ -1725,6 +1807,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "stinger1",
+    "protoId": 83,
     "l": {
       "description": "Hatch $REQUIRED stingers",
       "label": "beekeeper",
@@ -1746,6 +1829,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "stinger2",
+    "protoId": 84,
     "l": {
       "description": "Hatch $REQUIRED stingers",
       "label": "to bee or not to bee",
@@ -1767,6 +1851,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "stinger3",
+    "protoId": 85,
     "l": {
       "description": "Hatch $REQUIRED stingers",
       "label": "waxing poetic",
@@ -1788,6 +1873,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "spider1",
+    "protoId": 86,
     "l": {
       "description": "Hatch $REQUIRED arachnomorphs",
       "label": "with great power",
@@ -1809,6 +1895,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "spider2",
+    "protoId": 87,
     "l": {
       "description": "Hatch $REQUIRED arachnomorphs",
       "label": "the amazing spider",
@@ -1830,6 +1917,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "spider3",
+    "protoId": 88,
     "l": {
       "description": "Hatch $REQUIRED arachnomorphs",
       "label": "how do i shot web",
@@ -1851,6 +1939,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mosquito1",
+    "protoId": 89,
     "l": {
       "description": "Hatch $REQUIRED culicimorphs",
       "label": "sparkly",
@@ -1872,6 +1961,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mosquito2",
+    "protoId": 90,
     "l": {
       "description": "Hatch $REQUIRED culicimorphs",
       "label": "west nile",
@@ -1893,6 +1983,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "mosquito3",
+    "protoId": 91,
     "l": {
       "description": "Hatch $REQUIRED culicimorphs",
       "label": "this achievement sucks",
@@ -1914,6 +2005,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "locust1",
+    "protoId": 92,
     "l": {
       "description": "Hatch $REQUIRED locusts",
       "label": "shadow over egypt",
@@ -1935,6 +2027,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "locust2",
+    "protoId": 93,
     "l": {
       "description": "Hatch $REQUIRED locusts",
       "label": "stalemate",
@@ -1956,6 +2049,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "locust3",
+    "protoId": 94,
     "l": {
       "description": "Hatch $REQUIRED locusts",
       "label": "trypophobia",
@@ -1977,6 +2071,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "roach1",
+    "protoId": 95,
     "l": {
       "description": "Hatch $REQUIRED roaches",
       "label": "roach coach",
@@ -1998,6 +2093,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "roach2",
+    "protoId": 96,
     "l": {
       "description": "Hatch $REQUIRED roaches",
       "label": "roach clips",
@@ -2019,6 +2115,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "roach3",
+    "protoId": 97,
     "l": {
       "description": "Hatch $REQUIRED roaches",
       "label": "papa",
@@ -2040,6 +2137,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "giantspider1",
+    "protoId": 98,
     "l": {
       "description": "Hatch $REQUIRED giant arachnomorphs",
       "label": "with greater power",
@@ -2061,6 +2159,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "giantspider2",
+    "protoId": 99,
     "l": {
       "description": "Hatch $REQUIRED giant arachnomorphs",
       "label": "whatever a spider can",
@@ -2082,6 +2181,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "giantspider3",
+    "protoId": 100,
     "l": {
       "description": "Hatch $REQUIRED giant arachnomorphs",
       "label": "and I'm just sitting here",
@@ -2103,6 +2203,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "centipede1",
+    "protoId": 101,
     "l": {
       "description": "Hatch $REQUIRED chilopodomorphs",
       "label": "centipede",
@@ -2124,6 +2225,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "centipede2",
+    "protoId": 102,
     "l": {
       "description": "Hatch $REQUIRED chilopodomorphs",
       "label": "millipede",
@@ -2145,6 +2247,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "centipede3",
+    "protoId": 103,
     "l": {
       "description": "Hatch $REQUIRED chilopodomorphs",
       "label": "missile command",
@@ -2166,6 +2269,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "wasp1",
+    "protoId": 104,
     "l": {
       "description": "Hatch $REQUIRED wasps",
       "label": "aldrin",
@@ -2187,6 +2291,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "wasp2",
+    "protoId": 105,
     "l": {
       "description": "Hatch $REQUIRED wasps",
       "label": "lightyear",
@@ -2208,6 +2313,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "wasp3",
+    "protoId": 106,
     "l": {
       "description": "Hatch $REQUIRED wasps",
       "label": "kill",
@@ -2229,6 +2335,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "devourer1",
+    "protoId": 107,
     "l": {
       "description": "Hatch $REQUIRED devourers",
       "label": "these things fly, right?",
@@ -2250,6 +2357,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "devourer2",
+    "protoId": 108,
     "l": {
       "description": "Hatch $REQUIRED devourers",
       "label": "or do they burrow?",
@@ -2271,6 +2379,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "devourer3",
+    "protoId": 109,
     "l": {
       "description": "Hatch $REQUIRED devourers",
       "label": "sometimes they drain energy",
@@ -2292,6 +2401,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "goon1",
+    "protoId": 110,
     "l": {
       "description": "Hatch $REQUIRED goons",
       "label": "new year's",
@@ -2313,6 +2423,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "goon2",
+    "protoId": 111,
     "l": {
       "description": "Hatch $REQUIRED goons",
       "label": "adam and",
@@ -2334,6 +2445,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "goon3",
+    "protoId": 112,
     "l": {
       "description": "Hatch $REQUIRED goons",
       "label": "all hallows'",
@@ -2355,6 +2467,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "nexus1",
+    "protoId": 113,
     "l": {
       "description": "Build $REQUIRED nexus",
       "label": "phenomenal cosmic power",
@@ -2376,6 +2489,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "nexus2",
+    "protoId": 114,
     "l": {
       "description": "Build 5 nexus",
       "label": "power overwhelming",
@@ -2397,6 +2511,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "changelog",
+    "protoId": 115,
     "l": {
       "description": "Find the Patch Notes",
       "label": "patchy knowledge",
@@ -2418,6 +2533,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "import",
+    "protoId": 116,
     "l": {
       "description": "Import your saved game",
       "label": "portable swarm",
@@ -2434,6 +2550,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "clickme",
+    "protoId": 117,
     "l": {
       "description": "Click this achievement's slot",
       "label": "since you asked nicely",
@@ -2450,6 +2567,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "konami",
+    "protoId": 118,
     "l": {
       "description": "Enter the Konami Code",
       "label": "l33t h4x",
@@ -2466,6 +2584,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "debug",
+    "protoId": 119,
     "l": {
       "description": "Find the debug page",
       "label": "even de bugs have bugs",
@@ -2482,6 +2601,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "publictest1",
+    "protoId": 120,
     "l": {
       "description": "Help test Swarm Simulator v1.0.",
       "label": "public test v1.0",
@@ -2498,6 +2618,7 @@ const list: C.Achievement[] = [
   },
   {
     "name": "therightquestion",
+    "protoId": 121,
     "l": {
       "description": "Ask the right question",
       "label": "signs point to yes",

@@ -3,6 +3,7 @@ import * as C from "./codec";
 const list: C.Unittype[] = [
   {
     "name": "invisiblehatchery",
+    "protoId": 1,
     "tab": "",
     "l": {
       "description": "Main source of larvae. Everyone starts with one, and no one can buy more. No one knows they have it, because it's invisible.",
@@ -26,6 +27,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "meat",
+    "protoId": 2,
     "tab": "meat",
     "l": {
       "description": "All of your swarm's creatures eat meat.",
@@ -49,6 +51,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "larva",
+    "protoId": 3,
     "tab": "larva",
     "l": {
       "description": "The children of your swarm. These young creatures morph into other adult units.",
@@ -77,6 +80,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "cocoon",
+    "protoId": 4,
     "tab": "larva",
     "l": {
       "description": "-",
@@ -103,6 +107,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "territory",
+    "protoId": 5,
     "tab": "territory",
     "l": {
       "description": "-",
@@ -124,6 +129,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "energy",
+    "protoId": 6,
     "tab": "energy",
     "l": {
       "description": "-",
@@ -151,6 +157,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "respecEnergy",
+    "protoId": 7,
     "tab": "energy",
     "l": {
       "description": "spent-energy consumed for respecs. affects ascension cost.",
@@ -172,6 +179,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mtxEnergy",
+    "protoId": 8,
     "tab": "energy",
     "l": {
       "description": "energy bought with microtransactions also permanently increases max energy. Don't wanna worry about hitting the cap.",
@@ -196,6 +204,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "nexus",
+    "protoId": 9,
     "tab": "energy",
     "l": {
       "description": "-",
@@ -230,6 +239,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "crystal",
+    "protoId": 10,
     "tab": "energy",
     "l": {
       "description": "-",
@@ -251,6 +261,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutagen",
+    "protoId": 11,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -294,6 +305,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "premutagen",
+    "protoId": 12,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -331,6 +343,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "ascension",
+    "protoId": 13,
     "tab": "mutagen",
     "l": {
       "description": "total ascensions",
@@ -347,6 +360,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "freeRespec",
+    "protoId": 14,
     "tab": "mutagen",
     "l": {
       "description": "",
@@ -364,6 +378,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "drone",
+    "protoId": 15,
     "tab": "meat",
     "l": {
       "description": "Drones are the lowest class of worker in your swarm. They continuously gather meat to feed your swarm.",
@@ -401,6 +416,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "queen",
+    "protoId": 16,
     "tab": "meat",
     "l": {
       "description": "Queens rule over your swarm's workers.",
@@ -447,6 +463,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "nest",
+    "protoId": 17,
     "tab": "meat",
     "l": {
       "description": "Nests provide space and support for your swarm's queens.",
@@ -502,6 +519,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "greaterqueen",
+    "protoId": 18,
     "tab": "meat",
     "l": {
       "description": "Greater queens rule over the lesser queens of very large swarms.",
@@ -548,6 +566,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "hive",
+    "protoId": 19,
     "tab": "meat",
     "l": {
       "description": "Hives are huge structures crafted from meat and the bodies of thousands of queens. They allow your swarm to grow even faster.",
@@ -594,6 +613,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "hivequeen",
+    "protoId": 20,
     "tab": "meat",
     "l": {
       "description": "Hive queens oversee the production of hives in the largest swarms.",
@@ -640,6 +660,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "empress",
+    "protoId": 21,
     "tab": "meat",
     "l": {
       "description": "The mightiest creature to rule over your swarm so far.",
@@ -681,6 +702,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "prophet",
+    "protoId": 22,
     "tab": "meat",
     "l": {
       "description": "Your prophets foresee the guidance of a higher power, a greater being - yet, the heavens have fallen silent.",
@@ -722,6 +744,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "goddess",
+    "protoId": 23,
     "tab": "meat",
     "l": {
       "description": "Neurons are the building blocks of a greater hive intelligence.",
@@ -763,6 +786,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "pantheon",
+    "protoId": 24,
     "tab": "meat",
     "l": {
       "description": "Groups of neurons begin to exert mild psychic powers, influencing the minds of lesser creatures in your swarm.",
@@ -804,6 +828,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "pantheon2",
+    "protoId": 25,
     "tab": "meat",
     "l": {
       "description": "Networking your hive's neurons allows them to coordinate their actions, much as a single entity would.",
@@ -845,6 +870,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "pantheon3",
+    "protoId": 26,
     "tab": "meat",
     "l": {
       "description": "Your neural networks have finally formed a single greater intelligence, primitive though it may be. The psychic powers of lesser hive minds are great enough to directly control several hundred lesser members of your swarm.",
@@ -886,6 +912,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "pantheon4",
+    "protoId": 27,
     "tab": "meat",
     "l": {
       "description": "Mature hive minds control thousands of lesser members of your swarm, and their capacity for intelligent planning is dramatically improved.",
@@ -927,6 +954,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "pantheon5",
+    "protoId": 28,
     "tab": "meat",
     "l": {
       "description": "Multiple hive minds merge their collective consciousness into a single greater being.",
@@ -968,6 +996,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "overmind",
+    "protoId": 29,
     "tab": "meat",
     "l": {
       "description": "The Overmind psychically controls the actions of every member of your swarm, including all of the lesser hive minds. Building more physical manifestations of the Overmind merely increases its influence; all belong to the same being, the same greater intelligence. Your swarm now exists to serve the will of its Overmind.",
@@ -1009,6 +1038,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "overmind2",
+    "protoId": 30,
     "tab": "meat",
     "l": {
       "description": "Eternity lies ahead of us, and behind. Have you drunk your fill?",
@@ -1050,6 +1080,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "overmind3",
+    "protoId": 31,
     "tab": "meat",
     "l": {
       "description": "Eternity lies ahead of us, and behind. Have you drunk your fill?",
@@ -1091,6 +1122,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "overmind4",
+    "protoId": 32,
     "tab": "meat",
     "l": {
       "description": "Eternity lies ahead of us, and behind. Have you drunk your fill?",
@@ -1132,6 +1164,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "overmind5",
+    "protoId": 33,
     "tab": "meat",
     "l": {
       "description": "Eternity lies ahead of us, and behind. Have you drunk your fill?",
@@ -1173,6 +1206,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "overmind6",
+    "protoId": 34,
     "tab": "meat",
     "l": {
       "description": "Eternity lies ahead of us, and behind. Have you drunk your fill?",
@@ -1214,6 +1248,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "swarmling",
+    "protoId": 35,
     "tab": "territory",
     "l": {
       "description": "Your swarm's smallest and weakest warriors. They use their teeth and claws to attack foes, and can be vicious in large numbers.",
@@ -1255,6 +1290,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "stinger",
+    "protoId": 36,
     "tab": "territory",
     "l": {
       "description": "Weak flying warriors. They roam in packs, attacking any threats with venomous stingers.",
@@ -1296,6 +1332,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "spider",
+    "protoId": 37,
     "tab": "territory",
     "l": {
       "description": "Terrifying eight-legged beasts who leap upon their prey, ensnare it in sticky traps, and finally liquify it into a delicious beverage.",
@@ -1337,6 +1374,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mosquito",
+    "protoId": 38,
     "tab": "territory",
     "l": {
       "description": "These hated creatures feast on the blood of their victims, and spread disease to larger prey they cannot kill outright.",
@@ -1378,6 +1416,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "locust",
+    "protoId": 39,
     "tab": "territory",
     "l": {
       "description": "Groups of hungry locusts devour any creature that makes the mistake of standing in their way.",
@@ -1419,6 +1458,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "roach",
+    "protoId": 40,
     "tab": "territory",
     "l": {
       "description": "The hard shell of the roach makes it a fearsome opponent; it is nearly impossible to kill.",
@@ -1460,6 +1500,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "giantspider",
+    "protoId": 41,
     "tab": "territory",
     "l": {
       "description": "The larger, and more fearsome, cousin of the arachnomorph.",
@@ -1501,6 +1542,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "centipede",
+    "protoId": 42,
     "tab": "territory",
     "l": {
       "description": "Swift wormlike creatures with hundreds of legs and an extremely venomous bite.",
@@ -1542,6 +1584,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "wasp",
+    "protoId": 43,
     "tab": "territory",
     "l": {
       "description": "An advanced cousin of the stinger, wasps are far more aggressive and much better hunters.",
@@ -1583,6 +1626,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "devourer",
+    "protoId": 44,
     "tab": "territory",
     "l": {
       "description": "Huge burrowing worms, devourers appear from beneath the earth to swallow their prey before it can react.",
@@ -1624,6 +1668,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "goon",
+    "protoId": 45,
     "tab": "territory",
     "l": {
       "description": "Goons cannot fly on their own, but instead use metal to construct powerful flying exoskeletons that rule the skies.",
@@ -1665,6 +1710,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "nightbug",
+    "protoId": 46,
     "tab": "energy",
     "l": {
       "description": "-",
@@ -1703,6 +1749,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "moth",
+    "protoId": 47,
     "tab": "energy",
     "l": {
       "description": "-",
@@ -1741,6 +1788,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "bat",
+    "protoId": 48,
     "tab": "energy",
     "l": {
       "description": "-",
@@ -1779,6 +1827,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutanthatchery",
+    "protoId": 49,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -1815,6 +1864,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantbat",
+    "protoId": 50,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -1851,6 +1901,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantclone",
+    "protoId": 51,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -1887,6 +1938,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantswarmwarp",
+    "protoId": 52,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -1923,6 +1975,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantrush",
+    "protoId": 53,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -1975,6 +2028,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutanteach",
+    "protoId": 54,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -2023,6 +2077,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantfreq",
+    "protoId": 55,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -2065,6 +2120,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantnexus",
+    "protoId": 56,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -2117,6 +2173,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantarmy",
+    "protoId": 57,
     "tab": "mutagen",
     "l": {
       "description": "-",
@@ -2222,6 +2279,7 @@ const list: C.Unittype[] = [
   },
   {
     "name": "mutantmeat",
+    "protoId": 58,
     "tab": "mutagen",
     "l": {
       "description": "-",
