@@ -3,8 +3,7 @@
 - [production](https://www.swarmsim.com) ([alternate](https://netlify-www.swarmsim.com)): [![Netlify Status](https://api.netlify.com/api/v1/badges/70438cbc-039c-4d05-9f5b-f1a7fc26d0fc/deploy-status)](https://app.netlify.com/sites/swarmsim-www/deploys)
 - [preprod](https://preprod.swarmsim.com) ([alternate](https://netlify-preprod.swarmsim.com)): [![Netlify Status](https://api.netlify.com/api/v1/badges/98a6d6c6-0c3d-4113-b2fc-5ff063dfe631/deploy-status)](https://app.netlify.com/sites/swarmsim-preprod/deploys)
 - [![continuous integration](https://github.com/swarmsim/swarm/actions/workflows/ci.yml/badge.svg)](https://github.com/swarmsim/swarm/actions/workflows/ci.yml)
-- [Edit source code in Codespaces](https://codespaces.new/swarmsim/swarm)
-- [Edit source code in Gitpod](https://gitpod.io/#https://github.com/swarmsim/swarm)
+- [Edit the source code](CONTRIBUTING.md)
 
 <!-- [![Dependency Status](https://david-dm.org/swarmsim/swarm.svg)](https://david-dm.org/swarmsim/swarm) -->
 <!-- [![devDependency Status](https://david-dm.org/swarmsim/swarm/dev-status.svg)](https://david-dm.org/swarmsim/swarm#info=devDependencies) -->

@@ -14,8 +14,9 @@ Swarmsim is GPLv3-licensed. I'll ask you to confirm your changes are also GPLv3-
 
 ## Running Swarmsim and Making Changes
 
-- [Edit source code online, in Codespaces](https://codespaces.new/swarmsim/swarm)
-- [Edit source code online, in Gitpod](https://gitpod.io/#https://github.com/swarmsim/swarm)
+<!-- - [Edit source code online, in Codespaces](https://codespaces.new/swarmsim/swarm) -->
+<!-- - [Edit source code online, in Gitpod](https://gitpod.io/#https://github.com/swarmsim/swarm) -->
+
 - [Edit source code locally, in a development container (Docker)](https://code.visualstudio.com/docs/devcontainers/tutorial)
 
 Once you've opened one of those, start the server: `yarn && yarn start`
