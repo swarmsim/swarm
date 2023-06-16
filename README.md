@@ -20,7 +20,6 @@ and [other libraries](https://github.com/swarmsim/swarm/blob/master/bower.json)
 packaged by [Bower](http://bower.io/).
 Inspired by [the best Starcraft race](https://en.wikipedia.org/wiki/Races_of_StarCraft#The_Zerg "I haven't violated copyright I think, please don't sue me Blizz").
 
-- Community [subreddit](http://www.reddit.com/r/swarmsim/) and [wiki](http://www.reddit.com/r/swarmsim/wiki/).
 - [Spreadsheet with game data](https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/pubhtml),
   imported by [Tabletop](https://github.com/jsoma/tabletop).
   [Edit it, if you think you can](https://docs.google.com/spreadsheets/d/1ughCy983eK-SPIcDYPsjOitVZzY10WdI2MGGrmxzxF4/edit "spoiler: you can't").

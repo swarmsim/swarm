@@ -2500,8 +2500,8 @@ const list: C.Achievement[] = [
     "name": "therightquestion",
     "l": {
       "description": "Ask the right question",
-      "label": "signs point to yes",
-      "longdesc": "The secret's out - read it on /r/swarmsim"
+      "label": "signs point to no",
+      "longdesc": "trying is the first step towards failure"
     },
     "points": 0,
     "requires": [
