@@ -14,19 +14,15 @@ Swarmsim is GPLv3-licensed. I'll ask you to confirm your changes are also GPLv3-
 
 ## Running Swarmsim and Making Changes
 
-https://www.gitpod.io/ is the easiest way to run and develop Swarmsim. Click below:
+- [Edit source code online, in Codespaces](https://codespaces.new/swarmsim/swarm)
+- [Edit source code online, in Gitpod](https://gitpod.io/#https://github.com/swarmsim/swarm)
+- [Edit source code locally, in a development container (Docker)](https://code.visualstudio.com/docs/devcontainers/tutorial)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/swarmsim/swarm)
+Once you've opened one of those, start the server: `yarn && yarn start`
 
-Or, you can run the website on your machine:
+Run automated tests: `yarn test`
 
-- [Fork](https://help.github.com/articles/fork-a-repo/) and clone the repository: `git clone git@github.com:your-username/swarm.git`
-- Install a recent version of [ruby](https://www.ruby-lang.org/) and [nodejs](https://nodejs.org/) and [yarn](https://yarnpkg.com/)
-- Install dependencies: `yarn && gem install compass`
-- Run the server: `yarn start`
-- Make your changes. Game's running at http://localhost:9000 , and reloads whenever you change something.
-- Run automated tests: `yarn test`. Tests must pass before I accept your PR.
-- Push changes to your fork and send me a pull request. Swarmsim is one man's hobby project, so I may need a few days to respond. Please nag me if it's been a week or more; thanks!
+Push changes to your github fork and send me a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork). Swarmsim is one man's hobby project, so I may need a few days to respond. Please nag me if it's been a week or more; thanks!
 
 Once I've merged your changes, they'll automatically be released to https://preprod.swarmsim.com within 10 minutes or so. A "real" release to Kongregate and https://www.swarmsim.com will likely take longer - up to a few days, depending what else is being released.
 

@@ -1,5 +1,5 @@
 {
     "recommendations": [
-        "esbenp.prettier-vscode"
+        "ms-vscode-remote.remote-containers"
     ]
 }
