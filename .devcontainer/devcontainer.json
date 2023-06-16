@@ -1,0 +1,32 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
+{
+	"name": "Node.js",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:0-20",
+	"features": {
+		"ghcr.io/devcontainers/features/ruby:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode"
+			]
+		}
+	},
+	"forwardPorts": [9000],
+	"portsAttributes": {
+		"9000": {
+			"label": "Application",
+			"onAutoForward": "openBrowserOnce"
+		},
+		"1234": {
+			// I'm not sure where this one's coming from. debugger? compass server?
+			"onAutoForward": "ignore"
+		}
+	},
+	"postCreateCommand": ".devcontainer/post-create-command",
+	"postStartCommand": "yarn start",
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
