@@ -6,4 +6,12 @@
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "files.exclude": {
+        "swarmsim-coffee/archive": true,
+    },
+    "search.exclude": {
+        // symlink
+        "swarmsim-coffee/app/swarmsim-ts": true,
+        "swarmsim-coffee/changelog.html": true
+    }
 }
