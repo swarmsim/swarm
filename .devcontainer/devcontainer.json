@@ -15,6 +15,11 @@
 			]
 		}
 	},
+	"containerEnv": {
+		// openssl_conf: this fixes tests. https://github.com/bazelbuild/rules_closure/issues/351#issuecomment-854628326
+		// but it breaks github-actions, so can't put it in the test command itself. ugh.
+		"OPENSSL_CONF": "/dev/null"
+	},
 	"forwardPorts": [9000],
 	"portsAttributes": {
 		"9000": {
