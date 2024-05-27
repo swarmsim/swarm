@@ -1,0 +1,7 @@
+# Run the static site built by the Dockerfile.
+# `docker compose up --build`, then visit http://localhost:2015
+services:
+  main:
+    build: .
+    ports:
+      - "2015:80"

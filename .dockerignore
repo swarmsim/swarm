@@ -1,0 +1,10 @@
+**/node_modules
+**/build
+**/dist
+**/.parcel-cache
+**/.sass-cache
+**/.tmp
+**/bower-components
+.yarn
+Dockerfile
+docker-compose.yml
