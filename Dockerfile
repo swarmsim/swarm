@@ -29,12 +29,12 @@ RUN yarn
 
 # `.dockerignore` is important to cache this copy properly
 COPY . /app/
-# RUN . /usr/local/rvm/environments/default && yarn test
 # docker seems upset if bower_components is a symlink, for some reason, so copy the whole thing. Works fine in the devcontainer and in CI. Ugh.
-# openssl_conf: https://github.com/bazelbuild/rules_closure/issues/351#issuecomment-854628326 . Ugh.
-RUN . /usr/local/rvm/environments/default &&\
-    (cd swarmsim-coffee && rm bower_components && cp -rp node_modules/@bower_components bower_components) &&\
-    OPENSSL_CONF=/dev/null yarn build
+RUN (cd swarmsim-coffee && rm bower_components && cp -rp node_modules/@bower_components bower_components)
+# openssl_conf: this fixes tests and build. https://github.com/bazelbuild/rules_closure/issues/351#issuecomment-854628326 . Ugh.
+RUN . /usr/local/rvm/environments/default && OPENSSL_CONF=/dev/null yarn test
+# `yarn build` includes an application-level ssl redirect. docker doesn't want that!
+RUN . /usr/local/rvm/environments/default && OPENSSL_CONF=/dev/null yarn build:docker
 
 # Run the static site we just built. No Caddyfile or other config, just static files.
 # "The default config file simply serves files from /usr/share/caddy" - https://hub.docker.com/_/caddy

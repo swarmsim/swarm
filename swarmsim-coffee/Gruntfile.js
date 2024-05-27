@@ -135,6 +135,37 @@ module.exports = function (grunt) {
         }
       }
     },
+    docker: {
+      constants: {
+        env: {
+          name: 'docker',
+          isDebugEnabled: false,
+          isDebugLogged: false,
+          // httpsAllowInsecure is the only difference from 'prod' - the rest of this should be identical.
+          // these days, the web server handles all redirects, not the app
+          httpsAllowInsecure: true,
+          //gaTrackingID: 'UA-53523462-2'
+          showSkipped: false,
+          spreadsheetKey: 'v0.2',
+          saveId: 'v0.2',
+          dropboxAppKey: dropboxAppKey('prod'),
+          isDropboxEnabled: true,
+          saveServerUrl: 'https://api.swarmsim.com',
+          isKongregateSyncEnabled: true,
+          autopushIntervalMs: 1000 * 60 * 15,
+          googleApiKey: 'AIzaSyCS8nqXFvhdr0AR-ox-9n_wKP2std_fHHs',
+          // https://developer.playfab.com/en-us/7487/dashboard
+          playfabTitleId: '7487',
+          isAppcacheEnabled: false,
+          sentryDSN: 'https://5b47c35e40a34619954d42f17712eb5f@app.getsentry.com/39331',
+          sentrySampleRate: 0.001,
+          isServerBackendEnabled: false,
+          isServerFrontendEnabled: false,
+          isPaypalSandbox: false,
+          gaTrackingID: 'UA-53523462-1'
+        }
+      }
+    },
   };
   ngconstant.preprod = JSON.parse(JSON.stringify(ngconstant.prod));
   ngconstant.preprod.constants.env.saveServerUrl = 'https://api-preprod.swarmsim.com';
@@ -857,7 +888,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', function(envname) {
     envname = envname || 'prod';
-    if (envname !== 'prod' && envname !== 'preprod') {
+    if (envname !== 'prod' && envname !== 'preprod' && envname !== 'docker') {
       throw new Error('invalid build envname: '+envname);
     }
     console.log('building envname '+envname);
