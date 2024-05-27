@@ -1,0 +1,13 @@
+tasks:
+  - init: yarn
+    command: |
+      .devcontainer/post-create-command
+      yarn start
+
+ports:
+  - port: 9000
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - esbenp.prettier-vscode
