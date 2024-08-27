@@ -263,11 +263,13 @@ angular.module('swarmApp').factory 'DisabledMtx', ($q, game) -> class DisabledMt
 
 angular.module('swarmApp').factory 'Mtx', ($q, game, isKongregate, KongregateMtx, DisabledMtx, PaypalHostedButtonMtx) -> class Mtx
   constructor: (buyPacks) ->
-    if isKongregate()
-      @backend = new KongregateMtx buyPacks
-    else
-      #@backend = new DisabledMtx()
-      @backend = new PaypalHostedButtonMtx buyPacks
+    # no more crystal sales after 2024/08/28
+    @backend = new DisabledMtx()
+    #if isKongregate()
+    #  @backend = new KongregateMtx buyPacks
+    #else
+    #  #@backend = new DisabledMtx()
+    #  @backend = new PaypalHostedButtonMtx buyPacks
   uiStyle: -> @backend.uiStyle || 'normal'
   packs: -> @backend.packs()
   pull: ->
